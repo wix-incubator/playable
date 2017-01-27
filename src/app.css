@@ -11,10 +11,6 @@
 }
 
 .controls-wrapper {
-    z-index: 1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
     transition: opacity 0.2s, visibility 0.2s;
     visibility: hidden;
     opacity: 0;
@@ -53,7 +49,7 @@
     padding-bottom: 20px;
 }
 
-.play {
+.play-control {
     box-sizing: border-box;
     align-items: center;
     width: 53px;
@@ -73,15 +69,15 @@
     transition-duration: 0.2s;
 }
 
-.play .icon:hover {
+.play-control .icon:hover {
     opacity: 1;
 }
 
-.video-playing .play-icon {
+.pause-icon {
     display: none;
 }
 
-.pause-icon {
+.video-playing .play-icon {
     display: none;
 }
 

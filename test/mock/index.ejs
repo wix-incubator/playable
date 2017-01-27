@@ -15,7 +15,9 @@
 <video id="video" poster="https://static.wixstatic.com/media/4d7ad7_0c64bd651390448fb749a123b09655ec~mv2.jpg" />
 <script>
     var video = document.getElementById('video');
-    Player(video, 'https://live-ftv.wixmp.com/ftvoriginal/m3u8s/stream.m3u8');
+    var player = Player('https://live-ftv.wixmp.com/ftvoriginal/m3u8s/stream.m3u8');
+    video.parentNode.insertBefore(player.node, video);
+    video.parentNode.removeChild(video);
 </script>
 </body>
 </html>

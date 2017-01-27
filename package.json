@@ -18,6 +18,7 @@
     "release": "wix-node-build release"
   },
   "dependencies": {
+    "jbone": "^1.2.0",
     "vidi": "latest"
   },
   "private": false,
