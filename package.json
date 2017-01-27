@@ -11,7 +11,7 @@
     "dist"
   ],
   "scripts": {
-    "start": "wix-node-build start",
+    "start": "wix-node-build start --entry-point=./test/mock/start-fake-server.js",
     "pretest": "wix-node-build lint && wix-node-build build",
     "build": "wix-node-build build",
     "test": "wix-node-build test",
@@ -26,6 +26,8 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "~3.5.0",
     "dot": "latest",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
     "wix-node-build": "latest"
   },
   "babel": {

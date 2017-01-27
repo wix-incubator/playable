@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <% if (debug) { %>
+      <script src="<%= staticsBaseUrl %>app.bundle.js"></script>
+    <% } else { %>
+      <script src="<%= staticsBaseUrl %>app.bundle.min.js"></script>
+    <% } %>
+    <link rel="stylesheet" type="text/css" href="<%= staticsBaseUrl %>app.css">
+</head>
+<body>
+
+<video id="video" poster="https://static.wixstatic.com/media/4d7ad7_0c64bd651390448fb749a123b09655ec~mv2.jpg" />
+<script>
+    var video = document.getElementById('video');
+    Player(video, 'https://live-ftv.wixmp.com/ftvoriginal/m3u8s/stream.m3u8');
+</script>
+</body>
+</html>
