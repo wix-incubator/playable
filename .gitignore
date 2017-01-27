@@ -4,3 +4,4 @@ node_modules
 target
 maven
 .idea
+.DS_Store

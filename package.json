@@ -13,7 +13,7 @@
   "scripts": {
     "start": "wix-node-build start",
     "pretest": "wix-node-build lint && wix-node-build build",
-    "build": "wix-node-build lint && wix-node-build build",
+    "build": "wix-node-build build",
     "test": "wix-node-build test",
     "release": "wix-node-build release"
   },
@@ -25,6 +25,7 @@
     "babel-preset-es2015": "~6.9.0",
     "babel-preset-stage-0": "^6.5.0",
     "chai": "~3.5.0",
+    "dot": "latest",
     "wix-node-build": "latest"
   },
   "babel": {
@@ -34,10 +35,16 @@
     ]
   },
   "wix": {
-    "entry": "./app.js"
+    "entry": {
+      "app": "./app.js"
+    }
   },
   "eslintConfig": {
-    "extends": "wix/esnext"
+    "extends": "wix/esnext",
+    "globals": {
+      "document": true,
+      "window": true
+    }
   },
   "publishConfig": {
     "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local/"

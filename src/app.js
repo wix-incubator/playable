@@ -1,2 +1,3 @@
-import Counter from './counter';
-export default new Counter();
+import Player from './player';
+
+window.Player = Player;
