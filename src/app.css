@@ -61,12 +61,12 @@
     border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.play .icon {
+.icon {
+    display: block;
     width: 16px;
     height: 16px;
     cursor: pointer;
     color: white;
-    height: 16px;
     font-size: 16px;
     opacity: 0.8;
     transition-property: opacity;

@@ -1,5 +1,5 @@
-import playIcon from '../controls/play-icon.html';
-import pauseIcon from '../controls/pause-icon.html';
+import playIcon from '../controls/play-icon.svg';
+import pauseIcon from '../controls/pause-icon.svg';
 import styles from 'app.css';
 
 
@@ -45,14 +45,14 @@ function getUI(config) {
     const _playButton = document.createElement('div');
     _playButton.setAttribute('class', styles['play']);
 
-    const _playIcon = document.createElement('div');
+    const _playIcon = document.createElement('img');
     _playIcon.setAttribute('class', `${styles['play-icon']} ${styles['icon']}`);
-    _playIcon.innerHTML = playIcon;
+    _playIcon.src = playIcon;
     _playIcon.addEventListener('click', playVideo);
 
-    const _pauseIcon = document.createElement('div');
+    const _pauseIcon = document.createElement('img');
     _pauseIcon.setAttribute('class', `${styles['pause-icon']} ${styles['icon']}`);
-    _pauseIcon.innerHTML = pauseIcon;
+    _pauseIcon.src = pauseIcon;
     _pauseIcon.addEventListener('click', pauseVideo);
 
     _playButton.appendChild(_playIcon);
