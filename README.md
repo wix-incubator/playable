@@ -10,10 +10,10 @@ $ npm install video-player --save
 
 Add a `<script>` element for video-player
 
-In in modern way
+In modern way
 
 ```javascript
-import VideoPlayer from 'video-player'
+import VideoPlayer from 'video-player';
 ```
 
 Or in old school way
@@ -44,7 +44,7 @@ document.getElementById('content').appendChild(player.node);
 
 ```attributes``` Set of attributes for native `<video>` tag. [MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video)
 
-Create a new instance of video player.
+Create a new instance of video player
 
 ```javascript
 const player = new VideoPlayer({
@@ -63,5 +63,6 @@ Getter for DOM node with player Element
 
 ```javascript
 const player = new VideoPlayer({ src: 'http://my-url/video.mp4' });
+
 document.body.appendChild(player.node);
 ```
