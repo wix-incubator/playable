@@ -5,92 +5,92 @@ import pauseIconSVG from '../controls/pause-icon.svg';
 
 import styles from 'app.css';
 
-
 function getUI(config) {
   const {
     onPlayClick,
     onPauseClick,
-    videoNode
+    $video
   } = config;
-  const wrapper = createWrapper();
-  const controls = createControls();
 
-  wrapper.append(videoNode);
-  wrapper.append(controls);
-
-  return wrapper;
-
-  function createWrapper() {
-    const wrapper = $('<div>', {
-      'class': styles['video-wrapper']
+  const createWrapper = () => {
+    const $wrapper = $('<div>', {
+      class: styles['video-wrapper']
     });
 
-    return wrapper;
-  }
+    return $wrapper;
+  };
 
-  function createControls() {
-    const wrapper = $('<div>', {
-      'class': styles['controls-wrapper']
+  const createControls = () => {
+    const $wrapper = $('<div>', {
+      class: styles['controls-wrapper']
     });
 
-    const background = $('<div>', {
-      'class': styles['controls-background']
+    const $background = $('<div>', {
+      class: styles['controls-background']
     });
 
-    const innerWrapper = $('<div>', {
-      'class': styles['controls']
+    const $innerWrapper = $('<div>', {
+      class: styles.controls
     });
 
-    const controlRow = $('<div>', {
-      'class': styles['controls-row']
+    const $controlRow = $('<div>', {
+      class: styles['controls-row']
     });
 
-    const playControl = createPlayControl();
+    const $playControl = createPlayControl();
 
-    controlRow.append(playControl);
+    $controlRow.append($playControl);
+    $innerWrapper.append($controlRow);
 
-    innerWrapper.append(controlRow);
+    $wrapper.append($background);
+    $wrapper.append($innerWrapper);
 
-    wrapper.append(background);
-    wrapper.append(innerWrapper);
+    return $wrapper;
+  };
 
-    return wrapper;
-  }
+  const $wrapper = createWrapper();
+  const $controls = createControls();
 
   function createPlayControl() {
-    const playButton = $('<div>', {
-      'class': styles['play-control']
+    const $playButton = $('<div>', {
+      class: styles['play-control']
     });
 
-    const playIcon = $('<img>', {
-      'class': `${styles['play-icon']} ${styles['icon']}`,
+    const $playIcon = $('<img>', {
+      class: `${styles['play-icon']} ${styles.icon}`,
       src: playIconSVG
     });
 
-    playIcon.on('click', playVideo);
+    $playIcon.on('click', playVideo);
 
-    const pauseIcon = $('<img>', {
-      'class': `${styles['pause-icon']} ${styles['icon']}`,
+    const $pauseIcon = $('<img>', {
+      class: `${styles['pause-icon']} ${styles.icon}`,
       src: pauseIconSVG
     });
 
-    pauseIcon.on('click', pauseVideo);
+    $pauseIcon.on('click', pauseVideo);
 
-    playButton.append(playIcon);
-    playButton.append(pauseIcon);
+    $playButton.append($playIcon);
+    $playButton.append($pauseIcon);
 
-    return playButton;
+    return $playButton;
   }
 
   function playVideo() {
     onPlayClick();
-    wrapper.toggleClass(styles['video-playing'], true);
+    $wrapper.toggleClass(styles['video-playing'], true);
   }
 
   function pauseVideo() {
     onPauseClick();
-    wrapper.toggleClass(styles['video-playing'], false);
+    $wrapper.toggleClass(styles['video-playing'], false);
   }
+
+  $wrapper
+    .append($video)
+    .append($controls);
+
+  return $wrapper;
 
 }
 

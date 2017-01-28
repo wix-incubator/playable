@@ -4,21 +4,28 @@ import $ from 'jbone';
 import getUI from './ui/ui';
 
 
-function Player(src) {
-  const videoNode = $('<video>');
+function Player({src, ...params}) {
+  const $video = $('<video/>', params);
 
-  const vidi = new Vidi(videoNode[0]);
+  const vidi = new Vidi($video[0]);
   vidi.src = src;
 
-  const wrapper = getUI({
-    videoNode,
+  this._wrapper = getUI({
+    $video,
     onPlayClick: () => vidi.play(),
     onPauseClick: () => vidi.pause()
   });
-
-  return  {
-    node: wrapper[0]
-  };
 }
+
+Player.prototype = {
+
+  /**
+   * Getter for DOM node with player
+   * @return {Node}
+   */
+  get node() {
+    return this._wrapper[0];
+  }
+};
 
 export default Player;
