@@ -50,7 +50,7 @@ Create a new instance of video player
 const player = new VideoPlayer({
     src: [
       'http://my-url/video.mp4',
-      { url: 'http://my-url/video.webm', type: Vidi.MediaStreamTypes.WEBM },
+      'http://my-url/video.webm',
       'http://my-url/video.m3u8'
     ],
     loop: true

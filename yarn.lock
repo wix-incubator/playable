@@ -1833,13 +1833,13 @@ debug@0.7.4:
   version "0.7.4"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/debug/-/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
 
-debug@2, debug@2.6.0, debug@2.X, debug@^2.1.1, debug@^2.2.0:
+debug@2, debug@2.6.0:
   version "2.6.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/debug/-/debug-2.6.0.tgz#bc596bcabe7617f11d9fa15361eded5608b8499b"
   dependencies:
     ms "0.7.2"
 
-debug@2.2.0, debug@~2.2.0:
+debug@2.2.0, debug@2.X, debug@^2.1.1, debug@^2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
@@ -2080,6 +2080,10 @@ editorconfig@^0.13.2:
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
+
+ejs@^2.5.5:
+  version "2.5.5"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/ejs/-/ejs-2.5.5.tgz#6ef4e954ea7dcf54f66aad2fe7aa421932d9ed77"
 
 electron-to-chromium@^1.2.0:
   version "1.2.0"
@@ -4121,6 +4125,10 @@ jasmine@2.4.1, jasmine@^2.3.0, jasmine@^2.4.1:
 jasminewd2@0.0.10:
   version "0.0.10"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/jasminewd2/-/jasminewd2-0.0.10.tgz#94f48ae2bc946cad643035467b4bb7ea9c1075ef"
+
+jbone@^1.2.0:
+  version "1.2.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/jbone/-/jbone-1.2.0.tgz#de3e8c95f4eb4e8c6664cd2456cbf13418d87780"
 
 jest-changed-files@^17.0.2:
   version "17.0.2"
@@ -8111,7 +8119,7 @@ wix-tpa-style-loader@^1.0.0:
     loader-utils "0.2.x"
     postcss-extract-styles "^1.0.0"
 
-wnpm-ci@latest:
+wnpm-ci@^6.2.46, wnpm-ci@latest:
   version "6.2.46"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/wnpm-ci/-/wnpm-ci-6.2.46.tgz#ad323bbf553019c60581dfc05b885c8bd9dd6f86"
   dependencies:

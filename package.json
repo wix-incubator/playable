@@ -11,11 +11,9 @@
   ],
   "scripts": {
     "start": "wix-node-build start --entry-point=./test/mock/start-fake-server.js",
-    "pretest": "wix-node-build lint && wix-node-build build",
     "lint": "wix-node-build lint",
     "build": "wix-node-build build",
-    "test": "wix-node-build test",
-    "release": "wix-node-build release"
+    "release": "wnpm-release"
   },
   "dependencies": {
     "jbone": "^1.2.0",
@@ -29,7 +27,8 @@
     "dot": "latest",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
-    "wix-node-build": "latest"
+    "wix-node-build": "latest",
+    "wnpm-ci": "^6.2.46"
   },
   "babel": {
     "presets": [
