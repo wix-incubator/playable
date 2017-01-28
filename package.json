@@ -1,18 +1,18 @@
 {
-  "name": "video-player-js",
+  "name": "video-player",
   "version": "1.0.0",
   "author": {
     "name": "Oleksii Makodzeba",
-    "email": "oleksiim@wix.com",
-    "url": ""
+    "email": "oleksiim@wix.com"
   },
-  "main": "dist/index.js",
+  "main": "dist/statics/video-player.bundle.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "start": "wix-node-build start --entry-point=./test/mock/start-fake-server.js",
     "pretest": "wix-node-build lint && wix-node-build build",
+    "lint": "wix-node-build lint",
     "build": "wix-node-build build",
     "test": "wix-node-build test",
     "release": "wix-node-build release"
@@ -38,8 +38,9 @@
     ]
   },
   "wix": {
+    "separateCss": false,
     "entry": {
-      "app": "./app.js"
+      "video-player": "./index.js"
     }
   },
   "eslintConfig": {
@@ -48,6 +49,21 @@
       "document": true,
       "window": true
     }
+  },
+  "keywords": [
+    "player",
+    "video",
+    "media",
+    "html5",
+    "mse",
+    "adaptive",
+    "hls",
+    "dash",
+    "mpeg"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wix-private/video-player.js.git"
   },
   "publishConfig": {
     "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local/"
