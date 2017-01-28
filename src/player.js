@@ -1,32 +1,24 @@
 import Vidi from 'vidi';
+import $ from 'jbone';
 
 import getUI from './ui/ui';
 
 
-function Player(node, src) {
-  const _videoNode = node.cloneNode(false);
-  _videoNode.removeAttribute('controls');
-  const _vidi = connectVideoNodeToVidi(_videoNode);
+function Player(src) {
+  const videoNode = $('<video>');
 
-  const _wrapper = getUI({
-    onPlayClick: () => _vidi.play(),
-    onPauseClick: () => _vidi.pause()
+  const vidi = new Vidi(videoNode[0]);
+  vidi.src = src;
+
+  const wrapper = getUI({
+    videoNode,
+    onPlayClick: () => vidi.play(),
+    onPauseClick: () => vidi.pause()
   });
 
-  _wrapper.appendChild(_videoNode);
-
-  node.parentNode.insertBefore(_wrapper, node);
-  node.parentNode.removeChild(node);
-
-  return _vidi;
-
-  function connectVideoNodeToVidi(videoNode) {
-    const _vidi = new Vidi(videoNode);
-    _vidi.src = src || videoNode.getAttribute('src');
-
-    return _vidi;
-  }
-
+  return  {
+    node: wrapper[0]
+  };
 }
 
 export default Player;
