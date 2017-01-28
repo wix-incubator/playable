@@ -1,5 +1,5 @@
 import express from 'express';
-import { render } from './tmpl';
+import {render} from './tmpl';
 
 export function start(port = 3000) {
   const app = express();

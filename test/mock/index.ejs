@@ -8,16 +8,18 @@
     <% } else { %>
       <script src="<%= staticsBaseUrl %>app.bundle.min.js"></script>
     <% } %>
-    <link rel="stylesheet" type="text/css" href="<%= staticsBaseUrl %>app.css">
 </head>
 <body>
 
-<video id="video" poster="https://static.wixstatic.com/media/4d7ad7_0c64bd651390448fb749a123b09655ec~mv2.jpg" />
+<div id="content"></div>
 <script>
-    var video = document.getElementById('video');
-    var player = Player('https://live-ftv.wixmp.com/ftvoriginal/m3u8s/stream.m3u8');
-    video.parentNode.insertBefore(player.node, video);
-    video.parentNode.removeChild(video);
+    var player = new Player({
+        width: 700,
+        height: 394,
+        src: 'https://live-ftv.wixmp.com/ftvoriginal/m3u8s/stream.m3u8',
+        poster: 'https://static.wixstatic.com/media/4d7ad7_0c64bd651390448fb749a123b09655ec~mv2.jpg'
+    });
+    document.getElementById('content').appendChild(player.node);
 </script>
 </body>
 </html>
