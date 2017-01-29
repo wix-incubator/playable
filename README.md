@@ -8,15 +8,13 @@ $ npm install video-player --save
 
 ## Use it
 
-Add a `<script>` element for video-player
-
 In modern way
 
 ```javascript
 import VideoPlayer from 'video-player';
 ```
 
-Or in old school way
+Or in old school way, add a `<script>` element for video-player
 
 ```html
 <script src="path/to/video-player/dist/statics/video-player.bundle.js"></script>
