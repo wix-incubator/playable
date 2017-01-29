@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Video Player</title>
     <% if (debug) { %>
-      <script src="<%= staticsBaseUrl %>app.bundle.js"></script>
+      <script src="<%= staticsBaseUrl %>video-player.bundle.js"></script>
     <% } else { %>
-      <script src="<%= staticsBaseUrl %>app.bundle.min.js"></script>
+      <script src="<%= staticsBaseUrl %>video-player.bundle.min.js"></script>
     <% } %>
 </head>
 <body>
 
 <div id="content"></div>
 <script>
-    var player = new Player({
+    var player = new VideoPlayer({
         width: 700,
         height: 394,
         src: 'https://live-ftv.wixmp.com/ftvoriginal/m3u8s/stream.m3u8',
