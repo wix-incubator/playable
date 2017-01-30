@@ -16,6 +16,7 @@
     "release": "wnpm-release"
   },
   "dependencies": {
+    "eventemitter3": "^2.0.2",
     "jbone": "^1.2.0",
     "vidi": "latest"
   },
