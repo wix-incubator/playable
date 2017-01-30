@@ -20,18 +20,14 @@ function createPlayControl() {
     src: playIconSVG
   });
 
-  $playIcon.on('click', function() {
-    eventEmitter.emit(VIDEO_EVENTS.PLAY);
-  });
+  $playIcon.on('click', () => eventEmitter.emit(VIDEO_EVENTS.PLAY));
 
   const $pauseIcon = $('<img>', {
     class: `${styles['pause-icon']} ${styles.icon}`,
     src: pauseIconSVG
   });
 
-  $pauseIcon.on('click', function() {
-    eventEmitter.emit(VIDEO_EVENTS.PAUSE);
-  });
+  $pauseIcon.on('click', () => eventEmitter.emit(VIDEO_EVENTS.PAUSE));
 
   $playButton
     .append($pauseIcon)

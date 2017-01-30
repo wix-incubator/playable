@@ -7,7 +7,7 @@ import eventEmitter from './event-emitter';
 import PlayerUI from './ui/ui';
 
 
-function Player({src, ui, ...params}) {
+function Player({ src, ui, ...params }) {
   const $video = $('<video/>', params);
 
   const vidi = new Vidi($video[0]);

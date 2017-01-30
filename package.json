@@ -46,13 +46,6 @@
       "video-player": "./index.js"
     }
   },
-  "eslintConfig": {
-    "extends": "wix/esnext",
-    "globals": {
-      "document": true,
-      "window": true
-    }
-  },
   "keywords": [
     "player",
     "video",
