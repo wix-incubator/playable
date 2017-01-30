@@ -16,7 +16,7 @@ function PlayerUI({ $video }) {
 }
 
 PlayerUI.prototype = {
-  initWrapper: function() {
+  initWrapper() {
     this.$wrapper = $('<div>', {
       class: styles['video-wrapper']
     });
@@ -26,7 +26,7 @@ PlayerUI.prototype = {
       .append(this.$video)
       .append(this.$controls);
   },
-  initEvents: function() {
+  initEvents() {
     eventEmitter
       .on(VIDEO_EVENTS.PLAY, () => {
         this.$wrapper.toggleClass(styles['video-playing'], true);

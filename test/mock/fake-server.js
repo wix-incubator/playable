@@ -1,5 +1,5 @@
 import express from 'express';
-import {render} from './tmpl';
+import { render } from './tmpl';
 
 export function start(port = 3000) {
   const app = express();
@@ -9,6 +9,6 @@ export function start(port = 3000) {
   });
 
   return app.listen(port, () => {
-    console.log(`Fake server is running on port ${port}`);
+    console.log(`Fake server is running on port ${port}`); //eslint-disable-line
   });
 }

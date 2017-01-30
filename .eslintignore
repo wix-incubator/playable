@@ -1,0 +1,8 @@
+coverage/**
+node_modules/**
+dist/**
+*.spec.js
+src/index.html
+*.html
+*.json
+src/*.ejs
