@@ -13,7 +13,7 @@
     "start": "wix-node-build start --entry-point=./test/mock/start-fake-server.js",
     "lint": "wix-node-build lint",
     "build": "wix-node-build build",
-    "release": "wnpm-release"
+    "release": "wix-node-build release"
   },
   "dependencies": {
     "eventemitter3": "^2.0.2",
@@ -28,8 +28,7 @@
     "dot": "latest",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
-    "wix-node-build": "latest",
-    "wnpm-ci": "^6.2.46"
+    "wix-node-build": "kupriyanenko/wix-node-build"
   },
   "babel": {
     "presets": [
@@ -39,6 +38,10 @@
   },
   "wix": {
     "separateCss": false,
+    "output": {
+      "library": "VideoPlayer",
+      "libraryTarget": "umd"
+    },
     "entry": {
       "video-player": "./index.js"
     }
