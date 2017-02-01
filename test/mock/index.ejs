@@ -21,7 +21,12 @@
           'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
         ],
         enableLogger: true,
-        poster: 'https://static.wixstatic.com/media/4d7ad7_0c64bd651390448fb749a123b09655ec~mv2.jpg'
+        ui: {
+          enableControls: true,
+          enableOverlay: true,
+        },
+        controls: true,
+        poster: 'https://pbs.twimg.com/media/C3iThsgWcAAyXhm.jpg:large'
     });
     document.getElementById('content').appendChild(player.node);
 </script>

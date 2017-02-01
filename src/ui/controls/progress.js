@@ -4,9 +4,9 @@ import styles from '../scss/index.scss';
 
 
 export default class ProgressControl {
-  _isUserInteracting = false;
-
   constructor({ onProgressChange }) {
+    this._isUserInteracting = false;
+
     this._callbacks = {
       onProgressChange
     };
