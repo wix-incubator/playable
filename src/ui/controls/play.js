@@ -1,38 +1,60 @@
 import $ from 'jbone';
 
-import UI_EVENTS from '../../constants/events/ui';
-
-import eventEmitter from '../../event-emitter';
-
-import styles from '../ui.css';
+import styles from '../scss/index.scss';
 
 import playIconSVG from '../../static/svg/controls/play-icon.svg';
 import pauseIconSVG from '../../static/svg/controls/pause-icon.svg';
 
-export default function createPlayControl() {
-  const $playButton = $('<div>', {
-    class: styles['play-control']
-  });
 
-  const $playIcon = $('<img>', {
-    class: `${styles['play-icon']} ${styles.icon}`,
-    src: playIconSVG
-  });
+export default class PlayControl {
+  constructor({ onPlayClick, onPauseClick }) {
+    this._callbacks = {
+      onPlayClick,
+      onPauseClick
+    };
 
-  $playIcon.on('click', () => eventEmitter.emit(UI_EVENTS.PLAY_TRIGGERED));
+    this._initUI();
+    this._initEvents();
 
-  const $pauseIcon = $('<img>', {
-    class: `${styles['pause-icon']} ${styles.icon}`,
-    src: pauseIconSVG
-  });
+    this.toggleControlStatus(false);
+  }
 
-  $pauseIcon.on('click', () => eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED));
+  get node() {
+    return this.$node;
+  }
 
-  $playButton
-    .append($pauseIcon)
-    .append($playIcon);
+  _initUI() {
+    this.$node = $('<div>', {
+      class: styles['play-control']
+    });
 
-  return {
-    $control: $playButton
-  };
+    this.$playIcon = $('<img>', {
+      class: `${styles['play-icon']} ${styles.icon}`,
+      src: playIconSVG
+    });
+
+    this.$pauseIcon = $('<img>', {
+      class: `${styles['pause-icon']} ${styles.icon}`,
+      src: pauseIconSVG
+    });
+
+    this.$node
+      .append(this.$pauseIcon)
+      .append(this.$playIcon);
+  }
+
+  _initEvents() {
+    this.$playIcon.on('click', this._callbacks.onPlayClick);
+    this.$pauseIcon.on('click', this._callbacks.onPauseClick);
+  }
+
+  toggleControlStatus(isPlaying) {
+    if (isPlaying) {
+      this.$playIcon.css('display', 'none');
+      this.$pauseIcon.css('display', 'block');
+    } else {
+      this.$playIcon.css('display', 'block');
+      this.$pauseIcon.css('display', 'none');
+    }
+  }
 }

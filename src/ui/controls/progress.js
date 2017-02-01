@@ -1,69 +1,87 @@
 import $ from 'jbone';
 
-import UI_EVENTS from '../../constants/events/ui';
+import styles from '../scss/index.scss';
 
-import eventEmitter from '../../event-emitter';
 
-import styles from '../ui.css';
+export default class ProgressControl {
+  _isUserInteracting = false;
 
-export default function createSeekControl() {
-  let controlling = false;
+  constructor({ onProgressChange }) {
+    this._callbacks = {
+      onProgressChange
+    };
 
-  const $seek = $('<span>', {
-    class: styles['progress-bar']
-  });
+    this._initUI();
+    this._initEvents();
+  }
 
-  const $played = $('<progress>', {
-    class: styles['progress-played'],
-    role: 'played',
-    max: 100,
-    value: 0
-  });
+  get node() {
+    return this.$node;
+  }
 
-  const $buffered = $('<progress>', {
-    class: styles['progress-buffered'],
-    role: 'buffered',
-    max: 100,
-    value: 0
-  });
+  _initUI() {
+    this.$node = $('<span>', {
+      class: styles['progress-bar']
+    });
 
-  const $input = $('<input>', {
-    class: styles['seek-input'],
-    id: 'seek-input',
-    type: 'range',
-    min: 0,
-    max: 100,
-    step: 0.1,
-    value: 0
-  })
-    .on('input', function () {
-      eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, $input.val() / $input.attr('max'));
-      $played.attr('value', $input.val());
-    })
-    .on('mousedown', () => (controlling = true))
-    .on('mouseup', () => (controlling = false));
+    this.$played = $('<progress>', {
+      class: styles['progress-played'],
+      role: 'played',
+      max: 100,
+      value: 0
+    });
 
-  $seek
-    .append($input)
-    .append($buffered)
-    .append($played);
+    this.$buffered = $('<progress>', {
+      class: styles['progress-buffered'],
+      role: 'buffered',
+      max: 100,
+      value: 0
+    });
 
-  function updatePlayed(percent) {
-    if (!controlling) {
-      $input.val(percent);
-      $input.attr('value', percent);
-      $played.attr('value', percent);
+    this.$input = $('<input>', {
+      class: styles['seek-input'],
+      id: 'seek-input',
+      type: 'range',
+      min: 0,
+      max: 100,
+      step: 0.1,
+      value: 0
+    });
+
+    this.$node
+      .append(this.$input)
+      .append(this.$buffered)
+      .append(this.$played);
+  }
+
+  _initEvents() {
+    this._changePlayedProgress = this._changePlayedProgress.bind(this);
+    this._toggleUserInteractingStatus = this._toggleUserInteractingStatus.bind(this);
+
+    this.$input
+      .on('input', this._changePlayedProgress)
+      .on('mousedown', this._toggleUserInteractingStatus)
+      .on('mouseup', this._toggleUserInteractingStatus);
+  }
+
+  _changePlayedProgress() {
+    this._callbacks.onProgressChange(this.$input.val() / this.$input.attr('max'));
+    this.$played.attr('value', this.$input.val());
+  }
+
+  _toggleUserInteractingStatus() {
+    this._isUserInteracting = !this._isUserInteracting;
+  }
+
+  updatePlayed(percent) {
+    if (!this._isUserInteracting) {
+      this.$input.val(percent);
+      this.$input.attr('value', percent);
+      this.$played.attr('value', percent);
     }
   }
 
-  function updateBuffered(percent) {
-    $buffered.attr('value', percent);
+  updateBuffered(percent) {
+    this.$buffered.attr('value', percent);
   }
-
-  eventEmitter.on(UI_EVENTS.UPDATE_PLAYED_TRIGGERED, updatePlayed);
-  eventEmitter.on(UI_EVENTS.UPDATE_BUFFERED_TRIGGERED, updateBuffered);
-
-  return {
-    $control: $seek
-  };
 }
