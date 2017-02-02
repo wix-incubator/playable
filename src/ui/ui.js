@@ -1,3 +1,4 @@
+import Vidi from 'vidi';
 import $ from 'jbone';
 
 import VIDEO_EVENTS from '../constants/events/video';
@@ -5,75 +6,88 @@ import UI_EVENTS from '../constants/events/ui';
 
 import eventEmitter from '../event-emitter';
 
-import createProgressControl from './controls/progress';
-import createPlayControl from './controls/play';
+import ProgressControl from './controls/progress';
+import PlayControl from './controls/play';
+import TimeControl from './controls/time';
 
-import styles from './ui.css';
+import styles from './scss/index.scss';
 
 
-function PlayerUI({ $video, vidi }) {
-  this.$video = $video;
-  this.vidi = vidi;
-  this.initWrapper();
-  this.initEvents();
-  this.initUIEvents();
-}
+class PlayerUI {
+  constructor({ $video, vidi }) {
+    this.$video = $video;
+    this.vidi = vidi;
 
-PlayerUI.prototype = {
-  initWrapper() {
+    this._initUICallbacks();
+    this._initWrapper();
+    this._initEvents();
+  }
+
+  _initWrapper() {
     this.$wrapper = $('<div>', {
       class: styles['video-wrapper']
     });
 
-    this.generateControls();
+    this._initControls();
     this.$wrapper
       .append(this.$video)
       .append(this.$controls);
-  },
+  }
 
-  initEvents() {
-    eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this.updateProgressControl, this);
-    eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this.updateBufferIndicator, this);
-    eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this.updateBufferIndicator, this);
-  },
+  _initEvents() {
+    eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
+    eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
+    eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
+    eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
+    eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
+    eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+  }
 
-  startIntervalUpdates() {
+  _initUICallbacks() {
+    this._playVideo = this._playVideo.bind(this);
+    this._pauseVideo = this._pauseVideo.bind(this);
+    this._changeCurrentTimeOfVideo = this._changeCurrentTimeOfVideo.bind(this);
+  }
+
+  _startIntervalUpdates() {
+    if (this._interval) {
+      this._stopIntervalUpdates();
+    }
+
     this._interval = setInterval(() => {
-      this.updateProgressControl();
-      this.updateBufferIndicator();
-    }, 100);
-  },
+      this._updateCurrentTime();
+      this._updateProgressControl();
+      this._updateBufferIndicator();
+    }, 1000 / 16);
+  }
 
-  stopIntervalUpdates() {
+  _stopIntervalUpdates() {
     clearInterval(this._interval);
-  },
+    this._interval = null;
 
-  initUIEvents() {
-    const video = this.$video[0];
-    const vidi = this.vidi;
+  }
 
-    eventEmitter
-      .on(UI_EVENTS.PLAY_TRIGGERED, () => {
-        this.$wrapper.toggleClass(styles['video-playing'], true);
-        vidi.play();
-        this.startIntervalUpdates();
-      });
-    eventEmitter
-      .on(UI_EVENTS.PAUSE_TRIGGERED, () => {
-        this.$wrapper.toggleClass(styles['video-playing'], false);
-        vidi.pause();
-        this.stopIntervalUpdates();
-      });
+  _updateDurationTime() {
+    this.timeControl.setDurationTime(this.$video[0].duration);
+  }
 
-    eventEmitter
-      .on(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent => {
-        if (video.duration) {
-          video.currentTime = video.duration * percent;
-        }
-      });
-  },
+  _updateCurrentTime() {
+    this.timeControl.setCurrentTime(this.$video[0].currentTime);
+  }
 
-  updateBufferIndicator() {
+  _updatePlayingStatus(status) {
+    if (status === Vidi.PlaybackStatus.PLAYING || status === Vidi.PlaybackStatus.PLAYING_BUFFERING) {
+      this.$wrapper.toggleClass(styles['video-playing'], true);
+      this.playControl.toggleControlStatus(true);
+      this._startIntervalUpdates();
+    } else {
+      this.$wrapper.toggleClass(styles['video-playing'], false);
+      this.playControl.toggleControlStatus(false);
+      this._stopIntervalUpdates();
+    }
+  }
+
+  _updateBufferIndicator() {
     const { currentTime, buffered, duration } = this.$video[0];
 
     if (!buffered.length) {
@@ -86,19 +100,52 @@ PlayerUI.prototype = {
     }
 
     const percent = (buffered.end(i) / duration * 100).toFixed(1);
-    eventEmitter.emit(UI_EVENTS.UPDATE_BUFFERED_TRIGGERED, percent);
-  },
 
-  updateProgressControl() {
+    this.progressControl.updateBuffered(percent);
+  }
+
+  _updateProgressControl() {
     const { duration, currentTime } = this.$video[0];
     const percent = currentTime / duration * 100;
 
-    eventEmitter.emit(UI_EVENTS.UPDATE_PLAYED_TRIGGERED, percent);
-  },
+    this.progressControl.updatePlayed(percent);
+  }
 
-  generateControls() {
-    const { $control: $progressControl } = createProgressControl();
-    const { $control: $playControl } = createPlayControl();
+  _playVideo() {
+    this.vidi.play();
+
+    eventEmitter.emit(UI_EVENTS.PLAY_TRIGGERED);
+  }
+
+  _pauseVideo() {
+    this.vidi.pause();
+
+    eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
+  }
+
+  _changeCurrentTimeOfVideo(percent) {
+    const video = this.$video[0];
+
+    if (video.duration) {
+      video.currentTime = video.duration * percent;
+    }
+
+    this.timeControl.setCurrentTime(video.currentTime);
+
+    eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
+  }
+
+  _initControls() {
+    this.playControl = new PlayControl({
+      onPlayClick: this._playVideo,
+      onPauseClick: this._pauseVideo
+    });
+
+    this.progressControl = new ProgressControl({
+      onProgressChange: this._changeCurrentTimeOfVideo
+    });
+
+    this.timeControl = new TimeControl();
 
     const $wrapper = $('<div>', {
       class: styles['controls-wrapper']
@@ -109,14 +156,15 @@ PlayerUI.prototype = {
     });
 
     $innerWrapper
-      .append($playControl)
-      .append($progressControl);
+      .append(this.playControl.node)
+      .append(this.timeControl.node)
+      .append(this.progressControl.node);
 
     $wrapper
       .append($innerWrapper);
 
     this.$controls = $wrapper;
   }
-};
+}
 
 export default PlayerUI;

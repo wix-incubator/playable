@@ -7,77 +7,77 @@ import eventEmitter from './event-emitter';
 import PlayerUI from './ui/ui';
 import initLogger from './logger';
 
+class Player {
+  constructor({ src, ui, enableLogger, ...params }) {
+    this.$video = $('<video/>', params);
 
-function Player({ src, ui, enableLogger, ...params }) {
-  this.$video = $('<video/>', params);
+    this.vidi = new Vidi(this.$video[0]);
+    this.videoStatus = null;
 
-  this.vidi = new Vidi(this.$video[0]);
+    if (ui) {
+      this.ui = ui({
+        $video: this.$video,
+        eventEmitter
+      });
+    } else {
+      this.ui = new PlayerUI({
+        $video: this.$video,
+        vidi: this.vidi
+      });
+    }
 
-  if (ui) {
-    this.ui = ui({
-      $video: this.$video,
-      eventEmitter
-    });
-  } else {
-    this.ui = new PlayerUI({
-      $video: this.$video,
-      vidi: this.vidi
-    });
+    this.vidi.src = src;
+
+    this.initEventsProxy();
+
+    if (enableLogger) {
+      initLogger(this.$video[0]);
+    }
   }
 
-  this.vidi.src = src;
-
-  this.initEventsProxy();
-
-  if (enableLogger) {
-    initLogger(this.$video[0]);
-  }
-}
-
-Player.prototype = {
-
-  /**
-   * Getter for DOM node with player
-   * @return {Node}
-   */
   get node() {
     return this.ui.$wrapper[0];
-  },
+  }
 
-  /**
-   * Creating proxy for <video> events through general eventEmitter
-   */
   initEventsProxy() {
-    const $video = this.$video;
+    const player = this;
+    const $video = player.$video;
 
-    $video.on('loadedmetadata', function () {
+    this.vidi.on('statuschange', status => {
+      if (player.videoStatus !== status) {
+        player.videoStatus = status;
+        eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, player.videoStatus);
+      }
+    });
+
+    $video.on('loadedmetadata', () => {
       eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
     });
 
-    $video.on('progress', function () {
+    $video.on('progress', () => {
       eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
     });
 
-    $video.on('loadstart', () => {
+    this.vidi.on('loadstart', () => {
       eventEmitter.emit(VIDEO_EVENTS.LOAD_STARTED);
     });
 
-    $video.on('durationchange', function () {
+    this.vidi.on('durationchange', () => {
       eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
     });
 
-    $video.on('timeupdate', function () {
+    this.vidi.on('timeupdate', () => {
       eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED);
     });
 
-    $video.on('seeking', function () {
+    $video.on('seeking', () => {
       eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
     });
 
-    $video.on('seeked', function () {
+    $video.on('seeked', () => {
       eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
     });
   }
-};
+}
 
 export default Player;
