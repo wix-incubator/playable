@@ -6,6 +6,7 @@ import UI_EVENTS from '../constants/events/ui';
 
 import eventEmitter from '../event-emitter';
 
+import Overlay from './overlay';
 import ProgressControl from './controls/progress';
 import PlayControl from './controls/play';
 import TimeControl from './controls/time';
@@ -14,9 +15,13 @@ import styles from './scss/index.scss';
 
 
 class PlayerUI {
-  constructor({ $video, vidi }) {
+  constructor({ $video, vidi, enableOverlay, enableControls }) {
     this.$video = $video;
     this.vidi = vidi;
+    this.config = {
+      enableOverlay,
+      enableControls
+    };
 
     this._initUICallbacks();
     this._initWrapper();
@@ -28,18 +33,72 @@ class PlayerUI {
       class: styles['video-wrapper']
     });
 
-    this._initControls();
+    if (this.config.enableOverlay) {
+      this._initOverlay();
+      this.$wrapper
+        .append(this.overlay.node);
+    }
+
     this.$wrapper
-      .append(this.$video)
-      .append(this.$controls);
+      .append(this.$video);
+
+    if (this.config.enableControls) {
+      this._initControls();
+      this.$wrapper
+        .append(this.$controls);
+    }
+  }
+
+  _initOverlay() {
+    this.overlay = new Overlay({
+      src: this.$video.attr('poster'),
+      onPlayClick: this._playVideo
+    });
+
+    this.$video.removeAttr('poster');
+  }
+
+  _initControls() {
+    this.playControl = new PlayControl({
+      onPlayClick: this._playVideo,
+      onPauseClick: this._pauseVideo
+    });
+
+    this.progressControl = new ProgressControl({
+      onProgressChange: this._changeCurrentTimeOfVideo
+    });
+
+    this.timeControl = new TimeControl();
+
+    const $wrapper = $('<div>', {
+      class: styles['controls-wrapper']
+    });
+
+    const $innerWrapper = $('<div>', {
+      class: styles.controls
+    });
+
+    $innerWrapper
+      .append(this.playControl.node)
+      .append(this.timeControl.node)
+      .append(this.progressControl.node);
+
+    $wrapper
+      .append($innerWrapper);
+
+    this.$controls = $wrapper;
+
+    this.$video.removeAttr('controls');
   }
 
   _initEvents() {
-    eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
-    eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
-    eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
-    eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
-    eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
+    if (this.config.enableControls) {
+      eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
+      eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
+      eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
+      eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
+      eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
+    }
     eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
@@ -78,12 +137,22 @@ class PlayerUI {
   _updatePlayingStatus(status) {
     if (status === Vidi.PlaybackStatus.PLAYING || status === Vidi.PlaybackStatus.PLAYING_BUFFERING) {
       this.$wrapper.toggleClass(styles['video-playing'], true);
-      this.playControl.toggleControlStatus(true);
-      this._startIntervalUpdates();
+
+      if (this.config.enableControls) {
+        this.playControl.toggleControlStatus(true);
+        this._startIntervalUpdates();
+      }
     } else {
       this.$wrapper.toggleClass(styles['video-playing'], false);
-      this.playControl.toggleControlStatus(false);
-      this._stopIntervalUpdates();
+
+      if (this.config.enableControls) {
+        this.playControl.toggleControlStatus(false);
+        this._stopIntervalUpdates();
+      }
+
+      if (status === Vidi.PlaybackStatus.ENDED && this.config.enableOverlay) {
+        this.overlay.showOverlay();
+      }
     }
   }
 
@@ -112,6 +181,10 @@ class PlayerUI {
   }
 
   _playVideo() {
+    if (!this.overlay.isHidden) {
+      this.overlay.hideOverlay();
+    }
+
     this.vidi.play();
 
     eventEmitter.emit(UI_EVENTS.PLAY_TRIGGERED);
@@ -133,37 +206,6 @@ class PlayerUI {
     this.timeControl.setCurrentTime(video.currentTime);
 
     eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
-  }
-
-  _initControls() {
-    this.playControl = new PlayControl({
-      onPlayClick: this._playVideo,
-      onPauseClick: this._pauseVideo
-    });
-
-    this.progressControl = new ProgressControl({
-      onProgressChange: this._changeCurrentTimeOfVideo
-    });
-
-    this.timeControl = new TimeControl();
-
-    const $wrapper = $('<div>', {
-      class: styles['controls-wrapper']
-    });
-
-    const $innerWrapper = $('<div>', {
-      class: styles.controls
-    });
-
-    $innerWrapper
-      .append(this.playControl.node)
-      .append(this.timeControl.node)
-      .append(this.progressControl.node);
-
-    $wrapper
-      .append($innerWrapper);
-
-    this.$controls = $wrapper;
   }
 }
 

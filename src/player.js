@@ -14,17 +14,11 @@ class Player {
     this.vidi = new Vidi(this.$video[0]);
     this.videoStatus = null;
 
-    if (ui) {
-      this.ui = ui({
-        $video: this.$video,
-        eventEmitter
-      });
-    } else {
-      this.ui = new PlayerUI({
-        $video: this.$video,
-        vidi: this.vidi
-      });
-    }
+    this.ui = new PlayerUI({
+      $video: this.$video,
+      vidi: this.vidi,
+      ...ui
+    });
 
     this.vidi.src = src;
 
