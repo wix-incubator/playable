@@ -10,6 +10,7 @@ import Overlay from './overlay';
 import ProgressControl from './controls/progress';
 import PlayControl from './controls/play';
 import TimeControl from './controls/time';
+import VolumeControl from './controls/volume';
 
 import styles from './scss/index.scss';
 
@@ -70,6 +71,13 @@ class PlayerUI {
 
     this.timeControl = new TimeControl();
 
+    this.volumeControl = new VolumeControl({
+      onVolumeLevelChange: this._changeVolumeLevel,
+      onMuteStatusChange: this._changeMuteStatus
+    });
+
+    this.volumeControl.setVolumeLevel(this.$video[0].volume);
+
     const $wrapper = $('<div>', {
       class: styles['controls-wrapper']
     });
@@ -81,7 +89,8 @@ class PlayerUI {
     $innerWrapper
       .append(this.playControl.node)
       .append(this.timeControl.node)
-      .append(this.progressControl.node);
+      .append(this.progressControl.node)
+      .append(this.volumeControl.node);
 
     $wrapper
       .append($innerWrapper);
@@ -106,6 +115,8 @@ class PlayerUI {
     this._playVideo = this._playVideo.bind(this);
     this._pauseVideo = this._pauseVideo.bind(this);
     this._changeCurrentTimeOfVideo = this._changeCurrentTimeOfVideo.bind(this);
+    this._changeVolumeLevel = this._changeVolumeLevel.bind(this);
+    this._changeMuteStatus = this._changeMuteStatus.bind(this);
   }
 
   _startIntervalUpdates() {
@@ -181,7 +192,7 @@ class PlayerUI {
   }
 
   _playVideo() {
-    if (!this.overlay.isHidden) {
+    if (this.overlay && !this.overlay.isHidden) {
       this.overlay.hideOverlay();
     }
 
@@ -206,6 +217,16 @@ class PlayerUI {
     this.timeControl.setCurrentTime(video.currentTime);
 
     eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
+  }
+
+  _changeVolumeLevel(level) {
+    this.$video[0].volume = level;
+    eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
+  }
+
+  _changeMuteStatus(isMuted) {
+    this.$video[0].muted = isMuted;
+    eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, isMuted);
   }
 }
 
