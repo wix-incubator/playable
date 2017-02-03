@@ -38,7 +38,7 @@ export default class TimeControl {
     });
 
     this.$volumeMutedIcon = $('<img>', {
-      class: `${styles['volume-icon']}`,
+      class: `${styles['volume-icon']} ${styles.icon}`,
       src: volumeMutedSVG
     });
 
@@ -59,8 +59,8 @@ export default class TimeControl {
 
 
     this.$input = $('<input>', {
-      class: styles['seek-input'],
-      id: 'seek-input',
+      class: styles['volume-input'],
+      id: 'volume-input',
       type: 'range',
       min: 0,
       max: 100,
@@ -69,8 +69,8 @@ export default class TimeControl {
     });
 
     this.$inputWrapper
-      .append(this.$volumeLevel)
-      .append(this.$input);
+      .append(this.$input)
+      .append(this.$volumeLevel);
 
     this.$innerWrapper.append(this.$inputWrapper);
     this.$node
@@ -84,6 +84,7 @@ export default class TimeControl {
     this._changeMuteStatus = this._changeMuteStatus.bind(this);
 
     this.$input
+      .on('change', this._changeVolumeLevel)
       .on('input', this._changeVolumeLevel);
 
     this.$volumeIcon
@@ -102,9 +103,16 @@ export default class TimeControl {
   }
 
   _changeVolumeLevel() {
-    this.volumeLevel = this.$input.val();
-    this._callbacks.onVolumeLevelChange(this._convertVolumeLevelToVideoVolume(this.volumeLevel));
-    this.$volumeLevel.attr('value', this.volumeLevel);
+    if (this.volumeLevel !== this.$input.val()) {
+      this.volumeLevel = this.$input.val();
+      this._callbacks.onVolumeLevelChange(this._convertVolumeLevelToVideoVolume(this.volumeLevel));
+      this.$volumeLevel.attr('value', this.volumeLevel);
+      if (this.isMuted) {
+        this.isMuted = !this.isMuted;
+        this._callbacks.onMuteStatusChange(this.isMuted);
+        this._setMuteInputState(this.isMuted);
+      }
+    }
   }
 
   _changeMuteStatus() {
@@ -130,13 +138,8 @@ export default class TimeControl {
   }
 
   _setMuteInputState(isMuted) {
-    if (isMuted) {
-      this.$volumeIcon.addClass(styles['hidden']);
-      this.$volumeMutedIcon.removeClass(styles['hidden']);
-    } else {
-      this.$volumeMutedIcon.addClass(styles['hidden']);
-      this.$volumeIcon.removeClass(styles['hidden']);
-    }
+    this.$volumeIcon.toggleClass(styles['hidden'], isMuted);
+    this.$volumeMutedIcon.toggleClass(styles['hidden'], !isMuted);
   }
 
   setMuteStatus(isMuted) {

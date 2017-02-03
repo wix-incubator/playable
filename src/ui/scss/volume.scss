@@ -1,0 +1,65 @@
+.volume-control {
+  position: relative;
+  display: flex;
+  flex: 1;
+  max-width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+
+  input[type="range"] {
+    position: relative;
+    z-index: 2;
+
+    &::-webkit-slider-runnable-track {
+      background: transparent;
+    }
+    &::-moz-range-track {
+      background: transparent;
+    }
+    &::-ms-fill-upper {
+      background: transparent;
+    }
+  }
+
+  .volume-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .volume-inner-wrapper {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    padding: 10px;
+    transform: rotate(-90deg);
+    width: 100px;
+    position: absolute;
+    left: -45px;
+    top: -80px;
+    flex: 1;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: visibility 0.2s, opacity 0.2s, display 0.2s;
+
+    .volume-input-wrapper {
+      width: 100px;
+
+      .volume-level {
+        width: 100px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  &:hover {
+    .volume-inner-wrapper {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .volume-icon {
+      opacity: 1;
+    }
+  }
+}

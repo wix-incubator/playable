@@ -6,6 +6,8 @@ import styles from '../scss/index.scss';
 export default class ProgressControl {
   constructor({ onProgressChange }) {
     this._isUserInteracting = false;
+    this.currentProgress = 0;
+
 
     this._callbacks = {
       onProgressChange
@@ -50,8 +52,8 @@ export default class ProgressControl {
 
     this.$node
       .append(this.$input)
-      .append(this.$buffered)
-      .append(this.$played);
+      .append(this.$played)
+      .append(this.$buffered);
   }
 
   _initEvents() {
@@ -60,13 +62,17 @@ export default class ProgressControl {
 
     this.$input
       .on('input', this._changePlayedProgress)
+      .on('change', this._changePlayedProgress)
       .on('mousedown', this._toggleUserInteractingStatus)
       .on('mouseup', this._toggleUserInteractingStatus);
   }
 
-  _changePlayedProgress() {
-    this._callbacks.onProgressChange(this.$input.val() / this.$input.attr('max'));
-    this.$played.attr('value', this.$input.val());
+  _changePlayedProgress(e) {
+    if (this.currentProgress !== this.$input.val()) {
+      this.currentProgress = this.$input.val();
+      this._callbacks.onProgressChange(this.currentProgress / this.$input.attr('max'));
+      this.$played.attr('value', this.currentProgress);
+    }
   }
 
   _toggleUserInteractingStatus() {
@@ -75,9 +81,10 @@ export default class ProgressControl {
 
   updatePlayed(percent) {
     if (!this._isUserInteracting) {
-      this.$input.val(percent);
-      this.$input.attr('value', percent);
-      this.$played.attr('value', percent);
+      this.currentProgress = percent;
+      this.$input.val(this.currentProgress);
+      this.$input.attr('value', this.currentProgress);
+      this.$played.attr('value', this.currentProgress);
     }
   }
 

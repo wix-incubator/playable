@@ -1,0 +1,78 @@
+.video-wrapper {
+  input[type=range] {
+    display: block;
+    height: 20px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+
+    appearance: none;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+
+    &::-webkit-slider-runnable-track {
+      @include plyr-range-track();
+    }
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      margin-top: -4px;
+      @include plyr-range-thumb();
+    }
+
+    &::-moz-range-track {
+      @include plyr-range-track();
+    }
+    &::-moz-range-thumb {
+      @include plyr-range-thumb();
+    }
+
+    &::-ms-track {
+      height: 16px;
+      background: transparent;
+      border: 0;
+      color: transparent;
+    }
+    &::-ms-fill-upper {
+      @include plyr-range-track();
+    }
+    &::-ms-fill-lower {
+      @include plyr-range-track();
+      height: 4px;
+      background: #3498db;
+    }
+    &.volume-input::-ms-fill-lower {
+      @include plyr-range-track();
+      height: 4px;
+      background: white;
+    }
+    &::-ms-thumb {
+      @include plyr-range-thumb();
+      // For some reason, Edge uses the -webkit margin above
+      margin-top: 0;
+    }
+    &::-ms-tooltip {
+      display: none;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+    &::-moz-focus-outer {
+      border: 0;
+    }
+
+    &:active {
+      &::-webkit-slider-thumb {
+        transform: scale(1.25);
+      }
+      &::-moz-range-thumb {
+        transform: scale(1.25);
+      }
+      &::-ms-thumb {
+        transform: scale(1.25);
+      }
+    }
+  }
+}

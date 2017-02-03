@@ -1,0 +1,21 @@
+.time-wrapper {
+  display: flex;
+  flex: 0 0 auto;
+  height: 18px;
+  margin: 0 20px;
+  align-items: center;
+
+  .time {
+    line-height: 1px;
+    font-size: 12px;
+    color: hsla(0,0%,100%,.8);
+    font-family: HelveticaNeueW01-55Roma,HelveticaNeueW02-55Roma,HelveticaNeueW10-55Roma,Helvetica Neue,ruble,Helvetica,Arial,sans-serif;
+
+    &.current {
+      margin-right: 5px
+    }
+    &.duration {
+      margin-left: 5px
+    }
+  }
+}
