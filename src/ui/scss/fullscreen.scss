@@ -1,8 +1,11 @@
 .fullscreen-control {
-  display: flex;
-  align-items: center;
   position: relative;
+
+  display: flex;
+
   width: 30px;
   height: 30px;
+
+  align-items: center;
   justify-content: center;
 }

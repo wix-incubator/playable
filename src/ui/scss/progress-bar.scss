@@ -1,15 +1,17 @@
-$color-main:                       #3498db !default;
-$video-progress-bg:                transparentize(#fff, .75) !default;
+$color-main: #3498db !default;
+$video-progress-bg: transparentize(#fff, .75) !default;
 
 .progress-bar {
   position: relative;
+
   display: inline-block;
   flex: 1;
+
   margin-right: 20px;
 
   cursor: pointer;
 
-  input[type="range"] {
+  input[type='range'] {
     position: relative;
     z-index: 2;
 
@@ -29,29 +31,35 @@ $video-progress-bg:                transparentize(#fff, .75) !default;
 .progress-buffered,
 .volume-level {
   position: absolute;
-  left: 0;
   top: 50%;
+  left: 0;
+
   width: 100%;
   height: 4px;
   margin: -2px 0 0;
   padding: 0;
+
   vertical-align: top;
-  appearance: none;
+
   border: none;
   border-radius: 100px;
+
+  appearance: none;
 
   &::-webkit-progress-bar {
     background: transparent;
   }
   &::-webkit-progress-value {
-    background: currentColor;
-    border-radius: 100px;
     min-width: 4px;
+
+    border-radius: 100px;
+    background: currentColor;
   }
   &::-moz-progress-bar {
-    background: currentColor;
-    border-radius: 100px;
     min-width: 4px;
+
+    border-radius: 100px;
+    background: currentColor;
   }
   &::-ms-fill {
     border: none;
@@ -62,23 +70,29 @@ $video-progress-bg:                transparentize(#fff, .75) !default;
 .progress-played,
 .volume-level {
   z-index: 1;
+
+  transition: none;
+
   color: $color-main;
   background: transparent;
-  transition: none;
 
   &::-webkit-progress-value {
     min-width: 4px;
     max-width: 99%;
+
+    transition: none;
+
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    transition: none;
   }
   &::-moz-progress-bar {
     min-width: 4px;
     max-width: 99%;
+
+    transition: none;
+
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    transition: none;
   }
   &::-ms-fill {
     display: none;

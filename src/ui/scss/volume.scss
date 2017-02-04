@@ -1,15 +1,18 @@
 .volume-control {
   position: relative;
+
   display: flex;
   flex: 1;
-  max-width: 30px;
+
   width: 30px;
+  max-width: 30px;
   height: 30px;
-  justify-content: center;
-  align-items: center;
   margin-right: 20px;
 
-  input[type="range"] {
+  justify-content: center;
+  align-items: center;
+
+  input[type='range'] {
     position: relative;
     z-index: 2;
 
@@ -30,20 +33,23 @@
   }
 
   .volume-inner-wrapper {
+    position: absolute;
+    top: -80px;
+    left: -45px;
+
     display: flex;
     visibility: hidden;
-    opacity: 0;
-    padding: 10px;
-    transform: rotate(-90deg);
-    width: 100px;
-    position: absolute;
-    left: -45px;
-    top: -80px;
     flex: 1;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: visibility 0.2s, opacity 0.2s, display 0.2s;
 
+    width: 100px;
+    padding: 10px;
+
+    transition: visibility .2s, opacity .2s, display .2s;
+    transform: rotate(-90deg);
+
+    opacity: 0;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, .5);
     .volume-input-wrapper {
       width: 100px;
 
@@ -57,6 +63,7 @@
   &:hover {
     .volume-inner-wrapper {
       visibility: visible;
+
       opacity: 1;
     }
 

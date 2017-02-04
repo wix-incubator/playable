@@ -1,16 +1,19 @@
 .play-control {
-  display: flex;
-  align-items: center;
   position: relative;
+
+  display: flex;
+
   box-sizing: border-box;
   width: 30px;
   height: 30px;
-  justify-content: center;
   margin-left: 20px;
+
+  align-items: center;
+  justify-content: center;
 }
 
 .play-icon,
 .pause-icon {
   width: 18px;
-  height: 18px
+  height: 18px;
 }

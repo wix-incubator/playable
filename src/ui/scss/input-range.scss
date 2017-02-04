@@ -1,23 +1,27 @@
 .video-wrapper {
   input[type=range] {
     display: block;
-    height: 20px;
+
     width: 100%;
+    height: 20px;
     margin: 0;
     padding: 0;
+
+    cursor: pointer;
     vertical-align: middle;
 
-    appearance: none;
-    cursor: pointer;
     border: none;
     background: transparent;
+
+    appearance: none;
 
     &::-webkit-slider-runnable-track {
       @include plyr-range-track();
     }
     &::-webkit-slider-thumb {
-      -webkit-appearance: none;
       margin-top: -4px;
+
+      -webkit-appearance: none;
       @include plyr-range-thumb();
     }
 
@@ -30,27 +34,33 @@
 
     &::-ms-track {
       height: 16px;
-      background: transparent;
-      border: 0;
+
       color: transparent;
+      border: 0;
+      background: transparent;
     }
     &::-ms-fill-upper {
       @include plyr-range-track();
     }
     &::-ms-fill-lower {
-      @include plyr-range-track();
       height: 4px;
+
       background: #3498db;
+
+      @include plyr-range-track();
     }
     &.volume-input::-ms-fill-lower {
-      @include plyr-range-track();
       height: 4px;
+
       background: white;
+
+      @include plyr-range-track();
     }
     &::-ms-thumb {
-      @include plyr-range-thumb();
       // For some reason, Edge uses the -webkit margin above
       margin-top: 0;
+
+      @include plyr-range-thumb();
     }
     &::-ms-tooltip {
       display: none;
