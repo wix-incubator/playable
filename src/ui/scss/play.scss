@@ -1,0 +1,18 @@
+.play-control {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  align-items: center;
+  width: 53px;
+  padding: 0 20px;
+  line-height: 1;
+  text-align: center;
+  border-right: 1px solid hsla(0,0%,100%,.2);
+}
+
+.play-icon,
+.pause-icon {
+  width: 18px;
+  height: 18px
+}

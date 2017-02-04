@@ -16,16 +16,15 @@
     var player = new VideoPlayer({
         width: 700,
         height: 394,
-        muted: true,
+        muted: false,
         src: [
           'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
         ],
         enableLogger: true,
         ui: {
           enableControls: true,
-          enableOverlay: true,
+          enableOverlay: true
         },
-        controls: true,
         poster: 'https://pbs.twimg.com/media/C3iThsgWcAAyXhm.jpg:large'
     });
     document.getElementById('content').appendChild(player.node);
