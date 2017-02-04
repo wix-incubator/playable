@@ -3,9 +3,11 @@
   display: flex;
   flex: 1;
   max-width: 30px;
+  width: 30px;
   height: 30px;
   justify-content: center;
   align-items: center;
+  margin-right: 20px;
 
   input[type="range"] {
     position: relative;

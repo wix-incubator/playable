@@ -49,12 +49,7 @@ export default class PlayControl {
   }
 
   toggleControlStatus(isPlaying) {
-    if (isPlaying) {
-      this.$playIcon.css('display', 'none');
-      this.$pauseIcon.css('display', 'block');
-    } else {
-      this.$playIcon.css('display', 'block');
-      this.$pauseIcon.css('display', 'none');
-    }
+    this.$playIcon.toggleClass(styles.hidden, isPlaying);
+    this.$pauseIcon.toggleClass(styles.hidden, !isPlaying);
   }
 }
