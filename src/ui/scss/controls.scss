@@ -1,20 +1,23 @@
 .controls {
-  width: 100%;
   display: flex;
+
+  width: 100%;
+  max-width: 100%;
+
   align-items: center;
-  line-height: 1;
-  text-align: center;
 }
 
 .icon {
   cursor: pointer;
-  opacity: 0.8;
+  transition-duration: .2s;
   transition-property: opacity;
-  transition-duration: 0.2s;
+
+  opacity: .8;
 
   &.hidden {
     display: none;
     visibility: hidden;
+
     opacity: 0;
   }
 
@@ -22,5 +25,3 @@
     opacity: 1;
   }
 }
-
-

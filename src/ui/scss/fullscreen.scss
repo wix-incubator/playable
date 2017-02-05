@@ -1,19 +1,11 @@
-.play-control {
+.fullscreen-control {
   position: relative;
 
   display: flex;
 
-  box-sizing: border-box;
   width: 30px;
   height: 30px;
-  margin-left: 20px;
 
   align-items: center;
   justify-content: center;
-}
-
-.play-icon,
-.pause-icon {
-  width: 18px;
-  height: 18px;
 }

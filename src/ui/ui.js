@@ -1,6 +1,8 @@
 import Vidi from 'vidi';
 import $ from 'jbone';
 
+import fullscreen, { isFullscreenAPIExist } from '../utils/fullscreen';
+
 import VIDEO_EVENTS from '../constants/events/video';
 import UI_EVENTS from '../constants/events/ui';
 
@@ -11,6 +13,7 @@ import ProgressControl from './controls/progress';
 import PlayControl from './controls/play';
 import TimeControl from './controls/time';
 import VolumeControl from './controls/volume';
+import FullscreenControl from './controls/fullscreen';
 
 import styles from './scss/index.scss';
 
@@ -78,6 +81,17 @@ class PlayerUI {
 
     this.volumeControl.setVolumeLevel(this.$video[0].volume);
 
+    if (isFullscreenAPIExist) {
+
+      this.fullscreenControl = new FullscreenControl({
+        onEnterFullscreenClick: this._enterFullscreen,
+        onExitFullscreenClick: this._exitFullscreen
+      });
+      this.$wrapper.on(fullscreen.raw.fullscreenchange, event => {
+        this.fullscreenControl.toggleControlStatus(fullscreen.isFullscreen);
+      });
+    }
+
     const $wrapper = $('<div>', {
       class: styles['controls-wrapper']
     });
@@ -90,7 +104,8 @@ class PlayerUI {
       .append(this.playControl.node)
       .append(this.timeControl.node)
       .append(this.progressControl.node)
-      .append(this.volumeControl.node);
+      .append(this.volumeControl.node)
+      .append(this.fullscreenControl.node);
 
     $wrapper
       .append($innerWrapper);
@@ -117,6 +132,8 @@ class PlayerUI {
     this._changeCurrentTimeOfVideo = this._changeCurrentTimeOfVideo.bind(this);
     this._changeVolumeLevel = this._changeVolumeLevel.bind(this);
     this._changeMuteStatus = this._changeMuteStatus.bind(this);
+    this._enterFullscreen = this._enterFullscreen.bind(this);
+    this._exitFullscreen = this._exitFullscreen.bind(this);
   }
 
   _startIntervalUpdates() {
@@ -227,6 +244,14 @@ class PlayerUI {
   _changeMuteStatus(isMuted) {
     this.$video[0].muted = isMuted;
     eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, isMuted);
+  }
+
+  _enterFullscreen() {
+    fullscreen.request(this.$wrapper[0]);
+  }
+
+  _exitFullscreen() {
+    fullscreen.exit();
   }
 }
 
