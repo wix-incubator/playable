@@ -80,6 +80,9 @@ class PlayerUI {
     });
 
     this.volumeControl.setVolumeLevel(this.$video[0].volume);
+    if (this.$video.attr('muted') === 'true') {
+      this.volumeControl.setMuteStatus(true);
+    }
 
     if (isFullscreenAPIExist) {
 

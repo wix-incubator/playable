@@ -5262,8 +5262,8 @@ verror@1.3.6:
     extsprintf "1.0.2"
 
 video-player@latest:
-  version "1.0.4"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/video-player/-/video-player-1.0.4.tgz#06c8e5d993b3ffce30cccfbd00836e5eccfeba9d"
+  version "1.0.5"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/video-player/-/video-player-1.0.5.tgz#d0a14b04f384143da5886ac666cd147d98a06b2d"
   dependencies:
     eventemitter3 "^2.0.2"
     jbone "^1.2.0"
