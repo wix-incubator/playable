@@ -8,16 +8,36 @@ import PlayerUI from './ui/ui';
 import initLogger from './logger';
 
 class Player {
-  constructor({ src, ui, enableLogger, ...params }) {
-    this.$video = $('<video/>', params);
+  constructor({ width, height, preload, poster, autoplay, loop, muted, nativeControls, src, enableLogger, ...params }) {
+    this.$video = $('<video/>', {
+      width,
+      height,
+      preload,
+      poster
+    });
+
+    if (autoplay) {
+      this.$video.attr('autoplay', true);
+    }
+
+    if (loop) {
+      this.$video.attr('loop', true);
+    }
+
+    if (nativeControls) {
+      this.$video.attr('controls', true);
+    }
+
+    if (muted) {
+      this.$video.attr('muted', true);
+    }
 
     this.vidi = new Vidi(this.$video[0]);
     this.videoStatus = null;
 
     this.ui = new PlayerUI({
-      $video: this.$video,
       vidi: this.vidi,
-      ...ui
+      ...params
     });
 
     this.vidi.src = src;
@@ -25,7 +45,7 @@ class Player {
     this.initEventsProxy();
 
     if (enableLogger) {
-      initLogger(this.$video[0]);
+      initLogger(this.vidi);
     }
   }
 
@@ -33,6 +53,7 @@ class Player {
     return this.ui.$wrapper[0];
   }
 
+  // This one should be removed after all events would be inside vidi.js
   initEventsProxy() {
     const player = this;
     const $video = player.$video;
@@ -71,6 +92,10 @@ class Player {
     $video.on('seeked', () => {
       eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
     });
+
+    $video.on('volumechange', () => {
+      eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
+    })
   }
 }
 

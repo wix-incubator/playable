@@ -13,7 +13,8 @@ function getBufferedPercentage(video) {
   return buffered;
 }
 
-export default function initLogger(video) {
+export default function initLogger(vidi) {
+  const video = vidi.getVideoElement();
   eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, () => {
     const duration = video.duration;
 
