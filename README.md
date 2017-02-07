@@ -27,7 +27,6 @@ const player = new VideoPlayer({
     width: 700,
     height: 394,
     src: 'http://my-url/video.mp4',
-    poster: 'http://my-url/image.jpg',
     preload: 'metadata'
 });
 
@@ -36,11 +35,38 @@ document.getElementById('content').appendChild(player.node);
 
 ## API
 
-### VideoPlayer({ src, ...attributes})
+### VideoPlayer(config)
 
-```src``` A string or array with source of the video. For more information see [vidi](https://github.com/wix/vidi)
+#### Video sources
 
-```attributes``` Set of attributes for native `<video>` tag. [MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video)
+```config.src``` A string or array with source of the video. For more information see [vidi](https://github.com/wix/vidi)
+
+#### Native attributes
+
+You can use ```config.loop```, ```config.autoplay```, ```config.preload```, ```config.poster``` and ```config.muted``` ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video))
+
+Use ```config.nativeControls``` + ```config.controls``` to enable native controls.
+
+#### UI
+
+```config.width``` Width of video player
+
+```config.height``` Height of video player
+
+```config.overlay``` Toggle overlay
+
+```config.controls``` Toggle all controls
+
+```config.timeIndicator``` Toggle block with current time of video
+
+```config.progressControl``` Toggle progress control
+
+```config.volumeControl``` Toggle volume control
+
+```config.volume``` Initial volume
+
+```config.fullscreenControl```  Toggle fullscreen control
+
 
 Create a new instance of video player
 
