@@ -4,11 +4,22 @@ import $ from 'jbone';
 import VIDEO_EVENTS from './constants/events/video';
 
 import eventEmitter from './event-emitter';
-import PlayerUI from './ui/ui';
-import initLogger from './logger';
+import PlayerUI from './ui/ui.controler';
 
 class Player {
-  constructor({ width, height, preload, poster, autoplay, loop, muted, nativeControls, src, enableLogger, ...params }) {
+  constructor({
+    width,
+    height,
+    preload,
+    poster,
+    autoplay,
+    loop,
+    muted,
+    volume,
+    nativeControls,
+    src,
+    ...params
+  }) {
     this.$video = $('<video/>', {
       width,
       height,
@@ -32,6 +43,11 @@ class Player {
       this.$video.attr('muted', true);
     }
 
+    if (volume) {
+      const parsedVolume = Number(volume);
+      this.$video[0].volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
+    }
+
     this.vidi = new Vidi(this.$video[0]);
     this.videoStatus = null;
 
@@ -41,16 +57,11 @@ class Player {
     });
 
     this.vidi.src = src;
-
     this.initEventsProxy();
-
-    if (enableLogger) {
-      initLogger(this.vidi);
-    }
   }
 
   get node() {
-    return this.ui.$wrapper[0];
+    return this.ui.view.$node[0];
   }
 
   // This one should be removed after all events would be inside vidi.js
@@ -95,7 +106,7 @@ class Player {
 
     $video.on('volumechange', () => {
       eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
-    })
+    });
   }
 }
 

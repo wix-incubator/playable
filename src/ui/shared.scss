@@ -1,0 +1,185 @@
+.video-wrapper {
+  line-height: 0;
+
+  position: relative;
+
+  display: flex;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: black;
+
+  justify-content: center;
+  align-items: center;
+
+  video {
+    position: relative;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.icon {
+  cursor: pointer;
+  transition-duration: .2s;
+  transition-property: opacity;
+
+  opacity: .8;
+
+  &.hidden {
+    display: none;
+    visibility: hidden;
+
+    opacity: 0;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@mixin range-track() {
+  height: 8px;
+
+  cursor: pointer;
+  user-select: none;
+
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+}
+@mixin range-thumb() {
+  position: relative;
+
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+
+  cursor: pointer;
+  transition: transform .15s ease;
+
+  border: none;
+  border-radius: 100%;
+  background: #fff;
+}
+
+.progress-bar {
+  position: relative;
+
+  display: inline-block;
+  flex: 1;
+
+  margin-right: 20px;
+
+  cursor: pointer;
+
+  input[type='range'] {
+    position: relative;
+    z-index: 2;
+
+    &::-webkit-slider-runnable-track {
+      background: transparent;
+    }
+    &::-moz-range-track {
+      background: transparent;
+    }
+    &::-ms-fill-upper {
+      background: transparent;
+    }
+  }
+}
+
+input[type=range] {
+  display: block;
+
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  vertical-align: middle;
+
+  border: none;
+  background: transparent;
+
+  appearance: none;
+
+  &::-webkit-slider-runnable-track {
+    @include range-track();
+  }
+  &::-webkit-slider-thumb {
+    margin-top: -4px;
+
+    -webkit-appearance: none;
+    @include range-thumb();
+  }
+
+  &::-moz-range-track {
+    @include range-track();
+  }
+  &::-moz-range-thumb {
+    @include range-thumb();
+  }
+
+  &::-ms-track {
+    height: 16px;
+
+    color: transparent;
+    border: 0;
+    background: transparent;
+  }
+  &::-ms-fill-upper {
+    @include range-track();
+  }
+  &::-ms-fill-lower {
+    height: 4px;
+
+    background: #3498db;
+
+    @include range-track();
+  }
+  &.volume-input::-ms-fill-lower {
+    height: 4px;
+
+    background: white;
+
+    @include range-track();
+  }
+  &::-ms-thumb {
+    // For some reason, Edge uses the -webkit margin above
+    margin-top: 0;
+
+    @include range-thumb();
+  }
+  &::-ms-tooltip {
+    display: none;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &:active {
+    &::-webkit-slider-thumb {
+      transform: scale(1.25);
+    }
+    &::-moz-range-thumb {
+      transform: scale(1.25);
+    }
+    &::-ms-thumb {
+      transform: scale(1.25);
+    }
+  }
+}
+
+
+$color-main: #3498db !default;
+$video-progress-bg: transparentize(#fff, .75) !default;
