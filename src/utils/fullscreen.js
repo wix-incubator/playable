@@ -1,69 +1,81 @@
 const keyboardAllowed = typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
+const mockFullScreenFunction = {
+  requestFullscreen: 'none',
+  exitFullscreen: 'none',
+  fullscreenElement: 'none',
+  fullscreenEnabled: 'none',
+  fullscreenchange: 'none',
+  fullscreenerror: 'none'
+};
 
-const fullscreenFn = (function () {
-  const fnMap = [
-    [
-      'requestFullscreen',
-      'exitFullscreen',
-      'fullscreenElement',
-      'fullscreenEnabled',
-      'fullscreenchange',
-      'fullscreenerror'
-    ],
-    // new WebKit
-    [
-      'webkitRequestFullscreen',
-      'webkitExitFullscreen',
-      'webkitFullscreenElement',
-      'webkitFullscreenEnabled',
-      'webkitfullscreenchange',
-      'webkitfullscreenerror'
+function getFullScreenFn() {
+  {
+    const fnMap = [
+      [
+        'requestFullscreen',
+        'exitFullscreen',
+        'fullscreenElement',
+        'fullscreenEnabled',
+        'fullscreenchange',
+        'fullscreenerror'
+      ],
+      // new WebKit
+      [
+        'webkitRequestFullscreen',
+        'webkitExitFullscreen',
+        'webkitFullscreenElement',
+        'webkitFullscreenEnabled',
+        'webkitfullscreenchange',
+        'webkitfullscreenerror'
 
-    ],
-    // old WebKit (Safari 5.1)
-    [
-      'webkitRequestFullScreen',
-      'webkitCancelFullScreen',
-      'webkitCurrentFullScreenElement',
-      'webkitCancelFullScreen',
-      'webkitfullscreenchange',
-      'webkitfullscreenerror'
+      ],
+      // old WebKit (Safari 5.1)
+      [
+        'webkitRequestFullScreen',
+        'webkitCancelFullScreen',
+        'webkitCurrentFullScreenElement',
+        'webkitCancelFullScreen',
+        'webkitfullscreenchange',
+        'webkitfullscreenerror'
 
-    ],
-    [
-      'mozRequestFullScreen',
-      'mozCancelFullScreen',
-      'mozFullScreenElement',
-      'mozFullScreenEnabled',
-      'mozfullscreenchange',
-      'mozfullscreenerror'
-    ],
-    [
-      'msRequestFullscreen',
-      'msExitFullscreen',
-      'msFullscreenElement',
-      'msFullscreenEnabled',
-      'MSFullscreenChange',
-      'MSFullscreenError'
-    ]
-  ];
+      ],
+      [
+        'mozRequestFullScreen',
+        'mozCancelFullScreen',
+        'mozFullScreenElement',
+        'mozFullScreenEnabled',
+        'mozfullscreenchange',
+        'mozfullscreenerror'
+      ],
+      [
+        'msRequestFullscreen',
+        'msExitFullscreen',
+        'msFullscreenElement',
+        'msFullscreenEnabled',
+        'MSFullscreenChange',
+        'MSFullscreenError'
+      ]
+    ];
 
-  const ret = {};
+    const ret = {};
 
-  for (let i = 0; i < fnMap.length; i++) {
-    if (fnMap[i] && fnMap[i][1] in document) {
-      for (let j = 0; j < fnMap[i].length; j++) {
-        ret[fnMap[0][j]] = fnMap[i][j];
+    for (let i = 0; i < fnMap.length; i += 1) {
+      if (fnMap[i] && fnMap[i][1] in document) {
+        for (let j = 0; j < fnMap[i].length; j += 1) {
+          ret[fnMap[0][j]] = fnMap[i][j];
+        }
+        return ret;
       }
-      return ret;
     }
-  }
 
-  return false;
-})();
+    return false;
+  }
+}
+
+const fullscreenFn = getFullScreenFn();
 
 const fullscreen = {
-  request: function (elem) {
+  request(elem) {
     const request = fullscreenFn.requestFullscreen;
 
     elem = elem || document.documentElement;
@@ -72,45 +84,46 @@ const fullscreen = {
     // keyboard in fullscreen even though it doesn't.
     // Browser sniffing, since the alternative with
     // setTimeout is even worse.
-    if (/5\.1[\.\d]* Safari/.test(navigator.userAgent)) {
+
+    if (/5\.1[.\d]* Safari/.test(navigator.userAgent)) {
       elem[request]();
     } else {
       elem[request](keyboardAllowed && Element.ALLOW_KEYBOARD_INPUT);
     }
   },
-  exit: function () {
+  exit() {
     document[fullscreenFn.exitFullscreen]();
   },
-  toggle: function (elem) {
+  toggle(elem) {
     if (this.isFullscreen) {
       this.exit();
     } else {
       this.request(elem);
     }
   },
-  raw: fullscreenFn
+  raw: fullscreenFn || mockFullScreenFunction
 };
 
 Object.defineProperties(fullscreen, {
   isFullscreen: {
-    get: function () {
+    get() {
       return Boolean(document[fullscreenFn.fullscreenElement]);
     }
   },
   element: {
     enumerable: true,
-    get: function () {
+    get() {
       return document[fullscreenFn.fullscreenElement];
     }
   },
   enabled: {
     enumerable: true,
-    get: function () {
+    get() {
       // Coerce to boolean in case of old WebKit
       return Boolean(document[fullscreenFn.fullscreenEnabled]);
     }
   }
 });
 
-export const isFullscreenAPIExist = !!fullscreenFn;
+export const isFullscreenAPIExist = Boolean(fullscreenFn);
 export default fullscreen;

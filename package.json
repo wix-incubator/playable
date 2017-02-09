@@ -12,8 +12,12 @@
   "scripts": {
     "start": "wix-node-build start --entry-point=./test/mock/start-fake-server.js",
     "lint": "wix-node-build lint",
+    "csscomb": "csscomb src/*",
+    "csscomb:lint": "csscomb -lv src/*",
+    "test": "wix-node-build test --mocha",
     "build": "wix-node-build build",
-    "release": "wix-node-build release"
+    "release": "wix-node-build release",
+    "precommit": "npm run lint && npm run csscomb:lint && npm test"
   },
   "dependencies": {
     "eventemitter3": "^2.0.2",
@@ -25,9 +29,12 @@
     "babel-preset-es2015": "~6.9.0",
     "babel-preset-stage-0": "^6.5.0",
     "chai": "~3.5.0",
-    "dot": "latest",
+    "csscomb": "^3.1.7",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
+    "husky": "^0.13.1",
+    "jsdom-global": "^2.1.1",
+    "sinon": "^1.17.7",
     "wix-node-build": "latest"
   },
   "babel": {

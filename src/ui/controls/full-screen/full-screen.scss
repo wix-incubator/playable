@@ -1,0 +1,13 @@
+@import '../../shared';
+
+.full-screen-control {
+  position: relative;
+
+  display: flex;
+
+  width: 30px;
+  height: 30px;
+
+  align-items: center;
+  justify-content: center;
+}

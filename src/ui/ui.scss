@@ -1,0 +1,24 @@
+.video-wrapper {
+  line-height: 0;
+
+  position: relative;
+
+  display: flex;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: black;
+
+  justify-content: center;
+  align-items: center;
+
+  video {
+    position: relative;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+}
