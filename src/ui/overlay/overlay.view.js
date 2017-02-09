@@ -14,14 +14,19 @@ export default class OverlayView {
     this.$node.css('background-image', `url('${src}')`);
 
     this.$playWrapper = $('<div>', {
-      class: styles['play-wrapper']
+      class: `${styles['play-wrapper']} ${styles.button}`
     });
 
     this.$playButton = $('<img>', {
       src: playIconSVG
     });
 
-    this.$playWrapper.append(this.$playButton);
+    this.$playTest = $('<span>')
+      .html('Play');
+
+    this.$playWrapper
+      .append(this.$playButton)
+      .append(this.$playTest);
 
     this.$node
       .append(this.$playWrapper);
