@@ -1,4 +1,5 @@
-import fullscreen, { isFullscreenAPIExist } from '../../utils/fullscreen';
+import fullscreen from '../../utils/fullscreen';
+import { getOverallBufferedPercent, getOverallPlayedPercent } from '../../utils/video-data';
 
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
@@ -13,12 +14,14 @@ import TimeControl from './time/time.controler';
 import VolumeControl from './volume/volume.controler';
 import FullscreenControl from './full-screen/full-screen.controler';
 
+import styles from './controls.scss';
 
 export default class ControlBlock {
   constructor({ vidi, $wrapper, ...config }) {
     this.vidi = vidi;
     this.$wrapper = $wrapper;
     this.config = config;
+    this.fullscreen = fullscreen;
 
     this._bindControlsCallbacks();
     this._initUI();
@@ -105,15 +108,21 @@ export default class ControlBlock {
       onExitFullScreenClick: this._exitFullScreen
     });
 
-    this.$wrapper.on(fullscreen.raw.fullscreenchange, () => {
-      this.fullscreenControl.toggleControlStatus(fullscreen.isFullscreen);
-    });
+    this.$wrapper.on(fullscreen.raw.fullscreenchange, this._updateFullScreenControlStatus);
 
     this.view.$controlsContainer
       .append(this.fullscreenControl.node);
   }
 
+  _updateFullScreenControlStatus() {
+    if (this.fullscreenControl) {
+      this.fullscreenControl.toggleControlStatus(fullscreen.isFullscreen);
+    }
+  }
+
   _bindControlsCallbacks() {
+    this._updateFullScreenControlStatus = this._updateFullScreenControlStatus.bind(this);
+    this._updateControlsOnInterval = this._updateControlsOnInterval.bind(this);
     this._playVideo = this._playVideo.bind(this);
     this._pauseVideo = this._pauseVideo.bind(this);
     this._changeCurrentTimeOfVideo = this._changeCurrentTimeOfVideo.bind(this);
@@ -138,16 +147,18 @@ export default class ControlBlock {
       this._stopIntervalUpdates();
     }
 
-    this._interval = setInterval(() => {
-      this._updateCurrentTime();
-      this._updateProgressControl();
-      this._updateBufferIndicator();
-    }, 1000 / 16);
+    this._interval = setInterval(this._updateControlsOnInterval, 1000 / 16);
   }
 
   _stopIntervalUpdates() {
     clearInterval(this._interval);
     this._interval = null;
+  }
+
+  _updateControlsOnInterval() {
+    this._updateCurrentTime();
+    this._updateProgressControl();
+    this._updateBufferIndicator();
   }
 
   _updateVolumeStatus() {
@@ -183,9 +194,11 @@ export default class ControlBlock {
 
   _updatePlayingStatus(status) {
     if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+      this.view.$node.toggleClass(styles['video-paused'], false);
       this.playControl.toggleControlStatus(true);
       this._startIntervalUpdates();
     } else {
+      this.view.$node.toggleClass(styles['video-paused'], true);
       this.playControl.toggleControlStatus(false);
       this._stopIntervalUpdates();
     }
@@ -199,18 +212,7 @@ export default class ControlBlock {
     const video = this.vidi.getVideoElement();
     const { currentTime, buffered, duration } = video;
 
-    if (!buffered.length) {
-      return;
-    }
-
-    let i = 0;
-    while (i < buffered.length - 1 && !(buffered.start(i) < currentTime && currentTime < buffered.end(i))) {
-      i += 1;
-    }
-
-    const percent = (buffered.end(i) / duration * 100).toFixed(1);
-
-    this.progressControl.updateBuffered(percent);
+    this.progressControl.updateBuffered(getOverallBufferedPercent(buffered, currentTime, duration));
   }
 
   _updateProgressControl() {
@@ -220,9 +222,8 @@ export default class ControlBlock {
     const video = this.vidi.getVideoElement();
 
     const { duration, currentTime } = video;
-    const percent = currentTime / duration * 100;
 
-    this.progressControl.updatePlayed(percent);
+    this.progressControl.updatePlayed(getOverallPlayedPercent(currentTime, duration));
   }
 
   _playVideo() {
@@ -262,16 +263,14 @@ export default class ControlBlock {
   }
 
   _enterFullScreen() {
-    if (isFullscreenAPIExist) {
-      fullscreen.request(this.$wrapper[0]);
-    }
+    this.fullscreen.request(this.$wrapper[0]);
+
     eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
   }
 
   _exitFullScreen() {
-    if (isFullscreenAPIExist) {
-      fullscreen.exit();
-    }
+    this.fullscreen.exit();
+
     eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
   }
 }

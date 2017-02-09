@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "start": "wix-node-build start --entry-point=./test/mock/start-fake-server.js",
+    "start": "wix-node-build start --entry-point=./server/start-fake-server.js",
     "lint": "wix-node-build lint",
     "csscomb": "csscomb src/*",
     "csscomb:lint": "csscomb -lv src/*",

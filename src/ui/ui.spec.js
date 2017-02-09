@@ -1,16 +1,12 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
-import sinon from 'sinon';
 
 import $ from 'jbone';
 import Vidi from 'vidi';
 
 import PlayerUI from './ui.controler';
 
-import VIDEO_EVENTS from '../constants/events/video';
-
-import eventEmitter from '../event-emitter';
 
 describe('PlayerUI', () => {
   let ui = {};
@@ -87,21 +83,5 @@ describe('PlayerUI', () => {
 
       expect(ui.overlay).to.not.exist;
     });
-  });
-
-  describe('instance', () => {
-    beforeEach(() => {
-      ui = new PlayerUI({
-        vidi
-      });
-    });
-
-    it('should react on video playback status changes', () => {
-      const callback = sinon.spy(ui, "_updatePlayingStatus");
-      ui._initEvents();
-
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED);
-      expect(callback.called).to.be.true;
-    })
   });
 });

@@ -22,6 +22,7 @@ describe('Player', () => {
       expect(player.$video).to.exists;
       expect(player.vidi).to.exist;
       expect(player.ui).to.exists;
+      expect(player.node).to.exists;
     });
 
     describe('instance created with extended config', () => {

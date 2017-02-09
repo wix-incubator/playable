@@ -36,7 +36,6 @@ describe('ProgressControl', () => {
 
       control.view.$input.trigger('change');
       expect(callback.called).to.be.true;
-      expect(onProgressChange.called).to.be.true;
     });
 
     it('should react on progress range input input event', () => {
@@ -45,6 +44,10 @@ describe('ProgressControl', () => {
 
       control.view.$input.trigger('input');
       expect(callback.called).to.be.true;
+    });
+
+    it('should call volume change callback on trigger of _changePlayedProgress', () => {
+      control._changePlayedProgress();
       expect(onProgressChange.called).to.be.true;
     });
 

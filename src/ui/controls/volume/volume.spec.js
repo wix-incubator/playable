@@ -33,22 +33,57 @@ describe('VolumeControl', () => {
       });
     });
 
-    it('should react on volume range input change event', () => {
+    it('should react on volume range input change event when not muted', () => {
       const callback = sinon.spy(control, "_changeVolumeLevel");
       control._initEvents();
 
+      control.setVolumeLevel(0.5);
+
       control.view.$input.trigger('change');
       expect(callback.called).to.be.true;
-      expect(onVolumeLevelChange.called).to.be.true;
     });
 
     it('should react on volume range input input event', () => {
       const callback = sinon.spy(control, "_changeVolumeLevel");
       control._initEvents();
 
+      control.setVolumeLevel(0.5);
+
       control.view.$input.trigger('input');
       expect(callback.called).to.be.true;
-      expect(onVolumeLevelChange.called).to.be.true;
+    });
+
+    describe('._changeVolumeLevel', () => {
+      it('should call volume change callback on trigger', () => {
+        control.setVolumeLevel(0.5);
+
+        control._changeVolumeLevel();
+
+        expect(onVolumeLevelChange.called).to.be.true;
+      });
+
+      it('should call volume change and mute change callback on trigger if muted', () => {
+        control.setVolumeLevel(0.5);
+        control.isMuted = true;
+
+        control._changeVolumeLevel();
+
+        expect(onVolumeLevelChange.calledWith(0.5)).to.be.true;
+        expect(onMuteStatusChange.calledWith(false)).to.be.true;
+      });
+    });
+
+    it('should call callbacks on _changeVolumeLevel', () => {
+      const whenIsMuteCallback = sinon.spy(control, "_changeVolumeLevel");
+      control._initEvents();
+
+      control.setVolumeLevel(0.3);
+      control.isMuted = true;
+      control.view.$input.trigger('change');
+
+      expect(whenIsMuteCallback.called).to.be.true;
+      expect(onVolumeLevelChange.calledWith(0.3)).to.be.true;
+      expect(onMuteStatusChange.calledWith(false)).to.be.true;
     });
 
     it('should react on mute status input click event', () => {

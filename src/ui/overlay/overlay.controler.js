@@ -51,14 +51,6 @@ export default class Overlay {
     eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
   }
 
-  toggleOverlay() {
-    if (this.isHidden) {
-      this.showOverlay();
-    } else {
-      this.hideOverlay();
-    }
-  }
-
   hideOverlay() {
     this.isHidden = true;
     this.view.$node.addClass(styles.hidden);
