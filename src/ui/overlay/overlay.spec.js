@@ -5,18 +5,19 @@ import sinon from 'sinon';
 
 import $ from 'jbone';
 import Vidi from 'vidi';
+import EventEmitter from 'eventemitter3';
 
 import Overlay from './overlay.controler';
 
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
-import eventEmitter from '../../event-emitter';
 
 describe('VolumeControl', () => {
   let overlay = {};
   let $video = {};
   let vidi = {};
+  let eventEmitter = {};
   let eventEmitterSpy = null;
 
   beforeEach(() => {
@@ -24,11 +25,14 @@ describe('VolumeControl', () => {
       controls: 'true',
     });
     vidi = new Vidi($video[0]);
+    eventEmitter = new EventEmitter();
   });
 
   describe('constructor', () => {
     beforeEach(() => {
-      overlay = new Overlay({});
+      overlay = new Overlay({
+        eventEmitter
+      });
     });
 
     it('should create instance ', () => {
@@ -40,14 +44,15 @@ describe('VolumeControl', () => {
   describe('instance callbacks to controls', () => {
     beforeEach(() => {
       overlay = new Overlay({
-        vidi
+        vidi,
+        eventEmitter
       });
 
-      eventEmitterSpy = sinon.spy(eventEmitter, 'emit');
+      eventEmitterSpy = sinon.spy(overlay.eventEmitter, 'emit');
     });
 
     afterEach(() => {
-      eventEmitter.emit.restore();
+      overlay.eventEmitter.emit.restore();
     });
 
     it('should emit ui event on play', () => {
@@ -65,7 +70,8 @@ describe('VolumeControl', () => {
   describe('instance', () => {
     beforeEach(() => {
       overlay = new Overlay({
-        vidi
+        vidi,
+        eventEmitter
       });
     });
 

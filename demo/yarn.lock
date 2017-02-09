@@ -32,12 +32,18 @@ acorn@^3.0.0, acorn@^3.0.4:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
 
 acorn@^4.0.4:
-  version "4.0.9"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/acorn/-/acorn-4.0.9.tgz#2d2eb458fe3f0e31062d56cf0b1839c5dc7bd288"
+  version "4.0.11"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/acorn/-/acorn-4.0.11.tgz#edcda3bd937e7556410d42ed5860f67399c794c0"
 
 acorn@4.0.4:
   version "4.0.4"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/acorn/-/acorn-4.0.4.tgz#17a8d6a7a6c4ef538b814ec9abac2779293bf30a"
+
+add-dom-event-listener@1.x:
+  version "1.0.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/add-dom-event-listener/-/add-dom-event-listener-1.0.2.tgz#8faed2c41008721cf111da1d30d995b85be42bed"
+  dependencies:
+    object-assign "4.x"
 
 ajv-keywords@^1.0.0:
   version "1.5.1"
@@ -100,8 +106,8 @@ append-transform@^0.4.0:
     default-require-extensions "^1.0.0"
 
 aproba@^1.0.3:
-  version "1.0.4"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/aproba/-/aproba-1.0.4.tgz#2713680775e7614c8ba186c065d4e2e52d1072c0"
+  version "1.1.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/aproba/-/aproba-1.1.1.tgz#95d3600f07710aa0e9298c726ad5ecf2eacbabab"
 
 are-we-there-yet@~1.1.2:
   version "1.1.2"
@@ -115,6 +121,13 @@ argparse@^1.0.7:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/argparse/-/argparse-1.0.9.tgz#73d83bc263f86e97f8cc4f6bae1b0e90a7d22c86"
   dependencies:
     sprintf-js "~1.0.2"
+
+argparse@~0.1.15:
+  version "0.1.16"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/argparse/-/argparse-0.1.16.tgz#cfd01e0fbba3d6caed049fbd758d40f65196f57c"
+  dependencies:
+    underscore "~1.7.0"
+    underscore.string "~2.4.0"
 
 arr-diff@^2.0.0:
   version "2.0.0"
@@ -210,6 +223,10 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
+autolinker@~0.15.0:
+  version "0.15.3"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/autolinker/-/autolinker-0.15.3.tgz#342417d8f2f3461b14cf09088d5edf8791dc9832"
+
 autoprefixer@^6.3.1:
   version "6.7.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/autoprefixer/-/autoprefixer-6.7.2.tgz#172ab07b998ae9b957530928a59a40be54a45023"
@@ -237,8 +254,8 @@ aws-sign2@~0.6.0:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
 
 aws4@^1.2.1:
-  version "1.5.0"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/aws4/-/aws4-1.5.0.tgz#0a29ffb79c31c9e712eeb087e8e7a64b4a56d755"
+  version "1.6.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
 babel-code-frame@^6.11.0, babel-code-frame@^6.16.0, babel-code-frame@^6.22.0:
   version "6.22.0"
@@ -931,7 +948,7 @@ babel-register@^6.16.0, babel-register@^6.22.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@^6.0.0, babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1:
+babel-runtime@^6.0.0, babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1, babel-runtime@6.x:
   version "6.22.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/babel-runtime/-/babel-runtime-6.22.0.tgz#1cf8b4ac67c77a4ddb0db2ae1f74de52ac4ca611"
   dependencies:
@@ -1027,6 +1044,10 @@ boom@2.x.x:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
   dependencies:
     hoek "2.x.x"
+
+bootstrap-sass@^3.3.7:
+  version "3.3.7"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/bootstrap-sass/-/bootstrap-sass-3.3.7.tgz#6596c7ab40f6637393323ab0bc80d064fc630498"
 
 brace-expansion@^1.0.0:
   version "1.1.6"
@@ -1143,8 +1164,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.3.0"
 
 caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000539, caniuse-db@^1.0.30000554, caniuse-db@^1.0.30000617, caniuse-db@^1.0.30000618:
-  version "1.0.30000621"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/caniuse-db/-/caniuse-db-1.0.30000621.tgz#be8726af1a39315618a0f364998cf9c9a0431177"
+  version "1.0.30000622"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/caniuse-db/-/caniuse-db-1.0.30000622.tgz#9d9690b577384990a58e33ebb903a14da735e5fd"
 
 cardinal@^1.0.0:
   version "1.0.0"
@@ -1207,9 +1228,13 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
+classnames@^2.2.5:
+  version "2.2.5"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 clean-css@4.0.x:
-  version "4.0.4"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/clean-css/-/clean-css-4.0.4.tgz#629896cc364f3c3d00b9908ee60dd18e4c6c6462"
+  version "4.0.5"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/clean-css/-/clean-css-4.0.5.tgz#6a48c30dad03ebe425d209fc282baa53d36c92ca"
   dependencies:
     source-map "0.5.x"
 
@@ -1342,6 +1367,16 @@ commondir@^1.0.1:
   version "1.0.1"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
 
+component-classes@^1.2.5:
+  version "1.2.6"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/component-classes/-/component-classes-1.2.6.tgz#c642394c3618a4d8b0b8919efccbbd930e5cd691"
+  dependencies:
+    component-indexof "0.0.3"
+
+component-indexof@0.0.3:
+  version "0.0.3"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/component-indexof/-/component-indexof-0.0.3.tgz#11d091312239eb8f32c8f25ae9cb002ffe8d3c24"
+
 compressible@~2.0.8:
   version "2.0.9"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/compressible/-/compressible-2.0.9.tgz#6daab4e2b599c2770dd9e21e7a891b1c5a755425"
@@ -1461,6 +1496,12 @@ crypto-browserify@3.3.0:
     pbkdf2-compat "2.0.1"
     ripemd160 "0.2.0"
     sha.js "2.2.6"
+
+css-animation@^1.3.0:
+  version "1.3.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/css-animation/-/css-animation-1.3.2.tgz#df515820ef5903733ad2db0999403b3037b8b880"
+  dependencies:
+    component-classes "^1.2.5"
 
 css-color-names@0.0.4:
   version "0.0.4"
@@ -1689,6 +1730,10 @@ doctrine@1.3.x:
     esutils "^2.0.2"
     isarray "^1.0.0"
 
+dom-align@1.x:
+  version "1.5.3"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/dom-align/-/dom-align-1.5.3.tgz#b906b616822a5e599f579ec8505e367c51da7588"
+
 dom-converter@~0.1:
   version "0.1.4"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/dom-converter/-/dom-converter-0.1.4.tgz#a45ef5727b890c9bffe6d7c876e7b19cb0e17f3b"
@@ -1752,8 +1797,12 @@ ee-first@1.1.1:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
 electron-to-chromium@^1.2.1:
-  version "1.2.1"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/electron-to-chromium/-/electron-to-chromium-1.2.1.tgz#63ac7579a1c5bedb296c8607621f2efc9a54b968"
+  version "1.2.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/electron-to-chromium/-/electron-to-chromium-1.2.2.tgz#e41bc9488c88e3cfa1e94bde28e8420d7d47c47c"
+
+element-class@^0.2.0:
+  version "0.2.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/element-class/-/element-class-0.2.2.tgz#9d3bbd0767f9013ef8e1c8ebe722c1402a60050e"
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -1985,6 +2034,10 @@ esprima@^2.6.0, esprima@^2.7.1, esprima@2.7.x:
   version "2.7.3"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
 
+esprima@^3.1.1:
+  version "3.1.3"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/esprima/-/esprima-3.1.3.tgz#fdca51cee6133895e3c88d535ce49dbff62a4633"
+
 esprima@~3.0.0:
   version "3.0.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/esprima/-/esprima-3.0.0.tgz#53cf247acda77313e551c3aa2e73342d3fb4f7d9"
@@ -2046,6 +2099,10 @@ exec-sh@^0.2.0:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/exec-sh/-/exec-sh-0.2.0.tgz#14f75de3f20d286ef933099b2ce50a90359cef10"
   dependencies:
     merge "^1.1.3"
+
+exenv@1.2.0:
+  version "1.2.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/exenv/-/exenv-1.2.0.tgz#3835f127abf075bfe082d0aed4484057c78e3c89"
 
 exit-hook@^1.0.0:
   version "1.1.1"
@@ -2323,8 +2380,8 @@ function-bind@^1.0.2:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/function-bind/-/function-bind-1.1.0.tgz#16176714c801798e4e8f2cf7f7529467bb4a5771"
 
 gauge@~2.7.1:
-  version "2.7.2"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/gauge/-/gauge-2.7.2.tgz#15cecc31b02d05345a5d6b0e171cdb3ad2307774"
+  version "2.7.3"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/gauge/-/gauge-2.7.3.tgz#1c23855f962f17b3ad3d0dc7443f304542edfe09"
   dependencies:
     aproba "^1.0.3"
     console-control-strings "^1.0.0"
@@ -2333,7 +2390,6 @@ gauge@~2.7.1:
     signal-exit "^3.0.0"
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
-    supports-color "^0.2.0"
     wide-align "^1.1.0"
 
 generate-function@^2.0.0:
@@ -2367,6 +2423,10 @@ gh-pages@0.12.0:
     q "1.4.1"
     q-io "1.13.2"
     rimraf "^2.5.4"
+
+github-markdown-css@^2.4.1:
+  version "2.4.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/github-markdown-css/-/github-markdown-css-2.4.1.tgz#b4736d84eea8367a03b3248cf546dda3e8dc55e3"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -2501,6 +2561,10 @@ he@1.1.x:
   version "1.1.1"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
+highlight.js@^9.8.0:
+  version "9.9.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/highlight.js/-/highlight.js-9.9.0.tgz#b9995dcfdc2773e307a34f0460d92b9a474782c0"
+
 hls.js@0.6.17:
   version "0.6.17"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/hls.js/-/hls.js-0.6.17.tgz#2757fceed232cb8b1c897e028863d0ecbd2abd3b"
@@ -2508,6 +2572,10 @@ hls.js@0.6.17:
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
+
+hoist-non-react-statics@^1.0.3:
+  version "1.2.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -2535,8 +2603,8 @@ html-entities@1.2.0:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/html-entities/-/html-entities-1.2.0.tgz#41948caf85ce82fed36e4e6a0ed371a6664379e2"
 
 html-minifier@^3.1.0:
-  version "3.3.0"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/html-minifier/-/html-minifier-3.3.0.tgz#a9b5b8eda501362d4c5699db02a8dc72013d1fab"
+  version "3.3.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/html-minifier/-/html-minifier-3.3.1.tgz#dd38e60571537bf34a8171889c64fce73c45edad"
   dependencies:
     camel-case "3.0.x"
     clean-css "4.0.x"
@@ -2685,7 +2753,7 @@ interpret@^0.6.4:
   version "0.6.6"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/interpret/-/interpret-0.6.6.tgz#fecd7a18e7ce5ca6abfb953e1f86213a49f1625b"
 
-invariant@^2.2.0:
+invariant@^2.0.0, invariant@^2.2.0:
   version "2.2.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -3153,6 +3221,10 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
+jquery@^1.12.4:
+  version "1.12.4"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/jquery/-/jquery-1.12.4.tgz#01e1dfba290fe73deba77ceeacb0f9ba2fec9e0c"
+
 js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
@@ -3161,7 +3233,14 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-js-yaml@^3.4.3, js-yaml@^3.5.1, js-yaml@^3.7.0, js-yaml@~3.7.0, js-yaml@3.x:
+js-yaml@^3.4.3, js-yaml@^3.5.1, js-yaml@^3.7.0, js-yaml@3.x:
+  version "3.8.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/js-yaml/-/js-yaml-3.8.1.tgz#782ba50200be7b9e5a8537001b7804db3ad02628"
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^3.1.1"
+
+js-yaml@~3.7.0:
   version "3.7.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/js-yaml/-/js-yaml-3.7.0.tgz#5c967ddd837a9bfdca5f2de84253abe8a1c03b80"
   dependencies:
@@ -3310,6 +3389,10 @@ loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
+lodash-es@^4.2.0, lodash-es@^4.2.1:
+  version "4.17.4"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
+
 lodash._arraycopy@^3.0.0:
   version "3.0.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash._arraycopy/-/lodash._arraycopy-3.0.0.tgz#76e7b7c1f1fb92547374878a562ed06a3e50f6e1"
@@ -3371,6 +3454,42 @@ lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
 
+lodash.defer@^4.1.0:
+  version "4.1.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.defer/-/lodash.defer-4.1.0.tgz#e9c158a961de1a46ea24fda34685b4ccdd358f3f"
+
+lodash.difference@^4.5.0:
+  version "4.5.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.difference/-/lodash.difference-4.5.0.tgz#9ccb4e505d486b91651345772885a2df27fd017c"
+
+lodash.filter@^4.6.0:
+  version "4.6.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.filter/-/lodash.filter-4.6.0.tgz#668b1d4981603ae1cc5a6fa760143e480b4c4ace"
+
+lodash.find@^4.6.0:
+  version "4.6.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.find/-/lodash.find-4.6.0.tgz#cb0704d47ab71789ffa0de8b97dd926fb88b13b1"
+
+lodash.findindex@^4.6.0:
+  version "4.6.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.findindex/-/lodash.findindex-4.6.0.tgz#a3245dee61fb9b6e0624b535125624bb69c11106"
+
+lodash.foreach@^4.5.0:
+  version "4.5.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.foreach/-/lodash.foreach-4.5.0.tgz#1a6a35eace401280c7f06dddec35165ab27e3e53"
+
+lodash.has@^4.5.2:
+  version "4.5.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.has/-/lodash.has-4.5.2.tgz#d19f4dc1095058cccbe2b0cdf4ee0fe4aa37c862"
+
+lodash.includes@^4.3.0:
+  version "4.3.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.includes/-/lodash.includes-4.3.0.tgz#60bb98a87cb923c68ca1e51325483314849f553f"
+
+lodash.initial@^4.1.1:
+  version "4.1.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.initial/-/lodash.initial-4.1.1.tgz#e53f64891265ddc404e986d2c28f77bed943591a"
+
 lodash.isarguments@^3.0.0:
   version "3.1.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.isarguments/-/lodash.isarguments-3.1.0.tgz#2f573d85c6a24289ff00663b491c1d338ff3458a"
@@ -3379,7 +3498,23 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
-lodash.keys@^3.0.0:
+lodash.isequal@^4.4.0:
+  version "4.5.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+
+lodash.isobject@^3.0.2:
+  version "3.0.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.isobject/-/lodash.isobject-3.0.2.tgz#3c8fb8d5b5bf4bf90ae06e14f2a530a4ed935e1d"
+
+lodash.isstring@^4.0.1:
+  version "4.0.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
+
+lodash.isundefined@^3.0.1:
+  version "3.0.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.isundefined/-/lodash.isundefined-3.0.1.tgz#23ef3d9535565203a66cefd5b830f848911afb48"
+
+lodash.keys@^3.0.0, lodash.keys@^3.1.2:
   version "3.1.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.keys/-/lodash.keys-3.1.2.tgz#4dbc0472b156be50a0b286855d1bd0b0c656098a"
   dependencies:
@@ -3387,19 +3522,51 @@ lodash.keys@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
 
+lodash.last@^3.0.0:
+  version "3.0.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.last/-/lodash.last-3.0.0.tgz#242f663112dd4c6e63728c60a3c909d1bdadbd4c"
+
+lodash.map@^4.6.0:
+  version "4.6.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.map/-/lodash.map-4.6.0.tgz#771ec7839e3473d9c4cde28b19394c3562f4f6d3"
+
 lodash.memoize@^4.1.0:
   version "4.1.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
+
+lodash.omit@^4.5.0:
+  version "4.5.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
 
 lodash.pickby@^4.6.0:
   version "4.6.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
 
+lodash.reduce@^4.6.0:
+  version "4.6.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.reduce/-/lodash.reduce-4.6.0.tgz#f1ab6b839299ad48f784abbf476596f03b914d3b"
+
+lodash.remove@^4.7.0:
+  version "4.7.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.remove/-/lodash.remove-4.7.0.tgz#f31d31e7c39a0690d5074ec0d3627162334ee626"
+
+lodash.toarray@^4.4.0:
+  version "4.4.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.toarray/-/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
+
+lodash.trim@^4.5.1:
+  version "4.5.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.trim/-/lodash.trim-4.5.1.tgz#36425e7ee90be4aa5e27bcebb85b7d11ea47aa57"
+
 lodash.uniq@^4.3.0:
   version "4.5.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.3.0, "lodash@>=3.5 <5":
+lodash.uniqueid@^4.0.1:
+  version "4.0.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash.uniqueid/-/lodash.uniqueid-4.0.1.tgz#3268f26a7c88e4f4b1758d679271814e31fa5b26"
+
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, "lodash@>=3.5 <5":
   version "4.17.4"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3556,6 +3723,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, "mkdirp@>=0.5 0", mkdirp@~0.5.0, mkdirp@~0.5.1, mk
   dependencies:
     minimist "0.0.8"
 
+moment@^2.13.0:
+  version "2.17.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
+
 ms@0.7.1:
   version "0.7.1"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -3704,7 +3875,7 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
-normalize.css@5.0.0:
+normalize.css@latest:
   version "5.0.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/normalize.css/-/normalize.css-5.0.0.tgz#7cec875ce8178a5333c4de80b68ea9c18b9d7c37"
 
@@ -3739,7 +3910,11 @@ oauth-sign@~0.8.1:
   version "0.8.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
-object-assign@^4.0.1, object-assign@^4.1.0:
+object-assign@^3.0.0:
+  version "3.0.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/object-assign/-/object-assign-3.0.0.tgz#9bedd5ca0897949bca47e7ff408062d549f587f2"
+
+object-assign@^4.0.1, object-assign@^4.1.0, object-assign@4.x:
   version "4.1.1"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
@@ -3947,8 +4122,8 @@ postcss-calc@^5.2.0:
     reduce-css-calc "^1.2.6"
 
 postcss-colormin@^2.1.8:
-  version "2.2.1"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/postcss-colormin/-/postcss-colormin-2.2.1.tgz#dc5421b6ae6f779ef6bfd47352b94abe59d0316b"
+  version "2.2.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/postcss-colormin/-/postcss-colormin-2.2.2.tgz#6631417d5f0e909a3d7ec26b24c8a8d1e4f96e4b"
   dependencies:
     colormin "^1.0.5"
     postcss "^5.0.13"
@@ -4333,6 +4508,51 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
+rc-align@2.x:
+  version "2.3.3"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/rc-align/-/rc-align-2.3.3.tgz#15e2fd329fde9c2dec16e4a0e0ec20fba2ffdbc0"
+  dependencies:
+    dom-align "1.x"
+    rc-util "4.x"
+
+rc-animate@2.x:
+  version "2.3.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/rc-animate/-/rc-animate-2.3.1.tgz#eacda46bf589d857f640c53953d92e07cb688636"
+  dependencies:
+    css-animation "^1.3.0"
+
+rc-slider@^5.3.4:
+  version "5.4.3"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/rc-slider/-/rc-slider-5.4.3.tgz#b4b93181f57398112303404b16782443771b279d"
+  dependencies:
+    babel-runtime "6.x"
+    classnames "^2.2.5"
+    rc-tooltip "^3.4.2"
+    rc-util "^4.0.0"
+    warning "^3.0.0"
+
+rc-tooltip@^3.4.2:
+  version "3.4.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/rc-tooltip/-/rc-tooltip-3.4.2.tgz#c5c89c347ed790f7f290ef825d5e24e8fb599166"
+  dependencies:
+    rc-trigger "1.x"
+
+rc-trigger@1.x:
+  version "1.8.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/rc-trigger/-/rc-trigger-1.8.1.tgz#5c47adad7d5412028fe9a2e43510e10acef90de2"
+  dependencies:
+    babel-runtime "6.x"
+    rc-align "2.x"
+    rc-animate "2.x"
+    rc-util "4.x"
+
+rc-util@^4.0.0, rc-util@4.x:
+  version "4.0.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/rc-util/-/rc-util-4.0.2.tgz#5804f8b141a13c8c14d7c265a7d21d298195af46"
+  dependencies:
+    add-dom-event-listener "1.x"
+    shallowequal "^0.2.2"
+
 rc@~1.1.6:
   version "1.1.6"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/rc/-/rc-1.1.6.tgz#43651b76b6ae53b5c802f1151fa3fc3b059969c9"
@@ -4341,6 +4561,31 @@ rc@~1.1.6:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
+
+react-autosuggest@^7.0.1:
+  version "7.1.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-autosuggest/-/react-autosuggest-7.1.0.tgz#60df5b4d38ee8063a9df33cc513d5e83102e9f98"
+  dependencies:
+    react-autowhatever "^7.0.0"
+    react-redux "^5.0.1"
+    redux "^3.6.0"
+    shallow-equal "^1.0.0"
+
+react-autowhatever@^7.0.0:
+  version "7.0.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-autowhatever/-/react-autowhatever-7.0.0.tgz#7ea19f8024183acf1568fc8e4b76c0d0cc250d00"
+  dependencies:
+    react-themeable "^1.1.0"
+    section-iterator "^2.0.0"
+
+react-datepicker@^0.39.0:
+  version "0.39.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-datepicker/-/react-datepicker-0.39.0.tgz#87a06ed234d23a1945c7bc1941c71ddcb429acfd"
+  dependencies:
+    classnames "^2.2.5"
+    moment "^2.13.0"
+    react-onclickoutside "^5.7.1"
+    tether "^1.3.2"
 
 react-dev-utils@^0.4.2:
   version "0.4.2"
@@ -4354,7 +4599,7 @@ react-dev-utils@^0.4.2:
     sockjs-client "1.0.3"
     strip-ansi "3.0.1"
 
-react-dom@15.4.2:
+react-dom@latest:
   version "15.4.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
@@ -4362,7 +4607,39 @@ react-dom@15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
-react-scripts@0.8.5:
+react-infinite-scroller@^1.0.4:
+  version "1.0.6"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-infinite-scroller/-/react-infinite-scroller-1.0.6.tgz#bb406d70032d09fa9e4a3e2175d3adbf4a3f559d"
+
+react-modal@^1.5.2:
+  version "1.6.5"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-modal/-/react-modal-1.6.5.tgz#f720d99bd81b1def5c2c32e0ffaa48bdaf484862"
+  dependencies:
+    element-class "^0.2.0"
+    exenv "1.2.0"
+    lodash.assign "^4.2.0"
+
+react-onclickoutside@^5.7.1:
+  version "5.9.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-onclickoutside/-/react-onclickoutside-5.9.0.tgz#c47bb506384adc98d686d134b34412ed17b97437"
+
+react-redux@^5.0.1:
+  version "5.0.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-redux/-/react-redux-5.0.2.tgz#3d9878f5f71c6fafcd45de1fbb162ea31f389814"
+  dependencies:
+    hoist-non-react-statics "^1.0.3"
+    invariant "^2.0.0"
+    lodash "^4.2.0"
+    lodash-es "^4.2.0"
+    loose-envify "^1.1.0"
+
+react-remarkable@^1.1.1:
+  version "1.1.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-remarkable/-/react-remarkable-1.1.1.tgz#37908ac95894576d0d39187bd289bc2cbb5ac6de"
+  dependencies:
+    remarkable "^1.4.1"
+
+react-scripts@latest:
   version "0.8.5"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-scripts/-/react-scripts-0.8.5.tgz#5dc154617be7addef5022c261b96b3e3068418cb"
   dependencies:
@@ -4411,7 +4688,13 @@ react-scripts@0.8.5:
   optionalDependencies:
     fsevents "1.0.14"
 
-react@15.4.2:
+react-themeable@^1.1.0:
+  version "1.1.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react-themeable/-/react-themeable-1.1.0.tgz#7d4466dd9b2b5fa75058727825e9f152ba379a0e"
+  dependencies:
+    object-assign "^3.0.0"
+
+react@latest:
   version "15.4.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:
@@ -4510,6 +4793,15 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux@^3.6.0:
+  version "3.6.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
+  dependencies:
+    lodash "^4.2.1"
+    lodash-es "^4.2.1"
+    loose-envify "^1.1.0"
+    symbol-observable "^1.0.2"
+
 regenerate@^1.2.1:
   version "1.3.2"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/regenerate/-/regenerate-1.3.2.tgz#d1941c67bad437e1be76433add5b385f95b19260"
@@ -4566,6 +4858,13 @@ regjsparser@^0.1.4:
 relateurl@0.2.x:
   version "0.2.7"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
+
+remarkable@^1.4.1:
+  version "1.7.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/remarkable/-/remarkable-1.7.1.tgz#aaca4972100b66a642a63a1021ca4bac1be3bff6"
+  dependencies:
+    argparse "~0.1.15"
+    autolinker "~0.15.0"
 
 renderkid@~2.0.0:
   version "2.0.0"
@@ -4700,8 +4999,12 @@ sane@~1.4.1:
     watch "~0.10.0"
 
 sax@^1.2.1, sax@~1.2.1:
-  version "1.2.1"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
+  version "1.2.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
+
+section-iterator@^2.0.0:
+  version "2.0.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/section-iterator/-/section-iterator-2.0.0.tgz#bf444d7afeeb94ad43c39ad2fb26151627ccba2a"
 
 semver@^5.1.0, semver@^5.3.0, semver@~5.3.0, "semver@2 || 3 || 4 || 5":
   version "5.3.0"
@@ -4765,6 +5068,16 @@ setprototypeof@1.0.2:
 sha.js@2.2.6:
   version "2.2.6"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/sha.js/-/sha.js-2.2.6.tgz#17ddeddc5f722fb66501658895461977867315ba"
+
+shallow-equal@^1.0.0:
+  version "1.0.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/shallow-equal/-/shallow-equal-1.0.0.tgz#508d1838b3de590ab8757b011b25e430900945f7"
+
+shallowequal@^0.2.2:
+  version "0.2.2"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/shallowequal/-/shallowequal-0.2.2.tgz#1e32fd5bcab6ad688a4812cb0cc04efc75c7014e"
+  dependencies:
+    lodash.keys "^3.1.2"
 
 shebang-regex@^1.0.0:
   version "1.0.0"
@@ -4972,10 +5285,6 @@ style-loader@0.13.1:
   dependencies:
     loader-utils "^0.2.7"
 
-supports-color@^0.2.0:
-  version "0.2.0"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/supports-color/-/supports-color-0.2.0.tgz#d92de2694eb3f67323973d7ae3d8b55b4c22190a"
-
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
@@ -4997,6 +5306,10 @@ svgo@^0.7.0:
     mkdirp "~0.5.1"
     sax "~1.2.1"
     whet.extend "~0.9.9"
+
+symbol-observable@^1.0.2:
+  version "1.0.4"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
 symbol-tree@^3.2.1:
   version "3.2.1"
@@ -5047,6 +5360,10 @@ test-exclude@^2.1.1:
     object-assign "^4.1.0"
     read-pkg-up "^1.0.1"
     require-main-filename "^1.0.1"
+
+tether@^1.3.2:
+  version "1.4.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/tether/-/tether-1.4.0.tgz#0f9fa171f75bf58485d8149e94799d7ae74d1c1a"
 
 text-table@~0.2.0:
   version "0.2.0"
@@ -5145,6 +5462,14 @@ uglify-to-browserify@~1.0.0:
 uid-number@~0.0.6:
   version "0.0.6"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
+
+underscore.string@~2.4.0:
+  version "2.4.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/underscore.string/-/underscore.string-2.4.0.tgz#8cdd8fbac4e2d2ea1e7e2e8097c42f442280f85b"
+
+underscore@~1.7.0:
+  version "1.7.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/underscore/-/underscore-1.7.0.tgz#6bbaf0877500d36be34ecaa584e0db9fef035209"
 
 uniq@^1.0.1:
   version "1.0.1"
@@ -5262,8 +5587,8 @@ verror@1.3.6:
     extsprintf "1.0.2"
 
 video-player@latest:
-  version "1.0.5"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/video-player/-/video-player-1.0.5.tgz#d0a14b04f384143da5886ac666cd147d98a06b2d"
+  version "1.0.11"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/video-player/-/video-player-1.0.11.tgz#61f0d9c6139ea5800e5761849f5638f3b6548349"
   dependencies:
     eventemitter3 "^2.0.2"
     jbone "^1.2.0"
@@ -5290,6 +5615,12 @@ walker@~1.0.5:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/walker/-/walker-1.0.7.tgz#2f7f9b8fd10d677262b18a884e28d19618e028fb"
   dependencies:
     makeerror "1.0.x"
+
+warning@^3.0.0:
+  version "3.0.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
+  dependencies:
+    loose-envify "^1.0.0"
 
 watch@~0.10.0:
   version "0.10.0"
@@ -5437,6 +5768,44 @@ wide-align@^1.1.0:
 window-size@0.1.0:
   version "0.1.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
+
+wix-style-react@^1.1.607:
+  version "1.1.607"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/wix-style-react/-/wix-style-react-1.1.607.tgz#848782b7ad0aee21fffc7a1ab7a7aaef893381f7"
+  dependencies:
+    bootstrap-sass "^3.3.7"
+    classnames "^2.2.5"
+    github-markdown-css "^2.4.1"
+    highlight.js "^9.8.0"
+    jquery "^1.12.4"
+    lodash.defer "^4.1.0"
+    lodash.difference "^4.5.0"
+    lodash.filter "^4.6.0"
+    lodash.find "^4.6.0"
+    lodash.findindex "^4.6.0"
+    lodash.foreach "^4.5.0"
+    lodash.has "^4.5.2"
+    lodash.includes "^4.3.0"
+    lodash.initial "^4.1.1"
+    lodash.isequal "^4.4.0"
+    lodash.isobject "^3.0.2"
+    lodash.isstring "^4.0.1"
+    lodash.isundefined "^3.0.1"
+    lodash.last "^3.0.0"
+    lodash.map "^4.6.0"
+    lodash.omit "^4.5.0"
+    lodash.reduce "^4.6.0"
+    lodash.remove "^4.7.0"
+    lodash.toarray "^4.4.0"
+    lodash.trim "^4.5.1"
+    lodash.uniqueid "^4.0.1"
+    rc-slider "^5.3.4"
+    react-autosuggest "^7.0.1"
+    react-datepicker "^0.39.0"
+    react-infinite-scroller "^1.0.4"
+    react-modal "^1.5.2"
+    react-onclickoutside "^5.7.1"
+    react-remarkable "^1.1.1"
 
 wordwrap@^1.0.0, wordwrap@~1.0.0:
   version "1.0.0"

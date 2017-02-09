@@ -17,7 +17,7 @@
         align-items: center;
       }
 
-      #player {
+      .class {
         width: 760px;
         height: 427px;
       }
@@ -31,12 +31,12 @@
 <body>
 
 <div id="content">
-  <div id="player">
-
-  </div>
+  <div id="player1" class="class"></div>
+  <div id="player2" class="class"></div>
+  <div id="player3" class="class"></div>
 </div>
 <script>
-    var player = new VideoPlayer({
+    var DEFAULT_CONFIG = {
       width: 760,
       height: 427,
       autoplay: false,
@@ -45,10 +45,6 @@
       nativeControls: false,
       preload: 'auto',
       poster: 'https://pbs.twimg.com/media/C3iThsgWcAAyXhm.jpg:large',
-
-      src: [
-        'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-      ],
 
       overlay: true,
       controls: true,
@@ -59,8 +55,27 @@
       fullscreenControl: true,
 
       enableLogger: true
-    });
-    document.getElementById('player').appendChild(player.node);
+    }
+
+    var player1 = new VideoPlayer(Object.assign({}, DEFAULT_CONFIG, {
+      src: [
+        'http://localhost:3000/sample_big2.mp4'
+      ]
+    }));
+    var player2 = new VideoPlayer(Object.assign({}, DEFAULT_CONFIG, {
+      src: [
+        'http://localhost:3000/sample_big3.mp4'
+      ]
+    }));
+    var player3 = new VideoPlayer(Object.assign({}, DEFAULT_CONFIG, {
+      src: [
+        'http://localhost:3000/sample_big4.mp4'
+      ]
+    }));
+    document.getElementById('player1').appendChild(player1.node);
+    document.getElementById('player2').appendChild(player2.node);
+    document.getElementById('player3').appendChild(player3.node);
+
 </script>
 </body>
 </html>

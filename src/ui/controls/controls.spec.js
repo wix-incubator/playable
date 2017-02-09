@@ -11,7 +11,7 @@ import ControlsBlock from './controls.controler';
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
-import eventEmitter from '../../event-emitter';
+import EventEmitter from 'eventemitter3';
 
 describe('ControlsBlock', () => {
   const DEFAULT_CONFIG = {
@@ -26,6 +26,7 @@ describe('ControlsBlock', () => {
   let $video = {};
   let vidi = {};
   let eventEmitterSpy = null;
+  let eventEmitter = null;
   let spiedVideo = null;
 
   function generateVideoObjectWithSpies() {
@@ -59,12 +60,14 @@ describe('ControlsBlock', () => {
       controls: 'true',
     });
     vidi = new Vidi($video[0]);
+    eventEmitter = new EventEmitter();
   });
 
   describe('constructor', () => {
     beforeEach(() => {
       controls = new ControlsBlock({
         $wrapper,
+        eventEmitter,
         vidi
       });
     });
@@ -79,6 +82,7 @@ describe('ControlsBlock', () => {
       controls = new ControlsBlock({
         $wrapper,
         vidi,
+        eventEmitter,
         ...DEFAULT_CONFIG
       });
     });
@@ -122,6 +126,7 @@ describe('ControlsBlock', () => {
       controls = new ControlsBlock({
         $wrapper,
         vidi,
+        eventEmitter,
         ...controlsConfig
       });
 
@@ -139,6 +144,7 @@ describe('ControlsBlock', () => {
       controls = new ControlsBlock({
         $wrapper,
         vidi,
+        eventEmitter,
         ...controlsConfig
       });
 
@@ -156,6 +162,7 @@ describe('ControlsBlock', () => {
       controls = new ControlsBlock({
         $wrapper,
         vidi,
+        eventEmitter,
         ...controlsConfig
       });
 
@@ -172,6 +179,7 @@ describe('ControlsBlock', () => {
       controls = new ControlsBlock({
         $wrapper,
         vidi,
+        eventEmitter,
         ...controlsConfig
       });
 
@@ -186,15 +194,16 @@ describe('ControlsBlock', () => {
       controls = new ControlsBlock({
         $wrapper,
         vidi,
+        eventEmitter,
         ...DEFAULT_CONFIG
       });
       spiedVideo = generateVideoObjectWithSpies();
 
-      eventEmitterSpy = sinon.spy(eventEmitter, 'emit');
+      eventEmitterSpy = sinon.spy(controls.eventEmitter, 'emit');
     });
 
     afterEach(() => {
-      eventEmitter.emit.restore();
+      controls.eventEmitter.emit.restore();
     });
 
     it('should emit ui event on play', () => {
@@ -292,6 +301,7 @@ describe('ControlsBlock', () => {
       controls = new ControlsBlock({
         $wrapper,
         vidi,
+        eventEmitter,
         ...DEFAULT_CONFIG
       });
     });

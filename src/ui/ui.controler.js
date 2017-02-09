@@ -18,7 +18,8 @@ const DEFAULT_CONFIG = {
 };
 
 class PlayerUI {
-  constructor({ vidi, ...config }) {
+  constructor({ vidi, eventEmitter, ...config }) {
+    this.eventEmitter = eventEmitter;
     this.$video = $(vidi.getVideoElement());
     this.vidi = vidi;
     this.config = Object.assign({}, DEFAULT_CONFIG, config);
@@ -31,7 +32,10 @@ class PlayerUI {
   }
 
   _initUI() {
-    this.view = new View();
+    const width = this.$video.attr('width');
+    const height = this.$video.attr('height');
+
+    this.view = new View(width, height);
   }
 
   _initComponents() {
@@ -55,6 +59,7 @@ class PlayerUI {
   _initOverlay() {
     this.overlay = new Overlay({
       vidi: this.vidi,
+      eventEmitter: this.eventEmitter,
       src: this.$video.attr('poster')
     });
 
@@ -72,6 +77,7 @@ class PlayerUI {
 
     this.controls = new ControlsBlock({
       vidi: this.vidi,
+      eventEmitter: this.eventEmitter,
       $wrapper: this.view.$node,
       ...config
     });

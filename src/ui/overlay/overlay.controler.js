@@ -1,15 +1,14 @@
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
-import eventEmitter from '../../event-emitter';
-
 import View from './overlay.view';
 
 import styles from './overlay.scss';
 
 
 export default class Overlay {
-  constructor({ src, vidi }) {
+  constructor({ src, eventEmitter, vidi }) {
+    this.eventEmitter = eventEmitter;
     this.isHidden = false;
 
     this.vidi = vidi;
@@ -31,7 +30,7 @@ export default class Overlay {
 
     this.view.$playWrapper.on('click', this._playVideo);
 
-    eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
   _updatePlayingStatus(status) {
@@ -48,7 +47,7 @@ export default class Overlay {
     this.vidi.play();
     this.hideOverlay();
 
-    eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
+    this.eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
   }
 
   hideOverlay() {

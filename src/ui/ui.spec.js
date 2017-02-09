@@ -4,6 +4,7 @@ import { expect } from 'chai';
 
 import $ from 'jbone';
 import Vidi from 'vidi';
+import EventEmitter from 'eventemitter3';
 
 import PlayerUI from './ui.controler';
 
@@ -12,6 +13,7 @@ describe('PlayerUI', () => {
   let ui = {};
   let $video = {};
   let vidi = {};
+  let eventEmitter = {};
 
   beforeEach(() => {
     $video = new $('<video>', {
@@ -19,12 +21,14 @@ describe('PlayerUI', () => {
       poster: 'kek'
     });
     vidi = new Vidi($video[0]);
+    eventEmitter = new EventEmitter();
   });
 
   describe('constructor', () => {
     beforeEach(() => {
       ui = new PlayerUI({
-        vidi
+        vidi,
+        eventEmitter
       });
     });
 
@@ -37,7 +41,8 @@ describe('PlayerUI', () => {
   describe('instance created with default config', () => {
     beforeEach(() => {
       ui = new PlayerUI({
-        vidi
+        vidi,
+        eventEmitter
       });
     });
     it('should have controls', () => {
@@ -65,6 +70,7 @@ describe('PlayerUI', () => {
 
       ui = new PlayerUI({
         vidi,
+        eventEmitter,
         ...uiConfig
       });
 
@@ -78,6 +84,7 @@ describe('PlayerUI', () => {
 
       ui = new PlayerUI({
         vidi,
+        eventEmitter,
         ...uiConfig
       });
 

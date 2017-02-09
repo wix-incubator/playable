@@ -5,13 +5,14 @@
   "private": true,
   "devDependencies": {
     "gh-pages": "0.12.0",
-    "react-scripts": "0.8.5"
+    "react-scripts": "latest"
   },
   "dependencies": {
-    "normalize.css": "5.0.0",
-    "react": "15.4.2",
-    "react-dom": "15.4.2",
-    "video-player": "latest"
+    "normalize.css": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "video-player": "latest",
+    "wix-style-react": "^1.1.607"
   },
   "scripts": {
     "start": "react-scripts start",

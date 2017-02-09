@@ -4,8 +4,6 @@ import { getOverallBufferedPercent, getOverallPlayedPercent } from '../../utils/
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
-import eventEmitter from '../../event-emitter';
-
 import View from './controls.view';
 
 import ProgressControl from './progress/progress.controler';
@@ -17,7 +15,8 @@ import FullscreenControl from './full-screen/full-screen.controler';
 import styles from './controls.scss';
 
 export default class ControlBlock {
-  constructor({ vidi, $wrapper, ...config }) {
+  constructor({ vidi, $wrapper, eventEmitter, ...config }) {
+    this.eventEmitter = eventEmitter;
     this.vidi = vidi;
     this.$wrapper = $wrapper;
     this.config = config;
@@ -133,13 +132,13 @@ export default class ControlBlock {
   }
 
   _initEvents() {
-    eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
-    eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
-    eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
-    eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
-    eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
-    eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
-    eventEmitter.on(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+    this.eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
+    this.eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
+    this.eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
+    this.eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
+    this.eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
+    this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this.eventEmitter.on(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
   }
 
   _startIntervalUpdates() {
@@ -229,13 +228,13 @@ export default class ControlBlock {
   _playVideo() {
     this.vidi.play();
 
-    eventEmitter.emit(UI_EVENTS.PLAY_TRIGGERED);
+    this.eventEmitter.emit(UI_EVENTS.PLAY_TRIGGERED);
   }
 
   _pauseVideo() {
     this.vidi.pause();
 
-    eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
+    this.eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
   }
 
   _changeCurrentTimeOfVideo(percent) {
@@ -245,32 +244,32 @@ export default class ControlBlock {
       video.currentTime = video.duration * percent;
     }
 
-    eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
+    this.eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
   }
 
   _changeVolumeLevel(level) {
     const video = this.vidi.getVideoElement();
 
     video.volume = level;
-    eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
+    this.eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
   }
 
   _changeMuteStatus(isMuted) {
     const video = this.vidi.getVideoElement();
 
     video.muted = isMuted;
-    eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, isMuted);
+    this.eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, isMuted);
   }
 
   _enterFullScreen() {
     this.fullscreen.request(this.$wrapper[0]);
 
-    eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
+    this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
   }
 
   _exitFullScreen() {
     this.fullscreen.exit();
 
-    eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
+    this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
   }
 }

@@ -4,8 +4,10 @@ import styles from './ui.scss';
 
 
 export default class PlayerUIView {
-  constructor() {
+  constructor(width, height) {
     this.$node = $('<div>', {
+      width,
+      height,
       class: styles['video-wrapper']
     });
   }

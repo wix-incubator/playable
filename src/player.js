@@ -1,9 +1,9 @@
 import Vidi from 'vidi';
 import $ from 'jbone';
+import EventEmitter from 'eventemitter3';
 
 import VIDEO_EVENTS from './constants/events/video';
 
-import eventEmitter from './event-emitter';
 import PlayerUI from './ui/ui.controler';
 
 class Player {
@@ -20,6 +20,9 @@ class Player {
     src,
     ...params
   }) {
+
+    this.eventEmitter = new EventEmitter();
+
     this.$video = $('<video/>', {
       width,
       height,
@@ -53,6 +56,7 @@ class Player {
 
     this.ui = new PlayerUI({
       vidi: this.vidi,
+      eventEmitter: this.eventEmitter,
       ...params
     });
 
@@ -72,40 +76,40 @@ class Player {
     this.vidi.on('statuschange', status => {
       if (player.videoStatus !== status) {
         player.videoStatus = status;
-        eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, player.videoStatus);
+        this.eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, player.videoStatus);
       }
     });
 
     $video.on('loadedmetadata', () => {
-      eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
+      this.eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
     });
 
     $video.on('progress', () => {
-      eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
+      this.eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
     });
 
     this.vidi.on('loadstart', () => {
-      eventEmitter.emit(VIDEO_EVENTS.LOAD_STARTED);
+      this.eventEmitter.emit(VIDEO_EVENTS.LOAD_STARTED);
     });
 
     this.vidi.on('durationchange', () => {
-      eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
+      this.eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
     });
 
     this.vidi.on('timeupdate', () => {
-      eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED);
+      this.eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED);
     });
 
     $video.on('seeking', () => {
-      eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
+      this.eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
     });
 
     $video.on('seeked', () => {
-      eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
+      this.eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
     });
 
     $video.on('volumechange', () => {
-      eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
+      this.eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
     });
   }
 }
