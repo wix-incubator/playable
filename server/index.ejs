@@ -5,8 +5,21 @@
     <title>Video Player</title>
     <style>
       #content {
-        width: 625px;
-        height: 351px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #player {
+        width: 760px;
+        height: 427px;
       }
     </style>
     <% if (debug) { %>
@@ -17,11 +30,15 @@
 </head>
 <body>
 
-<div id="content"></div>
+<div id="content">
+  <div id="player">
+
+  </div>
+</div>
 <script>
     var player = new VideoPlayer({
-      width: 700,
-      height: 394,
+      width: 760,
+      height: 427,
       autoplay: false,
       muted: false,
       loop: true,
@@ -43,7 +60,7 @@
 
       enableLogger: true
     });
-    document.getElementById('content').appendChild(player.node);
+    document.getElementById('player').appendChild(player.node);
 </script>
 </body>
 </html>

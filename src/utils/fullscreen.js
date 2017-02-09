@@ -7,73 +7,72 @@ const mockFullScreenFunction = {
   fullscreenchange: 'none',
   fullscreenerror: 'none'
 };
+const fnMap = [
+  [
+    'requestFullscreen',
+    'exitFullscreen',
+    'fullscreenElement',
+    'fullscreenEnabled',
+    'fullscreenchange',
+    'fullscreenerror'
+  ],
+  // new WebKit
+  [
+    'webkitRequestFullscreen',
+    'webkitExitFullscreen',
+    'webkitFullscreenElement',
+    'webkitFullscreenEnabled',
+    'webkitfullscreenchange',
+    'webkitfullscreenerror'
 
+  ],
+  // old WebKit (Safari 5.1)
+  [
+    'webkitRequestFullScreen',
+    'webkitCancelFullScreen',
+    'webkitCurrentFullScreenElement',
+    'webkitCancelFullScreen',
+    'webkitfullscreenchange',
+    'webkitfullscreenerror'
+
+  ],
+  [
+    'mozRequestFullScreen',
+    'mozCancelFullScreen',
+    'mozFullScreenElement',
+    'mozFullScreenEnabled',
+    'mozfullscreenchange',
+    'mozfullscreenerror'
+  ],
+  [
+    'msRequestFullscreen',
+    'msExitFullscreen',
+    'msFullscreenElement',
+    'msFullscreenEnabled',
+    'MSFullscreenChange',
+    'MSFullscreenError'
+  ]
+];
+
+/* ignore coverage */
 function getFullScreenFn() {
-  {
-    const fnMap = [
-      [
-        'requestFullscreen',
-        'exitFullscreen',
-        'fullscreenElement',
-        'fullscreenEnabled',
-        'fullscreenchange',
-        'fullscreenerror'
-      ],
-      // new WebKit
-      [
-        'webkitRequestFullscreen',
-        'webkitExitFullscreen',
-        'webkitFullscreenElement',
-        'webkitFullscreenEnabled',
-        'webkitfullscreenchange',
-        'webkitfullscreenerror'
+  const ret = {};
 
-      ],
-      // old WebKit (Safari 5.1)
-      [
-        'webkitRequestFullScreen',
-        'webkitCancelFullScreen',
-        'webkitCurrentFullScreenElement',
-        'webkitCancelFullScreen',
-        'webkitfullscreenchange',
-        'webkitfullscreenerror'
-
-      ],
-      [
-        'mozRequestFullScreen',
-        'mozCancelFullScreen',
-        'mozFullScreenElement',
-        'mozFullScreenEnabled',
-        'mozfullscreenchange',
-        'mozfullscreenerror'
-      ],
-      [
-        'msRequestFullscreen',
-        'msExitFullscreen',
-        'msFullscreenElement',
-        'msFullscreenEnabled',
-        'MSFullscreenChange',
-        'MSFullscreenError'
-      ]
-    ];
-
-    const ret = {};
-
-    for (let i = 0; i < fnMap.length; i += 1) {
-      if (fnMap[i] && fnMap[i][1] in document) {
-        for (let j = 0; j < fnMap[i].length; j += 1) {
-          ret[fnMap[0][j]] = fnMap[i][j];
-        }
-        return ret;
+  for (let i = 0; i < fnMap.length; i += 1) {
+    if (fnMap[i][1] in document) {
+      for (let j = 0; j < fnMap[i].length; j += 1) {
+        ret[fnMap[0][j]] = fnMap[i][j];
       }
+      return ret;
     }
-
-    return false;
   }
+
+  return false;
 }
 
 const fullscreenFn = getFullScreenFn();
 
+/* ignore coverage */
 const fullscreen = {
   request(elem) {
     const request = fullscreenFn.requestFullscreen;
@@ -104,6 +103,7 @@ const fullscreen = {
   raw: fullscreenFn || mockFullScreenFunction
 };
 
+/* ignore coverage */
 Object.defineProperties(fullscreen, {
   isFullscreen: {
     get() {

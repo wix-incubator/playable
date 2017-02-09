@@ -1,1 +1,10 @@
-module.exports = require('wix-node-build/config/wallaby-mocha');
+module.exports = wallaby => {
+  const config = require('wix-node-build/config/wallaby-mocha')(wallaby);
+  const { hints } = config;
+  config.hints = {
+    hints,
+    ignoreCoverage: /ignore coverage/
+  };
+
+  return config;
+};

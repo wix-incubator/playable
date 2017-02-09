@@ -2,16 +2,10 @@ import $ from 'jbone';
 
 import { isFullscreenAPIExist } from '../utils/fullscreen';
 
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../constants/events/video';
-
-import eventEmitter from '../event-emitter';
-
 import View from './ui.view';
 
 import Overlay from './overlay/overlay.controler';
 import ControlsBlock from './controls/controls.controler';
-
-import styles from './ui.scss';
 
 
 const DEFAULT_CONFIG = {
@@ -30,7 +24,6 @@ class PlayerUI {
     this.config = Object.assign({}, DEFAULT_CONFIG, config);
     this._initUI();
     this._initComponents();
-    this._initEvents();
   }
 
   get node() {
@@ -56,18 +49,6 @@ class PlayerUI {
 
       this.view.$node
         .append(this.controls.node);
-    }
-  }
-
-  _initEvents() {
-    eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
-  }
-
-  _updatePlayingStatus(status) {
-    if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
-      this.view.$node.toggleClass(styles['video-playing'], true);
-    } else {
-      this.view.$node.toggleClass(styles['video-playing'], false);
     }
   }
 

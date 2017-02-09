@@ -5,7 +5,7 @@ export function start(port = 3000) {
   const app = express();
 
   app.use('/', (req, res) => {
-    res.send(render('./test/mock/index.ejs'));
+    res.send(render('./server/index.ejs'));
   });
 
   return app.listen(port, () => {

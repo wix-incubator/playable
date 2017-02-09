@@ -61,7 +61,7 @@ class Player {
   }
 
   get node() {
-    return this.ui.view.$node[0];
+    return this.ui.node[0];
   }
 
   // This one should be removed after all events would be inside vidi.js
