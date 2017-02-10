@@ -1,81 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Video Player</title>
-    <style>
-      #content {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .class {
-        width: 760px;
-        height: 427px;
-      }
-    </style>
-    <% if (debug) { %>
-      <script src="<%= staticsBaseUrl %>video-player.bundle.js"></script>
-    <% } else { %>
-      <script src="<%= staticsBaseUrl %>video-player.bundle.min.js"></script>
-    <% } %>
+  <meta charset="UTF-8">
+  <title>Video Player</title>
+  <style>
+    #content {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #player {
+      width: 760px;
+      height: 427px;
+    }
+  </style>
+  <% if (debug) { %>
+  <script src="<%= staticsBaseUrl %>video-player.bundle.js"></script>
+  <% } else { %>
+  <script src="<%= staticsBaseUrl %>video-player.bundle.min.js"></script>
+  <% } %>
 </head>
 <body>
 
 <div id="content">
-  <div id="player1" class="class"></div>
-  <div id="player2" class="class"></div>
-  <div id="player3" class="class"></div>
+  <div id="player">
+
+  </div>
 </div>
 <script>
-    var DEFAULT_CONFIG = {
-      width: 760,
-      height: 427,
-      autoplay: false,
-      muted: false,
-      loop: false,
-      nativeControls: false,
-      preload: 'auto',
-      poster: 'https://pbs.twimg.com/media/C3iThsgWcAAyXhm.jpg:large',
-
-      overlay: false,
-      controls: true,
-      timeIndicator: true,
-      progressControl: true,
-      volumeControl: true,
-      volume: 0.5,
-      fullscreenControl: true,
-
-      enableLogger: true
-    }
-
-    var player1 = new VideoPlayer(Object.assign({}, DEFAULT_CONFIG, {
-      src: [
-        'http://localhost:3000/sample_big2.mp4'
-      ]
-    }));
-    var player2 = new VideoPlayer(Object.assign({}, DEFAULT_CONFIG, {
-      src: [
-        'http://localhost:3000/sample_big3.mp4'
-      ]
-    }));
-    var player3 = new VideoPlayer(Object.assign({}, DEFAULT_CONFIG, {
-      src: [
-        'http://localhost:3000/sample_big4.mp4'
-      ]
-    }));
-    document.getElementById('player1').appendChild(player1.node);
-    document.getElementById('player2').appendChild(player2.node);
-    document.getElementById('player3').appendChild(player3.node);
-
+  var player = new VideoPlayer({
+    width: 760,
+    height: 427,
+    autoplay: false,
+    muted: false,
+    loop: true,
+    nativeControls: false,
+    preload: 'auto',
+    poster: 'https://pbs.twimg.com/media/C3iThsgWcAAyXhm.jpg:large',
+    src: [
+      'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+    ],
+    overlay: true,
+    controls: true,
+    timeIndicator: true,
+    progressControl: true,
+    volumeControl: true,
+    volume: 0.5,
+    fullscreenControl: true,
+    enableLogger: true
+  });
+  document.getElementById('player').appendChild(player.node);
 </script>
 </body>
 </html>
