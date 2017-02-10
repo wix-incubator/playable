@@ -19,13 +19,6 @@
   justify-content: center;
   align-items: center;
 
-  &.hidden {
-    display: none;
-    visibility: hidden;
-
-    opacity: 0;
-  }
-
   .play-wrapper {
     img {
       width: 14px;

@@ -39,21 +39,17 @@ class PlayerUI {
   }
 
   _initComponents() {
-    if (this.config.overlay) {
-      this._initOverlay();
-      this.view.$node
-        .append(this.overlay.node);
-    }
+    this._initOverlay();
+    this.view.$node
+      .append(this.overlay.node);
 
     this.view.$node
       .append(this.$video);
 
-    if (this.config.controls) {
-      this._initControls();
+    this._initControls();
 
-      this.view.$node
-        .append(this.controls.node);
-    }
+    this.view.$node
+      .append(this.controls.node);
   }
 
   _initOverlay() {
@@ -62,6 +58,10 @@ class PlayerUI {
       eventEmitter: this.eventEmitter,
       src: this.$video.attr('poster')
     });
+
+    if (!this.config.overlay) {
+      this.overlay.hide();
+    }
 
     this.$video.removeAttr('poster');
   }
@@ -82,8 +82,29 @@ class PlayerUI {
       ...config
     });
 
+    if (!this.config.controls) {
+      this.controls.hide();
+    }
+
     this.$video.removeAttr('controls');
   }
+
+  hideControls() {
+    this.controls.hide();
+  }
+
+  showControls() {
+    this.controls.show();
+  }
+
+  hideOverlay() {
+    this.overlay.hide();
+  }
+
+  showOverlay() {
+    this.overlay.show();
+  }
 }
+
 
 export default PlayerUI;

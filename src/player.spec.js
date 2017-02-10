@@ -61,103 +61,70 @@ describe('Player', () => {
       expect(player.$video.attr('preload')).to.be.equal(preload);
     });
 
-    it('should set poster to video tag if passed and overlay disabled', () => {
-      const poster = 'http://test.const';
-      player = new Player({
-        overlay: false,
-        poster
-      });
-      expect(player.$video.attr('poster')).to.be.equal(poster);
-    });
-
     it('should set autoplay as true to video tag if truthy passed', () => {
       player = new Player({
         autoplay: true
       });
-      expect(player.$video.attr('autoplay')).to.be.equal('true');
+      expect(player.$video[0].autoplay).to.be.true;
 
       player = new Player({
         autoplay: 'test'
       });
-      expect(player.$video.attr('autoplay')).to.be.equal('true');
+      expect(player.$video[0].autoplay).to.be.true;
 
       player = new Player({
         autoplay: false
       });
-      expect(player.$video.attr('autoplay')).to.not.exist;
+      expect(player.$video[0].autoplay).to.be.false;
 
       player = new Player({
         autoplay: 0
       });
-      expect(player.$video.attr('autoplay')).to.not.exist;
+      expect(player.$video[0].autoplay).to.be.false;
     });
 
     it('should set loop as true to video tag if truthy passed', () => {
       player = new Player({
         loop: true
       });
-      expect(player.$video.attr('loop')).to.be.equal('true');
+      expect(player.$video[0].loop).to.be.true;
 
       player = new Player({
         loop: 'test'
       });
-      expect(player.$video.attr('loop')).to.be.equal('true');
+      expect(player.$video[0].loop).to.be.true;
 
       player = new Player({
         loop: false
       });
-      expect(player.$video.attr('loop')).to.not.exist;
+      expect(player.$video[0].loop).to.be.false;
 
       player = new Player({
         loop: 0
       });
-      expect(player.$video.attr('loop')).to.not.exist;
+      expect(player.$video[0].loop).to.be.false;
     });
 
     it('should set muted as true to video tag if truthy passed', () => {
       player = new Player({
         muted: true
       });
-      expect(player.$video.attr('muted')).to.be.equal('true');
+      expect(player.$video[0].muted).to.be.true;
 
       player = new Player({
         muted: 'test'
       });
-      expect(player.$video.attr('muted')).to.be.equal('true');
+      expect(player.$video[0].muted).to.be.true;
 
       player = new Player({
         muted: false
       });
-      expect(player.$video.attr('muted')).to.not.exist;
+      expect(player.$video[0].muted).to.be.false;
 
       player = new Player({
         muted: 0
       });
-      expect(player.$video.attr('muted')).to.not.exist;
-    });
-
-    it('should set nativeControls as true to video tag if truthy passed and controls disabled', () => {
-      player = new Player({
-        nativeControls: true,
-        controls: false
-      });
-      expect(player.$video.attr('controls')).to.be.equal('true');
-
-      player = new Player({
-        nativeControls: 'test',
-        controls: false
-      });
-      expect(player.$video.attr('controls')).to.be.equal('true');
-
-      player = new Player({
-        nativeControls: false
-      });
-      expect(player.$video.attr('controls')).to.not.exist;
-
-      player = new Player({
-        nativeControls: 0
-      });
-      expect(player.$video.attr('controls')).to.not.exist;
+      expect(player.$video[0].muted).to.be.false;
     });
 
     it('should set volume to video tag if number between 0 and 1 passed', () => {
@@ -251,4 +218,62 @@ describe('Player', () => {
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.VOLUME_STATUS_CHANGED)).to.be.true;
     });
   })
+
+  describe('API', () => {
+    beforeEach(() => {
+      player = new Player({});
+    });
+
+    it('shoul have method for set autoplay flag', () => {
+      expect(player.setAutoplay).to.exist;
+      player.setAutoplay(true);
+      expect(player.$video[0].autoplay).to.be.true;
+      player.setAutoplay(false);
+      expect(player.$video[0].autoplay).to.be.false;
+    });
+
+    it('shoul have method for set autoplay flag', () => {
+      expect(player.setLoop).to.exist;
+      player.setLoop(true);
+      expect(player.$video[0].loop).to.be.true;
+      player.setLoop(false);
+      expect(player.$video[0].loop).to.be.false;
+    });
+
+    it('shoul have method for set autoplay flag', () => {
+      expect(player.setMute).to.exist;
+      player.setMute(true);
+      expect(player.$video[0].muted).to.be.true;
+      player.setMute(false);
+      expect(player.$video[0].muted).to.be.false;
+    });
+
+    it('shoul have method for showing controls', () => {
+      expect(player.showControls).to.exist;
+      const showSpy = sinon.spy(player.ui, 'showControls');
+      player.showControls();
+      expect(showSpy.called).to.be.true;
+    });
+
+    it('shoul have method for hiding controls', () => {
+      expect(player.hideControls).to.exist;
+      const hideSpy = sinon.spy(player.ui, 'hideControls');
+      player.hideControls();
+      expect(hideSpy.called).to.be.true;
+    });
+
+    it('shoul have method for showing overlay', () => {
+      expect(player.showOverlay).to.exist;
+      const showSpy = sinon.spy(player.ui, 'showOverlay');
+      player.showOverlay();
+      expect(showSpy.called).to.be.true;
+    });
+
+    it('shoul have method for hiding overlay', () => {
+      expect(player.hideOverlay).to.exist;
+      const hideSpy = sinon.spy(player.ui, 'hideOverlay');
+      player.hideOverlay();
+      expect(hideSpy.called).to.be.true;
+    });
+  });
 });

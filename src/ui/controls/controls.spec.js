@@ -408,4 +408,27 @@ describe('ControlsBlock', () => {
       expect(volumeControlSetMuteSpy.called).to.be.true;
     });
   });
+
+  describe('API', () => {
+    beforeEach(() => {
+      controls = new ControlsBlock({
+        $wrapper,
+        vidi,
+        eventEmitter,
+        ...DEFAULT_CONFIG
+      });
+    });
+
+    it('should have method for showing whole view', () => {
+      expect(controls.show).to.exist;
+      controls.show();
+      expect(controls.isHidden).to.be.false;
+    });
+
+    it('should have method for hiding whole view', () => {
+      expect(controls.hide).to.exist;
+      controls.hide();
+      expect(controls.isHidden).to.be.true;
+    });
+  });
 });

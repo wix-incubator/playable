@@ -10,6 +10,8 @@ export default class Overlay {
   constructor({ src, eventEmitter, vidi }) {
     this.eventEmitter = eventEmitter;
     this.isHidden = false;
+    this.isContentHidden = false;
+    this.enabled = true;
 
     this.vidi = vidi;
 
@@ -35,27 +37,39 @@ export default class Overlay {
 
   _updatePlayingStatus(status) {
     if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
-      if (!this.isHidden) {
-        this.hideOverlay();
+      if (!this.isContentHidden) {
+        this._hideContent();
       }
     } else if (status === VIDI_PLAYBACK_STATUSES.ENDED) {
-      this.showOverlay();
+      this._showContent();
     }
   }
 
   _playVideo() {
     this.vidi.play();
-    this.hideOverlay();
+    this._hideContent();
 
     this.eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
   }
 
-  hideOverlay() {
+  _hideContent() {
+    this.isContentHidden = true;
+    this.view.$content.addClass(styles.hidden);
+  }
+
+  _showContent() {
+    this.isContentHidden = false;
+    this.view.$content.removeClass(styles.hidden);
+  }
+
+  hide() {
+    this._hideContent();
     this.isHidden = true;
     this.view.$node.addClass(styles.hidden);
   }
 
-  showOverlay() {
+  show() {
+    this._showContent();
     this.isHidden = false;
     this.view.$node.removeClass(styles.hidden);
   }

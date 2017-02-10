@@ -7,11 +7,13 @@ import styles from './overlay.scss';
 
 export default class OverlayView {
   constructor(src) {
-    this.$node = $('<div>', {
+    this.$node = $('<div>');
+
+    this.$content = $('<div>', {
       class: styles.overlay
     });
 
-    this.$node.css('background-image', `url('${src}')`);
+    this.$content.css('background-image', `url('${src}')`);
 
     this.$playWrapper = $('<div>', {
       class: `${styles['play-wrapper']} ${styles.button}`
@@ -28,7 +30,10 @@ export default class OverlayView {
       .append(this.$playButton)
       .append(this.$playTest);
 
-    this.$node
+    this.$content
       .append(this.$playWrapper);
+
+    this.$node
+      .append(this.$content);
   }
 }

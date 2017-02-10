@@ -21,6 +21,7 @@ export default class ControlBlock {
     this.$wrapper = $wrapper;
     this.config = config;
     this.fullscreen = fullscreen;
+    this.isHidden = false;
 
     this._bindControlsCallbacks();
     this._initUI();
@@ -271,5 +272,15 @@ export default class ControlBlock {
     this.fullscreen.exit();
 
     this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
+  }
+
+  hide() {
+    this.isHidden = true;
+    this.view.$node.toggleClass(styles.hidden, true);
+  }
+
+  show() {
+    this.isHidden = false;
+    this.view.$node.toggleClass(styles.hidden, false);
   }
 }

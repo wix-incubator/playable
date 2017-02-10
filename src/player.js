@@ -16,7 +16,6 @@ class Player {
     loop,
     muted,
     volume,
-    nativeControls,
     src,
     ...params
   }) {
@@ -31,19 +30,15 @@ class Player {
     });
 
     if (autoplay) {
-      this.$video.attr('autoplay', true);
+      this.$video[0].autoplay = true;
     }
 
     if (loop) {
-      this.$video.attr('loop', true);
-    }
-
-    if (nativeControls) {
-      this.$video.attr('controls', true);
+      this.$video[0].loop = true;
     }
 
     if (muted) {
-      this.$video.attr('muted', true);
+      this.$video[0].muted = true;
     }
 
     if (volume) {
@@ -111,6 +106,34 @@ class Player {
     $video.on('volumechange', () => {
       this.eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
     });
+  }
+
+  setAutoplay(flag) {
+    this.$video[0].autoplay = flag;
+  }
+
+  setLoop(flag) {
+    this.$video[0].loop = flag;
+  }
+
+  setMute(flag) {
+    this.$video[0].muted = flag;
+  }
+
+  hideControls() {
+    this.ui.hideControls();
+  }
+
+  showControls() {
+    this.ui.showControls();
+  }
+
+  hideOverlay() {
+    this.ui.hideOverlay();
+  }
+
+  showOverlay() {
+    this.ui.showOverlay();
   }
 }
 

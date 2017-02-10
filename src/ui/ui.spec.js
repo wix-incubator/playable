@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+import sinon from 'sinon';
 
 import $ from 'jbone';
 import Vidi from 'vidi';
@@ -56,14 +57,14 @@ describe('PlayerUI', () => {
     });
     it('should set overlay as visible', () => {
       expect(ui.overlay.isHidden).to.be.false;
-    })
+    });
     it('should remove poster attribute from video tag if have overlay', () => {
       expect(ui.$video.attr('poster')).to.not.exist;
     });
   });
 
   describe('instance created with extended config', () => {
-    it('should create instance without controls', () => {
+    it('should create instance with hidden controls', () => {
       const uiConfig = {
         controls: false
       };
@@ -74,10 +75,10 @@ describe('PlayerUI', () => {
         ...uiConfig
       });
 
-      expect(ui.controls).to.not.exist;
+      expect(ui.controls.isHidden).to.be.true;
     });
 
-    it('should create instance without overlay', () => {
+    it('should create instance with hidden overlay', () => {
       const uiConfig = {
         overlay: false
       };
@@ -88,7 +89,44 @@ describe('PlayerUI', () => {
         ...uiConfig
       });
 
-      expect(ui.overlay).to.not.exist;
+      expect(ui.overlay.isHidden).to.be.true;
+    });
+  });
+
+  describe('API', () => {
+    beforeEach(() => {
+      ui = new PlayerUI({
+        vidi,
+        eventEmitter
+      });
+    });
+
+    it('should have method for showing controls', () => {
+      expect(ui.showControls).to.exist;
+      const showSpy = sinon.spy(ui.controls, 'show');
+      ui.showControls();
+      expect(showSpy.called).to.be.true;
+    });
+
+    it('should have method for hiding controls', () => {
+      expect(ui.hideControls).to.exist;
+      const hideSpy = sinon.spy(ui.controls, 'hide');
+      ui.hideControls();
+      expect(hideSpy.called).to.be.true;
+    });
+
+    it('should have method for showing overlay', () => {
+      expect(ui.showOverlay).to.exist;
+      const showSpy = sinon.spy(ui.overlay, 'show');
+      ui.showOverlay();
+      expect(showSpy.called).to.be.true;
+    });
+
+    it('should have method for hiding overlay', () => {
+      expect(ui.hideOverlay).to.exist;
+      const hideSpy = sinon.spy(ui.overlay, 'hide');
+      ui.hideOverlay();
+      expect(hideSpy.called).to.be.true;
     });
   });
 });

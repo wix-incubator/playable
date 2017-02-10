@@ -45,8 +45,6 @@ document.getElementById('content').appendChild(player.node);
 
 You can use ```config.loop```, ```config.autoplay```, ```config.preload```, ```config.poster``` and ```config.muted``` ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video))
 
-Use ```config.nativeControls``` + ```config.controls``` to enable native controls.
-
 #### UI
 
 ```config.width``` Width of video player

@@ -36,16 +36,16 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
 
   opacity: .8;
 
-  &.hidden {
-    display: none;
-    visibility: hidden;
-
-    opacity: 0;
-  }
-
   &:hover {
     opacity: 1;
   }
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+
+  opacity: 0 !important;
 }
 
 .button {

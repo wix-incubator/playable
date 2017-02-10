@@ -81,13 +81,13 @@ describe('VolumeControl', () => {
       overlay.view.$playWrapper.trigger('click');
 
       expect(callback.called).to.be.true;
-      expect(overlay.isHidden).to.be.true;
+      expect(overlay.isContentHidden).to.be.true;
     });
 
 
     it('should react on video playback status changed on play', () => {
       const callback = sinon.spy(overlay, "_updatePlayingStatus");
-      const hideSpy = sinon.spy(overlay, "hideOverlay");
+      const hideSpy = sinon.spy(overlay, "_hideContent");
       overlay._initEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.PLAYING);
@@ -98,7 +98,7 @@ describe('VolumeControl', () => {
 
     it('should react on video playback status changed on end', () => {
       const callback = sinon.spy(overlay, "_updatePlayingStatus");
-      const showSpy = sinon.spy(overlay, "showOverlay");
+      const showSpy = sinon.spy(overlay, "_showContent");
       overlay._initEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.ENDED);
@@ -108,12 +108,37 @@ describe('VolumeControl', () => {
     });
 
 
-    it('should set hide state on method call', () => {
-      expect(overlay.isHidden).to.be.false;
-      overlay.hideOverlay();
-      expect(overlay.isHidden).to.be.true;
-      overlay.showOverlay();
-      expect(overlay.isHidden).to.be.false;
+    it('should set hide content state on method call', () => {
+      expect(overlay.isContentHidden).to.be.false;
+      overlay._hideContent();
+      expect(overlay.isContentHidden).to.be.true;
+      overlay._showContent();
+      expect(overlay.isContentHidden).to.be.false;
     })
+  });
+
+  describe('API', () => {
+    beforeEach(() => {
+      overlay = new Overlay({
+        vidi,
+        eventEmitter
+      });
+    });
+
+    it('should have method for showing whole view', () => {
+      const showContentSpy = sinon.spy(overlay, '_showContent');
+      expect(overlay.show).to.exist;
+      overlay.show();
+      expect(overlay.isHidden).to.be.false;
+      expect(showContentSpy.called).to.be.true;
+    });
+
+    it('should have method for hiding whole view', () => {
+      const hideContentSpy = sinon.spy(overlay, '_hideContent');
+      expect(overlay.hide).to.exist;
+      overlay.hide();
+      expect(overlay.isHidden).to.be.true;
+      expect(hideContentSpy.called).to.be.true;
+    });
   });
 });

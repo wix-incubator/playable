@@ -44,6 +44,7 @@ describe('getOverallPlayedPercent', () => {
     const currentTime = 10;
     const duration = 0;
 
+    expect(getOverallPlayedPercent()).to.be.equal(0);
     expect(getOverallPlayedPercent(currentTime)).to.be.equal(0);
     expect(getOverallPlayedPercent(currentTime, duration)).to.be.equal(0);
   });
