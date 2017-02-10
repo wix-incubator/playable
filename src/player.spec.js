@@ -275,5 +275,29 @@ describe('Player', () => {
       player.hideOverlay();
       expect(hideSpy.called).to.be.true;
     });
+
+    it('shoul have method for setting width', () => {
+      expect(player.setWidth).to.exist;
+      const setWidthSpy = sinon.spy(player.ui, 'setWidth');
+
+      player.setWidth(10);
+      expect(setWidthSpy.called).to.be.true;
+      expect(player.$video.attr('width')).to.be.equal('10');
+
+      player.setWidth('20');
+      expect(player.$video.attr('width')).to.be.equal('20');
+    });
+
+    it('shoul have method for setting height', () => {
+      expect(player.setHeight).to.exist;
+      const setHeightSpy = sinon.spy(player.ui, 'setHeight');
+
+      player.setHeight(10);
+      expect(setHeightSpy.called).to.be.true;
+      expect(player.$video.attr('height')).to.be.equal('10');
+
+      player.setHeight('20');
+      expect(player.$video.attr('height')).to.be.equal('20');
+    });
   });
 });

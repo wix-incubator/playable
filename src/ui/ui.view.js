@@ -9,6 +9,9 @@ export default class PlayerUIView {
       width,
       height,
       class: styles['video-wrapper']
+    }).css({
+      width: `${width}px`,
+      height: `${height}px`
     });
   }
 }

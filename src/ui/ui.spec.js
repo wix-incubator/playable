@@ -128,5 +128,23 @@ describe('PlayerUI', () => {
       ui.hideOverlay();
       expect(hideSpy.called).to.be.true;
     });
+
+    it('should have method for setting width', () => {
+      expect(ui.setWidth).to.exist;
+      const setWidthSpy = sinon.spy(ui.view.$node, 'css');
+      ui.setWidth(10);
+      expect(setWidthSpy.calledWith({
+        width: '10px'
+      })).to.be.true;
+    });
+
+    it('should have method for setting height', () => {
+      expect(ui.setHeight).to.exist;
+      const setHeightSpy = sinon.spy(ui.view.$node, 'css');
+      ui.setHeight(10);
+      expect(setHeightSpy.calledWith({
+        height: '10px'
+      })).to.be.true;
+    });
   });
 });

@@ -104,6 +104,20 @@ class PlayerUI {
   showOverlay() {
     this.overlay.show();
   }
+
+  setWidth(width) {
+    this.view.$node
+      .css({
+        width: `${width}px`
+      });
+  }
+
+  setHeight(height) {
+    this.view.$node
+      .css({
+        height: `${height}px`
+      });
+  }
 }
 
 

@@ -30,20 +30,19 @@ class Player {
     });
 
     if (autoplay) {
-      this.$video[0].autoplay = true;
+      this.setAutoplay(true);
     }
 
     if (loop) {
-      this.$video[0].loop = true;
+      this.setLoop(true);
     }
 
     if (muted) {
-      this.$video[0].muted = true;
+       this.setMute(true);
     }
 
     if (volume) {
-      const parsedVolume = Number(volume);
-      this.$video[0].volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
+      this.setVolume(volume);
     }
 
     this.vidi = new Vidi(this.$video[0]);
@@ -108,16 +107,35 @@ class Player {
     });
   }
 
-  setAutoplay(flag) {
-    this.$video[0].autoplay = flag;
+  setAutoplay(isAutoplay) {
+    this.$video[0].autoplay = Boolean(isAutoplay);
   }
 
-  setLoop(flag) {
-    this.$video[0].loop = flag;
+  setLoop(isLoop) {
+    this.$video[0].loop = Boolean(isLoop);
   }
 
-  setMute(flag) {
-    this.$video[0].muted = flag;
+  setMute(isMuted) {
+    this.$video[0].muted = Boolean(isMuted);
+  }
+
+  setVolume(volume) {
+    const parsedVolume = Number(volume);
+    this.$video[0].volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
+  }
+
+  setWidth(rawWidth) {
+    const width = Number(rawWidth);
+
+    this.$video.attr('width', width);
+    this.ui.setWidth(width);
+  }
+
+  setHeight(rawHeight) {
+    const height = Number(rawHeight);
+
+    this.$video.attr('height', height);
+    this.ui.setHeight(height);
   }
 
   hideControls() {
