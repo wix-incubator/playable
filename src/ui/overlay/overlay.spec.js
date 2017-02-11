@@ -13,7 +13,7 @@ import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/vid
 import UI_EVENTS from '../../constants/events/ui';
 
 
-describe('VolumeControl', () => {
+describe('Overlay', () => {
   let overlay = {};
   let $video = {};
   let vidi = {};
@@ -146,9 +146,7 @@ describe('VolumeControl', () => {
       expect(overlay.setBackgroundSrc).to.exist;
       const cssSpy = sinon.spy(overlay.view.$content, 'css');
       overlay.setBackgroundSrc(src);
-      expect(cssSpy.calledWith({
-        'background-image': `url('${src}')`
-      })).to.be.true;
+      expect(cssSpy.calledWith('background-image', `url('${src}')`)).to.be.true;
     });
   });
 });
