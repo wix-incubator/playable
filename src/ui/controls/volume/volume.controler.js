@@ -6,7 +6,7 @@ import styles from './volume.scss';
 export default class TimeControl {
   constructor({ onVolumeLevelChange, onMuteStatusChange }) {
     this.isMuted = false;
-    this.volumeLevel = 1;
+    this.volumeLevel = 100;
 
     this._callbacks = {
       onVolumeLevelChange,
@@ -75,6 +75,17 @@ export default class TimeControl {
     this.view.$input.val(level);
     this.view.$input.attr('value', level);
     this.view.$volumeLevel.attr('value', level);
+    
+    if (level > 50) {
+      this.view.$volumeIcon[0].src = this.view.volumeFullSVG;
+    }
+    if (level < 50 && level > 10) {
+      this.view.$volumeIcon[0].src = this.view.volumeMidSVG;
+    }
+    if (level < 10) {
+      this.view.$volumeIcon[0].src = this.view.volumeMinSVG;
+    }
+
     if (!level) {
       this._callbacks.onMuteStatusChange(true);
     }

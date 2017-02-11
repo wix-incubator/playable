@@ -1,6 +1,8 @@
 import $ from 'jbone';
 
-import volumeSVG from './svg/volume.svg';
+import volumeFullSVG from './svg/volume-full.svg';
+import volumeMidSVG from './svg/volume-mid.svg';
+import volumeMinSVG from './svg/volume-min.svg';
 import volumeMutedSVG from './svg/volume-muted.svg';
 
 import styles from './volume.scss';
@@ -8,13 +10,17 @@ import styles from './volume.scss';
 
 export default class VolumeView {
   constructor() {
+    this.volumeFullSVG = volumeFullSVG;
+    this.volumeMidSVG = volumeMidSVG;
+    this.volumeMinSVG = volumeMinSVG;
+
     this.$node = $('<div>', {
       class: styles['volume-control']
     });
 
     this.$volumeIcon = $('<img>', {
       class: `${styles['volume-icon']} ${styles.icon}`,
-      src: volumeSVG
+      src: this.volumeFullSVG
     });
 
     this.$volumeMutedIcon = $('<img>', {
