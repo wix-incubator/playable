@@ -24,7 +24,7 @@ class PlayerUI {
     this.vidi = vidi;
     this.config = {
       ...DEFAULT_CONFIG,
-      config
+      ...config
     };
     this._initUI();
     this._initComponents();
