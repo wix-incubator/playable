@@ -22,7 +22,10 @@ class PlayerUI {
     this.eventEmitter = eventEmitter;
     this.$video = $(vidi.getVideoElement());
     this.vidi = vidi;
-    this.config = Object.assign({}, DEFAULT_CONFIG, config);
+    this.config = {
+      ...DEFAULT_CONFIG,
+      config
+    };
     this._initUI();
     this._initComponents();
   }

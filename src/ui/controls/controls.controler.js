@@ -120,6 +120,7 @@ export default class ControlBlock {
   _updateFullScreenControlStatus() {
     if (this.fullscreenControl) {
       this.fullscreenControl.toggleControlStatus(fullscreen.isFullscreen);
+      this.$wrapper.toggleClass(styles.fullscreen, fullscreen.isFullscreen);
     }
   }
 

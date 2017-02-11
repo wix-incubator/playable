@@ -144,7 +144,7 @@ input[type=range] {
   }
 
   &::-ms-track {
-    height: 16px;
+    height: 4px;
 
     color: transparent;
     border: 0;
@@ -154,18 +154,17 @@ input[type=range] {
     @include range-track();
   }
   &::-ms-fill-lower {
+    @include range-track();
     height: 4px;
 
-    background: $color-main;
-
-    @include range-track();
+    background: #3899ec;
+    color: #3899ec;
   }
   &.volume-input::-ms-fill-lower {
+    @include range-track();
     height: 4px;
 
     background: white;
-
-    @include range-track();
   }
   &::-ms-thumb {
     // For some reason, Edge uses the -webkit margin above
