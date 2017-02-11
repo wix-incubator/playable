@@ -37,20 +37,24 @@ describe('Player', () => {
   });
 
   describe('instance created with extended config', () => {
-    it('should set width to video tag if passed', () => {
-      const width = '500';
+    it('should set width to player if passed', () => {
+      const spy = sinon.spy(Player.prototype, 'setWidth');
+      const width = 500;
       player = new Player({
         width
       });
-      expect(player.$video.attr('width')).to.be.equal(width);
+      expect(spy.calledWith(500)).to.be.true;
+      Player.prototype.setWidth.restore();
     });
 
     it('should set height to video tag if passed', () => {
-      const height = '500';
+      const spy = sinon.spy(Player.prototype, 'setHeight');
+      const height = 500;
       player = new Player({
         height
       });
-      expect(player.$video.attr('height')).to.be.equal(height);
+      expect(spy.calledWith(500)).to.be.true;
+      Player.prototype.setHeight.restore();
     });
 
     it('should set preload to video tag if passed', () => {
@@ -281,11 +285,7 @@ describe('Player', () => {
       const setWidthSpy = sinon.spy(player.ui, 'setWidth');
 
       player.setWidth(10);
-      expect(setWidthSpy.called).to.be.true;
-      expect(player.$video.attr('width')).to.be.equal('10');
-
-      player.setWidth('20');
-      expect(player.$video.attr('width')).to.be.equal('20');
+      expect(setWidthSpy.calledWith(10)).to.be.true;
     });
 
     it('shoul have method for setting height', () => {
@@ -293,11 +293,7 @@ describe('Player', () => {
       const setHeightSpy = sinon.spy(player.ui, 'setHeight');
 
       player.setHeight(10);
-      expect(setHeightSpy.called).to.be.true;
-      expect(player.$video.attr('height')).to.be.equal('10');
-
-      player.setHeight('20');
-      expect(player.$video.attr('height')).to.be.equal('20');
+      expect(setHeightSpy.calledWith(10)).to.be.true;
     });
   });
 });
