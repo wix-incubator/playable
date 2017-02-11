@@ -12,7 +12,7 @@ export default class Overlay {
     this.isHidden = false;
     this.isContentHidden = false;
     this.enabled = true;
-
+    this.src = src;
     this.vidi = vidi;
 
     this._initUI(src);
@@ -60,6 +60,10 @@ export default class Overlay {
   _showContent() {
     this.isContentHidden = false;
     this.view.$content.removeClass(styles.hidden);
+  }
+
+  setBackgroundSrc(src) {
+    this.view.$content.css('background-image', `url('${src}')`);
   }
 
   hide() {

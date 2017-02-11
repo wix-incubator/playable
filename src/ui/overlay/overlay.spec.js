@@ -140,5 +140,15 @@ describe('VolumeControl', () => {
       expect(overlay.isHidden).to.be.true;
       expect(hideContentSpy.called).to.be.true;
     });
+
+    it('should have method for setting src of background image', () => {
+      const src = 'test';
+      expect(overlay.setBackgroundSrc).to.exist;
+      const cssSpy = sinon.spy(overlay.view.$content, 'css');
+      overlay.setBackgroundSrc(src);
+      expect(cssSpy.calledWith({
+        'background-image': `url('${src}')`
+      })).to.be.true;
+    });
   });
 });

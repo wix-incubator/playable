@@ -105,6 +105,10 @@ class PlayerUI {
     this.overlay.show();
   }
 
+  setOverlayBackgroundSrc(src) {
+    this.overlay.setBackgroundSrc(src);
+  }
+
   setWidth(width) {
     this.view.$node
       .css({

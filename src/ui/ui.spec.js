@@ -129,20 +129,28 @@ describe('PlayerUI', () => {
       expect(hideSpy.called).to.be.true;
     });
 
+    it('should have method for setting background for overlay', () => {
+      const src = 'test';
+      expect(ui.setOverlayBackgroundSrc).to.exist;
+      const setBackgroundSpy = sinon.spy(ui.overlay, 'setBackgroundSrc');
+      ui.setOverlayBackgroundSrc(src);
+      expect(setBackgroundSpy.calledWith(src)).to.be.true;
+    });
+
     it('should have method for setting width', () => {
       expect(ui.setWidth).to.exist;
-      const setWidthSpy = sinon.spy(ui.view.$node, 'css');
+      const cssSpy = sinon.spy(ui.view.$node, 'css');
       ui.setWidth(10);
-      expect(setWidthSpy.calledWith({
+      expect(cssSpy.calledWith({
         width: '10px'
       })).to.be.true;
     });
 
     it('should have method for setting height', () => {
       expect(ui.setHeight).to.exist;
-      const setHeightSpy = sinon.spy(ui.view.$node, 'css');
+      const cssSpy = sinon.spy(ui.view.$node, 'css');
       ui.setHeight(10);
-      expect(setHeightSpy.calledWith({
+      expect(cssSpy.calledWith({
         height: '10px'
       })).to.be.true;
     });

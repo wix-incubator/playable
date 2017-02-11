@@ -152,6 +152,10 @@ class Player {
   showOverlay() {
     this.ui.showOverlay();
   }
+
+  setOverlayBackgroundSrc(src) {
+    this.ui.setOverlayBackgroundSrc(src);
+  }
 }
 
 export default Player;

@@ -280,6 +280,14 @@ describe('Player', () => {
       expect(hideSpy.called).to.be.true;
     });
 
+    it('should have method for setting background for overlay', () => {
+      const src = 'test';
+      expect(player.setOverlayBackgroundSrc).to.exist;
+      const setBackgroundSpy = sinon.spy(player.ui, 'setOverlayBackgroundSrc');
+      player.setOverlayBackgroundSrc(src);
+      expect(setBackgroundSpy.calledWith(src)).to.be.true;
+    });
+
     it('shoul have method for setting width', () => {
       expect(player.setWidth).to.exist;
       const setWidthSpy = sinon.spy(player.ui, 'setWidth');
