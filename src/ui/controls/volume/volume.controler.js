@@ -75,7 +75,7 @@ export default class TimeControl {
     this.view.$input.val(level);
     this.view.$input.attr('value', level);
     this.view.$volumeLevel.attr('value', level);
-    
+
     if (level > 50) {
       this.view.$volumeIcon[0].src = this.view.volumeFullSVG;
     }
