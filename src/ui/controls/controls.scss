@@ -43,7 +43,7 @@
     }
   }
 
-  &:hover,
+  &.activated,
   &.video-paused {
     .controls-wrapper {
       visibility: visible;

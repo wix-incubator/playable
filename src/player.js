@@ -23,8 +23,6 @@ class Player {
     this.eventEmitter = new EventEmitter();
 
     this.$video = $('<video/>', {
-      width,
-      height,
       preload,
       poster
     });
@@ -53,6 +51,9 @@ class Player {
       eventEmitter: this.eventEmitter,
       ...params
     });
+
+    this.setWidth(width);
+    this.setHeight(height);
 
     this.vidi.src = src;
     this.initEventsProxy();
@@ -127,14 +128,12 @@ class Player {
   setWidth(rawWidth) {
     const width = Number(rawWidth);
 
-    this.$video.attr('width', width);
     this.ui.setWidth(width);
   }
 
   setHeight(rawHeight) {
     const height = Number(rawHeight);
 
-    this.$video.attr('height', height);
     this.ui.setHeight(height);
   }
 

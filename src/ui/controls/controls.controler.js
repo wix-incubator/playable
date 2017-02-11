@@ -14,6 +14,9 @@ import FullscreenControl from './full-screen/full-screen.controler';
 
 import styles from './controls.scss';
 
+
+const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
+
 export default class ControlBlock {
   constructor({ vidi, $wrapper, eventEmitter, ...config }) {
     this.eventEmitter = eventEmitter;
@@ -121,6 +124,9 @@ export default class ControlBlock {
   }
 
   _bindControlsCallbacks() {
+    this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
+    this._showContent = this._showContent.bind(this);
+    this._hideContent = this._hideContent.bind(this);
     this._updateFullScreenControlStatus = this._updateFullScreenControlStatus.bind(this);
     this._updateControlsOnInterval = this._updateControlsOnInterval.bind(this);
     this._playVideo = this._playVideo.bind(this);
@@ -133,6 +139,8 @@ export default class ControlBlock {
   }
 
   _initEvents() {
+    this.view.$node.on('mousemove', this._startHideControlsTimeout);
+    this.view.$node.on('mouseout', this._hideContent);
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
     this.eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
@@ -140,6 +148,24 @@ export default class ControlBlock {
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
     this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
     this.eventEmitter.on(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+  }
+
+  _startHideControlsTimeout() {
+    if (this._hideControlsTimeout) {
+      clearTimeout(this._hideControlsTimeout);
+    }
+
+    this._showContent();
+
+    this._hideControlsTimeout = setTimeout(this._hideContent, HIDE_CONTROLS_BLOCK_TIMEOUT);
+  }
+
+  _showContent() {
+    this.view.$node.toggleClass(styles.activated, true);
+  }
+
+  _hideContent() {
+    this.view.$node.toggleClass(styles.activated, false);
   }
 
   _startIntervalUpdates() {
@@ -194,6 +220,7 @@ export default class ControlBlock {
 
   _updatePlayingStatus(status) {
     if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+      this._startHideControlsTimeout();
       this.view.$node.toggleClass(styles['video-paused'], false);
       this.playControl.toggleControlStatus(true);
       this._startIntervalUpdates();
@@ -264,12 +291,14 @@ export default class ControlBlock {
 
   _enterFullScreen() {
     this.fullscreen.request(this.$wrapper[0]);
+    this.$wrapper.toggleClass(styles.fullscreen, true);
 
     this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
   }
 
   _exitFullScreen() {
     this.fullscreen.exit();
+    this.$wrapper.toggleClass(styles.fullscreen, false);
 
     this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
   }
