@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Player</title>
+  <style>
+    #content {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #player {
+      width: 760px;
+      height: 427px;
+    }
+  </style>
+  <script src="./video-player.bundle.min.js"></script>
+</head>
+<body>
+
+<div id="content">
+  <div id="player">
+
+  </div>
+</div>
+<script>
+  var player = new VideoPlayer({
+    width: 760,
+    height: 427,
+    autoplay: false,
+    muted: false,
+    loop: true,
+    nativeControls: false,
+    preload: 'auto',
+    src: [
+      'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+    ],
+    overlay: true,
+    controls: true,
+    timeIndicator: true,
+    progressControl: true,
+    volumeControl: true,
+    volume: 0.5,
+    fullscreenControl: true,
+    enableLogger: true
+  });
+  document.getElementById('player').appendChild(player.node);
+</script>
+</body>
+</html>

@@ -16,6 +16,7 @@
     "csscomb:lint": "csscomb -lv src/*",
     "test": "wix-node-build test --mocha",
     "build": "wix-node-build build",
+    "deploy": "wix-node-build build && gh-pages -d dist/statics",
     "release": "wix-node-build release",
     "precommit": "npm run lint && npm run csscomb:lint && npm test"
   },
@@ -32,6 +33,7 @@
     "csscomb": "^3.1.7",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
+    "gh-pages": "^0.12.0",
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "sinon": "^1.17.7",
