@@ -1,5 +1,8 @@
 import View from './time.view';
 
+import styles from '../../shared.scss';
+
+
 export function formatTime(seconds) {
   const date = new Date(null);
   seconds = isNaN(seconds) || !isFinite(seconds) ? 0 : Math.floor(seconds);
@@ -35,5 +38,15 @@ export default class TimeControl {
 
   setCurrentTime(time) {
     this.view.$currentTime.html(formatTime(time));
+  }
+
+  hide() {
+    this.isHidden = true;
+    this.view.$node.toggleClass(styles.hidden, true);
+  }
+
+  show() {
+    this.isHidden = false;
+    this.view.$node.toggleClass(styles.hidden, false);
   }
 }

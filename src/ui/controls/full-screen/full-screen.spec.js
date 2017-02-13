@@ -43,4 +43,22 @@ describe('FullScreenControl', () => {
       expect(onExitFullScreenClick.called).to.be.true;
     });
   });
+
+  describe('API', () => {
+    beforeEach(() => {
+      control = new FullScreenControl({});
+    });
+
+    it('should have method for showing whole view', () => {
+      expect(control.show).to.exist;
+      control.show();
+      expect(control.isHidden).to.be.false;
+    });
+
+    it('should have method for hiding whole view', () => {
+      expect(control.hide).to.exist;
+      control.hide();
+      expect(control.isHidden).to.be.true;
+    });
+  });
 });

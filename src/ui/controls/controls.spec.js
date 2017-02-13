@@ -133,7 +133,7 @@ describe('ControlsBlock', () => {
       controls._updateCurrentTime();
       controls._updateDurationTime();
 
-      expect(controls.timeControl).to.not.exist;
+      expect(controls.timeControl.isHidden).to.be.true;
     });
 
     it('should create instance without progress control', () => {
@@ -151,7 +151,7 @@ describe('ControlsBlock', () => {
       controls._updateProgressControl();
       controls._updateBufferIndicator();
 
-      expect(controls.progressControl).to.not.exist;
+      expect(controls.progressControl.isHidden).to.be.true;
     });
 
     it('should create instance without volume control', () => {
@@ -168,7 +168,7 @@ describe('ControlsBlock', () => {
 
       controls._updateVolumeStatus();
 
-      expect(controls.volumeControl).to.not.exist;
+      expect(controls.volumeControl.isHidden).to.be.true;
     });
 
     it('should create instance without full screen control', () => {
@@ -185,7 +185,7 @@ describe('ControlsBlock', () => {
 
       controls._updateFullScreenControlStatus();
 
-      expect(controls.fullscreenControl).to.not.exist;
+      expect(controls.fullscreenControl.isHidden).to.be.true;
     });
   });
 
