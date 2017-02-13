@@ -228,6 +228,20 @@ describe('ControlsBlock', () => {
       controls.vidi.pause.restore();
     });
 
+    it('should trigger play or pause on keyboard input', () => {
+      controls.vidi.getPlaybackState = () => ({ status: 0 });
+      const playCallback = sinon.spy(controls, '_playVideo');
+
+      controls._processKeyboardInput({ keyCode: 32 });
+      expect(playCallback.called).to.be.true;
+
+      controls.vidi.getPlaybackState = () => ({ status: 2 });
+      const pauseCallback = sinon.spy(controls, '_pauseVideo');
+
+      controls._processKeyboardInput({ keyCode: 32 });
+      expect(pauseCallback.called).to.be.true;
+    });
+
     it('should emit ui event on progress change', () => {
       vidi.getVideoElement = () => spiedVideo;
 

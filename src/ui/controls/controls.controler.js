@@ -16,6 +16,7 @@ import styles from './controls.scss';
 
 
 const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
+const SPACE_BAR_KEYCODE = 32;
 
 export default class ControlBlock {
   constructor({ vidi, $wrapper, eventEmitter, ...config }) {
@@ -135,6 +136,7 @@ export default class ControlBlock {
   }
 
   _bindControlsCallbacks() {
+    this._processKeyboardInput = this._processKeyboardInput.bind(this);
     this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
     this._setFocusState = this._setFocusState.bind(this);
     this._removeFocusState = this._removeFocusState.bind(this);
@@ -152,6 +154,7 @@ export default class ControlBlock {
   }
 
   _initEvents() {
+    this.view.$node.on('keypress', this._processKeyboardInput);
     this.view.$node.on('mousemove', this._startHideControlsTimeout);
     this.view.$controlsContainer.on('mousemove', this._setFocusState);
     this.view.$controlsContainer.on('mouseout', this._removeFocusState);
@@ -163,6 +166,18 @@ export default class ControlBlock {
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
     this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
     this.eventEmitter.on(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+  }
+
+  _processKeyboardInput(e) {
+    const playbackState = this.vidi.getPlaybackState();
+
+    if (e.keyCode === SPACE_BAR_KEYCODE) {
+      if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
+        this._pauseVideo();
+      } else {
+        this._playVideo();
+      }
+    }
   }
 
   _startHideControlsTimeout() {
