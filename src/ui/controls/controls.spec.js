@@ -407,6 +407,35 @@ describe('ControlsBlock', () => {
       expect(volumeControlSetVolumeSpy.called).to.be.true;
       expect(volumeControlSetMuteSpy.called).to.be.true;
     });
+
+    it('should have method for setting controls focused state', () => {
+      expect(controls._setFocusState).to.exist;
+      controls._setFocusState();
+      expect(controls._isControlsFocused).to.be.true;
+    });
+
+    it('should have method for removing controls focused state', () => {
+      expect(controls._removeFocusState).to.exist;
+      controls._setFocusState();
+      controls._removeFocusState();
+      expect(controls._isControlsFocused).to.be.false;
+    });
+
+    it('should have method for showing inner block with controls', () => {
+      const spy = sinon.spy(controls.view.$node, 'toggleClass');
+
+      expect(controls._showContent).to.exist;
+      controls._showContent();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for hiding inner block with controls', () => {
+      const spy = sinon.spy(controls.view.$node, 'toggleClass');
+
+      expect(controls._hideContent).to.exist;
+      controls._hideContent();
+      expect(spy.called).to.be.true;
+    });
   });
 
   describe('API', () => {
