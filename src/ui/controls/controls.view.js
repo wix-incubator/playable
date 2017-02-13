@@ -6,7 +6,8 @@ import styles from './controls.scss';
 export default class ControlsView {
   constructor() {
     this.$node = $('<div>', {
-      class: styles['controls-block']
+      class: styles['controls-block'],
+      tabIndex: 0
     });
 
     this.$wrapper = $('<div>', {
