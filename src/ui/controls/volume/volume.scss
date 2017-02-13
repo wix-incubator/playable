@@ -49,9 +49,10 @@
     background: currentColor;
   }
   &::-ms-fill {
+    display: none;
+
     border: none;
     border-radius: 100px;
-    display: none;
   }
 }
 

@@ -105,4 +105,14 @@ export default class TimeControl {
       this._setVolumeInputState(this.volumeLevel);
     }
   }
+
+  hide() {
+    this.isHidden = true;
+    this.view.$node.toggleClass(styles.hidden, true);
+  }
+
+  show() {
+    this.isHidden = false;
+    this.view.$node.toggleClass(styles.hidden, false);
+  }
 }

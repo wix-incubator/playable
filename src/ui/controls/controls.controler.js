@@ -43,22 +43,13 @@ export default class ControlBlock {
   _initControls() {
     this._initPlayControl();
 
-    if (this.config.timeIndicator) {
-      this._initTimeIndicator();
-    }
+    this._initTimeIndicator();
 
-    if (this.config.progressControl) {
-      this._initProgressControl();
-    }
+    this._initProgressControl();
 
+    this._initVolumeControl();
 
-    if (this.config.volumeControl) {
-      this._initVolumeControl();
-    }
-
-    if (this.config.fullscreenControl) {
-      this._initFullScreenControl();
-    }
+    this._initFullScreenControl();
   }
 
   _initPlayControl() {
@@ -76,6 +67,10 @@ export default class ControlBlock {
 
     this.view.$controlsContainer
       .append(this.timeControl.node);
+
+    if (!this.config.timeIndicator) {
+      this.timeControl.hide();
+    }
   }
 
   _initProgressControl() {
@@ -85,6 +80,10 @@ export default class ControlBlock {
 
     this.view.$controlsContainer
       .append(this.progressControl.node);
+
+    if (!this.config.progressControl) {
+      this.progressControl.hide();
+    }
   }
 
   _initVolumeControl() {
@@ -103,6 +102,10 @@ export default class ControlBlock {
 
     this.view.$controlsContainer
       .append(this.volumeControl.node);
+
+    if (!this.config.volumeControl) {
+      this.volumeControl.hide();
+    }
   }
 
   _initFullScreenControl() {
@@ -115,13 +118,15 @@ export default class ControlBlock {
 
     this.view.$controlsContainer
       .append(this.fullscreenControl.node);
+
+    if (!this.config.fullscreenControl) {
+      this.fullscreenControl.hide();
+    }
   }
 
   _updateFullScreenControlStatus() {
-    if (this.fullscreenControl) {
-      this.fullscreenControl.toggleControlStatus(fullscreen.isFullscreen);
-      this.$wrapper.toggleClass(styles.fullscreen, fullscreen.isFullscreen);
-    }
+    this.fullscreenControl.toggleControlStatus(fullscreen.isFullscreen);
+    this.$wrapper.toggleClass(styles.fullscreen, fullscreen.isFullscreen);
   }
 
   _bindControlsCallbacks() {
@@ -189,10 +194,6 @@ export default class ControlBlock {
   }
 
   _updateVolumeStatus() {
-    if (!this.volumeControl) {
-      return;
-    }
-
     const video = this.vidi.getVideoElement();
 
     this.volumeControl.setVolumeLevel(video.volume);
@@ -200,20 +201,12 @@ export default class ControlBlock {
   }
 
   _updateDurationTime() {
-    if (!this.timeControl) {
-      return;
-    }
-
     const video = this.vidi.getVideoElement();
 
     this.timeControl.setDurationTime(video.duration);
   }
 
   _updateCurrentTime() {
-    if (!this.timeControl) {
-      return;
-    }
-
     const video = this.vidi.getVideoElement();
 
     this.timeControl.setCurrentTime(video.currentTime);
@@ -233,10 +226,6 @@ export default class ControlBlock {
   }
 
   _updateBufferIndicator() {
-    if (!this.progressControl) {
-      return;
-    }
-
     const video = this.vidi.getVideoElement();
     const { currentTime, buffered, duration } = video;
 
@@ -244,9 +233,6 @@ export default class ControlBlock {
   }
 
   _updateProgressControl() {
-    if (!this.progressControl) {
-      return;
-    }
     const video = this.vidi.getVideoElement();
 
     const { duration, currentTime } = video;

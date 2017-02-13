@@ -1,5 +1,7 @@
 import View from './progress.view';
 
+import styles from '../../shared.scss';
+
 
 export default class ProgressControl {
   constructor({ onProgressChange }) {
@@ -57,5 +59,15 @@ export default class ProgressControl {
 
   updateBuffered(percent) {
     this.view.$buffered.attr('value', percent);
+  }
+
+  hide() {
+    this.isHidden = true;
+    this.view.$node.toggleClass(styles.hidden, true);
+  }
+
+  show() {
+    this.isHidden = false;
+    this.view.$node.toggleClass(styles.hidden, false);
   }
 }

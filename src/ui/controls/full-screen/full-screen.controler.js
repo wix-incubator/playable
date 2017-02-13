@@ -33,4 +33,14 @@ export default class FullScreenControl {
     this.view.$enterIcon.toggleClass(styles.hidden, isFullScreen);
     this.view.$exitIcon.toggleClass(styles.hidden, !isFullScreen);
   }
+
+  hide() {
+    this.isHidden = true;
+    this.view.$node.toggleClass(styles.hidden, true);
+  }
+
+  show() {
+    this.isHidden = false;
+    this.view.$node.toggleClass(styles.hidden, false);
+  }
 }

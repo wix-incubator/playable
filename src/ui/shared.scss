@@ -42,8 +42,10 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
 }
 
 .hidden {
-  display: none !important;
   visibility: hidden !important;
+
+  width: 0 !important;
+  height: 0 !important;
 
   opacity: 0 !important;
 }
@@ -154,17 +156,19 @@ input[type=range] {
     @include range-track();
   }
   &::-ms-fill-lower {
-    @include range-track();
     height: 4px;
 
-    background: #3899ec;
     color: #3899ec;
+    background: #3899ec;
+
+    @include range-track();
   }
   &.volume-input::-ms-fill-lower {
-    @include range-track();
     height: 4px;
 
     background: white;
+
+    @include range-track();
   }
   &::-ms-thumb {
     // For some reason, Edge uses the -webkit margin above
