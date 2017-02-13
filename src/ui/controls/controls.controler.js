@@ -26,6 +26,11 @@ export default class ControlBlock {
     this.fullscreen = fullscreen;
     this.isHidden = false;
 
+    this._hideControlsTimeout = null;
+    this._updateControlsInterval = null;
+
+    this._isControlsFocused = false;
+
     this._bindControlsCallbacks();
     this._initUI();
     this._initControls();
@@ -131,6 +136,8 @@ export default class ControlBlock {
 
   _bindControlsCallbacks() {
     this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
+    this._setFocusState = this._setFocusState.bind(this);
+    this._removeFocusState = this._removeFocusState.bind(this);
     this._showContent = this._showContent.bind(this);
     this._hideContent = this._hideContent.bind(this);
     this._updateFullScreenControlStatus = this._updateFullScreenControlStatus.bind(this);
@@ -146,6 +153,8 @@ export default class ControlBlock {
 
   _initEvents() {
     this.view.$node.on('mousemove', this._startHideControlsTimeout);
+    this.view.$controlsContainer.on('mousemove', this._setFocusState);
+    this.view.$controlsContainer.on('mouseout', this._removeFocusState);
     this.view.$node.on('mouseout', this._hideContent);
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
@@ -163,7 +172,17 @@ export default class ControlBlock {
 
     this._showContent();
 
-    this._hideControlsTimeout = setTimeout(this._hideContent, HIDE_CONTROLS_BLOCK_TIMEOUT);
+    if (!this._isControlsFocused) {
+      this._hideControlsTimeout = setTimeout(this._hideContent, HIDE_CONTROLS_BLOCK_TIMEOUT);
+    }
+  }
+
+  _setFocusState() {
+    this._isControlsFocused = true;
+  }
+
+  _removeFocusState() {
+    this._isControlsFocused = false;
   }
 
   _showContent() {
@@ -175,16 +194,16 @@ export default class ControlBlock {
   }
 
   _startIntervalUpdates() {
-    if (this._interval) {
+    if (this._updateControlsInterval) {
       this._stopIntervalUpdates();
     }
 
-    this._interval = setInterval(this._updateControlsOnInterval, 1000 / 16);
+    this._updateControlsInterval = setInterval(this._updateControlsOnInterval, 1000 / 16);
   }
 
   _stopIntervalUpdates() {
-    clearInterval(this._interval);
-    this._interval = null;
+    clearInterval(this._updateControlsInterval);
+    this._updateControlsInterval = null;
   }
 
   _updateControlsOnInterval() {
