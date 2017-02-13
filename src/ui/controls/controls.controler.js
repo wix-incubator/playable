@@ -136,6 +136,7 @@ export default class ControlBlock {
   }
 
   _bindControlsCallbacks() {
+    this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
     this._processKeyboardInput = this._processKeyboardInput.bind(this);
     this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
     this._setFocusState = this._setFocusState.bind(this);
@@ -154,6 +155,8 @@ export default class ControlBlock {
   }
 
   _initEvents() {
+    this.view.$node.on('click', this._toggleVideoPlayback);
+    this.view.$controlsContainer.on('click', this._preventClickPropagation);
     this.view.$node.on('keypress', this._processKeyboardInput);
     this.view.$node.on('mousemove', this._startHideControlsTimeout);
     this.view.$controlsContainer.on('mousemove', this._setFocusState);
@@ -169,14 +172,22 @@ export default class ControlBlock {
   }
 
   _processKeyboardInput(e) {
+    if (e.keyCode === SPACE_BAR_KEYCODE) {
+      this._toggleVideoPlayback();
+    }
+  }
+
+  _preventClickPropagation(e) {
+    e.stopPropagation();
+  }
+
+  _toggleVideoPlayback() {
     const playbackState = this.vidi.getPlaybackState();
 
-    if (e.keyCode === SPACE_BAR_KEYCODE) {
-      if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
-        this._pauseVideo();
-      } else {
-        this._playVideo();
-      }
+    if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
+      this._pauseVideo();
+    } else {
+      this._playVideo();
     }
   }
 

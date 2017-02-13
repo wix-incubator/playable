@@ -228,17 +228,48 @@ describe('ControlsBlock', () => {
       controls.vidi.pause.restore();
     });
 
-    it('should trigger play or pause on keyboard input', () => {
+    it('should trigger _toggleVideoPlayback on keyboard input', () => {
       controls.vidi.getPlaybackState = () => ({ status: 0 });
-      const playCallback = sinon.spy(controls, '_playVideo');
+      const togglePlaybackSpy = sinon.spy(controls, '_toggleVideoPlayback');
 
       controls._processKeyboardInput({ keyCode: 32 });
+      expect(togglePlaybackSpy.called).to.be.true;
+    });
+
+    it('should stop propagation on control block click', () => {
+      const preventSpy = sinon.spy(controls, '_preventClickPropagation');
+      const eventStopPropSpy = sinon.spy();
+
+      controls._initEvents();
+
+      controls.view.$controlsContainer.trigger('click');
+      expect(preventSpy.called).to.be.true;
+
+      controls._preventClickPropagation({
+        stopPropagation: eventStopPropSpy
+      });
+
+      expect(eventStopPropSpy.called).to.be.true;
+    });
+
+    it('should trigger _toggleVideoPlayback on node click', () => {
+      const togglePlaybackSpy = sinon.spy(controls, '_toggleVideoPlayback');
+
+      controls._initEvents();
+      controls.view.$node.trigger('click');
+      expect(togglePlaybackSpy.called).to.be.true;
+    });
+
+    it('should trigger play or pause on _toggleVideoPlayback', () => {
+      const playCallback = sinon.spy(controls, '_playVideo');
+      const pauseCallback = sinon.spy(controls, '_pauseVideo');
+
+      controls.vidi.getPlaybackState = () => ({ status: 0 });
+      controls._toggleVideoPlayback();
       expect(playCallback.called).to.be.true;
 
       controls.vidi.getPlaybackState = () => ({ status: 2 });
-      const pauseCallback = sinon.spy(controls, '_pauseVideo');
-
-      controls._processKeyboardInput({ keyCode: 32 });
+      controls._toggleVideoPlayback();
       expect(pauseCallback.called).to.be.true;
     });
 
