@@ -252,12 +252,71 @@ describe('ControlsBlock', () => {
       expect(eventStopPropSpy.called).to.be.true;
     });
 
-    it('should trigger _toggleVideoPlayback on node click', () => {
-      const togglePlaybackSpy = sinon.spy(controls, '_toggleVideoPlayback');
+    it('should trigger _startDelayedToggleVideoPlayback on node click', () => {
+      const togglePlaybackSpy = sinon.spy(controls, '_startDelayedToggleVideoPlayback');
 
       controls._initEvents();
       controls.view.$node.trigger('click');
       expect(togglePlaybackSpy.called).to.be.true;
+    });
+
+    it('should start timeout when _startDelayedToggleVideoPlayback called', () => {
+      const requestMock = () => {};
+      controls.fullscreen.request = requestMock;
+
+      controls._startDelayedToggleVideoPlayback();
+      expect(controls._delayedToggleVideoPlaybackTimeout).to.exist;
+    });
+
+    it('should trigger _forceToggleFullScreen on node dblclick', () => {
+      const toggleFullscreenSpy = sinon.spy(controls, '_forceToggleFullScreen');
+      const requestMock = () => {};
+      controls.fullscreen.request = requestMock;
+
+      controls._initEvents();
+      controls.view.$node.trigger('dblclick');
+      expect(toggleFullscreenSpy.called).to.be.true;
+    });
+
+    it('should remove timeout of delayed playback change on _forceToggleFullScreen', () => {
+      const timeoutClearSpy = sinon.spy(global, 'clearTimeout');
+      const id = setTimeout(()=>{}, 0);
+      controls._delayedToggleVideoPlaybackTimeout = id;
+      controls.fullscreen = {
+        request: ()=>{}
+      };
+
+      controls._forceToggleFullScreen();
+      expect(timeoutClearSpy.calledWith(id)).to.be.true;
+    });
+
+    it('should call _toggleFullScreen when _forceToggleFullScreen is called', () => {
+      const requestMock = sinon.spy();
+      const toggleFullscreenSpy = sinon.spy(controls, '_toggleFullScreen');
+      controls.fullscreen = {
+        request: requestMock
+      };
+
+      controls._forceToggleFullScreen();
+      expect(toggleFullscreenSpy.called).to.be.true;
+    });
+
+    it('should toggle fullscreen on _toggleFullScreen', () => {
+      const requestMock = sinon.spy();
+      const exitMock = sinon.spy();
+      controls.fullscreen = {
+        request: requestMock,
+        exit: exitMock,
+        isFullscreen: false
+      };
+
+      controls._toggleFullScreen();
+      expect(requestMock.called).to.be.true;
+
+      controls.fullscreen.isFullscreen = true;
+
+      controls._toggleFullScreen();
+      expect(exitMock.called).to.be.true;
     });
 
     it('should trigger play or pause on _toggleVideoPlayback', () => {
