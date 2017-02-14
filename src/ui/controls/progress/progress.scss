@@ -1,5 +1,30 @@
 @import '../../shared';
 
+.progress-bar {
+  position: relative;
+
+  display: inline-block;
+  flex: 1;
+
+  margin-right: 20px;
+
+  cursor: pointer;
+
+  input[type='range'] {
+    position: relative;
+    z-index: 2;
+
+    &::-webkit-slider-runnable-track {
+      background: transparent;
+    }
+    &::-moz-range-track {
+      background: transparent;
+    }
+    &::-ms-fill-upper {
+      background: transparent;
+    }
+  }
+}
 
 .progress-played,
 .progress-buffered {

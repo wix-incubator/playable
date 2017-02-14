@@ -85,32 +85,6 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
   }
 }
 
-.progress-bar {
-  position: relative;
-
-  display: inline-block;
-  flex: 1;
-
-  margin-right: 20px;
-
-  cursor: pointer;
-
-  input[type='range'] {
-    position: relative;
-    z-index: 2;
-
-    &::-webkit-slider-runnable-track {
-      background: transparent;
-    }
-    &::-moz-range-track {
-      background: transparent;
-    }
-    &::-ms-fill-upper {
-      background: transparent;
-    }
-  }
-}
-
 input[type=range] {
   display: block;
 

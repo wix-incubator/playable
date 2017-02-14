@@ -3,6 +3,9 @@ import View from './volume.view';
 import styles from './volume.scss';
 
 
+const MAX_VOLUME_ICON_RANGE = 60;
+const MID_VOLUME_ICON_RANGE = 25;
+
 export default class TimeControl {
   constructor({ onVolumeLevelChange, onMuteStatusChange }) {
     this.isMuted = false;
@@ -93,13 +96,11 @@ export default class TimeControl {
     this.view.$input.attr('value', level);
     this.view.$volumeLevel.attr('value', level);
 
-    if (level > 50) {
+    if (level >= MAX_VOLUME_ICON_RANGE) {
       this.view.$volumeIcon[0].src = this.view.volumeFullSVG;
-    }
-    if (level < 50 && level > 10) {
+    } else if (level >= MID_VOLUME_ICON_RANGE) {
       this.view.$volumeIcon[0].src = this.view.volumeMidSVG;
-    }
-    if (level < 10) {
+    } else {
       this.view.$volumeIcon[0].src = this.view.volumeMinSVG;
     }
 

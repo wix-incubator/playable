@@ -136,6 +136,7 @@ export default class ControlBlock {
   }
 
   _bindControlsCallbacks() {
+    this._toggleFullScreen = this._toggleFullScreen.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
     this._processKeyboardInput = this._processKeyboardInput.bind(this);
     this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
@@ -264,7 +265,12 @@ export default class ControlBlock {
       this.playControl.toggleControlStatus(true);
       this._startIntervalUpdates();
     } else {
-      this.view.$node.toggleClass(styles['video-paused'], true);
+      if (status === VIDI_PLAYBACK_STATUSES.ENDED) {
+        this.view.$node.toggleClass(styles['video-paused'], false);
+        this._hideContent();
+      } else {
+        this.view.$node.toggleClass(styles['video-paused'], true);
+      }
       this.playControl.toggleControlStatus(false);
       this._stopIntervalUpdates();
     }
@@ -319,6 +325,14 @@ export default class ControlBlock {
 
     video.muted = isMuted;
     this.eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, isMuted);
+  }
+
+  _toggleFullScreen() {
+    if (this.fullscreen.isFullscreen) {
+      this._exitFullScreen();
+    } else {
+      this._enterFullScreen();
+    }
   }
 
   _enterFullScreen() {

@@ -13,7 +13,9 @@ export default class OverlayView {
       class: styles.overlay
     });
 
-    this.$content.css('background-image', `url('${src}')`);
+    if (src) {
+      this.$content.css('background-image', `url('${src}')`);
+    }
 
     this.$playWrapper = $('<div>', {
       class: `${styles['play-wrapper']} ${styles.button}`

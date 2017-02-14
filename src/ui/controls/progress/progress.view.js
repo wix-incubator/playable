@@ -24,8 +24,6 @@ export default class ProgressView {
     });
 
     this.$input = $('<input>', {
-      class: styles['seek-input'],
-      id: 'seek-input',
       type: 'range',
       min: 0,
       max: 100,
