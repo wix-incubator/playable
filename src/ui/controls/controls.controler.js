@@ -136,8 +136,7 @@ export default class ControlBlock {
   }
 
   _bindControlsCallbacks() {
-    this._startDelayedToggleVideoPlayback = this._startDelayedToggleVideoPlayback.bind(this);
-    this._forceToggleFullScreen = this._forceToggleFullScreen.bind(this);
+    this._processNodeClick = this._processNodeClick.bind(this);
     this._toggleFullScreen = this._toggleFullScreen.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
     this._processKeyboardInput = this._processKeyboardInput.bind(this);
@@ -158,8 +157,7 @@ export default class ControlBlock {
   }
 
   _initEvents() {
-    this.view.$node.on('click', this._startDelayedToggleVideoPlayback);
-    this.view.$node.on('dblclick', this._forceToggleFullScreen);
+    this.view.$node.on('click', this._processNodeClick);
     this.view.$controlsContainer.on('click', this._preventClickPropagation);
     this.view.$node.on('keypress', this._processKeyboardInput);
     this.view.$node.on('mousemove', this._startHideControlsTimeout);
@@ -185,24 +183,19 @@ export default class ControlBlock {
     e.stopPropagation();
   }
 
-  _startDelayedToggleVideoPlayback() {
+  _processNodeClick() {
     if (this._delayedToggleVideoPlaybackTimeout) {
       clearTimeout(this._delayedToggleVideoPlaybackTimeout);
       this._delayedToggleVideoPlaybackTimeout = null;
-    }
-    this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, 200);
-  }
 
-  _forceToggleFullScreen() {
-    if (this._delayedToggleVideoPlaybackTimeout) {
-      clearTimeout(this._delayedToggleVideoPlaybackTimeout);
-      this._delayedToggleVideoPlaybackTimeout = null;
+      this._toggleFullScreen();
+    } else {
+      this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, 300);
     }
-
-    this._toggleFullScreen();
   }
 
   _toggleVideoPlayback() {
+    this._delayedToggleVideoPlaybackTimeout = null;
     const playbackState = this.vidi.getPlaybackState();
 
     if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {

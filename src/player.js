@@ -23,9 +23,12 @@ class Player {
     this.eventEmitter = new EventEmitter();
 
     this.$video = $('<video/>', {
-      preload,
-      poster
+      preload
     });
+
+    if (poster) {
+      this.$video.attr('poster', poster);
+    }
 
     if (autoplay) {
       this.setAutoplay(true);
