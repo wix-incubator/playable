@@ -4,14 +4,11 @@ $video-progress-bg: transparentize(#fff, .75) !default;
 $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-45Ligh,Helvetica Neue,Helvetica,Arial,\\30E1\30A4\30EA\30AA,meiryo,\\30D2\30E9\30AE\30CE\89D2\30B4 pro w3,hiragino kaku gothic pro;
 
 @mixin range-track() {
-  height: 8px;
-
   cursor: pointer;
   user-select: none;
 
   border: 0;
   border-radius: 4px;
-  background: transparent;
 }
 
 @mixin range-thumb() {
@@ -134,8 +131,6 @@ input[type=range] {
     @include range-track();
   }
   &::-webkit-slider-thumb {
-    margin-top: -4px;
-
     -webkit-appearance: none;
     @include range-thumb();
   }
@@ -160,8 +155,8 @@ input[type=range] {
   &::-ms-fill-lower {
     height: 4px;
 
-    color: #3899ec;
-    background: #3899ec;
+    color: $color-main;
+    background: $color-main;
 
     @include range-track();
   }

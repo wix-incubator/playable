@@ -1,5 +1,8 @@
 @import '../../shared';
 
+
+$color: white !default;
+
 .volume-level {
   position: absolute;
   z-index: 1;
@@ -14,7 +17,7 @@
   transition: none;
   vertical-align: top;
 
-  color: white;
+  color: $color;
   border: none;
   border-radius: 100px;
   background: $video-progress-bg;
