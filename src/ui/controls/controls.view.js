@@ -10,18 +10,16 @@ export default class ControlsView {
       tabIndex: 0
     });
 
-    this.$wrapper = $('<div>', {
-      class: styles['controls-wrapper']
+    const background = $('<div>', {
+      class: styles['gradient-background']
     });
 
     this.$controlsContainer = $('<div>', {
       class: styles.controls
     });
 
-    this.$wrapper
-      .append(this.$controlsContainer);
-
     this.$node
-      .append(this.$wrapper);
+      .append(background)
+      .append(this.$controlsContainer);
   }
 }
