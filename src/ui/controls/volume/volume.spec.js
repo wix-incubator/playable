@@ -115,11 +115,11 @@ describe('VolumeControl', () => {
       const callback = sinon.spy(control, "_callVolumeChangeCallbacks");
 
       control._getVolumeLevelFromWheel({
-        deltaY: 10,
+        deltaY: -100,
         preventDefault: () => {}
       });
 
-      expect(callback.called).to.be.true;
+      expect(callback.calledWith(90)).to.be.true;
     })
   });
 
