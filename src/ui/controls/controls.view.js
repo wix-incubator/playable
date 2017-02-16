@@ -22,4 +22,11 @@ export default class ControlsView {
       .append(background)
       .append(this.$controlsContainer);
   }
+
+  destroy() {
+    this.$node.remove();
+
+    delete this.$controlsContainer;
+    delete this.$node;
+  }
 }

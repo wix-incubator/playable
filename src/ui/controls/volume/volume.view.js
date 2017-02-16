@@ -64,4 +64,17 @@ export default class VolumeView {
       .append(this.$volumeMutedIcon)
       .append($innerWrapper);
   }
+
+  destroy() {
+    this.$node.remove();
+
+    delete this.$input;
+    delete this.$volumeIcon;
+    delete this.$volumeMutedIcon;
+    delete this.$volumeLevel;
+    delete this.$node;
+    delete this.volumeFullSVG;
+    delete this.volumeMidSVG;
+    delete this.volumeMinSVG;
+  }
 }

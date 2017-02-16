@@ -35,7 +35,7 @@ export default class ControlBlock {
     this._bindControlsCallbacks();
     this._initUI();
     this._initControls();
-    this._initEvents();
+    this._bindEvents();
   }
 
   get node() {
@@ -160,7 +160,7 @@ export default class ControlBlock {
     this._exitFullScreen = this._exitFullScreen.bind(this);
   }
 
-  _initEvents() {
+  _bindEvents() {
     this.view.$node.on('click', this._processNodeClick);
     this.view.$controlsContainer.on('click', this._preventClickPropagation);
     this.view.$node.on('keypress', this._processKeyboardInput);
@@ -386,5 +386,51 @@ export default class ControlBlock {
   show() {
     this.isHidden = false;
     this.view.$node.toggleClass(styles.hidden, false);
+  }
+
+  _unbindEvents() {
+    this.view.$node.off('click', this._processNodeClick);
+    this.view.$controlsContainer.off('click', this._preventClickPropagation);
+    this.view.$node.off('keypress', this._processKeyboardInput);
+    this.view.$node.off('mousemove', this._startHideControlsTimeout);
+    this.view.$controlsContainer.off('mousemove', this._setFocusState);
+    this.view.$controlsContainer.off('mouseout', this._removeFocusState);
+    this.view.$node.off('mouseout', this._hideContent);
+    this.eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
+    this.eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
+    this.eventEmitter.off(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
+    this.eventEmitter.off(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
+    this.eventEmitter.off(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
+    this.eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this.eventEmitter.off(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+  }
+
+  destroy() {
+    this._unbindEvents();
+    this.view.destroy();
+    delete this.view;
+
+    delete this.isHidden;
+    delete this.fullscreen;
+
+    this.fullscreenControl.destroy();
+    delete this.fullscreenControl;
+
+    this.volumeControl.destroy();
+    delete this.volumeControl;
+
+    this.progressControl.destroy();
+    delete this.progressControl;
+
+    this.playControl.destroy();
+    delete this.playControl;
+
+    this.timeControl.destroy();
+    delete this.timeControl;
+
+    delete this.eventEmitter;
+    delete this.vidi;
+    delete this.$wrapper;
+    delete this.config;
   }
 }

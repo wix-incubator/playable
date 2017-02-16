@@ -26,4 +26,12 @@ export default class PlayView {
       .append(this.$pauseIcon)
       .append(this.$playIcon);
   }
+
+  destroy() {
+    this.$node.remove();
+
+    delete this.$playIcon;
+    delete this.$pauseIcon;
+    delete this.$node;
+  }
 }

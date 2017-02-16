@@ -38,4 +38,14 @@ export default class OverlayView {
     this.$node
       .append(this.$content);
   }
+
+  destroy() {
+    this.$node.remove();
+
+    delete this.$content;
+    delete this.$playWrapper;
+    delete this.$playButton;
+    delete this.$playTest;
+    delete this.$node;
+  }
 }

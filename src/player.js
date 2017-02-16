@@ -63,6 +63,10 @@ class Player {
   }
 
   get node() {
+    if (!this.ui) {
+      return;
+    }
+
     return this.ui.node[0];
   }
 
@@ -157,6 +161,17 @@ class Player {
 
   setOverlayBackgroundSrc(src) {
     this.ui.setOverlayBackgroundSrc(src);
+  }
+
+  destroy() {
+    this.ui.destroy();
+    delete this.ui;
+
+    delete this.eventEmitter;
+    delete this.$video;
+
+    this.vidi.setVideoElement();
+    delete this.vidi;
   }
 }
 

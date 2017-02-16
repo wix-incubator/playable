@@ -26,4 +26,12 @@ export default class FullScreenView {
       .append(this.$enterIcon)
       .append(this.$exitIcon);
   }
+
+  destroy() {
+    this.$node.remove();
+
+    delete this.$exitIcon;
+    delete this.$enterIcon;
+    delete this.$node;
+  }
 }

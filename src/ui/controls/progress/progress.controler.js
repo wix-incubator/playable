@@ -20,7 +20,7 @@ export default class ProgressControl {
     };
 
     this._initUI();
-    this._initEvents();
+    this._bindEvents();
   }
 
   get node() {
@@ -31,7 +31,7 @@ export default class ProgressControl {
     this.view = new View();
   }
 
-  _initEvents() {
+  _bindEvents() {
     this._changePlayedProgress = this._changePlayedProgress.bind(this);
     this._toggleUserInteractingStatus = this._toggleUserInteractingStatus.bind(this);
 
@@ -84,5 +84,26 @@ export default class ProgressControl {
   show() {
     this.isHidden = false;
     this.view.$node.toggleClass(styles.hidden, false);
+  }
+
+  _unbindEvents() {
+    this.view.$input
+      .off('input', this._changePlayedProgress)
+      .off('change', this._changePlayedProgress)
+      .off('mousedown', this._toggleUserInteractingStatus)
+      .off('mouseup', this._toggleUserInteractingStatus);
+  }
+
+  destroy() {
+    this._unbindEvents();
+    this.view.destroy();
+    delete this.view;
+
+    delete this.isHidden;
+    delete this.currentProgress;
+    delete this._callbacks;
+
+    this._isUserInteracting = null;
+    this.currentProgress = null;
   }
 }

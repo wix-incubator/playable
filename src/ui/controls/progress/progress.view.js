@@ -36,4 +36,13 @@ export default class ProgressView {
       .append(this.$played)
       .append(this.$buffered);
   }
+
+  destroy() {
+    this.$node.remove();
+
+    delete this.$input;
+    delete this.$played;
+    delete this.$buffered;
+    delete this.$node;
+  }
 }

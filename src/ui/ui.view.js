@@ -12,4 +12,10 @@ export default class PlayerUIView {
       height: `${height}px`
     });
   }
+
+  destroy() {
+    this.$node.remove();
+
+    delete this.$node;
+  }
 }

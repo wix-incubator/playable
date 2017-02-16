@@ -32,7 +32,7 @@ describe('ProgressControl', () => {
 
     it('should react on progress range input change event', () => {
       const callback = sinon.spy(control, "_changePlayedProgress");
-      control._initEvents();
+      control._bindEvents();
 
       control.view.$input.trigger('change');
       expect(callback.called).to.be.true;
@@ -40,7 +40,7 @@ describe('ProgressControl', () => {
 
     it('should react on progress range input input event', () => {
       const callback = sinon.spy(control, "_changePlayedProgress");
-      control._initEvents();
+      control._bindEvents();
 
       control.view.$input.trigger('input');
       expect(callback.called).to.be.true;
@@ -53,7 +53,7 @@ describe('ProgressControl', () => {
 
     it('should react on progress range input mousedown event', () => {
       const callback = sinon.spy(control, "_toggleUserInteractingStatus");
-      control._initEvents();
+      control._bindEvents();
 
       control.view.$input.trigger('mousedown');
       expect(callback.called).to.be.true;
@@ -61,7 +61,7 @@ describe('ProgressControl', () => {
 
     it('should react on progress range input mouseup event', () => {
       const callback = sinon.spy(control, "_toggleUserInteractingStatus");
-      control._initEvents();
+      control._bindEvents();
 
       control.view.$input.trigger('mouseup');
       expect(callback.called).to.be.true;

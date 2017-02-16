@@ -49,4 +49,11 @@ export default class TimeControl {
     this.isHidden = false;
     this.view.$node.toggleClass(styles.hidden, false);
   }
+
+  destroy() {
+    this.view.destroy();
+    delete this.view;
+
+    delete this.isHidden;
+  }
 }
