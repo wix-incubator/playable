@@ -4,12 +4,18 @@ import styles from '../../shared.scss';
 
 
 export default class ProgressControl {
-  constructor({ onProgressChange }) {
+  constructor({
+    onProgressChange = _ => _,
+    onInteractionStart = _ => _,
+    onInteractionEnd = _ => _
+  }) {
     this._isUserInteracting = false;
     this.currentProgress = 0;
 
 
     this._callbacks = {
+      onInteractionStart,
+      onInteractionEnd,
       onProgressChange
     };
 
@@ -44,8 +50,17 @@ export default class ProgressControl {
     }
   }
 
-  _toggleUserInteractingStatus() {
+  _toggleUserInteractingStatus(e) {
+    if (e.buttons > 1) {
+      return;
+    }
+
     this._isUserInteracting = !this._isUserInteracting;
+    if (this._isUserInteracting) {
+      this._callbacks.onInteractionStart();
+    } else {
+      this._callbacks.onInteractionEnd();
+    }
   }
 
   updatePlayed(percent) {
