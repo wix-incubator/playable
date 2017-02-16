@@ -23,7 +23,7 @@ Or in old school way, add a `<script>` element for video-player
 And write awesome code:
 
 ```javascript
-const player = new VideoPlayer({
+const player = new VideoPlayer.Player({
     width: 700,
     height: 394,
     src: 'http://my-url/video.mp4',
@@ -69,7 +69,7 @@ You can use ```config.loop```, ```config.autoplay```, ```config.preload```, ```c
 Create a new instance of video player
 
 ```javascript
-const player = new VideoPlayer({
+const player = new VideoPlayer.Player({
     src: [
       'http://my-url/video.mp4',
       'http://my-url/video.webm',
@@ -84,7 +84,7 @@ const player = new VideoPlayer({
 Getter for DOM node with player Element
 
 ```javascript
-const player = new VideoPlayer({ src: 'http://my-url/video.mp4' });
+const player = new VideoPlayer.Player({ src: 'http://my-url/video.mp4' });
 
 document.body.appendChild(player.node);
 ```

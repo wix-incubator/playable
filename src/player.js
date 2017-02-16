@@ -66,7 +66,6 @@ class Player {
     return this.ui.node[0];
   }
 
-  // This one should be removed after all events would be inside vidi.js
   initEventsProxy() {
     const player = this;
     const $video = player.$video;

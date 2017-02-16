@@ -81,6 +81,8 @@ export default class ControlBlock {
 
   _initProgressControl() {
     this.progressControl = new ProgressControl({
+      onInteractionStart: this._pauseVideoOnProgressManipulationStart,
+      onInteractionEnd: this._playVideoOnProgressManipulationEnd,
       onProgressChange: this._changeCurrentTimeOfVideo
     });
 
@@ -136,6 +138,8 @@ export default class ControlBlock {
   }
 
   _bindControlsCallbacks() {
+    this._pauseVideoOnProgressManipulationStart = this._pauseVideoOnProgressManipulationStart.bind(this);
+    this._playVideoOnProgressManipulationEnd = this._playVideoOnProgressManipulationEnd.bind(this);
     this._processNodeClick = this._processNodeClick.bind(this);
     this._toggleFullScreen = this._toggleFullScreen.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
@@ -314,6 +318,18 @@ export default class ControlBlock {
     this.vidi.pause();
 
     this.eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
+  }
+
+  _pauseVideoOnProgressManipulationStart() {
+    this.vidi.pause();
+
+    this.eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
+  }
+
+  _playVideoOnProgressManipulationEnd() {
+    this.vidi.play();
+
+    this.eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
   }
 
   _changeCurrentTimeOfVideo(percent) {
