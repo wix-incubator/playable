@@ -77,7 +77,7 @@ describe('Overlay', () => {
 
     it('should react on play button click', () => {
       const callback = sinon.spy(overlay, "_playVideo");
-      overlay._initEvents();
+      overlay._bindEvents();
       overlay.view.$playWrapper.trigger('click');
 
       expect(callback.called).to.be.true;
@@ -88,7 +88,7 @@ describe('Overlay', () => {
     it('should react on video playback status changed on play', () => {
       const callback = sinon.spy(overlay, "_updatePlayingStatus");
       const hideSpy = sinon.spy(overlay, "_hideContent");
-      overlay._initEvents();
+      overlay._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.PLAYING);
 
@@ -99,7 +99,7 @@ describe('Overlay', () => {
     it('should react on video playback status changed on end', () => {
       const callback = sinon.spy(overlay, "_updatePlayingStatus");
       const showSpy = sinon.spy(overlay, "_showContent");
-      overlay._initEvents();
+      overlay._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.ENDED);
 

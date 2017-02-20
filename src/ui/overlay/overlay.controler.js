@@ -16,7 +16,7 @@ export default class Overlay {
     this.vidi = vidi;
 
     this._initUI(src);
-    this._initEvents();
+    this._bindEvents();
   }
 
   get node() {
@@ -27,7 +27,7 @@ export default class Overlay {
     this.view = new View(src);
   }
 
-  _initEvents() {
+  _bindEvents() {
     this._playVideo = this._playVideo.bind(this);
 
     this.view.$playWrapper.on('click', this._playVideo);
@@ -76,5 +76,20 @@ export default class Overlay {
     this._showContent();
     this.isHidden = false;
     this.view.$node.removeClass(styles.hidden);
+  }
+
+  _unbindEvents() {
+    this.view.$playWrapper.off('click', this._playVideo);
+
+    this.eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+  }
+
+  destroy() {
+    this._unbindEvents();
+    this.view.destroy();
+    delete this.view;
+
+    delete this.eventEmitter;
+    delete this.vidi;
   }
 }

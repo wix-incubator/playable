@@ -11,7 +11,7 @@ export default class FullScreenControl {
     };
 
     this._initUI();
-    this._initEvents();
+    this._bindEvents();
 
     this.toggleControlStatus(false);
   }
@@ -24,7 +24,7 @@ export default class FullScreenControl {
     this.view = new View();
   }
 
-  _initEvents() {
+  _bindEvents() {
     this.view.$enterIcon.on('click', this._callbacks.onEnterFullScreenClick);
     this.view.$exitIcon.on('click', this._callbacks.onExitFullScreenClick);
   }
@@ -42,5 +42,19 @@ export default class FullScreenControl {
   show() {
     this.isHidden = false;
     this.view.$node.toggleClass(styles.hidden, false);
+  }
+
+  _unbindEvents() {
+    this.view.$enterIcon.off('click', this._callbacks.onEnterFullScreenClick);
+    this.view.$exitIcon.off('click', this._callbacks.onExitFullScreenClick);
+  }
+
+  destroy() {
+    this._unbindEvents();
+    this.view.destroy();
+    delete this.view;
+
+    delete this.isHidden;
+    delete this._callbacks;
   }
 }

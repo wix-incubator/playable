@@ -17,7 +17,7 @@ export default class TimeControl {
     };
 
     this._initUI();
-    this._initEvents();
+    this._bindEvents();
 
     this._setVolumeInputState(this.volumeLevel);
     this._setMuteInputState(this.isMuted);
@@ -31,7 +31,7 @@ export default class TimeControl {
     this.view = new View();
   }
 
-  _initEvents() {
+  _bindEvents() {
     this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
     this._changeMuteStatus = this._changeMuteStatus.bind(this);
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
@@ -131,5 +131,32 @@ export default class TimeControl {
   show() {
     this.isHidden = false;
     this.view.$node.toggleClass(styles.hidden, false);
+  }
+
+  _unbindEvents() {
+    this.view.$node
+      .off('wheel', this._getVolumeLevelFromWheel);
+
+    this.view.$input
+      .off('change', this._getVolumeLevelFromInput)
+      .off('input', this._getVolumeLevelFromInput);
+
+    this.view.$volumeIcon
+      .off('click', this._changeMuteStatus);
+
+    this.view.$volumeMutedIcon
+      .off('click', this._changeMuteStatus);
+  }
+
+  destroy() {
+    this._unbindEvents();
+    this.view.destroy();
+    delete this.view;
+
+    delete this._callbacks;
+
+    this.isHidden = null;
+    this.isMuted = null;
+    this.volumeLevel = null;
   }
 }

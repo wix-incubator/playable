@@ -12,7 +12,7 @@ export default class TimeView {
     this.$currentTime = $('<span>', {
       class: `${styles.current} ${styles.time}`
     });
-    const $divider = $('<span>', {
+    this.$divider = $('<span>', {
       class: styles.time
     })
       .html('/');
@@ -22,7 +22,16 @@ export default class TimeView {
 
     this.$node
       .append(this.$currentTime)
-      .append($divider)
+      .append(this.$divider)
       .append(this.$durationTime);
+  }
+
+  destroy() {
+    this.$node.remove();
+
+    delete this.$currentTime;
+    delete this.$divider;
+    delete this.$durationTime;
+    delete this.$node;
   }
 }

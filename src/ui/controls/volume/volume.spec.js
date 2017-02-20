@@ -35,7 +35,7 @@ describe('VolumeControl', () => {
 
     it('should react on volume range input change event when not muted', () => {
       const callback = sinon.spy(control, "_getVolumeLevelFromInput");
-      control._initEvents();
+      control._bindEvents();
 
       control.setVolumeLevel(0.5);
 
@@ -45,7 +45,7 @@ describe('VolumeControl', () => {
 
     it('should react on volume range input input event', () => {
       const callback = sinon.spy(control, "_getVolumeLevelFromInput");
-      control._initEvents();
+      control._bindEvents();
 
       control.setVolumeLevel(0.5);
 
@@ -72,7 +72,7 @@ describe('VolumeControl', () => {
 
     it('should call callbacks on _getVolumeLevelFromInput', () => {
       const callback = sinon.spy(control, "_callVolumeChangeCallbacks");
-      control._initEvents();
+      control._bindEvents();
 
       control._getVolumeLevelFromInput();
 
@@ -81,7 +81,7 @@ describe('VolumeControl', () => {
 
     it('should react on mute status input click event', () => {
       const callback = sinon.spy(control, "_changeMuteStatus");
-      control._initEvents();
+      control._bindEvents();
 
       control.view.$volumeIcon.trigger('click');
       expect(callback.called).to.be.true;
@@ -90,7 +90,7 @@ describe('VolumeControl', () => {
 
     it('should react on unmute status input click event', () => {
       const callback = sinon.spy(control, "_changeMuteStatus");
-      control._initEvents();
+      control._bindEvents();
 
       control.view.$volumeMutedIcon.trigger('click');
       expect(callback.called).to.be.true;
@@ -105,7 +105,7 @@ describe('VolumeControl', () => {
 
     it('should react on wheel event on whole node', () => {
       const callback = sinon.spy(control, "_getVolumeLevelFromWheel");
-      control._initEvents();
+      control._bindEvents();
 
       control.view.$node.trigger('wheel');
       expect(callback.called).to.be.true;

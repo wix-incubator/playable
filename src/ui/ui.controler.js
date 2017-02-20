@@ -125,6 +125,22 @@ class PlayerUI {
         height: `${height}px`
       });
   }
+
+  destroy() {
+    this.view.destroy();
+    delete this.view;
+
+    this.controls.destroy();
+    delete this.controls;
+
+    this.overlay.destroy();
+    delete this.overlay;
+
+    delete this.eventEmitter;
+    delete this.$video;
+    delete this.vidi;
+    delete this.config;
+  }
 }
 
 

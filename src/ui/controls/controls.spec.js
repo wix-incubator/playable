@@ -240,7 +240,7 @@ describe('ControlsBlock', () => {
       const preventSpy = sinon.spy(controls, '_preventClickPropagation');
       const eventStopPropSpy = sinon.spy();
 
-      controls._initEvents();
+      controls._bindEvents();
 
       controls.view.$controlsContainer.trigger('click');
       expect(preventSpy.called).to.be.true;
@@ -255,7 +255,7 @@ describe('ControlsBlock', () => {
     it('should trigger _toggleVideoPlayback on node click', () => {
       const processClickSpy = sinon.spy(controls, '_processNodeClick');
 
-      controls._initEvents();
+      controls._bindEvents();
       controls.view.$node.trigger('click');
       expect(processClickSpy.called).to.be.true;
     });
@@ -389,7 +389,7 @@ describe('ControlsBlock', () => {
 
       const playControlToggleStatusSpy = sinon.spy(controls.playControl, "toggleControlStatus");
 
-      controls._initEvents();
+      controls._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.PLAYING);
 
@@ -404,7 +404,7 @@ describe('ControlsBlock', () => {
 
       const playControlToggleStatusSpy = sinon.spy(controls.playControl, "toggleControlStatus");
 
-      controls._initEvents();
+      controls._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.PAUSED);
 
@@ -419,7 +419,7 @@ describe('ControlsBlock', () => {
 
       const playControlToggleStatusSpy = sinon.spy(controls.playControl, "toggleControlStatus");
 
-      controls._initEvents();
+      controls._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.ENDED);
 
@@ -435,7 +435,7 @@ describe('ControlsBlock', () => {
       const progressControlUpdatePlayedSpy = sinon.spy(controls.progressControl, "updatePlayed");
       const timeIndicatorSetCurrentTimeSpy = sinon.spy(controls.timeControl, "setCurrentTime");
 
-      controls._initEvents();
+      controls._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
 
@@ -450,7 +450,7 @@ describe('ControlsBlock', () => {
 
       const progressControlUpdateBufferedSpy = sinon.spy(controls.progressControl, "updateBuffered");
 
-      controls._initEvents();
+      controls._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
 
@@ -464,7 +464,7 @@ describe('ControlsBlock', () => {
 
       const timeIndicatorSetDurationTimeSpy = sinon.spy(controls.timeControl, "setDurationTime");
 
-      controls._initEvents();
+      controls._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
 
@@ -477,7 +477,7 @@ describe('ControlsBlock', () => {
 
       const progressControlUpdateBufferedSpy = sinon.spy(controls.progressControl, "updateBuffered");
 
-      controls._initEvents();
+      controls._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
       expect(updateBufferIndicatorSpy.called).to.be.true;
@@ -491,7 +491,7 @@ describe('ControlsBlock', () => {
       const volumeControlSetMuteSpy = sinon.spy(controls.volumeControl, "setMuteStatus");
 
 
-      controls._initEvents();
+      controls._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
 
