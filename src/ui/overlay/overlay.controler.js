@@ -6,16 +6,23 @@ import View from './overlay.view';
 import styles from './overlay.scss';
 
 
+const DEFAULT_CONFIG = {
+  poster: ''
+};
+
 export default class Overlay {
-  constructor({ src, eventEmitter, vidi }) {
+  constructor({ config, eventEmitter, vidi }) {
     this.eventEmitter = eventEmitter;
     this.isHidden = false;
     this.isContentHidden = false;
     this.enabled = true;
-    this.src = src;
+    this.config = {
+      ...DEFAULT_CONFIG,
+      ...config
+    };
     this.vidi = vidi;
 
-    this._initUI(src);
+    this._initUI(this.config.poster);
     this._bindEvents();
   }
 

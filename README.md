@@ -24,8 +24,10 @@ And write awesome code:
 
 ```javascript
 const player = new VideoPlayer.Player({
-    width: 700,
-    height: 394,
+    size: {
+      width: 700,
+      height: 394
+     }
     src: 'http://my-url/video.mp4',
     preload: 'metadata'
 });
@@ -35,35 +37,49 @@ document.getElementById('content').appendChild(player.node);
 
 ## API
 
-### VideoPlayer(config)
+### VideoPlayer ```config```
 
 #### Video sources
 
 ```config.src``` A string or array with source of the video. For more information see [vidi](https://github.com/wix/vidi)
 
-#### Native attributes
+#### Playback attributes
 
-You can use ```config.loop```, ```config.autoplay```, ```config.preload```, ```config.poster``` and ```config.muted``` ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video))
+```config.loop``` Loop video playback
+
+```config.autoplay``` Start video playback as soon as it can do so without stopping to finish loading the data.
+
+```config.preload``` Type of preloading. For more info check ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video))
+
+```config.muted``` Status of audio playback. If set, the audio will be initially silenced
+
+```config.volume``` Start value of volume for audio
 
 #### UI
 
-```config.width``` Width of video player
+##### Size ```config.size```
 
-```config.height``` Height of video player
+```config.size.width``` Width of video player
 
-```config.overlay``` Toggle overlay
+```config.size.height``` Height of video player
 
-```config.controls``` Toggle all controls
+##### Overlay ```config.overlay```
 
-```config.timeIndicator``` Toggle block with current time of video
+```config.overlay``` If set as false hide and disable overlay
 
-```config.progressControl``` Toggle progress control
+```config.overlay.poster``` Source of image for basic overlay
 
-```config.volumeControl``` Toggle volume control
+##### Controls ```config.controls```
 
-```config.volume``` Initial volume
+```config.controls``` If set as false hide and disable controls
 
-```config.fullscreenControl```  Toggle fullscreen control
+```config.controls.time``` Toggle block with current time of video
+
+```config.controls.progress``` Toggle progress control
+
+```config.controls.volume``` Toggle volume control
+
+```config.controls.fullscreen```  Toggle fullscreen control
 
 
 Create a new instance of video player
@@ -79,12 +95,52 @@ const player = new VideoPlayer.Player({
 });
 ```
 
-### .node
+### Player public methods
 
-Getter for DOM node with player Element
+```Player.setAutoplay(flag)``` Set autoplay flag
+
+```Player.setLoop(flag)``` Set loop flag
+
+```Player.setMute(flag)``` Set mute flag
+
+```Player.setVolume(volume)``` Set volume
+
+```Player.setPreload(type)``` Set preload type
+
+```Player.on(eventName, listener)``` Method for adding listeners of events inside player. You can check all events inside ```VideoPlayer.UI_EVENTS``` and ```VideoPlayer.VIDEO_EVENTS```
+
+```Player.off(eventName, listener)``` Method for removing listeners of events inside player.
+
+```Player.node``` Getter for DOM node with player UI element
 
 ```javascript
 const player = new VideoPlayer.Player({ src: 'http://my-url/video.mp4' });
 
 document.body.appendChild(player.node);
 ```
+
+```Player.destroy``` Destroy instance of player
+
+### PlayerUI public methods
+
+```Player.ui.show()/hide()``` Show/Hide whole ui
+
+```Player.ui.setWidth``` Set width of player
+
+```Player.ui.setHeight``` Set height of player
+
+```Player.ui.showOverlay()/hideOverlay()``` Show/Hide overlay
+
+```Player.ui.setOverlayBackgroundSrc(src)``` Set source of image for basic overlay
+
+```Player.ui.showControls()/hideControls()``` Show/Hide controls block
+
+```Player.ui.showTime()/hideTime()``` Show/Hide time indicator
+
+```Player.ui.showProgress()/hideProgress()``` Show/Hide progress control
+
+```Player.ui.showVolume()/hideVolume()``` Show/Hide volume control
+
+```Player.ui.showFullscreen()/hideFullscreen()``` Show/Hide fullscreen control
+
+

@@ -21,9 +21,7 @@ describe('Overlay', () => {
   let eventEmitterSpy = null;
 
   beforeEach(() => {
-    $video = new $('<video>', {
-      controls: 'true',
-    });
+    $video = new $('<video>');
     vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
   });
@@ -45,7 +43,10 @@ describe('Overlay', () => {
     beforeEach(() => {
       overlay = new Overlay({
         vidi,
-        eventEmitter
+        eventEmitter,
+        config: {
+          poster: 'test'
+        }
       });
 
       eventEmitterSpy = sinon.spy(overlay.eventEmitter, 'emit');

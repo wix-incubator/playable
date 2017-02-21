@@ -8,27 +8,22 @@ import PlayerUI from './ui/ui.controler';
 
 class Player {
   constructor({
-    width,
-    height,
     preload,
-    poster,
     autoplay,
     loop,
     muted,
     volume,
     src,
-    ...params
+    size,
+    controls,
+    overlay
   }) {
 
     this.eventEmitter = new EventEmitter();
 
-    this.$video = $('<video/>', {
-      preload
-    });
+    this.$video = $('<video/>');
 
-    if (poster) {
-      this.$video.attr('poster', poster);
-    }
+    this.setPreload(preload);
 
     if (autoplay) {
       this.setAutoplay(true);
@@ -47,19 +42,33 @@ class Player {
     }
 
     this.vidi = new Vidi(this.$video[0]);
-    this.videoStatus = null;
+
+    this._createUI(size, controls, overlay);
+
+    this.vidi.src = src;
+    this._initEventsProxy();
+  }
+
+  _createUI(size, controls, overlay) {
+    const config = {};
+
+    if (size) {
+      config.size = size;
+    }
+
+    if (controls) {
+      config.controls = controls;
+    }
+
+    if (overlay) {
+      config.overlay = overlay;
+    }
 
     this.ui = new PlayerUI({
       vidi: this.vidi,
       eventEmitter: this.eventEmitter,
-      ...params
+      config
     });
-
-    this.setWidth(width);
-    this.setHeight(height);
-
-    this.vidi.src = src;
-    this.initEventsProxy();
   }
 
   get node() {
@@ -70,22 +79,16 @@ class Player {
     return this.ui.node[0];
   }
 
-  initEventsProxy() {
-    const player = this;
-    const $video = player.$video;
-
+  _initEventsProxy() {
     this.vidi.on('statuschange', status => {
-      if (player.videoStatus !== status) {
-        player.videoStatus = status;
-        this.eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, player.videoStatus);
-      }
+      this.eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, status);
     });
 
-    $video.on('loadedmetadata', () => {
+    this.$video.on('loadedmetadata', () => {
       this.eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
     });
 
-    $video.on('progress', () => {
+    this.$video.on('progress', () => {
       this.eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
     });
 
@@ -101,15 +104,15 @@ class Player {
       this.eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED);
     });
 
-    $video.on('seeking', () => {
+    this.$video.on('seeking', () => {
       this.eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
     });
 
-    $video.on('seeked', () => {
+    this.$video.on('seeked', () => {
       this.eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
     });
 
-    $video.on('volumechange', () => {
+    this.$video.on('volumechange', () => {
       this.eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
     });
   }
@@ -131,36 +134,16 @@ class Player {
     this.$video[0].volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
   }
 
-  setWidth(rawWidth) {
-    const width = Number(rawWidth);
-
-    this.ui.setWidth(width);
+  setPreload(preload) {
+    this.$video[0].preload = preload || 'auto';
   }
 
-  setHeight(rawHeight) {
-    const height = Number(rawHeight);
-
-    this.ui.setHeight(height);
+  on(name, callback) {
+    this.eventEmitter.on(name, callback);
   }
 
-  hideControls() {
-    this.ui.hideControls();
-  }
-
-  showControls() {
-    this.ui.showControls();
-  }
-
-  hideOverlay() {
-    this.ui.hideOverlay();
-  }
-
-  showOverlay() {
-    this.ui.showOverlay();
-  }
-
-  setOverlayBackgroundSrc(src) {
-    this.ui.setOverlayBackgroundSrc(src);
+  off(name, callback) {
+    this.eventEmitter.off(name, callback);
   }
 
   destroy() {

@@ -15,15 +15,25 @@ import FullscreenControl from './full-screen/full-screen.controler';
 import styles from './controls.scss';
 
 
+const DEFAULT_CONFIG = {
+  time: true,
+  progress: true,
+  volume: true,
+  fullscreen: true
+};
+
 const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 const SPACE_BAR_KEYCODE = 32;
 
 export default class ControlBlock {
-  constructor({ vidi, $wrapper, eventEmitter, ...config }) {
+  constructor({ vidi, $wrapper, eventEmitter, config }) {
     this.eventEmitter = eventEmitter;
     this.vidi = vidi;
     this.$wrapper = $wrapper;
-    this.config = config;
+    this.config = {
+      ...DEFAULT_CONFIG,
+      ...config
+    };
     this.fullscreen = fullscreen;
     this.isHidden = false;
 
@@ -74,7 +84,7 @@ export default class ControlBlock {
     this.view.$controlsContainer
       .append(this.timeControl.node);
 
-    if (!this.config.timeIndicator) {
+    if (!this.config.time) {
       this.timeControl.hide();
     }
   }
@@ -89,7 +99,7 @@ export default class ControlBlock {
     this.view.$controlsContainer
       .append(this.progressControl.node);
 
-    if (!this.config.progressControl) {
+    if (!this.config.progress) {
       this.progressControl.hide();
     }
   }
@@ -111,7 +121,7 @@ export default class ControlBlock {
     this.view.$controlsContainer
       .append(this.volumeControl.node);
 
-    if (!this.config.volumeControl) {
+    if (!this.config.volume) {
       this.volumeControl.hide();
     }
   }
@@ -127,7 +137,7 @@ export default class ControlBlock {
     this.view.$controlsContainer
       .append(this.fullscreenControl.node);
 
-    if (!this.config.fullscreenControl) {
+    if (!this.config.fullscreen) {
       this.fullscreenControl.hide();
     }
   }
