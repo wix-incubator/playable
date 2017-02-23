@@ -37,26 +37,6 @@ describe('Player', () => {
   });
 
   describe('instance created with extended config', () => {
-    it('should set width to player if passed', () => {
-      const spy = sinon.spy(Player.prototype, 'setWidth');
-      const width = 500;
-      player = new Player({
-        width
-      });
-      expect(spy.calledWith(500)).to.be.true;
-      Player.prototype.setWidth.restore();
-    });
-
-    it('should set height to video tag if passed', () => {
-      const spy = sinon.spy(Player.prototype, 'setHeight');
-      const height = 500;
-      player = new Player({
-        height
-      });
-      expect(spy.calledWith(500)).to.be.true;
-      Player.prototype.setHeight.restore();
-    });
-
     it('should set preload to video tag if passed', () => {
       const preload = 'none';
       player = new Player({
@@ -165,6 +145,19 @@ describe('Player', () => {
 
       expect(player.vidi.src).to.be.equal(src);
     });
+
+    it('should set preload to video tag if passed', () => {
+      const preload = "meta";
+      player = new Player({
+        preload
+      });
+
+      expect(player.$video[0].preload).to.be.equal(preload);
+
+      player = new Player({});
+
+      expect(player.$video[0].preload).to.be.equal('auto');
+    });
   });
 
   describe('instance video events proxy', () => {
@@ -221,14 +214,14 @@ describe('Player', () => {
       player.$video.trigger('volumechange');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.VOLUME_STATUS_CHANGED)).to.be.true;
     });
-  })
+  });
 
   describe('API', () => {
     beforeEach(() => {
       player = new Player({});
     });
 
-    it('shoul have method for set autoplay flag', () => {
+    it('should have method for set autoplay flag', () => {
       expect(player.setAutoplay).to.exist;
       player.setAutoplay(true);
       expect(player.$video[0].autoplay).to.be.true;
@@ -236,7 +229,7 @@ describe('Player', () => {
       expect(player.$video[0].autoplay).to.be.false;
     });
 
-    it('shoul have method for set autoplay flag', () => {
+    it('should have method for set autoplay flag', () => {
       expect(player.setLoop).to.exist;
       player.setLoop(true);
       expect(player.$video[0].loop).to.be.true;
@@ -244,7 +237,7 @@ describe('Player', () => {
       expect(player.$video[0].loop).to.be.false;
     });
 
-    it('shoul have method for set autoplay flag', () => {
+    it('should have method for set autoplay flag', () => {
       expect(player.setMute).to.exist;
       player.setMute(true);
       expect(player.$video[0].muted).to.be.true;
@@ -252,56 +245,33 @@ describe('Player', () => {
       expect(player.$video[0].muted).to.be.false;
     });
 
-    it('shoul have method for showing controls', () => {
-      expect(player.showControls).to.exist;
-      const showSpy = sinon.spy(player.ui, 'showControls');
-      player.showControls();
-      expect(showSpy.called).to.be.true;
+    it('should have method for destroying player', () => {
+      expect(player.destroy).to.exist;
+      const uiDestroySpy = sinon.spy(player.ui, 'destroy');
+
+      player.destroy();
+      expect(uiDestroySpy.called).to.be.true;
+      expect(player.node).to.not.exist;
     });
 
-    it('shoul have method for hiding controls', () => {
-      expect(player.hideControls).to.exist;
-      const hideSpy = sinon.spy(player.ui, 'hideControls');
-      player.hideControls();
-      expect(hideSpy.called).to.be.true;
+    it('should have method for subscribing on events', () => {
+      expect(player.on).to.exist;
+      const onSpy = sinon.spy(player.eventEmitter, 'on');
+      const eventName = 'test';
+      const callback = () => {};
+
+      player.on(eventName, callback);
+      expect(onSpy.calledWith(eventName, callback)).to.be.true;
     });
 
-    it('shoul have method for showing overlay', () => {
-      expect(player.showOverlay).to.exist;
-      const showSpy = sinon.spy(player.ui, 'showOverlay');
-      player.showOverlay();
-      expect(showSpy.called).to.be.true;
-    });
+    it('should have method for unsubscribing from events', () => {
+      expect(player.off).to.exist;
+      const offSpy = sinon.spy(player.eventEmitter, 'off');
+      const eventName = 'test';
+      const callback = () => {};
 
-    it('shoul have method for hiding overlay', () => {
-      expect(player.hideOverlay).to.exist;
-      const hideSpy = sinon.spy(player.ui, 'hideOverlay');
-      player.hideOverlay();
-      expect(hideSpy.called).to.be.true;
-    });
-
-    it('should have method for setting background for overlay', () => {
-      const src = 'test';
-      expect(player.setOverlayBackgroundSrc).to.exist;
-      const setBackgroundSpy = sinon.spy(player.ui, 'setOverlayBackgroundSrc');
-      player.setOverlayBackgroundSrc(src);
-      expect(setBackgroundSpy.calledWith(src)).to.be.true;
-    });
-
-    it('shoul have method for setting width', () => {
-      expect(player.setWidth).to.exist;
-      const setWidthSpy = sinon.spy(player.ui, 'setWidth');
-
-      player.setWidth(10);
-      expect(setWidthSpy.calledWith(10)).to.be.true;
-    });
-
-    it('shoul have method for setting height', () => {
-      expect(player.setHeight).to.exist;
-      const setHeightSpy = sinon.spy(player.ui, 'setHeight');
-
-      player.setHeight(10);
-      expect(setHeightSpy.calledWith(10)).to.be.true;
+      player.off(eventName, callback);
+      expect(offSpy.calledWith(eventName, callback)).to.be.true;
     });
   });
 });

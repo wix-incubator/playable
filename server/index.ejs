@@ -36,24 +36,26 @@
 </div>
 <script>
   var player = new VideoPlayer.Player({
-    width: 760,
-    height: 427,
     autoplay: false,
     muted: false,
     loop: false,
-    nativeControls: false,
     preload: 'auto',
+    volume: 0.5,
     src: [
       'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
     ],
-    overlay: true,
-    controls: true,
-    timeIndicator: true,
-    progressControl: true,
-    volumeControl: true,
-    volume: 0.5,
-    fullscreenControl: true,
-    enableLogger: true
+
+    size: {
+      width: 300,
+      height: 427,
+    },
+    overlay: {
+      poster: 'https://cs7050.vk.me/c626226/v626226133/4c4dd/fkg9iTcqoQI.jpg'
+    },
+    controls: {
+      progress: false,
+      fullscreen: false
+    }
   });
   document.getElementById('player').appendChild(player.node);
 </script>

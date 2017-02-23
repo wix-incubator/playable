@@ -9,6 +9,8 @@ import ProgressControl from './progress.controler';
 describe('ProgressControl', () => {
   let control = {};
   let onProgressChange = null;
+  let onInteractionStart = null;
+  let onInteractionEnd = null;
 
   describe('constructor', () => {
     beforeEach(() => {
@@ -24,9 +26,13 @@ describe('ProgressControl', () => {
   describe('instance', () => {
     beforeEach(() => {
       onProgressChange = sinon.spy();
+      onInteractionStart = sinon.spy();
+      onInteractionEnd = sinon.spy();
 
       control = new ProgressControl({
-        onProgressChange
+        onProgressChange,
+        onInteractionStart,
+        onInteractionEnd
       });
     });
 
@@ -65,6 +71,27 @@ describe('ProgressControl', () => {
 
       control.view.$input.trigger('mouseup');
       expect(callback.called).to.be.true;
+    });
+
+    describe('_toggleUserInteractingStatus', () => {
+      it('should call callbacks on trigger', () => {
+        control._toggleUserInteractingStatus({});
+
+        expect(onInteractionStart.called).to.be.true;
+        expect(onInteractionEnd.called).to.be.false;
+
+        control._toggleUserInteractingStatus({});
+        expect(onInteractionEnd.called).to.be.true;
+      });
+
+      it('should not call callbacks if condition met', () => {
+        control._toggleUserInteractingStatus({
+          buttons: 2
+        });
+
+        expect(onInteractionStart.called).to.be.false;
+        expect(onInteractionEnd.called).to.be.false;
+      });
     });
   });
 

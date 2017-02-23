@@ -1,5 +1,3 @@
-import $ from 'jbone';
-
 import { isFullscreenAPIExist } from '../utils/fullscreen';
 
 import View from './ui.view';
@@ -7,25 +5,24 @@ import View from './ui.view';
 import Overlay from './overlay/overlay.controler';
 import ControlsBlock from './controls/controls.controler';
 
+import styles from './ui.scss';
+
 
 const DEFAULT_CONFIG = {
+  size: {},
   overlay: true,
-  controls: true,
-  timeIndicator: true,
-  progressControl: true,
-  volumeControl: true,
-  fullscreenControl: true
+  controls: true
 };
 
 class PlayerUI {
-  constructor({ vidi, eventEmitter, ...config }) {
+  constructor({ vidi, eventEmitter, config }) {
     this.eventEmitter = eventEmitter;
-    this.$video = $(vidi.getVideoElement());
     this.vidi = vidi;
     this.config = {
       ...DEFAULT_CONFIG,
       ...config
     };
+    this.isHidden = false;
     this._initUI();
     this._initComponents();
   }
@@ -35,8 +32,7 @@ class PlayerUI {
   }
 
   _initUI() {
-    const width = this.$video.attr('width');
-    const height = this.$video.attr('height');
+    const { width, height } = this.config.size;
 
     this.view = new View(width, height);
   }
@@ -47,7 +43,7 @@ class PlayerUI {
       .append(this.overlay.node);
 
     this.view.$node
-      .append(this.$video);
+      .append(this.vidi.getVideoElement());
 
     this._initControls();
 
@@ -59,22 +55,26 @@ class PlayerUI {
     this.overlay = new Overlay({
       vidi: this.vidi,
       eventEmitter: this.eventEmitter,
-      src: this.$video.attr('poster')
+      config: this.config.overlay
     });
 
     if (!this.config.overlay) {
       this.overlay.hide();
     }
-
-    this.$video.removeAttr('poster');
   }
 
   _initControls() {
-    let config = this.config;
+    let config;
+    if (this.config.controls === true) {
+      config = {};
+    } else {
+      config = this.config.controls;
+    }
+
     if (!isFullscreenAPIExist) {
       config = {
         ...config,
-        fullscreenControl: false
+        fullscreen: false
       };
     }
 
@@ -82,14 +82,22 @@ class PlayerUI {
       vidi: this.vidi,
       eventEmitter: this.eventEmitter,
       $wrapper: this.view.$node,
-      ...config
+      config
     });
 
     if (!this.config.controls) {
       this.controls.hide();
     }
+  }
 
-    this.$video.removeAttr('controls');
+  hide() {
+    this.isHidden = true;
+    this.view.$node.toggleClass(styles.hidden, true);
+  }
+
+  show() {
+    this.isHidden = false;
+    this.view.$node.toggleClass(styles.hidden, false);
   }
 
   hideControls() {
@@ -113,6 +121,10 @@ class PlayerUI {
   }
 
   setWidth(width) {
+    if (!width) {
+      return;
+    }
+
     this.view.$node
       .css({
         width: `${width}px`
@@ -120,10 +132,47 @@ class PlayerUI {
   }
 
   setHeight(height) {
+    if (!height) {
+      return;
+    }
+
     this.view.$node
       .css({
         height: `${height}px`
       });
+  }
+
+
+  hideTime() {
+    this.controls.timeControl.hide();
+  }
+
+  showTime() {
+    this.controls.timeControl.show();
+  }
+
+  hideProgress() {
+    this.controls.progressControl.hide();
+  }
+
+  showProgress() {
+    this.controls.progressControl.show();
+  }
+
+  hideVolume() {
+    this.controls.volumeControl.hide();
+  }
+
+  showVolume() {
+    this.controls.volumeControl.show();
+  }
+
+  hideFullscreen() {
+    this.controls.fullscreenControl.hide();
+  }
+
+  showFullscreen() {
+    this.controls.fullscreenControl.show();
   }
 
   destroy() {

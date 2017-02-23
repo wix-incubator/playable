@@ -67,6 +67,7 @@ export default class TimeControl {
 
     const adjustedVolume = this.volumeLevel + e.deltaY / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
+
     this._callVolumeChangeCallbacks(validatedVolume);
   }
 

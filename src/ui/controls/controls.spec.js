@@ -120,14 +120,14 @@ describe('ControlsBlock', () => {
   describe('instance created with extended config', () => {
     it('should create instance without time indicator', () => {
       const controlsConfig = {
-        timeIndicator: false
+        time: false
       };
 
       controls = new ControlsBlock({
         $wrapper,
         vidi,
         eventEmitter,
-        ...controlsConfig
+        config: controlsConfig
       });
 
       controls._updateCurrentTime();
@@ -138,14 +138,14 @@ describe('ControlsBlock', () => {
 
     it('should create instance without progress control', () => {
       const controlsConfig = {
-        progressControl: false
+        progress: false
       };
 
       controls = new ControlsBlock({
         $wrapper,
         vidi,
         eventEmitter,
-        ...controlsConfig
+        config: controlsConfig
       });
 
       controls._updateProgressControl();
@@ -156,14 +156,14 @@ describe('ControlsBlock', () => {
 
     it('should create instance without volume control', () => {
       const controlsConfig = {
-        volumeControl: false
+        volume: false
       };
 
       controls = new ControlsBlock({
         $wrapper,
         vidi,
         eventEmitter,
-        ...controlsConfig
+        config: controlsConfig
       });
 
       controls._updateVolumeStatus();
@@ -173,14 +173,14 @@ describe('ControlsBlock', () => {
 
     it('should create instance without full screen control', () => {
       const controlsConfig = {
-        fullscreenControl: false
+        fullscreen: false
       };
 
       controls = new ControlsBlock({
         $wrapper,
         vidi,
         eventEmitter,
-        ...controlsConfig
+        config: controlsConfig
       });
 
       controls._updateFullScreenControlStatus();
@@ -303,6 +303,22 @@ describe('ControlsBlock', () => {
       controls.vidi.getPlaybackState = () => ({ status: 2 });
       controls._toggleVideoPlayback();
       expect(pauseCallback.called).to.be.true;
+    });
+
+    it ('should stop video on seek manipulation start', () => {
+      const callback = sinon.spy(controls.vidi, 'pause');
+
+      controls._pauseVideoOnProgressManipulationStart()
+      expect(callback.called).to.be.true;
+      expect(eventEmitterSpy.calledWith(UI_EVENTS.PROGRESS_MANIPULATION_STARTED)).to.be.true;
+    });
+
+    it ('should stop video on seek manipulation stop', () => {
+      const callback = sinon.spy(controls.vidi, 'play');
+
+      controls._playVideoOnProgressManipulationEnd()
+      expect(callback.called).to.be.true;
+      expect(eventEmitterSpy.calledWith(UI_EVENTS.PROGRESS_MANIPULATION_ENDED)).to.be.true;
     });
 
     it('should emit ui event on progress change', () => {

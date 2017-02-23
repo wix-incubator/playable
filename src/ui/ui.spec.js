@@ -17,10 +17,7 @@ describe('PlayerUI', () => {
   let eventEmitter = {};
 
   beforeEach(() => {
-    $video = new $('<video>', {
-      controls: 'true',
-      poster: 'kek'
-    });
+    $video = new $('<video>');
     vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
   });
@@ -49,17 +46,11 @@ describe('PlayerUI', () => {
     it('should have controls', () => {
       expect(ui.controls).to.exist;
     });
-    it('should remove controls attribute from video tag if have controls', () => {
-      expect(ui.$video.attr('controls')).to.not.exist;
-    });
     it('should have overlay', () =>{
       expect(ui.overlay).to.exist;
     });
     it('should set overlay as visible', () => {
       expect(ui.overlay.isHidden).to.be.false;
-    });
-    it('should remove poster attribute from video tag if have overlay', () => {
-      expect(ui.$video.attr('poster')).to.not.exist;
     });
   });
 
@@ -72,7 +63,7 @@ describe('PlayerUI', () => {
       ui = new PlayerUI({
         vidi,
         eventEmitter,
-        ...uiConfig
+        config: uiConfig
       });
 
       expect(ui.controls.isHidden).to.be.true;
@@ -86,7 +77,7 @@ describe('PlayerUI', () => {
       ui = new PlayerUI({
         vidi,
         eventEmitter,
-        ...uiConfig
+        config: uiConfig
       });
 
       expect(ui.overlay.isHidden).to.be.true;
@@ -140,6 +131,9 @@ describe('PlayerUI', () => {
     it('should have method for setting width', () => {
       expect(ui.setWidth).to.exist;
       const cssSpy = sinon.spy(ui.view.$node, 'css');
+      ui.setWidth(0);
+      expect(cssSpy.called).to.be.false;
+
       ui.setWidth(10);
       expect(cssSpy.calledWith({
         width: '10px'
@@ -149,10 +143,81 @@ describe('PlayerUI', () => {
     it('should have method for setting height', () => {
       expect(ui.setHeight).to.exist;
       const cssSpy = sinon.spy(ui.view.$node, 'css');
+      ui.setHeight(0);
+      expect(cssSpy.called).to.be.false;
+
       ui.setHeight(10);
       expect(cssSpy.calledWith({
         height: '10px'
       })).to.be.true;
+    });
+
+    it('should have method for hide time', () => {
+      const spy = sinon.spy(ui.controls.timeControl, 'hide');
+      expect(ui.hideTime).to.exist;
+      ui.hideTime();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for show time', () => {
+      const spy = sinon.spy(ui.controls.timeControl, 'show');
+      expect(ui.showTime).to.exist;
+      ui.showTime();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for hide progress', () => {
+      const spy = sinon.spy(ui.controls.progressControl, 'hide');
+      expect(ui.hideProgress).to.exist;
+      ui.hideProgress();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for show progress', () => {
+      const spy = sinon.spy(ui.controls.progressControl, 'show');
+      expect(ui.showProgress).to.exist;
+      ui.showProgress();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for hide volume', () => {
+      const spy = sinon.spy(ui.controls.volumeControl, 'hide');
+      expect(ui.hideVolume).to.exist;
+      ui.hideVolume();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for show volume', () => {
+      const spy = sinon.spy(ui.controls.volumeControl, 'show');
+      expect(ui.showVolume).to.exist;
+      ui.showVolume();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for hide fullscreen', () => {
+      const spy = sinon.spy(ui.controls.fullscreenControl, 'hide');
+      expect(ui.hideFullscreen).to.exist;
+      ui.hideFullscreen();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for show progress', () => {
+      const spy = sinon.spy(ui.controls.fullscreenControl, 'show');
+      expect(ui.showFullscreen).to.exist;
+      ui.showFullscreen();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for showing whole view', () => {
+      expect(ui.show).to.exist;
+      ui.show();
+      expect(ui.isHidden).to.be.false;
+    });
+
+    it('should have method for hiding whole view', () => {
+      expect(ui.hide).to.exist;
+      ui.hide();
+      expect(ui.isHidden).to.be.true;
     });
   });
 });
