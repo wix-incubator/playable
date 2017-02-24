@@ -18,21 +18,21 @@ describe('Player', () => {
 
     it('should create instance ', () => {
       expect(player).to.exists;
-      expect(player.$video).to.exists;
-      expect(player.vidi).to.exist;
+      expect(player._$video).to.exists;
+      expect(player._vidi).to.exist;
       expect(player.ui).to.exists;
       expect(player.node).to.exists;
-      expect(player.eventEmitter).to.exists;
+      expect(player._eventEmitter).to.exists;
     });
 
     it('should create separate instances', () => {
       const player2 = new Player({});
 
-      expect(player.$video).to.not.be.equal(player2.$video);
-      expect(player.vidi).to.not.be.equal(player2.vidi);
+      expect(player._$video).to.not.be.equal(player2._$video);
+      expect(player._vidi).to.not.be.equal(player2._vidi);
       expect(player.ui).to.not.be.equal(player2.ui);
       expect(player.node).to.not.be.equal(player2.node);
-      expect(player.eventEmitter).to.not.be.equal(player2.eventEmitter);
+      expect(player._eventEmitter).to.not.be.equal(player2._eventEmitter);
     });
   });
 
@@ -42,95 +42,95 @@ describe('Player', () => {
       player = new Player({
         preload
       });
-      expect(player.$video.attr('preload')).to.be.equal(preload);
+      expect(player._$video.attr('preload')).to.be.equal(preload);
     });
 
     it('should set autoplay as true to video tag if truthy passed', () => {
       player = new Player({
         autoplay: true
       });
-      expect(player.$video[0].autoplay).to.be.true;
+      expect(player._$video[0].autoplay).to.be.true;
 
       player = new Player({
         autoplay: 'test'
       });
-      expect(player.$video[0].autoplay).to.be.true;
+      expect(player._$video[0].autoplay).to.be.true;
 
       player = new Player({
         autoplay: false
       });
-      expect(player.$video[0].autoplay).to.be.false;
+      expect(player._$video[0].autoplay).to.be.false;
 
       player = new Player({
         autoplay: 0
       });
-      expect(player.$video[0].autoplay).to.be.false;
+      expect(player._$video[0].autoplay).to.be.false;
     });
 
     it('should set loop as true to video tag if truthy passed', () => {
       player = new Player({
         loop: true
       });
-      expect(player.$video[0].loop).to.be.true;
+      expect(player._$video[0].loop).to.be.true;
 
       player = new Player({
         loop: 'test'
       });
-      expect(player.$video[0].loop).to.be.true;
+      expect(player._$video[0].loop).to.be.true;
 
       player = new Player({
         loop: false
       });
-      expect(player.$video[0].loop).to.be.false;
+      expect(player._$video[0].loop).to.be.false;
 
       player = new Player({
         loop: 0
       });
-      expect(player.$video[0].loop).to.be.false;
+      expect(player._$video[0].loop).to.be.false;
     });
 
     it('should set muted as true to video tag if truthy passed', () => {
       player = new Player({
         muted: true
       });
-      expect(player.$video[0].muted).to.be.true;
+      expect(player._$video[0].muted).to.be.true;
 
       player = new Player({
         muted: 'test'
       });
-      expect(player.$video[0].muted).to.be.true;
+      expect(player._$video[0].muted).to.be.true;
 
       player = new Player({
         muted: false
       });
-      expect(player.$video[0].muted).to.be.false;
+      expect(player._$video[0].muted).to.be.false;
 
       player = new Player({
         muted: 0
       });
-      expect(player.$video[0].muted).to.be.false;
+      expect(player._$video[0].muted).to.be.false;
     });
 
     it('should set volume to video tag if number between 0 and 1 passed', () => {
       player = new Player({
         volume: 0.5
       });
-      expect(player.$video[0].volume).to.be.equal(0.5);
+      expect(player._$video[0].volume).to.be.equal(0.5);
 
       player = new Player({
         volume: '0.3'
       });
-      expect(player.$video[0].volume).to.be.equal(0.3);
+      expect(player._$video[0].volume).to.be.equal(0.3);
 
       player = new Player({
         volume: 'test'
       });
-      expect(player.$video[0].volume).to.be.equal(1);
+      expect(player._$video[0].volume).to.be.equal(1);
 
       player = new Player({
         volume: -10
       });
-      expect(player.$video[0].volume).to.be.equal(0);
+      expect(player._$video[0].volume).to.be.equal(0);
     });
 
     it('should set src to vidi if passed', () => {
@@ -143,7 +143,7 @@ describe('Player', () => {
         src
       });
 
-      expect(player.vidi.src).to.be.equal(src);
+      expect(player._vidi.src).to.be.equal(src);
     });
 
     it('should set preload to video tag if passed', () => {
@@ -152,66 +152,66 @@ describe('Player', () => {
         preload
       });
 
-      expect(player.$video[0].preload).to.be.equal(preload);
+      expect(player._$video[0].preload).to.be.equal(preload);
 
       player = new Player({});
 
-      expect(player.$video[0].preload).to.be.equal('auto');
+      expect(player._$video[0].preload).to.be.equal('auto');
     });
   });
 
   describe('instance video events proxy', () => {
     beforeEach(() => {
       player = new Player({});
-      eventEmmiterSpy = sinon.spy(player.eventEmitter, 'emit');
+      eventEmmiterSpy = sinon.spy(player._eventEmitter, 'emit');
     });
 
     afterEach(() => {
-      player.eventEmitter.emit.restore();
+      player._eventEmitter.emit.restore();
     });
 
     it('should react on statuschange', () => {
-      player.vidi.emit('statuschange');
+      player._vidi.emit('statuschange');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED)).to.be.true;
     });
 
     it('should react on loadstart', () => {
-      player.vidi.emit('loadstart');
+      player._vidi.emit('loadstart');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.LOAD_STARTED)).to.be.true;
     });
 
     it('should react on durationchange', () => {
-      player.vidi.emit('durationchange');
+      player._vidi.emit('durationchange');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.DURATION_UPDATED)).to.be.true;
     });
 
     it('should react on timeupdate', () => {
-      player.vidi.emit('timeupdate');
+      player._vidi.emit('timeupdate');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.CURRENT_TIME_UPDATED)).to.be.true;
     });
 
     it('should react on loadedmetadata', () => {
-      player.$video.trigger('loadedmetadata');
+      player._$video.trigger('loadedmetadata');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.METADATA_LOADED)).to.be.true;
     });
 
     it('should react on progress', () => {
-      player.$video.trigger('progress');
+      player._$video.trigger('progress');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.CHUNK_LOADED)).to.be.true;
     });
 
     it('should react on seeking', () => {
-      player.$video.trigger('seeking');
+      player._$video.trigger('seeking');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.SEEK_STARTED)).to.be.true;
     });
 
     it('should react on seeked', () => {
-      player.$video.trigger('seeked');
+      player._$video.trigger('seeked');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.SEEK_ENDED)).to.be.true;
     });
 
     it('should react on volumechange', () => {
-      player.$video.trigger('volumechange');
+      player._$video.trigger('volumechange');
       expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.VOLUME_STATUS_CHANGED)).to.be.true;
     });
   });
@@ -224,25 +224,71 @@ describe('Player', () => {
     it('should have method for set autoplay flag', () => {
       expect(player.setAutoplay).to.exist;
       player.setAutoplay(true);
-      expect(player.$video[0].autoplay).to.be.true;
+      expect(player._$video[0].autoplay).to.be.true;
       player.setAutoplay(false);
-      expect(player.$video[0].autoplay).to.be.false;
+      expect(player._$video[0].autoplay).to.be.false;
     });
 
     it('should have method for set autoplay flag', () => {
       expect(player.setLoop).to.exist;
       player.setLoop(true);
-      expect(player.$video[0].loop).to.be.true;
+      expect(player._$video[0].loop).to.be.true;
       player.setLoop(false);
-      expect(player.$video[0].loop).to.be.false;
+      expect(player._$video[0].loop).to.be.false;
     });
 
     it('should have method for set autoplay flag', () => {
       expect(player.setMute).to.exist;
       player.setMute(true);
-      expect(player.$video[0].muted).to.be.true;
+      expect(player._$video[0].muted).to.be.true;
       player.setMute(false);
-      expect(player.$video[0].muted).to.be.false;
+      expect(player._$video[0].muted).to.be.false;
+    });
+
+    it('should have method for set volume', () => {
+      expect(player.setVolume).to.exist;
+      player.setVolume(0.5);
+      expect(player._$video[0].volume).to.be.equal(0.5);
+    });
+
+    it('should have method for set preload', () => {
+      expect(player.setPreload).to.exist;
+      player.setPreload('none');
+      expect(player._$video[0].preload).to.be.equal('none');
+      player.setPreload(false);
+      expect(player._$video[0].preload).to.be.equal('auto');
+    });
+
+    it('should have method for get autoplay flag', () => {
+      expect(player.getAutoplay).to.exist;
+      player.setAutoplay(false);
+      expect(player.getAutoplay()).to.be.false;
+    });
+
+    it('should have method for get loop flag', () => {
+      expect(player.getLoop).to.exist;
+      player.setLoop(false);
+      expect(player.getLoop()).to.be.false;
+    });
+
+    it('should have method for get mute flag', () => {
+      expect(player.getMute).to.exist;
+      player.setMute(false);
+      expect(player.getMute()).to.be.false;
+    });
+
+    it('should have method for get preload', () => {
+      const preload = 'metadata';
+      expect(player.getPreload).to.exist;
+      player.setPreload(preload);
+      expect(player.getPreload()).to.be.equal(preload);
+    });
+
+    it('should have method for get volume', () => {
+      const volume = 0.3;
+      expect(player.getVolume).to.exist;
+      player.setVolume(volume);
+      expect(player.getVolume()).to.be.equal(volume);
     });
 
     it('should have method for destroying player', () => {
@@ -256,7 +302,7 @@ describe('Player', () => {
 
     it('should have method for subscribing on events', () => {
       expect(player.on).to.exist;
-      const onSpy = sinon.spy(player.eventEmitter, 'on');
+      const onSpy = sinon.spy(player._eventEmitter, 'on');
       const eventName = 'test';
       const callback = () => {};
 
@@ -266,7 +312,7 @@ describe('Player', () => {
 
     it('should have method for unsubscribing from events', () => {
       expect(player.off).to.exist;
-      const offSpy = sinon.spy(player.eventEmitter, 'off');
+      const offSpy = sinon.spy(player._eventEmitter, 'off');
       const eventName = 'test';
       const callback = () => {};
 

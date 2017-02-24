@@ -19,9 +19,9 @@ class Player {
     overlay
   }) {
 
-    this.eventEmitter = new EventEmitter();
+    this._eventEmitter = new EventEmitter();
 
-    this.$video = $('<video/>');
+    this._$video = $('<video/>');
 
     this.setPreload(preload);
 
@@ -41,11 +41,11 @@ class Player {
       this.setVolume(volume);
     }
 
-    this.vidi = new Vidi(this.$video[0]);
+    this._vidi = new Vidi(this._$video[0]);
 
     this._createUI(size, controls, overlay);
 
-    this.vidi.src = src;
+    this._vidi.src = src;
     this._initEventsProxy();
   }
 
@@ -65,8 +65,8 @@ class Player {
     }
 
     this.ui = new PlayerUI({
-      vidi: this.vidi,
-      eventEmitter: this.eventEmitter,
+      vidi: this._vidi,
+      eventEmitter: this._eventEmitter,
       config
     });
   }
@@ -80,81 +80,101 @@ class Player {
   }
 
   _initEventsProxy() {
-    this.vidi.on('statuschange', status => {
-      this.eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, status);
+    this._vidi.on('statuschange', status => {
+      this._eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, status);
     });
 
-    this.$video.on('loadedmetadata', () => {
-      this.eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
+    this._$video.on('loadedmetadata', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
     });
 
-    this.$video.on('progress', () => {
-      this.eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
+    this._$video.on('progress', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
     });
 
-    this.vidi.on('loadstart', () => {
-      this.eventEmitter.emit(VIDEO_EVENTS.LOAD_STARTED);
+    this._vidi.on('loadstart', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.LOAD_STARTED);
     });
 
-    this.vidi.on('durationchange', () => {
-      this.eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
+    this._vidi.on('durationchange', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
     });
 
-    this.vidi.on('timeupdate', () => {
-      this.eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED);
+    this._vidi.on('timeupdate', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED);
     });
 
-    this.$video.on('seeking', () => {
-      this.eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
+    this._$video.on('seeking', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
     });
 
-    this.$video.on('seeked', () => {
-      this.eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
+    this._$video.on('seeked', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
     });
 
-    this.$video.on('volumechange', () => {
-      this.eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
+    this._$video.on('volumechange', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
     });
   }
 
   setAutoplay(isAutoplay) {
-    this.$video[0].autoplay = Boolean(isAutoplay);
+    this._$video[0].autoplay = Boolean(isAutoplay);
+  }
+
+  getAutoplay() {
+    return this._$video[0].autoplay;
   }
 
   setLoop(isLoop) {
-    this.$video[0].loop = Boolean(isLoop);
+    this._$video[0].loop = Boolean(isLoop);
+  }
+
+  getLoop() {
+    return this._$video[0].loop;
   }
 
   setMute(isMuted) {
-    this.$video[0].muted = Boolean(isMuted);
+    this._$video[0].muted = Boolean(isMuted);
+  }
+
+  getMute() {
+    return this._$video[0].muted;
   }
 
   setVolume(volume) {
     const parsedVolume = Number(volume);
-    this.$video[0].volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
+    this._$video[0].volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
+  }
+
+  getVolume() {
+    return this._$video[0].volume;
   }
 
   setPreload(preload) {
-    this.$video[0].preload = preload || 'auto';
+    this._$video[0].preload = preload || 'auto';
+  }
+
+  getPreload() {
+    return this._$video[0].preload;
   }
 
   on(name, callback) {
-    this.eventEmitter.on(name, callback);
+    this._eventEmitter.on(name, callback);
   }
 
   off(name, callback) {
-    this.eventEmitter.off(name, callback);
+    this._eventEmitter.off(name, callback);
   }
 
   destroy() {
     this.ui.destroy();
     delete this.ui;
 
-    delete this.eventEmitter;
-    delete this.$video;
+    delete this._eventEmitter;
+    delete this._$video;
 
-    this.vidi.setVideoElement();
-    delete this.vidi;
+    this._vidi.setVideoElement();
+    delete this._vidi;
   }
 }
 
