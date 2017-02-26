@@ -166,15 +166,32 @@ class Player {
     this._eventEmitter.off(name, callback);
   }
 
+  _unbindAllEvents() {
+    const eventsName = this._eventEmitter.eventNames();
+
+    eventsName.forEach(eventName => {
+      this._eventEmitter.removeAllListeners(eventName);
+    });
+  }
+
   destroy() {
     this.ui.destroy();
     delete this.ui;
 
+    this._unbindAllEvents();
     delete this._eventEmitter;
     delete this._$video;
 
     this._vidi.setVideoElement();
     delete this._vidi;
+  }
+
+  play() {
+    this._vidi.play();
+  }
+
+  pause() {
+    this._vidi.pause();
   }
 }
 
