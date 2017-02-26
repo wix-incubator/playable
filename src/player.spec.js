@@ -291,6 +291,20 @@ describe('Player', () => {
       expect(player.getVolume()).to.be.equal(volume);
     });
 
+    it('should have method for start playback of video', () => {
+      expect(player.play).to.exist;
+      const playSpy = sinon.spy(player._vidi, 'play');
+      player.play();
+      expect(playSpy.called).to.be.true;
+    });
+
+    it('should have method for stop playback of video', () => {
+      expect(player.pause).to.exist;
+      const pauseSpy = sinon.spy(player._vidi, 'pause');
+      player.pause();
+      expect(pauseSpy.called).to.be.true;
+    });
+
     it('should have method for destroying player', () => {
       expect(player.destroy).to.exist;
       const uiDestroySpy = sinon.spy(player.ui, 'destroy');
