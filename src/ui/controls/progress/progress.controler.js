@@ -1,13 +1,12 @@
 import View from './progress.view';
 
-import styles from '../../shared.scss';
-
 
 export default class ProgressControl {
   constructor({
     onProgressChange = _ => _,
     onInteractionStart = _ => _,
-    onInteractionEnd = _ => _
+    onInteractionEnd = _ => _,
+    view
   }) {
     this._isUserInteracting = false;
     this.currentProgress = 0;
@@ -19,42 +18,45 @@ export default class ProgressControl {
       onProgressChange
     };
 
-    this._initUI();
-    this._bindEvents();
+    this._bindCallbacks();
+    this._initUI(view);
   }
 
   get node() {
-    return this.view.$node;
+    return this.view.getNode();
   }
 
-  _initUI() {
-    this.view = new View();
-  }
+  _initUI(view) {
+    const config = {
+      callbacks: {
+        onChangePlayedProgress: this._changePlayedProgress,
+        onUserInteractionStart: this._toggleUserInteractingStatus,
+        onUserInteractionEnd: this._toggleUserInteractingStatus
+      }
+    };
 
-  _bindEvents() {
-    this._changePlayedProgress = this._changePlayedProgress.bind(this);
-    this._toggleUserInteractingStatus = this._toggleUserInteractingStatus.bind(this);
-
-    this.view.$input
-      .on('input', this._changePlayedProgress)
-      .on('change', this._changePlayedProgress)
-      .on('mousedown', this._toggleUserInteractingStatus)
-      .on('mouseup', this._toggleUserInteractingStatus);
-  }
-
-  _changePlayedProgress() {
-    if (this.currentProgress !== this.view.$input.val()) {
-      this.currentProgress = this.view.$input.val();
-      this._callbacks.onProgressChange(this.currentProgress / this.view.$input.attr('max'));
-      this.view.$played.attr('value', this.currentProgress);
+    if (view) {
+      this.view = new view(config);
+    } else {
+      this.view = new View(config);
     }
   }
 
-  _toggleUserInteractingStatus(e) {
-    if (e.buttons > 1) {
+  _bindCallbacks() {
+    this._changePlayedProgress = this._changePlayedProgress.bind(this);
+    this._toggleUserInteractingStatus = this._toggleUserInteractingStatus.bind(this);
+  }
+
+  _changePlayedProgress(value) {
+    if (this.currentProgress === value) {
       return;
     }
 
+    this.currentProgress = value;
+    this._callbacks.onProgressChange(this.currentProgress / 100);
+  }
+
+  _toggleUserInteractingStatus() {
     this._isUserInteracting = !this._isUserInteracting;
     if (this._isUserInteracting) {
       this._callbacks.onInteractionStart();
@@ -66,36 +68,25 @@ export default class ProgressControl {
   updatePlayed(percent) {
     if (!this._isUserInteracting) {
       this.currentProgress = percent;
-      this.view.$input.val(this.currentProgress);
-      this.view.$input.attr('value', this.currentProgress);
-      this.view.$played.attr('value', this.currentProgress);
+      this.view.updatePlayed(this.currentProgress);
     }
   }
 
   updateBuffered(percent) {
-    this.view.$buffered.attr('value', percent);
+    this.view.updateBuffered(percent);
   }
 
   hide() {
     this.isHidden = true;
-    this.view.$node.toggleClass(styles.hidden, true);
+    this.view.hide();
   }
 
   show() {
     this.isHidden = false;
-    this.view.$node.toggleClass(styles.hidden, false);
-  }
-
-  _unbindEvents() {
-    this.view.$input
-      .off('input', this._changePlayedProgress)
-      .off('change', this._changePlayedProgress)
-      .off('mousedown', this._toggleUserInteractingStatus)
-      .off('mouseup', this._toggleUserInteractingStatus);
+    this.view.show();
   }
 
   destroy() {
-    this._unbindEvents();
     this.view.destroy();
     delete this.view;
 

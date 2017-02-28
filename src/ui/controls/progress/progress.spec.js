@@ -38,7 +38,8 @@ describe('ProgressControl', () => {
 
     it('should react on progress range input change event', () => {
       const callback = sinon.spy(control, "_changePlayedProgress");
-      control._bindEvents();
+      control._bindCallbacks();
+      control._initUI();
 
       control.view.$input.trigger('change');
       expect(callback.called).to.be.true;
@@ -46,7 +47,8 @@ describe('ProgressControl', () => {
 
     it('should react on progress range input input event', () => {
       const callback = sinon.spy(control, "_changePlayedProgress");
-      control._bindEvents();
+      control._bindCallbacks();
+      control._initUI();
 
       control.view.$input.trigger('input');
       expect(callback.called).to.be.true;
@@ -59,7 +61,8 @@ describe('ProgressControl', () => {
 
     it('should react on progress range input mousedown event', () => {
       const callback = sinon.spy(control, "_toggleUserInteractingStatus");
-      control._bindEvents();
+      control._bindCallbacks();
+      control._initUI();
 
       control.view.$input.trigger('mousedown');
       expect(callback.called).to.be.true;
@@ -67,30 +70,22 @@ describe('ProgressControl', () => {
 
     it('should react on progress range input mouseup event', () => {
       const callback = sinon.spy(control, "_toggleUserInteractingStatus");
-      control._bindEvents();
+      control._bindCallbacks();
 
+      control._initUI();
       control.view.$input.trigger('mouseup');
       expect(callback.called).to.be.true;
     });
 
     describe('_toggleUserInteractingStatus', () => {
       it('should call callbacks on trigger', () => {
-        control._toggleUserInteractingStatus({});
+        control._toggleUserInteractingStatus();
 
         expect(onInteractionStart.called).to.be.true;
         expect(onInteractionEnd.called).to.be.false;
 
         control._toggleUserInteractingStatus({});
         expect(onInteractionEnd.called).to.be.true;
-      });
-
-      it('should not call callbacks if condition met', () => {
-        control._toggleUserInteractingStatus({
-          buttons: 2
-        });
-
-        expect(onInteractionStart.called).to.be.false;
-        expect(onInteractionEnd.called).to.be.false;
       });
     });
   });

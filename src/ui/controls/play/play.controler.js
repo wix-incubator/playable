@@ -1,46 +1,42 @@
 import View from './play.view';
 
-import styles from './play.scss';
-
 
 export default class PlayControl {
-  constructor({ onPlayClick, onPauseClick }) {
+  constructor({ onPlayClick, onPauseClick, view }) {
     this._callbacks = {
       onPlayClick,
       onPauseClick
     };
 
-    this._initUI();
-    this._bindEvents();
+    this._initUI(view);
 
-    this.toggleControlStatus(false);
+    this.setControlStatus(false);
   }
 
   get node() {
-    return this.view.$node;
+    return this.view.getNode();
   }
 
-  _initUI() {
-    this.view = new View();
+  _initUI(view) {
+    const config = {
+      callbacks: {
+        onPlayButtonClick: this._callbacks.onPlayClick,
+        onPauseButtonClick: this._callbacks.onPauseClick
+      }
+    };
+
+    if (view) {
+      this.view = new view(config);
+    } else {
+      this.view = new View(config);
+    }
   }
 
-  _bindEvents() {
-    this.view.$playIcon.on('click', this._callbacks.onPlayClick);
-    this.view.$pauseIcon.on('click', this._callbacks.onPauseClick);
-  }
-
-  toggleControlStatus(isPlaying) {
-    this.view.$playIcon.toggleClass(styles.hidden, isPlaying);
-    this.view.$pauseIcon.toggleClass(styles.hidden, !isPlaying);
-  }
-
-  _unbindEvents() {
-    this.view.$playIcon.off('click', this._callbacks.onPlayClick);
-    this.view.$pauseIcon.off('click', this._callbacks.onPauseClick);
+  setControlStatus(isPlaying) {
+    this.view.setPlaybackStatus(isPlaying);
   }
 
   destroy() {
-    this._unbindEvents();
     this.view.destroy();
     delete this.view;
 

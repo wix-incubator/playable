@@ -7,6 +7,7 @@ const UI_EVENTS = {
   MUTE_STATUS_TRIGGERED: 'ui-mute-status-triggered',
   FULLSCREEN_ENTER_TRIGGERED: 'ui-fullscreen-enter-triggered',
   FULLSCREEN_EXIT_TRIGGERED: 'ui-fullscreen-exit-triggered',
+  FULLSCREEN_STATUS_CHANGED: 'ui-fullscreen-status-changed',
   PROGRESS_MANIPULATION_STARTED: 'ui-progress-manipulation-started',
   PROGRESS_MANIPULATION_ENDED: 'ui-progress-manipulation-ended'
 };

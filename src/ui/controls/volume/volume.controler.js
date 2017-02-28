@@ -1,13 +1,8 @@
 import View from './volume.view';
 
-import styles from './volume.scss';
 
-
-const MAX_VOLUME_ICON_RANGE = 60;
-const MID_VOLUME_ICON_RANGE = 25;
-
-export default class TimeControl {
-  constructor({ onVolumeLevelChange, onMuteStatusChange }) {
+export default class VolumeControl {
+  constructor({ onVolumeLevelChange, onMuteStatusChange, view }) {
     this.isMuted = false;
     this.volumeLevel = 100;
 
@@ -16,38 +11,38 @@ export default class TimeControl {
       onMuteStatusChange
     };
 
-    this._initUI();
-    this._bindEvents();
+    this._bindCallbacks();
 
-    this._setVolumeInputState(this.volumeLevel);
-    this._setMuteInputState(this.isMuted);
+    this._initUI(view);
+
+    this.view.setVolumeLevel(this.volumeLevel);
+    this.view.setMuteStatus(this.isMuted);
   }
 
   get node() {
-    return this.view.$node;
+    return this.view.getNode();
   }
 
-  _initUI() {
-    this.view = new View();
+  _initUI(view) {
+    const config = {
+      callbacks: {
+        onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
+        onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
+        onMuteStatusChange: this._callMuteChangeCallback
+      }
+    };
+
+    if (view) {
+      this.view = new view(config);
+    } else {
+      this.view = new View(config);
+    }
   }
 
-  _bindEvents() {
+  _bindCallbacks() {
     this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
-    this._changeMuteStatus = this._changeMuteStatus.bind(this);
+    this._callMuteChangeCallback = this._callMuteChangeCallback.bind(this);
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
-
-    this.view.$node
-      .on('wheel', this._getVolumeLevelFromWheel);
-
-    this.view.$input
-      .on('change', this._getVolumeLevelFromInput)
-      .on('input', this._getVolumeLevelFromInput);
-
-    this.view.$volumeIcon
-      .on('click', this._changeMuteStatus);
-
-    this.view.$volumeMutedIcon
-      .on('click', this._changeMuteStatus);
   }
 
   _convertVolumeLevelToVideoVolume(level) {
@@ -58,99 +53,69 @@ export default class TimeControl {
     return level * 100;
   }
 
-  _getVolumeLevelFromWheel(e) {
-    e.preventDefault();
-
-    if (!e.deltaY) {
-      return;
-    }
-
-    const adjustedVolume = this.volumeLevel + e.deltaY / 10;
+  _getVolumeLevelFromWheel(delta) {
+    const adjustedVolume = this.volumeLevel + delta / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
 
-    this._callVolumeChangeCallbacks(validatedVolume);
+    this._callVolumeChangeCallback(validatedVolume);
   }
 
-  _getVolumeLevelFromInput() {
-    this._callVolumeChangeCallbacks(this.view.$input.val());
+  _getVolumeLevelFromInput(level) {
+    this._callVolumeChangeCallback(level);
   }
 
-  _callVolumeChangeCallbacks(level) {
+  _callVolumeChangeCallback(level) {
     this._callbacks.onVolumeLevelChange(this._convertVolumeLevelToVideoVolume(level));
     if (this.isMuted) {
       this._callbacks.onMuteStatusChange(!this.isMuted);
     }
   }
 
-  _changeMuteStatus() {
+  _callMuteChangeCallback() {
     this._callbacks.onMuteStatusChange(!this.isMuted);
   }
 
   setVolumeLevel(level) {
+    if (level === this.volumeLevel) {
+      return;
+    }
+
     this.volumeLevel = this._convertVideoVolumeToVolumeLevel(level);
-    this._setVolumeInputState(this.volumeLevel);
-  }
 
-  _setVolumeInputState(level) {
-    this.view.$input.val(level);
-    this.view.$input.attr('value', level);
-    this.view.$volumeLevel.attr('value', level);
+    this.view.setVolumeLevel(this.volumeLevel);
 
-    if (level >= MAX_VOLUME_ICON_RANGE) {
-      this.view.$volumeIcon[0].src = this.view.volumeFullSVG;
-    } else if (level >= MID_VOLUME_ICON_RANGE) {
-      this.view.$volumeIcon[0].src = this.view.volumeMidSVG;
+    if (this.volumeLevel) {
+      this.view.setMuteStatus(false);
     } else {
-      this.view.$volumeIcon[0].src = this.view.volumeMinSVG;
+      this.view.setMuteStatus(true);
     }
-
-    if (!level) {
-      this._callbacks.onMuteStatusChange(true);
-    }
-  }
-
-  _setMuteInputState(isMuted) {
-    this.view.$volumeIcon.toggleClass(styles.hidden, isMuted);
-    this.view.$volumeMutedIcon.toggleClass(styles.hidden, !isMuted);
   }
 
   setMuteStatus(isMuted) {
+    if (isMuted === this.isMuted) {
+      return;
+    }
+
     this.isMuted = isMuted;
-    this._setMuteInputState(isMuted);
+    this.view.setMuteStatus(this.isMuted || !this.volumeLevel);
     if (this.isMuted) {
-      this._setVolumeInputState(0);
+      this.view.setVolumeLevel(0);
     } else {
-      this._setVolumeInputState(this.volumeLevel);
+      this.view.setVolumeLevel(this.volumeLevel);
     }
   }
 
   hide() {
     this.isHidden = true;
-    this.view.$node.toggleClass(styles.hidden, true);
+    this.view.hide();
   }
 
   show() {
     this.isHidden = false;
-    this.view.$node.toggleClass(styles.hidden, false);
-  }
-
-  _unbindEvents() {
-    this.view.$node
-      .off('wheel', this._getVolumeLevelFromWheel);
-
-    this.view.$input
-      .off('change', this._getVolumeLevelFromInput)
-      .off('input', this._getVolumeLevelFromInput);
-
-    this.view.$volumeIcon
-      .off('click', this._changeMuteStatus);
-
-    this.view.$volumeMutedIcon
-      .off('click', this._changeMuteStatus);
+    this.view.show();
   }
 
   destroy() {
-    this._unbindEvents();
     this.view.destroy();
     delete this.view;
 
