@@ -16,7 +16,8 @@ class Player {
     src,
     size,
     controls,
-    overlay
+    overlay,
+    customUI = []
   }) {
 
     this._eventEmitter = new EventEmitter();
@@ -43,14 +44,16 @@ class Player {
 
     this._vidi = new Vidi(this._$video[0]);
 
-    this._createUI(size, controls, overlay);
+    this._createUI(size, controls, overlay, customUI);
 
     this._vidi.src = src;
     this._initEventsProxy();
   }
 
-  _createUI(size, controls, overlay) {
-    const config = {};
+  _createUI(size, controls, overlay, customUI) {
+    const config = {
+      customUI
+    };
 
     if (size) {
       config.size = size;
@@ -60,9 +63,7 @@ class Player {
       config.controls = controls;
     }
 
-    if (overlay) {
-      config.overlay = overlay;
-    }
+    config.overlay = overlay;
 
     this.ui = new PlayerUI({
       vidi: this._vidi,
@@ -76,7 +77,7 @@ class Player {
       return;
     }
 
-    return this.ui.node[0];
+    return this.ui.node;
   }
 
   _initEventsProxy() {

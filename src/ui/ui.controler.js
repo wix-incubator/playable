@@ -1,17 +1,18 @@
 import { isFullscreenAPIExist } from '../utils/fullscreen';
 
+import UI_EVENTS from '../constants/events/ui';
+
 import View from './ui.view';
 
 import Overlay from './overlay/overlay.controler';
 import ControlsBlock from './controls/controls.controler';
 
-import styles from './ui.scss';
-
 
 const DEFAULT_CONFIG = {
   size: {},
   overlay: true,
-  controls: true
+  controls: true,
+  customUI: {}
 };
 
 class PlayerUI {
@@ -23,32 +24,44 @@ class PlayerUI {
       ...config
     };
     this.isHidden = false;
+
+    this._bindCallbacks();
     this._initUI();
+
     this._initComponents();
+    this._initCustomUI();
   }
 
   get node() {
-    return this.view.$node;
+    return this.view.getNode();
+  }
+
+  _bindCallbacks() {
+    this._proxyFullScreenChange = this._proxyFullScreenChange.bind(this);
   }
 
   _initUI() {
     const { width, height } = this.config.size;
+    const config = {
+      width,
+      height,
+      callbacks: {
+        onFullScreenStatusChange: this._proxyFullScreenChange
+      }
+    };
 
-    this.view = new View(width, height);
+    this.view = new View(config);
   }
 
   _initComponents() {
     this._initOverlay();
-    this.view.$node
-      .append(this.overlay.node);
+    this.view.appendComponentNode(this.overlay.node);
 
-    this.view.$node
-      .append(this.vidi.getVideoElement());
+    this.view.appendComponentNode(this.vidi.getVideoElement());
 
     this._initControls();
 
-    this.view.$node
-      .append(this.controls.node);
+    this.view.appendComponentNode(this.controls.node);
   }
 
   _initOverlay() {
@@ -81,7 +94,7 @@ class PlayerUI {
     this.controls = new ControlsBlock({
       vidi: this.vidi,
       eventEmitter: this.eventEmitter,
-      $wrapper: this.view.$node,
+      uiView: this.view,
       config
     });
 
@@ -90,14 +103,33 @@ class PlayerUI {
     }
   }
 
+  _initCustomUI() {
+    this.customComponents = {};
+    const keys = Object.keys(this.config.customUI);
+    keys.forEach(key => {
+      const component = new this.config.customUI[key]({
+        vidi: this.vidi,
+        eventEmitter: this.eventEmitter
+      });
+
+      this.customComponents[key] = component;
+
+      this.view.appendComponentNode(component.getNode());
+    });
+  }
+
+  _proxyFullScreenChange() {
+    this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED);
+  }
+
   hide() {
     this.isHidden = true;
-    this.view.$node.toggleClass(styles.hidden, true);
+    this.view.hide();
   }
 
   show() {
     this.isHidden = false;
-    this.view.$node.toggleClass(styles.hidden, false);
+    this.view.show();
   }
 
   hideControls() {
@@ -121,25 +153,11 @@ class PlayerUI {
   }
 
   setWidth(width) {
-    if (!width) {
-      return;
-    }
-
-    this.view.$node
-      .css({
-        width: `${width}px`
-      });
+    this.view.setWidth(width);
   }
 
   setHeight(height) {
-    if (!height) {
-      return;
-    }
-
-    this.view.$node
-      .css({
-        height: `${height}px`
-      });
+    this.view.setHeight(height);
   }
 
 
@@ -186,7 +204,6 @@ class PlayerUI {
     delete this.overlay;
 
     delete this.eventEmitter;
-    delete this.$video;
     delete this.vidi;
     delete this.config;
   }

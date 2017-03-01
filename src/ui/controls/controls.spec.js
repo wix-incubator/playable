@@ -22,7 +22,7 @@ describe('ControlsBlock', () => {
   };
 
   let controls = {};
-  let $wrapper = {};
+  let uiView = {};
   let $video = {};
   let vidi = {};
   let eventEmitterSpy = null;
@@ -55,7 +55,16 @@ describe('ControlsBlock', () => {
   }
 
   beforeEach(() => {
-    $wrapper = new $('<div>');
+    uiView = {
+      setFullScreenStatus() {
+
+      },
+      getNode() {
+        return new $('<video>');
+      },
+      exitFullScreen() {},
+      enterFullScreen() {}
+    };
     $video = new $('<video>', {
       controls: 'true',
     });
@@ -66,7 +75,7 @@ describe('ControlsBlock', () => {
   describe('constructor', () => {
     beforeEach(() => {
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         eventEmitter,
         vidi
       });
@@ -80,7 +89,7 @@ describe('ControlsBlock', () => {
   describe('instance created with default config', () => {
     beforeEach(() => {
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         vidi,
         eventEmitter,
         ...DEFAULT_CONFIG
@@ -124,7 +133,7 @@ describe('ControlsBlock', () => {
       };
 
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         vidi,
         eventEmitter,
         config: controlsConfig
@@ -142,7 +151,7 @@ describe('ControlsBlock', () => {
       };
 
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         vidi,
         eventEmitter,
         config: controlsConfig
@@ -160,7 +169,7 @@ describe('ControlsBlock', () => {
       };
 
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         vidi,
         eventEmitter,
         config: controlsConfig
@@ -177,7 +186,7 @@ describe('ControlsBlock', () => {
       };
 
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         vidi,
         eventEmitter,
         config: controlsConfig
@@ -192,7 +201,7 @@ describe('ControlsBlock', () => {
   describe('instance callbacks to controls', () => {
     beforeEach(() => {
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         vidi,
         eventEmitter,
         ...DEFAULT_CONFIG
@@ -236,26 +245,11 @@ describe('ControlsBlock', () => {
       expect(togglePlaybackSpy.called).to.be.true;
     });
 
-    it('should stop propagation on control block click', () => {
-      const preventSpy = sinon.spy(controls, '_preventClickPropagation');
-      const eventStopPropSpy = sinon.spy();
-
-      controls._bindEvents();
-
-      controls.view.$controlsContainer.trigger('click');
-      expect(preventSpy.called).to.be.true;
-
-      controls._preventClickPropagation({
-        stopPropagation: eventStopPropSpy
-      });
-
-      expect(eventStopPropSpy.called).to.be.true;
-    });
-
     it('should trigger _toggleVideoPlayback on node click', () => {
       const processClickSpy = sinon.spy(controls, '_processNodeClick');
+      controls._bindControlsCallbacks();
+      controls._initUI();
 
-      controls._bindEvents();
       controls.view.$node.trigger('click');
       expect(processClickSpy.called).to.be.true;
     });
@@ -272,24 +266,6 @@ describe('ControlsBlock', () => {
       controls._processNodeClick();
       expect(timeoutClearSpy.calledWith(id)).to.be.true;
       expect(toggleFullscreenSpy.called).to.be.true;
-    });
-
-    it('should toggle fullscreen on _toggleFullScreen', () => {
-      const requestMock = sinon.spy();
-      const exitMock = sinon.spy();
-      controls.fullscreen = {
-        request: requestMock,
-        exit: exitMock,
-        isFullscreen: false
-      };
-
-      controls._toggleFullScreen();
-      expect(requestMock.called).to.be.true;
-
-      controls.fullscreen.isFullscreen = true;
-
-      controls._toggleFullScreen();
-      expect(exitMock.called).to.be.true;
     });
 
     it('should trigger play or pause on _toggleVideoPlayback', () => {
@@ -349,22 +325,14 @@ describe('ControlsBlock', () => {
     });
 
     it('should emit ui event on enter full screen', () => {
-      const requestMock = sinon.spy();
-      controls.fullscreen.request = requestMock;
+      controls._enterFullScreen(uiView);
 
-      controls._enterFullScreen($wrapper);
-
-      expect(requestMock.called).to.be.true;
       expect(eventEmitterSpy.calledWith(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED)).to.be.true;
     });
 
     it('should emit ui event on exit full screen', () => {
-      const exitMock = sinon.spy();
-      controls.fullscreen.exit = exitMock;
-
       controls._exitFullScreen();
 
-      expect(exitMock.called).to.be.true;
       expect(eventEmitterSpy.calledWith(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED)).to.be.true;
     });
 
@@ -381,7 +349,7 @@ describe('ControlsBlock', () => {
     });
 
     it('should update controls on interval trigger', () => {
-      const fullScreenControlToggleStatusSpy = sinon.spy(controls.fullscreenControl, "toggleControlStatus");
+      const fullScreenControlToggleStatusSpy = sinon.spy(controls.fullscreenControl, "setControlStatus");
 
       controls._updateFullScreenControlStatus();
 
@@ -392,7 +360,7 @@ describe('ControlsBlock', () => {
   describe('instance', () => {
     beforeEach(() => {
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         vidi,
         eventEmitter,
         ...DEFAULT_CONFIG
@@ -403,7 +371,7 @@ describe('ControlsBlock', () => {
       const updatePlayingStatusSpy = sinon.spy(controls, "_updatePlayingStatus");
       const startIntervalSpy = sinon.spy(controls, "_startIntervalUpdates");
 
-      const playControlToggleStatusSpy = sinon.spy(controls.playControl, "toggleControlStatus");
+      const playControlToggleStatusSpy = sinon.spy(controls.playControl, "setControlStatus");
 
       controls._bindEvents();
 
@@ -418,7 +386,7 @@ describe('ControlsBlock', () => {
       const updatePlayingStatusSpy = sinon.spy(controls, "_updatePlayingStatus");
       const stopIntervalSpy = sinon.spy(controls, "_stopIntervalUpdates");
 
-      const playControlToggleStatusSpy = sinon.spy(controls.playControl, "toggleControlStatus");
+      const playControlToggleStatusSpy = sinon.spy(controls.playControl, "setControlStatus");
 
       controls._bindEvents();
 
@@ -433,7 +401,7 @@ describe('ControlsBlock', () => {
       const updatePlayingStatusSpy = sinon.spy(controls, "_updatePlayingStatus");
       const stopIntervalSpy = sinon.spy(controls, "_stopIntervalUpdates");
 
-      const playControlToggleStatusSpy = sinon.spy(controls.playControl, "toggleControlStatus");
+      const playControlToggleStatusSpy = sinon.spy(controls.playControl, "setControlStatus");
 
       controls._bindEvents();
 
@@ -528,28 +496,12 @@ describe('ControlsBlock', () => {
       controls._removeFocusState();
       expect(controls._isControlsFocused).to.be.false;
     });
-
-    it('should have method for showing inner block with controls', () => {
-      const spy = sinon.spy(controls.view.$node, 'toggleClass');
-
-      expect(controls._showContent).to.exist;
-      controls._showContent();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for hiding inner block with controls', () => {
-      const spy = sinon.spy(controls.view.$node, 'toggleClass');
-
-      expect(controls._hideContent).to.exist;
-      controls._hideContent();
-      expect(spy.called).to.be.true;
-    });
   });
 
   describe('API', () => {
     beforeEach(() => {
       controls = new ControlsBlock({
-        $wrapper,
+        uiView,
         vidi,
         eventEmitter,
         ...DEFAULT_CONFIG

@@ -7,7 +7,8 @@ import styles from './play.scss';
 
 
 export default class PlayView {
-  constructor() {
+  constructor({ callbacks }) {
+    this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: styles['play-control']
     });
@@ -25,9 +26,39 @@ export default class PlayView {
     this.$node
       .append(this.$pauseIcon)
       .append(this.$playIcon);
+
+    this._bindEvents();
+  }
+
+  _bindEvents() {
+    this.$playIcon.on('click', this._callbacks.onPlayButtonClick);
+    this.$pauseIcon.on('click', this._callbacks.onPauseButtonClick);
+  }
+
+  _unbindEvents() {
+    this.$playIcon.off('click', this._callbacks.onPlayButtonClick);
+    this.$pauseIcon.off('click', this._callbacks.onPauseButtonClick);
+  }
+
+  setPlaybackStatus(isPlaying) {
+    this.$playIcon.toggleClass(styles.hidden, isPlaying);
+    this.$pauseIcon.toggleClass(styles.hidden, !isPlaying);
+  }
+
+  show() {
+    this.$node.toggleClass(styles.hidden, false);
+  }
+
+  hide() {
+    this.$node.toggleClass(styles.hidden, true);
+  }
+
+  getNode() {
+    return this.$node[0];
   }
 
   destroy() {
+    this._unbindEvents();
     this.$node.remove();
 
     delete this.$playIcon;

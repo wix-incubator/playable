@@ -2,8 +2,8 @@ import 'jsdom-global/register';
 
 import { expect } from 'chai';
 
-import TimeControl, { formatTime } from './time.controler';
-
+import TimeControl from './time.controler';
+import { formatTime } from './time.view';
 
 describe('TimeControl', () => {
   let control = {};

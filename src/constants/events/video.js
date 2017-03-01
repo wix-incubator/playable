@@ -2,6 +2,7 @@ import Vidi from 'vidi';
 
 export const { PlaybackStatus: VIDI_PLAYBACK_STATUSES } = Vidi;
 
+
 const VIDEO_EVENTS = {
   PLAYBACK_STATUS_CHANGED: 'playback-status-changed',
   CHUNK_LOADED: 'chunk-loaded',

@@ -12,30 +12,31 @@ import TimeControl from './time/time.controler';
 import VolumeControl from './volume/volume.controler';
 import FullscreenControl from './full-screen/full-screen.controler';
 
-import styles from './controls.scss';
-
 
 const DEFAULT_CONFIG = {
+  play: {},
   time: true,
   progress: true,
   volume: true,
-  fullscreen: true
+  fullscreen: true,
+  view: null
 };
 
+const PLAYBACK_CHANGE_TIMEOUT = 300;
 const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 const SPACE_BAR_KEYCODE = 32;
 
 export default class ControlBlock {
-  constructor({ vidi, $wrapper, eventEmitter, config }) {
+  constructor({ vidi, uiView, eventEmitter, config }) {
     this.eventEmitter = eventEmitter;
     this.vidi = vidi;
-    this.$wrapper = $wrapper;
+    this.uiView = uiView;
     this.config = {
       ...DEFAULT_CONFIG,
       ...config
     };
-    this.fullscreen = fullscreen;
     this.isHidden = false;
+    this.isVideoPaused = false;
 
     this._hideControlsTimeout = null;
     this._updateControlsInterval = null;
@@ -49,11 +50,24 @@ export default class ControlBlock {
   }
 
   get node() {
-    return this.view.$node;
+    return this.view.getNode();
   }
 
   _initUI() {
-    this.view = new View();
+    const config = {
+      controlsWrapperView: this.config && this.config.view,
+      callbacks: {
+        onWrapperMouseMove: this._startHideControlsTimeout,
+        onWrapperMouseOut: this._hideContent,
+        onWrapperMouseClick: this._processNodeClick,
+        onWrapperKeyPress: this._processKeyboardInput,
+        onControlsBlockMouseClick: this._preventClickPropagation,
+        onControlsBlockMouseMove: this._setFocusState,
+        onControlsBlockMouseOut: this._removeFocusState
+      }
+    };
+
+    this.view = new View(config);
   }
 
   _initControls() {
@@ -71,18 +85,19 @@ export default class ControlBlock {
   _initPlayControl() {
     this.playControl = new PlayControl({
       onPlayClick: this._playVideo,
-      onPauseClick: this._pauseVideo
+      onPauseClick: this._pauseVideo,
+      view: this.config.play && this.config.play.view
     });
 
-    this.view.$controlsContainer
-      .append(this.playControl.node);
+    this.view.appendControlNode(this.playControl.node);
   }
 
   _initTimeIndicator() {
-    this.timeControl = new TimeControl();
+    this.timeControl = new TimeControl({
+      view: this.config.time && this.config.time.view
+    });
 
-    this.view.$controlsContainer
-      .append(this.timeControl.node);
+    this.view.appendControlNode(this.timeControl.node);
 
     if (!this.config.time) {
       this.timeControl.hide();
@@ -93,11 +108,11 @@ export default class ControlBlock {
     this.progressControl = new ProgressControl({
       onInteractionStart: this._pauseVideoOnProgressManipulationStart,
       onInteractionEnd: this._playVideoOnProgressManipulationEnd,
-      onProgressChange: this._changeCurrentTimeOfVideo
+      onProgressChange: this._changeCurrentTimeOfVideo,
+      view: this.config.progress && this.config.progress.view
     });
 
-    this.view.$controlsContainer
-      .append(this.progressControl.node);
+    this.view.appendControlNode(this.progressControl.node);
 
     if (!this.config.progress) {
       this.progressControl.hide();
@@ -109,7 +124,8 @@ export default class ControlBlock {
 
     this.volumeControl = new VolumeControl({
       onVolumeLevelChange: this._changeVolumeLevel,
-      onMuteStatusChange: this._changeMuteStatus
+      onMuteStatusChange: this._changeMuteStatus,
+      view: this.config.volume && this.config.volume.view
     });
 
     this.volumeControl.setVolumeLevel(video.volume);
@@ -118,8 +134,7 @@ export default class ControlBlock {
       this.volumeControl.setMuteStatus(true);
     }
 
-    this.view.$controlsContainer
-      .append(this.volumeControl.node);
+    this.view.appendControlNode(this.volumeControl.node);
 
     if (!this.config.volume) {
       this.volumeControl.hide();
@@ -129,13 +144,11 @@ export default class ControlBlock {
   _initFullScreenControl() {
     this.fullscreenControl = new FullscreenControl({
       onEnterFullScreenClick: this._enterFullScreen,
-      onExitFullScreenClick: this._exitFullScreen
+      onExitFullScreenClick: this._exitFullScreen,
+      view: this.config.fullscreen && this.config.fullscreen.view
     });
 
-    this.$wrapper.on(fullscreen.raw.fullscreenchange, this._updateFullScreenControlStatus);
-
-    this.view.$controlsContainer
-      .append(this.fullscreenControl.node);
+    this.view.appendControlNode(this.fullscreenControl.node);
 
     if (!this.config.fullscreen) {
       this.fullscreenControl.hide();
@@ -143,8 +156,7 @@ export default class ControlBlock {
   }
 
   _updateFullScreenControlStatus() {
-    this.fullscreenControl.toggleControlStatus(fullscreen.isFullscreen);
-    this.$wrapper.toggleClass(styles.fullscreen, fullscreen.isFullscreen);
+    this.fullscreenControl.setControlStatus(fullscreen.isFullscreen);
   }
 
   _bindControlsCallbacks() {
@@ -159,7 +171,6 @@ export default class ControlBlock {
     this._removeFocusState = this._removeFocusState.bind(this);
     this._showContent = this._showContent.bind(this);
     this._hideContent = this._hideContent.bind(this);
-    this._updateFullScreenControlStatus = this._updateFullScreenControlStatus.bind(this);
     this._updateControlsOnInterval = this._updateControlsOnInterval.bind(this);
     this._playVideo = this._playVideo.bind(this);
     this._pauseVideo = this._pauseVideo.bind(this);
@@ -171,13 +182,6 @@ export default class ControlBlock {
   }
 
   _bindEvents() {
-    this.view.$node.on('click', this._processNodeClick);
-    this.view.$controlsContainer.on('click', this._preventClickPropagation);
-    this.view.$node.on('keypress', this._processKeyboardInput);
-    this.view.$node.on('mousemove', this._startHideControlsTimeout);
-    this.view.$controlsContainer.on('mousemove', this._setFocusState);
-    this.view.$controlsContainer.on('mouseout', this._removeFocusState);
-    this.view.$node.on('mouseout', this._hideContent);
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
     this.eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
@@ -185,6 +189,8 @@ export default class ControlBlock {
     this.eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
     this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
     this.eventEmitter.on(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+
+    this.eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._updateFullScreenControlStatus, this);
   }
 
   _processKeyboardInput(e) {
@@ -194,7 +200,7 @@ export default class ControlBlock {
   }
 
   _preventClickPropagation(e) {
-    e.stopPropagation();
+    e.stopImmediatePropagation();
   }
 
   _processNodeClick() {
@@ -204,7 +210,7 @@ export default class ControlBlock {
 
       this._toggleFullScreen();
     } else {
-      this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, 300);
+      this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
     }
   }
 
@@ -240,11 +246,13 @@ export default class ControlBlock {
   }
 
   _showContent() {
-    this.view.$node.toggleClass(styles.activated, true);
+    this.view.showControlsBlock();
   }
 
   _hideContent() {
-    this.view.$node.toggleClass(styles.activated, false);
+    if (!this.isVideoPaused) {
+      this.view.hideControlsBlock();
+    }
   }
 
   _startIntervalUpdates() {
@@ -288,17 +296,18 @@ export default class ControlBlock {
   _updatePlayingStatus(status) {
     if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
       this._startHideControlsTimeout();
-      this.view.$node.toggleClass(styles['video-paused'], false);
-      this.playControl.toggleControlStatus(true);
+      this.isVideoPaused = false;
+      this.playControl.setControlStatus(true);
       this._startIntervalUpdates();
     } else {
       if (status === VIDI_PLAYBACK_STATUSES.ENDED) {
-        this.view.$node.toggleClass(styles['video-paused'], false);
         this._hideContent();
+        this.isVideoPaused = false;
       } else {
-        this.view.$node.toggleClass(styles['video-paused'], true);
+        this._showContent();
+        this.isVideoPaused = true;
       }
-      this.playControl.toggleControlStatus(false);
+      this.playControl.setControlStatus(false);
       this._stopIntervalUpdates();
     }
   }
@@ -367,7 +376,7 @@ export default class ControlBlock {
   }
 
   _toggleFullScreen() {
-    if (this.fullscreen.isFullscreen) {
+    if (fullscreen.isFullscreen) {
       this._exitFullScreen();
     } else {
       this._enterFullScreen();
@@ -375,37 +384,28 @@ export default class ControlBlock {
   }
 
   _enterFullScreen() {
-    this.fullscreen.request(this.$wrapper[0]);
-    this.$wrapper.toggleClass(styles.fullscreen, true);
-
     this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
+
+    this.uiView.enterFullScreen();
   }
 
   _exitFullScreen() {
-    this.fullscreen.exit();
-    this.$wrapper.toggleClass(styles.fullscreen, false);
-
     this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
+
+    this.uiView.exitFullScreen();
   }
 
   hide() {
     this.isHidden = true;
-    this.view.$node.toggleClass(styles.hidden, true);
+    this.view.hide();
   }
 
   show() {
     this.isHidden = false;
-    this.view.$node.toggleClass(styles.hidden, false);
+    this.view.show();
   }
 
   _unbindEvents() {
-    this.view.$node.off('click', this._processNodeClick);
-    this.view.$controlsContainer.off('click', this._preventClickPropagation);
-    this.view.$node.off('keypress', this._processKeyboardInput);
-    this.view.$node.off('mousemove', this._startHideControlsTimeout);
-    this.view.$controlsContainer.off('mousemove', this._setFocusState);
-    this.view.$controlsContainer.off('mouseout', this._removeFocusState);
-    this.view.$node.off('mouseout', this._hideContent);
     this.eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updateProgressControl, this);
     this.eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
     this.eventEmitter.off(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
@@ -413,6 +413,8 @@ export default class ControlBlock {
     this.eventEmitter.off(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
     this.eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
     this.eventEmitter.off(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+
+    this.eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._updateFullScreenControlStatus, this);
   }
 
   destroy() {
@@ -421,7 +423,6 @@ export default class ControlBlock {
     delete this.view;
 
     delete this.isHidden;
-    delete this.fullscreen;
 
     this.fullscreenControl.destroy();
     delete this.fullscreenControl;
@@ -440,7 +441,7 @@ export default class ControlBlock {
 
     delete this.eventEmitter;
     delete this.vidi;
-    delete this.$wrapper;
+    delete this.uiView;
     delete this.config;
   }
 }
