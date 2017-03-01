@@ -200,7 +200,7 @@ export default class ControlBlock {
   }
 
   _preventClickPropagation(e) {
-    e.stopImmediatePropagation();
+    e.stopPropagation();
   }
 
   _processNodeClick() {

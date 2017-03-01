@@ -1,11 +1,7 @@
 @import '../../shared';
 
 .controls-wrapper {
-  position: absolute;
   z-index: 10;
-  right: 0;
-  bottom: 0;
-  left: 0;
 
   .gradient-background {
     position: absolute;
