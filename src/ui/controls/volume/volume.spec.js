@@ -1,124 +1,69 @@
 import 'jsdom-global/register';
+import $ from 'jbone';
+import Vidi from 'vidi';
+import EventEmitter from 'eventemitter3';
 
 import { expect } from 'chai';
 import sinon from 'sinon';
 
 import VolumeControl from './volume.controler';
+import VIDEO_EVENTS from '../../../constants/events/video';
 
 
 describe('VolumeControl', () => {
   let control = {};
-  let onVolumeLevelChange = null;
-  let onMuteStatusChange = null;
+  let $video = {};
+  let vidi = {};
+  let eventEmitter = {};
+
+  beforeEach(() => {
+    $video = new $('<video>');
+    vidi = new Vidi($video[0]);
+    eventEmitter = new EventEmitter();
+    control = new VolumeControl({
+      vidi,
+      eventEmitter
+    });
+  });
 
   describe('constructor', () => {
-    beforeEach(() => {
-      control = new VolumeControl({});
-    });
-
     it('should create instance ', () => {
       expect(control).to.exists;
       expect(control.view).to.exists;
     });
-  });
 
-  describe('instance', () => {
-    beforeEach(() => {
-      onVolumeLevelChange = sinon.spy();
-      onMuteStatusChange = sinon.spy();
-
+    it('should create instance with custom view if provided', () => {
+      const spy = sinon.spy(function () {
+        return {
+          setVolumeLevel: () => {},
+          setMuteStatus: () => {}
+        }
+      });
       control = new VolumeControl({
-        onVolumeLevelChange,
-        onMuteStatusChange
-      });
-    });
-
-    it('should react on volume range input change event when not muted', () => {
-      const callback = sinon.spy(control, "_getVolumeLevelFromInput");
-      control._bindCallbacks();
-      control._initUI();
-
-      control.setVolumeLevel(0.5);
-
-      control.view.$input.trigger('change');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should react on volume range input input event', () => {
-      const callback = sinon.spy(control, "_getVolumeLevelFromInput");
-      control._bindCallbacks();
-      control._initUI();
-
-      control.setVolumeLevel(0.5);
-
-      control.view.$input.trigger('input');
-      expect(callback.called).to.be.true;
-    });
-
-    describe('._callVolumeChangeCallbacks', () => {
-      it('should call volume change callback on call', () => {
-        control._callVolumeChangeCallback();
-
-        expect(onVolumeLevelChange.called).to.be.true;
+        vidi,
+        eventEmitter,
+        view: spy
       });
 
-      it('should call volume change and mute change callback on call if muted', () => {
-        control.isMuted = true;
-
-        control._callVolumeChangeCallback(50);
-
-        expect(onVolumeLevelChange.calledWith(0.5)).to.be.true;
-        expect(onMuteStatusChange.calledWith(false)).to.be.true;
-      });
+      expect(spy.called).to.be.true;
     });
-
-    it('should call callbacks on _getVolumeLevelFromInput', () => {
-      const callback = sinon.spy(control, "_callVolumeChangeCallback");
-      control._bindCallbacks();
-      control._initUI();
-
-      control._getVolumeLevelFromInput();
-
-      expect(callback.called).to.be.true;
-    });
-
-    it('should react on mute status input click event', () => {
-      const callback = sinon.spy(control, "_callMuteChangeCallback");
-      control._bindCallbacks();
-      control._initUI();
-
-      control.view.$volumeIcon.trigger('click');
-      expect(callback.called).to.be.true;
-      expect(onMuteStatusChange.called).to.be.true;
-    });
-
-    it('should react on unmute status input click event', () => {
-      const callback = sinon.spy(control, "_callMuteChangeCallback");
-      control._bindCallbacks();
-      control._initUI();
-
-      control.view.$volumeMutedIcon.trigger('click');
-      expect(callback.called).to.be.true;
-      expect(onMuteStatusChange.called).to.be.true;
-    });
-
-    it('should set mute state if volume is 0', () => {
-      control.setVolumeLevel(0);
-      expect(control.volumeLevel).to.be.equal(0);
-    });
-
-    it('should call callback of _processWheelInput', () => {
-      const callback = sinon.spy(control, "_callVolumeChangeCallback");
-
-      control._getVolumeLevelFromWheel(-100);
-
-      expect(callback.calledWith(90)).to.be.true;
-    })
   });
 
   describe('API', () => {
-    beforeEach(() => {
-      control = new VolumeControl({});
+    it('should have method for setting current time', () => {
+      const spy = sinon.spy(control.view, 'setVolumeLevel');
+      expect(control.setVolumeLevel).to.exist;
+      control.setVolumeLevel(100);
+      expect(spy.called).to.be.false;
+      control.setVolumeLevel(0);
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for setting duration time', () => {
+      const spy = sinon.spy(control.view, 'setMuteStatus');
+      expect(control.setMuteStatus).to.exist;
+      control.setMuteStatus();
+      expect(spy.called).to.be.true;
     });
 
     it('should have method for showing whole view', () => {
@@ -131,6 +76,128 @@ describe('VolumeControl', () => {
       expect(control.hide).to.exist;
       control.hide();
       expect(control.isHidden).to.be.true;
+    });
+
+    it('should have method for destroying', () => {
+      const spy = sinon.spy(control, '_unbindEvents');
+      expect(control.destroy).to.exist;
+      control.destroy();
+      expect(control.view).to.not.exist;
+      expect(control._vidi).to.not.exist;
+      expect(control._eventEmitter).to.not.exist;
+      expect(spy.called).to.be.true;
+    });
+  });
+
+  describe('video events listeners', () => {
+    it('should call callback on playback status change', () => {
+      const spy = sinon.spy(control, '_updateVolumeStatus');
+      control._bindEvents();
+      eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
+      expect(spy.called).to.be.true;
+    });
+  });
+
+  describe('internal methods', () => {
+    it('should change volume level based on wheel delta', () => {
+      const startSpy = sinon.spy(control, '_changeVolumeStatus');
+      control._getVolumeLevelFromWheel(-100);
+      expect(startSpy.calledWith(90)).to.be.true;
+    });
+
+    it('should change volume level based on input', () => {
+      const startSpy = sinon.spy(control, '_changeVolumeStatus');
+      control._getVolumeLevelFromInput(40);
+      expect(startSpy.calledWith(40)).to.be.true;
+    });
+
+    it('should change volume level and mute status of video', () => {
+      const volumeSpy = sinon.spy(control, '_changeVolumeLevel');
+      const muteSpy = sinon.spy(control, '_changeMuteStatus');
+
+      control._changeVolumeStatus(90);
+      expect(volumeSpy.calledWith(0.9)).to.be.true;
+      expect(muteSpy.called).to.be.false;
+      control._isMuted = true;
+      control._changeVolumeStatus(90);
+      expect(muteSpy.calledWith(false)).to.be.true;
+    });
+  });
+
+  describe('View', () => {
+    it('should react on volume range input change event when not muted', () => {
+      const callback = sinon.spy(control.view, "_onInputChange");
+      control.view._bindEvents();
+
+      control.view.$input.trigger('change');
+      expect(callback.called).to.be.true;
+    });
+
+    it('should react on volume range input input event', () => {
+      const callback = sinon.spy(control.view, "_onInputChange");
+      control.view._bindEvents();
+
+      control.view.$input.trigger('input');
+      expect(callback.called).to.be.true;
+    });
+
+    it('should react on volume range wheel input event', () => {
+      const callback = sinon.spy(control.view, "_onWheel");
+      control.view._bindEvents();
+
+      control.view.$node.trigger('wheel');
+      expect(callback.called).to.be.true;
+    });
+
+    it('should react on mute button click', () => {
+      const callback = sinon.spy(control.view, "_onMuteClick");
+      control.view._bindEvents();
+
+      control.view.$volumeIcon.trigger('click');
+      expect(callback.called).to.be.true;
+    });
+
+    it('should call callbacks', () => {
+      const inputSpy = sinon.spy(control, '_getVolumeLevelFromInput');
+      const wheelSpy = sinon.spy(control, '_getVolumeLevelFromWheel');
+      const muteSpy = sinon.spy(control, '_changeMuteStatus');
+
+      control._bindCallbacks();
+      control._initUI();
+
+      control.view._onInputChange();
+      expect(inputSpy.called).to.be.true;
+      control.view._onWheel({
+        preventDefault: () => {},
+        deltaY: 10
+      });
+      expect(wheelSpy.called).to.be.true;
+      control.view._onMuteClick();
+      expect(muteSpy.called).to.be.true;
+    });
+
+    it('should have method for setting current time', () => {
+      expect(control.view.setVolumeLevel).to.exist;
+    });
+
+    it('should have method for setting duration time', () => {
+      expect(control.view.setMuteStatus).to.exist;
+    });
+
+    it('should have method for showing itself', () => {
+      expect(control.view.show).to.exist;
+    });
+
+    it('should have method for hidding itself', () => {
+      expect(control.view.hide).to.exist;
+    });
+
+    it('should have method gettind root node', () => {
+      expect(control.view.getNode).to.exist;
+    });
+
+    it('should have method for destroying', () => {
+      expect(control.view.destroy).to.exist;
     });
   });
 });

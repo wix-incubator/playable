@@ -1,22 +1,25 @@
 import View from './volume.view';
 
+import VIDEO_EVENTS from '../../../constants/events/video';
+import UI_EVENTS from '../../../constants/events/ui';
+
 
 export default class VolumeControl {
-  constructor({ onVolumeLevelChange, onMuteStatusChange, view }) {
-    this.isMuted = false;
-    this.volumeLevel = 100;
+  constructor({ vidi, eventEmitter, view }) {
+    this._vidi = vidi;
+    this._eventEmitter = eventEmitter;
 
-    this._callbacks = {
-      onVolumeLevelChange,
-      onMuteStatusChange
-    };
+    this._isMuted = false;
+    this._volumeLevel = 100;
 
     this._bindCallbacks();
 
     this._initUI(view);
 
-    this.view.setVolumeLevel(this.volumeLevel);
-    this.view.setMuteStatus(this.isMuted);
+    this._bindEvents();
+
+    this.view.setVolumeLevel(this._volumeLevel);
+    this.view.setMuteStatus(this._isMuted);
   }
 
   get node() {
@@ -28,7 +31,7 @@ export default class VolumeControl {
       callbacks: {
         onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
-        onMuteStatusChange: this._callMuteChangeCallback
+        onMuteStatusChange: this._changeMuteStatus
       }
     };
 
@@ -39,9 +42,13 @@ export default class VolumeControl {
     }
   }
 
+  _bindEvents() {
+    this._eventEmitter.on(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+  }
+
   _bindCallbacks() {
     this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
-    this._callMuteChangeCallback = this._callMuteChangeCallback.bind(this);
+    this._changeMuteStatus = this._changeMuteStatus.bind(this);
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
   }
 
@@ -53,38 +60,56 @@ export default class VolumeControl {
     return level * 100;
   }
 
+  _changeVolumeLevel(level) {
+    const video = this._vidi.getVideoElement();
+
+    video.volume = level;
+    this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
+  }
+
+  _changeMuteStatus() {
+    const video = this._vidi.getVideoElement();
+
+    video.muted = !this._isMuted;
+    this._eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, !this._isMuted);
+  }
+
   _getVolumeLevelFromWheel(delta) {
-    const adjustedVolume = this.volumeLevel + delta / 10;
+    const adjustedVolume = this._volumeLevel + delta / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
 
-    this._callVolumeChangeCallback(validatedVolume);
+    this._changeVolumeStatus(validatedVolume);
   }
 
   _getVolumeLevelFromInput(level) {
-    this._callVolumeChangeCallback(level);
+    this._changeVolumeStatus(level);
   }
 
-  _callVolumeChangeCallback(level) {
-    this._callbacks.onVolumeLevelChange(this._convertVolumeLevelToVideoVolume(level));
-    if (this.isMuted) {
-      this._callbacks.onMuteStatusChange(!this.isMuted);
+  _changeVolumeStatus(level) {
+    this._changeVolumeLevel(this._convertVolumeLevelToVideoVolume(level));
+    if (this._isMuted) {
+      this._changeMuteStatus(!this._isMuted);
     }
   }
 
-  _callMuteChangeCallback() {
-    this._callbacks.onMuteStatusChange(!this.isMuted);
+  _updateVolumeStatus() {
+    const video = this._vidi.getVideoElement();
+
+    this.setVolumeLevel(video.volume);
+    this.setMuteStatus(video.muted);
   }
 
+
   setVolumeLevel(level) {
-    if (level === this.volumeLevel) {
+    if (level === this._volumeLevel) {
       return;
     }
 
-    this.volumeLevel = this._convertVideoVolumeToVolumeLevel(level);
+    this._volumeLevel = this._convertVideoVolumeToVolumeLevel(level);
 
-    this.view.setVolumeLevel(this.volumeLevel);
+    this.view.setVolumeLevel(this._volumeLevel);
 
-    if (this.volumeLevel) {
+    if (this._volumeLevel) {
       this.view.setMuteStatus(false);
     } else {
       this.view.setMuteStatus(true);
@@ -92,16 +117,16 @@ export default class VolumeControl {
   }
 
   setMuteStatus(isMuted) {
-    if (isMuted === this.isMuted) {
+    if (isMuted === this._isMuted) {
       return;
     }
 
-    this.isMuted = isMuted;
-    this.view.setMuteStatus(this.isMuted || !this.volumeLevel);
-    if (this.isMuted) {
+    this._isMuted = isMuted;
+    this.view.setMuteStatus(this._isMuted || !this._volumeLevel);
+    if (this._isMuted) {
       this.view.setVolumeLevel(0);
     } else {
-      this.view.setVolumeLevel(this.volumeLevel);
+      this.view.setVolumeLevel(this._volumeLevel);
     }
   }
 
@@ -115,14 +140,20 @@ export default class VolumeControl {
     this.view.show();
   }
 
+  _unbindEvents() {
+    this._eventEmitter.off(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+  }
+
   destroy() {
+    this._unbindEvents();
     this.view.destroy();
     delete this.view;
 
-    delete this._callbacks;
+    delete this._eventEmitter;
+    delete this._vidi;
 
     this.isHidden = null;
-    this.isMuted = null;
-    this.volumeLevel = null;
+    this._isMuted = null;
+    this._volumeLevel = null;
   }
 }

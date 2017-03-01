@@ -109,7 +109,8 @@ class PlayerUI {
     keys.forEach(key => {
       const component = new this.config.customUI[key]({
         vidi: this.vidi,
-        eventEmitter: this.eventEmitter
+        eventEmitter: this.eventEmitter,
+        uiView: this.view
       });
 
       this.customComponents[key] = component;
