@@ -70,16 +70,14 @@ describe('ControlsBlock', () => {
     });
     vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
-  });
-
-  describe('constructor', () => {
-    beforeEach(() => {
-      controls = new ControlsBlock({
-        uiView,
-        eventEmitter,
-        vidi
-      });
+    controls = new ControlsBlock({
+      uiView,
+      vidi,
+      eventEmitter,
+      ...DEFAULT_CONFIG
     });
+  });
+  describe('constructor', () => {
     it('should create instance ', () => {
       expect(controls).to.exists;
       expect(controls.view).to.exists;
@@ -87,15 +85,6 @@ describe('ControlsBlock', () => {
   });
 
   describe('instance created with default config', () => {
-    beforeEach(() => {
-      controls = new ControlsBlock({
-        uiView,
-        vidi,
-        eventEmitter,
-        ...DEFAULT_CONFIG
-      });
-    });
-
     it('should have play control', () => {
       expect(controls.playControl).to.exist;
     });
@@ -181,12 +170,6 @@ describe('ControlsBlock', () => {
 
   describe('instance callbacks to controls', () => {
     beforeEach(() => {
-      controls = new ControlsBlock({
-        uiView,
-        vidi,
-        eventEmitter,
-        ...DEFAULT_CONFIG
-      });
       spiedVideo = generateVideoObjectWithSpies();
 
       eventEmitterSpy = sinon.spy(controls.eventEmitter, 'emit');
@@ -244,15 +227,6 @@ describe('ControlsBlock', () => {
   });
 
   describe('instance', () => {
-    beforeEach(() => {
-      controls = new ControlsBlock({
-        uiView,
-        vidi,
-        eventEmitter,
-        ...DEFAULT_CONFIG
-      });
-    });
-
     it('should have method for setting controls focused state', () => {
       expect(controls._setFocusState).to.exist;
       controls._setFocusState();
@@ -265,18 +239,31 @@ describe('ControlsBlock', () => {
       controls._removeFocusState();
       expect(controls._isControlsFocused).to.be.false;
     });
+
+    it('should have method for setting playback status', () => {
+      expect(controls._updatePlayingStatus).to.exist;
+      const startTimeout = sinon.spy(controls, '_startHideControlsTimeout');
+      const hideTimeout = sinon.spy(controls, '_hideContent');
+      const showTimeout = sinon.spy(controls, '_showContent');
+      controls._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.PLAYING);
+      expect(startTimeout.called).to.be.true;
+      controls._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.PAUSED);
+      expect(showTimeout.called).to.be.true;
+      controls._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.ENDED);
+      expect(hideTimeout.called).to.be.true;
+    });
+  });
+
+  describe('video events listeners', () => {
+    it('should call callback on playback status change', () => {
+      const spy = sinon.spy(controls, '_updatePlayingStatus');
+      controls._bindEvents();
+      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED);
+      expect(spy.called).to.be.true;
+    });
   });
 
   describe('API', () => {
-    beforeEach(() => {
-      controls = new ControlsBlock({
-        uiView,
-        vidi,
-        eventEmitter,
-        ...DEFAULT_CONFIG
-      });
-    });
-
     it('should have method for showing whole view', () => {
       expect(controls.show).to.exist;
       controls.show();
@@ -287,6 +274,19 @@ describe('ControlsBlock', () => {
       expect(controls.hide).to.exist;
       controls.hide();
       expect(controls.isHidden).to.be.true;
+    });
+
+    it('should have method for destroying', () => {
+      const spy = sinon.spy(controls, '_unbindEvents');
+      expect(controls.destroy).to.exist;
+      controls.destroy();
+      expect(controls.view).to.not.exist;
+      expect(controls.fullscreenControl).to.not.exist;
+      expect(controls.playControl).to.not.exist;
+      expect(controls.progressControl).to.not.exist;
+      expect(controls.timeControl).to.not.exist;
+      expect(controls.volumeControl).to.not.exist;
+      expect(spy.called).to.be.true;
     });
   });
 });

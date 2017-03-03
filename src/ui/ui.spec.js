@@ -20,16 +20,13 @@ describe('PlayerUI', () => {
     $video = new $('<video>');
     vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
+    ui = new PlayerUI({
+      vidi,
+      eventEmitter
+    });
   });
 
   describe('constructor', () => {
-    beforeEach(() => {
-      ui = new PlayerUI({
-        vidi,
-        eventEmitter
-      });
-    });
-
     it('should create instance ', () => {
       expect(ui).to.exists;
       expect(ui.view).to.exists;
@@ -37,12 +34,6 @@ describe('PlayerUI', () => {
   });
 
   describe('instance created with default config', () => {
-    beforeEach(() => {
-      ui = new PlayerUI({
-        vidi,
-        eventEmitter
-      });
-    });
     it('should have controls', () => {
       expect(ui.controls).to.exist;
     });
@@ -218,6 +209,58 @@ describe('PlayerUI', () => {
       expect(ui.hide).to.exist;
       ui.hide();
       expect(ui.isHidden).to.be.true;
+    });
+  });
+
+  describe('View', () => {
+    it('should have method for append component node', () => {
+      expect(ui.view.appendComponentNode).to.exist;
+    });
+
+    it('should have method for enter full scren', () => {
+      const spy = sinon.spy(ui.view, '_setFullScreenStatus');
+      expect(ui.view.enterFullScreen).to.exist;
+      ui.view.$node = {
+        0: {
+        'undefined': () => {}
+        },
+        toggleClass: () => {}
+      };
+      ui.view.enterFullScreen();
+      expect(spy.called).to.be.true;
+    });
+
+    it('should have method for exit full screen', () => {
+      const spy = sinon.spy(ui.view, '_setFullScreenStatus');
+      expect(ui.view.exitFullScreen).to.exist;
+      ui.view.$node = {
+        0: {
+          'undefined': () => {}
+        },
+        toggleClass: () => {}
+      };
+      global.document['undefined'] = () => {};
+      ui.view.exitFullScreen();
+      expect(spy.called).to.be.true;
+
+      delete global.document['undefined'];
+    });
+
+
+    it('should have method for showing itself', () => {
+      expect(ui.view.show).to.exist;
+    });
+
+    it('should have method for hidding itself', () => {
+      expect(ui.view.hide).to.exist;
+    });
+
+    it('should have method gettind root node', () => {
+      expect(ui.view.getNode).to.exist;
+    });
+
+    it('should have method for destroying', () => {
+      expect(ui.view.destroy).to.exist;
     });
   });
 });
