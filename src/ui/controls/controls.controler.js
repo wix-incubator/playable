@@ -235,14 +235,14 @@ export default class ControlBlock {
 
   _updatePlayingStatus(status) {
     if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+      this._isVideoPaused = false;
       this._startHideControlsTimeout();
-      this._isVideoPaused = false;
     } else if (status === VIDI_PLAYBACK_STATUSES.ENDED) {
-      this._hideContent();
       this._isVideoPaused = false;
+      this._hideContent();
     } else {
-      this._showContent();
       this._isVideoPaused = true;
+      this._showContent();
     }
   }
 
