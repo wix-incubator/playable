@@ -67,6 +67,7 @@ describe('ControlsBlock', () => {
     };
     $video = new $('<video>', {
       controls: 'true',
+      muted: 'true'
     });
     vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
@@ -210,6 +211,8 @@ describe('ControlsBlock', () => {
       controls._processNodeClick();
       expect(timeoutClearSpy.calledWith(id)).to.be.true;
       expect(toggleFullscreenSpy.called).to.be.true;
+
+      timeoutClearSpy.restore();
     });
 
 
@@ -252,6 +255,31 @@ describe('ControlsBlock', () => {
       controls._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.ENDED);
       expect(hideTimeout.called).to.be.true;
     });
+
+    it('should have method for hiding controls on timeout', () => {
+      const timeoutSpy = sinon.spy(global, 'setTimeout');
+      const clearSpy = sinon.spy(global, 'clearTimeout');
+      controls._startHideControlsTimeout();
+      expect(timeoutSpy.calledWith(controls._hideContent)).to.be.true;
+      controls._startHideControlsTimeout();
+      expect(clearSpy.called).to.be.true;
+
+      timeoutSpy.restore();
+      clearSpy.restore();
+    });
+
+    it('should have method for toggling playback', () => {
+      let status = VIDI_PLAYBACK_STATUSES.PLAYING;
+      const playSpy = sinon.spy();
+      const pauseSpy = sinon.spy();
+      controls.vidi = {
+        getPlaybackState: () => ({ status }),
+        play: playSpy,
+        pause: pauseSpy
+      };
+      controls._toggleVideoPlayback();
+      expect(pauseSpy.called).to.be.true;
+    });
   });
 
   describe('video events listeners', () => {
@@ -287,6 +315,36 @@ describe('ControlsBlock', () => {
       expect(controls.timeControl).to.not.exist;
       expect(controls.volumeControl).to.not.exist;
       expect(spy.called).to.be.true;
+    });
+  });
+
+  describe('View', () => {
+    it('should have method for adding node with control', () => {
+      expect(controls.view.appendControlNode).to.exist;
+    });
+
+    it('should have method for showing block with controls', () => {
+      expect(controls.view.showControlsBlock).to.exist;
+    });
+
+    it('should have method for hidding block with controls', () => {
+      expect(controls.view.hideControlsBlock).to.exist;
+    });
+
+    it('should have method for showing itself', () => {
+      expect(controls.view.show).to.exist;
+    });
+
+    it('should have method for hidding itself', () => {
+      expect(controls.view.hide).to.exist;
+    });
+
+    it('should have method gettind root node', () => {
+      expect(controls.view.getNode).to.exist;
+    });
+
+    it('should have method for destroying', () => {
+      expect(controls.view.destroy).to.exist;
     });
   });
 });
