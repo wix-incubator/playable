@@ -5,6 +5,8 @@ import UI_EVENTS from '../../../constants/events/ui';
 
 
 export default class PlayControl {
+  static View = View;
+
   constructor({ vidi, eventEmitter, view }) {
     this._vidi = vidi;
     this._eventEmitter = eventEmitter;
@@ -60,7 +62,7 @@ export default class PlayControl {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new View(config);
+      this.view = new PlayControl.View(config);
     }
   }
 

@@ -5,12 +5,16 @@ import UI_EVENTS from '../../../constants/events/ui';
 
 
 export default class VolumeControl {
+  static View = View;
+
   constructor({ vidi, eventEmitter, view }) {
     this._vidi = vidi;
     this._eventEmitter = eventEmitter;
 
-    this._isMuted = false;
-    this._volumeLevel = 100;
+    const video = this._vidi.getVideoElement();
+
+    this._isMuted = video.getAttribute('muted') === 'true';
+    this._volumeLevel = this._convertVideoVolumeToVolumeLevel(video.volume);
 
     this._bindCallbacks();
 
@@ -38,7 +42,7 @@ export default class VolumeControl {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new View(config);
+      this.view = new VolumeControl.View(config);
     }
   }
 

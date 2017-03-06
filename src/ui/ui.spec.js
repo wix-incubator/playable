@@ -51,7 +51,20 @@ describe('PlayerUI', () => {
         config: uiConfig
       });
 
-      expect(ui.controls.isHidden).to.be.true;
+      expect(ui.controls).to.not.exist;
+    });
+    it('should create instance with overlay', () => {
+      const uiConfig = {
+        overlay: true
+      };
+
+      ui = new PlayerUI({
+        vidi,
+        eventEmitter,
+        config: uiConfig
+      });
+
+      expect(ui.overlay).to.exist;
     });
   });
 
@@ -61,20 +74,6 @@ describe('PlayerUI', () => {
         vidi,
         eventEmitter
       });
-    });
-
-    it('should have method for showing controls', () => {
-      expect(ui.showControls).to.exist;
-      const showSpy = sinon.spy(ui.controls, 'show');
-      ui.showControls();
-      expect(showSpy.called).to.be.true;
-    });
-
-    it('should have method for hiding controls', () => {
-      expect(ui.hideControls).to.exist;
-      const hideSpy = sinon.spy(ui.controls, 'hide');
-      ui.hideControls();
-      expect(hideSpy.called).to.be.true;
     });
 
     it('should have method for setting width', () => {
@@ -99,62 +98,6 @@ describe('PlayerUI', () => {
       expect(cssSpy.calledWith({
         height: '10px'
       })).to.be.true;
-    });
-
-    it('should have method for hide time', () => {
-      const spy = sinon.spy(ui.controls.timeControl, 'hide');
-      expect(ui.hideTime).to.exist;
-      ui.hideTime();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for show time', () => {
-      const spy = sinon.spy(ui.controls.timeControl, 'show');
-      expect(ui.showTime).to.exist;
-      ui.showTime();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for hide progress', () => {
-      const spy = sinon.spy(ui.controls.progressControl, 'hide');
-      expect(ui.hideProgress).to.exist;
-      ui.hideProgress();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for show progress', () => {
-      const spy = sinon.spy(ui.controls.progressControl, 'show');
-      expect(ui.showProgress).to.exist;
-      ui.showProgress();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for hide volume', () => {
-      const spy = sinon.spy(ui.controls.volumeControl, 'hide');
-      expect(ui.hideVolume).to.exist;
-      ui.hideVolume();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for show volume', () => {
-      const spy = sinon.spy(ui.controls.volumeControl, 'show');
-      expect(ui.showVolume).to.exist;
-      ui.showVolume();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for hide fullscreen', () => {
-      const spy = sinon.spy(ui.controls.fullscreenControl, 'hide');
-      expect(ui.hideFullscreen).to.exist;
-      ui.hideFullscreen();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for show progress', () => {
-      const spy = sinon.spy(ui.controls.fullscreenControl, 'show');
-      expect(ui.showFullscreen).to.exist;
-      ui.showFullscreen();
-      expect(spy.called).to.be.true;
     });
 
     it('should have method for showing whole view', () => {
