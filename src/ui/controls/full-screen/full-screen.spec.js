@@ -28,7 +28,8 @@ describe('FullScreenControl', () => {
     it('should create instance with custom view if provided', () => {
       const spy = sinon.spy(function () {
         return {
-          setFullScreenStatus: () => {}
+          setFullScreenStatus: () => {},
+          hide: () => {}
         }
       });
       control = new FullScreenControl({

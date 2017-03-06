@@ -63,7 +63,9 @@ class Player {
       config.controls = controls;
     }
 
-    config.overlay = overlay;
+    if (overlay) {
+      config.overlay = overlay;
+    }
 
     this.ui = new PlayerUI({
       vidi: this._vidi,

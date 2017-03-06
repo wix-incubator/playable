@@ -128,19 +128,3 @@ document.body.appendChild(player.node);
 ```Player.ui.setWidth``` Set width of player
 
 ```Player.ui.setHeight``` Set height of player
-
-```Player.ui.showOverlay()/hideOverlay()``` Show/Hide overlay
-
-```Player.ui.setOverlayBackgroundSrc(src)``` Set source of image for basic overlay
-
-```Player.ui.showControls()/hideControls()``` Show/Hide controls block
-
-```Player.ui.showTime()/hideTime()``` Show/Hide time indicator
-
-```Player.ui.showProgress()/hideProgress()``` Show/Hide progress control
-
-```Player.ui.showVolume()/hideVolume()``` Show/Hide volume control
-
-```Player.ui.showFullscreen()/hideFullscreen()``` Show/Hide fullscreen control
-
-

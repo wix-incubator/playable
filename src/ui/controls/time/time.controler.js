@@ -3,6 +3,8 @@ import View from './time.view';
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
 
 export default class TimeControl {
+  static View = View;
+
   constructor({ eventEmitter, vidi, view }) {
     this._eventEmitter = eventEmitter;
     this._vidi = vidi;
@@ -34,7 +36,7 @@ export default class TimeControl {
     if (view) {
       this.view = new view();
     } else {
-      this.view = new View();
+      this.view = new TimeControl.View();
     }
   }
 

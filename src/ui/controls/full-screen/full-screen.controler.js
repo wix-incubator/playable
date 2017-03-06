@@ -1,4 +1,4 @@
-import fullscreen from '../../../utils/fullscreen';
+import fullscreen, { isFullscreenAPIExist } from '../../../utils/fullscreen';
 
 import UI_EVENTS from '../../../constants/events/ui';
 
@@ -6,6 +6,8 @@ import View from './full-screen.view';
 
 
 export default class FullScreenControl {
+  static View = View;
+
   constructor({ view, uiView, eventEmitter }) {
     this._uiView = uiView;
     this._eventEmitter = eventEmitter;
@@ -17,6 +19,10 @@ export default class FullScreenControl {
     this._bindEvents();
 
     this.setControlStatus(false);
+
+    if (!isFullscreenAPIExist) {
+      this.hide();
+    }
   }
 
   get node() {
@@ -44,7 +50,7 @@ export default class FullScreenControl {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new View(config);
+      this.view = new FullScreenControl.View(config);
     }
   }
 

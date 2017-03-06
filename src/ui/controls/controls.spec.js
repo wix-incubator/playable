@@ -85,89 +85,7 @@ describe('ControlsBlock', () => {
     });
   });
 
-  describe('instance created with default config', () => {
-    it('should have play control', () => {
-      expect(controls.playControl).to.exist;
-    });
 
-    it('should have time indicator', () =>{
-      expect(controls.timeControl).to.exist;
-    });
-
-    it('should have progress control', () =>{
-      expect(controls.progressControl).to.exist;
-    });
-
-    it('should have volume control', () =>{
-      expect(controls.volumeControl).to.exist;
-    });
-
-    it('should have full screen control', () =>{
-      expect(controls.fullscreenControl).to.exist;
-    });
-  });
-
-  describe('instance created with extended config', () => {
-    it('should create instance without time indicator', () => {
-      const controlsConfig = {
-        time: false
-      };
-
-      controls = new ControlsBlock({
-        uiView,
-        vidi,
-        eventEmitter,
-        config: controlsConfig
-      });
-
-      expect(controls.timeControl.isHidden).to.be.true;
-    });
-
-    it('should create instance without progress control', () => {
-      const controlsConfig = {
-        progress: false
-      };
-
-      controls = new ControlsBlock({
-        uiView,
-        vidi,
-        eventEmitter,
-        config: controlsConfig
-      });
-
-      expect(controls.progressControl.isHidden).to.be.true;
-    });
-
-    it('should create instance without volume control', () => {
-      const controlsConfig = {
-        volume: false
-      };
-
-      controls = new ControlsBlock({
-        uiView,
-        vidi,
-        eventEmitter,
-        config: controlsConfig
-      });
-
-      expect(controls.volumeControl.isHidden).to.be.true;
-    });
-
-    it('should create instance without full screen control', () => {
-      const controlsConfig = {
-        fullscreen: false
-      };
-
-      controls = new ControlsBlock({
-        uiView,
-        vidi,
-        eventEmitter,
-        config: controlsConfig
-      });
-
-      expect(controls.fullscreenControl.isHidden).to.be.true;
-    });
-  });
 
   describe('instance callbacks to controls', () => {
     beforeEach(() => {
@@ -190,7 +108,7 @@ describe('ControlsBlock', () => {
 
     it('should trigger _toggleVideoPlayback on node click', () => {
       const processClickSpy = sinon.spy(controls, '_processNodeClick');
-      controls._bindControlsCallbacks();
+      controls._bindViewCallbacks();
       controls._initUI();
 
       controls.view.$node.trigger('click');

@@ -13,11 +13,7 @@ import FullscreenControl from './full-screen/full-screen.controler';
 
 
 const DEFAULT_CONFIG = {
-  play: {},
-  time: true,
-  progress: true,
-  volume: true,
-  fullscreen: true,
+  list: [PlayControl, TimeControl, ProgressControl, VolumeControl, FullscreenControl],
   view: null
 };
 
@@ -41,8 +37,9 @@ export default class ControlBlock {
     this._hideControlsTimeout = null;
     this._updateControlsInterval = null;
     this._isControlsFocused = false;
+    this._controls = [];
 
-    this._bindControlsCallbacks();
+    this._bindViewCallbacks();
     this._initUI();
     this._initControls();
     this._bindEvents();
@@ -70,94 +67,20 @@ export default class ControlBlock {
   }
 
   _initControls() {
-    this._initPlayControl();
+    this.config.list.forEach(Control => {
+      const control = new Control({
+        vidi: this.vidi,
+        uiView: this.uiView,
+        eventEmitter: this.eventEmitter
+      });
 
-    this._initTimeIndicator();
-
-    this._initProgressControl();
-
-    this._initVolumeControl();
-
-    this._initFullScreenControl();
-  }
-
-  _initPlayControl() {
-    this.playControl = new PlayControl({
-      vidi: this.vidi,
-      eventEmitter: this.eventEmitter,
-      view: this.config.play && this.config.play.view
+      this._controls.push(control);
+      this.view.appendControlNode(control.node || control.getNode());
     });
-
-    this.view.appendControlNode(this.playControl.node);
   }
 
-  _initTimeIndicator() {
-    this.timeControl = new TimeControl({
-      vidi: this.vidi,
-      eventEmitter: this.eventEmitter,
-      view: this.config.time && this.config.time.view
-    });
-
-    this.view.appendControlNode(this.timeControl.node);
-
-    if (!this.config.time) {
-      this.timeControl.hide();
-    }
-  }
-
-  _initProgressControl() {
-    this.progressControl = new ProgressControl({
-      vidi: this.vidi,
-      eventEmitter: this.eventEmitter,
-      view: this.config.progress && this.config.progress.view
-    });
-
-    this.view.appendControlNode(this.progressControl.node);
-
-    if (!this.config.progress) {
-      this.progressControl.hide();
-    }
-  }
-
-  _initVolumeControl() {
-    const video = this.vidi.getVideoElement();
-
-    this.volumeControl = new VolumeControl({
-      vidi: this.vidi,
-      eventEmitter: this.eventEmitter,
-      view: this.config.volume && this.config.volume.view
-    });
-
-    this.volumeControl.setVolumeLevel(video.volume);
-
-    if (video.getAttribute('muted') === 'true') {
-      this.volumeControl.setMuteStatus(true);
-    }
-
-    this.view.appendControlNode(this.volumeControl.node);
-
-    if (!this.config.volume) {
-      this.volumeControl.hide();
-    }
-  }
-
-  _initFullScreenControl() {
-    this.fullscreenControl = new FullscreenControl({
-      eventEmitter: this.eventEmitter,
-      uiView: this.uiView,
-      view: this.config.fullscreen && this.config.fullscreen.view
-    });
-
-    this.view.appendControlNode(this.fullscreenControl.node);
-
-    if (!this.config.fullscreen) {
-      this.fullscreenControl.hide();
-    }
-  }
-
-  _bindControlsCallbacks() {
+  _bindViewCallbacks() {
     this._processNodeClick = this._processNodeClick.bind(this);
-    this._toggleFullScreen = this._toggleFullScreen.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
     this._processKeyboardInput = this._processKeyboardInput.bind(this);
     this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
@@ -285,20 +208,8 @@ export default class ControlBlock {
     this.view.destroy();
     delete this.view;
 
-    this.fullscreenControl.destroy();
-    delete this.fullscreenControl;
-
-    this.volumeControl.destroy();
-    delete this.volumeControl;
-
-    this.progressControl.destroy();
-    delete this.progressControl;
-
-    this.playControl.destroy();
-    delete this.playControl;
-
-    this.timeControl.destroy();
-    delete this.timeControl;
+    this._controls.forEach(control => (control.destroy()));
+    delete this._controls;
 
     delete this.eventEmitter;
     delete this.vidi;

@@ -1,5 +1,3 @@
-import { isFullscreenAPIExist } from '../utils/fullscreen';
-
 import UI_EVENTS from '../constants/events/ui';
 
 import View from './ui.view';
@@ -11,7 +9,6 @@ import ControlsBlock from './controls/controls.controler';
 const DEFAULT_CONFIG = {
   size: {},
   overlay: false,
-  controls: true,
   customUI: {}
 };
 
@@ -59,8 +56,6 @@ class PlayerUI {
     this.view.appendComponentNode(this.vidi.getVideoElement());
 
     this._initControls();
-
-    this.view.appendComponentNode(this.controls.node);
   }
 
   _initOverlay() {
@@ -90,18 +85,10 @@ class PlayerUI {
   }
 
   _initControls() {
-    let config;
-    if (this.config.controls === true) {
-      config = {};
-    } else {
-      config = this.config.controls;
-    }
+    const config = this.config.controls;
 
-    if (!isFullscreenAPIExist) {
-      config = {
-        ...config,
-        fullscreen: false
-      };
+    if (config === false) {
+      return;
     }
 
     this.controls = new ControlsBlock({
@@ -111,9 +98,7 @@ class PlayerUI {
       config
     });
 
-    if (!this.config.controls) {
-      this.controls.hide();
-    }
+    this.view.appendComponentNode(this.controls.node);
   }
 
   _initCustomUI() {
@@ -146,26 +131,6 @@ class PlayerUI {
     this.view.show();
   }
 
-  hideControls() {
-    this.controls.hide();
-  }
-
-  showControls() {
-    this.controls.show();
-  }
-
-  hideOverlay() {
-    this.overlay.hide();
-  }
-
-  showOverlay() {
-    this.overlay.show();
-  }
-
-  setOverlayBackgroundSrc(src) {
-    this.overlay.setBackgroundSrc(src);
-  }
-
   setWidth(width) {
     this.view.setWidth(width);
   }
@@ -174,47 +139,19 @@ class PlayerUI {
     this.view.setHeight(height);
   }
 
-  hideTime() {
-    this.controls.timeControl.hide();
-  }
-
-  showTime() {
-    this.controls.timeControl.show();
-  }
-
-  hideProgress() {
-    this.controls.progressControl.hide();
-  }
-
-  showProgress() {
-    this.controls.progressControl.show();
-  }
-
-  hideVolume() {
-    this.controls.volumeControl.hide();
-  }
-
-  showVolume() {
-    this.controls.volumeControl.show();
-  }
-
-  hideFullscreen() {
-    this.controls.fullscreenControl.hide();
-  }
-
-  showFullscreen() {
-    this.controls.fullscreenControl.show();
-  }
-
   destroy() {
     this.view.destroy();
     delete this.view;
 
-    this.controls.destroy();
-    delete this.controls;
+    if (this.controls) {
+      this.controls.destroy();
+      delete this.controls;
+    }
 
-    this.overlay.destroy();
-    delete this.overlay;
+    if (this.overlay) {
+      this.overlay.destroy();
+      delete this.overlay;
+    }
 
     delete this.eventEmitter;
     delete this.vidi;

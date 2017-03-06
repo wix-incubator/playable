@@ -9,6 +9,8 @@ const DEFAULT_CONFIG = {
 };
 
 export default class Overlay {
+  static View = View;
+
   constructor({ config, eventEmitter, vidi }) {
     this.eventEmitter = eventEmitter;
     this.isHidden = false;
@@ -40,7 +42,7 @@ export default class Overlay {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new View(config);
+      this.view = new Overlay.View(config);
     }
   }
 

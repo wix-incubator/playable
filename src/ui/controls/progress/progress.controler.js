@@ -7,6 +7,8 @@ import UI_EVENTS from '../../../constants/events/ui';
 
 
 export default class ProgressControl {
+  static View = View;
+
   constructor({
     view,
     vidi,
@@ -46,7 +48,7 @@ export default class ProgressControl {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new View(config);
+      this.view = new ProgressControl.View(config);
     }
   }
 
