@@ -161,7 +161,6 @@ class PlayerUI {
     this.view.setHeight(height);
   }
 
-
   hideTime() {
     this.controls.timeControl.hide();
   }

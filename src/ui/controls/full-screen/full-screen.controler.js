@@ -14,6 +14,8 @@ export default class FullScreenControl {
 
     this._initUI(view);
 
+    this._bindEvents();
+
     this.setControlStatus(false);
   }
 
