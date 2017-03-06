@@ -37,12 +37,6 @@ describe('PlayerUI', () => {
     it('should have controls', () => {
       expect(ui.controls).to.exist;
     });
-    it('should have overlay', () =>{
-      expect(ui.overlay).to.exist;
-    });
-    it('should set overlay as visible', () => {
-      expect(ui.overlay.isHidden).to.be.false;
-    });
   });
 
   describe('instance created with extended config', () => {
@@ -58,20 +52,6 @@ describe('PlayerUI', () => {
       });
 
       expect(ui.controls.isHidden).to.be.true;
-    });
-
-    it('should create instance with hidden overlay', () => {
-      const uiConfig = {
-        overlay: false
-      };
-
-      ui = new PlayerUI({
-        vidi,
-        eventEmitter,
-        config: uiConfig
-      });
-
-      expect(ui.overlay.isHidden).to.be.true;
     });
   });
 
@@ -95,28 +75,6 @@ describe('PlayerUI', () => {
       const hideSpy = sinon.spy(ui.controls, 'hide');
       ui.hideControls();
       expect(hideSpy.called).to.be.true;
-    });
-
-    it('should have method for showing overlay', () => {
-      expect(ui.showOverlay).to.exist;
-      const showSpy = sinon.spy(ui.overlay, 'show');
-      ui.showOverlay();
-      expect(showSpy.called).to.be.true;
-    });
-
-    it('should have method for hiding overlay', () => {
-      expect(ui.hideOverlay).to.exist;
-      const hideSpy = sinon.spy(ui.overlay, 'hide');
-      ui.hideOverlay();
-      expect(hideSpy.called).to.be.true;
-    });
-
-    it('should have method for setting background for overlay', () => {
-      const src = 'test';
-      expect(ui.setOverlayBackgroundSrc).to.exist;
-      const setBackgroundSpy = sinon.spy(ui.overlay, 'setBackgroundSrc');
-      ui.setOverlayBackgroundSrc(src);
-      expect(setBackgroundSpy.calledWith(src)).to.be.true;
     });
 
     it('should have method for setting width', () => {

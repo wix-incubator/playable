@@ -76,16 +76,6 @@ describe('Overlay', () => {
       });
     });
 
-    it('should react on play button click', () => {
-      const callback = sinon.spy(overlay, "_playVideo");
-      overlay._bindEvents();
-      overlay.view.$playWrapper.trigger('click');
-
-      expect(callback.called).to.be.true;
-      expect(overlay.isContentHidden).to.be.true;
-    });
-
-
     it('should react on video playback status changed on play', () => {
       const callback = sinon.spy(overlay, "_updatePlayingStatus");
       const hideSpy = sinon.spy(overlay, "_hideContent");
@@ -124,22 +114,6 @@ describe('Overlay', () => {
         vidi,
         eventEmitter
       });
-    });
-
-    it('should have method for showing whole view', () => {
-      const showContentSpy = sinon.spy(overlay, '_showContent');
-      expect(overlay.show).to.exist;
-      overlay.show();
-      expect(overlay.isHidden).to.be.false;
-      expect(showContentSpy.called).to.be.true;
-    });
-
-    it('should have method for hiding whole view', () => {
-      const hideContentSpy = sinon.spy(overlay, '_hideContent');
-      expect(overlay.hide).to.exist;
-      overlay.hide();
-      expect(overlay.isHidden).to.be.true;
-      expect(hideContentSpy.called).to.be.true;
     });
 
     it('should have method for setting src of background image', () => {

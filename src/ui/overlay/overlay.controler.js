@@ -3,8 +3,6 @@ import UI_EVENTS from '../../constants/events/ui';
 
 import View from './overlay.view';
 
-import styles from './overlay.scss';
-
 
 const DEFAULT_CONFIG = {
   poster: ''
@@ -22,31 +20,39 @@ export default class Overlay {
     };
     this.vidi = vidi;
 
-    this._initUI(this.config.poster);
     this._bindEvents();
+    this._initUI(this.config.poster);
   }
 
   get node() {
-    return this.view.$node;
+    return this.view.getNode();
   }
 
   _initUI(src) {
-    this.view = new View(src);
+    const { view } = this.config;
+    const config = {
+      callbacks: {
+        onPlayClick: this._playVideo
+      },
+      src
+    };
+
+    if (view) {
+      this.view = new view(config);
+    } else {
+      this.view = new View(config);
+    }
   }
 
   _bindEvents() {
     this._playVideo = this._playVideo.bind(this);
-
-    this.view.$playWrapper.on('click', this._playVideo);
 
     this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
   _updatePlayingStatus(status) {
     if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
-      if (!this.isContentHidden) {
-        this._hideContent();
-      }
+      this._hideContent();
     } else if (status === VIDI_PLAYBACK_STATUSES.ENDED) {
       this._showContent();
     }
@@ -61,33 +67,19 @@ export default class Overlay {
 
   _hideContent() {
     this.isContentHidden = true;
-    this.view.$content.addClass(styles.hidden);
+    this.view.hide();
   }
 
   _showContent() {
     this.isContentHidden = false;
-    this.view.$content.removeClass(styles.hidden);
+    this.view.show();
   }
 
   setBackgroundSrc(src) {
-    this.view.$content.css('background-image', `url('${src}')`);
-  }
-
-  hide() {
-    this._hideContent();
-    this.isHidden = true;
-    this.view.$node.addClass(styles.hidden);
-  }
-
-  show() {
-    this._showContent();
-    this.isHidden = false;
-    this.view.$node.removeClass(styles.hidden);
+    this.view.setBackgroundSrc(src);
   }
 
   _unbindEvents() {
-    this.view.$playWrapper.off('click', this._playVideo);
-
     this.eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
