@@ -10,7 +10,7 @@ import ControlsBlock from './controls/controls.controler';
 
 const DEFAULT_CONFIG = {
   size: {},
-  overlay: true,
+  overlay: false,
   controls: true,
   customUI: {}
 };
@@ -55,7 +55,6 @@ class PlayerUI {
 
   _initComponents() {
     this._initOverlay();
-    this.view.appendComponentNode(this.overlay.node);
 
     this.view.appendComponentNode(this.vidi.getVideoElement());
 
@@ -65,14 +64,28 @@ class PlayerUI {
   }
 
   _initOverlay() {
-    this.overlay = new Overlay({
-      vidi: this.vidi,
-      eventEmitter: this.eventEmitter,
-      config: this.config.overlay
-    });
+    const config = this.config.overlay;
 
-    if (!this.config.overlay) {
-      this.overlay.hide();
+    if (config === false) {
+      return;
+    }
+
+    if (typeof config === 'function') {
+      this.overlay = new config({
+        vidi: this.vidi,
+        eventEmitter: this.eventEmitter,
+        uiView: this.view
+      });
+
+      this.view.appendComponentNode(this.overlay.getNode());
+    } else {
+      this.overlay = new Overlay({
+        vidi: this.vidi,
+        eventEmitter: this.eventEmitter,
+        config: this.config.overlay
+      });
+
+      this.view.appendComponentNode(this.overlay.node);
     }
   }
 
