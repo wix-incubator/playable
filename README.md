@@ -63,25 +63,6 @@ document.getElementById('content').appendChild(player.node);
 
 ```config.size.height``` Height of video player
 
-##### Overlay ```config.overlay```
-
-```config.overlay``` If set as false hide and disable overlay
-
-```config.overlay.poster``` Source of image for basic overlay
-
-##### Controls ```config.controls```
-
-```config.controls``` If set as false hide and disable controls
-
-```config.controls.time``` Toggle block with current time of video
-
-```config.controls.progress``` Toggle progress control
-
-```config.controls.volume``` Toggle volume control
-
-```config.controls.fullscreen```  Toggle fullscreen control
-
-
 Create a new instance of video player
 
 ```javascript
