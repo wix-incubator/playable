@@ -35,7 +35,7 @@ export default class PlayerUIView {
   }
 
   _bindEvents() {
-    this.$node.on(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
+    document.addEventListener(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
   }
 
   _toggleClassOnFullScreenChange() {
@@ -96,7 +96,7 @@ export default class PlayerUIView {
   }
 
   _unbindEvents() {
-    this.$node.off(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
+    document.removeEventListener(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
   }
 
   destroy() {

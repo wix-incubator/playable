@@ -17,7 +17,7 @@ class Player {
     size,
     controls,
     overlay,
-    customUI = []
+    customUI = {}
   }) {
 
     this._eventEmitter = new EventEmitter();
