@@ -16,10 +16,6 @@
       justify-content: center;
       align-items: center;
     }
-    #player {
-      width: 760px;
-      height: 427px;
-    }
   </style>
   <script src="./video-player.bundle.min.js"></script>
 </head>
@@ -32,24 +28,18 @@
 </div>
 <script>
   var player = new VideoPlayer.Player({
-    width: 760,
-    height: 427,
     autoplay: false,
     muted: false,
-    loop: true,
-    nativeControls: false,
+    loop: false,
     preload: 'auto',
+    volume: 0.5,
+    size: {
+      width: 750,
+      height: 750
+    },
     src: [
       'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-    ],
-    overlay: true,
-    controls: true,
-    timeIndicator: true,
-    progressControl: true,
-    volumeControl: true,
-    volume: 0.5,
-    fullscreenControl: true,
-    enableLogger: true
+    ]
   });
   document.getElementById('player').appendChild(player.node);
 </script>

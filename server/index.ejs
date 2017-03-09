@@ -16,10 +16,6 @@
       justify-content: center;
       align-items: center;
     }
-    #player {
-      width: 760px;
-      height: 427px;
-    }
   </style>
   <% if (debug) { %>
   <script src="<%= staticsBaseUrl %>video-player.bundle.js"></script>
@@ -41,6 +37,10 @@
     loop: false,
     preload: 'auto',
     volume: 0.5,
+    size: {
+      width: 750,
+      height: 740
+    },
     src: [
       'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
     ]

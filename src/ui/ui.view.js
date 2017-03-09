@@ -25,11 +25,22 @@ export default class PlayerUIView {
       });
     }
 
+    this._bindCallbacks();
+
     this._bindEvents();
   }
 
+  _bindCallbacks() {
+    this._toggleClassOnFullScreenChange = this._toggleClassOnFullScreenChange.bind(this);
+  }
+
   _bindEvents() {
-    this.$node.on(fullscreen.raw.fullscreenchange, this._callbacks.onFullScreenStatusChange);
+    this.$node.on(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
+  }
+
+  _toggleClassOnFullScreenChange() {
+    this._setFullScreenStatus(fullscreen.isFullscreen);
+    this._callbacks.onFullScreenStatusChange();
   }
 
   setWidth(width) {
@@ -84,7 +95,12 @@ export default class PlayerUIView {
     this._setFullScreenStatus(false);
   }
 
+  _unbindEvents() {
+    this.$node.off(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
+  }
+
   destroy() {
+    this._unbindEvents();
     this.$node.remove();
 
     delete this.$node;
