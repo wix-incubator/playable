@@ -83,6 +83,8 @@ class Player {
   }
 
   _initEventsProxy() {
+    const videoEl = this._vidi.getVideoElement();
+
     this._vidi.on('statuschange', status => {
       this._eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, status);
     });
@@ -100,23 +102,26 @@ class Player {
     });
 
     this._vidi.on('durationchange', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
+      this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, videoEl.duration);
     });
 
     this._vidi.on('timeupdate', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED);
+      this._eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED, videoEl.currentTime);
     });
 
     this._$video.on('seeking', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
+      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED, videoEl.currentTime);
     });
 
     this._$video.on('seeked', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
+      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED, videoEl.currentTime);
     });
 
     this._$video.on('volumechange', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
+      this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
+        volume: videoEl.volume,
+        muted: videoEl.muted
+      });
     });
   }
 
