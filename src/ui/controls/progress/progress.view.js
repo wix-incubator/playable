@@ -6,8 +6,12 @@ import styles from './progress.scss';
 export default class ProgressView {
   constructor({ callbacks }) {
     this._callbacks = callbacks;
-    this.$node = $('<span>', {
+    this.$node = $('<div>', {
       class: styles['progress-bar']
+    });
+
+    this.$clickWrapper = $('<div>', {
+
     });
 
     this.$played = $('<progress>', {
@@ -32,10 +36,12 @@ export default class ProgressView {
       value: 0
     });
 
-    this.$node
+    this.$clickWrapper
       .append(this.$input)
       .append(this.$played)
       .append(this.$buffered);
+
+    this.$node.append(this.$clickWrapper);
 
     this._bindEvents();
   }
@@ -67,11 +73,11 @@ export default class ProgressView {
     this._onMouseInteractionEnd = this._onMouseInteractionEnd.bind(this);
     this._onInputValueChange = this._onInputValueChange.bind(this);
 
-    this.$input
-      .on('input', this._onInputValueChange)
-      .on('change', this._onInputValueChange)
-      .on('mousedown', this._onMouseInteractionStart)
-      .on('mouseup', this._onMouseInteractionEnd);
+    this.$input[0].addEventListener('input', this._onInputValueChange);
+    this.$input[0].addEventListener('change', this._onInputValueChange);
+
+    this.$clickWrapper[0].addEventListener('mousedown', this._onMouseInteractionStart);
+    this.$clickWrapper[0].addEventListener('mouseup', this._onMouseInteractionEnd);
   }
 
   updatePlayed(percent) {
@@ -93,11 +99,11 @@ export default class ProgressView {
   }
 
   _unbindEvents() {
-    this.$input
-      .off('input', this._onInputValueChange)
-      .off('change', this._onInputValueChange)
-      .off('mousedown', this._onMouseInteractionStart)
-      .off('mouseup', this._onMouseInteractionEnd);
+    this.$input[0].removeEventListener('input', this._onInputValueChange);
+    this.$input[0].removeEventListener('change', this._onInputValueChange);
+
+    this.$clickWrapper[0].removeEventListener('mousedown', this._onMouseInteractionStart);
+    this.$clickWrapper[0].removeEventListener('mouseup', this._onMouseInteractionEnd);
   }
 
   getNode() {
