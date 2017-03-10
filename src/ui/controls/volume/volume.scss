@@ -101,6 +101,7 @@ $color: white !default;
     visibility: hidden;
     flex: 1;
 
+    min-width: 100px;
     padding: 10px;
 
     transition: visibility .2s, opacity .2s, display .2s;
