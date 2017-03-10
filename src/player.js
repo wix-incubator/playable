@@ -4,6 +4,8 @@ import EventEmitter from 'eventemitter3';
 
 import VIDEO_EVENTS from './constants/events/video';
 
+import iOS from './utils/ios-detection';
+
 import PlayerUI from './ui/ui.controler';
 
 class Player {
@@ -72,6 +74,10 @@ class Player {
       eventEmitter: this._eventEmitter,
       config
     });
+
+    if (iOS) {
+      this.ui.controls.hide();
+    }
   }
 
   get node() {
