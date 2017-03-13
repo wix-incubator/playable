@@ -1,6 +1,6 @@
 import $ from 'jbone';
 
-import playIconSVG from '../controls/play/svg/play-icon.svg';
+import playIconSVG from './svg/play-icon.svg';
 
 import styles from './overlay.scss';
 
@@ -19,23 +19,13 @@ export default class OverlayView {
       this.$content.css('background-image', `url('${src}')`);
     }
 
-    this.$playWrapper = $('<div>', {
-      class: `${styles['play-wrapper']} ${styles.button}`
-    });
-
     this.$playButton = $('<img>', {
-      src: playIconSVG
+      src: playIconSVG,
+      class: styles.icon
     });
-
-    this.$playTest = $('<span>')
-      .html('Play');
-
-    this.$playWrapper
-      .append(this.$playButton)
-      .append(this.$playTest);
 
     this.$content
-      .append(this.$playWrapper);
+      .append(this.$playButton);
 
     this.$node
       .append(this.$content);
@@ -44,7 +34,7 @@ export default class OverlayView {
   }
 
   _bindEvents() {
-    this.$playWrapper.on('click', this._callbacks.onPlayClick);
+    this.$playButton.on('click', this._callbacks.onPlayClick);
   }
 
   getNode() {
@@ -64,7 +54,7 @@ export default class OverlayView {
   }
 
   _unbindEvents() {
-    this.$playWrapper.off('click', this._callbacks.onPlayClick);
+    this.$playButton.off('click', this._callbacks.onPlayClick);
   }
 
   destroy() {
@@ -73,9 +63,7 @@ export default class OverlayView {
     this.$node.remove();
 
     delete this.$content;
-    delete this.$playWrapper;
     delete this.$playButton;
-    delete this.$playTest;
     delete this.$node;
   }
 }

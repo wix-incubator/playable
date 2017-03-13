@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="71px" height="71px" viewBox="0 0 71 71" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Play_Cover</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Play-Button" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Strip-Open---4X2" transform="translate(-1586.000000, -465.000000)">
+            <g id="Channel-Cover-elements">
+                <g id="Main-text" transform="translate(500.000000, 237.000000)">
+                    <g id="Play_Cover" transform="translate(1086.000000, 228.000000)">
+                        <circle id="Oval" fill-opacity="0.2" fill="#000000" cx="35.5" cy="35.5" r="35.5"></circle>
+                        <path d="M35.5,70 C54.5538239,70 70,54.5538239 70,35.5 C70,16.4461761 54.5538239,1 35.5,1 C16.4461761,1 1,16.4461761 1,35.5 C1,54.5538239 16.4461761,70 35.5,70 Z M35.5,71 C15.8938914,71 0,55.1061086 0,35.5 C0,15.8938914 15.8938914,0 35.5,0 C55.1061086,0 71,15.8938914 71,35.5 C71,55.1061086 55.1061086,71 35.5,71 Z" id="Oval" fill="#FFFFFF"></path>
+                        <polygon id="Triangle" fill="#FFFFFF" points="48 35.5 28 47 28 24"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
