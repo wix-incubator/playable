@@ -5,10 +5,13 @@
 
   display: flex;
 
-  width: 20px;
-  height: 30px;
-  margin-right: 20px;
+  padding: 0 22px 0 15px;
 
   align-items: center;
   justify-content: center;
+
+  .icon {
+    width: 18px;
+    height: 14px;
+  }
 }

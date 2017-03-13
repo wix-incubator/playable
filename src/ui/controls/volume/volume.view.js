@@ -1,13 +1,12 @@
 import $ from 'jbone';
 
-import volumeFullSVG from './svg/volume-full.svg';
-import volumeMidSVG from './svg/volume-mid.svg';
-import volumeMinSVG from './svg/volume-min.svg';
-import volumeMutedSVG from './svg/volume-muted.svg';
+import volumeFullSVG from './svg/volume-100.svg';
+import volumeMidSVG from './svg/volume-50.svg';
+import volumeMutedSVG from './svg/volume-0.svg';
 
 import styles from './volume.scss';
 
-const MAX_VOLUME_ICON_RANGE = 60;
+const MAX_VOLUME_ICON_RANGE = 50;
 const MID_VOLUME_ICON_RANGE = 25;
 
 export default class VolumeView {
@@ -128,7 +127,7 @@ export default class VolumeView {
     } else if (level >= MID_VOLUME_ICON_RANGE) {
       this.$volumeIcon[0].src = volumeMidSVG;
     } else {
-      this.$volumeIcon[0].src = volumeMinSVG;
+      this.$volumeIcon[0].src = volumeMidSVG;
     }
   }
 

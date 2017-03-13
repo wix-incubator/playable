@@ -12,12 +12,13 @@
 
     visibility: hidden;
 
-    height: 100px;
+    height: 130px;
 
     transition: opacity .2s, visibility .2s;
 
     opacity: 0;
-    background: url('../images/background.png') bottom repeat-x;
+    background: linear-gradient(180deg,transparent,rgba(0,0,0,.6)) no-repeat bottom;
+    background-size: 100% 130px;
   }
 
   .controls {
@@ -33,6 +34,7 @@
     width: 100%;
     max-width: 100%;
     height: 50px;
+    margin-bottom: 5px;
 
     transition: opacity .2s, visibility .2s;
 

@@ -6,9 +6,12 @@
   display: flex;
 
   box-sizing: border-box;
-  width: 20px;
-  height: 30px;
-  margin: 0 20px;
+  //width: 20px;
+  height: 15px;
+  margin-right: 20px;
+  padding: 0 20px;
+
+  border-right: 1px solid hsla(0,0%,100%,.2);
 
   align-items: center;
   justify-content: center;
@@ -16,6 +19,6 @@
 
 .play-icon,
 .pause-icon {
-  width: 18px;
-  height: 18px;
+  width: 13.5px;
+  height: 16px;
 }

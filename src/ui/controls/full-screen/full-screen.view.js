@@ -1,7 +1,7 @@
 import $ from 'jbone';
 
-import enterFullScreenIconSVG from './svg/full-screen-enter.svg';
-import exitFullScreenIconSVG from './svg/full-screen-exit.svg';
+import enterFullScreenIconSVG from './svg/full-screen.svg';
+import exitFullScreenIconSVG from './svg/exit-full-screen.svg';
 
 import styles from './full-screen.scss';
 
