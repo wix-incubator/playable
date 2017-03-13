@@ -10,8 +10,8 @@ $color: white !default;
   left: 0;
 
   width: 100%;
-  height: 4px;
-  margin: -2px 0 0;
+  height: 2px;
+  margin: -1px 0 0;
   padding: 0;
 
   transition: none;
@@ -19,7 +19,6 @@ $color: white !default;
 
   color: $color;
   border: none;
-  border-radius: 100px;
   background: $video-progress-bg;
 
   appearance: none;
@@ -28,34 +27,25 @@ $color: white !default;
     background: transparent;
   }
   &::-webkit-progress-value {
-    min-width: 4px;
+    min-width: 2px;
     max-width: 99%;
 
     transition: none;
 
-    border-top-left-radius: 100px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 100px;
     background: currentColor;
   }
   &::-moz-progress-bar {
-    min-width: 4px;
+    min-width: 2px;
     max-width: 99%;
 
     transition: none;
 
-    border-top-left-radius: 100px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 100px;
     background: currentColor;
   }
   &::-ms-fill {
     display: none;
 
     border: none;
-    border-radius: 100px;
   }
 }
 
@@ -64,10 +54,9 @@ $color: white !default;
 
   display: flex;
 
-  width: 20px;
-  max-width: 20px;
-  height: 40px;
-  margin-right: 20px;
+  width: 12px;
+  max-width: 12px;
+  padding: 0 15px;
 
   justify-content: center;
   align-items: center;
@@ -76,26 +65,41 @@ $color: white !default;
     position: relative;
     z-index: 2;
 
+    &::-webkit-slider-thumb {
+      width: 12px;
+      height: 12px;
+    }
+
     &::-webkit-slider-runnable-track {
       background: transparent;
     }
+
+    &::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+    }
+
     &::-moz-range-track {
       background: transparent;
     }
+
     &::-ms-fill-upper {
       background: transparent;
     }
-  }
 
+    &::-ms-thumb {
+      width: 12px;
+      height: 12px;
+    }
+  }
   .volume-icon {
-    width: 20px;
-    height: 20px;
+    height: 15px;
   }
 
   .volume-inner-wrapper {
     position: absolute;
-    top: -80px;
-    left: -50px;
+    top: -82px;
+    left: -40px;
 
     display: flex;
     visibility: hidden;
