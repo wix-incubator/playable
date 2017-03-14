@@ -142,7 +142,8 @@ export default class ControlBlock {
     this._isControlsFocused = true;
   }
 
-  _removeFocusState() {
+  _removeFocusState(e) {
+    e.stopPropagation();
     this._isControlsFocused = false;
   }
 

@@ -157,7 +157,9 @@ describe('ControlsBlock', () => {
     it('should have method for removing controls focused state', () => {
       expect(controls._removeFocusState).to.exist;
       controls._setFocusState();
-      controls._removeFocusState();
+      controls._removeFocusState({
+        stopPropagation: () => {}
+      });
       expect(controls._isControlsFocused).to.be.false;
     });
 
