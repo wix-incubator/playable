@@ -107,6 +107,10 @@ class Player {
       this._eventEmitter.emit(VIDEO_EVENTS.LOAD_STARTED);
     });
 
+    this._vidi.on('loadeddata', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.LOADED_FIRST_CHUNK);
+    });
+
     this._vidi.on('durationchange', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, videoEl.duration);
     });

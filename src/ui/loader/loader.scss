@@ -1,0 +1,90 @@
+@import '../shared';
+
+$diameter: 42px;
+$border-width: 3px;
+$outer-dim: $diameter + ($border-width * 2);
+$timing: 1s;
+
+
+.loader {
+  position: absolute;
+  z-index: 90;
+  top: 50%;
+  left: 50%;
+
+  clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);
+
+  width: $diameter;
+  height: $diameter;
+  margin-top: - $diameter / 2;
+  margin-left: - $diameter / 2;
+
+  animation: rotate $timing linear infinite;
+
+  color: white;
+  @mixin inner-circle() {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    content: '';
+
+    border: $border-width solid currentColor;
+    border-radius: 50%;
+    //background: #00f;
+  }
+  //border: 1px solid #f00;
+
+  &::after {
+    clip: rect($border-width + 1px, $outer-dim, $outer-dim, $outer-dim / 2);
+
+    animation: clip $timing linear infinite;
+
+    @include inner-circle();
+    //border-color: #f00;
+  }
+  &::before {
+    clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);
+
+    animation: clip-reverse $timing linear infinite;
+
+    @include inner-circle();
+  }
+
+  @keyframes clip {
+    50% {
+      clip: rect($diameter, $outer-dim, $outer-dim, $outer-dim / 2);
+
+      animation-timing-function: ease-in-out;
+    }
+  }
+
+  @keyframes clip-reverse {
+    50% {
+      clip: rect(0, $outer-dim, $border-width * 3, $outer-dim / 2);
+
+      transform: rotate(135deg);
+      animation-timing-function: ease-in-out;
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0);
+      animation-timing-function: ease-out;
+    }
+    45% {
+      transform: rotate(18deg);
+
+      color: white;
+    }
+    55% {
+      transform: rotate(54deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

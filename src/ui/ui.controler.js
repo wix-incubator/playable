@@ -4,6 +4,7 @@ import View from './ui.view';
 
 import Overlay from './overlay/overlay.controler';
 import ControlsBlock from './controls/controls.controler';
+import Loader from './loader/loader.controler';
 
 
 const DEFAULT_CONFIG = {
@@ -53,6 +54,8 @@ class PlayerUI {
   _initComponents() {
     this._initOverlay();
 
+    this._initLoader();
+
     this.view.appendComponentNode(this.vidi.getVideoElement());
 
     this._initControls();
@@ -82,6 +85,15 @@ class PlayerUI {
 
       this.view.appendComponentNode(this.overlay.node);
     }
+  }
+
+  _initLoader() {
+    this.loader = new Loader({
+      vidi: this.vidi,
+      eventEmitter: this.eventEmitter
+    });
+
+    this.view.appendComponentNode(this.loader.node);
   }
 
   _initControls() {
