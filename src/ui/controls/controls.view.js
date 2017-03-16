@@ -32,11 +32,11 @@ export default class ControlsView {
     this.$node.on('click', this._callbacks.onWrapperMouseClick);
     this.$node.on('keypress', this._callbacks.onWrapperKeyPress);
     this.$node.on('mousemove', this._callbacks.onWrapperMouseMove);
-    this.$node.on('mouseout', this._callbacks.onWrapperMouseOut);
+    this.$node.on('mouseleave', this._callbacks.onWrapperMouseOut);
 
     this.$controlsWrapperViewNode.on('click', this._callbacks.onControlsBlockMouseClick);
     this.$controlsWrapperViewNode.on('mousemove', this._callbacks.onControlsBlockMouseMove);
-    this.$controlsWrapperViewNode.on('mouseout', this._callbacks.onControlsBlockMouseOut);
+    this.$controlsWrapperViewNode.on('mouseleave', this._callbacks.onControlsBlockMouseOut);
   }
 
   show() {
@@ -67,11 +67,11 @@ export default class ControlsView {
     this.$node.off('click', this._callbacks.onWrapperMouseClick);
     this.$node.off('keypress', this._callbacks.onWrapperKeyPress);
     this.$node.off('mousemove', this._callbacks.onWrapperMouseMove);
-    this.$node.off('mouseout', this._callbacks.onWrapperMouseOut);
+    this.$node.off('mouseleave', this._callbacks.onWrapperMouseOut);
 
     this.$controlsWrapperViewNode.off('click', this._callbacks.onControlsBlockMouseClick);
     this.$controlsWrapperViewNode.off('mousemove', this._callbacks.onControlsBlockMouseMove);
-    this.$controlsWrapperViewNode.off('mouseout', this._callbacks.onControlsBlockMouseOut);
+    this.$controlsWrapperViewNode.off('mouseleave', this._callbacks.onControlsBlockMouseOut);
   }
 
   destroy() {
