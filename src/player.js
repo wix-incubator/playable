@@ -19,6 +19,7 @@ class Player {
     size,
     controls,
     overlay,
+    loader,
     customUI = {}
   }) {
 
@@ -46,13 +47,13 @@ class Player {
 
     this._vidi = new Vidi(this._$video[0]);
 
-    this._createUI(size, controls, overlay, customUI);
+    this._createUI(size, controls, overlay, loader, customUI);
 
     this._vidi.src = src;
     this._initEventsProxy();
   }
 
-  _createUI(size, controls, overlay, customUI) {
+  _createUI(size, controls, overlay, loader, customUI) {
     const config = {
       customUI
     };
@@ -67,6 +68,10 @@ class Player {
 
     if (overlay) {
       config.overlay = overlay;
+    }
+
+    if (loader) {
+      config.loader = loader;
     }
 
     this.ui = new PlayerUI({

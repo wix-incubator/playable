@@ -88,9 +88,16 @@ class PlayerUI {
   }
 
   _initLoader() {
+    const config = this.config.loader;
+
+    if (config === false) {
+      return;
+    }
+
     this.loader = new Loader({
       vidi: this.vidi,
-      eventEmitter: this.eventEmitter
+      eventEmitter: this.eventEmitter,
+      config: this.config.loader
     });
 
     this.view.appendComponentNode(this.loader.node);

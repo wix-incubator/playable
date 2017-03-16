@@ -4,11 +4,14 @@ import View from './loader.view';
 export default class Loader {
   static View = View;
 
-  constructor({ eventEmitter, vidi }) {
+  constructor({ config, eventEmitter, vidi }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._vidi = vidi;
     this._updateInterval = null;
+    this.config = {
+      ...config
+    };
 
     this._bindCallbacks();
     this._initUI();
@@ -29,7 +32,13 @@ export default class Loader {
   }
 
   _initUI() {
-    this.view = new View();
+    const { view } = this.config;
+
+    if (view) {
+      this.view = new view();
+    } else {
+      this.view = new Loader.View();
+    }
   }
 
   hide() {
@@ -48,6 +57,10 @@ export default class Loader {
 
   _updateOnInterval() {
     const video = this._vidi.getVideoElement();
+
+    if (!video) {
+      return;
+    }
 
     if (video.readyState < 3) {
       this.show();
