@@ -1,5 +1,7 @@
 # video-player
 
+You can play with demo playground here: [https://wix-private.github.io/video-player-playground/](https://wix-private.github.io/video-player-playground/)
+
 ## Get it
 
 ```
@@ -24,12 +26,12 @@ And write awesome code:
 
 ```javascript
 const player = new VideoPlayer.Player({
-    size: {
-      width: 700,
-      height: 394
-     }
-    src: 'http://my-url/video.mp4',
-    preload: 'metadata'
+  size: {
+    width: 700,
+    height: 394
+  }
+  src: 'http://my-url/video.mp4',
+  preload: 'metadata'
 });
 
 document.getElementById('content').appendChild(player.node);
