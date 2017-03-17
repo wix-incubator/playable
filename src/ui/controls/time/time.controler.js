@@ -5,9 +5,9 @@ import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/
 export default class TimeControl {
   static View = View;
 
-  constructor({ eventEmitter, vidi, view }) {
+  constructor({ eventEmitter, engine, view }) {
     this._eventEmitter = eventEmitter;
-    this._vidi = vidi;
+    this._engine = engine;
 
     this._bindCallbacks();
     this._initUI(view);
@@ -63,14 +63,11 @@ export default class TimeControl {
   }
 
   _updateDurationTime() {
-    const video = this._vidi.getVideoElement();
-
-    this.setDurationTime(video.duration);
+    this.setDurationTime(this._engine.getDurationTime());
   }
 
   _updateCurrentTime() {
-    const video = this._vidi.getVideoElement();
-    this.setCurrentTime(video.currentTime);
+    this.setCurrentTime(this._engine.getCurrentTime());
   }
 
   setDurationTime(time) {
@@ -104,7 +101,7 @@ export default class TimeControl {
     delete this.view;
 
     delete this._eventEmitter;
-    delete this._vidi;
+    delete this._engine;
 
     this.isHidden = null;
   }

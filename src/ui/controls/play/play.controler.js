@@ -7,8 +7,8 @@ import UI_EVENTS from '../../../constants/events/ui';
 export default class PlayControl {
   static View = View;
 
-  constructor({ vidi, eventEmitter, view }) {
-    this._vidi = vidi;
+  constructor({ engine, eventEmitter, view }) {
+    this._engine = engine;
     this._eventEmitter = eventEmitter;
 
     this._bindCallbacks();
@@ -32,13 +32,13 @@ export default class PlayControl {
  }
 
   _playVideo() {
-    this._vidi.play();
+    this._engine.play();
 
     this._eventEmitter.emit(UI_EVENTS.PLAY_TRIGGERED);
   }
 
   _pauseVideo() {
-    this._vidi.pause();
+    this._engine.pause();
 
     this._eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
   }
@@ -80,7 +80,7 @@ export default class PlayControl {
     delete this.view;
 
     delete this._eventEmitter;
-    delete this._vidi;
+    delete this._engine;
 
     delete this._callbacks;
   }

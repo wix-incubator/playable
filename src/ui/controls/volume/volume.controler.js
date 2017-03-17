@@ -7,14 +7,12 @@ import UI_EVENTS from '../../../constants/events/ui';
 export default class VolumeControl {
   static View = View;
 
-  constructor({ vidi, eventEmitter, view }) {
-    this._vidi = vidi;
+  constructor({ engine, eventEmitter, view }) {
+    this._engine = engine;
     this._eventEmitter = eventEmitter;
 
-    const video = this._vidi.getVideoElement();
-
-    this._isMuted = video.getAttribute('muted') === 'true';
-    this._volumeLevel = this._convertVideoVolumeToVolumeLevel(video.volume);
+    this._isMuted = this._engine.getMute();
+    this._volumeLevel = this._convertVideoVolumeToVolumeLevel(this._engine.getVolume());
 
     this._bindCallbacks();
 
@@ -65,16 +63,12 @@ export default class VolumeControl {
   }
 
   _changeVolumeLevel(level) {
-    const video = this._vidi.getVideoElement();
-
-    video.volume = level;
+    this._engine.setVolume(level);
     this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
   }
 
   _changeMuteStatus() {
-    const video = this._vidi.getVideoElement();
-
-    video.muted = !this._isMuted;
+    this._engine.setMute(!this._isMuted);
     this._eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, !this._isMuted);
   }
 
@@ -97,10 +91,8 @@ export default class VolumeControl {
   }
 
   _updateVolumeStatus() {
-    const video = this._vidi.getVideoElement();
-
-    this.setVolumeLevel(video.volume);
-    this.setMuteStatus(video.muted);
+    this.setVolumeLevel(this._engine.getVolume());
+    this.setMuteStatus(this._engine.getMute());
   }
 
 
@@ -154,7 +146,7 @@ export default class VolumeControl {
     delete this.view;
 
     delete this._eventEmitter;
-    delete this._vidi;
+    delete this._engine;
 
     this.isHidden = null;
     this._isMuted = null;

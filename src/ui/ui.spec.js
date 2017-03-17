@@ -3,25 +3,25 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import $ from 'jbone';
-import Vidi from 'vidi';
 import EventEmitter from 'eventemitter3';
 
 import PlayerUI from './ui.controler';
+import Engine from '../playback-engine/playback-engine';
 
 
 describe('PlayerUI', () => {
   let ui = {};
-  let $video = {};
-  let vidi = {};
+  let engine = {};
   let eventEmitter = {};
 
   beforeEach(() => {
-    $video = new $('<video>');
-    vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
+    engine = new Engine({
+      eventEmitter
+    });
+
     ui = new PlayerUI({
-      vidi,
+      engine,
       eventEmitter
     });
   });
@@ -46,7 +46,7 @@ describe('PlayerUI', () => {
       };
 
       ui = new PlayerUI({
-        vidi,
+        engine,
         eventEmitter,
         config: uiConfig
       });
@@ -59,7 +59,7 @@ describe('PlayerUI', () => {
       };
 
       ui = new PlayerUI({
-        vidi,
+        engine,
         eventEmitter,
         config: uiConfig
       });
@@ -71,7 +71,7 @@ describe('PlayerUI', () => {
   describe('API', () => {
     beforeEach(() => {
       ui = new PlayerUI({
-        vidi,
+        engine,
         eventEmitter
       });
     });

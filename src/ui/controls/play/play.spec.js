@@ -1,27 +1,27 @@
 import 'jsdom-global/register';
-import $ from 'jbone';
-import Vidi from 'vidi';
 import EventEmitter from 'eventemitter3';
 
 import { expect } from 'chai';
 import sinon from 'sinon';
 
 import PlayControl from './play.controler';
+import Engine from '../../../playback-engine/playback-engine';
+
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
 
 
 describe('PlayControl', () => {
   let control = {};
-  let $video = {};
-  let vidi = {};
+  let engine = {};
   let eventEmitter = {};
 
   beforeEach(() => {
-    $video = new $('<video>');
-    vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
+    engine = new Engine({
+      eventEmitter
+    });
     control = new PlayControl({
-      vidi,
+      engine,
       eventEmitter
     });
   });
@@ -39,7 +39,7 @@ describe('PlayControl', () => {
         }
       });
       control = new PlayControl({
-        vidi,
+        engine,
         eventEmitter,
         view: spy
       });
@@ -86,8 +86,8 @@ describe('PlayControl', () => {
     });
 
     it('should change playback status', () => {
-      const playSpy = sinon.spy(control._vidi, 'play');
-      const pauseSpy = sinon.spy(control._vidi, 'pause');
+      const playSpy = sinon.spy(control._engine, 'play');
+      const pauseSpy = sinon.spy(control._engine, 'pause');
       control._playVideo();
       expect(playSpy.called).to.be.true;
       control._pauseVideo();

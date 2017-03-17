@@ -1,27 +1,27 @@
 import 'jsdom-global/register';
-import $ from 'jbone';
-import Vidi from 'vidi';
 import EventEmitter from 'eventemitter3';
 
 import { expect } from 'chai';
 import sinon from 'sinon';
 
 import ProgressControl from './progress.controler';
+import Engine from '../../../playback-engine/playback-engine';
+
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
 
 
 describe('ProgressControl', () => {
   let control = {};
-  let $video = {};
-  let vidi = {};
+  let engine = {};
   let eventEmitter = {};
 
   beforeEach(() => {
-    $video = new $('<video>');
-    vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
+    engine = new Engine({
+      eventEmitter
+    });
     control = new ProgressControl({
-      vidi,
+      engine,
       eventEmitter
     });
   });
@@ -40,7 +40,7 @@ describe('ProgressControl', () => {
         }
       });
       control = new ProgressControl({
-        vidi,
+        engine,
         eventEmitter,
         view: spy
       });
@@ -153,14 +153,10 @@ describe('ProgressControl', () => {
     });
 
     it('should change current time of video', () => {
-      const videoObject = {
-        duration: 10
-      };
-      control._vidi.getVideoElement = sinon.spy(function() {
-        return videoObject;
-      });
+      control._engine.getDurationTime = () => 10;
+      const spy = sinon.spy(control._engine, 'setCurrentTime');
       control._changePlayedProgress(10);
-      expect(videoObject.currentTime).to.be.equal(1);
+      expect(spy.called).to.be.true;
     });
 
     it('should update view', () => {

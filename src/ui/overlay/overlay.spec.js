@@ -3,11 +3,10 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import $ from 'jbone';
-import Vidi from 'vidi';
 import EventEmitter from 'eventemitter3';
 
 import Overlay from './overlay.controler';
+import Engine from '../../playback-engine/playback-engine';
 
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
@@ -15,20 +14,21 @@ import UI_EVENTS from '../../constants/events/ui';
 
 describe('Overlay', () => {
   let overlay = {};
-  let $video = {};
-  let vidi = {};
+  let engine = {};
   let eventEmitter = {};
   let eventEmitterSpy = null;
 
   beforeEach(() => {
-    $video = new $('<video>');
-    vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
+    engine = new Engine({
+      eventEmitter
+    });
   });
 
   describe('constructor', () => {
     beforeEach(() => {
       overlay = new Overlay({
+        engine,
         eventEmitter
       });
     });
@@ -42,7 +42,7 @@ describe('Overlay', () => {
   describe('instance callbacks to controls', () => {
     beforeEach(() => {
       overlay = new Overlay({
-        vidi,
+        engine,
         eventEmitter,
         config: {
           poster: 'test'
@@ -57,21 +57,21 @@ describe('Overlay', () => {
     });
 
     it('should emit ui event on play', () => {
-      const callback = sinon.spy(overlay.vidi, 'play');
+      const callback = sinon.spy(overlay._engine, 'play');
 
       overlay._playVideo();
 
       expect(callback.called).to.be.true;
       expect(eventEmitterSpy.calledWith(UI_EVENTS.PLAY_OVERLAY_TRIGGERED)).to.be.true;
 
-      overlay.vidi.play.restore();
+      overlay._engine.play.restore();
     });
   });
 
   describe('instance', () => {
     beforeEach(() => {
       overlay = new Overlay({
-        vidi,
+        engine,
         eventEmitter
       });
     });
@@ -111,7 +111,7 @@ describe('Overlay', () => {
   describe('API', () => {
     beforeEach(() => {
       overlay = new Overlay({
-        vidi,
+        engine,
         eventEmitter
       });
     });

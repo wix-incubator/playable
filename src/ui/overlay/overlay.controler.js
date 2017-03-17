@@ -11,7 +11,7 @@ const DEFAULT_CONFIG = {
 export default class Overlay {
   static View = View;
 
-  constructor({ config, eventEmitter, vidi }) {
+  constructor({ config, eventEmitter, engine }) {
     this.eventEmitter = eventEmitter;
     this.isHidden = false;
     this.isContentHidden = false;
@@ -20,7 +20,7 @@ export default class Overlay {
       ...DEFAULT_CONFIG,
       ...config
     };
-    this.vidi = vidi;
+    this._engine = engine;
 
     this._bindEvents();
     this._initUI(this.config.poster);
@@ -61,7 +61,7 @@ export default class Overlay {
   }
 
   _playVideo() {
-    this.vidi.play();
+    this._engine.play();
     this._hideContent();
 
     this.eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
@@ -91,6 +91,6 @@ export default class Overlay {
     delete this.view;
 
     delete this.eventEmitter;
-    delete this.vidi;
+    delete this._engine;
   }
 }

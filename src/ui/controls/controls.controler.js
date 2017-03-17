@@ -22,9 +22,9 @@ const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 const SPACE_BAR_KEYCODE = 32;
 
 export default class ControlBlock {
-  constructor({ vidi, uiView, eventEmitter, config }) {
+  constructor({ engine, uiView, eventEmitter, config }) {
     this.eventEmitter = eventEmitter;
-    this.vidi = vidi;
+    this._engine = engine;
     this.uiView = uiView;
     this.config = {
       ...DEFAULT_CONFIG,
@@ -69,7 +69,7 @@ export default class ControlBlock {
   _initControls() {
     this.config.list.forEach(Control => {
       const control = new Control({
-        vidi: this.vidi,
+        engine: this._engine,
         uiView: this.uiView,
         eventEmitter: this.eventEmitter
       });
@@ -117,12 +117,12 @@ export default class ControlBlock {
 
   _toggleVideoPlayback() {
     this._delayedToggleVideoPlaybackTimeout = null;
-    const playbackState = this.vidi.getPlaybackState();
+    const playbackState = this._engine.getPlaybackState();
 
     if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
-      this.vidi.pause();
+      this._engine.pause();
     } else {
-      this.vidi.play();
+      this._engine.play();
     }
   }
 
@@ -212,7 +212,7 @@ export default class ControlBlock {
     delete this._controls;
 
     delete this.eventEmitter;
-    delete this.vidi;
+    delete this._engine;
     delete this.uiView;
     delete this.config;
 

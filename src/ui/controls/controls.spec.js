@@ -3,10 +3,8 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import $ from 'jbone';
-import Vidi from 'vidi';
-
 import ControlsBlock from './controls.controler';
+import Engine from '../../playback-engine/playback-engine';
 
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
@@ -23,8 +21,7 @@ describe('ControlsBlock', () => {
 
   let controls = {};
   let uiView = {};
-  let $video = {};
-  let vidi = {};
+  let engine = {};
   let eventEmitterSpy = null;
   let eventEmitter = null;
   let spiedVideo = null;
@@ -65,15 +62,13 @@ describe('ControlsBlock', () => {
       exitFullScreen() {},
       enterFullScreen() {}
     };
-    $video = new $('<video>', {
-      controls: 'true',
-      muted: 'true'
-    });
-    vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
+    engine = new Engine({
+      eventEmitter
+    });
     controls = new ControlsBlock({
       uiView,
-      vidi,
+      engine,
       eventEmitter,
       ...DEFAULT_CONFIG
     });
@@ -99,7 +94,7 @@ describe('ControlsBlock', () => {
     });
 
     it('should trigger _toggleVideoPlayback on keyboard input', () => {
-      controls.vidi.getPlaybackState = () => ({status: 0});
+      controls._engine.getPlaybackState = () => ({status: 0});
       const togglePlaybackSpy = sinon.spy(controls, '_toggleVideoPlayback');
 
       controls._processKeyboardInput({keyCode: 32});
@@ -192,7 +187,7 @@ describe('ControlsBlock', () => {
       let status = VIDI_PLAYBACK_STATUSES.PLAYING;
       const playSpy = sinon.spy();
       const pauseSpy = sinon.spy();
-      controls.vidi = {
+      controls._engine = {
         getPlaybackState: () => ({ status }),
         play: playSpy,
         pause: pauseSpy
