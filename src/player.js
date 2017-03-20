@@ -131,7 +131,10 @@ class Player {
 
   setSrc(src) {
     this._engine.pause();
-    this._engine.setSrc(src);
+    //TODO: Change this ugly fix on something smarter
+    setTimeout(() => {
+      this._engine.setSrc(src);
+    }, 0);
   }
 
   on(name, callback) {
