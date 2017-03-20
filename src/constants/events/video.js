@@ -4,6 +4,7 @@ export const { PlaybackStatus: VIDI_PLAYBACK_STATUSES } = Vidi;
 
 
 const VIDEO_EVENTS = {
+  CAN_PLAY: 'can-play',
   PLAYBACK_STATUS_CHANGED: 'playback-status-changed',
   CHUNK_LOADED: 'chunk-loaded',
   METADATA_LOADED: 'metadata-loaded',

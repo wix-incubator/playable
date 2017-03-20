@@ -24,6 +24,10 @@ export default class Engine {
       this._eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, status);
     });
 
+    this._$video.on('canplay', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.CAN_PLAY);
+    });
+
     this._$video.on('loadedmetadata', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
     });

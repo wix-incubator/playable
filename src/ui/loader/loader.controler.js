@@ -1,3 +1,5 @@
+import VIDEO_EVENTS from '../../constants/events/video';
+
 import View from './loader.view';
 
 
@@ -15,6 +17,7 @@ export default class Loader {
 
     this._bindCallbacks();
     this._initUI();
+    this._bindEvents();
 
     this.hide();
     this._startIntervalUpdates();
@@ -22,6 +25,11 @@ export default class Loader {
 
   get node() {
     return this.view.getNode();
+  }
+
+  _bindEvents() {
+    this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this.show);
+    this._eventEmitter.on(VIDEO_EVENTS.CAN_PLAY, this.hide);
   }
 
   _bindCallbacks() {
@@ -71,6 +79,11 @@ export default class Loader {
 
   _stopIntervalUpdates() {
     clearInterval(this._updateInterval);
+  }
+
+  _unbindEvents() {
+    this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this.show);
+    this._eventEmitter.off(VIDEO_EVENTS.CAN_PLAY, this.hide);
   }
 
   destroy() {
