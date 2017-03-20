@@ -11,10 +11,10 @@ export default class ProgressControl {
 
   constructor({
     view,
-    vidi,
+    engine,
     eventEmitter
   }) {
-    this._vidi = vidi;
+    this._engine = engine;
     this._eventEmitter = eventEmitter;
 
     this._isUserInteracting = false;
@@ -104,38 +104,38 @@ export default class ProgressControl {
   }
 
   _changeCurrentTimeOfVideo(percent) {
-    const video = this._vidi.getVideoElement();
+    const duration = this._engine.getDurationTime();
 
-    if (video.duration) {
-      video.currentTime = video.duration * percent;
+    if (duration) {
+      this._engine.setCurrentTime(duration * percent);
     }
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
   }
 
   _pauseVideoOnProgressManipulationStart() {
-    this._vidi.pause();
+    this._engine.pause();
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
   }
 
   _playVideoOnProgressManipulationEnd() {
-    this._vidi.play();
+    this._engine.play();
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
   }
 
   _updateBufferIndicator() {
-    const video = this._vidi.getVideoElement();
-    const { currentTime, buffered, duration } = video;
+    const currentTime = this._engine.getCurrentTime();
+    const buffered = this._engine.getBuffered();
+    const duration = this._engine.getDurationTime();
 
     this.updateBuffered(getOverallBufferedPercent(buffered, currentTime, duration));
   }
 
   _updatePlayedIndicator() {
-    const video = this._vidi.getVideoElement();
-
-    const { duration, currentTime } = video;
+    const currentTime = this._engine.getCurrentTime();
+    const duration = this._engine.getDurationTime();
 
     this.updatePlayed(getOverallPlayedPercent(currentTime, duration));
   }
@@ -174,7 +174,7 @@ export default class ProgressControl {
     delete this.view;
 
     delete this._eventEmitter;
-    delete this._vidi;
+    delete this._engine;
 
     this._isUserInteracting = null;
     this._currentProgress = null;

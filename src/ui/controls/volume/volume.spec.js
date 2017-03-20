@@ -1,27 +1,27 @@
 import 'jsdom-global/register';
-import $ from 'jbone';
-import Vidi from 'vidi';
 import EventEmitter from 'eventemitter3';
 
 import { expect } from 'chai';
 import sinon from 'sinon';
 
 import VolumeControl from './volume.controler';
+import Engine from '../../../playback-engine/playback-engine';
+
 import VIDEO_EVENTS from '../../../constants/events/video';
 
 
 describe('VolumeControl', () => {
   let control = {};
-  let $video = {};
-  let vidi = {};
+  let engine = {};
   let eventEmitter = {};
 
   beforeEach(() => {
-    $video = new $('<video>');
-    vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
+    engine = new Engine({
+      eventEmitter
+    });
     control = new VolumeControl({
-      vidi,
+      engine,
       eventEmitter
     });
   });
@@ -40,7 +40,7 @@ describe('VolumeControl', () => {
         }
       });
       control = new VolumeControl({
-        vidi,
+        engine,
         eventEmitter,
         view: spy
       });

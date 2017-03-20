@@ -1,12 +1,9 @@
-import Vidi from 'vidi';
-import $ from 'jbone';
 import EventEmitter from 'eventemitter3';
-
-import VIDEO_EVENTS from './constants/events/video';
 
 import iOS from './utils/ios-detection';
 
 import PlayerUI from './ui/ui.controler';
+import Engine from './playback-engine/playback-engine';
 
 class Player {
   constructor({
@@ -24,8 +21,9 @@ class Player {
   }) {
 
     this._eventEmitter = new EventEmitter();
-
-    this._$video = $('<video/>');
+    this._engine = new Engine({
+      eventEmitter: this._eventEmitter
+    });
 
     this.setPreload(preload);
 
@@ -45,12 +43,10 @@ class Player {
       this.setVolume(volume);
     }
 
-    this._vidi = new Vidi(this._$video[0]);
 
     this._createUI(size, controls, overlay, loader, customUI);
 
-    this._vidi.src = src;
-    this._initEventsProxy();
+    this._engine.setSrc(src);
   }
 
   _createUI(size, controls, overlay, loader, customUI) {
@@ -75,7 +71,7 @@ class Player {
     }
 
     this.ui = new PlayerUI({
-      vidi: this._vidi,
+      engine: this._engine,
       eventEmitter: this._eventEmitter,
       config
     });
@@ -93,92 +89,44 @@ class Player {
     return this.ui.node;
   }
 
-  _initEventsProxy() {
-    const videoEl = this._vidi.getVideoElement();
-
-    this._vidi.on('statuschange', status => {
-      this._eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, status);
-    });
-
-    this._$video.on('loadedmetadata', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
-    });
-
-    this._$video.on('progress', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
-    });
-
-    this._vidi.on('loadstart', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.LOAD_STARTED);
-    });
-
-    this._vidi.on('loadeddata', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.LOADED_FIRST_CHUNK);
-    });
-
-    this._vidi.on('durationchange', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, videoEl.duration);
-    });
-
-    this._vidi.on('timeupdate', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED, videoEl.currentTime);
-    });
-
-    this._$video.on('seeking', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED, videoEl.currentTime);
-    });
-
-    this._$video.on('seeked', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED, videoEl.currentTime);
-    });
-
-    this._$video.on('volumechange', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
-        volume: videoEl.volume,
-        muted: videoEl.muted
-      });
-    });
-  }
-
   setAutoplay(isAutoplay) {
-    this._$video[0].autoplay = Boolean(isAutoplay);
+    this._engine.setAutoplay(isAutoplay);
   }
 
   getAutoplay() {
-    return this._$video[0].autoplay;
+    return this._engine.getAutoplay();
   }
 
   setLoop(isLoop) {
-    this._$video[0].loop = Boolean(isLoop);
+    this._engine.setLoop(isLoop);
   }
 
   getLoop() {
-    return this._$video[0].loop;
+    return this._engine.getLoop();
   }
 
   setMute(isMuted) {
-    this._$video[0].muted = Boolean(isMuted);
+    this._engine.setMute(isMuted);
   }
 
   getMute() {
-    return this._$video[0].muted;
+    return this._engine.getMute();
   }
 
   setVolume(volume) {
-    const parsedVolume = Number(volume);
-    this._$video[0].volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
+    this._engine.setVolume(volume);
   }
 
   getVolume() {
-    return this._$video[0].volume;
+    return this._engine.getVolume();
   }
 
   setPreload(preload) {
-    this._$video[0].preload = preload || 'auto';
+    this._engine.setPreload(preload);
   }
 
   getPreload() {
-    return this._$video[0].preload;
+    return this._engine.getPreload();
   }
 
   on(name, callback) {
@@ -203,18 +151,17 @@ class Player {
 
     this._unbindAllEvents();
     delete this._eventEmitter;
-    delete this._$video;
 
-    this._vidi.setVideoElement();
-    delete this._vidi;
+    this._engine.destroy();
+    delete this._engine;
   }
 
   play() {
-    this._vidi.play();
+    this._engine.play();
   }
 
   pause() {
-    this._vidi.pause();
+    this._engine.pause();
   }
 }
 

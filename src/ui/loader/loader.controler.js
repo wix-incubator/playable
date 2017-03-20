@@ -4,10 +4,10 @@ import View from './loader.view';
 export default class Loader {
   static View = View;
 
-  constructor({ config, eventEmitter, vidi }) {
+  constructor({ config, eventEmitter, engine }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
-    this._vidi = vidi;
+    this._engine = engine;
     this._updateInterval = null;
     this.config = {
       ...config
@@ -56,13 +56,9 @@ export default class Loader {
   }
 
   _updateOnInterval() {
-    const video = this._vidi.getVideoElement();
+    const readyState = this._engine.getReadyState();
 
-    if (!video) {
-      return;
-    }
-
-    if (video.readyState < 3) {
+    if (readyState < 3) {
       this.show();
     } else {
       this.hide();
@@ -84,6 +80,6 @@ export default class Loader {
     delete this.view;
 
     delete this.eventEmitter;
-    delete this.vidi;
+    delete this._engine;
   }
 }

@@ -1,28 +1,27 @@
 import 'jsdom-global/register';
-import $ from 'jbone';
-import Vidi from 'vidi';
 import EventEmitter from 'eventemitter3';
 
 import { expect } from 'chai';
 import sinon from 'sinon';
 
 import TimeControl from './time.controler';
+import Engine from '../../../playback-engine/playback-engine';
 import { formatTime } from './time.view';
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
 
 
 describe('TimeControl', () => {
   let control = {};
-  let $video = {};
-  let vidi = {};
+  let engine = {};
   let eventEmitter = {};
 
   beforeEach(() => {
-    $video = new $('<video>');
-    vidi = new Vidi($video[0]);
     eventEmitter = new EventEmitter();
+    engine = new Engine({
+      eventEmitter
+    });
     control = new TimeControl({
-      vidi,
+      engine,
       eventEmitter
     });
   });
@@ -42,7 +41,7 @@ describe('TimeControl', () => {
       });
 
       control = new TimeControl({
-        vidi,
+        engine,
         eventEmitter,
         view: spy
       });

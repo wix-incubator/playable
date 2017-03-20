@@ -14,9 +14,9 @@ const DEFAULT_CONFIG = {
 };
 
 class PlayerUI {
-  constructor({ vidi, eventEmitter, config }) {
+  constructor({ engine, eventEmitter, config }) {
     this.eventEmitter = eventEmitter;
-    this.vidi = vidi;
+    this._engine = engine;
     this.config = {
       ...DEFAULT_CONFIG,
       ...config
@@ -56,7 +56,7 @@ class PlayerUI {
 
     this._initLoader();
 
-    this.view.appendComponentNode(this.vidi.getVideoElement());
+    this.view.appendComponentNode(this._engine.getNode());
 
     this._initControls();
   }
@@ -70,7 +70,7 @@ class PlayerUI {
 
     if (typeof config === 'function') {
       this.overlay = new config({
-        vidi: this.vidi,
+        engine: this._engine,
         eventEmitter: this.eventEmitter,
         uiView: this.view
       });
@@ -78,7 +78,7 @@ class PlayerUI {
       this.view.appendComponentNode(this.overlay.getNode());
     } else {
       this.overlay = new Overlay({
-        vidi: this.vidi,
+        engine: this._engine,
         eventEmitter: this.eventEmitter,
         config: this.config.overlay
       });
@@ -95,7 +95,7 @@ class PlayerUI {
     }
 
     this.loader = new Loader({
-      vidi: this.vidi,
+      engine: this._engine,
       eventEmitter: this.eventEmitter,
       config: this.config.loader
     });
@@ -111,7 +111,7 @@ class PlayerUI {
     }
 
     this.controls = new ControlsBlock({
-      vidi: this.vidi,
+      engine: this._engine,
       eventEmitter: this.eventEmitter,
       uiView: this.view,
       config
@@ -125,7 +125,7 @@ class PlayerUI {
     const keys = Object.keys(this.config.customUI);
     keys.forEach(key => {
       const component = new this.config.customUI[key]({
-        vidi: this.vidi,
+        engine: this._engine,
         eventEmitter: this.eventEmitter,
         uiView: this.view
       });
@@ -173,7 +173,7 @@ class PlayerUI {
     }
 
     delete this.eventEmitter;
-    delete this.vidi;
+    delete this._engine;
     delete this.config;
   }
 }
