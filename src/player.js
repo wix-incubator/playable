@@ -129,6 +129,10 @@ class Player {
     return this._engine.getPreload();
   }
 
+  setSrc(src) {
+    this._engine.setSrc(src);
+  }
+
   on(name, callback) {
     this._eventEmitter.on(name, callback);
   }
