@@ -130,6 +130,7 @@ class Player {
   }
 
   setSrc(src) {
+    this._engine.pause();
     this._engine.setSrc(src);
   }
 
