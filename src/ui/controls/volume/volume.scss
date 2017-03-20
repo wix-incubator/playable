@@ -54,8 +54,9 @@ $color: white !default;
 
   display: flex;
 
-  width: 12px;
-  max-width: 12px;
+  width: 18px;
+  max-width: 18px;
+  height: 15px;
   margin: 0 23px 0 15px;
 
   justify-content: center;
@@ -102,7 +103,7 @@ $color: white !default;
   .volume-inner-wrapper {
     position: absolute;
     top: -82px;
-    left: -55px;
+    left: -52px;
 
     display: flex;
     visibility: hidden;
