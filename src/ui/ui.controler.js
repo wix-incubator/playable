@@ -172,6 +172,11 @@ class PlayerUI {
       delete this.overlay;
     }
 
+    if (this.loader) {
+      this.loader.destroy();
+      delete this.loader;
+    }
+
     delete this.eventEmitter;
     delete this._engine;
     delete this.config;
