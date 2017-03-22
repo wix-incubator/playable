@@ -42,7 +42,7 @@ export default class VolumeView {
     });
 
     this.$input = $('<input>', {
-      class: `${styles['volume-input']} + ${styles['range-control']}`,
+      class: `${styles['volume-input']} ${styles['range-control']}`,
       id: 'volume-input',
       type: 'range',
       min: 0,
