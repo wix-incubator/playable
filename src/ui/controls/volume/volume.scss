@@ -109,8 +109,9 @@ $color: white !default;
     visibility: hidden;
     flex: 1;
 
+    box-sizing: border-box;
     min-width: 100px;
-    height: 14px;
+    height: 34px;
     padding: 10px;
 
     transition: visibility .2s, opacity .2s, display .2s;

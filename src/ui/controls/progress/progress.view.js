@@ -29,6 +29,7 @@ export default class ProgressView {
     });
 
     this.$input = $('<input>', {
+      class: styles['range-control'],
       type: 'range',
       min: 0,
       max: 100,
