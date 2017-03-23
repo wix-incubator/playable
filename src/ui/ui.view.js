@@ -25,8 +25,6 @@ export default class PlayerUIView {
       });
     }
 
-    this.$node.append(this.$customComponentsNode);
-
     this._bindCallbacks();
 
     this._bindEvents();
