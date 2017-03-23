@@ -1,4 +1,5 @@
 import 'jsdom-global/register';
+import $ from 'jbone';
 
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -7,7 +8,6 @@ import ControlsBlock from './controls.controler';
 import Engine from '../../playback-engine/playback-engine';
 
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
-import UI_EVENTS from '../../constants/events/ui';
 
 import EventEmitter from 'eventemitter3';
 
@@ -22,34 +22,8 @@ describe('ControlsBlock', () => {
   let controls = {};
   let uiView = {};
   let engine = {};
-  let eventEmitterSpy = null;
   let eventEmitter = null;
-  let spiedVideo = null;
 
-  function generateVideoObjectWithSpies() {
-    const video = {
-      duration: 100,
-      _currentTimeSpy: sinon.spy(),
-      _volumeSpy: sinon.spy(),
-      _mutedSpy: sinon.spy()
-    };
-
-    Object.defineProperties(video, {
-      currentTime: {
-        set: video._currentTimeSpy
-      },
-      volume: {
-        enumerable: true,
-        set: video._volumeSpy
-      },
-      muted: {
-        enumerable: true,
-        set: video._mutedSpy
-      }
-    });
-
-    return video;
-  }
 
   beforeEach(() => {
     uiView = {
@@ -57,7 +31,7 @@ describe('ControlsBlock', () => {
 
       },
       getNode() {
-        return new $('<video>');
+        return document.createElement('video');
       },
       exitFullScreen() {},
       enterFullScreen() {}
@@ -77,68 +51,6 @@ describe('ControlsBlock', () => {
     it('should create instance ', () => {
       expect(controls).to.exists;
       expect(controls.view).to.exists;
-    });
-  });
-
-
-
-  describe('instance callbacks to controls', () => {
-    beforeEach(() => {
-      spiedVideo = generateVideoObjectWithSpies();
-
-      eventEmitterSpy = sinon.spy(controls.eventEmitter, 'emit');
-    });
-
-    afterEach(() => {
-      controls.eventEmitter.emit.restore();
-    });
-
-    it('should trigger _toggleVideoPlayback on keyboard input', () => {
-      controls._engine.getPlaybackState = () => ({status: 0});
-      const togglePlaybackSpy = sinon.spy(controls, '_toggleVideoPlayback');
-
-      controls._processKeyboardInput({keyCode: 32});
-      expect(togglePlaybackSpy.called).to.be.true;
-    });
-
-    it('should trigger _toggleVideoPlayback on node click', () => {
-      const processClickSpy = sinon.spy(controls, '_processNodeClick');
-      controls._bindViewCallbacks();
-      controls._initUI();
-
-      controls.view.$node.trigger('click');
-      expect(processClickSpy.called).to.be.true;
-    });
-
-    it('should remove timeout of delayed playback change and call _toggleFullScreen on _processNodeClick ', () => {
-      const timeoutClearSpy = sinon.spy(global, 'clearTimeout');
-      const toggleFullscreenSpy = sinon.spy(controls, '_toggleFullScreen');
-      const id = setTimeout(()=> {
-      }, 0);
-      controls._delayedToggleVideoPlaybackTimeout = id;
-      controls.fullscreen = {
-        request: ()=> {
-        }
-      };
-
-      controls._processNodeClick();
-      expect(timeoutClearSpy.calledWith(id)).to.be.true;
-      expect(toggleFullscreenSpy.called).to.be.true;
-
-      timeoutClearSpy.restore();
-    });
-
-
-    it('should emit ui event on enter full screen', () => {
-      controls._enterFullScreen(uiView);
-
-      expect(eventEmitterSpy.calledWith(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED)).to.be.true;
-    });
-
-    it('should emit ui event on exit full screen', () => {
-      controls._exitFullScreen();
-
-      expect(eventEmitterSpy.calledWith(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED)).to.be.true;
     });
   });
 
@@ -181,19 +93,6 @@ describe('ControlsBlock', () => {
 
       timeoutSpy.restore();
       clearSpy.restore();
-    });
-
-    it('should have method for toggling playback', () => {
-      let status = VIDI_PLAYBACK_STATUSES.PLAYING;
-      const playSpy = sinon.spy();
-      const pauseSpy = sinon.spy();
-      controls._engine = {
-        getPlaybackState: () => ({ status }),
-        play: playSpy,
-        pause: pauseSpy
-      };
-      controls._toggleVideoPlayback();
-      expect(pauseSpy.called).to.be.true;
     });
   });
 

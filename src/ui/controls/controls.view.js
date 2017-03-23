@@ -6,12 +6,14 @@ import styles from './controls.scss';
 
 
 export default class ControlsView {
-  constructor({ callbacks, controlsWrapperView }) {
+  constructor({ callbacks, controlsWrapperView, uiView }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: styles['controls-block'],
       tabIndex: 0
     });
+
+    this._uiView = uiView;
 
     this._generateControlsWrapper(controlsWrapperView);
 
@@ -29,10 +31,10 @@ export default class ControlsView {
   }
 
   _bindEvents() {
-    this.$node.on('click', this._callbacks.onWrapperMouseClick);
-    this.$node.on('keypress', this._callbacks.onWrapperKeyPress);
-    this.$node.on('mousemove', this._callbacks.onWrapperMouseMove);
-    this.$node.on('mouseleave', this._callbacks.onWrapperMouseOut);
+    const node = this._uiView.getNode();
+
+    node.addEventListener('mousemove', this._callbacks.onWrapperMouseMove);
+    node.addEventListener('mouseleave', this._callbacks.onWrapperMouseOut);
 
     this.$controlsWrapperViewNode.on('click', this._callbacks.onControlsBlockMouseClick);
     this.$controlsWrapperViewNode.on('mousemove', this._callbacks.onControlsBlockMouseMove);
@@ -64,10 +66,10 @@ export default class ControlsView {
   }
 
   _unbindEvents() {
-    this.$node.off('click', this._callbacks.onWrapperMouseClick);
-    this.$node.off('keypress', this._callbacks.onWrapperKeyPress);
-    this.$node.off('mousemove', this._callbacks.onWrapperMouseMove);
-    this.$node.off('mouseleave', this._callbacks.onWrapperMouseOut);
+    const node = this._uiView.getNode();
+
+    node.removeEventListener('mousemove', this._callbacks.onWrapperMouseMove);
+    node.removeEventListener('mouseleave', this._callbacks.onWrapperMouseOut);
 
     this.$controlsWrapperViewNode.off('click', this._callbacks.onControlsBlockMouseClick);
     this.$controlsWrapperViewNode.off('mousemove', this._callbacks.onControlsBlockMouseMove);
@@ -77,6 +79,8 @@ export default class ControlsView {
   destroy() {
     this._unbindEvents();
     this.$node.remove();
+
+    delete this._uiView;
 
     this.controlsWrapperView.destroy();
     delete this.controlsWrapperView;

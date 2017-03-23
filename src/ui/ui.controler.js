@@ -5,7 +5,7 @@ import View from './ui.view';
 import Overlay from './overlay/overlay.controler';
 import ControlsBlock from './controls/controls.controler';
 import Loader from './loader/loader.controler';
-
+import Screen from './screen/screen.controler';
 
 const DEFAULT_CONFIG = {
   size: {},
@@ -56,9 +56,19 @@ class PlayerUI {
 
     this._initLoader();
 
-    this.view.appendComponentNode(this._engine.getNode());
+    this._initScreen();
 
     this._initControls();
+  }
+
+  _initScreen() {
+    this.screen = new Screen({
+      engine: this._engine,
+      uiView: this.view,
+      eventEmitter: this.eventEmitter
+    });
+
+    this.view.appendComponentNode(this.screen.node);
   }
 
   _initOverlay() {
@@ -159,12 +169,14 @@ class PlayerUI {
   }
 
   destroy() {
-    this.view.destroy();
-    delete this.view;
-
     if (this.controls) {
       this.controls.destroy();
       delete this.controls;
+    }
+
+    if (this.screen) {
+      this.screen.destroy();
+      delete this.screen;
     }
 
     if (this.overlay) {
@@ -176,6 +188,9 @@ class PlayerUI {
       this.loader.destroy();
       delete this.loader;
     }
+
+    this.view.destroy();
+    delete this.view;
 
     delete this.eventEmitter;
     delete this._engine;
