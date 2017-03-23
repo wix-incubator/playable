@@ -1,7 +1,4 @@
-import fullscreen from '../../utils/fullscreen';
-
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
-import UI_EVENTS from '../../constants/events/ui';
 
 import View from './controls.view';
 
@@ -17,9 +14,7 @@ const DEFAULT_CONFIG = {
   view: null
 };
 
-const PLAYBACK_CHANGE_TIMEOUT = 300;
 const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
-const SPACE_BAR_KEYCODE = 32;
 
 export default class ControlBlock {
   constructor({ engine, uiView, eventEmitter, config }) {
@@ -40,7 +35,7 @@ export default class ControlBlock {
     this._controls = [];
 
     this._bindViewCallbacks();
-    this._initUI();
+    this._initUI(uiView);
     this._initControls();
     this._bindEvents();
   }
@@ -49,14 +44,13 @@ export default class ControlBlock {
     return this.view.getNode();
   }
 
-  _initUI() {
+  _initUI(uiView) {
     const config = {
+      uiView,
       controlsWrapperView: this.config && this.config.view,
       callbacks: {
         onWrapperMouseMove: this._startHideControlsTimeout,
         onWrapperMouseOut: this._hideContent,
-        onWrapperMouseClick: this._processNodeClick,
-        onWrapperKeyPress: this._processKeyboardInput,
         onControlsBlockMouseClick: this._preventClickPropagation,
         onControlsBlockMouseMove: this._setFocusState,
         onControlsBlockMouseOut: this._removeFocusState
@@ -80,9 +74,6 @@ export default class ControlBlock {
   }
 
   _bindViewCallbacks() {
-    this._processNodeClick = this._processNodeClick.bind(this);
-    this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
-    this._processKeyboardInput = this._processKeyboardInput.bind(this);
     this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
     this._setFocusState = this._setFocusState.bind(this);
     this._removeFocusState = this._removeFocusState.bind(this);
@@ -94,36 +85,8 @@ export default class ControlBlock {
     this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
-  _processKeyboardInput(e) {
-    if (e.keyCode === SPACE_BAR_KEYCODE) {
-      this._toggleVideoPlayback();
-    }
-  }
-
   _preventClickPropagation(e) {
     e.stopPropagation();
-  }
-
-  _processNodeClick() {
-    if (this._delayedToggleVideoPlaybackTimeout) {
-      clearTimeout(this._delayedToggleVideoPlaybackTimeout);
-      this._delayedToggleVideoPlaybackTimeout = null;
-
-      this._toggleFullScreen();
-    } else {
-      this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
-    }
-  }
-
-  _toggleVideoPlayback() {
-    this._delayedToggleVideoPlaybackTimeout = null;
-    const playbackState = this._engine.getPlaybackState();
-
-    if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
-      this._engine.pause();
-    } else {
-      this._engine.play();
-    }
   }
 
   _startHideControlsTimeout() {
@@ -167,26 +130,6 @@ export default class ControlBlock {
       this._isVideoPaused = true;
       this._showContent();
     }
-  }
-
-  _toggleFullScreen() {
-    if (fullscreen.isFullscreen) {
-      this._exitFullScreen();
-    } else {
-      this._enterFullScreen();
-    }
-  }
-
-  _enterFullScreen() {
-    this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
-
-    this.uiView.enterFullScreen();
-  }
-
-  _exitFullScreen() {
-    this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
-
-    this.uiView.exitFullScreen();
   }
 
   hide() {
