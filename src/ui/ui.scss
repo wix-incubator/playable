@@ -29,4 +29,12 @@
 
     outline: none;
   }
+
+  .custom-ui-wrapper {
+    position: absolute;
+    z-index: 20;
+
+    width: 100%;
+    height: 100%;
+  }
 }

@@ -13,6 +13,10 @@ export default class PlayerUIView {
       class: styles['video-wrapper']
     });
 
+    this.$customComponentsNode = $('<div>', {
+      class: styles['custom-ui-wrapper']
+    });
+
     if (width) {
       this.$node.css({
         width: `${width}px`
@@ -24,6 +28,8 @@ export default class PlayerUIView {
         height: `${height}px`
       });
     }
+
+    this.$node.append(this.$customComponentsNode);
 
     this._bindCallbacks();
 
@@ -75,6 +81,10 @@ export default class PlayerUIView {
 
   appendComponentNode(node) {
     this.$node.append(node);
+  }
+
+  appendCustomComponentNode(node) {
+    this.$customComponentsNode.append(node);
   }
 
   getNode() {

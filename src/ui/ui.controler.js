@@ -132,7 +132,7 @@ class PlayerUI {
 
       this.customComponents[key] = component;
 
-      this.view.appendComponentNode(component.getNode());
+      this.view.appendCustomComponentNode(component.getNode());
     });
   }
 
