@@ -169,6 +169,7 @@ export default class ProgressControl {
   }
 
   destroy() {
+    this._stopIntervalUpdates();
     this._unbindEvents();
     this.view.destroy();
     delete this.view;

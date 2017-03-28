@@ -79,6 +79,7 @@ export default class Loader {
 
   _stopIntervalUpdates() {
     clearInterval(this._updateInterval);
+    this._updateInterval = null;
   }
 
   _unbindEvents() {
