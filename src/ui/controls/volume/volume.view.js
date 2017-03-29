@@ -4,6 +4,8 @@ import volumeFullSVG from './svg/volume-100.svg';
 import volumeMidSVG from './svg/volume-50.svg';
 import volumeMutedSVG from './svg/volume-0.svg';
 
+import { iPad } from '../../../utils/device-detection';
+
 import styles from './volume.scss';
 
 const MAX_VOLUME_ICON_RANGE = 50;
@@ -61,6 +63,10 @@ export default class VolumeView {
       .append(this.$volumeIcon)
       .append(this.$volumeMutedIcon)
       .append($innerWrapper);
+
+    if (iPad) {
+      $innerWrapper.toggleClass(styles.hidden, true);
+    }
 
     this._bindEvents();
   }

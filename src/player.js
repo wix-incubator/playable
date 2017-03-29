@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3';
 
-import iOS from './utils/ios-detection';
+import { iPhone, iPod, Android } from './utils/device-detection';
 
 import PlayerUI from './ui/ui.controler';
 import Engine from './playback-engine/playback-engine';
@@ -62,6 +62,16 @@ class Player {
       config.controls = controls;
     }
 
+    if (iPhone || iPod || Android) {
+      config.controls = false;
+    }
+
+    if (Android) {
+      config.screen = {
+        nativeControls: true
+      };
+    }
+
     if (overlay) {
       config.overlay = overlay;
     }
@@ -75,10 +85,6 @@ class Player {
       eventEmitter: this._eventEmitter,
       config
     });
-
-    if (iOS) {
-      this.ui.controls.hide();
-    }
   }
 
   get node() {

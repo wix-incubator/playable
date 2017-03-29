@@ -4,7 +4,8 @@ import styles from './screen.scss';
 
 
 export default class ScreenView {
-  constructor({ callbacks }) {
+  constructor({ callbacks, nativeControls }) {
+    this.nativeControls = nativeControls;
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: styles['screen-block'],
@@ -33,6 +34,9 @@ export default class ScreenView {
 
   appendPlaybackViewNode(node) {
     this.$node.append(node);
+    if (this.nativeControls) {
+      node.setAttribute('controls', 'true');
+    }
   }
 
   _unbindEvents() {

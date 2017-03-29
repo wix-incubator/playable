@@ -63,6 +63,7 @@ class PlayerUI {
 
   _initScreen() {
     this.screen = new Screen({
+      config: this.config.screen,
       engine: this._engine,
       uiView: this.view,
       eventEmitter: this.eventEmitter
