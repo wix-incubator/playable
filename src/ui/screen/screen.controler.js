@@ -39,6 +39,7 @@ export default class Screen {
 
   _initUI() {
     const config = {
+      nativeControls: this.config.nativeControls,
       callbacks: {
         onWrapperMouseClick: this._processNodeClick,
         onWrapperKeyPress: this._processKeyboardInput
