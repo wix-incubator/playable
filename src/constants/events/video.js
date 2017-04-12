@@ -15,7 +15,8 @@ const VIDEO_EVENTS = {
   SEEK_STARTED: 'seek-started',
   SEEK_ENDED: 'seek-ended',
   SET_CURRENT_TIME: 'set-current-time',
-  VOLUME_STATUS_CHANGED: 'volume-status-changed'
+  VOLUME_STATUS_CHANGED: 'volume-status-changed',
+  CHANGE_SRC_TRIGGERED: 'change-src-triggered'
 };
 
 export default VIDEO_EVENTS;

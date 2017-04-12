@@ -73,7 +73,11 @@ export default class Engine {
   }
 
   setSrc(src) {
-    this._vidi.src = src;
+    if (this._vidi.src !== src) {
+      this._vidi.src = src;
+
+      this._eventEmitter.emit(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, src);
+    }
   }
 
   setAutoplay(isAutoplay) {

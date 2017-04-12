@@ -31,6 +31,7 @@ export default class TimeControl {
     this._eventEmitter.on(VIDEO_EVENTS.LOAD_STARTED, this._updateCurrentTime, this);
     this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
     this._eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
+    this._eventEmitter.on(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   _initUI(view) {
@@ -88,11 +89,17 @@ export default class TimeControl {
     this.view.show();
   }
 
+  reset() {
+    this.setDurationTime(0);
+    this.setCurrentTime(0);
+  }
+
   _unbindEvents() {
     this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
     this._eventEmitter.off(VIDEO_EVENTS.LOAD_STARTED, this._updateCurrentTime, this);
     this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
     this._eventEmitter.off(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
+    this._eventEmitter.off(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   destroy() {
