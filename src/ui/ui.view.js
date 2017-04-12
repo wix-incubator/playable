@@ -13,6 +13,10 @@ export default class PlayerUIView {
       class: styles['video-wrapper']
     });
 
+    this.$innerWrapper = $('<div>', {
+      class: styles['inner-wrapper']
+    });
+
     if (width) {
       this.$node.css({
         width: `${width}px`
@@ -24,6 +28,8 @@ export default class PlayerUIView {
         height: `${height}px`
       });
     }
+
+    this.$node.append(this.$innerWrapper);
 
     this._bindCallbacks();
 
@@ -74,7 +80,7 @@ export default class PlayerUIView {
   }
 
   appendComponentNode(node) {
-    this.$node.append(node);
+    this.$innerWrapper.append(node);
   }
 
   getNode() {
@@ -82,11 +88,11 @@ export default class PlayerUIView {
   }
 
   _setFullScreenStatus(isFullscreen) {
-    this.$node.toggleClass(styles.fullscreen, isFullscreen);
+    this.$innerWrapper.toggleClass(styles.fullscreen, isFullscreen);
   }
 
   enterFullScreen() {
-    fullscreen.request(this.$node[0]);
+    fullscreen.request(this.$innerWrapper[0]);
     this._setFullScreenStatus(true);
   }
 
