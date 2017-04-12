@@ -10,14 +10,14 @@
     "dist"
   ],
   "scripts": {
-    "start": "wix-node-build start --entry-point=./server/start-fake-server.js",
-    "lint": "wix-node-build lint",
+    "start": "yoshi start --entry-point=./server/start-fake-server.js",
+    "lint": "yoshi lint",
     "csscomb": "csscomb src/*",
     "csscomb:lint": "csscomb -lv src/*",
-    "test": "wix-node-build test --mocha",
-    "build": "wix-node-build build",
-    "deploy": "wix-node-build build && gh-pages -d dist/statics",
-    "release": "wix-node-build release",
+    "test": "yoshi test --mocha",
+    "build": "yoshi build",
+    "deploy": "yoshi build && gh-pages -d dist/statics",
+    "release": "yoshi release",
     "precommit": "npm run lint && npm run csscomb:lint && npm test"
   },
   "dependencies": {
@@ -37,7 +37,7 @@
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "sinon": "^1.17.7",
-    "wix-node-build": "latest"
+    "yoshi": "^1.1.57"
   },
   "babel": {
     "presets": [
@@ -45,7 +45,7 @@
       "stage-0"
     ]
   },
-  "wix": {
+  "yoshi": {
     "separateCss": false,
     "exports": "VideoPlayer",
     "entry": {

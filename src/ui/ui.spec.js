@@ -121,7 +121,7 @@ describe('PlayerUI', () => {
     it('should have method for enter full scren', () => {
       const spy = sinon.spy(ui.view, '_setFullScreenStatus');
       expect(ui.view.enterFullScreen).to.exist;
-      ui.view.$node = {
+      ui.view.$innerWrapper = {
         0: {
         'undefined': () => {}
         },
@@ -134,7 +134,7 @@ describe('PlayerUI', () => {
     it('should have method for exit full screen', () => {
       const spy = sinon.spy(ui.view, '_setFullScreenStatus');
       expect(ui.view.exitFullScreen).to.exist;
-      ui.view.$node = {
+      ui.view.$innerWrapper = {
         0: {
           'undefined': () => {}
         },
