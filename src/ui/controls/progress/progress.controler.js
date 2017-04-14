@@ -34,6 +34,7 @@ export default class ProgressControl {
     this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updatePlayedIndicator, this);
     this._eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
     this._eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
+    this._eventEmitter.on(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   _initUI(view) {
@@ -166,6 +167,12 @@ export default class ProgressControl {
     this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updatePlayedIndicator, this);
     this._eventEmitter.off(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
     this._eventEmitter.off(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
+    this._eventEmitter.off(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
+  }
+
+  reset() {
+    this.updatePlayed(0);
+    this.updateBuffered(0);
   }
 
   destroy() {

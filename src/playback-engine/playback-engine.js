@@ -66,6 +66,10 @@ export default class Engine {
         muted: videoEl.muted
       });
     });
+
+    this._$video.on('canplay', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.CAN_PLAY);
+    });
   }
 
   getPlaybackState() {
@@ -75,8 +79,6 @@ export default class Engine {
   setSrc(src) {
     if (this._vidi.src !== src) {
       this._vidi.src = src;
-
-      this._eventEmitter.emit(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, src);
     }
   }
 

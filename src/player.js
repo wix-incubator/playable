@@ -5,6 +5,7 @@ import { iPhone, iPod, Android } from './utils/device-detection';
 import PlayerUI from './ui/ui.controler';
 import Engine from './playback-engine/playback-engine';
 
+
 class Player {
   constructor({
     preload,
@@ -47,6 +48,9 @@ class Player {
     this._createUI(size, controls, overlay, loader, customUI);
 
     this._engine.setSrc(src);
+
+    this.play = this.play.bind(this);
+    this.pause = this.pause.bind(this);
   }
 
   _createUI(size, controls, overlay, loader, customUI) {
@@ -136,11 +140,7 @@ class Player {
   }
 
   setSrc(src) {
-    this._engine.pause();
-    //TODO: Change this ugly fix on something smarter
-    setTimeout(() => {
-      this._engine.setSrc(src);
-    }, 0);
+    this._engine.setSrc(src);
   }
 
   on(name, callback) {
@@ -173,6 +173,7 @@ class Player {
   play() {
     this._engine.play();
   }
+
 
   pause() {
     this._engine.pause();

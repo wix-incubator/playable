@@ -29,7 +29,8 @@ export default class PlayControl {
 
   _bindEvents() {
     this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
- }
+    this._eventEmitter.on(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
+  }
 
   _playVideo() {
     this._engine.play();
@@ -71,7 +72,12 @@ export default class PlayControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
+  }
+
+  reset() {
+    this.setControlStatus(false);
   }
 
   destroy() {
