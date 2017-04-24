@@ -2,6 +2,9 @@ import View from './time.view';
 
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
 
+
+const UPDATE_INTERVAL_DELAY = 100;
+
 export default class TimeControl {
   static View = View;
 
@@ -46,8 +49,7 @@ export default class TimeControl {
     if (this._updateControlInterval) {
       this._stopIntervalUpdates();
     }
-
-    this._updateControlInterval = setInterval(this._updateCurrentTime, 1000 / 16);
+    this._updateControlInterval = setInterval(this._updateCurrentTime, UPDATE_INTERVAL_DELAY);
   }
 
   _stopIntervalUpdates() {

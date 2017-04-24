@@ -6,6 +6,8 @@ import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/
 import UI_EVENTS from '../../../constants/events/ui';
 
 
+const UPDATE_INTERVAL_DELAY = 1000 / 60;
+
 export default class ProgressControl {
   static View = View;
 
@@ -74,7 +76,7 @@ export default class ProgressControl {
       this._stopIntervalUpdates();
     }
 
-    this._updateControlInterval = setInterval(this._updateControlOnInterval, 1000 / 16);
+    this._updateControlInterval = setInterval(this._updateControlOnInterval, UPDATE_INTERVAL_DELAY);
   }
 
   _stopIntervalUpdates() {
