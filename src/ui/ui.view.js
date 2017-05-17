@@ -37,16 +37,35 @@ export default class PlayerUIView {
   }
 
   _bindCallbacks() {
+    this._proxyMouseEnterOnNode = this._proxyMouseEnterOnNode.bind(this);
+    this._proxyMouseMoveOnNode = this._proxyMouseMoveOnNode.bind(this);
+    this._proxyMouseLeaveOnNode = this._proxyMouseLeaveOnNode.bind(this);
     this._toggleClassOnFullScreenChange = this._toggleClassOnFullScreenChange.bind(this);
   }
 
   _bindEvents() {
+    this.$node.on('mouseenter', this._proxyMouseEnterOnNode);
+    this.$node.on('mousemove', this._proxyMouseMoveOnNode);
+    this.$node.on('mouseleave', this._proxyMouseLeaveOnNode);
+
     document.addEventListener(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
   }
 
   _toggleClassOnFullScreenChange() {
     this._setFullScreenStatus(fullscreen.isFullscreen);
     this._callbacks.onFullScreenStatusChange();
+  }
+
+  _proxyMouseEnterOnNode() {
+    this._callbacks.onMouseEnter();
+  }
+
+  _proxyMouseMoveOnNode() {
+    this._callbacks.onMouseMove();
+  }
+
+  _proxyMouseLeaveOnNode() {
+    this._callbacks.onMouseLeave();
   }
 
   setWidth(width) {

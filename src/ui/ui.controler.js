@@ -35,6 +35,9 @@ class PlayerUI {
   }
 
   _bindCallbacks() {
+    this._proxyMouseEnter = this._proxyMouseEnter.bind(this);
+    this._proxyMouseMove = this._proxyMouseMove.bind(this);
+    this._proxyMouseLeave = this._proxyMouseLeave.bind(this);
     this._proxyFullScreenChange = this._proxyFullScreenChange.bind(this);
   }
 
@@ -44,6 +47,9 @@ class PlayerUI {
       width,
       height,
       callbacks: {
+        onMouseEnter: this._proxyMouseEnter,
+        onMouseMove: this._proxyMouseMove,
+        onMouseLeave: this._proxyMouseLeave,
         onFullScreenStatusChange: this._proxyFullScreenChange
       }
     };
@@ -149,6 +155,18 @@ class PlayerUI {
 
   _proxyFullScreenChange() {
     this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED);
+  }
+
+  _proxyMouseEnter() {
+    this.eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED);
+  }
+
+  _proxyMouseMove() {
+    this.eventEmitter.emit(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED);
+  }
+
+  _proxyMouseLeave() {
+    this.eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED);
   }
 
   hide() {
