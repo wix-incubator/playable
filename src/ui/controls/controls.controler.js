@@ -30,7 +30,6 @@ export default class ControlBlock {
     this._isVideoPaused = false;
     this._delayedToggleVideoPlaybackTimeout = null;
     this._hideControlsTimeout = null;
-    this._updateControlsInterval = null;
     this._isControlsFocused = false;
     this._controls = [];
 
@@ -90,14 +89,18 @@ export default class ControlBlock {
   }
 
   _startHideControlsTimeout() {
-    if (this._hideControlsTimeout) {
-      clearTimeout(this._hideControlsTimeout);
-    }
+    this._stopHideControlsTimeout();
 
     this._showContent();
 
     if (!this._isControlsFocused) {
       this._hideControlsTimeout = setTimeout(this._hideContent, HIDE_CONTROLS_BLOCK_TIMEOUT);
+    }
+  }
+
+  _stopHideControlsTimeout() {
+    if (this._hideControlsTimeout) {
+      clearTimeout(this._hideControlsTimeout);
     }
   }
 
@@ -147,6 +150,7 @@ export default class ControlBlock {
   }
 
   destroy() {
+    this._stopHideControlsTimeout();
     this._unbindEvents();
     this.view.destroy();
     delete this.view;
@@ -162,7 +166,6 @@ export default class ControlBlock {
     this.isHidden = null;
     this._isVideoPaused = null;
     this._hideControlsTimeout = null;
-    this._updateControlsInterval = null;
     this._isControlsFocused = null;
     this._delayedToggleVideoPlaybackTimeout = null;
   }

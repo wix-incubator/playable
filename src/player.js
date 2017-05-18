@@ -62,9 +62,7 @@ class Player {
       config.size = size;
     }
 
-    if (controls) {
-      config.controls = controls;
-    }
+    config.controls = controls;
 
     if (iPhone || iPod || Android) {
       config.controls = false;
@@ -76,13 +74,9 @@ class Player {
       };
     }
 
-    if (overlay) {
-      config.overlay = overlay;
-    }
+    config.overlay = overlay;
 
-    if (loader) {
-      config.loader = loader;
-    }
+    config.loader = loader;
 
     this.ui = new PlayerUI({
       engine: this._engine,
