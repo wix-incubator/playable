@@ -80,8 +80,8 @@ export default class ProgressControl {
   }
 
   _stopIntervalUpdates() {
-    clearInterval(this._updateControlsInterval);
-    this._updateControlsInterval = null;
+    clearInterval(this._updateControlInterval);
+    this._updateControlInterval = null;
   }
 
   _toggleUserInteractingStatus() {

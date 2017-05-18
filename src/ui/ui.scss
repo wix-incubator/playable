@@ -3,9 +3,10 @@
 .video-wrapper {
   font-family: $font-family;
   line-height: 0;
-  height: inherit;
 
   position: relative;
+
+  height: inherit;
 
   .inner-wrapper {
     position: absolute;
