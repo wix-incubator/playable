@@ -15,7 +15,7 @@ const DEFAULT_CONFIG = {
 
 class PlayerUI {
   constructor({ engine, eventEmitter, config }) {
-    this.eventEmitter = eventEmitter;
+    this._eventEmitter = eventEmitter;
     this._engine = engine;
     this.config = {
       ...DEFAULT_CONFIG,
@@ -72,7 +72,7 @@ class PlayerUI {
       config: this.config.screen,
       engine: this._engine,
       uiView: this.view,
-      eventEmitter: this.eventEmitter
+      eventEmitter: this._eventEmitter
     });
 
     this.view.appendComponentNode(this.screen.node);
@@ -88,7 +88,7 @@ class PlayerUI {
     if (typeof config === 'function') {
       this.overlay = new config({
         engine: this._engine,
-        eventEmitter: this.eventEmitter,
+        eventEmitter: this._eventEmitter,
         uiView: this.view
       });
 
@@ -96,7 +96,7 @@ class PlayerUI {
     } else {
       this.overlay = new Overlay({
         engine: this._engine,
-        eventEmitter: this.eventEmitter,
+        eventEmitter: this._eventEmitter,
         config: this.config.overlay
       });
 
@@ -113,7 +113,7 @@ class PlayerUI {
 
     this.loader = new Loader({
       engine: this._engine,
-      eventEmitter: this.eventEmitter,
+      eventEmitter: this._eventEmitter,
       config: this.config.loader
     });
 
@@ -129,7 +129,7 @@ class PlayerUI {
 
     this.controls = new ControlsBlock({
       engine: this._engine,
-      eventEmitter: this.eventEmitter,
+      eventEmitter: this._eventEmitter,
       uiView: this.view,
       config
     });
@@ -143,8 +143,8 @@ class PlayerUI {
     keys.forEach(key => {
       const component = new this.config.customUI[key]({
         engine: this._engine,
-        eventEmitter: this.eventEmitter,
-        uiView: this.view
+        eventEmitter: this._eventEmitter,
+        ui: this
       });
 
       this.customComponents[key] = component;
@@ -154,19 +154,19 @@ class PlayerUI {
   }
 
   _proxyFullScreenChange() {
-    this.eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED);
+    this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED);
   }
 
   _proxyMouseEnter() {
-    this.eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED);
   }
 
   _proxyMouseMove() {
-    this.eventEmitter.emit(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED);
   }
 
   _proxyMouseLeave() {
-    this.eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED);
   }
 
   hide() {
@@ -219,7 +219,7 @@ class PlayerUI {
     this.view.destroy();
     delete this.view;
 
-    delete this.eventEmitter;
+    delete this._eventEmitter;
     delete this._engine;
     delete this.config;
   }
