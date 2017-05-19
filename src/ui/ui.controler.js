@@ -134,7 +134,7 @@ class PlayerUI {
       config
     });
 
-    this.view.appendComponentNode(this.controls.node);
+    this.screen.view.appendComponentNode(this.controls.node);
   }
 
   _initCustomUI() {
@@ -149,7 +149,7 @@ class PlayerUI {
 
       this.customComponents[key] = component;
 
-      this.view.appendComponentNode(component.getNode());
+      this.screen.view.appendComponentNode(component.getNode());
     });
   }
 

@@ -44,6 +44,10 @@ export default class ScreenView {
     this.$node[0].removeEventListener('keypress', this._callbacks.onWrapperKeyPress);
   }
 
+  appendComponentNode(node) {
+    this.$node.append(node);
+  }
+
   destroy() {
     this._unbindEvents();
     this.$node.remove();
