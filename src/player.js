@@ -137,6 +137,14 @@ class Player {
     this._engine.setSrc(src);
   }
 
+  enterFullScreen() {
+    this.ui.view.enterFullScreen();
+  }
+
+  exitFullScreen() {
+    this.ui.view.exitFullScreen();
+  }
+
   on(name, callback) {
     this._eventEmitter.on(name, callback);
   }
