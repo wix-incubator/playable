@@ -187,6 +187,14 @@ class PlayerUI {
     this.view.setHeight(height);
   }
 
+  enterFullScreen() {
+    this.view.enterFullScreen();
+  }
+
+  exitFullScreen() {
+    this.view.exitFullScreen();
+  }
+
   destroy() {
     if (this.controls) {
       this.controls.destroy();
