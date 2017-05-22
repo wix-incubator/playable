@@ -5,7 +5,8 @@
     "name": "Oleksii Makodzeba",
     "email": "oleksiim@wix.com"
   },
-  "main": "dist/statics/video-player.bundle.js",
+  "main": "dist/statics/video-player.bundle.min.js",
+  "module": "src/index.js",
   "files": [
     "dist"
   ],
