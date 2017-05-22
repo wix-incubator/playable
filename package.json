@@ -5,10 +5,11 @@
     "name": "Oleksii Makodzeba",
     "email": "oleksiim@wix.com"
   },
-  "main": "dist/statics/video-player.bundle.min.js",
+  "main": "dist/statics/video-player.bundle.js",
   "module": "src/index.js",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "start": "yoshi start --entry-point=./server/start-fake-server.js",
