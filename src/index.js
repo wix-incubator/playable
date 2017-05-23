@@ -9,7 +9,7 @@ import Loader from './ui/loader/loader.controler';
 
 const DefaultComponents = {
   Overlay,
-  Loader,
+  Loader
 };
 
 export {
@@ -19,7 +19,7 @@ export {
   VIDEO_EVENTS,
   PLAYBACK_STATUSES,
   MediaStreamTypes,
-  Player,
+  Player
 };
 
 export default {
@@ -29,5 +29,5 @@ export default {
   VIDEO_EVENTS,
   PLAYBACK_STATUSES,
   MediaStreamTypes,
-  Player,
+  Player
 };
