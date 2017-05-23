@@ -6,6 +6,7 @@
     "email": "oleksiim@wix.com"
   },
   "main": "dist/statics/video-player.bundle.js",
+  "jsnext:main": "src/index.js",
   "module": "src/index.js",
   "files": [
     "dist",
