@@ -6,11 +6,8 @@
     "email": "oleksiim@wix.com"
   },
   "main": "dist/statics/video-player.bundle.js",
-  "jsnext:main": "src/index.js",
-  "module": "src/index.js",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "start": "yoshi start --entry-point=./server/start-fake-server.js",
