@@ -11,6 +11,7 @@ export default class Loader {
     this.isHidden = false;
     this._engine = engine;
     this._updateInterval = null;
+    this._delayedUpdateTimeout = null;
     this.config = {
       ...config
     };
@@ -28,15 +29,23 @@ export default class Loader {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this.show);
-    this._eventEmitter.on(VIDEO_EVENTS.CAN_PLAY, this.hide);
+    this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._setDelayedUpdate, this);
+    this._eventEmitter.on(VIDEO_EVENTS.CAN_PLAY, this.hide, this);
   }
 
   _bindCallbacks() {
-    this.show = this.show.bind(this);
-    this.hide = this.hide.bind(this);
+    this._startIntervalUpdates = this._startIntervalUpdates.bind(this);
+    this._updateState = this._updateState.bind(this);
+  }
 
-    this._updateOnInterval = this._updateOnInterval.bind(this);
+  _stopUpdateWhileSeek() {
+    this.hide();
+    this._stopIntervalUpdates();
+  }
+
+  _startUpdateAfterSeek() {
+    this._updateState();
+    this._startIntervalUpdates();
   }
 
   _initUI() {
@@ -63,7 +72,7 @@ export default class Loader {
     }
   }
 
-  _updateOnInterval() {
+  _updateState() {
     const readyState = this._engine.getReadyState();
 
     if (readyState < 3) {
@@ -73,8 +82,18 @@ export default class Loader {
     }
   }
 
+  _setDelayedUpdate() {
+    this._stopIntervalUpdates();
+    this._delayedUpdateTimeout = setTimeout(this._startIntervalUpdates, 100);
+  }
+
+  _clearDelayedUpdate() {
+    clearTimeout(this._delayedUpdateTimeout);
+    this._delayedUpdateTimeout = null;
+  }
+
   _startIntervalUpdates() {
-    this._updateInterval = setInterval(this._updateOnInterval, 250);
+    this._updateInterval = setInterval(this._updateState, 250);
   }
 
   _stopIntervalUpdates() {
@@ -83,12 +102,13 @@ export default class Loader {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this.show);
-    this._eventEmitter.off(VIDEO_EVENTS.CAN_PLAY, this.hide);
+    this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._setDelayedUpdate, this);
+    this._eventEmitter.off(VIDEO_EVENTS.CAN_PLAY, this.hide, this);
   }
 
   destroy() {
     this._stopIntervalUpdates();
+    this._clearDelayedUpdate();
     this._unbindEvents();
     this.view.destroy();
     delete this.view;
