@@ -20,6 +20,10 @@ export default class Engine {
   _initEventsProxy() {
     const videoEl = this._vidi.getVideoElement();
 
+    this._vidi.on('error', error => {
+      this._eventEmitter.emit(VIDEO_EVENTS.ERROR, error);
+    });
+
     this._vidi.on('statuschange', status => {
       this._eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, status);
     });
