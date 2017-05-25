@@ -1,5 +1,3 @@
-import fullscreen from '../../utils/fullscreen';
-
 import { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
@@ -82,7 +80,7 @@ export default class Screen {
   }
 
   _toggleFullScreen() {
-    if (fullscreen.isFullscreen) {
+    if (this._uiView.isInFullScreen()) {
       this._exitFullScreen();
     } else {
       this._enterFullScreen();

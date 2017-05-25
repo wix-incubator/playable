@@ -120,6 +120,10 @@ export default class PlayerUIView {
     this._setFullScreenStatus(false);
   }
 
+  isInFullScreen() {
+    return fullscreen.isInFullScreen();
+  }
+
   _unbindEvents() {
     document.removeEventListener(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
   }

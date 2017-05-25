@@ -54,6 +54,7 @@ describe('Loader', () => {
       getNode() {
         return new $('<video>');
       },
+      isInFullScreen() {},
       exitFullScreen() {},
       enterFullScreen() {}
     };
