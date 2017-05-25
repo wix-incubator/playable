@@ -19,7 +19,6 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
   height: 15px;
 
   cursor: pointer;
-  transition: transform .15s ease;
 
   border: none;
   border-radius: 100%;
@@ -143,7 +142,7 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
   }
   &::-ms-thumb {
     // For some reason, Edge uses the -webkit margin above
-    margin-top: 0;
+    margin-top: -1px;
 
     @include range-thumb();
   }
@@ -156,18 +155,6 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
   }
   &::-moz-focus-outer {
     border: 0;
-  }
-
-  &:active {
-    &::-webkit-slider-thumb {
-      transform: scale(1.25);
-    }
-    &::-moz-range-thumb {
-      transform: scale(1.25);
-    }
-    &::-ms-thumb {
-      transform: scale(1.25);
-    }
   }
 }
 
