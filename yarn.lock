@@ -1423,9 +1423,9 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codem-isoboxer@0.2.7:
-  version "0.2.7"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/codem-isoboxer/-/codem-isoboxer-0.2.7.tgz#a4291993d68bf7b344cff53dc2c6279503dc5f42"
+codem-isoboxer@^0.3.2:
+  version "0.3.3"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/codem-isoboxer/-/codem-isoboxer-0.3.3.tgz#5c81a7d9958da74259459ee2d2e23cae4795539a"
 
 collections@^0.2.0:
   version "0.2.2"
@@ -1877,11 +1877,11 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-dashjs@2.4.0:
-  version "2.4.0"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/dashjs/-/dashjs-2.4.0.tgz#c755de60147bd62429f0d83d283fd58d59eb81f6"
+dashjs@2.5.0:
+  version "2.5.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/dashjs/-/dashjs-2.5.0.tgz#92853a1e373911eff23f2afa7589817291396225"
   dependencies:
-    codem-isoboxer "0.2.7"
+    codem-isoboxer "^0.3.2"
     round10 "^1.0.3"
 
 date-now@^0.1.4:
@@ -2502,11 +2502,7 @@ eventemitter3@1.x.x:
   version "1.2.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/eventemitter3/-/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
 
-eventemitter3@2.0.2:
-  version "2.0.2"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/eventemitter3/-/eventemitter3-2.0.2.tgz#20ce4891909ce9f35b088c94fab40e2c96f473ac"
-
-eventemitter3@^2.0.2:
+eventemitter3@2.0.3, eventemitter3@^2.0.2:
   version "2.0.3"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/eventemitter3/-/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
 
@@ -3434,9 +3430,9 @@ he@1.1.x:
   version "1.1.1"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
-hls.js@0.6.17:
-  version "0.6.17"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/hls.js/-/hls.js-0.6.17.tgz#2757fceed232cb8b1c897e028863d0ecbd2abd3b"
+hls.js@0.7.8:
+  version "0.7.8"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/hls.js/-/hls.js-0.7.8.tgz#340ebf98ab1422a8192a944d34ec0c21ae9b7942"
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
@@ -7578,9 +7574,9 @@ url-loader@^0.5.7:
     loader-utils "^1.0.2"
     mime "1.3.x"
 
-url-toolkit@1.0.7:
-  version "1.0.7"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/url-toolkit/-/url-toolkit-1.0.7.tgz#7d1912929c48db268ae4fdbec5fdf1c6dabedec6"
+url-toolkit@2.1.1:
+  version "2.1.1"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/url-toolkit/-/url-toolkit-2.1.1.tgz#96c2da3cd672df1aa2ac7fc89240b2dcf5c99a80"
 
 url2@^0.0.0:
   version "0.0.0"
@@ -7671,14 +7667,14 @@ verror@1.6.0:
   dependencies:
     extsprintf "1.2.0"
 
-vidi@latest:
-  version "0.4.0"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/vidi/-/vidi-0.4.0.tgz#6c9995f89abaeeec6231bae9f25265e2446d6588"
+vidi@^0.5.0:
+  version "0.5.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/vidi/-/vidi-0.5.0.tgz#d230064a58c5e52cb4b680ff6d568de4afe27ef1"
   dependencies:
-    dashjs "2.4.0"
-    eventemitter3 "2.0.2"
-    hls.js "0.6.17"
-    url-toolkit "1.0.7"
+    dashjs "2.5.0"
+    eventemitter3 "2.0.3"
+    hls.js "0.7.8"
+    url-toolkit "2.1.1"
     webworkify "1.4.0"
 
 vinyl-file@^2.0.0:
