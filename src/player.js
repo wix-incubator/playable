@@ -65,21 +65,14 @@ class Player {
     if (iPhone || iPod || Android) {
       config.screen = {
         ...screen,
-        disableClickProcessing: true
+        disableClickProcessing: true,
+        nativeControls: true
       };
       config.loader = false;
       config.controls = false;
-
     } else {
       config.loader = loader;
       config.controls = controls;
-    }
-
-    if (Android) {
-      config.screen = {
-        ...config.screen,
-        nativeControls: true
-      };
     }
 
     this.ui = new PlayerUI({
