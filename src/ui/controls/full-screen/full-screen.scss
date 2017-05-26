@@ -13,5 +13,10 @@
   .icon {
     width: 18px;
     height: 14px;
+
+    transition: transform .2s;
+    &:hover {
+      transform: scale(1.20);
+    }
   }
 }

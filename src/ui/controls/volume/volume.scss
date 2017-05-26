@@ -43,9 +43,9 @@ $color: white !default;
     background: currentColor;
   }
   &::-ms-fill {
-    display: none;
-
+    //display: none;
     border: none;
+    border-radius: 100px;
   }
 }
 
@@ -56,7 +56,7 @@ $color: white !default;
 
   width: 18px;
   max-width: 18px;
-  height: 15px;
+  height: 25px;
   margin: 0 23px 0 15px;
 
   justify-content: center;
@@ -69,7 +69,7 @@ $color: white !default;
     &::-webkit-slider-thumb {
       width: 12px;
       height: 12px;
-      margin-top: -1px;
+      margin-top: -2px;
 
       -webkit-appearance: none;
     }
@@ -95,6 +95,17 @@ $color: white !default;
       width: 12px;
       height: 12px;
     }
+
+    &::-ms-track {
+      height: 2px;
+    }
+
+    &::-ms-fill-lower {
+      height: 2px;
+    }
+    &.volume-input::-ms-fill-lower {
+      height: 2px;
+    }
   }
   .volume-icon {
     height: 15px;
@@ -102,7 +113,7 @@ $color: white !default;
 
   .volume-inner-wrapper {
     position: absolute;
-    top: -82px;
+    top: -76px;
     left: -52px;
 
     display: flex;
@@ -110,11 +121,11 @@ $color: white !default;
     flex: 1;
 
     box-sizing: border-box;
-    min-width: 100px;
+    min-width: 120px;
     height: 34px;
     padding: 10px;
+    //transition: visibility .2s, opacity .2s, display .2s;
 
-    transition: visibility .2s, opacity .2s, display .2s;
     transform: rotate(-90deg);
 
     opacity: 0;

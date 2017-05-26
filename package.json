@@ -7,13 +7,14 @@
   },
   "main": "dist/statics/video-player.bundle.js",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "start": "yoshi start --entry-point=./server/start-fake-server.js",
     "lint": "yoshi lint",
-    "csscomb": "csscomb src/*",
-    "csscomb:lint": "csscomb -lv src/*",
+    "csscomb": "csscomb src/.",
+    "csscomb:lint": "csscomb -lv src/.",
     "test": "yoshi test --mocha",
     "build": "yoshi build",
     "deploy": "yoshi build && gh-pages -d dist/statics",
