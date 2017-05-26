@@ -8,7 +8,6 @@ import Loader from './loader/loader.controler';
 import Screen from './screen/screen.controler';
 
 const DEFAULT_CONFIG = {
-  size: {},
   overlay: false,
   customUI: {}
 };
@@ -42,7 +41,7 @@ class PlayerUI {
   }
 
   _initUI() {
-    const { width, height } = this.config.size;
+    const { width, height } = this.config;
     const config = {
       width,
       height,

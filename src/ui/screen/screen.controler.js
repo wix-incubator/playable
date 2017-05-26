@@ -39,10 +39,13 @@ export default class Screen {
     const config = {
       nativeControls: this.config.nativeControls,
       callbacks: {
-        onWrapperMouseClick: this._processNodeClick,
         onWrapperKeyPress: this._processKeyboardInput
       }
     };
+
+    if (!this.config.disableClickProcessing) {
+      config.callbacks.onWrapperMouseClick = this._processNodeClick;
+    }
 
     this.view = new View(config);
   }
@@ -62,18 +65,36 @@ export default class Screen {
       clearTimeout(this._delayedToggleVideoPlaybackTimeout);
       this._delayedToggleVideoPlaybackTimeout = null;
 
-      this.view.deactivatePlayIcon();
-      this.view.deactivatePauseIcon();
+      this._hideDelayedPlaybackChangeIndicator();
 
       this._toggleFullScreen();
     } else {
+      this._showDelayedPlaybackChangeIndicator();
+      this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
+    }
+  }
+
+  _showDelayedPlaybackChangeIndicator() {
+    if (this.config.indicateScreenClick) {
       const playbackState = this._engine.getPlaybackState();
+
       if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
         this.view.activatePauseIcon();
       } else {
         this.view.activatePlayIcon();
       }
-      this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
+    }
+  }
+
+  _hideDelayedPlaybackChangeIndicator() {
+    if (this.config.indicateScreenClick) {
+      const playbackState = this._engine.getPlaybackState();
+
+      if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
+        this.view.deactivatePlayIcon();
+      } else {
+        this.view.deactivatePauseIcon();
+      }
     }
   }
 
@@ -95,7 +116,6 @@ export default class Screen {
       this._enterFullScreen();
     }
   }
-
 
   hide() {
     if (!this.isHidden) {

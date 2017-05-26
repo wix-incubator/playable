@@ -18,6 +18,7 @@ class Player {
     controls,
     overlay,
     loader,
+    screen,
     customUI = {}
   }) {
 
@@ -45,7 +46,7 @@ class Player {
     }
 
 
-    this._createUI(size, controls, overlay, loader, customUI);
+    this._createUI(size, controls, overlay, loader, screen, customUI);
 
     this._engine.setSrc(src);
 
@@ -53,30 +54,33 @@ class Player {
     this.pause = this.pause.bind(this);
   }
 
-  _createUI(size, controls, overlay, loader, customUI) {
+  _createUI(size, controls, overlay, loader, screen, customUI) {
     const config = {
+      ...size,
+      overlay,
+      screen,
       customUI
     };
 
-    if (size) {
-      config.size = size;
-    }
-
-    config.controls = controls;
-
     if (iPhone || iPod || Android) {
+      config.screen = {
+        ...screen,
+        disableClickProcessing: true
+      };
+      config.loader = false;
       config.controls = false;
+
+    } else {
+      config.loader = loader;
+      config.controls = controls;
     }
 
     if (Android) {
       config.screen = {
+        ...config.screen,
         nativeControls: true
       };
     }
-
-    config.overlay = overlay;
-
-    config.loader = loader;
 
     this.ui = new PlayerUI({
       engine: this._engine,
@@ -145,6 +149,14 @@ class Player {
     this._eventEmitter.off(name, callback);
   }
 
+  play() {
+    this._engine.play();
+  }
+
+  pause() {
+    this._engine.pause();
+  }
+
   _unbindAllEvents() {
     const eventsName = this._eventEmitter.eventNames();
 
@@ -162,15 +174,6 @@ class Player {
 
     this._engine.destroy();
     delete this._engine;
-  }
-
-  play() {
-    this._engine.play();
-  }
-
-
-  pause() {
-    this._engine.pause();
   }
 }
 
