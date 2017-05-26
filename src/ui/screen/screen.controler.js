@@ -62,8 +62,17 @@ export default class Screen {
       clearTimeout(this._delayedToggleVideoPlaybackTimeout);
       this._delayedToggleVideoPlaybackTimeout = null;
 
+      this.view.deactivatePlayIcon();
+      this.view.deactivatePauseIcon();
+
       this._toggleFullScreen();
     } else {
+      const playbackState = this._engine.getPlaybackState();
+      if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
+        this.view.activatePauseIcon();
+      } else {
+        this.view.activatePlayIcon();
+      }
       this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
     }
   }

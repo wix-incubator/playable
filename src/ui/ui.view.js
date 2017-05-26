@@ -121,7 +121,7 @@ export default class PlayerUIView {
   }
 
   isInFullScreen() {
-    return fullscreen.isFullscreen();
+    return fullscreen.isFullscreen;
   }
 
   _unbindEvents() {

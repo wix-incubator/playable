@@ -1,4 +1,39 @@
-@import '../shared';
+.big-icon {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  visibility: visible;
+
+  opacity: 1;
+
+  justify-content: center;
+  align-items: center;
+
+  img {
+    position: relative;
+
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.disabled {
+  display: none;
+}
+
+.fade-out {
+  visibility: hidden;
+
+  transition: visibility 1s, opacity 1s, transform 1s;
+  transform: scale(1.25);
+
+  opacity: 0;
+}
 
 .screen-block {
   position: absolute;
