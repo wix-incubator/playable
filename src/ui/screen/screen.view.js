@@ -16,7 +16,7 @@ export default class ScreenView {
     });
 
     this.$playIconWrapper = $('<div>', {
-      class: `${styles['big-icon']} ${styles.disabled}`
+      class: `${styles['big-icon']}`
     });
 
     this.$playIcon = $('<img>', {
@@ -26,7 +26,7 @@ export default class ScreenView {
     this.$playIconWrapper.append(this.$playIcon);
 
     this.$pauseIconWrapper = $('<div>', {
-      class: `${styles['big-icon']} ${styles.disabled}`
+      class: `${styles['big-icon']}`
     });
 
     this.$pauseIcon = $('<img>', {
@@ -35,8 +35,6 @@ export default class ScreenView {
 
     this.$pauseIconWrapper.append(this.$pauseIcon);
 
-
-    this.$node.append(this.$playIconWrapper).append(this.$pauseIconWrapper);
 
     this._bindEvents();
   }
@@ -48,34 +46,20 @@ export default class ScreenView {
 
   activatePlayIcon() {
     this.deactivatePauseIcon();
-    this.$playIconWrapper.toggleClass(styles['fade-out'], false);
-    this.$playIconWrapper.toggleClass(styles.disabled, false);
-    setTimeout(() => this.$playIconWrapper.toggleClass(styles['fade-out'], true), 10);
+    this.$node.append(this.$playIconWrapper);
   }
 
   deactivatePlayIcon() {
-    this.$playIconWrapper.toggleClass(styles.disabled, true);
+    this.$playIconWrapper.remove();
   }
 
   activatePauseIcon() {
     this.deactivatePlayIcon();
-    this.$pauseIconWrapper.toggleClass(styles['fade-out'], false);
-    this.$pauseIconWrapper.toggleClass(styles.disabled, false);
-    setTimeout(() => this.$pauseIconWrapper.toggleClass(styles['fade-out'], true), 10);
+    this.$node.append(this.$pauseIconWrapper);
   }
 
   deactivatePauseIcon() {
-    this.$pauseIconWrapper.toggleClass(styles.disabled, true);
-  }
-
-  _deactivatePlayIcon() {
-    this.$playIconWrapper.toggleClass(styles.disabled, true);
-    this.$playIconWrapper.toggleClass(styles.hidden, false);
-  }
-
-  _deactivatePauseIcon() {
-    this.$pauseIconWrapper.toggleClass(styles.disabled, true);
-    this.$pauseIconWrapper.toggleClass(styles.hidden, false);
+    this.$pauseIconWrapper.remove();
   }
 
   show() {

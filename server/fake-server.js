@@ -1,7 +1,7 @@
 import express from 'express';
 import { render } from './tmpl';
 
-export function start(port = 3000) {
+export function start(port = 4000) {
   const app = express();
 
   app.use('/', (req, res) => {

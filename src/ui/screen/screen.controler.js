@@ -89,7 +89,7 @@ export default class Screen {
   }
 
   _toggleFullScreen() {
-    if (this._uiView.isInFullScreen()) {
+    if (this._uiView.isInFullScreen) {
       this._exitFullScreen();
     } else {
       this._enterFullScreen();
