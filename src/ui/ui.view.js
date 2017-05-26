@@ -120,7 +120,7 @@ export default class PlayerUIView {
     this._setFullScreenStatus(false);
   }
 
-  isInFullScreen() {
+  get isInFullScreen() {
     return fullscreen.isFullscreen;
   }
 

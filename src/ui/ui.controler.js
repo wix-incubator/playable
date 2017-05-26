@@ -195,6 +195,10 @@ class PlayerUI {
     this.view.exitFullScreen();
   }
 
+  get isInFullScreen() {
+    return this.view.isInFullScreen;
+  }
+
   destroy() {
     if (this.controls) {
       this.controls.destroy();
