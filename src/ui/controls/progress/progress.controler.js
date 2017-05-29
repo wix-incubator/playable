@@ -117,14 +117,19 @@ export default class ProgressControl {
   }
 
   _pauseVideoOnProgressManipulationStart() {
+    this._previousPlaybackStatus = this._engine.getPlaybackState().status;
     this._engine.pause();
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
   }
 
   _playVideoOnProgressManipulationEnd() {
-    this._engine.play();
+    if (this._previousPlaybackStatus === VIDI_PLAYBACK_STATUSES.PLAYING ||
+      this._previousPlaybackStatus === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+      this._engine.play();
+    }
 
+    this._previousPlaybackStatus = null;
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
   }
 

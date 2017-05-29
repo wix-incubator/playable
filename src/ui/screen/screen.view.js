@@ -1,8 +1,5 @@
 import $ from 'jbone';
 
-import playIconSVG from '../controls/play/svg/play-icon.svg';
-import pauseIconSVG from '../controls/play/svg/pause-icon.svg';
-
 import styles from './screen.scss';
 
 
@@ -15,26 +12,17 @@ export default class ScreenView {
       tabIndex: 0
     });
 
-    this.$playIconWrapper = $('<div>', {
-      class: `${styles['big-icon']}`
+    this.$iconContainer = $('<div>', {
+      class: `${styles['icon-container']}`
     });
 
-    this.$playIcon = $('<img>', {
-      src: playIconSVG
+    this.$icon = $('<div>', {
+      class: `${styles.icon}`
     });
 
-    this.$playIconWrapper.append(this.$playIcon);
+    this.$iconContainer.append(this.$icon);
 
-    this.$pauseIconWrapper = $('<div>', {
-      class: `${styles['big-icon']}`
-    });
-
-    this.$pauseIcon = $('<img>', {
-      src: pauseIconSVG
-    });
-
-    this.$pauseIconWrapper.append(this.$pauseIcon);
-
+    this.$node.append(this.$iconContainer);
 
     this._bindEvents();
   }
@@ -45,21 +33,18 @@ export default class ScreenView {
   }
 
   activatePlayIcon() {
-    this.deactivatePauseIcon();
-    this.$node.append(this.$playIconWrapper);
-  }
-
-  deactivatePlayIcon() {
-    this.$playIconWrapper.remove();
+    this.$icon.toggleClass(styles.pause, false);
+    this.$icon.toggleClass(styles.play, true);
   }
 
   activatePauseIcon() {
-    this.deactivatePlayIcon();
-    this.$node.append(this.$pauseIconWrapper);
+    this.$icon.toggleClass(styles.play, false);
+    this.$icon.toggleClass(styles.pause, true);
   }
 
-  deactivatePauseIcon() {
-    this.$pauseIconWrapper.remove();
+  deactivateIcon() {
+    this.$icon.toggleClass(styles.play, false);
+    this.$icon.toggleClass(styles.pause, false);
   }
 
   show() {

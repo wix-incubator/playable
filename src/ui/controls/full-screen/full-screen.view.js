@@ -1,8 +1,5 @@
 import $ from 'jbone';
 
-import enterFullScreenIconSVG from './svg/full-screen.svg';
-import exitFullScreenIconSVG from './svg/exit-full-screen.svg';
-
 import styles from './full-screen.scss';
 
 
@@ -13,31 +10,22 @@ export default class FullScreenView {
       class: styles['full-screen-control']
     });
 
-    this.$enterIcon = $('<img>', {
-      class: `${styles['full-screen-enter-icon']} ${styles.icon}`,
-      src: enterFullScreenIconSVG
-    });
-
-    this.$exitIcon = $('<img>', {
-      class: `${styles['full-screen-exit-icon']} ${styles.icon}`,
-      src: exitFullScreenIconSVG
+    this.$toggleFullScreenControl = $('<div>', {
+      class: `${styles['full-screen-toggle']} ${styles.icon}`
     });
 
     this.$node
-      .append(this.$enterIcon)
-      .append(this.$exitIcon);
+      .append(this.$toggleFullScreenControl);
 
     this._bindEvents();
   }
 
   _bindEvents() {
-    this.$enterIcon.on('click', this._callbacks.onEnterFullScreenButtonClick);
-    this.$exitIcon.on('click', this._callbacks.onExitFullScreenButtonClick);
+    this.$toggleFullScreenControl.on('click', this._callbacks.onToggleFullScreenButtonClick);
   }
 
   setFullScreenStatus(isFullScreen) {
-    this.$enterIcon.toggleClass(styles.hidden, isFullScreen);
-    this.$exitIcon.toggleClass(styles.hidden, !isFullScreen);
+    this.$toggleFullScreenControl.toggleClass(styles['in-full-screen'], isFullScreen);
   }
 
   hide() {
@@ -49,8 +37,7 @@ export default class FullScreenView {
   }
 
   _unbindEvents() {
-    this.$enterIcon.off('click', this._callbacks.onEnterFullScreenButtonClick);
-    this.$exitIcon.off('click', this._callbacks.onExitFullScreenButtonClick);
+    this.$toggleFullScreenControl.off('click', this._callbacks.onToggleFullScreenButtonClick);
   }
 
   getNode() {
@@ -61,8 +48,7 @@ export default class FullScreenView {
     this._unbindEvents();
     this.$node.remove();
 
-    delete this.$exitIcon;
-    delete this.$enterIcon;
+    delete this.$toggleFullScreenControl;
     delete this.$node;
   }
 }

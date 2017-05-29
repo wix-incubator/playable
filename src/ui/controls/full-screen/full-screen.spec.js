@@ -105,15 +105,12 @@ describe('FullScreenControl', () => {
 
   describe('View', () => {
     it('should react on play/pause icon click' , () => {
-      const enterSpy = sinon.spy(control, '_enterFullScreen');
-      const exitSpy = sinon.spy(control, '_exitFullScreen');
+      const toggleSpy = sinon.spy(control, '_toggleFullScreen');
       control._bindCallbacks();
       control._initUI();
 
-      control.view.$enterIcon.trigger('click');
-      expect(enterSpy.called).to.be.true;
-      control.view.$exitIcon.trigger('click');
-      expect(exitSpy.called).to.be.true;
+      control.view.$toggleFullScreenControl.trigger('click');
+      expect(toggleSpy.called).to.be.true;
     });
 
     it('should have method for setting current time', () => {

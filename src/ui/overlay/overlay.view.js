@@ -1,7 +1,5 @@
 import $ from 'jbone';
 
-import playIconSVG from './svg/play-icon.svg';
-
 import styles from './overlay.scss';
 
 
@@ -19,8 +17,7 @@ export default class OverlayView {
       this.$content.css('background-image', `url('${src}')`);
     }
 
-    this.$playButton = $('<img>', {
-      src: playIconSVG,
+    this.$playButton = $('<div>', {
       class: styles.icon
     });
 

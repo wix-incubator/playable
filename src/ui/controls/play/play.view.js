@@ -1,8 +1,5 @@
 import $ from 'jbone';
 
-import playIconSVG from './svg/play-icon.svg';
-import pauseIconSVG from './svg/pause-icon.svg';
-
 import styles from './play.scss';
 
 
@@ -13,36 +10,26 @@ export default class PlayView {
       class: styles['play-control']
     });
 
-    this.$playIcon = $('<img>', {
-      class: `${styles['play-icon']} ${styles.icon}`,
-      src: playIconSVG
-    });
-
-    this.$pauseIcon = $('<img>', {
-      class: `${styles['pause-icon']} ${styles.icon}`,
-      src: pauseIconSVG
+    this.$playbackControl = $('<div>', {
+      class: `${styles['playback-toggle']} ${styles.icon}`
     });
 
     this.$node
-      .append(this.$pauseIcon)
-      .append(this.$playIcon);
+      .append(this.$playbackControl);
 
     this._bindEvents();
   }
 
   _bindEvents() {
-    this.$playIcon.on('click', this._callbacks.onPlayButtonClick);
-    this.$pauseIcon.on('click', this._callbacks.onPauseButtonClick);
+    this.$playbackControl.on('click', this._callbacks.onTogglePlaybackButtonClick);
   }
 
   _unbindEvents() {
-    this.$playIcon.off('click', this._callbacks.onPlayButtonClick);
-    this.$pauseIcon.off('click', this._callbacks.onPauseButtonClick);
+    this.$playbackControl.off('click', this._callbacks.onTogglePlaybackButtonClick);
   }
 
   setPlaybackStatus(isPlaying) {
-    this.$playIcon.toggleClass(styles.hidden, isPlaying);
-    this.$pauseIcon.toggleClass(styles.hidden, !isPlaying);
+    this.$playbackControl.toggleClass(styles.paused, !isPlaying);
   }
 
   show() {
@@ -61,8 +48,7 @@ export default class PlayView {
     this._unbindEvents();
     this.$node.remove();
 
-    delete this.$playIcon;
-    delete this.$pauseIcon;
+    delete this.$playbackControl;
     delete this.$node;
   }
 }

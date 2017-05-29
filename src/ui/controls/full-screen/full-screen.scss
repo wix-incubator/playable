@@ -10,13 +10,23 @@
   align-items: center;
   justify-content: center;
 
-  .icon {
+  .full-screen-toggle {
     width: 18px;
-    height: 14px;
+    min-width: 18px;
+    height: 15px;
+    min-height: 15px;
 
     transition: transform .2s;
+
+    background-image: url('./svg/full-screen.svg');
+    background-size: 18px 15px;
+
     &:hover {
       transform: scale(1.20);
+    }
+
+    &.in-full-screen {
+      background-image: url('./svg/exit-full-screen.svg');
     }
   }
 }

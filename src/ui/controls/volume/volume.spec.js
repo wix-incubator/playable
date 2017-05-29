@@ -113,14 +113,14 @@ describe('VolumeControl', () => {
 
     it('should change volume level and mute status of video', () => {
       const volumeSpy = sinon.spy(control, '_changeVolumeLevel');
-      const muteSpy = sinon.spy(control, '_changeMuteStatus');
+      const muteSpy = sinon.spy(control, '_toggleMuteStatus');
 
       control._changeVolumeStatus(90);
       expect(volumeSpy.calledWith(0.9)).to.be.true;
       expect(muteSpy.called).to.be.false;
       control._isMuted = true;
       control._changeVolumeStatus(90);
-      expect(muteSpy.calledWith(false)).to.be.true;
+      expect(muteSpy.called).to.be.true;
     });
   });
 
@@ -150,17 +150,17 @@ describe('VolumeControl', () => {
     });
 
     it('should react on mute button click', () => {
-      const callback = sinon.spy(control.view, "_onMuteClick");
-      control.view._bindEvents();
+      const callback = sinon.spy(control, "_toggleMuteStatus");
+      control._bindCallbacks();
+      control._initUI();
 
-      control.view.$volumeIcon.trigger('click');
+      control.view.$muteControl.trigger('click');
       expect(callback.called).to.be.true;
     });
 
     it('should call callbacks', () => {
       const inputSpy = sinon.spy(control, '_getVolumeLevelFromInput');
       const wheelSpy = sinon.spy(control, '_getVolumeLevelFromWheel');
-      const muteSpy = sinon.spy(control, '_changeMuteStatus');
 
       control._bindCallbacks();
       control._initUI();
@@ -172,8 +172,6 @@ describe('VolumeControl', () => {
         deltaY: 10
       });
       expect(wheelSpy.called).to.be.true;
-      control.view._onMuteClick();
-      expect(muteSpy.called).to.be.true;
     });
 
     it('should have method for setting current time', () => {

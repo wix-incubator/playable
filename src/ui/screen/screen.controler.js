@@ -88,13 +88,7 @@ export default class Screen {
 
   _hideDelayedPlaybackChangeIndicator() {
     if (this.config.indicateScreenClick) {
-      const playbackState = this._engine.getPlaybackState();
-
-      if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
-        this.view.deactivatePlayIcon();
-      } else {
-        this.view.deactivatePauseIcon();
-      }
+      this.view.deactivateIcon();
     }
   }
 

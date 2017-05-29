@@ -97,15 +97,12 @@ describe('PlayControl', () => {
 
   describe('View', () => {
     it('should react on play/pause icon click' , () => {
-      const playSpy = sinon.spy(control, '_playVideo');
-      const pauseSpy = sinon.spy(control, '_pauseVideo');
+      const toggleSpy = sinon.spy(control, '_togglePlayback');
       control._bindCallbacks();
       control._initUI();
 
-      control.view.$playIcon.trigger('click');
-      expect(playSpy.called).to.be.true;
-      control.view.$pauseIcon.trigger('click');
-      expect(pauseSpy.called).to.be.true;
+      control.view.$playbackControl.trigger('click');
+      expect(toggleSpy.called).to.be.true;
     });
 
     it('should have method for setting current time', () => {

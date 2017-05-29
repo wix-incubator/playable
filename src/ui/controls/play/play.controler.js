@@ -11,6 +11,8 @@ export default class PlayControl {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
 
+    this._isPlaying = null;
+
     this._bindCallbacks();
     this._initUI(view);
     this._bindEvents();
@@ -23,13 +25,20 @@ export default class PlayControl {
   }
 
   _bindCallbacks() {
-    this._playVideo = this._playVideo.bind(this);
-    this._pauseVideo = this._pauseVideo.bind(this);
+    this._togglePlayback = this._togglePlayback.bind(this);
   }
 
   _bindEvents() {
     this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
     this._eventEmitter.on(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
+  }
+
+  _togglePlayback() {
+    if (this._isPlaying) {
+      this._pauseVideo();
+    } else {
+      this._playVideo();
+    }
   }
 
   _playVideo() {
@@ -55,8 +64,7 @@ export default class PlayControl {
   _initUI(view) {
     const config = {
       callbacks: {
-        onPlayButtonClick: this._playVideo,
-        onPauseButtonClick: this._pauseVideo
+        onTogglePlaybackButtonClick: this._togglePlayback
       }
     };
 
@@ -68,7 +76,8 @@ export default class PlayControl {
   }
 
   setControlStatus(isPlaying) {
-    this.view.setPlaybackStatus(isPlaying);
+    this._isPlaying = isPlaying;
+    this.view.setPlaybackStatus(this._isPlaying);
   }
 
   _unbindEvents() {
@@ -87,7 +96,5 @@ export default class PlayControl {
 
     delete this._eventEmitter;
     delete this._engine;
-
-    delete this._callbacks;
   }
 }

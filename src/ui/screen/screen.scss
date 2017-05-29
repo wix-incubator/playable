@@ -1,4 +1,4 @@
-.big-icon {
+.icon-container {
   position: absolute;
   z-index: 1;
   top: 0;
@@ -11,22 +11,35 @@
   justify-content: center;
   align-items: center;
 
-  img {
+  .icon {
     position: relative;
 
-    animation-name: fade-out;
     animation-duration: .5s;
 
     opacity: 0;
+    background-size: 60px 60px;
+
+    &.play {
+      animation-name: fade-out-play;
+
+      background-image: url('../controls/play/svg/play-icon.svg');
+    }
+
+    &.pause {
+      animation-name: fade-out-pause;
+
+      background-image: url('../controls/play/svg/pause-icon.svg');
+    }
   }
 }
 
-@keyframes fade-out {
+@keyframes fade-out-play {
   from {
     width: 60px;
     height: 60px;
 
     opacity: 1;
+    background-size: 60px 60px;
   }
 
   to {
@@ -34,6 +47,25 @@
     height: 75px;
 
     opacity: 0;
+    background-size: 75px 75px;
+  }
+}
+
+@keyframes fade-out-pause {
+  from {
+    width: 60px;
+    height: 60px;
+
+    opacity: 1;
+    background-size: 60px 60px;
+  }
+
+  to {
+    width: 75px;
+    height: 75px;
+
+    opacity: 0;
+    background-size: 75px 75px;
   }
 }
 

@@ -1,5 +1,5 @@
 module.exports = wallaby => {
-  const config = require('wix-node-build/config/wallaby-mocha')(wallaby);
+  const config = require('yoshi/config/wallaby-mocha')(wallaby);
   const { hints } = config;
   config.hints = {
     hints,

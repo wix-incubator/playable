@@ -20,18 +20,15 @@
   align-items: center;
 
   .icon {
+    width: 71px;
+    height: 71px;
+
     opacity: 1;
+    background-image: url('./svg/play-icon.svg');
+    background-size: 100%;
 
     &:hover {
       opacity: .8;
-    }
-  }
-
-  .play-wrapper {
-    img {
-      width: 14px;
-      height: 14px;
-      margin-right: 5px;
     }
   }
 }

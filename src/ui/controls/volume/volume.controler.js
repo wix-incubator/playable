@@ -33,7 +33,7 @@ export default class VolumeControl {
       callbacks: {
         onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
-        onMuteStatusChange: this._changeMuteStatus
+        onToggleMuteClick: this._toggleMuteStatus
       }
     };
 
@@ -50,7 +50,7 @@ export default class VolumeControl {
 
   _bindCallbacks() {
     this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
-    this._changeMuteStatus = this._changeMuteStatus.bind(this);
+    this._toggleMuteStatus = this._toggleMuteStatus.bind(this);
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
   }
 
@@ -67,7 +67,7 @@ export default class VolumeControl {
     this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
   }
 
-  _changeMuteStatus() {
+  _toggleMuteStatus() {
     this._engine.setMute(!this._isMuted);
     this._eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, !this._isMuted);
   }
@@ -86,7 +86,7 @@ export default class VolumeControl {
   _changeVolumeStatus(level) {
     this._changeVolumeLevel(this._convertVolumeLevelToVideoVolume(level));
     if (this._isMuted) {
-      this._changeMuteStatus(!this._isMuted);
+      this._toggleMuteStatus();
     }
   }
 

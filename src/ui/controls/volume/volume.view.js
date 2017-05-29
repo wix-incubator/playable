@@ -1,15 +1,9 @@
 import $ from 'jbone';
 
-import volumeFullSVG from './svg/volume-100.svg';
-import volumeMidSVG from './svg/volume-50.svg';
-import volumeMutedSVG from './svg/volume-0.svg';
-
-import { iPad } from '../../../utils/device-detection';
-
 import styles from './volume.scss';
 
+
 const MAX_VOLUME_ICON_RANGE = 50;
-const MID_VOLUME_ICON_RANGE = 25;
 
 export default class VolumeView {
   constructor({ callbacks }) {
@@ -18,34 +12,30 @@ export default class VolumeView {
       class: styles['volume-control']
     });
 
-    this.$volumeIcon = $('<img>', {
-      class: `${styles['volume-icon']} ${styles.icon}`,
-      src: volumeFullSVG
+    this.$muteControl = $('<div>', {
+      class: `${styles['mute-button']} ${styles.icon}`
     });
 
-    this.$volumeMutedIcon = $('<img>', {
-      class: `${styles['volume-icon']} ${styles.icon}`,
-      src: volumeMutedSVG
+    this.$container = $('<div>', {
+      class: styles.container
     });
 
-    const $innerWrapper = $('<div>', {
-      class: styles['volume-inner-wrapper']
+    const $content = $('<div>', {
+      class: styles.content
     });
 
     const $inputWrapper = $('<div>', {
-      class: styles['volume-input-wrapper']
+      class: styles['input-wrapper']
     });
 
-    this.$volumeLevel = $('<progress>', {
-      class: styles['volume-level'],
-      role: 'played',
-      max: 100,
-      value: 0
+    this.$filledProgress = $('<div>', {
+      class: styles['filled-progress']
     });
 
     this.$input = $('<input>', {
-      class: `${styles['volume-input']} ${styles['range-control']}`,
+      class: `${styles['volume-input']}`,
       id: 'volume-input',
+      orient: 'vertical',
       type: 'range',
       min: 0,
       max: 100,
@@ -54,19 +44,15 @@ export default class VolumeView {
     });
 
     $inputWrapper
-      .append(this.$input)
-      .append(this.$volumeLevel);
+      .append(this.$filledProgress)
+      .append(this.$input);
 
-    $innerWrapper.append($inputWrapper);
+    $content.append($inputWrapper);
+    this.$container.append($content);
 
     this.$node
-      .append(this.$volumeIcon)
-      .append(this.$volumeMutedIcon)
-      .append($innerWrapper);
-
-    if (iPad) {
-      $innerWrapper.toggleClass(styles.hidden, true);
-    }
+      .append(this.$muteControl)
+      .append(this.$container);
 
     this._bindEvents();
   }
@@ -85,61 +71,58 @@ export default class VolumeView {
     this._callbacks.onVolumeLevelChangeFromWheel(e.deltaY);
   }
 
-  _onMuteClick() {
-    this._callbacks.onMuteStatusChange();
+  _stopPropagationForContainer(event) {
+    event.stopPropagation();
   }
 
   _bindEvents() {
     this._onInputChange = this._onInputChange.bind(this);
     this._onWheel = this._onWheel.bind(this);
-    this._onMuteClick = this._onMuteClick.bind(this);
 
-    this.$node
-      .on('wheel', this._onWheel);
+    this.$node[0]
+      .addEventListener('wheel', this._onWheel);
+
+    this.$container[0]
+      .addEventListener('click', this._stopPropagationForContainer);
 
     this.$input
       .on('change', this._onInputChange)
       .on('input', this._onInputChange);
 
-    this.$volumeIcon
-      .on('click', this._onMuteClick);
-
-    this.$volumeMutedIcon
-      .on('click', this._onMuteClick);
+    this.$muteControl
+      .on('click', this._callbacks.onToggleMuteClick);
   }
 
   _unbindEvents() {
-    this.$node
-      .off('wheel', this._onWheel);
+    this.$node[0]
+      .removeEventListener('wheel', this._onWheel);
+
+    this.$container[0]
+      .removeEventListener('click', this._stopPropagationForContainer);
 
     this.$input
+      .off('wheel', this._onWheel)
       .off('change', this._onInputChange)
       .off('input', this._onInputChange);
 
-    this.$volumeIcon
-      .off('click', this._onMuteClick);
-
-    this.$volumeMutedIcon
-      .off('click', this._onMuteClick);
+    this.$muteControl
+      .off('click', this._callbacks.onToggleMuteClick);
   }
 
   setVolumeLevel(level) {
     this.$input.val(level);
     this.$input.attr('value', level);
-    this.$volumeLevel.attr('value', level);
+    this.$filledProgress.attr('style', `height:${level}%;`);
 
     if (level >= MAX_VOLUME_ICON_RANGE) {
-      this.$volumeIcon[0].src = volumeFullSVG;
-    } else if (level >= MID_VOLUME_ICON_RANGE) {
-      this.$volumeIcon[0].src = volumeMidSVG;
+      this.$muteControl.toggleClass(styles['half-volume'], false);
     } else {
-      this.$volumeIcon[0].src = volumeMidSVG;
+      this.$muteControl.toggleClass(styles['half-volume'], true);
     }
   }
 
   setMuteStatus(isMuted) {
-    this.$volumeIcon.toggleClass(styles.hidden, isMuted);
-    this.$volumeMutedIcon.toggleClass(styles.hidden, !isMuted);
+    this.$muteControl.toggleClass(styles.muted, isMuted);
   }
 
   show() {
@@ -159,9 +142,9 @@ export default class VolumeView {
     this.$node.remove();
 
     delete this.$input;
-    delete this.$volumeIcon;
-    delete this.$volumeMutedIcon;
-    delete this.$volumeLevel;
+    delete this.$muteControl;
+    delete this.$filledProgress;
+    delete this.$container;
     delete this.$node;
 
   }
