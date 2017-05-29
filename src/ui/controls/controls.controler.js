@@ -17,6 +17,8 @@ const DEFAULT_CONFIG = {
 const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 
 export default class ControlBlock {
+  static View = View;
+
   constructor({ engine, ui, eventEmitter, config }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
@@ -44,9 +46,9 @@ export default class ControlBlock {
   }
 
   _initUI(ui) {
+    const { view } = this.config;
     const config = {
       ui,
-      controlsWrapperView: this.config && this.config.view,
       callbacks: {
         onWrapperMouseMove: this._startHideControlsTimeout,
         onWrapperMouseOut: this._hideContent,
@@ -55,8 +57,11 @@ export default class ControlBlock {
         onControlsBlockMouseOut: this._removeFocusState
       }
     };
-
-    this.view = new View(config);
+    if (view) {
+      this.view = new view(config);
+    } else {
+      this.view = new ControlBlock.View(config);
+    }
   }
 
   _initControls() {
