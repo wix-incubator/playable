@@ -7,20 +7,23 @@ import Engine from './playback-engine/playback-engine';
 
 
 class Player {
-  constructor({
-    preload,
-    autoplay,
-    loop,
-    muted,
-    volume,
-    src,
-    size,
-    controls,
-    overlay,
-    loader,
-    screen,
-    customUI = {}
-  }) {
+  constructor(config) {
+    this._config = config;
+
+    const {
+      preload,
+      autoplay,
+      loop,
+      muted,
+      volume,
+      src,
+      size,
+      controls,
+      overlay,
+      loader,
+      screen,
+      customUI = {}
+    } = this._config;
 
     this._eventEmitter = new EventEmitter();
     this._engine = new Engine({
