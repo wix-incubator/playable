@@ -20,17 +20,17 @@ describe('ControlsBlock', () => {
   };
 
   let controls = {};
-  let uiView = {};
+  let ui = {};
   let engine = {};
   let eventEmitter = null;
 
 
   beforeEach(() => {
-    uiView = {
+    ui = {
       setFullScreenStatus() {
 
       },
-      getNode() {
+      get node() {
         return document.createElement('video');
       },
       exitFullScreen() {},
@@ -41,7 +41,7 @@ describe('ControlsBlock', () => {
       eventEmitter
     });
     controls = new ControlsBlock({
-      uiView,
+      ui,
       engine,
       eventEmitter,
       ...DEFAULT_CONFIG

@@ -12,7 +12,7 @@ export default class Overlay {
   static View = View;
 
   constructor({ config, eventEmitter, engine }) {
-    this.eventEmitter = eventEmitter;
+    this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this.isContentHidden = false;
     this.enabled = true;
@@ -49,7 +49,7 @@ export default class Overlay {
   _bindEvents() {
     this._playVideo = this._playVideo.bind(this);
 
-    this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
   _updatePlayingStatus(status) {
@@ -64,7 +64,7 @@ export default class Overlay {
     this._engine.play();
     this._hideContent();
 
-    this.eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
   }
 
   _hideContent() {
@@ -82,7 +82,7 @@ export default class Overlay {
   }
 
   _unbindEvents() {
-    this.eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
   destroy() {
@@ -90,7 +90,7 @@ export default class Overlay {
     this.view.destroy();
     delete this.view;
 
-    delete this.eventEmitter;
+    delete this._eventEmitter;
     delete this._engine;
   }
 }

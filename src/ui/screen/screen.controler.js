@@ -10,8 +10,8 @@ const SPACE_BAR_KEYCODE = 32;
 export default class Screen {
   static View = View;
 
-  constructor({ config, eventEmitter, engine, uiView }) {
-    this._uiView = uiView;
+  constructor({ config, eventEmitter, engine, ui }) {
+    this._ui = ui;
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
@@ -104,7 +104,7 @@ export default class Screen {
   }
 
   _toggleFullScreen() {
-    if (this._uiView.isInFullScreen) {
+    if (this._ui.isInFullScreen) {
       this._exitFullScreen();
     } else {
       this._enterFullScreen();
@@ -128,13 +128,13 @@ export default class Screen {
   _enterFullScreen() {
     this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
 
-    this._uiView.enterFullScreen();
+    this._ui.enterFullScreen();
   }
 
   _exitFullScreen() {
     this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
 
-    this._uiView.exitFullScreen();
+    this._ui.exitFullScreen();
   }
 
   destroy() {
@@ -142,8 +142,8 @@ export default class Screen {
     this.view.destroy();
     delete this.view;
 
-    delete this.eventEmitter;
+    delete this._eventEmitter;
     delete this._engine;
-    delete this._uiView;
+    delete this._ui;
   }
 }

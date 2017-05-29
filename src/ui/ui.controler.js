@@ -70,7 +70,7 @@ class PlayerUI {
     this.screen = new Screen({
       config: this.config.screen,
       engine: this._engine,
-      uiView: this.view,
+      ui: this,
       eventEmitter: this._eventEmitter
     });
 
@@ -88,7 +88,7 @@ class PlayerUI {
       this.overlay = new config({
         engine: this._engine,
         eventEmitter: this._eventEmitter,
-        uiView: this.view
+        ui: this
       });
 
       this.view.appendComponentNode(this.overlay.getNode());
@@ -96,7 +96,8 @@ class PlayerUI {
       this.overlay = new Overlay({
         engine: this._engine,
         eventEmitter: this._eventEmitter,
-        config: this.config.overlay
+        config: this.config.overlay,
+        ui: this
       });
 
       this.view.appendComponentNode(this.overlay.node);
@@ -113,7 +114,8 @@ class PlayerUI {
     this.loader = new Loader({
       engine: this._engine,
       eventEmitter: this._eventEmitter,
-      config: this.config.loader
+      config: this.config.loader,
+      ui: this
     });
 
     this.view.appendComponentNode(this.loader.node);
@@ -129,7 +131,7 @@ class PlayerUI {
     this.controls = new ControlsBlock({
       engine: this._engine,
       eventEmitter: this._eventEmitter,
-      uiView: this.view,
+      ui: this,
       config
     });
 

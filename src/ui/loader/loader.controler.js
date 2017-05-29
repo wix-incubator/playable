@@ -113,7 +113,7 @@ export default class Loader {
     this.view.destroy();
     delete this.view;
 
-    delete this.eventEmitter;
+    delete this._eventEmitter;
     delete this._engine;
   }
 }

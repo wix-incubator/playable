@@ -49,11 +49,11 @@ describe('Overlay', () => {
         }
       });
 
-      eventEmitterSpy = sinon.spy(overlay.eventEmitter, 'emit');
+      eventEmitterSpy = sinon.spy(overlay._eventEmitter, 'emit');
     });
 
     afterEach(() => {
-      overlay.eventEmitter.emit.restore();
+      overlay._eventEmitter.emit.restore();
     });
 
     it('should emit ui event on play', () => {

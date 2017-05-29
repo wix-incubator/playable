@@ -15,7 +15,7 @@ import Screen from './screen.controler';
 describe('Loader', () => {
   let screen = {};
   let engine = {};
-  let uiView = {};
+  let ui = {};
   let eventEmitter = {};
   let spiedVideo = {};
   let eventEmitterSpy = null;
@@ -47,11 +47,11 @@ describe('Loader', () => {
 
 
   beforeEach(() => {
-    uiView = {
+    ui = {
       setFullScreenStatus() {
 
       },
-      getNode() {
+      get node() {
         return new $('<video>');
       },
       get isInFullScreen() {},
@@ -65,7 +65,7 @@ describe('Loader', () => {
 
     screen = new Screen({
       engine,
-      uiView,
+      ui,
       eventEmitter
     });
   });
@@ -125,7 +125,7 @@ describe('Loader', () => {
 
 
     it('should emit ui event on enter full screen', () => {
-      screen._enterFullScreen(uiView);
+      screen._enterFullScreen();
 
       expect(eventEmitterSpy.calledWith(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED)).to.be.true;
     });

@@ -17,10 +17,10 @@ const DEFAULT_CONFIG = {
 const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 
 export default class ControlBlock {
-  constructor({ engine, uiView, eventEmitter, config }) {
-    this.eventEmitter = eventEmitter;
+  constructor({ engine, ui, eventEmitter, config }) {
+    this._eventEmitter = eventEmitter;
     this._engine = engine;
-    this.uiView = uiView;
+    this._ui = ui;
     this.config = {
       ...DEFAULT_CONFIG,
       ...config
@@ -34,7 +34,7 @@ export default class ControlBlock {
     this._controls = [];
 
     this._bindViewCallbacks();
-    this._initUI(uiView);
+    this._initUI(ui);
     this._initControls();
     this._bindEvents();
   }
@@ -43,9 +43,9 @@ export default class ControlBlock {
     return this.view.getNode();
   }
 
-  _initUI(uiView) {
+  _initUI(ui) {
     const config = {
-      uiView,
+      ui,
       controlsWrapperView: this.config && this.config.view,
       callbacks: {
         onWrapperMouseMove: this._startHideControlsTimeout,
@@ -63,8 +63,8 @@ export default class ControlBlock {
     this.config.list.forEach(Control => {
       const control = new Control({
         engine: this._engine,
-        uiView: this.uiView,
-        eventEmitter: this.eventEmitter
+        ui: this._ui,
+        eventEmitter: this._eventEmitter
       });
 
       this._controls.push(control);
@@ -81,7 +81,7 @@ export default class ControlBlock {
   }
 
   _bindEvents() {
-    this.eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
   _preventClickPropagation(e) {
@@ -146,7 +146,7 @@ export default class ControlBlock {
   }
 
   _unbindEvents() {
-    this.eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
   destroy() {
@@ -158,9 +158,9 @@ export default class ControlBlock {
     this._controls.forEach(control => (control.destroy()));
     delete this._controls;
 
-    delete this.eventEmitter;
+    delete this._eventEmitter;
     delete this._engine;
-    delete this.uiView;
+    delete this._ui;
     delete this.config;
 
     this.isHidden = null;

@@ -6,14 +6,14 @@ import styles from './controls.scss';
 
 
 export default class ControlsView {
-  constructor({ callbacks, controlsWrapperView, uiView }) {
+  constructor({ callbacks, controlsWrapperView, ui }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: styles['controls-block'],
       tabIndex: 0
     });
 
-    this._uiView = uiView;
+    this._ui = ui;
 
     this._generateControlsWrapper(controlsWrapperView);
 
@@ -31,7 +31,7 @@ export default class ControlsView {
   }
 
   _bindEvents() {
-    const node = this._uiView.getNode();
+    const node = this._ui.node;
 
     node.addEventListener('mousemove', this._callbacks.onWrapperMouseMove);
     node.addEventListener('mouseleave', this._callbacks.onWrapperMouseOut);
@@ -72,7 +72,7 @@ export default class ControlsView {
   }
 
   _unbindEvents() {
-    const node = this._uiView.getNode();
+    const node = this._ui.node;
 
     node.removeEventListener('mousemove', this._callbacks.onWrapperMouseMove);
     node.removeEventListener('mouseleave', this._callbacks.onWrapperMouseOut);
@@ -92,7 +92,7 @@ export default class ControlsView {
     this._unbindEvents();
     this.$node.remove();
 
-    delete this._uiView;
+    delete this._ui;
 
     this.controlsWrapperView.destroy();
     delete this.controlsWrapperView;

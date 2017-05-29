@@ -92,7 +92,7 @@ describe('FullScreenControl', () => {
       const enterFullScreen = sinon.spy();
       const exitFullScreen = sinon.spy();
 
-      control._uiView = {
+      control._ui = {
         enterFullScreen,
         exitFullScreen
       };
