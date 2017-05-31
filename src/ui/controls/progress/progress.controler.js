@@ -102,15 +102,13 @@ export default class ProgressControl {
   _changeCurrentTimeOfVideo(percent) {
     const duration = this._engine.getDurationTime();
 
-    if (duration) {
-      this._engine.setCurrentTime(duration * percent);
-    }
+    this._engine.setCurrentTime(duration * percent);
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
   }
 
   _pauseVideoOnProgressManipulationStart() {
-    this._previousPlaybackStatus = this._engine.getPlaybackState().status;
+    this._previousPlaybackStatus = this._engine._currentStatus;
     this._engine.pause();
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);

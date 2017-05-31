@@ -4,7 +4,7 @@ import $ from 'jbone';
 import VIDEO_EVENTS from '../constants/events/video';
 
 
-const STATUSES = {
+export const STATUSES = {
   SRC_SET: 'src-set',
   LOAD_STARTED: 'load-started',
   METADATA_LOADED: 'metadata-loaded',
