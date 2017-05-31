@@ -1,4 +1,3 @@
-import { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
 import View from './screen.view';
@@ -76,9 +75,12 @@ export default class Screen {
 
   _showDelayedPlaybackChangeIndicator() {
     if (this.config.indicateScreenClick) {
-      const playbackState = this._engine.getPlaybackState();
+      const { status } = this._engine.getPlaybackState();
 
-      if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
+      if (
+        status === this._engine.STATUSES.PLAY_REQUESTED ||
+        status === this._engine.STATUSES.PLAYING
+      ) {
         this.view.activatePauseIcon();
       } else {
         this.view.activatePlayIcon();
@@ -94,9 +96,12 @@ export default class Screen {
 
   _toggleVideoPlayback() {
     this._delayedToggleVideoPlaybackTimeout = null;
-    const playbackState = this._engine.getPlaybackState();
+    const { status } = this._engine.getPlaybackState();
 
-    if (playbackState.status === VIDI_PLAYBACK_STATUSES.PLAYING || playbackState.status.PLAYING_BUFFERING) {
+    if (
+      status === this._engine.STATUSES.PLAY_REQUESTED ||
+      status === this._engine.STATUSES.PLAYING
+    ) {
       this._engine.pause();
     } else {
       this._engine.play();

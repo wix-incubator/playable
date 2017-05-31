@@ -1,4 +1,4 @@
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
+import VIDEO_EVENTS from '../../constants/events/video';
 
 import View from './controls.view';
 
@@ -128,13 +128,13 @@ export default class ControlBlock {
   }
 
   _updatePlayingStatus(status) {
-    if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+    if (status === this._engine.STATUSES.PLAY_REQUESTED) {
       this._isVideoPaused = false;
       this._startHideControlsTimeout();
-    } else if (status === VIDI_PLAYBACK_STATUSES.ENDED) {
+    } else if (status === this._engine.STATUSES.ENDED) {
       this._isVideoPaused = false;
       this._hideContent();
-    } else {
+    } else if (status === this._engine.STATUSES.PAUSED) {
       this._isVideoPaused = true;
       this._showContent();
     }

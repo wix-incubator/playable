@@ -1,6 +1,6 @@
 import View from './time.view';
 
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
+import VIDEO_EVENTS from '../../../constants/events/video';
 
 
 const UPDATE_INTERVAL_DELAY = 100;
@@ -34,7 +34,6 @@ export default class TimeControl {
     this._eventEmitter.on(VIDEO_EVENTS.LOAD_STARTED, this._updateCurrentTime, this);
     this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
     this._eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
-    this._eventEmitter.on(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   _initUI(view) {
@@ -58,7 +57,9 @@ export default class TimeControl {
   }
 
   _toggleIntervalUpdates(status) {
-    if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+    if (status === this._engine.STATUSES.SRC_SET) {
+      this.reset();
+    } else if (status === this._engine.STATUSES.PLAYING) {
       this._startIntervalUpdates();
     } else {
       this._stopIntervalUpdates();
@@ -97,11 +98,10 @@ export default class TimeControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.off(VIDEO_EVENTS.LOAD_STARTED, this._updateCurrentTime, this);
     this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
     this._eventEmitter.off(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
-    this._eventEmitter.off(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   destroy() {

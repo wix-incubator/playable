@@ -6,7 +6,6 @@ import sinon from 'sinon';
 import EventEmitter from 'eventemitter3';
 
 import UI_EVENTS from '../../constants/events/ui';
-import { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 
 import Engine from '../../playback-engine/playback-engine';
 import Screen from './screen.controler';
@@ -138,13 +137,14 @@ describe('Loader', () => {
 
 
     it('should have method for toggling playback', () => {
-      let status = VIDI_PLAYBACK_STATUSES.PLAYING;
+      let status = engine.STATUSES.PLAYING;
       const playSpy = sinon.spy();
       const pauseSpy = sinon.spy();
       screen._engine = {
         getPlaybackState: () => ({ status }),
         play: playSpy,
-        pause: pauseSpy
+        pause: pauseSpy,
+        STATUSES: engine.STATUSES
       };
       screen._toggleVideoPlayback();
       expect(pauseSpy.called).to.be.true;

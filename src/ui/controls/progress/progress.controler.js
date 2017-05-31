@@ -2,7 +2,7 @@ import View from './progress.view';
 
 import { getOverallBufferedPercent, getOverallPlayedPercent } from '../../../utils/video-data';
 
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
+import VIDEO_EVENTS from '../../../constants/events/video';
 import UI_EVENTS from '../../../constants/events/ui';
 
 
@@ -36,7 +36,6 @@ export default class ProgressControl {
     this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updatePlayedIndicator, this);
     this._eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
     this._eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
-    this._eventEmitter.on(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   _initUI(view) {
@@ -99,7 +98,9 @@ export default class ProgressControl {
   }
 
   _toggleIntervalUpdates(status) {
-    if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+    if (status === this._engine.STATUSES.SRC_SET) {
+      this.reset();
+    } else if (status === this._engine.STATUSES.PLAYING) {
       this._startIntervalUpdates();
     } else {
       this._stopIntervalUpdates();
@@ -124,8 +125,8 @@ export default class ProgressControl {
   }
 
   _playVideoOnProgressManipulationEnd() {
-    if (this._previousPlaybackStatus === VIDI_PLAYBACK_STATUSES.PLAYING ||
-      this._previousPlaybackStatus === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+    if (this._previousPlaybackStatus === this._engine.STATUSES.PLAYING ||
+      this._previousPlaybackStatus === this._engine.STATUSES.PLAY_REQUESTED) {
       this._engine.play();
     }
 
@@ -170,11 +171,10 @@ export default class ProgressControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._toggleIntervalUpdates, this);
+    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updatePlayedIndicator, this);
     this._eventEmitter.off(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
     this._eventEmitter.off(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
-    this._eventEmitter.off(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   reset() {

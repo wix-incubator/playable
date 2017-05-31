@@ -4,6 +4,17 @@ import $ from 'jbone';
 import VIDEO_EVENTS from '../constants/events/video';
 
 
+const STATUSES = {
+  SRC_SET: 'src-set',
+  LOAD_STARTED: 'load-started',
+  METADATA_LOADED: 'metadata-loaded',
+  READY_TO_PLAY: 'ready-to-play',
+  PLAY_REQUESTED: 'play-requested',
+  PLAYING: 'playing',
+  PAUSED: 'paused',
+  ENDED: 'ended'
+};
+
 export default class Engine {
   constructor({ eventEmitter }) {
     this._eventEmitter = eventEmitter;
@@ -11,6 +22,9 @@ export default class Engine {
     this._vidi = new Vidi(this._$video[0]);
 
     this._initEventsProxy();
+
+    this._currentStatus = null;
+    this.STATUSES = STATUSES;
   }
 
   getNode() {
@@ -24,28 +38,44 @@ export default class Engine {
       this._eventEmitter.emit(VIDEO_EVENTS.ERROR, error);
     });
 
-    this._vidi.on('statuschange', status => {
-      this._eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, status);
-    });
-
-    this._$video.on('canplay', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.CAN_PLAY);
+    this._$video.on('loadstart', () => {
+      this._setStatus(STATUSES.LOAD_STARTED);
     });
 
     this._$video.on('loadedmetadata', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.METADATA_LOADED);
+      this._setStatus(STATUSES.METADATA_LOADED);
+    });
+
+    this._$video.on('canplay', () => {
+      this._setStatus(STATUSES.READY_TO_PLAY);
     });
 
     this._$video.on('progress', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
     });
 
-    this._vidi.on('loadstart', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.LOAD_STARTED);
+    this._$video.on('play', () => {
+      this._setStatus(STATUSES.PLAY_REQUESTED);
     });
 
-    this._vidi.on('loadeddata', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.LOADED_FIRST_CHUNK);
+    this._$video.on('playing', () => {
+      this._setStatus(STATUSES.PLAYING);
+    });
+
+    this._$video.on('pause', () => {
+      this._setStatus(STATUSES.PAUSED);
+    });
+
+    this._$video.on('ended', () => {
+      this._setStatus(STATUSES.ENDED);
+    });
+
+    this._$video.on('stalled', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_STALLED);
+    });
+
+    this._$video.on('suspend', () => {
+      this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
     });
 
     this._vidi.on('durationchange', () => {
@@ -70,19 +100,28 @@ export default class Engine {
         muted: videoEl.muted
       });
     });
+  }
 
-    this._$video.on('canplay', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.CAN_PLAY);
-    });
+  _setStatus(status) {
+    this._currentStatus = status;
+    this._eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._currentStatus);
   }
 
   getPlaybackState() {
-    return this._vidi.getPlaybackState();
+    return {
+      currentTime: this.getCurrentTime(),
+      duration: this.getDurationTime(),
+      muted: this.getMute(),
+      playbackRate: this.getPlaybackRate(),
+      status: this._currentStatus,
+      volume: this.getVolume()
+    };
   }
 
   setSrc(src) {
     if (this._vidi.src !== src) {
       this._vidi.src = src;
+      this._setStatus(STATUSES.SRC_SET);
     }
   }
 
@@ -119,6 +158,14 @@ export default class Engine {
     return this._$video[0].volume;
   }
 
+  setPlaybackRate(rate) {
+    this._$video[0].playbackRate = rate;
+  }
+
+  getPlaybackRate() {
+    return this._$video[0].playbackRate;
+  }
+
   setPreload(preload) {
     this._$video[0].preload = preload || 'auto';
   }
@@ -140,7 +187,7 @@ export default class Engine {
   }
 
   getDurationTime() {
-    return this._$video[0].duration;
+    return this._$video[0].duration || 0;
   }
 
   getBuffered() {

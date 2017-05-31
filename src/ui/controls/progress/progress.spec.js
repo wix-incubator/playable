@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import ProgressControl from './progress.controler';
 import Engine from '../../../playback-engine/playback-engine';
 
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
+import VIDEO_EVENTS from '../../../constants/events/video';
 
 
 describe('ProgressControl', () => {
@@ -132,11 +132,11 @@ describe('ProgressControl', () => {
 
     it('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
-      control._toggleIntervalUpdates(VIDI_PLAYBACK_STATUSES.PLAYING);
+      control._toggleIntervalUpdates(engine.STATUSES.PLAYING);
       expect(startSpy.called).to.be.true;
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
-      control._toggleIntervalUpdates(VIDI_PLAYBACK_STATUSES.PAUSED);
+      control._toggleIntervalUpdates(engine.STATUSES.PAUSED);
       expect(stopSpy.called).to.be.true;
     });
 

@@ -75,11 +75,11 @@ describe('ControlsBlock', () => {
       const startTimeout = sinon.spy(controls, '_startHideControlsTimeout');
       const hideTimeout = sinon.spy(controls, '_hideContent');
       const showTimeout = sinon.spy(controls, '_showContent');
-      controls._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.PLAYING);
+      controls._updatePlayingStatus(engine.STATUSES.PLAY_REQUESTED);
       expect(startTimeout.called).to.be.true;
-      controls._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.PAUSED);
+      controls._updatePlayingStatus(engine.STATUSES.PAUSED);
       expect(showTimeout.called).to.be.true;
-      controls._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.ENDED);
+      controls._updatePlayingStatus(engine.STATUSES.ENDED);
       expect(hideTimeout.called).to.be.true;
     });
 

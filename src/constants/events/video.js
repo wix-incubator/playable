@@ -1,8 +1,3 @@
-import Vidi from 'vidi';
-
-export const { PlaybackStatus: VIDI_PLAYBACK_STATUSES } = Vidi;
-
-
 const VIDEO_EVENTS = {
   ERROR: 'error',
   CAN_PLAY: 'can-play',
@@ -17,7 +12,8 @@ const VIDEO_EVENTS = {
   SEEK_ENDED: 'seek-ended',
   SET_CURRENT_TIME: 'set-current-time',
   VOLUME_STATUS_CHANGED: 'volume-status-changed',
-  CHANGE_SRC_TRIGGERED: 'change-src-triggered'
+  UPLOAD_STALLED: 'upload-stalled',
+  UPLOAD_SUSPEND: 'upload-suspend'
 };
 
 export default VIDEO_EVENTS;

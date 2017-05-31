@@ -35,7 +35,7 @@
     autoplay: false,
     muted: false,
     loop: false,
-    preload: 'auto',
+    preload: "metadata",
     volume: 0.5,
     size: {
       width: 760,
@@ -46,6 +46,9 @@
     ],
     overlay: {
       poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hubble_Peers_into_the_Storm_%2829563971405%29.jpg/1024px-Hubble_Peers_into_the_Storm_%2829563971405%29.jpg'
+    },
+    screen: {
+      indicateScreenClick: true
     }
   });
   document.getElementById('player').appendChild(player.node);

@@ -8,7 +8,7 @@ import EventEmitter from 'eventemitter3';
 import Overlay from './overlay.controler';
 import Engine from '../../playback-engine/playback-engine';
 
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
+import VIDEO_EVENTS from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
 
@@ -81,7 +81,7 @@ describe('Overlay', () => {
       const hideSpy = sinon.spy(overlay, "_hideContent");
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.PLAYING);
+      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, engine.STATUSES.PLAY_REQUESTED);
 
       expect(callback.called).to.be.true;
       expect(hideSpy.called).to.be.true;
@@ -92,7 +92,7 @@ describe('Overlay', () => {
       const showSpy = sinon.spy(overlay, "_showContent");
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, VIDI_PLAYBACK_STATUSES.ENDED);
+      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, engine.STATUSES.ENDED);
 
       expect(callback.called).to.be.true;
       expect(showSpy.called).to.be.true;

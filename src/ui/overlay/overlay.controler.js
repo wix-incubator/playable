@@ -1,4 +1,4 @@
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
+import VIDEO_EVENTS from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
 import View from './overlay.view';
@@ -53,9 +53,9 @@ export default class Overlay {
   }
 
   _updatePlayingStatus(status) {
-    if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+    if (status === this._engine.STATUSES.PLAY_REQUESTED) {
       this._hideContent();
-    } else if (status === VIDI_PLAYBACK_STATUSES.ENDED) {
+    } else if (status === this._engine.STATUSES.ENDED) {
       this._showContent();
     }
   }

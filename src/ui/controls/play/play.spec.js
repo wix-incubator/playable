@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import PlayControl from './play.controler';
 import Engine from '../../../playback-engine/playback-engine';
 
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
+import VIDEO_EVENTS from '../../../constants/events/video';
 
 
 describe('PlayControl', () => {
@@ -79,9 +79,9 @@ describe('PlayControl', () => {
   describe('internal methods', () => {
     it('should change view based on playback status', () => {
       const spy = sinon.spy(control, 'setControlStatus');
-      control._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.PLAYING);
+      control._updatePlayingStatus(engine.STATUSES.PLAY_REQUESTED);
       expect(spy.calledWith(true)).to.be.true;
-      control._updatePlayingStatus(VIDI_PLAYBACK_STATUSES.PAUSED);
+      control._updatePlayingStatus(engine.STATUSES.PAUSED);
       expect(spy.calledWith(false)).to.be.true;
     });
 

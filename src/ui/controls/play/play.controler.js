@@ -1,6 +1,6 @@
 import View from './play.view';
 
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../../constants/events/video';
+import VIDEO_EVENTS from '../../../constants/events/video';
 import UI_EVENTS from '../../../constants/events/ui';
 
 
@@ -30,7 +30,6 @@ export default class PlayControl {
 
   _bindEvents() {
     this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
-    this._eventEmitter.on(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   _togglePlayback() {
@@ -54,9 +53,11 @@ export default class PlayControl {
   }
 
   _updatePlayingStatus(status) {
-    if (status === VIDI_PLAYBACK_STATUSES.PLAYING || status === VIDI_PLAYBACK_STATUSES.PLAYING_BUFFERING) {
+    if (status === this._engine.STATUSES.SRC_SET) {
+      this.reset();
+    } else if (status === this._engine.STATUSES.PLAY_REQUESTED) {
       this.setControlStatus(true);
-    } else {
+    } else if (status === this._engine.STATUSES.PAUSED || status === this._engine.STATUSES.ENDED) {
       this.setControlStatus(false);
     }
   }
@@ -82,7 +83,6 @@ export default class PlayControl {
 
   _unbindEvents() {
     this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
-    this._eventEmitter.off(VIDEO_EVENTS.CHANGE_SRC_TRIGGERED, this.reset, this);
   }
 
   reset() {
