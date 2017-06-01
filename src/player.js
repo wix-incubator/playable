@@ -24,7 +24,7 @@ class Player {
       screen,
       customUI = {}
     } = this._config;
-
+    //Think about passing custom event emitter
     this._eventEmitter = new EventEmitter();
     this._engine = new Engine({
       eventEmitter: this._eventEmitter

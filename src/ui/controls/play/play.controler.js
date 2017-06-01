@@ -72,7 +72,7 @@ export default class PlayControl {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new PlayControl.View(config);
+      this.view = new this.constructor.View(config);
     }
   }
 

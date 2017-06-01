@@ -40,7 +40,7 @@ export default class TimeControl {
     if (view) {
       this.view = new view();
     } else {
-      this.view = new TimeControl.View();
+      this.view = new this.constructor.View();
     }
   }
 

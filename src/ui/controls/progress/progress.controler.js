@@ -50,7 +50,7 @@ export default class ProgressControl {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new ProgressControl.View(config);
+      this.view = new this.constructor.View(config);
     }
   }
 

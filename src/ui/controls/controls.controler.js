@@ -60,7 +60,7 @@ export default class ControlBlock {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new ControlBlock.View(config);
+      this.view = new this.constructor.View(config);
     }
   }
 

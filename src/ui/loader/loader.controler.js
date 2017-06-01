@@ -54,7 +54,7 @@ export default class Loader {
     if (view) {
       this.view = new view();
     } else {
-      this.view = new Loader.View();
+      this.view = new this.constructor.View();
     }
   }
 

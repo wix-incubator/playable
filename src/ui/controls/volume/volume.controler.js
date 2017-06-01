@@ -40,7 +40,7 @@ export default class VolumeControl {
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new VolumeControl.View(config);
+      this.view = new this.constructor.View(config);
     }
   }
 
