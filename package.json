@@ -38,7 +38,7 @@
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "sinon": "^1.17.7",
-    "yoshi": "^1.1.57"
+    "yoshi": "^1.1.98"
   },
   "babel": {
     "presets": [
