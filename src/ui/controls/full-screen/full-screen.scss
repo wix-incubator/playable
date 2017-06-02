@@ -18,7 +18,7 @@
 
     transition: transform .2s;
 
-    background-image: url('./svg/full-screen.svg');
+    background-image: url('../../../assets/full-screen/full-screen.svg');
     background-size: 18px 15px;
 
     &:hover {
@@ -26,7 +26,7 @@
     }
 
     &.in-full-screen {
-      background-image: url('./svg/exit-full-screen.svg');
+      background-image: url('../../../assets/full-screen/exit-full-screen.svg');
     }
   }
 }

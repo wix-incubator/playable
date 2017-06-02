@@ -21,11 +21,11 @@
     height: 16px;
     min-height: 16px;
 
-    background-image: url('./svg/pause-icon.svg');
+    background-image: url('../../../assets/play/pause-icon.svg');
     background-size: 13.5px 16px;
 
     &.paused {
-      background-image: url('./svg/play-icon.svg');
+      background-image: url('../../../assets/play/play-icon.svg');
     }
   }
 }
