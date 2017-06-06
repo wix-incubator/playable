@@ -6,6 +6,8 @@
     "email": "oleksiim@wix.com"
   },
   "main": "dist/statics/video-player.bundle.js",
+  "module": "dist/src/index.js",
+  "jsnext:main": "dist/src/index.js",
   "files": [
     "dist",
     "src"
@@ -38,7 +40,7 @@
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "sinon": "^1.17.7",
-    "yoshi": "^1.1.57"
+    "yoshi": "^1.1.98"
   },
   "babel": {
     "presets": [

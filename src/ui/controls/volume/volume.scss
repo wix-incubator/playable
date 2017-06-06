@@ -37,15 +37,15 @@ $color: white !default;
   height: 15px;
   min-height: 15px;
 
-  background-image: url('./svg/volume-100.svg');
+  background-image: url('../../../assets/volume/volume-100.svg');
   background-size: 18px 15px;
 
   &.half-volume {
-    background-image: url('./svg/volume-50.svg');
+    background-image: url('../../../assets/volume/volume-50.svg');
   }
 
   &.muted {
-    background-image: url('./svg/volume-0.svg');
+    background-image: url('../../../assets/volume/volume-0.svg');
   }
 }
 

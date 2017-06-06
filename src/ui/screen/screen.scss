@@ -22,13 +22,13 @@
     &.play {
       animation-name: fade-out-play;
 
-      background-image: url('../controls/play/svg/play-icon.svg');
+      background-image: url('../../assets/play/play-icon.svg');
     }
 
     &.pause {
       animation-name: fade-out-pause;
 
-      background-image: url('../controls/play/svg/pause-icon.svg');
+      background-image: url('../../assets/play/pause-icon.svg');
     }
   }
 }
