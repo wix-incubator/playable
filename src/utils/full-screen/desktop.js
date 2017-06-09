@@ -72,8 +72,9 @@ function getFullScreenFn() {
 
 const fullscreenFn = getFullScreenFn();
 
-/* ignore coverage */
-const fullscreen = {
+export const isFullScreenAPIExist = Boolean(fullscreenFn);
+
+export default {
   request(elem) {
     if (!this.enabled) {
       return;
@@ -104,30 +105,12 @@ const fullscreen = {
       this.request(elem);
     }
   },
-  raw: fullscreenFn || mockFullScreenFunction
-};
+  raw: fullscreenFn || mockFullScreenFunction,
+  get isInFullscreen() {
+    return Boolean(document[fullscreenFn.fullscreenElement]);
+  },
 
-/* ignore coverage */
-Object.defineProperties(fullscreen, {
-  isFullscreen: {
-    get() {
-      return Boolean(document[fullscreenFn.fullscreenElement]);
-    }
-  },
-  element: {
-    enumerable: true,
-    get() {
-      return document[fullscreenFn.fullscreenElement];
-    }
-  },
-  enabled: {
-    enumerable: true,
-    get() {
-      // Coerce to boolean in case of old WebKit
-      return Boolean(document[fullscreenFn.fullscreenEnabled]);
-    }
+  get enabled() {
+    return Boolean(document[fullscreenFn.fullscreenEnabled]);
   }
-});
-
-export const isFullscreenAPIExist = Boolean(fullscreenFn);
-export default fullscreen;
+};
