@@ -182,6 +182,10 @@ class Player {
     this._fullScreen.exitFullScreen();
   }
 
+  isInFullScreen() {
+    return this._fullScreen.isInFullScreen;
+  }
+
   _unbindAllEvents() {
     const eventsName = this._eventEmitter.eventNames();
 

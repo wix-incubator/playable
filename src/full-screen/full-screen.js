@@ -42,6 +42,10 @@ export default class FullScreen {
     this._helper.exit();
   }
 
+  get isInFullScreen() {
+    return this._helper.isInFullScreen;
+  }
+
   destroy() {
     this._unbindEvents();
 
