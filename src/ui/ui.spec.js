@@ -118,36 +118,6 @@ describe('PlayerUI', () => {
       expect(ui.view.appendComponentNode).to.exist;
     });
 
-    it('should have method for enter full scren', () => {
-      const spy = sinon.spy(ui.view, '_setFullScreenStatus');
-      expect(ui.view.enterFullScreen).to.exist;
-      ui.view.$innerWrapper = {
-        0: {
-        'undefined': () => {}
-        },
-        toggleClass: () => {}
-      };
-      ui.view.enterFullScreen();
-      expect(spy.called).to.be.true;
-    });
-
-    it('should have method for exit full screen', () => {
-      const spy = sinon.spy(ui.view, '_setFullScreenStatus');
-      expect(ui.view.exitFullScreen).to.exist;
-      ui.view.$innerWrapper = {
-        0: {
-          'undefined': () => {}
-        },
-        toggleClass: () => {}
-      };
-      global.document['undefined'] = () => {};
-      ui.view.exitFullScreen();
-      expect(spy.called).to.be.true;
-
-      delete global.document['undefined'];
-    });
-
-
     it('should have method for showing itself', () => {
       expect(ui.view.show).to.exist;
     });

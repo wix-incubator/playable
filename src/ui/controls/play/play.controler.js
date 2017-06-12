@@ -7,14 +7,14 @@ import UI_EVENTS from '../../../constants/events/ui';
 export default class PlayControl {
   static View = View;
 
-  constructor({ engine, eventEmitter, view }) {
+  constructor({ engine, eventEmitter }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
 
     this._isPlaying = null;
 
     this._bindCallbacks();
-    this._initUI(view);
+    this._initUI();
     this._bindEvents();
 
     this.setControlStatus(false);
@@ -62,18 +62,14 @@ export default class PlayControl {
     }
   }
 
-  _initUI(view) {
+  _initUI() {
     const config = {
       callbacks: {
         onTogglePlaybackButtonClick: this._togglePlayback
       }
     };
 
-    if (view) {
-      this.view = new view(config);
-    } else {
-      this.view = new this.constructor.View(config);
-    }
+    this.view = new this.constructor.View(config);
   }
 
   setControlStatus(isPlaying) {

@@ -4,7 +4,7 @@ import { iPhone, iPod, Android } from './utils/device-detection';
 
 import PlayerUI from './ui/ui.controler';
 import Engine from './playback-engine/playback-engine';
-
+import FullScreen from './full-screen/full-screen';
 
 class Player {
   constructor(config) {
@@ -24,10 +24,21 @@ class Player {
       screen,
       customUI = {}
     } = this._config;
-    //Think about passing custom event emitter
+
+    this.play = this.play.bind(this);
+    this.pause = this.pause.bind(this);
+
     this._eventEmitter = new EventEmitter();
     this._engine = new Engine({
       eventEmitter: this._eventEmitter
+    });
+
+    this._createUI(size, controls, overlay, loader, screen, customUI);
+
+    this._fullScreen = new FullScreen({
+      eventEmitter: this._eventEmitter,
+      engine: this._engine,
+      ui: this.ui
     });
 
     this.setPreload(preload);
@@ -48,13 +59,9 @@ class Player {
       this.setVolume(volume);
     }
 
-
-    this._createUI(size, controls, overlay, loader, screen, customUI);
-
-    this._engine.setSrc(src);
-
-    this.play = this.play.bind(this);
-    this.pause = this.pause.bind(this);
+    if (src) {
+      this.setSrc(src);
+    }
   }
 
   _createUI(size, controls, overlay, loader, screen, customUI) {
@@ -68,6 +75,7 @@ class Player {
     if (iPhone || iPod || Android) {
       config.screen = {
         ...screen,
+        indicateScreenClick: false,
         disableClickProcessing: true,
         nativeControls: true
       };
@@ -137,6 +145,14 @@ class Player {
     this._engine.setSrc(src);
   }
 
+  setPlayInline(isPlayInline) {
+    this._engine.setPlayInline(isPlayInline);
+  }
+
+  getPlayInline() {
+    this._engine.getPlayInline();
+  }
+
   on(name, callback) {
     this._eventEmitter.on(name, callback);
   }
@@ -151,6 +167,14 @@ class Player {
 
   pause() {
     this._engine.pause();
+  }
+
+  enterFullScreen() {
+    this._fullScreen.enterFullScreen();
+  }
+
+  exitFullScreen() {
+    this._fullScreen.exitFullScreen();
   }
 
   _unbindAllEvents() {
@@ -170,6 +194,9 @@ class Player {
 
     this._engine.destroy();
     delete this._engine;
+
+    this._fullScreen.destroy();
+    delete this._fullScreen;
   }
 }
 

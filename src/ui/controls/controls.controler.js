@@ -1,4 +1,5 @@
 import VIDEO_EVENTS from '../../constants/events/video';
+import UI_EVENTS from '../../constants/events/ui';
 
 import View from './controls.view';
 
@@ -36,7 +37,7 @@ export default class ControlBlock {
     this._controls = [];
 
     this._bindViewCallbacks();
-    this._initUI(ui);
+    this._initUI();
     this._initControls();
     this._bindEvents();
   }
@@ -45,13 +46,10 @@ export default class ControlBlock {
     return this.view.getNode();
   }
 
-  _initUI(ui) {
+  _initUI() {
     const { view } = this.config;
     const config = {
-      ui,
       callbacks: {
-        onWrapperMouseMove: this._startHideControlsTimeout,
-        onWrapperMouseOut: this._hideContent,
         onControlsBlockMouseClick: this._preventClickPropagation,
         onControlsBlockMouseMove: this._setFocusState,
         onControlsBlockMouseOut: this._removeFocusState
@@ -68,7 +66,6 @@ export default class ControlBlock {
     this.config.list.forEach(Control => {
       const control = new Control({
         engine: this._engine,
-        ui: this._ui,
         eventEmitter: this._eventEmitter
       });
 
@@ -86,6 +83,9 @@ export default class ControlBlock {
   }
 
   _bindEvents() {
+    this._eventEmitter.on(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
+    this._eventEmitter.on(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
+
     this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 
@@ -151,6 +151,9 @@ export default class ControlBlock {
   }
 
   _unbindEvents() {
+    this._eventEmitter.off(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
+    this._eventEmitter.off(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
+
     this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
 

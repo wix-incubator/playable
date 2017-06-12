@@ -27,6 +27,8 @@ class PlayerUI {
 
     this._initComponents();
     this._initCustomUI();
+
+    this._bindEvents();
   }
 
   get node() {
@@ -37,7 +39,14 @@ class PlayerUI {
     this._proxyMouseEnter = this._proxyMouseEnter.bind(this);
     this._proxyMouseMove = this._proxyMouseMove.bind(this);
     this._proxyMouseLeave = this._proxyMouseLeave.bind(this);
-    this._proxyFullScreenChange = this._proxyFullScreenChange.bind(this);
+  }
+
+  _bindEvents() {
+    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.view.setFullScreenStatus, this.view);
+  }
+
+  _unbindEvents() {
+    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.view.setFullScreenStatus, this.view);
   }
 
   _initUI() {
@@ -48,8 +57,7 @@ class PlayerUI {
       callbacks: {
         onMouseEnter: this._proxyMouseEnter,
         onMouseMove: this._proxyMouseMove,
-        onMouseLeave: this._proxyMouseLeave,
-        onFullScreenStatusChange: this._proxyFullScreenChange
+        onMouseLeave: this._proxyMouseLeave
       }
     };
 
@@ -154,10 +162,6 @@ class PlayerUI {
     });
   }
 
-  _proxyFullScreenChange() {
-    this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED);
-  }
-
   _proxyMouseEnter() {
     this._eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED);
   }
@@ -188,19 +192,9 @@ class PlayerUI {
     this.view.setHeight(height);
   }
 
-  enterFullScreen() {
-    this.view.enterFullScreen();
-  }
-
-  exitFullScreen() {
-    this.view.exitFullScreen();
-  }
-
-  get isInFullScreen() {
-    return this.view.isInFullScreen;
-  }
-
   destroy() {
+    this._unbindEvents();
+
     if (this.controls) {
       this.controls.destroy();
       delete this.controls;

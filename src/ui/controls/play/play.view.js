@@ -4,7 +4,7 @@ import styles from './play.scss';
 
 
 export default class PlayView {
-  constructor({ callbacks, newStyles }) {
+  constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: styles['play-control']
@@ -18,7 +18,6 @@ export default class PlayView {
       .append(this.$playbackControl);
 
     this._bindEvents();
-    this.styles = newStyles || styles;
   }
 
   _bindEvents() {
@@ -53,10 +52,3 @@ export default class PlayView {
     delete this.$node;
   }
 }
-
-
-
-class MyPlayView extends PlayView {
-
-}
-

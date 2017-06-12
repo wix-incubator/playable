@@ -2,49 +2,84 @@ const HAVE_METADATA = 1;
 
 let isFullScreenRequested = false;
 
+export default class IOSFullScreen {
+  constructor(elem, callback) {
+    this._elem = elem;
+    this._callback = callback;
 
-export const isFullScreenAPIExist = videoRef => videoRef && videoRef.webkitEnterFullscreen ? true : false;
+    this._bindEvents();
+  }
 
-export default {
-  request(videoRef) {
-    if (!isFullScreenAPIExist(videoRef) || isInFullscreen(videoRef)) {
+  get isAPIExist() {
+    return Boolean(this._elem && this._elem.webkitSupportsFullscreen);
+  }
+
+  get isInFullScreen() {
+    return Boolean(this._elem && this._elem.webkitDisplayingFullscreen);
+  }
+
+  get isEnabled() {
+    return this.isAPIExist;
+  }
+
+  _bindEvents() {
+    this._elem.addEventListener('webkitbeginfullscreen', this._callback);
+    this._elem.addEventListener('webkitendfullscreen', this._callback);
+  }
+
+  _unbindEvents() {
+    this._elem.removeEventListener('webkitbeginfullscreen', this._callback);
+    this._elem.removeEventListener('webkitendfullscreen', this._callback);
+
+    this._elem.removeEventListener('loadedmetadata', this._enterWhenHasMetaData);
+  }
+
+  _enterWhenHasMetaData() {
+    this._elem.removeEventListener('loadedmetadata', this._enterWhenHasMetaData);
+
+    isFullScreenRequested = false;
+
+    this._elem.webkitEnterFullscreen();
+  }
+
+  request() {
+    if (!this.isAPIExist || this.isInFullScreen) {
       return false;
     }
 
     try {
-      videoRef.webkitEnterFullscreen();
+      this._elem.webkitEnterFullscreen();
     } catch (e) {
-      if (videoRef.readyState < HAVE_METADATA) {
+      if (this._elem.readyState < HAVE_METADATA) {
         if (isFullScreenRequested) {
           return;
         }
-        const enterWhenHasMetaData = () => {
-          videoRef.removeEventListener('loadedmetadata', enterWhenHasMetaData);
-          isFullScreenRequested = false;
-          videoRef.webkitEnterFullscreen();
-        };
-        videoRef.addEventListener('loadedmetadata', enterWhenHasMetaData);
+        this._elem.addEventListener('loadedmetadata', this._enterWhenHasMetaData);
         isFullScreenRequested = true;
       }
     }
-  },
+  }
+
   exit() {
-    document[fullscreenFn.exitFullscreen]();
-  },
-  toggle(elem) {
-    if (this.isFullscreen) {
+    if (!this.isAPIExist || !this.isInFullScreen) {
+      return false;
+    }
+
+    this._elem.webkitExitFullscreen();
+  }
+
+  toggle() {
+    if (this.isInFullScreen) {
       this.exit();
     } else {
-      this.request(elem);
+      this.request();
     }
-  },
-  raw: fullscreenFn || mockFullScreenFunction,
+  }
 
-  isInFullscreen(videoRef) {
-    return Boolean(videoRef && videoRef.webkitDisplayingFullscreen);
-  },
+  destroy() {
+    this._unbindEvents();
 
-  get enabled() {
-    return Boolean(document[fullscreenFn.fullscreenEnabled]);
+    delete this._elem;
+    delete this._callback;
   }
 }

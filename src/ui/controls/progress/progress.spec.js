@@ -31,22 +31,6 @@ describe('ProgressControl', () => {
       expect(control).to.exists;
       expect(control.view).to.exists;
     });
-
-    it('should create instance with custom view if provided', () => {
-      const spy = sinon.spy(function () {
-        return {
-          updatePlayed: () => {},
-          updateBuffered: () => {}
-        }
-      });
-      control = new ProgressControl({
-        engine,
-        eventEmitter,
-        view: spy
-      });
-
-      expect(spy.called).to.be.true;
-    });
   });
 
   describe('API', () => {
