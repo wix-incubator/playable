@@ -11,6 +11,8 @@ const UI_EVENTS = {
   MOUSE_ENTER_ON_PLAYER_TRIGGERED: 'ui-mouse-enter-on-player-triggered',
   MOUSE_MOVE_ON_PLAYER_TRIGGERED: 'ui-mouse-move-on-player-triggered',
   MOUSE_LEAVE_ON_PLAYER_TRIGGERED: 'ui-mouse-leave-on-player-triggered',
+  CONTROL_BLOCK_HIDE_TRIGGERED: 'control-block-hide-triggered',
+  CONTROL_BLOCK_SHOW_TRIGGERED: 'control-block-show-triggered',
   PROGRESS_MANIPULATION_STARTED: 'ui-progress-manipulation-started',
   PROGRESS_MANIPULATION_ENDED: 'ui-progress-manipulation-ended'
 };
