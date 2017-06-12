@@ -18,6 +18,7 @@ class Player {
       volume,
       src,
       size,
+      playInline,
       controls,
       overlay,
       loader,
@@ -57,6 +58,10 @@ class Player {
 
     if (volume) {
       this.setVolume(volume);
+    }
+
+    if (playInline) {
+      this.setPlayInline(playInline);
     }
 
     if (src) {
