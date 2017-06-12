@@ -1,7 +1,5 @@
 import $ from 'jbone';
 
-import fullscreen from '../utils/fullscreen';
-
 import styles from './ui.scss';
 
 
@@ -40,20 +38,18 @@ export default class PlayerUIView {
     this._proxyMouseEnterOnNode = this._proxyMouseEnterOnNode.bind(this);
     this._proxyMouseMoveOnNode = this._proxyMouseMoveOnNode.bind(this);
     this._proxyMouseLeaveOnNode = this._proxyMouseLeaveOnNode.bind(this);
-    this._toggleClassOnFullScreenChange = this._toggleClassOnFullScreenChange.bind(this);
   }
 
   _bindEvents() {
     this.$node.on('mouseenter', this._proxyMouseEnterOnNode);
     this.$node.on('mousemove', this._proxyMouseMoveOnNode);
     this.$node.on('mouseleave', this._proxyMouseLeaveOnNode);
-
-    document.addEventListener(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
   }
 
-  _toggleClassOnFullScreenChange() {
-    this._setFullScreenStatus(fullscreen.isFullscreen);
-    this._callbacks.onFullScreenStatusChange();
+  _unbindEvents() {
+    this.$node.off('mouseenter', this._proxyMouseEnterOnNode);
+    this.$node.off('mousemove', this._proxyMouseMoveOnNode);
+    this.$node.off('mouseleave', this._proxyMouseLeaveOnNode);
   }
 
   _proxyMouseEnterOnNode() {
@@ -106,26 +102,8 @@ export default class PlayerUIView {
     return this.$node[0];
   }
 
-  _setFullScreenStatus(isFullscreen) {
-    this.$innerWrapper.toggleClass(styles.fullscreen, isFullscreen);
-  }
-
-  enterFullScreen() {
-    fullscreen.request(this.$innerWrapper[0]);
-    this._setFullScreenStatus(true);
-  }
-
-  exitFullScreen() {
-    fullscreen.exit();
-    this._setFullScreenStatus(false);
-  }
-
-  get isInFullScreen() {
-    return fullscreen.isFullscreen;
-  }
-
-  _unbindEvents() {
-    document.removeEventListener(fullscreen.raw.fullscreenchange, this._toggleClassOnFullScreenChange);
+  setFullScreenStatus(isFullScreen) {
+    this.$node.toggleClass(styles.fullscreen, isFullScreen);
   }
 
   destroy() {

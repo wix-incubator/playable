@@ -1,5 +1,3 @@
-import fullscreen, { isFullscreenAPIExist } from '../../../utils/fullscreen';
-
 import UI_EVENTS from '../../../constants/events/ui';
 
 import View from './full-screen.view';
@@ -8,22 +6,17 @@ import View from './full-screen.view';
 export default class FullScreenControl {
   static View = View;
 
-  constructor({ view, ui, eventEmitter }) {
-    this._ui = ui;
+  constructor({ eventEmitter }) {
     this._eventEmitter = eventEmitter;
     this._isInFullScreen = null;
 
     this._bindCallbacks();
 
-    this._initUI(view);
+    this._initUI();
 
     this._bindEvents();
 
     this.setControlStatus(false);
-
-    if (!isFullscreenAPIExist) {
-      this.hide();
-    }
   }
 
   get node() {
@@ -31,30 +24,21 @@ export default class FullScreenControl {
   }
 
   _bindCallbacks() {
-    this._updateFullScreenControlStatus = this._updateFullScreenControlStatus.bind(this);
     this._toggleFullScreen = this._toggleFullScreen.bind(this);
   }
 
   _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._updateFullScreenControlStatus, this);
+    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus, this);
   }
 
-  _initUI(view) {
+  _initUI() {
     const config = {
       callbacks: {
         onToggleFullScreenButtonClick: this._toggleFullScreen
       }
     };
 
-    if (view) {
-      this.view = new view(config);
-    } else {
-      this.view = new this.constructor.View(config);
-    }
-  }
-
-  _updateFullScreenControlStatus() {
-    this.setControlStatus(fullscreen.isFullscreen);
+    this.view = new this.constructor.View(config);
   }
 
   _toggleFullScreen() {
@@ -67,18 +51,14 @@ export default class FullScreenControl {
 
   _enterFullScreen() {
     this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
-
-    this._ui.enterFullScreen();
   }
 
   _exitFullScreen() {
     this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
-
-    this._ui.exitFullScreen();
   }
 
-  setControlStatus(isFullScreen) {
-    this._isInFullScreen = isFullScreen;
+  setControlStatus(isInFullScreen) {
+    this._isInFullScreen = isInFullScreen;
     this.view.setFullScreenStatus(this._isInFullScreen);
   }
 
@@ -93,7 +73,7 @@ export default class FullScreenControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._updateFullScreenControlStatus, this);
+    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus, this);
   }
 
   destroy() {
@@ -102,7 +82,6 @@ export default class FullScreenControl {
     delete this.view;
 
     delete this._eventEmitter;
-    delete this._ui;
 
     delete this.isHidden;
   }

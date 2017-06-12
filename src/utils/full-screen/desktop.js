@@ -1,12 +1,5 @@
 const keyboardAllowed = typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
-const mockFullScreenFunction = {
-  requestFullscreen: 'none',
-  exitFullscreen: 'none',
-  fullscreenElement: 'none',
-  fullscreenEnabled: 'none',
-  fullscreenchange: 'none',
-  fullscreenerror: 'none'
-};
+
 const fnMap = [
   [
     'requestFullscreen',
@@ -70,14 +63,42 @@ function getFullScreenFn() {
   return false;
 }
 
-const fullscreenFn = getFullScreenFn();
 
-/* ignore coverage */
-const fullscreen = {
-  request(elem) {
-    const request = fullscreenFn.requestFullscreen;
+export default class DesktopFullScreen {
+  constructor(elem, callback) {
+    this._elem = elem;
+    this._callback = callback;
+    this._fullscreenFn = getFullScreenFn();
 
-    elem = elem || document.documentElement;
+    this._bindEvents();
+  }
+
+  get isAPIExist() {
+    return Boolean(this._fullscreenFn);
+  }
+
+  get isInFullScreen() {
+    return Boolean(document[this._fullscreenFn.fullscreenElement]);
+  }
+
+  get isEnabled() {
+    return Boolean(document[this._fullscreenFn.fullscreenEnabled]);
+  }
+
+  _bindEvents() {
+    this._elem.addEventListener(this._fullscreenFn.fullscreenchange, this._callback);
+  }
+
+  _unbindEvents() {
+    this._elem.removeEventListener(this._fullscreenFn.fullscreenchange, this._callback);
+  }
+
+  request() {
+    if (!this.isEnabled) {
+      return;
+    }
+
+    const request = this._fullscreenFn.requestFullscreen;
 
     // Work around Safari 5.1 bug: reports support for
     // keyboard in fullscreen even though it doesn't.
@@ -85,45 +106,28 @@ const fullscreen = {
     // setTimeout is even worse.
 
     if (/5\.1[.\d]* Safari/.test(navigator.userAgent)) {
-      elem[request]();
+      this._elem[request]();
     } else {
-      elem[request](keyboardAllowed && Element.ALLOW_KEYBOARD_INPUT);
-    }
-  },
-  exit() {
-    document[fullscreenFn.exitFullscreen]();
-  },
-  toggle(elem) {
-    if (this.isFullscreen) {
-      this.exit();
-    } else {
-      this.request(elem);
-    }
-  },
-  raw: fullscreenFn || mockFullScreenFunction
-};
-
-/* ignore coverage */
-Object.defineProperties(fullscreen, {
-  isFullscreen: {
-    get() {
-      return Boolean(document[fullscreenFn.fullscreenElement]);
-    }
-  },
-  element: {
-    enumerable: true,
-    get() {
-      return document[fullscreenFn.fullscreenElement];
-    }
-  },
-  enabled: {
-    enumerable: true,
-    get() {
-      // Coerce to boolean in case of old WebKit
-      return Boolean(document[fullscreenFn.fullscreenEnabled]);
+      this._elem[request](keyboardAllowed && Element.ALLOW_KEYBOARD_INPUT);
     }
   }
-});
 
-export const isFullscreenAPIExist = Boolean(fullscreenFn);
-export default fullscreen;
+  exit() {
+    document[this._fullscreenFn.exitFullscreen]();
+  }
+
+  toggle() {
+    if (this.isInFullScreen) {
+      this.exit();
+    } else {
+      this.request();
+    }
+  }
+
+  destroy() {
+    this._unbindEvents();
+
+    delete this._elem;
+    delete this._callback;
+  }
+}

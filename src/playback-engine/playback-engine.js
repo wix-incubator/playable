@@ -194,6 +194,14 @@ export default class Engine {
     return this._$video[0].buffered;
   }
 
+  setPlayInline(isPlayInline) {
+    return this._$video.attr('playsInline', isPlayInline);
+  }
+
+  getPlayInline() {
+    return this._$video.attr('playsInline');
+  }
+
   destroy() {
     delete this._eventEmitter;
     delete this._$video;

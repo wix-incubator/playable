@@ -24,26 +24,11 @@ describe('FullScreenControl', () => {
       expect(control).to.exists;
       expect(control.view).to.exists;
     });
-
-    it('should create instance with custom view if provided', () => {
-      const spy = sinon.spy(function () {
-        return {
-          setFullScreenStatus: () => {},
-          hide: () => {}
-        }
-      });
-      control = new FullScreenControl({
-        eventEmitter,
-        view: spy
-      });
-
-      expect(spy.called).to.be.true;
-    })
   });
 
   describe('ui events listeners', () => {
     it('should call callback on playback status change', () => {
-      const spy = sinon.spy(control, '_updateFullScreenControlStatus');
+      const spy = sinon.spy(control, 'setControlStatus');
       control._bindEvents();
       eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED);
       expect(spy.called).to.be.true;
@@ -82,24 +67,13 @@ describe('FullScreenControl', () => {
   });
 
   describe('internal methods', () => {
-    it('should change view fullscreen status', () => {
-      const spy = sinon.spy(control, 'setControlStatus');
-      control._updateFullScreenControlStatus();
-      expect(spy.called).to.be.true;
-    });
-
     it('should call callbacks from uiView', () => {
-      const enterFullScreen = sinon.spy();
-      const exitFullScreen = sinon.spy();
+      const emit = sinon.spy(eventEmitter, 'emit');
 
-      control._ui = {
-        enterFullScreen,
-        exitFullScreen
-      };
       control._enterFullScreen();
-      expect(enterFullScreen.called).to.be.true;
+      expect(emit.calledWith(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED)).to.be.true;
       control._exitFullScreen();
-      expect(exitFullScreen.called).to.be.true;
+      expect(emit.calledWith(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED)).to.be.true;
     });
   });
 

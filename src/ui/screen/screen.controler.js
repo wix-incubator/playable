@@ -12,6 +12,7 @@ export default class Screen {
   constructor({ config, eventEmitter, engine, ui }) {
     this._ui = ui;
     this._eventEmitter = eventEmitter;
+    this._isInFullScreen = false;
     this.isHidden = false;
     this._engine = engine;
     this._delayedToggleVideoPlaybackTimeout = null;
@@ -22,6 +23,7 @@ export default class Screen {
     this._bindCallbacks();
     this._initUI();
     this.view.appendPlaybackViewNode(this._engine.getNode());
+    this._bindEvents();
   }
 
   get node() {
@@ -36,6 +38,7 @@ export default class Screen {
 
   _initUI() {
     const config = {
+      indicateScreenClick: this.config.indicateScreenClick,
       nativeControls: this.config.nativeControls,
       callbacks: {
         onWrapperKeyPress: this._processKeyboardInput
@@ -49,14 +52,22 @@ export default class Screen {
     this.view = new View(config);
   }
 
+  _bindEvents() {
+    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
+  }
+
+  _unbindEvents() {
+    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
+  }
+
+  _setFullScreenStatus(isInFullScreen) {
+    this._isInFullScreen = isInFullScreen;
+  }
+
   _processKeyboardInput(e) {
     if (e.keyCode === SPACE_BAR_KEYCODE) {
       this._toggleVideoPlayback();
     }
-  }
-
-  _preventClickPropagation(e) {
-    e.stopPropagation();
   }
 
   _processNodeClick() {
@@ -109,7 +120,7 @@ export default class Screen {
   }
 
   _toggleFullScreen() {
-    if (this._ui.isInFullScreen) {
+    if (this._isInFullScreen) {
       this._exitFullScreen();
     } else {
       this._enterFullScreen();
@@ -132,17 +143,15 @@ export default class Screen {
 
   _enterFullScreen() {
     this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
-
-    this._ui.enterFullScreen();
   }
 
   _exitFullScreen() {
     this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
-
-    this._ui.exitFullScreen();
   }
 
   destroy() {
+    this._unbindEvents();
+
     clearTimeout(this._delayedToggleVideoPlaybackTimeout);
     this.view.destroy();
     delete this.view;

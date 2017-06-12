@@ -11,11 +11,7 @@ const UPDATE_INTERVAL_DELAY = 1000 / 60;
 export default class ProgressControl {
   static View = View;
 
-  constructor({
-    view,
-    engine,
-    eventEmitter
-  }) {
+  constructor({ engine, eventEmitter }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
 
@@ -23,7 +19,7 @@ export default class ProgressControl {
     this._currentProgress = 0;
 
     this._bindCallbacks();
-    this._initUI(view);
+    this._initUI();
     this._bindEvents();
   }
 
@@ -38,7 +34,7 @@ export default class ProgressControl {
     this._eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
   }
 
-  _initUI(view) {
+  _initUI() {
     const config = {
       callbacks: {
         onChangePlayedProgress: this._changePlayedProgress,
@@ -47,11 +43,7 @@ export default class ProgressControl {
       }
     };
 
-    if (view) {
-      this.view = new view(config);
-    } else {
-      this.view = new this.constructor.View(config);
-    }
+    this.view = new this.constructor.View(config);
   }
 
   _bindCallbacks() {

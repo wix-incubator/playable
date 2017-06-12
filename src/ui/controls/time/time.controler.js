@@ -8,12 +8,12 @@ const UPDATE_INTERVAL_DELAY = 100;
 export default class TimeControl {
   static View = View;
 
-  constructor({ eventEmitter, engine, view }) {
+  constructor({ eventEmitter, engine }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
 
     this._bindCallbacks();
-    this._initUI(view);
+    this._initUI();
     this._bindEvents();
 
     this.setCurrentTime(0);
@@ -36,12 +36,8 @@ export default class TimeControl {
     this._eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
   }
 
-  _initUI(view) {
-    if (view) {
-      this.view = new view();
-    } else {
-      this.view = new this.constructor.View();
-    }
+  _initUI() {
+    this.view = new this.constructor.View();
   }
 
   _startIntervalUpdates() {

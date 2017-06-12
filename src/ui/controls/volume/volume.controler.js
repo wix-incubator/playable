@@ -7,7 +7,7 @@ import UI_EVENTS from '../../../constants/events/ui';
 export default class VolumeControl {
   static View = View;
 
-  constructor({ engine, eventEmitter, view }) {
+  constructor({ engine, eventEmitter }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
 
@@ -16,7 +16,7 @@ export default class VolumeControl {
 
     this._bindCallbacks();
 
-    this._initUI(view);
+    this._initUI();
 
     this._bindEvents();
 
@@ -28,7 +28,7 @@ export default class VolumeControl {
     return this.view.getNode();
   }
 
-  _initUI(view) {
+  _initUI() {
     const config = {
       callbacks: {
         onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
@@ -37,11 +37,7 @@ export default class VolumeControl {
       }
     };
 
-    if (view) {
-      this.view = new view(config);
-    } else {
-      this.view = new this.constructor.View(config);
-    }
+    this.view = new this.constructor.View(config);
   }
 
   _bindEvents() {

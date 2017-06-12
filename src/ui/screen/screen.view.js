@@ -4,25 +4,29 @@ import styles from './screen.scss';
 
 
 export default class ScreenView {
-  constructor({ callbacks, nativeControls }) {
-    this.nativeControls = nativeControls;
+  constructor({ callbacks, nativeControls, indicateScreenClick }) {
+    this._nativeControls = nativeControls;
+    this._indicateScreenClick = indicateScreenClick;
+
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: styles['screen-block'],
       tabIndex: 0
     });
 
-    this.$iconContainer = $('<div>', {
-      class: `${styles['icon-container']}`
-    });
+    if (this._indicateScreenClick) {
+      this.$iconContainer = $('<div>', {
+        class: `${styles['icon-container']}`
+      });
 
-    this.$icon = $('<div>', {
-      class: `${styles.icon}`
-    });
+      this.$icon = $('<div>', {
+        class: `${styles.icon}`
+      });
 
-    this.$iconContainer.append(this.$icon);
+      this.$iconContainer.append(this.$icon);
 
-    this.$node.append(this.$iconContainer);
+      this.$node.append(this.$iconContainer);
+    }
 
     this._bindEvents();
   }
@@ -61,7 +65,7 @@ export default class ScreenView {
 
   appendPlaybackViewNode(node) {
     this.$node.append(node);
-    if (this.nativeControls) {
+    if (this._nativeControls) {
       node.setAttribute('controls', 'true');
     }
   }

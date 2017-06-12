@@ -31,23 +31,6 @@ describe('TimeControl', () => {
       expect(control).to.exists;
       expect(control.view).to.exists;
     });
-
-    it('should create instance with custom view if provided', () => {
-      const spy = sinon.spy(function () {
-        return {
-          setCurrentTime: () => {},
-          setDurationTime: () => {}
-        }
-      });
-
-      control = new TimeControl({
-        engine,
-        eventEmitter,
-        view: spy
-      });
-
-      expect(spy.called).to.be.true;
-    })
   });
 
   describe('formatTime', () => {
