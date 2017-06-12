@@ -31,7 +31,7 @@ export default class OverlayView {
   }
 
   _bindEvents() {
-    this.$playButton.on('click', this._callbacks.onPlayClick);
+    this.$playButton[0].addEventListener('click', this._callbacks.onPlayClick);
   }
 
   getNode() {
@@ -51,7 +51,7 @@ export default class OverlayView {
   }
 
   _unbindEvents() {
-    this.$playButton.off('click', this._callbacks.onPlayClick);
+    this.$playButton[0].removeEventListener('click', this._callbacks.onPlayClick);
   }
 
   destroy() {

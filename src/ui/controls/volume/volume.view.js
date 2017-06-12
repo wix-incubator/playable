@@ -85,12 +85,14 @@ export default class VolumeView {
     this.$container[0]
       .addEventListener('click', this._stopPropagationForContainer);
 
-    this.$input
-      .on('change', this._onInputChange)
-      .on('input', this._onInputChange);
+    this.$input[0]
+      .addEventListener('change', this._onInputChange);
 
-    this.$muteControl
-      .on('click', this._callbacks.onToggleMuteClick);
+    this.$input[0]
+      .addEventListener('input', this._onInputChange);
+
+    this.$muteControl[0]
+      .addEventListener('click', this._callbacks.onToggleMuteClick);
   }
 
   _unbindEvents() {
@@ -100,13 +102,14 @@ export default class VolumeView {
     this.$container[0]
       .removeEventListener('click', this._stopPropagationForContainer);
 
-    this.$input
-      .off('wheel', this._onWheel)
-      .off('change', this._onInputChange)
-      .off('input', this._onInputChange);
+    this.$input[0]
+      .removeEventListener('change', this._onInputChange);
 
-    this.$muteControl
-      .off('click', this._callbacks.onToggleMuteClick);
+    this.$input[0]
+      .removeEventListener('input', this._onInputChange);
+
+    this.$muteControl[0]
+      .removeEventListener('click', this._callbacks.onToggleMuteClick);
   }
 
   setVolumeLevel(level) {

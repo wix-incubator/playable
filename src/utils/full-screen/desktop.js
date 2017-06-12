@@ -86,11 +86,11 @@ export default class DesktopFullScreen {
   }
 
   _bindEvents() {
-    this._elem.addEventListener(this._fullscreenFn.fullscreenchange, this._callback);
+    document.addEventListener(this._fullscreenFn.fullscreenchange, this._callback);
   }
 
   _unbindEvents() {
-    this._elem.removeEventListener(this._fullscreenFn.fullscreenchange, this._callback);
+    document.removeEventListener(this._fullscreenFn.fullscreenchange, this._callback);
   }
 
   request() {

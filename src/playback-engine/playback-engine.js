@@ -38,63 +38,63 @@ export default class Engine {
       this._eventEmitter.emit(VIDEO_EVENTS.ERROR, error);
     });
 
-    this._$video.on('loadstart', () => {
+    this._$video[0].addEventListener('loadstart', () => {
       this._setStatus(STATUSES.LOAD_STARTED);
     });
 
-    this._$video.on('loadedmetadata', () => {
+    this._$video[0].addEventListener('loadedmetadata', () => {
       this._setStatus(STATUSES.METADATA_LOADED);
     });
 
-    this._$video.on('canplay', () => {
+    this._$video[0].addEventListener('canplay', () => {
       this._setStatus(STATUSES.READY_TO_PLAY);
     });
 
-    this._$video.on('progress', () => {
+    this._$video[0].addEventListener('progress', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
     });
 
-    this._$video.on('play', () => {
+    this._$video[0].addEventListener('play', () => {
       this._setStatus(STATUSES.PLAY_REQUESTED);
     });
 
-    this._$video.on('playing', () => {
+    this._$video[0].addEventListener('playing', () => {
       this._setStatus(STATUSES.PLAYING);
     });
 
-    this._$video.on('pause', () => {
+    this._$video[0].addEventListener('pause', () => {
       this._setStatus(STATUSES.PAUSED);
     });
 
-    this._$video.on('ended', () => {
+    this._$video[0].addEventListener('ended', () => {
       this._setStatus(STATUSES.ENDED);
     });
 
-    this._$video.on('stalled', () => {
+    this._$video[0].addEventListener('stalled', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_STALLED);
     });
 
-    this._$video.on('suspend', () => {
+    this._$video[0].addEventListener('suspend', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
     });
 
-    this._vidi.on('durationchange', () => {
+    this._$video[0].addEventListener('durationchange', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, videoEl.duration);
     });
 
-    this._vidi.on('timeupdate', () => {
+    this._$video[0].addEventListener('timeupdate', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED, videoEl.currentTime);
     });
 
-    this._$video.on('seeking', () => {
+    this._$video[0].addEventListener('seeking', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED, videoEl.currentTime);
     });
 
-    this._$video.on('seeked', () => {
+    this._$video[0].addEventListener('seeked', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED, videoEl.currentTime);
     });
 
-    this._$video.on('volumechange', () => {
+    this._$video[0].addEventListener('volumechange', () => {
       this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
         volume: videoEl.volume,
         muted: videoEl.muted

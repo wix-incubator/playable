@@ -21,7 +21,7 @@ export default class FullScreenView {
   }
 
   _bindEvents() {
-    this.$toggleFullScreenControl.on('click', this._callbacks.onToggleFullScreenButtonClick);
+    this.$toggleFullScreenControl[0].addEventListener('click', this._callbacks.onToggleFullScreenButtonClick);
   }
 
   setFullScreenStatus(isFullScreen) {
@@ -37,7 +37,7 @@ export default class FullScreenView {
   }
 
   _unbindEvents() {
-    this.$toggleFullScreenControl.off('click', this._callbacks.onToggleFullScreenButtonClick);
+    this.$toggleFullScreenControl[0].removeEventListener('click', this._callbacks.onToggleFullScreenButtonClick);
   }
 
   getNode() {

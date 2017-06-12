@@ -21,11 +21,11 @@ export default class PlayView {
   }
 
   _bindEvents() {
-    this.$playbackControl.on('click', this._callbacks.onTogglePlaybackButtonClick);
+    this.$playbackControl[0].addEventListener('click', this._callbacks.onTogglePlaybackButtonClick);
   }
 
   _unbindEvents() {
-    this.$playbackControl.off('click', this._callbacks.onTogglePlaybackButtonClick);
+    this.$playbackControl[0].removeEventListener('click', this._callbacks.onTogglePlaybackButtonClick);
   }
   // Think about changing it for 'changeState' in all controllers
   setPlaybackStatus(isPlaying) {

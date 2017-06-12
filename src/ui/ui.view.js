@@ -41,15 +41,15 @@ export default class PlayerUIView {
   }
 
   _bindEvents() {
-    this.$node.on('mouseenter', this._proxyMouseEnterOnNode);
-    this.$node.on('mousemove', this._proxyMouseMoveOnNode);
-    this.$node.on('mouseleave', this._proxyMouseLeaveOnNode);
+    this.$node[0].addEventListener('mouseenter', this._proxyMouseEnterOnNode);
+    this.$node[0].addEventListener('mousemove', this._proxyMouseMoveOnNode);
+    this.$node[0].addEventListener('mouseleave', this._proxyMouseLeaveOnNode);
   }
 
   _unbindEvents() {
-    this.$node.off('mouseenter', this._proxyMouseEnterOnNode);
-    this.$node.off('mousemove', this._proxyMouseMoveOnNode);
-    this.$node.off('mouseleave', this._proxyMouseLeaveOnNode);
+    this.$node[0].removeEventListener('mouseenter', this._proxyMouseEnterOnNode);
+    this.$node[0].removeEventListener('mousemove', this._proxyMouseMoveOnNode);
+    this.$node[0].removeEventListener('mouseleave', this._proxyMouseLeaveOnNode);
   }
 
   _proxyMouseEnterOnNode() {

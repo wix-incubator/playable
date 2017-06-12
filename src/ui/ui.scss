@@ -8,6 +8,14 @@
 
   height: inherit;
 
+  :focus {
+    outline: none;
+  }
+
+  ::-moz-focus-inner {
+    border: 0;
+  }
+
   .inner-wrapper {
     position: absolute;
     top: 0;

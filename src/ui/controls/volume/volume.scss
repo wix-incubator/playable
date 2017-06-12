@@ -30,8 +30,6 @@ $color: white !default;
 }
 
 .mute-button {
-  position: absolute;
-
   width: 18px;
   min-width: 18px;
   height: 15px;
@@ -54,6 +52,7 @@ $color: white !default;
 
   position: absolute;
   top: -108px;
+  left: -9px;
 
   visibility: hidden;
 

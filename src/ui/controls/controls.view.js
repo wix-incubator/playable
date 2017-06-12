@@ -34,9 +34,9 @@ export default class ControlsView {
   }
 
   _bindEvents() {
-    this.$controlsContainer.on('click', this._callbacks.onControlsBlockMouseClick);
-    this.$controlsContainer.on('mousemove', this._callbacks.onControlsBlockMouseMove);
-    this.$controlsContainer.on('mouseleave', this._callbacks.onControlsBlockMouseOut);
+    this.$controlsContainer[0].addEventListener('click', this._callbacks.onControlsBlockMouseClick);
+    this.$controlsContainer[0].addEventListener('mousemove', this._callbacks.onControlsBlockMouseMove);
+    this.$controlsContainer[0].addEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
   }
 
   show() {
@@ -64,9 +64,9 @@ export default class ControlsView {
   }
 
   _unbindEvents() {
-    this.$controlsContainer.off('click', this._callbacks.onControlsBlockMouseClick);
-    this.$controlsContainer.off('mousemove', this._callbacks.onControlsBlockMouseMove);
-    this.$controlsContainer.off('mouseleave', this._callbacks.onControlsBlockMouseOut);
+    this.$controlsContainer[0].removeEventListener('click', this._callbacks.onControlsBlockMouseClick);
+    this.$controlsContainer[0].removeEventListener('mousemove', this._callbacks.onControlsBlockMouseMove);
+    this.$controlsContainer[0].removeEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
   }
 
   destroy() {

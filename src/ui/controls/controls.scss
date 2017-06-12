@@ -6,6 +6,10 @@
   right: 0;
   bottom: 0;
   left: 0;
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
 }
 
 .controls-wrapper {
