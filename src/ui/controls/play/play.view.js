@@ -11,7 +11,8 @@ export default class PlayView {
     });
 
     this.$playbackControl = $('<div>', {
-      class: `${styles['playback-toggle']} ${styles.icon}`
+      class: `${styles['playback-toggle']} ${styles.icon}`,
+      'data-hook': 'toggle-playback-button'
     });
 
     this.$node

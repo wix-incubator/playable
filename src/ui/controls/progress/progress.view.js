@@ -12,6 +12,7 @@ export default class ProgressView {
 
     this.$played = $('<progress>', {
       class: styles['progress-played'],
+      'data-hook': 'played-indicator',
       role: 'played',
       max: 100,
       value: 0
@@ -19,6 +20,7 @@ export default class ProgressView {
 
     this.$buffered = $('<progress>', {
       class: styles['progress-buffered'],
+      'data-hook': 'buffered-indicator',
       role: 'buffered',
       max: 100,
       value: 0
@@ -26,6 +28,7 @@ export default class ProgressView {
 
     this.$input = $('<input>', {
       class: styles['seek-control'],
+      'data-hook': 'seek-input',
       type: 'range',
       min: 0,
       max: 100,

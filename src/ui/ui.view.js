@@ -11,7 +11,8 @@ export default class PlayerUIView {
     this._callbacks = callbacks;
 
     this.$node = $('<div>', {
-      class: styles['video-wrapper']
+      class: styles['video-wrapper'],
+      'data-hook': 'player-container'
     });
 
     this.$innerWrapper = $('<div>', {

@@ -22,14 +22,16 @@ export default class TimeView {
     });
 
     this.$currentTime = $('<span>', {
-      class: `${styles.current} ${styles.time}`
+      class: `${styles.current} ${styles.time}`,
+      'data-hook': 'current-time-indicator'
     });
     this.$divider = $('<span>', {
       class: styles.time
     })
       .html('/');
     this.$durationTime = $('<span>', {
-      class: `${styles.duration} ${styles.time}`
+      class: `${styles.duration} ${styles.time}`,
+      'data-hook': 'duration-time-indicator'
     });
 
     this.$node

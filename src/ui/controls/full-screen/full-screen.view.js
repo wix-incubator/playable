@@ -11,7 +11,8 @@ export default class FullScreenView {
     });
 
     this.$toggleFullScreenControl = $('<div>', {
-      class: `${styles['full-screen-toggle']} ${styles.icon}`
+      class: `${styles['full-screen-toggle']} ${styles.icon}`,
+      'data-hook': 'full-screen-button'
     });
 
     this.$node

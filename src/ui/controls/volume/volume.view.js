@@ -13,7 +13,8 @@ export default class VolumeView {
     });
 
     this.$muteControl = $('<div>', {
-      class: `${styles['mute-button']} ${styles.icon}`
+      class: `${styles['mute-button']} ${styles.icon}`,
+      'data-hook': 'mute-button'
     });
 
     this.$container = $('<div>', {
@@ -34,7 +35,7 @@ export default class VolumeView {
 
     this.$input = $('<input>', {
       class: `${styles['volume-input']}`,
-      id: 'volume-input',
+      'data-hook': 'volume-input',
       orient: 'vertical',
       type: 'range',
       min: 0,

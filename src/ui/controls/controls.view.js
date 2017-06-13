@@ -21,7 +21,8 @@ export default class ControlsView {
     });
 
     this.$controlsContainer = $('<div>', {
-      class: styles.controls
+      class: styles.controls,
+      'data-hook': 'controls-container'
     });
 
     this.$wrapper
