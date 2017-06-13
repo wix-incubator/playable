@@ -6,35 +6,41 @@ import styles from './volume.scss';
 const MAX_VOLUME_ICON_RANGE = 50;
 
 export default class VolumeView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: styles['volume-control']
+      class: this.styleNames['volume-control']
     });
 
     this.$muteControl = $('<div>', {
-      class: `${styles['mute-button']} ${styles.icon}`,
+      class: `${this.styleNames['mute-button']} ${this.styleNames.icon}`,
       'data-hook': 'mute-button'
     });
 
     this.$container = $('<div>', {
-      class: styles.container
+      class: this.styleNames.container
     });
 
     const $content = $('<div>', {
-      class: styles.content
+      class: this.styleNames.content
     });
 
     const $inputWrapper = $('<div>', {
-      class: styles['input-wrapper']
+      class: this.styleNames['input-wrapper']
     });
 
     this.$filledProgress = $('<div>', {
-      class: styles['filled-progress']
+      class: this.styleNames['filled-progress']
     });
 
     this.$input = $('<input>', {
-      class: `${styles['volume-input']}`,
+      class: `${this.styleNames['volume-input']}`,
       'data-hook': 'volume-input',
       orient: 'vertical',
       type: 'range',
@@ -124,14 +130,18 @@ export default class VolumeView {
     this.$filledProgress.attr('style', `height:${volume}%;`);
 
     if (volume >= MAX_VOLUME_ICON_RANGE) {
-      this.$muteControl.toggleClass(styles['half-volume'], false);
+      this.$muteControl.toggleClass(this.styleNames['half-volume'], false);
     } else {
-      this.$muteControl.toggleClass(styles['half-volume'], true);
+      this.$muteControl.toggleClass(this.styleNames['half-volume'], true);
     }
   }
 
   _setMuteStatus(isMuted) {
-    this.$muteControl.toggleClass(styles.muted, isMuted);
+    this.$muteControl.toggleClass(this.styleNames.muted, isMuted);
+  }
+
+  get styleNames() {
+    return this.constructor._styles;
   }
 
   show() {

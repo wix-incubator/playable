@@ -4,14 +4,20 @@ import styles from './progress.scss';
 
 
 export default class ProgressView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: styles['progress-bar']
+      class: this.styleNames['progress-bar']
     });
 
     this.$played = $('<progress>', {
-      class: styles['progress-played'],
+      class: this.styleNames['progress-played'],
       'data-hook': 'played-indicator',
       role: 'played',
       max: 100,
@@ -19,7 +25,7 @@ export default class ProgressView {
     });
 
     this.$buffered = $('<progress>', {
-      class: styles['progress-buffered'],
+      class: this.styleNames['progress-buffered'],
       'data-hook': 'buffered-indicator',
       role: 'buffered',
       max: 100,
@@ -27,7 +33,7 @@ export default class ProgressView {
     });
 
     this.$input = $('<input>', {
-      class: styles['seek-control'],
+      class: this.styleNames['seek-control'],
       'data-hook': 'seek-input',
       type: 'range',
       min: 0,
@@ -41,6 +47,7 @@ export default class ProgressView {
       .append(this.$played)
       .append(this.$buffered);
 
+    this._bindCallbacks();
     this._bindEvents();
   }
 
@@ -66,11 +73,13 @@ export default class ProgressView {
     this._callbacks.onChangePlayedProgress(value);
   }
 
-  _bindEvents() {
+  _bindCallbacks() {
     this._onMouseInteractionStart = this._onMouseInteractionStart.bind(this);
     this._onMouseInteractionEnd = this._onMouseInteractionEnd.bind(this);
     this._onInputValueChange = this._onInputValueChange.bind(this);
+  }
 
+  _bindEvents() {
     this.$input[0].addEventListener('input', this._onInputValueChange);
     this.$input[0].addEventListener('change', this._onInputValueChange);
 
@@ -78,9 +87,12 @@ export default class ProgressView {
     this.$node[0].addEventListener('mouseup', this._onMouseInteractionEnd);
   }
 
-  setState({ played, buffered }) {
-    (played !== undefined) && this._updatePlayed(played);
-    (buffered !== undefined) && this._updateBuffered(buffered);
+  _unbindEvents() {
+    this.$input[0].removeEventListener('input', this._onInputValueChange);
+    this.$input[0].removeEventListener('change', this._onInputValueChange);
+
+    this.$node[0].removeEventListener('mousedown', this._onMouseInteractionStart);
+    this.$node[0].removeEventListener('mouseup', this._onMouseInteractionEnd);
   }
 
   _updatePlayed(percent) {
@@ -93,20 +105,21 @@ export default class ProgressView {
     this.$buffered.attr('value', percent);
   }
 
+  setState({ played, buffered }) {
+    (played !== undefined) && this._updatePlayed(played);
+    (buffered !== undefined) && this._updateBuffered(buffered);
+  }
+
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
-  _unbindEvents() {
-    this.$input[0].removeEventListener('input', this._onInputValueChange);
-    this.$input[0].removeEventListener('change', this._onInputValueChange);
-
-    this.$node[0].removeEventListener('mousedown', this._onMouseInteractionStart);
-    this.$node[0].removeEventListener('mouseup', this._onMouseInteractionEnd);
+  get styleNames() {
+    return this.constructor._styles;
   }
 
   getNode() {

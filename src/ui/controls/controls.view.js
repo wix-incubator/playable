@@ -4,24 +4,30 @@ import styles from './controls.scss';
 
 
 export default class ControlsView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: styles['controls-block'],
+      class: this.styleNames['controls-block'],
       tabIndex: 0
     });
 
     this.$wrapper = $('<div>', {
-      class: styles['controls-wrapper'],
+      class: this.styleNames['controls-wrapper'],
       tabIndex: 0
     });
 
     const background = $('<div>', {
-      class: styles['gradient-background']
+      class: this.styleNames['gradient-background']
     });
 
     this.$controlsContainer = $('<div>', {
-      class: styles.controls,
+      class: this.styleNames.controls,
       'data-hook': 'controls-container'
     });
 
@@ -40,12 +46,22 @@ export default class ControlsView {
     this.$controlsContainer[0].addEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
   }
 
+  _unbindEvents() {
+    this.$controlsContainer[0].removeEventListener('click', this._callbacks.onControlsBlockMouseClick);
+    this.$controlsContainer[0].removeEventListener('mousemove', this._callbacks.onControlsBlockMouseMove);
+    this.$controlsContainer[0].removeEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
+  }
+
+  get styleNames() {
+    return this.constructor._styles;
+  }
+
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   getNode() {
@@ -57,17 +73,11 @@ export default class ControlsView {
   }
 
   showControlsBlock() {
-    this.$wrapper.toggleClass(styles.activated, true);
+    this.$wrapper.toggleClass(this.styleNames.activated, true);
   }
 
   hideControlsBlock() {
-    this.$wrapper.toggleClass(styles.activated, false);
-  }
-
-  _unbindEvents() {
-    this.$controlsContainer[0].removeEventListener('click', this._callbacks.onControlsBlockMouseClick);
-    this.$controlsContainer[0].removeEventListener('mousemove', this._callbacks.onControlsBlockMouseMove);
-    this.$controlsContainer[0].removeEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
+    this.$wrapper.toggleClass(this.styleNames.activated, false);
   }
 
   destroy() {

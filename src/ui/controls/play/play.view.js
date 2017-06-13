@@ -2,16 +2,21 @@ import $ from 'jbone';
 
 import styles from './play.scss';
 
-
 export default class PlayView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: styles['play-control']
+      class: this.styleNames['play-control']
     });
 
     this.$playbackControl = $('<div>', {
-      class: `${styles['playback-toggle']} ${styles.icon}`,
+      class: `${this.styleNames['playback-toggle']} ${this.styleNames.icon}`,
       'data-hook': 'toggle-playback-button'
     });
 
@@ -30,15 +35,19 @@ export default class PlayView {
   }
 
   setState({ isPlaying }) {
-    this.$playbackControl.toggleClass(styles.paused, !isPlaying);
+    this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
+  }
+
+  get styleNames() {
+    return this.constructor._styles;
   }
 
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   getNode() {

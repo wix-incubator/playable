@@ -4,19 +4,24 @@ import styles from './ui.scss';
 
 
 export default class PlayerUIView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor({ width, height, callbacks }) {
-    this._sizeQueryClass = null;
     this._inFullScreen = false;
 
     this._callbacks = callbacks;
 
     this.$node = $('<div>', {
-      class: styles['video-wrapper'],
+      class: this.styleNames['video-wrapper'],
       'data-hook': 'player-container'
     });
 
     this.$innerWrapper = $('<div>', {
-      class: styles['inner-wrapper']
+      class: this.styleNames['inner-wrapper']
     });
 
     this.setWidth(width);
@@ -59,6 +64,10 @@ export default class PlayerUIView {
     this._callbacks.onMouseLeave();
   }
 
+  get styleNames() {
+    return this.constructor._styles;
+  }
+
   setWidth(width) {
     if (!width) {
       return;
@@ -86,11 +95,11 @@ export default class PlayerUIView {
   }
 
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   appendComponentNode(node) {
@@ -102,7 +111,7 @@ export default class PlayerUIView {
   }
 
   setFullScreenStatus(isFullScreen) {
-    this.$node.toggleClass(styles['full-screen'], isFullScreen);
+    this.$node.toggleClass(this.styleNames['full-screen'], isFullScreen);
     this._inFullScreen = isFullScreen;
   }
 

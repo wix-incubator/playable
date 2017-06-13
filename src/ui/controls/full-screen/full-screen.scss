@@ -5,7 +5,7 @@
 
   display: flex;
 
-  margin: 0 22px 0 7px;
+  margin: 0 18px 0 7px;
 
   align-items: center;
   justify-content: center;
@@ -13,13 +13,13 @@
   .full-screen-toggle {
     width: 18px;
     min-width: 18px;
-    height: 15px;
-    min-height: 15px;
+    height: 14px;
+    min-height: 14px;
 
     transition: transform .2s;
 
     background-image: url('../../../assets/full-screen/full-screen.svg');
-    background-size: 18px 15px;
+    background-size: 18px 14px;
 
     &:hover {
       transform: scale(1.20);

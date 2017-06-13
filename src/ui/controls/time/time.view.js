@@ -16,21 +16,29 @@ export function formatTime(seconds) {
 }
 
 export default class TimeView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor() {
     this.$node = $('<div>', {
-      class: styles['time-wrapper']
+      class: this.styleNames['time-wrapper']
     });
 
     this.$currentTime = $('<span>', {
-      class: `${styles.current} ${styles.time}`,
+      class: `${this.styleNames.current} ${this.styleNames.time}`,
       'data-hook': 'current-time-indicator'
     });
+
     this.$divider = $('<span>', {
-      class: styles.time
+      class: this.styleNames.time
     })
       .html('/');
+
     this.$durationTime = $('<span>', {
-      class: `${styles.duration} ${styles.time}`,
+      class: `${this.styleNames.duration} ${this.styleNames.time}`,
       'data-hook': 'duration-time-indicator'
     });
 
@@ -53,12 +61,16 @@ export default class TimeView {
     this.$currentTime.html(formatTime(current));
   }
 
+  get styleNames() {
+    return this.constructor._styles;
+  }
+
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   getNode() {
