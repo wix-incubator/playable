@@ -1,3 +1,5 @@
+import { ElementQueries } from 'css-element-queries';
+
 import UI_EVENTS from '../constants/events/ui';
 
 import View from './ui.view';
@@ -29,6 +31,8 @@ class PlayerUI {
     this._initCustomUI();
 
     this._bindEvents();
+
+    ElementQueries.listen();
   }
 
   get node() {

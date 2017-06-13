@@ -5,28 +5,46 @@
 
   display: flex;
 
-  margin: 0 18px 0 7px;
+  margin-right: 18px;
 
   align-items: center;
   justify-content: center;
+}
 
-  .full-screen-toggle {
-    width: 18px;
-    min-width: 18px;
-    height: 14px;
-    min-height: 14px;
 
-    transition: transform .2s;
+.full-screen-toggle {
+  width: 18px;
+  min-width: 18px;
+  height: 14px;
+  min-height: 14px;
 
-    background-image: url('../../../assets/full-screen/full-screen.svg');
-    background-size: 18px 14px;
+  transition: transform .2s;
 
-    &:hover {
-      transform: scale(1.20);
-    }
+  background-image: url('../../../assets/full-screen/full-screen.svg');
+  background-size: 18px 14px;
 
-    &.in-full-screen {
-      background-image: url('../../../assets/full-screen/exit-full-screen.svg');
-    }
+  &:hover {
+    transform: scale(1.20);
   }
+
+  &.in-full-screen {
+    background-image: url('../../../assets/full-screen/exit-full-screen.svg');
+  }
+}
+
+@include in-full-screen('.full-screen-control') {
+  margin-right: 30px;
+}
+
+@include max-width-550('.full-screen-control') {
+  margin-right: 12px;
+}
+
+@include in-full-screen('.full-screen-toggle ') {
+  width: 25px;
+  min-width: 25px;
+  height: 21px;
+  min-height: 21px;
+
+  background-size: 25px 21px;
 }

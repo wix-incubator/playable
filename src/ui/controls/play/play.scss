@@ -7,10 +7,8 @@
 
   box-sizing: border-box;
   height: 15px;
-  margin-right: 20px;
-  padding: 0 18px;
-
-  border-right: 1px solid hsla(0,0%,100%,.2);
+  margin-right: 18px;
+  margin-left: 18px;
 
   align-items: center;
   justify-content: center;
@@ -28,4 +26,23 @@
       background-image: url('../../../assets/play/play-icon.svg');
     }
   }
+}
+
+@include in-full-screen('.play-control') {
+  height: 21px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+@include in-full-screen('.playback-toggle') {
+  width: 16px;
+  min-width: 16px;
+  height: 21px;
+  min-height: 21px;
+
+  background-size: 16px 21px;
+}
+
+@include max-width-550('.play-control') {
+  margin-left: 12px;
 }

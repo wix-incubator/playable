@@ -111,6 +111,11 @@ export default class PlayerUIView {
   }
 
   setFullScreenStatus(isFullScreen) {
+    if (isFullScreen) {
+      this.$node.attr('data-in-full-screen', true);
+    } else {
+      this.$node.removeAttr('data-in-full-screen');
+    }
     this.$node.toggleClass(this.styleNames['full-screen'], isFullScreen);
     this._inFullScreen = isFullScreen;
   }

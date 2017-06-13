@@ -105,6 +105,10 @@ export default class ProgressView {
     this.$buffered.attr('value', percent);
   }
 
+  get styleNames() {
+    return this.constructor._styles;
+  }
+
   setState({ played, buffered }) {
     (played !== undefined) && this._updatePlayed(played);
     (buffered !== undefined) && this._updateBuffered(buffered);
@@ -116,10 +120,6 @@ export default class ProgressView {
 
   show() {
     this.$node.toggleClass(this.styleNames.hidden, false);
-  }
-
-  get styleNames() {
-    return this.constructor._styles;
   }
 
   getNode() {
