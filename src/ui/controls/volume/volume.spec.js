@@ -35,7 +35,7 @@ describe('VolumeControl', () => {
 
   describe('API', () => {
     it('should have method for setting current time', () => {
-      const spy = sinon.spy(control.view, 'setVolumeLevel');
+      const spy = sinon.spy(control.view, 'setState');
       expect(control.setVolumeLevel).to.exist;
       control.setVolumeLevel(100);
       expect(spy.called).to.be.false;
@@ -44,7 +44,7 @@ describe('VolumeControl', () => {
     });
 
     it('should have method for setting duration time', () => {
-      const spy = sinon.spy(control.view, 'setMuteStatus');
+      const spy = sinon.spy(control.view, 'setState');
       expect(control.setMuteStatus).to.exist;
       control.setMuteStatus();
       expect(spy.called).to.be.true;
@@ -158,12 +158,8 @@ describe('VolumeControl', () => {
       expect(wheelSpy.called).to.be.true;
     });
 
-    it('should have method for setting current time', () => {
-      expect(control.view.setVolumeLevel).to.exist;
-    });
-
-    it('should have method for setting duration time', () => {
-      expect(control.view.setMuteStatus).to.exist;
+    it('should have method for setting current state', () => {
+      expect(control.view.setState).to.exist;
     });
 
     it('should have method for showing itself', () => {

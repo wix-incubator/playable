@@ -35,7 +35,7 @@ describe('PlayControl', () => {
 
   describe('API', () => {
     it('should have method for setting playback status', () => {
-      const spy = sinon.spy(control.view, 'setPlaybackStatus');
+      const spy = sinon.spy(control.view, 'setState');
       expect(control.setControlStatus).to.exist;
       control.setControlStatus();
       expect(spy.called).to.be.true;
@@ -91,7 +91,7 @@ describe('PlayControl', () => {
     });
 
     it('should have method for setting current time', () => {
-      expect(control.view.setPlaybackStatus).to.exist;
+      expect(control.view.setState).to.exist;
     });
 
     it('should have method for showing itself', () => {

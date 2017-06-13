@@ -24,8 +24,8 @@ export default class FullScreenView {
     this.$toggleFullScreenControl[0].addEventListener('click', this._callbacks.onToggleFullScreenButtonClick);
   }
 
-  setFullScreenStatus(isFullScreen) {
-    this.$toggleFullScreenControl.toggleClass(styles['in-full-screen'], isFullScreen);
+  setState({ isInFullScreen }) {
+    this.$toggleFullScreenControl.toggleClass(styles['in-full-screen'], isInFullScreen);
   }
 
   hide() {

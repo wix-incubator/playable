@@ -71,11 +71,11 @@ export default class TimeControl {
   }
 
   setDurationTime(time) {
-    this.view.setDurationTime(time);
+    this.view.setState({ duration: time });
   }
 
   setCurrentTime(time) {
-    this.view.setCurrentTime(time);
+    this.view.setState({ current: time });
   }
 
   hide() {

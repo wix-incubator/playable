@@ -59,7 +59,7 @@ export default class FullScreenControl {
 
   setControlStatus(isInFullScreen) {
     this._isInFullScreen = isInFullScreen;
-    this.view.setFullScreenStatus(this._isInFullScreen);
+    this.view.setState({ isInFullScreen: this._isInFullScreen });
   }
 
   hide() {

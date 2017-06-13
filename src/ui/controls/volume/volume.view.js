@@ -112,19 +112,24 @@ export default class VolumeView {
       .removeEventListener('click', this._callbacks.onToggleMuteClick);
   }
 
-  setVolumeLevel(level) {
-    this.$input.val(level);
-    this.$input.attr('value', level);
-    this.$filledProgress.attr('style', `height:${level}%;`);
+  setState({ volume, isMuted }) {
+    (volume !== undefined) && this._setVolumeLevel(volume);
+    (isMuted !== undefined) && this._setMuteStatus(isMuted);
+  }
 
-    if (level >= MAX_VOLUME_ICON_RANGE) {
+  _setVolumeLevel(volume) {
+    this.$input.val(volume);
+    this.$input.attr('value', volume);
+    this.$filledProgress.attr('style', `height:${volume}%;`);
+
+    if (volume >= MAX_VOLUME_ICON_RANGE) {
       this.$muteControl.toggleClass(styles['half-volume'], false);
     } else {
       this.$muteControl.toggleClass(styles['half-volume'], true);
     }
   }
 
-  setMuteStatus(isMuted) {
+  _setMuteStatus(isMuted) {
     this.$muteControl.toggleClass(styles.muted, isMuted);
   }
 

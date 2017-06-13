@@ -10,10 +10,6 @@ export default class ProgressView {
       class: styles['progress-bar']
     });
 
-    this.$clickWrapper = $('<div>', {
-
-    });
-
     this.$played = $('<progress>', {
       class: styles['progress-played'],
       role: 'played',
@@ -29,7 +25,7 @@ export default class ProgressView {
     });
 
     this.$input = $('<input>', {
-      class: styles['range-control'],
+      class: styles['seek-control'],
       type: 'range',
       min: 0,
       max: 100,
@@ -37,12 +33,10 @@ export default class ProgressView {
       value: 0
     });
 
-    this.$clickWrapper
+    this.$node
       .append(this.$input)
       .append(this.$played)
       .append(this.$buffered);
-
-    this.$node.append(this.$clickWrapper);
 
     this._bindEvents();
   }
@@ -77,17 +71,22 @@ export default class ProgressView {
     this.$input[0].addEventListener('input', this._onInputValueChange);
     this.$input[0].addEventListener('change', this._onInputValueChange);
 
-    this.$clickWrapper[0].addEventListener('mousedown', this._onMouseInteractionStart);
-    this.$clickWrapper[0].addEventListener('mouseup', this._onMouseInteractionEnd);
+    this.$node[0].addEventListener('mousedown', this._onMouseInteractionStart);
+    this.$node[0].addEventListener('mouseup', this._onMouseInteractionEnd);
   }
 
-  updatePlayed(percent) {
+  setState({ played, buffered }) {
+    (played !== undefined) && this._updatePlayed(played);
+    (buffered !== undefined) && this._updateBuffered(buffered);
+  }
+
+  _updatePlayed(percent) {
     this.$input.val(percent);
     this.$input.attr('value', percent);
     this.$played.attr('value', percent);
   }
 
-  updateBuffered(percent) {
+  _updateBuffered(percent) {
     this.$buffered.attr('value', percent);
   }
 
@@ -103,8 +102,8 @@ export default class ProgressView {
     this.$input[0].removeEventListener('input', this._onInputValueChange);
     this.$input[0].removeEventListener('change', this._onInputValueChange);
 
-    this.$clickWrapper[0].removeEventListener('mousedown', this._onMouseInteractionStart);
-    this.$clickWrapper[0].removeEventListener('mouseup', this._onMouseInteractionEnd);
+    this.$node[0].removeEventListener('mousedown', this._onMouseInteractionStart);
+    this.$node[0].removeEventListener('mouseup', this._onMouseInteractionEnd);
   }
 
   getNode() {

@@ -47,14 +47,14 @@ describe('TimeControl', () => {
 
   describe('API', () => {
     it('should have method for setting current time', () => {
-      const spy = sinon.spy(control.view, 'setCurrentTime');
+      const spy = sinon.spy(control.view, 'setState');
       expect(control.setCurrentTime).to.exist;
       control.setCurrentTime();
       expect(spy.called).to.be.true;
     });
 
     it('should have method for setting duration time', () => {
-      const spy = sinon.spy(control.view, 'setDurationTime');
+      const spy = sinon.spy(control.view, 'setState');
       expect(control.setDurationTime).to.exist;
       control.setDurationTime();
       expect(spy.called).to.be.true;
@@ -131,12 +131,8 @@ describe('TimeControl', () => {
   });
 
   describe('View', () => {
-    it('should have method for setting current time', () => {
-      expect(control.view.setCurrentTime).to.exist;
-    });
-
-    it('should have method for setting duration time', () => {
-      expect(control.view.setDurationTime).to.exist;
+    it('should have method for setting state', () => {
+      expect(control.view.setState).to.exist;
     });
 
     it('should have method for showing itself', () => {

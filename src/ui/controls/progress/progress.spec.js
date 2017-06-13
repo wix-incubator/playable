@@ -36,18 +36,18 @@ describe('ProgressControl', () => {
   describe('API', () => {
     it('should have method for setting value for played', () => {
       const played = '10';
-      const spy = sinon.spy(control.view, 'updatePlayed');
+      const spy = sinon.spy(control.view, 'setState');
       expect(control.updatePlayed).to.exist;
       control.updatePlayed(played);
-      expect(spy.calledWith(played)).to.be.true;
+      expect(spy.calledWith({ played })).to.be.true;
     });
 
     it('should have method for setting value for buffered', () => {
       const buffered = '30';
-      const spy = sinon.spy(control.view, 'updateBuffered');
+      const spy = sinon.spy(control.view, 'setState');
       expect(control.updateBuffered).to.exist;
       control.updateBuffered(buffered);
-      expect(spy.calledWith(buffered)).to.be.true;
+      expect(spy.calledWith({ buffered })).to.be.true;
     });
 
     it('should have method for showing whole view', () => {
@@ -144,8 +144,8 @@ describe('ProgressControl', () => {
     });
 
     it('should update view', () => {
-      const playedSpy = sinon.spy(control.view, 'updatePlayed');
-      const bufferSpy = sinon.spy(control.view, 'updateBuffered');
+      const playedSpy = sinon.spy(control, 'updatePlayed');
+      const bufferSpy = sinon.spy(control, 'updateBuffered');
       control._updatePlayedIndicator();
       expect(playedSpy.called).to.be.true;
       control._updateBufferIndicator();
@@ -222,12 +222,8 @@ describe('ProgressControl', () => {
       expect(interactionSpy.called).to.be.true;
     });
 
-    it('should have method for setting current time', () => {
-      expect(control.view.updatePlayed).to.exist;
-    });
-
-    it('should have method for setting duration time', () => {
-      expect(control.view.updateBuffered).to.exist;
+    it('should have method for setting state', () => {
+      expect(control.view.setState).to.exist;
     });
 
     it('should have method for showing itself', () => {

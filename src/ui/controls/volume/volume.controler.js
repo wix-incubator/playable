@@ -20,8 +20,10 @@ export default class VolumeControl {
 
     this._bindEvents();
 
-    this.view.setVolumeLevel(this._volumeLevel);
-    this.view.setMuteStatus(this._isMuted);
+    this.view.setState({
+      volume: this._volumeLevel,
+      isMuted: this._isMuted
+    });
   }
 
   get node() {
@@ -91,7 +93,6 @@ export default class VolumeControl {
     this.setMuteStatus(this._engine.getMute());
   }
 
-
   setVolumeLevel(level) {
     if (level === this._volumeLevel) {
       return;
@@ -99,13 +100,10 @@ export default class VolumeControl {
 
     this._volumeLevel = this._convertVideoVolumeToVolumeLevel(level);
 
-    this.view.setVolumeLevel(this._volumeLevel);
-
-    if (this._volumeLevel) {
-      this.view.setMuteStatus(false);
-    } else {
-      this.view.setMuteStatus(true);
-    }
+    this.view.setState({
+      volume: this._volumeLevel,
+      isMuted: !this._volumeLevel
+    });
   }
 
   setMuteStatus(isMuted) {
@@ -114,12 +112,11 @@ export default class VolumeControl {
     }
 
     this._isMuted = isMuted;
-    this.view.setMuteStatus(this._isMuted || !this._volumeLevel);
-    if (this._isMuted) {
-      this.view.setVolumeLevel(0);
-    } else {
-      this.view.setVolumeLevel(this._volumeLevel);
-    }
+
+    this.view.setState({
+      volume: this._isMuted ? 0 : this._volumeLevel,
+      isMuted: this._isMuted || !this._volumeLevel
+    });
   }
 
   hide() {

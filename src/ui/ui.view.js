@@ -5,6 +5,9 @@ import styles from './ui.scss';
 
 export default class PlayerUIView {
   constructor({ width, height, callbacks }) {
+    this._sizeQueryClass = null;
+    this._inFullScreen = false;
+
     this._callbacks = callbacks;
 
     this.$node = $('<div>', {
@@ -15,17 +18,8 @@ export default class PlayerUIView {
       class: styles['inner-wrapper']
     });
 
-    if (width) {
-      this.$node.css({
-        width: `${width}px`
-      });
-    }
-
-    if (height) {
-      this.$node.css({
-        height: `${height}px`
-      });
-    }
+    this.setWidth(width);
+    this.setHeight(height);
 
     this.$node.append(this.$innerWrapper);
 
@@ -69,9 +63,11 @@ export default class PlayerUIView {
       return;
     }
 
+    this._width = width;
+
     this.$node
       .css({
-        width: `${width}px`
+        width: `${this._width}px`
       });
   }
 
@@ -80,9 +76,11 @@ export default class PlayerUIView {
       return;
     }
 
+    this._height = height;
+
     this.$node
       .css({
-        height: `${height}px`
+        height: `${this._height}px`
       });
   }
 
@@ -103,7 +101,8 @@ export default class PlayerUIView {
   }
 
   setFullScreenStatus(isFullScreen) {
-    this.$node.toggleClass(styles.fullscreen, isFullScreen);
+    this.$node.toggleClass(styles['full-screen'], isFullScreen);
+    this._inFullScreen = isFullScreen;
   }
 
   destroy() {

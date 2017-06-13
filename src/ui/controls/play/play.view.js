@@ -27,8 +27,8 @@ export default class PlayView {
   _unbindEvents() {
     this.$playbackControl[0].removeEventListener('click', this._callbacks.onTogglePlaybackButtonClick);
   }
-  // Think about changing it for 'changeState' in all controllers
-  setPlaybackStatus(isPlaying) {
+
+  setState({ isPlaying }) {
     this.$playbackControl.toggleClass(styles.paused, !isPlaying);
   }
 

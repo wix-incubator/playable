@@ -38,11 +38,16 @@ export default class TimeView {
       .append(this.$durationTime);
   }
 
-  setDurationTime(duration) {
+  setState({ duration, current }) {
+    (duration !== undefined) && this._setDurationTime(duration);
+    (current !== undefined) && this._setCurrentTime(current);
+  }
+
+  _setDurationTime(duration) {
     this.$durationTime.html(formatTime(duration));
   }
 
-  setCurrentTime(current) {
+  _setCurrentTime(current) {
     this.$currentTime.html(formatTime(current));
   }
 

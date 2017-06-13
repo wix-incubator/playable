@@ -74,7 +74,7 @@ export default class PlayControl {
 
   setControlStatus(isPlaying) {
     this._isPlaying = isPlaying;
-    this.view.setPlaybackStatus(this._isPlaying);
+    this.view.setState({ isPlaying: this._isPlaying });
   }
 
   _unbindEvents() {

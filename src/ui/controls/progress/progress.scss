@@ -1,5 +1,13 @@
 @import '../../shared';
 
+
+.max-width-400px {
+  .progress-bar {
+    display: none;
+  }
+}
+
+
 .progress-bar {
   position: relative;
 
@@ -116,4 +124,100 @@
 }
 .progress-buffered {
   color: $video-progress-bg;
+}
+
+@mixin seek-track() {
+  cursor: pointer;
+  user-select: none;
+
+  border: 0;
+  border-radius: 4px;
+}
+
+@mixin seek-track() {
+  position: relative;
+
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+
+  cursor: pointer;
+
+  border: none;
+  border-radius: 100%;
+  background: #fff;
+}
+
+.seek-control {
+  display: block;
+
+  width: 100%;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  vertical-align: middle;
+
+  border: none;
+  background: transparent;
+
+  appearance: none;
+
+  &::-webkit-slider-runnable-track {
+    @include seek-track();
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @include seek-track();
+  }
+
+  &::-moz-range-track {
+    @include seek-track();
+  }
+  &::-moz-range-thumb {
+    @include seek-track();
+  }
+
+  &::-ms-track {
+    height: 3px;
+
+    color: transparent;
+    border: 0;
+    background: transparent;
+  }
+  &::-ms-fill-upper {
+    @include seek-track();
+  }
+  &::-ms-fill-lower {
+    height: 3px;
+
+    color: $color-main;
+    background: $color-main;
+
+    @include seek-track();
+  }
+  &.volume-input::-ms-fill-lower {
+    height: 3px;
+
+    background: white;
+
+    @include seek-track();
+  }
+  &::-ms-thumb {
+    // For some reason, Edge uses the -webkit margin above
+    margin-top: -1px;
+
+    @include seek-track();
+  }
+  &::-ms-tooltip {
+    display: none;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+  &::-moz-focus-outer {
+    border: 0;
+  }
 }
