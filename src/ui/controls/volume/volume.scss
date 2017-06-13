@@ -11,7 +11,7 @@ $color: white !default;
   width: 18px;
   max-width: 18px;
   height: 25px;
-  margin: 0 23px 0 15px;
+  margin-right: 18px;
 
   justify-content: center;
   align-items: center;
@@ -27,6 +27,16 @@ $color: white !default;
       opacity: 1;
     }
   }
+}
+
+@include in-full-screen('.volume-control') {
+  width: 25px;
+  max-width: 25px;
+  margin-right: 30px;
+}
+
+@include max-width-300('.volume-control') {
+  @include hidden();
 }
 
 .mute-button {
@@ -47,23 +57,36 @@ $color: white !default;
   }
 }
 
+@include in-full-screen('.mute-button') {
+  width: 25px;
+  min-width: 25px;
+  height: 21px;
+  min-height: 21px;
+
+  background-size: 25px 21px;
+}
+
+
 .container {
-  font-size: 12px;
+  font-size: 10px;
 
   position: absolute;
-  top: -108px;
-  left: -9px;
+  top: -82px;
+  left: -2px;
 
   visibility: hidden;
 
-  padding: 9px 10px;
+  padding: 9px 3px;
 
   transition: .2s opacity, .2s visibility;
 
   opacity: 0;
-  border-radius: 4px;
-  background-color: rgba(0,0,0,.7);
-  box-shadow: 0 1px 10px 0 rgba(0,0,0,.3);
+  background-color: rgba(0,0,0, .5);
+}
+
+@include in-full-screen('.container') {
+  top: -122px;
+  left: -3px;
 }
 
 .content {
@@ -71,8 +94,14 @@ $color: white !default;
 
   box-sizing: content-box;
   width: 2px;
-  height: 86px;
+  height: 60px;
   padding: 2px 7px;
+}
+
+@include in-full-screen('.content') {
+  width: 2px;
+  height: 100px;
+  padding: 2px 12px;
 }
 
 .input-wrapper {
@@ -81,7 +110,7 @@ $color: white !default;
   width: 100%;
   height: 100%;
 
-  background-color: $video-progress-bg;
+  background-color: rgba(255, 255, 255, .5);
 }
 
 .filled-progress {
@@ -95,11 +124,11 @@ $color: white !default;
 
   &:before {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: -4px;
+    right: -4px;
 
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
 
     content: '';
 

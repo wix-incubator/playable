@@ -1,3 +1,5 @@
+@import './media-query-mixins';
+
 $color-main: white !default;
 $color-hover: #4eb7f5 !default;
 $video-progress-bg: transparentize(#fff, .75) !default;

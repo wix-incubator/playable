@@ -1,23 +1,33 @@
+@import '../../shared';
+
 .time-wrapper {
   display: flex;
   flex: 0 0 auto;
 
   height: 15px;
-  margin-right: 30px;
+  margin-right: 18px;
 
   align-items: center;
+}
 
-  .time {
-    font-size: 12px;
-    line-height: 1px;
+.time {
+  font-size: 12px;
+  line-height: 1px;
 
-    color: hsla(0,0%,100%,.8);
+  color: hsla(0,0%,100%,.8);
 
-    &.current {
-      margin-right: 5px;
-    }
-    &.duration {
-      margin-left: 5px;
-    }
+  &.current {
+    margin-right: 5px;
   }
+  &.duration {
+    margin-left: 5px;
+  }
+}
+
+@include in-full-screen('.time-wrapper') {
+  margin-right: 30px;
+}
+
+@include in-full-screen('.time') {
+  font-size: 14px;
 }

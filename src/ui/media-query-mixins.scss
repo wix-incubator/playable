@@ -1,0 +1,29 @@
+@mixin in-full-screen($className) {
+  div[data-hook='player-container'][data-in-full-screen] #{$className} {
+    @content;
+  }
+}
+
+@mixin max-width-550($className) {
+  div[data-hook='player-container'][max-width~='550px'] #{$className} {
+    @content;
+  }
+}
+
+@mixin max-width-400($className) {
+  div[data-hook='player-container'][max-width~='400px'] #{$className} {
+    @content;
+  }
+}
+
+@mixin max-width-350($className) {
+  div[data-hook='player-container'][max-width~='350px'] #{$className} {
+    @content;
+  }
+}
+
+@mixin max-width-300($className) {
+  div[data-hook='player-container'][max-width~='300px'] #{$className} {
+    @content;
+  }
+}
