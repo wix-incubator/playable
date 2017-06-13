@@ -8,7 +8,7 @@
   box-sizing: border-box;
   height: 15px;
   margin-right: 20px;
-  padding: 0 20px;
+  padding: 0 18px;
 
   border-right: 1px solid hsla(0,0%,100%,.2);
 
@@ -16,13 +16,13 @@
   justify-content: center;
 
   .playback-toggle {
-    width: 13.5px;
-    min-width: 13.5px;
-    height: 16px;
-    min-height: 16px;
+    width: 15px;
+    min-width: 15px;
+    height: 14px;
+    min-height: 14px;
 
     background-image: url('../../../assets/play/pause-icon.svg');
-    background-size: 13.5px 16px;
+    background-size: 15px 14px;
 
     &.paused {
       background-image: url('../../../assets/play/play-icon.svg');

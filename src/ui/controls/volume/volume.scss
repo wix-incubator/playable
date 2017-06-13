@@ -32,11 +32,11 @@ $color: white !default;
 .mute-button {
   width: 18px;
   min-width: 18px;
-  height: 15px;
-  min-height: 15px;
+  height: 14px;
+  min-height: 14px;
 
   background-image: url('../../../assets/volume/volume-100.svg');
-  background-size: 18px 15px;
+  background-size: 18px 14px;
 
   &.half-volume {
     background-image: url('../../../assets/volume/volume-50.svg');

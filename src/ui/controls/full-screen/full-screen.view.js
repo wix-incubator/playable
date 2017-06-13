@@ -4,14 +4,20 @@ import styles from './full-screen.scss';
 
 
 export default class FullScreenView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: styles['full-screen-control']
+      class: this.styleNames['full-screen-control']
     });
 
     this.$toggleFullScreenControl = $('<div>', {
-      class: `${styles['full-screen-toggle']} ${styles.icon}`,
+      class: `${this.styleNames['full-screen-toggle']} ${this.styleNames.icon}`,
       'data-hook': 'full-screen-button'
     });
 
@@ -25,20 +31,24 @@ export default class FullScreenView {
     this.$toggleFullScreenControl[0].addEventListener('click', this._callbacks.onToggleFullScreenButtonClick);
   }
 
+  _unbindEvents() {
+    this.$toggleFullScreenControl[0].removeEventListener('click', this._callbacks.onToggleFullScreenButtonClick);
+  }
+
   setState({ isInFullScreen }) {
-    this.$toggleFullScreenControl.toggleClass(styles['in-full-screen'], isInFullScreen);
+    this.$toggleFullScreenControl.toggleClass(this.styleNames['in-full-screen'], isInFullScreen);
+  }
+
+  get styleNames() {
+    return this.constructor._styles;
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   show() {
-    this.$node.toggleClass(styles.hidden, false);
-  }
-
-  _unbindEvents() {
-    this.$toggleFullScreenControl[0].removeEventListener('click', this._callbacks.onToggleFullScreenButtonClick);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   getNode() {

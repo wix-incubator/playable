@@ -4,10 +4,20 @@ import styles from './loader.scss';
 
 
 export default class LoaderView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor() {
     this.$node = $('<div>', {
-      class: styles.loader
+      class: this.styleNames.loader
     });
+  }
+
+  get styleNames() {
+    return this.constructor._styles;
   }
 
   getNode() {
@@ -15,18 +25,16 @@ export default class LoaderView {
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   destroy() {
     this.$node.remove();
 
-    delete this.$content;
-    delete this.$playButton;
     delete this.$node;
   }
 }

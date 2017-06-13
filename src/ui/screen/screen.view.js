@@ -4,23 +4,29 @@ import styles from './screen.scss';
 
 
 export default class ScreenView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor({ callbacks, nativeControls, indicateScreenClick }) {
     this._nativeControls = nativeControls;
     this._indicateScreenClick = indicateScreenClick;
 
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: styles['screen-block'],
+      class: this.styleNames['screen-block'],
       tabIndex: 0
     });
 
     if (this._indicateScreenClick) {
       this.$iconContainer = $('<div>', {
-        class: `${styles['icon-container']}`
+        class: `${this.styleNames['icon-container']}`
       });
 
       this.$icon = $('<div>', {
-        class: `${styles.icon}`
+        class: `${this.styleNames.icon}`
       });
 
       this.$iconContainer.append(this.$icon);
@@ -36,27 +42,31 @@ export default class ScreenView {
     this.$node[0].addEventListener('keypress', this._callbacks.onWrapperKeyPress);
   }
 
+  get styleNames() {
+    return this.constructor._styles;
+  }
+
   activatePlayIcon() {
-    this.$icon.toggleClass(styles.pause, false);
-    this.$icon.toggleClass(styles.play, true);
+    this.$icon.toggleClass(this.styleNames.pause, false);
+    this.$icon.toggleClass(this.styleNames.play, true);
   }
 
   activatePauseIcon() {
-    this.$icon.toggleClass(styles.play, false);
-    this.$icon.toggleClass(styles.pause, true);
+    this.$icon.toggleClass(this.styleNames.play, false);
+    this.$icon.toggleClass(this.styleNames.pause, true);
   }
 
   deactivateIcon() {
-    this.$icon.toggleClass(styles.play, false);
-    this.$icon.toggleClass(styles.pause, false);
+    this.$icon.toggleClass(this.styleNames.play, false);
+    this.$icon.toggleClass(this.styleNames.pause, false);
   }
 
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   getNode() {

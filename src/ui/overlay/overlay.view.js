@@ -4,13 +4,19 @@ import styles from './overlay.scss';
 
 
 export default class OverlayView {
+  static _styles = styles;
+
+  static extendStyleNames(styles) {
+    this._styles = { ...this._styles, ...styles };
+  }
+
   constructor({ callbacks, src }) {
     this._callbacks = callbacks;
 
     this.$node = $('<div>');
 
     this.$content = $('<div>', {
-      class: styles.overlay
+      class: this.styleNames.overlay
     });
 
     if (src) {
@@ -18,7 +24,7 @@ export default class OverlayView {
     }
 
     this.$playButton = $('<div>', {
-      class: styles.icon
+      class: this.styleNames.icon
     });
 
     this.$content
@@ -34,16 +40,20 @@ export default class OverlayView {
     this.$playButton[0].addEventListener('click', this._callbacks.onPlayClick);
   }
 
+  get styleNames() {
+    return this.constructor._styles;
+  }
+
   getNode() {
     return this.$node[0];
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   setBackgroundSrc(src) {
