@@ -21,7 +21,10 @@ export default class Engine {
     this._$video = $('<video/>');
     this._vidi = new Vidi(this._$video[0]);
 
-    this._initEventsProxy();
+    this._processEventFromVideo = this._processEventFromVideo.bind(this);
+    this._sendError = this._sendError.bind(this);
+
+    this._bindEvents();
 
     this._currentStatus = null;
     this.STATUSES = STATUSES;
@@ -31,75 +34,119 @@ export default class Engine {
     return this._$video[0];
   }
 
-  _initEventsProxy() {
-    const videoEl = this._vidi.getVideoElement();
+  _sendError(error) {
+    this._eventEmitter.emit(VIDEO_EVENTS.ERROR, error);
+  }
 
-    this._vidi.on('error', error => {
-      this._eventEmitter.emit(VIDEO_EVENTS.ERROR, error);
-    });
+  _bindEvents() {
+    this._vidi.on('error', this._sendError);
 
-    this._$video[0].addEventListener('loadstart', () => {
-      this._setStatus(STATUSES.LOAD_STARTED);
-    });
+    this._$video[0].addEventListener('loadstart', this._processEventFromVideo);
+    this._$video[0].addEventListener('loadedmetadata', this._processEventFromVideo);
+    this._$video[0].addEventListener('canplay', this._processEventFromVideo);
+    this._$video[0].addEventListener('progress', this._processEventFromVideo);
+    this._$video[0].addEventListener('play', this._processEventFromVideo);
+    this._$video[0].addEventListener('playing', this._processEventFromVideo);
+    this._$video[0].addEventListener('pause', this._processEventFromVideo);
+    this._$video[0].addEventListener('ended', this._processEventFromVideo);
+    this._$video[0].addEventListener('stalled', this._processEventFromVideo);
+    this._$video[0].addEventListener('suspend', this._processEventFromVideo);
+    this._$video[0].addEventListener('durationchange', this._processEventFromVideo);
+    this._$video[0].addEventListener('timeupdate', this._processEventFromVideo);
+    this._$video[0].addEventListener('seeking', this._processEventFromVideo);
+    this._$video[0].addEventListener('seeked', this._processEventFromVideo);
+    this._$video[0].addEventListener('volumechange', this._processEventFromVideo);
+  }
 
-    this._$video[0].addEventListener('loadedmetadata', () => {
-      this._setStatus(STATUSES.METADATA_LOADED);
-    });
+  _unbindEvents() {
+    this._vidi.off('error', this._sendError);
 
-    this._$video[0].addEventListener('canplay', () => {
-      this._setStatus(STATUSES.READY_TO_PLAY);
-    });
+    this._$video[0].removeEventListener('loadstart', this._processEventFromVideo);
+    this._$video[0].removeEventListener('loadedmetadata', this._processEventFromVideo);
+    this._$video[0].removeEventListener('canplay', this._processEventFromVideo);
+    this._$video[0].removeEventListener('progress', this._processEventFromVideo);
+    this._$video[0].removeEventListener('play', this._processEventFromVideo);
+    this._$video[0].removeEventListener('playing', this._processEventFromVideo);
+    this._$video[0].removeEventListener('pause', this._processEventFromVideo);
+    this._$video[0].removeEventListener('ended', this._processEventFromVideo);
+    this._$video[0].removeEventListener('stalled', this._processEventFromVideo);
+    this._$video[0].removeEventListener('suspend', this._processEventFromVideo);
+    this._$video[0].removeEventListener('durationchange', this._processEventFromVideo);
+    this._$video[0].removeEventListener('timeupdate', this._processEventFromVideo);
+    this._$video[0].removeEventListener('seeking', this._processEventFromVideo);
+    this._$video[0].removeEventListener('seeked', this._processEventFromVideo);
+    this._$video[0].removeEventListener('volumechange', this._processEventFromVideo);
+  }
 
-    this._$video[0].addEventListener('progress', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
-    });
+  _processEventFromVideo(event) {
+    const videoEl = this._$video[0];
 
-    this._$video[0].addEventListener('play', () => {
-      this._setStatus(STATUSES.PLAY_REQUESTED);
-    });
-
-    this._$video[0].addEventListener('playing', () => {
-      this._setStatus(STATUSES.PLAYING);
-    });
-
-    this._$video[0].addEventListener('pause', () => {
-      this._setStatus(STATUSES.PAUSED);
-    });
-
-    this._$video[0].addEventListener('ended', () => {
-      this._setStatus(STATUSES.ENDED);
-    });
-
-    this._$video[0].addEventListener('stalled', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_STALLED);
-    });
-
-    this._$video[0].addEventListener('suspend', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
-    });
-
-    this._$video[0].addEventListener('durationchange', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, videoEl.duration);
-    });
-
-    this._$video[0].addEventListener('timeupdate', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED, videoEl.currentTime);
-    });
-
-    this._$video[0].addEventListener('seeking', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED, videoEl.currentTime);
-    });
-
-    this._$video[0].addEventListener('seeked', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED, videoEl.currentTime);
-    });
-
-    this._$video[0].addEventListener('volumechange', () => {
-      this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
-        volume: videoEl.volume,
-        muted: videoEl.muted
-      });
-    });
+    switch (event.type) {
+      case 'loadstart': {
+        this._setStatus(STATUSES.LOAD_STARTED);
+        break;
+      }
+      case 'loadedmetadata': {
+        this._setStatus(STATUSES.METADATA_LOADED);
+        break;
+      }
+      case 'canplay': {
+        this._setStatus(STATUSES.READY_TO_PLAY);
+        break;
+      }
+      case 'play': {
+        this._setStatus(STATUSES.PLAY_REQUESTED);
+        break;
+      }
+      case 'playing': {
+        this._setStatus(STATUSES.PLAYING);
+        break;
+      }
+      case 'pause': {
+        this._setStatus(STATUSES.PAUSED);
+        break;
+      }
+      case 'ended': {
+        this._setStatus(STATUSES.ENDED);
+        break;
+      }
+      case 'progress': {
+        this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
+        break;
+      }
+      case 'stalled': {
+        this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_STALLED);
+        break;
+      }
+      case 'suspend': {
+        this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
+        break;
+      }
+      case 'durationchange': {
+        this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, videoEl.duration);
+        break;
+      }
+      case 'timeupdate': {
+        this._eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED, videoEl.currentTime);
+        break;
+      }
+      case 'seeking': {
+        this._eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED, videoEl.currentTime);
+        break;
+      }
+      case 'seeked': {
+        this._eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED, videoEl.currentTime);
+        break;
+      }
+      case 'volumechange': {
+        this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
+          volume: videoEl.volume,
+          muted: videoEl.muted
+        });
+        break;
+      }
+      default: break;
+    }
   }
 
   _setStatus(status) {
@@ -203,6 +250,9 @@ export default class Engine {
   }
 
   destroy() {
+    this._unbindEvents();
+    this._$video[0].remove();
+
     delete this._eventEmitter;
     delete this._$video;
 
