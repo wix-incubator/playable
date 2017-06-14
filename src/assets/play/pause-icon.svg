@@ -1,10 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="22px" height="28px" viewBox="0 0 22 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.1 (28215) - http://www.bohemiancoding.com/sketch -->
-    <title>pause</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="#FFFFFF">
-        <path d="M14.2962911,0 L21.7035674,0 C21.8670725,0 21.9998584,0.132785957 21.9998584,0.296291053 L21.9998584,27.7037089 C21.9998584,27.867214 21.8670725,28 21.7035674,28 L14.2962911,28 C14.132786,28 14,27.867214 14,27.7037089 L14,0.296291053 C14,0.132785957 14.132786,0 14.2962911,0 M0.296291053,0 L7.70356738,0 C7.86707248,0 7.99985844,0.132785957 7.99985844,0.296291053 L7.99985844,27.7037089 C7.99985844,27.867214 7.86707248,28 7.70356738,28 L0.296291053,28 C0.132785957,28 0,27.867214 0,27.7037089 L0,0.296291053 C0,0.132785957 0.132785957,0 0.296291053,0" id="pause" fill="#FFFFFF"></path>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="10" height="14" viewBox="0 0 10 14">
+    <path fill="#FFF" fill-rule="evenodd" d="M7 0h3v14H7V0zM0 0h3v14H0V0z"/>
 </svg>

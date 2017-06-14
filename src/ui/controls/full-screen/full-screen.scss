@@ -19,23 +19,23 @@
 
 
 .full-screen-toggle {
-  width: 18px;
-  min-width: 18px;
+  width: 14px;
+  min-width: 14px;
   height: 14px;
   min-height: 14px;
 
   transition: transform .2s;
 
   background-image: url('../../../assets/full-screen/full-screen.svg');
-  background-size: 18px 14px;
+  background-size: 14px 14px;
 
   @include in-full-screen() {
-    width: 25px;
-    min-width: 25px;
+    width: 21px;
+    min-width: 21px;
     height: 21px;
     min-height: 21px;
 
-    background-size: 25px 21px;
+    background-size: 21px 21px;
   }
 
   &:hover {
@@ -44,5 +44,9 @@
 
   &.in-full-screen {
     background-image: url('../../../assets/full-screen/exit-full-screen.svg');
+
+    &:hover {
+      transform: scale(.8);
+    }
   }
 }

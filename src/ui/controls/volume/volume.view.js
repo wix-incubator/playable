@@ -3,7 +3,7 @@ import $ from 'jbone';
 import styles from './volume.scss';
 
 
-const MAX_VOLUME_ICON_RANGE = 50;
+const MAX_VOLUME_ICON_RANGE = 30;
 
 export default class VolumeView {
   static _styles = styles;

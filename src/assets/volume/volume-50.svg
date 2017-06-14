@@ -1,10 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="29px" height="28px" viewBox="0 0 29 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.1 (28215) - http://www.bohemiancoding.com/sketch -->
-    <title>volume_50</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd">
-        <path d="M12.6256359,20.264127 L22.4061914,27.9450768 C22.5736018,28.0766136 22.8187385,27.9570347 22.8187385,27.7437857 L22.8187385,0.25559173 C22.8187385,0.0403497545 22.5686194,-0.0782326302 22.4022054,0.0582865857 L12.6256359,8.04216949 L12.6256359,20.264127 Z M5.97396131,20.3605873 L9.23846461,20.3605873 C9.35903997,20.3605873 9.45868904,20.2619348 9.45868904,20.1403629 L9.45868904,8.26219462 C9.45868904,8.14161926 9.35903997,8.04296669 9.23846461,8.04296669 L5.97396131,8.04296669 C2.68853171,8.04296669 0,10.7314984 0,14.016928 L0,14.386626 C0,17.6720556 2.68853171,20.3605873 5.97396131,20.3605873 Z M25,18 L28.0159912,18 L28.0159912,10 L25,10 L25,18 Z" id="volume_50" fill="#FFFFFF"></path>
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 17 14">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#FFF" d="M0 3.919h2.993v5.97H0V3.92zm2.995-.015L7 .924v12L2.995 9.882v-5.98z"/>
+        <path stroke="#FFF" d="M9.853 10.837a5.45 5.45 0 0 0 0-7.707"/>
     </g>
 </svg>

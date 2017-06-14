@@ -1,10 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="37px" height="29px" viewBox="0 0 37 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7.1 (28215) - http://www.bohemiancoding.com/sketch -->
-    <title>exit_full_screen</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd">
-        <path d="M26.048,0 L26.035,10.027 L36.067,10.019 L36.067,6.011 L30.056,6.011 L30.056,0 L26.048,0 Z M6.011,0 L6.011,6.011 L0,6.011 L0,10.019 L10.003,10.027 L10.019,0 L6.011,0 Z M26.048,28.052 L30.056,28.052 L30.056,22.041 L36.067,22.041 L36.067,18.033 L26.035,18.03 L26.048,28.052 Z M0,18.033 L0,22.041 L6.011,22.041 L6.011,28.052 L10.019,28.052 L10.019,18.033 L0,18.033 Z" id="exit_full_screen" fill="#FFFFFF"></path>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
+    <path fill="#FFF" fill-rule="evenodd" d="M4 21h2v-6H0v2h4v4zM6 0H4v4H0v2h6V0zm9 6h6V4h-4V0h-2v6zm2 11h4v-2h-6v6h2v-4z"/>
 </svg>
