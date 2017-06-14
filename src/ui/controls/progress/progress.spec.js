@@ -6,6 +6,7 @@ import sinon from 'sinon';
 
 import ProgressControl from './progress.controler';
 import Engine from '../../../playback-engine/playback-engine';
+import getProxy from '../../../utils/test-proxy';
 
 import VIDEO_EVENTS from '../../../constants/events/video';
 
@@ -17,9 +18,10 @@ describe('ProgressControl', () => {
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
-    engine = new Engine({
+    engine = getProxy(Engine, {
       eventEmitter
     });
+
     control = new ProgressControl({
       engine,
       eventEmitter
@@ -112,6 +114,9 @@ describe('ProgressControl', () => {
       expect(startSpy.called).to.be.true;
       control._toggleUserInteractingStatus();
       expect(stopSpy.called).to.be.true;
+
+      control._playVideoOnProgressManipulationEnd.restore();
+      control._pauseVideoOnProgressManipulationStart.restore();
     });
 
     it('should toggle interval updates', () => {
@@ -137,10 +142,8 @@ describe('ProgressControl', () => {
     });
 
     it('should change current time of video', () => {
-      control._engine.getDurationTime = () => 10;
-      const spy = sinon.spy(control._engine, 'setCurrentTime');
       control._changePlayedProgress(10);
-      expect(spy.called).to.be.true;
+      expect(engine.setCurrentTime.called).to.be.true;
     });
 
     it('should update view', () => {

@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import EventEmitter from 'eventemitter3';
 
 import UI_EVENTS from '../../constants/events/ui';
+import getProxy from '../../utils/test-proxy';
 
 import Engine from '../../playback-engine/playback-engine';
 import Screen from './screen.controler';
@@ -58,7 +59,7 @@ describe('Loader', () => {
       enterFullScreen() {}
     };
     eventEmitter = new EventEmitter();
-    engine = new Engine({
+    engine = getProxy(Engine, {
       eventEmitter
     });
 
@@ -88,7 +89,6 @@ describe('Loader', () => {
     });
 
     it('should trigger _toggleVideoPlayback on keyboard input', () => {
-      screen._engine.getPlaybackState = () => ({status: 0});
       const togglePlaybackSpy = sinon.spy(screen, '_toggleVideoPlayback');
 
       screen._processKeyboardInput({keyCode: 32});
