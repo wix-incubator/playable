@@ -11,6 +11,9 @@
   @include in-full-screen() {
     margin-right: 30px;
   }
+  @include max-width-300() {
+    @include hidden();
+  }
 }
 
 .time {
