@@ -18,6 +18,13 @@
 
   cursor: pointer;
 
+  @include in-full-screen() {
+    margin-right: 30px;
+  }
+  @include max-width-400() {
+    @include hidden();
+  }
+
   input[type='range'] {
     position: relative;
     z-index: 2;
@@ -34,14 +41,6 @@
       background: transparent;
     }
   }
-}
-
-@include in-full-screen('.progress-bar') {
-  margin-right: 30px;
-}
-
-@include max-width-400('.progress-bar') {
-  @include hidden();
 }
 
 .progress-played,

@@ -56,8 +56,13 @@
     opacity: 0;
 
     align-items: center;
+    @include in-full-screen() {
+      margin-bottom: 25px;
+    }
+    @include max-width-550() {
+      margin-bottom: 7px;
+    }
   }
-
   &.activated,
   &.video-paused {
     .controls {
@@ -72,13 +77,4 @@
       opacity: 1;
     }
   }
-}
-
-
-@include in-full-screen('.controls-wrapper .controls') {
-  margin-bottom: 25px;
-}
-
-@include max-width-550('.controls-wrapper .controls') {
-  margin-bottom: 7px;
 }

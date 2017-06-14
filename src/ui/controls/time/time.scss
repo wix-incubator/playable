@@ -8,6 +8,9 @@
   margin-right: 18px;
 
   align-items: center;
+  @include in-full-screen() {
+    margin-right: 30px;
+  }
 }
 
 .time {
@@ -16,18 +19,14 @@
 
   color: hsla(0,0%,100%,.8);
 
+  @include in-full-screen() {
+    font-size: 14px;
+  }
+
   &.current {
     margin-right: 5px;
   }
   &.duration {
     margin-left: 5px;
   }
-}
-
-@include in-full-screen('.time-wrapper') {
-  margin-right: 30px;
-}
-
-@include in-full-screen('.time') {
-  font-size: 14px;
 }

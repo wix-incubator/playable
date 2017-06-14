@@ -18,17 +18,17 @@
 
   justify-content: center;
   align-items: center;
+}
 
-  .icon {
-    width: 71px;
-    height: 71px;
+.icon {
+  width: 71px;
+  height: 71px;
 
-    opacity: 1;
-    background-image: url('../../assets/overlay/play-icon.svg');
-    background-size: 100%;
+  opacity: 1;
+  background-image: url('../../assets/overlay/play-icon.svg');
+  background-size: 100%;
 
-    &:hover {
-      opacity: .8;
-    }
+  &:hover {
+    opacity: .8;
   }
 }

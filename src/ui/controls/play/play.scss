@@ -12,37 +12,35 @@
 
   align-items: center;
   justify-content: center;
-
-  .playback-toggle {
-    width: 15px;
-    min-width: 15px;
-    height: 14px;
-    min-height: 14px;
-
-    background-image: url('../../../assets/play/pause-icon.svg');
-    background-size: 15px 14px;
-
-    &.paused {
-      background-image: url('../../../assets/play/play-icon.svg');
-    }
+  @include in-full-screen() {
+    height: 21px;
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+  @include max-width-550() {
+    margin-left: 12px;
   }
 }
 
-@include in-full-screen('.play-control') {
-  height: 21px;
-  margin-right: 30px;
-  margin-left: 30px;
-}
+.playback-toggle {
+  width: 15px;
+  min-width: 15px;
+  height: 14px;
+  min-height: 14px;
 
-@include in-full-screen('.playback-toggle') {
-  width: 16px;
-  min-width: 16px;
-  height: 21px;
-  min-height: 21px;
+  background-image: url('../../../assets/play/pause-icon.svg');
+  background-size: 15px 14px;
 
-  background-size: 16px 21px;
-}
+  @include in-full-screen() {
+    width: 16px;
+    min-width: 16px;
+    height: 21px;
+    min-height: 21px;
 
-@include max-width-550('.play-control') {
-  margin-left: 12px;
+    background-size: 16px 21px;
+  }
+
+  &.paused {
+    background-image: url('../../../assets/play/play-icon.svg');
+  }
 }

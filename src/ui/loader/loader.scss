@@ -22,6 +22,7 @@ $timing: 1s;
   animation: rotate $timing linear infinite;
 
   color: white;
+
   @mixin inner-circle() {
     position: absolute;
     top: 0;

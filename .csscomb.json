@@ -2,6 +2,7 @@
   "exclude": [
     ".git/**",
     "node_modules/**",
+    "src/./ui/media-query-mixins.scss",
     "bower_components/**"
   ],
 

@@ -9,6 +9,12 @@
 
   align-items: center;
   justify-content: center;
+  @include max-width-550() {
+    margin-right: 12px;
+  }
+  @include in-full-screen() {
+    margin-right: 30px;
+  }
 }
 
 
@@ -23,6 +29,15 @@
   background-image: url('../../../assets/full-screen/full-screen.svg');
   background-size: 18px 14px;
 
+  @include in-full-screen() {
+    width: 25px;
+    min-width: 25px;
+    height: 21px;
+    min-height: 21px;
+
+    background-size: 25px 21px;
+  }
+
   &:hover {
     transform: scale(1.20);
   }
@@ -30,21 +45,4 @@
   &.in-full-screen {
     background-image: url('../../../assets/full-screen/exit-full-screen.svg');
   }
-}
-
-@include in-full-screen('.full-screen-control') {
-  margin-right: 30px;
-}
-
-@include max-width-550('.full-screen-control') {
-  margin-right: 12px;
-}
-
-@include in-full-screen('.full-screen-toggle ') {
-  width: 25px;
-  min-width: 25px;
-  height: 21px;
-  min-height: 21px;
-
-  background-size: 25px 21px;
 }
