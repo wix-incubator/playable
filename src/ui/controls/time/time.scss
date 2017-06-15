@@ -20,7 +20,7 @@
   font-size: 12px;
   line-height: 12px;
 
-  color: hsla(0,0%,100%,.8);
+  color: $color-main;
 
   @include in-full-screen() {
     font-size: 14px;
