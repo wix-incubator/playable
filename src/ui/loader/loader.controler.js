@@ -107,10 +107,12 @@ export default class Loader {
   }
 
   destroy() {
-    this._stopIntervalUpdates();
-    this._clearDelayedUpdate();
     this._unbindEvents();
+
+    this._clearDelayedUpdate();
+    this._stopIntervalUpdates();
     this.view.destroy();
+
     delete this.view;
 
     delete this._eventEmitter;
