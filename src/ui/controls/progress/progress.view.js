@@ -44,8 +44,8 @@ export default class ProgressView {
 
     this.$node
       .append(this.$input)
-      .append(this.$played)
-      .append(this.$buffered);
+      .append(this.$buffered)
+      .append(this.$played);
 
     this._bindCallbacks();
     this._bindEvents();
