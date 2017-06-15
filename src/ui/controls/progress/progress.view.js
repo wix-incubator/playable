@@ -13,11 +13,11 @@ export default class ProgressView {
   constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: this.styleNames['progress-bar']
+      class: this.styleNames['seek-block']
     });
 
     this.$played = $('<progress>', {
-      class: this.styleNames['progress-played'],
+      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-played']}`,
       'data-hook': 'played-indicator',
       role: 'played',
       max: 100,
@@ -25,7 +25,7 @@ export default class ProgressView {
     });
 
     this.$buffered = $('<progress>', {
-      class: this.styleNames['progress-buffered'],
+      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-buffered']}`,
       'data-hook': 'buffered-indicator',
       role: 'buffered',
       max: 100,
