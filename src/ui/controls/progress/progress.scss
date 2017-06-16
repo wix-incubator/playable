@@ -84,7 +84,8 @@
   }
 
   &::-ms-fill {
-    display: none;
+    //display: none;
+    transition: none;
 
     border: none;
     border-radius: 100px;
@@ -166,7 +167,7 @@
   }
 
   &::-ms-track {
-    height: 3px;
+    height: 2px;
 
     color: transparent;
     border: 0;
@@ -176,7 +177,7 @@
     @include seek-track();
   }
   &::-ms-fill-lower {
-    height: 3px;
+    height: 2px;
 
     color: $color-main;
     background: $color-main;
@@ -184,15 +185,11 @@
     @include seek-track();
   }
   &::-ms-thumb {
-    // For some reason, Edge uses the -webkit margin above
-    margin-top: -1px;
-
     @include seek-thumb();
   }
   &::-ms-tooltip {
     display: none;
   }
-
   &:focus {
     outline: 0;
   }

@@ -28,6 +28,10 @@ export default class ScreenView {
       this.$icon = $('<div>', {
         class: `${this.styleNames.icon}`
       });
+      this.$icon.html(
+        `<svg class="${this.styleNames['svg-play']}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 14"><path fill="#FFF" fill-rule="evenodd" d="M.079 0L0 14l10.5-7.181z"/></svg>` +
+        `<svg class="${this.styleNames['svg-play']}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 14"><path fill="#FFF" fill-rule="evenodd" d="M7 0h3v14H7V0zM0 0h3v14H0V0z"/></svg>`
+      );
 
       this.$iconContainer.append(this.$icon);
 

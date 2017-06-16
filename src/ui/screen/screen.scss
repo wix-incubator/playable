@@ -14,58 +14,64 @@
   .icon {
     position: relative;
 
-    animation-duration: .5s;
+    .svg-play,
+    .svg-pause {
+      display: block;
 
-    opacity: 0;
-    background-size: 60px 60px;
+      animation-duration: .5s;
+
+      opacity: 0;
+    }
 
     &.play {
-      animation-name: fade-out-play;
-
-      background-image: url('../../assets/play/play-icon.svg');
+      .svg-play {
+        animation-name: fade-out-play;
+      }
+      .svg-pause {
+        display: none;
+      }
     }
 
     &.pause {
-      animation-name: fade-out-pause;
-
-      background-image: url('../../assets/play/pause-icon.svg');
+      .svg-pause {
+        animation-name: fade-out-pause;
+      }
+      .svg-play {
+        display: none;
+      }
     }
   }
 }
 
 @keyframes fade-out-play {
   from {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 98px;
 
     opacity: .5;
-    background-size: 60px 60px;
   }
 
   to {
-    width: 75px;
-    height: 75px;
+    width: 85px;
+    height: 119px;
 
     opacity: 0;
-    background-size: 75px 75px;
   }
 }
 
 @keyframes fade-out-pause {
   from {
     width: 60px;
-    height: 60px;
+    height: 84px;
 
     opacity: .5;
-    background-size: 60px 60px;
   }
 
   to {
     width: 75px;
-    height: 75px;
+    height: 105px;
 
     opacity: 0;
-    background-size: 75px 75px;
   }
 }
 
