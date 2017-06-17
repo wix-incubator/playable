@@ -10,6 +10,7 @@ export const STATUSES = {
   METADATA_LOADED: 'metadata-loaded',
   READY_TO_PLAY: 'ready-to-play',
   PLAY_REQUESTED: 'play-requested',
+  WAITING: 'waiting',
   PLAYING: 'playing',
   PAUSED: 'paused',
   ENDED: 'ended'
@@ -51,6 +52,7 @@ export default class Engine {
     this._$video[0].addEventListener('ended', this._processEventFromVideo);
     this._$video[0].addEventListener('stalled', this._processEventFromVideo);
     this._$video[0].addEventListener('suspend', this._processEventFromVideo);
+    this._$video[0].addEventListener('waiting', this._processEventFromVideo);
     this._$video[0].addEventListener('durationchange', this._processEventFromVideo);
     this._$video[0].addEventListener('timeupdate', this._processEventFromVideo);
     this._$video[0].addEventListener('seeking', this._processEventFromVideo);
@@ -71,6 +73,7 @@ export default class Engine {
     this._$video[0].removeEventListener('ended', this._processEventFromVideo);
     this._$video[0].removeEventListener('stalled', this._processEventFromVideo);
     this._$video[0].removeEventListener('suspend', this._processEventFromVideo);
+    this._$video[0].removeEventListener('waiting', this._processEventFromVideo);
     this._$video[0].removeEventListener('durationchange', this._processEventFromVideo);
     this._$video[0].removeEventListener('timeupdate', this._processEventFromVideo);
     this._$video[0].removeEventListener('seeking', this._processEventFromVideo);
@@ -100,6 +103,10 @@ export default class Engine {
       }
       case 'playing': {
         this._setStatus(STATUSES.PLAYING);
+        break;
+      }
+      case 'waiting': {
+        this._setStatus(STATUSES.WAITING);
         break;
       }
       case 'pause': {
