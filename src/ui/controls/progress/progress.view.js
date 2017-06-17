@@ -1,16 +1,15 @@
 import $ from 'jbone';
 
+import View from '../../core/view';
+
 import styles from './progress.scss';
 
 
-export default class ProgressView {
-  static _styles = styles;
+class ProgressView extends View {
+  constructor(config) {
+    super(config);
+    const { callbacks } = config;
 
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
-
-  constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['seek-block']
@@ -105,10 +104,6 @@ export default class ProgressView {
     this.$buffered.attr('value', percent);
   }
 
-  get styleNames() {
-    return this.constructor._styles;
-  }
-
   setState({ played, buffered }) {
     (played !== undefined) && this._updatePlayed(played);
     (buffered !== undefined) && this._updateBuffered(buffered);
@@ -136,3 +131,7 @@ export default class ProgressView {
     delete this.$node;
   }
 }
+
+ProgressView.extendStyleNames(styles);
+
+export default ProgressView;

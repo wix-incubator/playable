@@ -1,16 +1,14 @@
 import $ from 'jbone';
 
+import View from './core/view';
+
 import styles from './ui.scss';
 
+class PlayerUIView extends View {
+  constructor(config) {
+    super(config);
+    const { width, height, callbacks } = config;
 
-export default class PlayerUIView {
-  static _styles = styles;
-
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
-
-  constructor({ width, height, callbacks }) {
     this._inFullScreen = false;
 
     this._callbacks = callbacks;
@@ -62,10 +60,6 @@ export default class PlayerUIView {
 
   _proxyMouseLeaveOnNode() {
     this._callbacks.onMouseLeave();
-  }
-
-  get styleNames() {
-    return this.constructor._styles;
   }
 
   setWidth(width) {
@@ -127,3 +121,7 @@ export default class PlayerUIView {
     delete this.$node;
   }
 }
+
+PlayerUIView.extendStyleNames(styles);
+
+export default PlayerUIView;

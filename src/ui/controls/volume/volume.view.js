@@ -1,18 +1,17 @@
 import $ from 'jbone';
 
+import View from '../../core/view';
+
 import styles from './volume.scss';
 
 
 const MAX_VOLUME_ICON_RANGE = 30;
 
-export default class VolumeView {
-  static _styles = styles;
+class VolumeView extends View {
+  constructor(config) {
+    super(config);
+    const { callbacks } = config;
 
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
-
-  constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['volume-control']
@@ -140,10 +139,6 @@ export default class VolumeView {
     this.$muteControl.toggleClass(this.styleNames.muted, isMuted);
   }
 
-  get styleNames() {
-    return this.constructor._styles;
-  }
-
   show() {
     this.$node.toggleClass(styles.hidden, false);
   }
@@ -168,3 +163,7 @@ export default class VolumeView {
 
   }
 }
+
+VolumeView.extendStyleNames(styles);
+
+export default VolumeView;

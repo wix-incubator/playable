@@ -1,19 +1,24 @@
 import $ from 'jbone';
 
+import View from '../../core/view';
+
 import styles from './full-screen.scss';
 
 
-export default class FullScreenView {
-  static _styles = styles;
+const translations = {
+  enterFullScreen: 'Full screen',
+  exitFullScreen: 'Exit Full screen'
+};
 
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
+class FullScreenView extends View {
+  constructor(config) {
+    super(config);
+    const { callbacks } = config;
 
-  constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: this.styleNames['full-screen-control']
+      class: this.styleNames['full-screen-control'],
+      'data-tooltip-pos': 'up'
     });
 
     this.$toggleFullScreenControl = $('<div>', {
@@ -24,6 +29,7 @@ export default class FullScreenView {
     this.$node
       .append(this.$toggleFullScreenControl);
 
+    this.setState({ isInFullScreen: false });
     this._bindEvents();
   }
 
@@ -37,10 +43,7 @@ export default class FullScreenView {
 
   setState({ isInFullScreen }) {
     this.$toggleFullScreenControl.toggleClass(this.styleNames['in-full-screen'], isInFullScreen);
-  }
-
-  get styleNames() {
-    return this.constructor._styles;
+    this.$node.attr('data-tooltip', isInFullScreen ? this.translations.exitFullScreen : this.translations.enterFullScreen);
   }
 
   hide() {
@@ -63,3 +66,8 @@ export default class FullScreenView {
     delete this.$node;
   }
 }
+
+FullScreenView.extendStyleNames(styles);
+FullScreenView.extendTranslations(translations);
+
+export default FullScreenView;

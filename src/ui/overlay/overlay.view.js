@@ -1,16 +1,14 @@
 import $ from 'jbone';
 
+import View from '../core/view';
+
 import styles from './overlay.scss';
 
+class OverlayView extends View {
+  constructor(config) {
+    super(config);
+    const { callbacks, src } = config;
 
-export default class OverlayView {
-  static _styles = styles;
-
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
-
-  constructor({ callbacks, src }) {
     this._callbacks = callbacks;
 
     this.$node = $('<div>');
@@ -38,10 +36,6 @@ export default class OverlayView {
 
   _bindEvents() {
     this.$playButton[0].addEventListener('click', this._callbacks.onPlayClick);
-  }
-
-  get styleNames() {
-    return this.constructor._styles;
   }
 
   getNode() {
@@ -74,3 +68,7 @@ export default class OverlayView {
     delete this.$node;
   }
 }
+
+OverlayView.extendStyleNames(styles);
+
+export default OverlayView;
