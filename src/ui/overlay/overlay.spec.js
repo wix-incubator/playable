@@ -85,7 +85,7 @@ describe('Overlay', () => {
 
       expect(callback.called).to.be.true;
       expect(hideSpy.called).to.be.true;
-    })
+    });
 
     it('should react on video playback status changed on end', () => {
       const callback = sinon.spy(overlay, "_updatePlayingStatus");

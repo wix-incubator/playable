@@ -78,7 +78,7 @@ export default class VolumeView {
     this._callbacks.onVolumeLevelChangeFromWheel(e.deltaY);
   }
 
-  _stopPropagationForContainer(event) {
+  _preventClickPropagation(event) {
     event.stopPropagation();
   }
 
@@ -90,7 +90,7 @@ export default class VolumeView {
       .addEventListener('wheel', this._onWheel);
 
     this.$container[0]
-      .addEventListener('click', this._stopPropagationForContainer);
+      .addEventListener('click', this._preventClickPropagation);
 
     this.$input[0]
       .addEventListener('change', this._onInputChange);
@@ -107,7 +107,7 @@ export default class VolumeView {
       .removeEventListener('wheel', this._onWheel);
 
     this.$container[0]
-      .removeEventListener('click', this._stopPropagationForContainer);
+      .removeEventListener('click', this._preventClickPropagation);
 
     this.$input[0]
       .removeEventListener('change', this._onInputChange);

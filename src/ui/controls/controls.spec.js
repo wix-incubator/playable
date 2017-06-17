@@ -1,5 +1,4 @@
 import 'jsdom-global/register';
-import $ from 'jbone';
 
 import { expect } from 'chai';
 import sinon from 'sinon';

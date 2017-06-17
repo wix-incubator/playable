@@ -4,12 +4,10 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 
 import Player from './player';
-import VIDEO_EVENTS from './constants/events/video';
 
 
 describe('Player', () => {
   let player = {};
-  let eventEmmiterSpy = null;
 
   describe('constructor', () => {
     beforeEach(() => {
@@ -33,62 +31,6 @@ describe('Player', () => {
       expect(player._eventEmitter).to.not.be.equal(player2._eventEmitter);
     });
   });
-
-  /* describe('instance video events proxy', () => {
-    beforeEach(() => {
-      player = new Player({});
-      eventEmmiterSpy = sinon.spy(player._eventEmitter, 'emit');
-    });
-
-    afterEach(() => {
-      player._eventEmitter.emit.restore();
-    });
-
-    it('should react on statuschange', () => {
-      player._vidi.emit('statuschange');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED)).to.be.true;
-    });
-
-    it('should react on loadstart', () => {
-      player._vidi.emit('loadstart');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.LOAD_STARTED)).to.be.true;
-    });
-
-    it('should react on durationchange', () => {
-      player._vidi.emit('durationchange');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.DURATION_UPDATED)).to.be.true;
-    });
-
-    it('should react on timeupdate', () => {
-      player._vidi.emit('timeupdate');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.CURRENT_TIME_UPDATED)).to.be.true;
-    });
-
-    it('should react on loadedmetadata', () => {
-      player._$video.trigger('loadedmetadata');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.METADATA_LOADED)).to.be.true;
-    });
-
-    it('should react on progress', () => {
-      player._$video.trigger('progress');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.CHUNK_LOADED)).to.be.true;
-    });
-
-    it('should react on seeking', () => {
-      player._$video.trigger('seeking');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.SEEK_STARTED)).to.be.true;
-    });
-
-    it('should react on seeked', () => {
-      player._$video.trigger('seeked');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.SEEK_ENDED)).to.be.true;
-    });
-
-    it('should react on volumechange', () => {
-      player._$video.trigger('volumechange');
-      expect(eventEmmiterSpy.calledWith(VIDEO_EVENTS.VOLUME_STATUS_CHANGED)).to.be.true;
-    });
-  }); */
 
   describe('API', () => {
     beforeEach(() => {

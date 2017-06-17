@@ -8,9 +8,7 @@ export function getOverallBufferedPercent(buffered, currentTime = 0, duration = 
     i += 1;
   }
 
-  const percent = (buffered.end(i) / duration * 100).toFixed(1);
-
-  return percent;
+  return (buffered.end(i) / duration * 100).toFixed(1);
 }
 
 export function getOverallPlayedPercent(currentTime = 0, duration = 0) {
@@ -18,7 +16,5 @@ export function getOverallPlayedPercent(currentTime = 0, duration = 0) {
     return 0;
   }
 
-  const percent = (currentTime / duration * 100).toFixed(1);
-
-  return percent;
+  return (currentTime / duration * 100).toFixed(1);
 }

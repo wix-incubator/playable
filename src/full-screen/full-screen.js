@@ -1,6 +1,6 @@
 import { iPhone, iPod, iPad } from '../utils/device-detection';
-import DesktopFullScreen from '../utils/full-screen/desktop';
-import IOSFullScreen from '../utils/full-screen/ios';
+import DesktopFullScreen from './desktop';
+import IOSFullScreen from './ios';
 
 import UI_EVENTS from '../constants/events/ui';
 

@@ -50,7 +50,6 @@ export default class ControlBlock {
     const { view } = this.config;
     const config = {
       callbacks: {
-        onControlsBlockMouseClick: this._preventClickPropagation,
         onControlsBlockMouseMove: this._setFocusState,
         onControlsBlockMouseOut: this._removeFocusState
       }
@@ -88,10 +87,6 @@ export default class ControlBlock {
     this._eventEmitter.on(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED, this._startHideControlsTimeout);
 
     this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
-  }
-
-  _preventClickPropagation(e) {
-    e.stopPropagation();
   }
 
   _startHideControlsTimeout() {

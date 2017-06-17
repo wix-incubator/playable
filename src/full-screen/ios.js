@@ -43,7 +43,7 @@ export default class IOSFullScreen {
   }
 
   request() {
-    if (!this.isAPIExist || this.isInFullScreen) {
+    if (!this.isEnabled || this.isInFullScreen) {
       return false;
     }
 
@@ -66,14 +66,6 @@ export default class IOSFullScreen {
     }
 
     this._elem.webkitExitFullscreen();
-  }
-
-  toggle() {
-    if (this.isInFullScreen) {
-      this.exit();
-    } else {
-      this.request();
-    }
   }
 
   destroy() {

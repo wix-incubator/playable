@@ -40,14 +40,18 @@ export default class ControlsView {
     this._bindEvents();
   }
 
+  _preventClickPropagation(e) {
+    e.stopPropagation();
+  }
+
   _bindEvents() {
-    this.$controlsContainer[0].addEventListener('click', this._callbacks.onControlsBlockMouseClick);
+    this.$controlsContainer[0].addEventListener('click', this._preventClickPropagation);
     this.$controlsContainer[0].addEventListener('mousemove', this._callbacks.onControlsBlockMouseMove);
     this.$controlsContainer[0].addEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
   }
 
   _unbindEvents() {
-    this.$controlsContainer[0].removeEventListener('click', this._callbacks.onControlsBlockMouseClick);
+    this.$controlsContainer[0].removeEventListener('click', this._preventClickPropagation);
     this.$controlsContainer[0].removeEventListener('mousemove', this._callbacks.onControlsBlockMouseMove);
     this.$controlsContainer[0].removeEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
   }

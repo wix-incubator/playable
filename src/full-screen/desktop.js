@@ -116,14 +116,6 @@ export default class DesktopFullScreen {
     document[this._fullscreenFn.exitFullscreen]();
   }
 
-  toggle() {
-    if (this.isInFullScreen) {
-      this.exit();
-    } else {
-      this.request();
-    }
-  }
-
   destroy() {
     this._unbindEvents();
 
