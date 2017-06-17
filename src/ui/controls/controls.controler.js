@@ -85,6 +85,7 @@ export default class ControlBlock {
   _bindEvents() {
     this._eventEmitter.on(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
     this._eventEmitter.on(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
+    this._eventEmitter.on(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED, this._startHideControlsTimeout);
 
     this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }
@@ -157,6 +158,7 @@ export default class ControlBlock {
   _unbindEvents() {
     this._eventEmitter.off(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
     this._eventEmitter.off(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
+    this._eventEmitter.off(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED, this._startHideControlsTimeout);
 
     this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
   }

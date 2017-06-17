@@ -43,16 +43,16 @@ export default class ProgressView {
     });
 
     this.$node
-      .append(this.$input)
       .append(this.$buffered)
-      .append(this.$played);
+      .append(this.$played)
+      .append(this.$input);
 
     this._bindCallbacks();
     this._bindEvents();
   }
 
   _onMouseInteractionStart(e) {
-    if (e.buttons > 1) {
+    if (e.button > 1) {
       return;
     }
 
@@ -60,7 +60,7 @@ export default class ProgressView {
   }
 
   _onMouseInteractionEnd(e) {
-    if (e.buttons > 1) {
+    if (e.button > 1) {
       return;
     }
 

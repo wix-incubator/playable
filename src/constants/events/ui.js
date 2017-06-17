@@ -14,7 +14,8 @@ const UI_EVENTS = {
   CONTROL_BLOCK_HIDE_TRIGGERED: 'control-block-hide-triggered',
   CONTROL_BLOCK_SHOW_TRIGGERED: 'control-block-show-triggered',
   PROGRESS_MANIPULATION_STARTED: 'ui-progress-manipulation-started',
-  PROGRESS_MANIPULATION_ENDED: 'ui-progress-manipulation-ended'
+  PROGRESS_MANIPULATION_ENDED: 'ui-progress-manipulation-ended',
+  ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED: 'engine-control-through-keyboard-triggered'
 };
 
 export default UI_EVENTS;

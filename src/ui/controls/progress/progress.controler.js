@@ -21,6 +21,10 @@ export default class ProgressControl {
     this._bindCallbacks();
     this._initUI();
     this._bindEvents();
+    this.view.setState({
+      played: 0,
+      buffered: 0
+    });
   }
 
   get node() {
@@ -38,8 +42,8 @@ export default class ProgressControl {
     const config = {
       callbacks: {
         onChangePlayedProgress: this._changePlayedProgress,
-        onUserInteractionStart: this._toggleUserInteractingStatus,
-        onUserInteractionEnd: this._toggleUserInteractingStatus
+        onUserInteractionStart: this._onUserInteractionStarts,
+        onUserInteractionEnd: this._onUserInteractionEnds
       }
     };
 
@@ -49,7 +53,8 @@ export default class ProgressControl {
   _bindCallbacks() {
     this._updateControlOnInterval = this._updateControlOnInterval.bind(this);
     this._changePlayedProgress = this._changePlayedProgress.bind(this);
-    this._toggleUserInteractingStatus = this._toggleUserInteractingStatus.bind(this);
+    this._onUserInteractionStarts = this._onUserInteractionStarts.bind(this);
+    this._onUserInteractionEnds = this._onUserInteractionEnds.bind(this);
     this._toggleIntervalUpdates = this._toggleIntervalUpdates.bind(this);
   }
 
@@ -75,11 +80,16 @@ export default class ProgressControl {
     this._updateControlInterval = null;
   }
 
-  _toggleUserInteractingStatus() {
-    this._isUserInteracting = !this._isUserInteracting;
-    if (this._isUserInteracting) {
+  _onUserInteractionStarts() {
+    if (!this._isUserInteracting) {
+      this._isUserInteracting = true;
       this._pauseVideoOnProgressManipulationStart();
-    } else {
+    }
+  }
+
+  _onUserInteractionEnds() {
+    if (this._isUserInteracting) {
+      this._isUserInteracting = false;
       this._playVideoOnProgressManipulationEnd();
     }
   }

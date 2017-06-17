@@ -110,9 +110,9 @@ describe('ProgressControl', () => {
     it('should toggle playback on manipulation change', () => {
       const startSpy = sinon.spy(control, '_pauseVideoOnProgressManipulationStart');
       const stopSpy = sinon.spy(control, '_playVideoOnProgressManipulationEnd');
-      control._toggleUserInteractingStatus();
+      control._onUserInteractionStarts();
       expect(startSpy.called).to.be.true;
-      control._toggleUserInteractingStatus();
+      control._onUserInteractionEnds();
       expect(stopSpy.called).to.be.true;
 
       control._playVideoOnProgressManipulationEnd.restore();
@@ -199,7 +199,8 @@ describe('ProgressControl', () => {
 
     it('should call callbacks', () => {
       const changeSpy = sinon.spy(control, '_changePlayedProgress');
-      const interactionSpy = sinon.spy(control, '_toggleUserInteractingStatus');
+      const interactionStartSpy = sinon.spy(control, '_onUserInteractionStarts');
+      const interactionStopSpy = sinon.spy(control, '_onUserInteractionEnds');
 
       control._bindCallbacks();
       control._initUI();
@@ -207,22 +208,22 @@ describe('ProgressControl', () => {
       control.view._onInputValueChange();
       expect(changeSpy.called).to.be.true;
       control.view._onMouseInteractionStart({
-        buttons: 2
+        button: 2
       });
-      expect(interactionSpy.called).to.be.false;
+      expect(interactionStartSpy.called).to.be.false;
       control.view._onMouseInteractionStart({
-        buttons: 1
+        button: 1
       });
-      expect(interactionSpy.called).to.be.true;
-      interactionSpy.reset();
+      expect(interactionStartSpy.called).to.be.true;
+
       control.view._onMouseInteractionEnd({
-        buttons: 2
+        button: 2
       });
-      expect(interactionSpy.called).to.be.false;
+      expect(interactionStopSpy.called).to.be.false;
       control.view._onMouseInteractionEnd({
-        buttons: 1
+        button: 1
       });
-      expect(interactionSpy.called).to.be.true;
+      expect(interactionStopSpy.called).to.be.true;
     });
 
     it('should have method for setting state', () => {

@@ -5,6 +5,13 @@ import View from './screen.view';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 const SPACE_BAR_KEYCODE = 32;
+const LEFT_ARROW_KEYCODE = 37;
+const RIGHT_ARROW_KEYCODE = 39;
+const UP_ARROW_KEYCODE = 38;
+const DOWN_ARROW_KEYCODE = 40;
+const AMOUNT_TO_SKIP_SECONDS = 5;
+const AMOUNT_TO_CHANGE_VOLUME = 0.1;
+
 
 export default class Screen {
   static View = View;
@@ -54,10 +61,12 @@ export default class Screen {
 
   _bindEvents() {
     this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
+    this._eventEmitter.on(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
   }
 
   _unbindEvents() {
     this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
+    this._eventEmitter.off(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
   }
 
   _setFullScreenStatus(isInFullScreen) {
@@ -65,8 +74,28 @@ export default class Screen {
   }
 
   _processKeyboardInput(e) {
-    if (e.keyCode === SPACE_BAR_KEYCODE) {
-      this._toggleVideoPlayback();
+    switch (e.keyCode) {
+      case SPACE_BAR_KEYCODE:
+        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this._toggleVideoPlayback();
+        break;
+      case LEFT_ARROW_KEYCODE:
+        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
+        break;
+      case RIGHT_ARROW_KEYCODE:
+        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
+        break;
+      case UP_ARROW_KEYCODE:
+        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
+        break;
+      case DOWN_ARROW_KEYCODE:
+        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
+        break;
+      default: break;
     }
   }
 

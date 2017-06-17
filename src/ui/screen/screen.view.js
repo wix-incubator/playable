@@ -30,7 +30,7 @@ export default class ScreenView {
       });
       this.$icon.html(
         `<svg class="${this.styleNames['svg-play']}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 14"><path fill="#FFF" fill-rule="evenodd" d="M.079 0L0 14l10.5-7.181z"/></svg>` +
-        `<svg class="${this.styleNames['svg-play']}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 14"><path fill="#FFF" fill-rule="evenodd" d="M7 0h3v14H7V0zM0 0h3v14H0V0z"/></svg>`
+        `<svg class="${this.styleNames['svg-pause']}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 14"><path fill="#FFF" fill-rule="evenodd" d="M7 0h3v14H7V0zM0 0h3v14H0V0z"/></svg>`
       );
 
       this.$iconContainer.append(this.$icon);
@@ -43,7 +43,11 @@ export default class ScreenView {
 
   _bindEvents() {
     this.$node[0].addEventListener('click', this._callbacks.onWrapperMouseClick);
-    this.$node[0].addEventListener('keypress', this._callbacks.onWrapperKeyPress);
+    this.$node[0].addEventListener('keydown', this._callbacks.onWrapperKeyPress);
+  }
+
+  focusOnNode() {
+    this.$node[0].focus();
   }
 
   get styleNames() {

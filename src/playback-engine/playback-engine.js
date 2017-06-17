@@ -172,6 +172,32 @@ export default class Engine {
     }
   }
 
+  goForward(sec) {
+    const duration = this.getDurationTime();
+
+    if (duration) {
+      const current = this.getCurrentTime();
+      this.setCurrentTime(Math.min(current + sec, duration));
+    }
+  }
+
+  goBackward(sec) {
+    const duration = this.getDurationTime();
+
+    if (duration) {
+      const current = this.getCurrentTime();
+      this.setCurrentTime(Math.max(current - sec, 0));
+    }
+  }
+
+  decreaseVolume(value) {
+    this.setVolume(this.getVolume() - value);
+  }
+
+  increaseVolume(value) {
+    this.setVolume(this.getVolume() + value);
+  }
+
   setAutoplay(isAutoplay) {
     this._$video[0].autoplay = Boolean(isAutoplay);
   }

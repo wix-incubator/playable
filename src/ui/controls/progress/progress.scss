@@ -16,23 +16,6 @@
   @include max-width-400() {
     @include hidden();
   }
-
-  input[type='range'] {
-    position: relative;
-    z-index: 2;
-
-    height: 15px;
-
-    &::-webkit-slider-runnable-track {
-      background: transparent;
-    }
-    &::-moz-range-track {
-      background: transparent;
-    }
-    &::-ms-fill-upper {
-      background: transparent;
-    }
-  }
 }
 
 .progress-bar {
@@ -53,44 +36,31 @@
 
   appearance: none;
 
-  &::-webkit-progress-value {
-    min-width: 3px;
-    max-width: 99%;
-
-    transition: none;
-
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
   &::-webkit-progress-bar {
     background: transparent;
   }
-
   &::-webkit-progress-value {
-    min-width: 3px;
-
-    border-radius: 100px;
-    background: currentColor;
-  }
-
-  &::-moz-progress-bar {
-    min-width: 3px;
-
     transition: none;
 
-    border-radius: 100px;
     background: currentColor;
   }
+  &::-moz-progress-bar {
+    transition: none;
 
+    background: currentColor;
+  }
   &::-ms-fill {
-    //display: none;
     transition: none;
 
     border: none;
-    border-radius: 100px;
   }
 }
+.progress-bar[data-hook='played-indicator'] {
+  &::-ms-fill {
+    display: none;
+  }
+}
+
 
 .progress-played {
   color: $color-main;
@@ -110,8 +80,6 @@
     transition: width .2s ease;
   }
 }
-
-
 
 @mixin seek-track() {
   cursor: pointer;
@@ -136,6 +104,9 @@
 }
 
 .seek-control {
+  position: relative;
+  z-index: 2;
+
   display: block;
 
   width: 100%;
@@ -152,6 +123,8 @@
   appearance: none;
 
   &::-webkit-slider-runnable-track {
+    background: transparent;
+
     @include seek-track();
   }
   &::-webkit-slider-thumb {
@@ -160,6 +133,8 @@
   }
 
   &::-moz-range-track {
+    background: transparent;
+
     @include seek-track();
   }
   &::-moz-range-thumb {
@@ -174,6 +149,8 @@
     background: transparent;
   }
   &::-ms-fill-upper {
+    background: transparent;
+
     @include seek-track();
   }
   &::-ms-fill-lower {
