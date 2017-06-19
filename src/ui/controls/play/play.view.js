@@ -1,15 +1,15 @@
 import $ from 'jbone';
 
+import View from '../../core/view';
+
 import styles from './play.scss';
 
-export default class PlayView {
-  static _styles = styles;
 
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
+class PlayView extends View {
+  constructor(config) {
+    super(config);
+    const { callbacks } = config;
 
-  constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['play-control']
@@ -38,10 +38,6 @@ export default class PlayView {
     this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
   }
 
-  get styleNames() {
-    return this.constructor._styles;
-  }
-
   show() {
     this.$node.toggleClass(this.styleNames.hidden, false);
   }
@@ -62,3 +58,7 @@ export default class PlayView {
     delete this.$node;
   }
 }
+
+PlayView.extendStyleNames(styles);
+
+export default PlayView;

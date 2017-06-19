@@ -1,18 +1,17 @@
 import $ from 'jbone';
 
+import View from '../core/view';
+
 import styles from './screen.scss';
 
 
 const SECONDS_COUNT = 5;
 
-export default class ScreenView {
-  static _styles = styles;
+class ScreenView extends View {
+  constructor(config) {
+    super(config);
+    const { callbacks, nativeControls, indicateScreenClick } = config;
 
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
-
-  constructor({ callbacks, nativeControls, indicateScreenClick }) {
     this._nativeControls = nativeControls;
     this._indicateScreenClick = indicateScreenClick;
 
@@ -47,10 +46,6 @@ export default class ScreenView {
 
   focusOnNode() {
     this.$node[0].focus();
-  }
-
-  get styleNames() {
-    return this.constructor._styles;
   }
 
   activatePlayIcon() {
@@ -116,3 +111,7 @@ export default class ScreenView {
     delete this.$node;
   }
 }
+
+ScreenView.extendStyleNames(styles);
+
+export default ScreenView;

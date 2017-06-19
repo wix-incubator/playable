@@ -1,16 +1,15 @@
 import $ from 'jbone';
 
+import View from '../core/view';
+
 import styles from './controls.scss';
 
 
-export default class ControlsView {
-  static _styles = styles;
+class ControlsView extends View {
+  constructor(config) {
+    super(config);
+    const { callbacks } = config;
 
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
-
-  constructor({ callbacks }) {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['controls-block'],
@@ -56,10 +55,6 @@ export default class ControlsView {
     this.$controlsContainer[0].removeEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
   }
 
-  get styleNames() {
-    return this.constructor._styles;
-  }
-
   show() {
     this.$node.toggleClass(this.styleNames.hidden, false);
   }
@@ -93,3 +88,7 @@ export default class ControlsView {
     delete this.$node;
   }
 }
+
+ControlsView.extendStyleNames(styles);
+
+export default ControlsView;

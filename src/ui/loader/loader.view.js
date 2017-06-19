@@ -1,23 +1,17 @@
 import $ from 'jbone';
 
+import View from '../core/view';
+
 import styles from './loader.scss';
 
 
-export default class LoaderView {
-  static _styles = styles;
+class LoaderView extends View {
+  constructor(config) {
+    super(config);
 
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
-
-  constructor() {
     this.$node = $('<div>', {
       class: this.styleNames.loader
     });
-  }
-
-  get styleNames() {
-    return this.constructor._styles;
   }
 
   getNode() {
@@ -38,3 +32,7 @@ export default class LoaderView {
     delete this.$node;
   }
 }
+
+LoaderView.extendStyleNames(styles);
+
+export default LoaderView;

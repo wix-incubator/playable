@@ -1,5 +1,7 @@
 import $ from 'jbone';
 
+import View from '../../core/view';
+
 import styles from './time.scss';
 
 
@@ -15,14 +17,10 @@ export function formatTime(seconds) {
     .replace(/^00:/, '');
 }
 
-export default class TimeView {
-  static _styles = styles;
+class TimeView extends View {
+  constructor(config) {
+    super(config);
 
-  static extendStyleNames(styles) {
-    this._styles = { ...this._styles, ...styles };
-  }
-
-  constructor() {
     this.$node = $('<div>', {
       class: this.styleNames['time-wrapper']
     });
@@ -61,10 +59,6 @@ export default class TimeView {
     this.$currentTime.html(formatTime(current));
   }
 
-  get styleNames() {
-    return this.constructor._styles;
-  }
-
   show() {
     this.$node.toggleClass(this.styleNames.hidden, false);
   }
@@ -86,3 +80,7 @@ export default class TimeView {
     delete this.$node;
   }
 }
+
+TimeView.extendStyleNames(styles);
+
+export default TimeView;
