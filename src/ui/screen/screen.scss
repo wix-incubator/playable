@@ -12,64 +12,89 @@
   align-items: center;
 
   .icon {
+    font-size: 9px;
+    line-height: 9px;
+
     position: relative;
 
-    .svg-play,
-    .svg-pause {
-      display: block;
+    display: flex;
 
-      animation-duration: .5s;
-
-      opacity: 0;
-    }
-
-    &.play {
-      .svg-play {
-        animation-name: fade-out-play;
-      }
-      .svg-pause {
-        display: none;
-      }
-    }
-
-    &.pause {
-      .svg-pause {
-        animation-name: fade-out-pause;
-      }
-      .svg-play {
-        display: none;
-      }
-    }
-  }
-}
-
-@keyframes fade-out-play {
-  from {
-    width: 70px;
-    height: 98px;
-
-    opacity: .5;
-  }
-
-  to {
-    width: 85px;
-    height: 119px;
+    animation-name: fade-out;
+    animation-duration: .5s;
 
     opacity: 0;
+    border-radius: 100px;
+    background-color: rgba(0,0,0, .5);
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  .animated-icon {
+    animation-name: icon-size;
+    animation-duration: .5s;
+  }
+
+  .play-icon {
+    position: relative;
+    left: 3px;
+  }
+
+  .pause-icon {
+    margin: 5px 0;
+  }
+
+  .seconds {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+
+    min-width: 5px;
+    min-height: 8px;
+
+    color: white;
+
+    justify-content: center;
+    align-items: center;
+
+    span {
+      display: block;
+    }
   }
 }
 
-@keyframes fade-out-pause {
+@keyframes icon-size {
   from {
-    width: 60px;
-    height: 84px;
-
-    opacity: .5;
+    width: 22px;
+    height: 22px;
   }
 
   to {
-    width: 75px;
-    height: 105px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    width: 22px;
+    height: 22px;
+    padding: 19px;
+
+    opacity: .9;
+  }
+
+  to {
+    font-size: 14px;
+    line-height: 14px;
+
+    width: 30px;
+    height: 30px;
+    padding: 25px;
 
     opacity: 0;
   }
