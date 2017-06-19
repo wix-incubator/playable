@@ -77,22 +77,27 @@ export default class Screen {
     switch (e.keyCode) {
       case SPACE_BAR_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this._showPlaybackChangeIndicator();
         this._toggleVideoPlayback();
         break;
       case LEFT_ARROW_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this.view.activateRewindIcon();
         this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
         break;
       case RIGHT_ARROW_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this.view.activateForwardIcon();
         this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
         break;
       case UP_ARROW_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this.view.activateIncreaseVolumeIcon();
         this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
         break;
       case DOWN_ARROW_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
+        this.view.activateDecreaseVolumeIcon();
         this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
         break;
       default: break;
@@ -108,12 +113,12 @@ export default class Screen {
 
       this._toggleFullScreen();
     } else {
-      this._showDelayedPlaybackChangeIndicator();
+      this._showPlaybackChangeIndicator();
       this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
     }
   }
 
-  _showDelayedPlaybackChangeIndicator() {
+  _showPlaybackChangeIndicator() {
     if (this.config.indicateScreenClick) {
       const { status } = this._engine.getPlaybackState();
 
@@ -136,6 +141,7 @@ export default class Screen {
 
   _toggleVideoPlayback() {
     this._delayedToggleVideoPlaybackTimeout = null;
+
     const { status } = this._engine.getPlaybackState();
 
     if (
