@@ -81,7 +81,7 @@ describe('Overlay', () => {
       const hideSpy = sinon.spy(overlay, "_hideContent");
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, engine.STATUSES.PLAY_REQUESTED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: engine.STATES.PLAY_REQUESTED });
 
       expect(callback.called).to.be.true;
       expect(hideSpy.called).to.be.true;
@@ -92,7 +92,7 @@ describe('Overlay', () => {
       const showSpy = sinon.spy(overlay, "_showContent");
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, engine.STATUSES.ENDED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: engine.STATES.ENDED });
 
       expect(callback.called).to.be.true;
       expect(showSpy.called).to.be.true;

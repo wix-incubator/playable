@@ -87,14 +87,14 @@ describe('TimeControl', () => {
     it('should call callback on playback status change', () => {
       const spy = sinon.spy(control, '_toggleIntervalUpdates');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
 
     it('should call callback on seek', () => {
       const spy = sinon.spy(control, '_updateCurrentTime');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: control._engine.STATES.SEEK_STARTED});
       expect(spy.called).to.be.true;
     });
 
@@ -109,11 +109,11 @@ describe('TimeControl', () => {
   describe('internal methods', () => {
     it('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
-      control._toggleIntervalUpdates(engine.STATUSES.PLAYING);
+      control._toggleIntervalUpdates({ nextState: engine.STATES.PLAYING });
       expect(startSpy.called).to.be.true;
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
-      control._toggleIntervalUpdates(engine.STATUSES.PAUSED);
+      control._toggleIntervalUpdates({ nextState: engine.STATES.PAUSED });
       expect(stopSpy.called).to.be.true;
     });
 

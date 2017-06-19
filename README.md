@@ -49,7 +49,7 @@ document.getElementById('content').appendChild(player.node);
 
 ```config.loop``` Loop video playback
 
-```config.autoplay``` Start video playback as soon as it can do so without stopping to finish loading the data.
+```config.autoPlay``` Start video playback as soon as it can do so without stopping to finish loading the data.
 
 ```config.preload``` Type of preloading. For more info check ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video))
 
@@ -80,7 +80,7 @@ const player = new VideoPlayer.Player({
 
 ### Player public methods
 
-```Player.setAutoplay(flag)``` Set autoplay flag
+```Player.setAutoPlay(flag)``` Set autoPlay flag
 
 ```Player.setLoop(flag)``` Set loop flag
 

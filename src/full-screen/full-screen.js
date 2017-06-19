@@ -5,7 +5,7 @@ import IOSFullScreen from './ios';
 import UI_EVENTS from '../constants/events/ui';
 
 
-export default class FullScreen {
+export default class FullScreenManager {
   constructor({ eventEmitter, engine, ui }) {
     this._eventEmitter = eventEmitter;
 

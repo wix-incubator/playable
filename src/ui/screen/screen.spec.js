@@ -137,14 +137,14 @@ describe('Loader', () => {
 
 
     it('should have method for toggling playback', () => {
-      let status = engine.STATUSES.PLAYING;
+      let state = engine.STATES.PLAYING;
       const playSpy = sinon.spy();
       const pauseSpy = sinon.spy();
       screen._engine = {
-        getPlaybackState: () => ({ status }),
+        getState: () => state,
         play: playSpy,
         pause: pauseSpy,
-        STATUSES: engine.STATUSES
+        STATES: engine.STATES
       };
       screen._toggleVideoPlayback();
       expect(pauseSpy.called).to.be.true;

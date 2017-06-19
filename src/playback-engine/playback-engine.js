@@ -1,16 +1,19 @@
 import Vidi from 'vidi';
-import $ from 'jbone';
+
+import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../utils/video-data';
 
 import VIDEO_EVENTS from '../constants/events/video';
 
 
-export const STATUSES = {
+export const STATES = {
   SRC_SET: 'src-set',
   LOAD_STARTED: 'load-started',
   METADATA_LOADED: 'metadata-loaded',
   READY_TO_PLAY: 'ready-to-play',
+  SEEK_STARTED: 'seek-started',
   PLAY_REQUESTED: 'play-requested',
   WAITING: 'waiting',
+  SEEK_ENDED: 'seek-ended',
   PLAYING: 'playing',
   PAUSED: 'paused',
   ENDED: 'ended'
@@ -19,20 +22,20 @@ export const STATUSES = {
 export default class Engine {
   constructor({ eventEmitter }) {
     this._eventEmitter = eventEmitter;
-    this._$video = $('<video/>');
-    this._vidi = new Vidi(this._$video[0]);
+    this._video = document.createElement('video');
+    this._vidi = new Vidi(this._video);
 
     this._processEventFromVideo = this._processEventFromVideo.bind(this);
     this._sendError = this._sendError.bind(this);
 
     this._bindEvents();
 
-    this._currentStatus = null;
-    this.STATUSES = STATUSES;
+    this._currentState = null;
+    this.STATES = STATES;
   }
 
   getNode() {
-    return this._$video[0];
+    return this._video;
   }
 
   _sendError(error) {
@@ -42,79 +45,79 @@ export default class Engine {
   _bindEvents() {
     this._vidi.on('error', this._sendError);
 
-    this._$video[0].addEventListener('loadstart', this._processEventFromVideo);
-    this._$video[0].addEventListener('loadedmetadata', this._processEventFromVideo);
-    this._$video[0].addEventListener('canplay', this._processEventFromVideo);
-    this._$video[0].addEventListener('progress', this._processEventFromVideo);
-    this._$video[0].addEventListener('play', this._processEventFromVideo);
-    this._$video[0].addEventListener('playing', this._processEventFromVideo);
-    this._$video[0].addEventListener('pause', this._processEventFromVideo);
-    this._$video[0].addEventListener('ended', this._processEventFromVideo);
-    this._$video[0].addEventListener('stalled', this._processEventFromVideo);
-    this._$video[0].addEventListener('suspend', this._processEventFromVideo);
-    this._$video[0].addEventListener('waiting', this._processEventFromVideo);
-    this._$video[0].addEventListener('durationchange', this._processEventFromVideo);
-    this._$video[0].addEventListener('timeupdate', this._processEventFromVideo);
-    this._$video[0].addEventListener('seeking', this._processEventFromVideo);
-    this._$video[0].addEventListener('seeked', this._processEventFromVideo);
-    this._$video[0].addEventListener('volumechange', this._processEventFromVideo);
+    this._video.addEventListener('loadstart', this._processEventFromVideo);
+    this._video.addEventListener('loadedmetadata', this._processEventFromVideo);
+    this._video.addEventListener('canplay', this._processEventFromVideo);
+    this._video.addEventListener('progress', this._processEventFromVideo);
+    this._video.addEventListener('play', this._processEventFromVideo);
+    this._video.addEventListener('playing', this._processEventFromVideo);
+    this._video.addEventListener('pause', this._processEventFromVideo);
+    this._video.addEventListener('ended', this._processEventFromVideo);
+    this._video.addEventListener('stalled', this._processEventFromVideo);
+    this._video.addEventListener('suspend', this._processEventFromVideo);
+    this._video.addEventListener('waiting', this._processEventFromVideo);
+    this._video.addEventListener('durationchange', this._processEventFromVideo);
+    this._video.addEventListener('timeupdate', this._processEventFromVideo);
+    this._video.addEventListener('seeking', this._processEventFromVideo);
+    this._video.addEventListener('seeked', this._processEventFromVideo);
+    this._video.addEventListener('volumechange', this._processEventFromVideo);
   }
 
   _unbindEvents() {
     this._vidi.off('error', this._sendError);
 
-    this._$video[0].removeEventListener('loadstart', this._processEventFromVideo);
-    this._$video[0].removeEventListener('loadedmetadata', this._processEventFromVideo);
-    this._$video[0].removeEventListener('canplay', this._processEventFromVideo);
-    this._$video[0].removeEventListener('progress', this._processEventFromVideo);
-    this._$video[0].removeEventListener('play', this._processEventFromVideo);
-    this._$video[0].removeEventListener('playing', this._processEventFromVideo);
-    this._$video[0].removeEventListener('pause', this._processEventFromVideo);
-    this._$video[0].removeEventListener('ended', this._processEventFromVideo);
-    this._$video[0].removeEventListener('stalled', this._processEventFromVideo);
-    this._$video[0].removeEventListener('suspend', this._processEventFromVideo);
-    this._$video[0].removeEventListener('waiting', this._processEventFromVideo);
-    this._$video[0].removeEventListener('durationchange', this._processEventFromVideo);
-    this._$video[0].removeEventListener('timeupdate', this._processEventFromVideo);
-    this._$video[0].removeEventListener('seeking', this._processEventFromVideo);
-    this._$video[0].removeEventListener('seeked', this._processEventFromVideo);
-    this._$video[0].removeEventListener('volumechange', this._processEventFromVideo);
+    this._video.removeEventListener('loadstart', this._processEventFromVideo);
+    this._video.removeEventListener('loadedmetadata', this._processEventFromVideo);
+    this._video.removeEventListener('canplay', this._processEventFromVideo);
+    this._video.removeEventListener('progress', this._processEventFromVideo);
+    this._video.removeEventListener('play', this._processEventFromVideo);
+    this._video.removeEventListener('playing', this._processEventFromVideo);
+    this._video.removeEventListener('pause', this._processEventFromVideo);
+    this._video.removeEventListener('ended', this._processEventFromVideo);
+    this._video.removeEventListener('stalled', this._processEventFromVideo);
+    this._video.removeEventListener('suspend', this._processEventFromVideo);
+    this._video.removeEventListener('waiting', this._processEventFromVideo);
+    this._video.removeEventListener('durationchange', this._processEventFromVideo);
+    this._video.removeEventListener('timeupdate', this._processEventFromVideo);
+    this._video.removeEventListener('seeking', this._processEventFromVideo);
+    this._video.removeEventListener('seeked', this._processEventFromVideo);
+    this._video.removeEventListener('volumechange', this._processEventFromVideo);
   }
 
   _processEventFromVideo(event) {
-    const videoEl = this._$video[0];
+    const videoEl = this._video;
 
     switch (event.type) {
       case 'loadstart': {
-        this._setStatus(STATUSES.LOAD_STARTED);
+        this._setState(STATES.LOAD_STARTED);
         break;
       }
       case 'loadedmetadata': {
-        this._setStatus(STATUSES.METADATA_LOADED);
+        this._setState(STATES.METADATA_LOADED);
         break;
       }
       case 'canplay': {
-        this._setStatus(STATUSES.READY_TO_PLAY);
+        this._setState(STATES.READY_TO_PLAY);
         break;
       }
       case 'play': {
-        this._setStatus(STATUSES.PLAY_REQUESTED);
+        this._setState(STATES.PLAY_REQUESTED);
         break;
       }
       case 'playing': {
-        this._setStatus(STATUSES.PLAYING);
+        this._setState(STATES.PLAYING);
         break;
       }
       case 'waiting': {
-        this._setStatus(STATUSES.WAITING);
+        this._setState(STATES.WAITING);
         break;
       }
       case 'pause': {
-        this._setStatus(STATUSES.PAUSED);
+        this._setState(STATES.PAUSED);
         break;
       }
       case 'ended': {
-        this._setStatus(STATUSES.ENDED);
+        this._setState(STATES.ENDED);
         break;
       }
       case 'progress': {
@@ -138,11 +141,11 @@ export default class Engine {
         break;
       }
       case 'seeking': {
-        this._eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED, videoEl.currentTime);
+        this._setState(STATES.SEEK_STARTED);
         break;
       }
       case 'seeked': {
-        this._eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED, videoEl.currentTime);
+        this._setState(STATES.SEEK_ENDED);
         break;
       }
       case 'volumechange': {
@@ -156,27 +159,97 @@ export default class Engine {
     }
   }
 
-  _setStatus(status) {
-    this._currentStatus = status;
-    this._eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._currentStatus);
+  _setState(state) {
+    this._eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { prevState: this._currentState, nextState: state });
+    this._currentState = state;
   }
 
-  getPlaybackState() {
+  getDebugInfo() {
+    const { attachedStream } = this._vidi;
+    const { networkState, readyState } = this._video;
+    let data;
+
+    if (attachedStream.hls) {
+      data = this._getHLSInfo(attachedStream.hls);
+    } else if (attachedStream.dashPlayer) {
+      data = this._getDashInfo(attachedStream.dashPlayer);
+    } else {
+      data = this._getNativeInfo(this._vidi);
+    }
+
     return {
-      currentTime: this.getCurrentTime(),
-      duration: this.getDurationTime(),
-      muted: this.getMute(),
-      playbackRate: this.getPlaybackRate(),
-      status: this._currentStatus,
-      volume: this.getVolume()
+      attachedStreamName: attachedStream.constructor.name,
+      ...data,
+      networkState,
+      readyState
+    };
+  }
+
+  _getDashInfo(dashPlayer) {
+    const currentStream = dashPlayer.getActiveStream();
+    const currentTime = dashPlayer.time(currentStream.getId());
+    const bitrates = dashPlayer.getBitrateInfoListFor('video');
+    const currentBitrate = bitrates[dashPlayer.getQualityFor('video')];
+    const overallBufferLength = dashPlayer.getBufferLength('video');
+    const currentTrack = dashPlayer.getCurrentTrackFor('video');
+    const nearestBufferSegInfo = getNearestBufferSegmentInfo(dashPlayer.getVideoElement().buffered, currentTime);
+
+    return {
+      dashInfo: {
+        bitrates,
+        currentTime,
+        currentBitrate,
+        overallBufferLength,
+        currentTrack,
+        nearestBufferSegInfo
+      }
+    };
+  }
+
+  _getHLSInfo(hls) {
+    const overallBufferLength = geOverallBufferLength(hls.streamController.mediaBuffer.buffered);
+    const bitrates = hls.levelController.levels;
+    const currentBitrate = bitrates[hls.levelController.level];
+    const currentTime = hls.streamController.lastCurrentTime;
+    const nearestBufferSegInfo = getNearestBufferSegmentInfo(hls.streamController.mediaBuffer.buffered, currentTime);
+
+    return {
+      hlsInfo: {
+        bitrates,
+        currentTime,
+        currentBitrate,
+        overallBufferLength,
+        nearestBufferSegInfo
+      }
+    };
+  }
+
+  _getNativeInfo(vidi) {
+    const { videoElement: { buffered, currentTime } } = vidi;
+
+    const overallBufferLength = geOverallBufferLength(buffered);
+    const nearestBufferSegInfo = getNearestBufferSegmentInfo(buffered, currentTime);
+
+    return {
+      nativeInfo: {
+        bitrates: vidi.attachedStream.mediaStreams,
+        currentBitrate: vidi.attachedStream.mediaStreams[0],
+        currentTime,
+        overallBufferLength,
+        nearestBufferSegInfo
+      }
     };
   }
 
   setSrc(src) {
     if (this._vidi.src !== src) {
       this._vidi.src = src;
-      this._setStatus(STATUSES.SRC_SET);
+      this._setState(STATES.SRC_SET);
     }
+  }
+
+  getState() {
+    return this._currentState;
   }
 
   goForward(sec) {
@@ -205,89 +278,89 @@ export default class Engine {
     this.setVolume(this.getVolume() + value);
   }
 
-  setAutoplay(isAutoplay) {
-    this._$video[0].autoplay = Boolean(isAutoplay);
+  setAutoPlay(isAutoPlay) {
+    this._video.autoplay = Boolean(isAutoPlay);
   }
 
-  getAutoplay() {
-    return this._$video[0].autoplay;
+  getAutoPlay() {
+    return this._video.autoplay;
   }
 
   setLoop(isLoop) {
-    this._$video[0].loop = Boolean(isLoop);
+    this._video.loop = Boolean(isLoop);
   }
 
   getLoop() {
-    return this._$video[0].loop;
+    return this._video.loop;
   }
 
   setMute(isMuted) {
-    this._$video[0].muted = Boolean(isMuted);
+    this._video.muted = Boolean(isMuted);
   }
 
   getMute() {
-    return this._$video[0].muted;
+    return this._video.muted;
   }
 
   setVolume(volume) {
     const parsedVolume = Number(volume);
-    this._$video[0].volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
+    this._video.volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
   }
 
   getVolume() {
-    return this._$video[0].volume;
+    return this._video.volume;
   }
 
   setPlaybackRate(rate) {
-    this._$video[0].playbackRate = rate;
+    this._video.playbackRate = rate;
   }
 
   getPlaybackRate() {
-    return this._$video[0].playbackRate;
+    return this._video.playbackRate;
   }
 
   setPreload(preload) {
-    this._$video[0].preload = preload || 'auto';
+    this._video.preload = preload || 'auto';
   }
 
   getPreload() {
-    return this._$video[0].preload;
+    return this._video.preload;
   }
 
   getReadyState() {
-    return this._$video[0].readyState;
+    return this._video.readyState;
   }
 
   getCurrentTime() {
-    return this._$video[0].currentTime;
+    return this._video.currentTime;
   }
 
   setCurrentTime(time) {
-    this._$video[0].currentTime = time;
+    this._video.currentTime = time;
   }
 
   getDurationTime() {
-    return this._$video[0].duration || 0;
+    return this._video.duration || 0;
   }
 
   getBuffered() {
-    return this._$video[0].buffered;
+    return this._video.buffered;
   }
 
   setPlayInline(isPlayInline) {
-    return this._$video.attr('playsInline', isPlayInline);
+    return this._video.setAttribute('playsInline', isPlayInline);
   }
 
   getPlayInline() {
-    return this._$video.attr('playsInline');
+    return this._video.getAttribute('playsInline');
   }
 
   destroy() {
     this._unbindEvents();
-    this._$video[0].remove();
+    this._video.remove();
 
     delete this._eventEmitter;
-    delete this._$video;
+    delete this._video;
 
     this._vidi.setVideoElement();
     delete this._vidi;

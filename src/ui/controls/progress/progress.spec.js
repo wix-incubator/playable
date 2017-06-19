@@ -80,28 +80,23 @@ describe('ProgressControl', () => {
     it('should call callback on playback status change', () => {
       const spy = sinon.spy(control, '_toggleIntervalUpdates');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
 
     it('should call callback on seek', () => {
-      const spy = sinon.spy(control, '_updatePlayedIndicator');
+      const spyPlayed = sinon.spy(control, '_updatePlayedIndicator');
+      const spyBuffered = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.SEEK_STARTED);
-      expect(spy.called).to.be.true;
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: control._engine.STATES.SEEK_STARTED});
+      expect(spyPlayed.called).to.be.true;
+      expect(spyBuffered.called).to.be.true;
     });
 
     it('should call callback on duration update', () => {
       const spy = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
-      expect(spy.called).to.be.true;
-    });
-
-    it('should call callback on duration update', () => {
-      const spy = sinon.spy(control, '_updateBufferIndicator');
-      control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.SEEK_ENDED);
       expect(spy.called).to.be.true;
     });
   });
@@ -121,11 +116,11 @@ describe('ProgressControl', () => {
 
     it('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
-      control._toggleIntervalUpdates(engine.STATUSES.PLAYING);
+      control._toggleIntervalUpdates({ nextState: engine.STATES.PLAYING });
       expect(startSpy.called).to.be.true;
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
-      control._toggleIntervalUpdates(engine.STATUSES.PAUSED);
+      control._toggleIntervalUpdates({ nextState: engine.STATES.PAUSED });
       expect(stopSpy.called).to.be.true;
     });
 

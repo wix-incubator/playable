@@ -49,13 +49,13 @@ export default class Overlay {
   _bindEvents() {
     this._playVideo = this._playVideo.bind(this);
 
-    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
   }
 
-  _updatePlayingStatus(status) {
-    if (status === this._engine.STATUSES.PLAY_REQUESTED) {
+  _updatePlayingStatus({ nextState }) {
+    if (nextState === this._engine.STATES.PLAY_REQUESTED) {
       this._hideContent();
-    } else if (status === this._engine.STATUSES.ENDED) {
+    } else if (nextState === this._engine.STATES.ENDED) {
       this._showContent();
     }
   }
@@ -82,7 +82,7 @@ export default class Overlay {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
   }
 
   destroy() {

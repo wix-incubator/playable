@@ -2,8 +2,7 @@ import View from './time.view';
 
 import VIDEO_EVENTS from '../../../constants/events/video';
 
-
-const UPDATE_INTERVAL_DELAY = 100;
+const UPDATE_INTERVAL_DELAY = 500;
 
 export default class TimeControl {
   static View = View;
@@ -30,9 +29,7 @@ export default class TimeControl {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._toggleIntervalUpdates, this);
-    this._eventEmitter.on(VIDEO_EVENTS.LOAD_STARTED, this._updateCurrentTime, this);
-    this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
+    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
   }
 
@@ -52,13 +49,22 @@ export default class TimeControl {
     this._updateControlInterval = null;
   }
 
-  _toggleIntervalUpdates(status) {
-    if (status === this._engine.STATUSES.SRC_SET) {
-      this.reset();
-    } else if (status === this._engine.STATUSES.PLAYING) {
-      this._startIntervalUpdates();
-    } else {
-      this._stopIntervalUpdates();
+  _toggleIntervalUpdates({ nextState }) {
+    const { STATES } = this._engine;
+
+    switch (nextState) {
+      case STATES.SRC_SET:
+        this.reset();
+        break;
+      case STATES.PLAYING:
+        this._startIntervalUpdates();
+        break;
+      case STATES.SEEK_STARTED:
+        this._updateCurrentTime();
+        break;
+      default:
+        this._stopIntervalUpdates();
+        break;
     }
   }
 
@@ -94,9 +100,7 @@ export default class TimeControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._toggleIntervalUpdates, this);
-    this._eventEmitter.off(VIDEO_EVENTS.LOAD_STARTED, this._updateCurrentTime, this);
-    this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updateCurrentTime, this);
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.off(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
   }
 

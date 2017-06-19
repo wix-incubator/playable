@@ -120,11 +120,11 @@ export default class Screen {
 
   _showPlaybackChangeIndicator() {
     if (this.config.indicateScreenClick) {
-      const { status } = this._engine.getPlaybackState();
+      const state = this._engine.getState();
 
       if (
-        status === this._engine.STATUSES.PLAY_REQUESTED ||
-        status === this._engine.STATUSES.PLAYING
+        state === this._engine.STATES.PLAY_REQUESTED ||
+        state === this._engine.STATES.PLAYING
       ) {
         this.view.activatePauseIcon();
       } else {
@@ -142,11 +142,11 @@ export default class Screen {
   _toggleVideoPlayback() {
     this._delayedToggleVideoPlaybackTimeout = null;
 
-    const { status } = this._engine.getPlaybackState();
+    const state = this._engine.getState();
 
     if (
-      status === this._engine.STATUSES.PLAY_REQUESTED ||
-      status === this._engine.STATUSES.PLAYING
+      state === this._engine.STATES.PLAY_REQUESTED ||
+      state === this._engine.STATES.PLAYING
     ) {
       this._engine.pause();
     } else {

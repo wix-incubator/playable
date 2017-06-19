@@ -1,7 +1,7 @@
 const VIDEO_EVENTS = {
   ERROR: 'error',
   CAN_PLAY: 'can-play',
-  PLAYBACK_STATUS_CHANGED: 'playback-status-changed',
+  STATE_CHANGED: 'state-changed',
   CHUNK_LOADED: 'chunk-loaded',
   METADATA_LOADED: 'metadata-loaded',
   CURRENT_TIME_UPDATED: 'current-time-updated',

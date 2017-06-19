@@ -3,6 +3,8 @@ import VIDEO_EVENTS from '../../constants/events/video';
 import View from './loader.view';
 
 
+const DELAY_FOR_SHOW_ON_WAITING_STATE = 100;
+
 export default class Loader {
   static View = View;
 
@@ -10,18 +12,15 @@ export default class Loader {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
-    this._updateInterval = null;
-    this._delayedUpdateTimeout = null;
     this.config = {
       ...config
     };
 
-    this._bindCallbacks();
+    this.show = this.show.bind(this);
+    this.hide = this.hide.bind(this);
+
     this._initUI();
     this._bindEvents();
-
-    this.hide();
-    this._startIntervalUpdates();
   }
 
   get node() {
@@ -29,23 +28,28 @@ export default class Loader {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._setDelayedUpdate, this);
-    this._eventEmitter.on(VIDEO_EVENTS.CAN_PLAY, this.hide, this);
+    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState, this);
+    this._eventEmitter.on(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
-  _bindCallbacks() {
-    this._startIntervalUpdates = this._startIntervalUpdates.bind(this);
-    this._updateState = this._updateState.bind(this);
-  }
-
-  _stopUpdateWhileSeek() {
-    this.hide();
-    this._stopIntervalUpdates();
-  }
-
-  _startUpdateAfterSeek() {
-    this._updateState();
-    this._startIntervalUpdates();
+  _checkForWaitingState({ nextState }) {
+    const { STATES } = this._engine;
+    switch (nextState) {
+      case STATES.SEEK_STARTED:
+        this._startDelayedShow();
+        break;
+      case STATES.WAITING:
+        this._startDelayedShow();
+        break;
+      case STATES.LOAD_STARTED:
+        this.show();
+        break;
+      case STATES.READY_TO_PLAY:
+        this._stopDelayedShow();
+        this.hide();
+        break;
+      default: break;
+    }
   }
 
   _initUI() {
@@ -72,45 +76,25 @@ export default class Loader {
     }
   }
 
-  _updateState() {
-    const readyState = this._engine.getReadyState();
-
-    if (readyState < 3) {
-      this.show();
-    } else {
-      this.hide();
-    }
+  _startDelayedShow() {
+    this._stopDelayedShow();
+    this._delayedShowTimeout = setTimeout(this.show, DELAY_FOR_SHOW_ON_WAITING_STATE);
   }
 
-  _setDelayedUpdate() {
-    this._stopIntervalUpdates();
-    this._delayedUpdateTimeout = setTimeout(this._startIntervalUpdates, 100);
-  }
-
-  _clearDelayedUpdate() {
-    clearTimeout(this._delayedUpdateTimeout);
-    this._delayedUpdateTimeout = null;
-  }
-
-  _startIntervalUpdates() {
-    this._updateInterval = setInterval(this._updateState, 250);
-  }
-
-  _stopIntervalUpdates() {
-    clearInterval(this._updateInterval);
-    this._updateInterval = null;
+  _stopDelayedShow() {
+    clearTimeout(this._delayedShowTimeout);
+    this._delayedShowTimeout = null;
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._setDelayedUpdate, this);
-    this._eventEmitter.off(VIDEO_EVENTS.CAN_PLAY, this.hide, this);
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState, this);
+    this._eventEmitter.off(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
   destroy() {
     this._unbindEvents();
+    this._stopDelayedShow();
 
-    this._clearDelayedUpdate();
-    this._stopIntervalUpdates();
     this.view.destroy();
 
     delete this.view;

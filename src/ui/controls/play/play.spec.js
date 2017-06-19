@@ -56,7 +56,7 @@ describe('PlayControl', () => {
     it('should call callback on playback status change', () => {
       const spy = sinon.spy(control, '_updatePlayingStatus');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
   });
@@ -64,9 +64,9 @@ describe('PlayControl', () => {
   describe('internal methods', () => {
     it('should change view based on playback status', () => {
       const spy = sinon.spy(control, 'setControlStatus');
-      control._updatePlayingStatus(engine.STATUSES.PLAY_REQUESTED);
+      control._updatePlayingStatus({ nextState: engine.STATES.PLAY_REQUESTED });
       expect(spy.calledWith(true)).to.be.true;
-      control._updatePlayingStatus(engine.STATUSES.PAUSED);
+      control._updatePlayingStatus({ nextState: engine.STATES.PAUSED });
       expect(spy.calledWith(false)).to.be.true;
     });
 

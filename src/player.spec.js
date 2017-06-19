@@ -38,11 +38,11 @@ describe('Player', () => {
     });
 
     it('should have method for set autoplay flag', () => {
-      expect(player.setAutoplay).to.exist;
-      player.setAutoplay(true);
-      expect(player.getAutoplay()).to.be.true;
-      player.setAutoplay(false);
-      expect(player.getAutoplay()).to.be.false;
+      expect(player.setAutoPlay).to.exist;
+      player.setAutoPlay(true);
+      expect(player.getAutoPlay()).to.be.true;
+      player.setAutoPlay(false);
+      expect(player.getAutoPlay()).to.be.false;
     });
 
     it('should have method for set autoplay flag', () => {
@@ -76,9 +76,9 @@ describe('Player', () => {
     });
 
     it('should have method for get autoplay flag', () => {
-      expect(player.getAutoplay).to.exist;
-      player.setAutoplay(false);
-      expect(player.getAutoplay()).to.be.false;
+      expect(player.getAutoPlay).to.exist;
+      player.setAutoPlay(false);
+      expect(player.getAutoPlay()).to.be.false;
     });
 
     it('should have method for get loop flag', () => {
