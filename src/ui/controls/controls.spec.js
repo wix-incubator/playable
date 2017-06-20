@@ -74,11 +74,11 @@ describe('ControlsBlock', () => {
       const startTimeout = sinon.spy(controls, '_startHideControlsTimeout');
       const hideTimeout = sinon.spy(controls, '_hideContent');
       const showTimeout = sinon.spy(controls, '_showContent');
-      controls._updatePlayingStatus(engine.STATUSES.PLAY_REQUESTED);
+      controls._updatePlayingStatus({ nextState: engine.STATES.PLAY_REQUESTED });
       expect(startTimeout.called).to.be.true;
-      controls._updatePlayingStatus(engine.STATUSES.PAUSED);
+      controls._updatePlayingStatus({ nextState: engine.STATES.PAUSED });
       expect(showTimeout.called).to.be.true;
-      controls._updatePlayingStatus(engine.STATUSES.ENDED);
+      controls._updatePlayingStatus({ nextState: engine.STATES.ENDED });
       expect(hideTimeout.called).to.be.true;
     });
 
@@ -99,7 +99,7 @@ describe('ControlsBlock', () => {
     it('should call callback on playback status change', () => {
       const spy = sinon.spy(controls, '_updatePlayingStatus');
       controls._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
   });

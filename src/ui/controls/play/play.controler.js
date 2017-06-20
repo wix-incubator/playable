@@ -29,7 +29,7 @@ export default class PlayControl {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
   }
 
   _togglePlayback() {
@@ -52,12 +52,12 @@ export default class PlayControl {
     this._eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
   }
 
-  _updatePlayingStatus(status) {
-    if (status === this._engine.STATUSES.SRC_SET) {
+  _updatePlayingStatus({ nextState }) {
+    if (nextState === this._engine.STATES.SRC_SET) {
       this.reset();
-    } else if (status === this._engine.STATUSES.PLAY_REQUESTED) {
+    } else if (nextState === this._engine.STATES.PLAY_REQUESTED) {
       this.setControlStatus(true);
-    } else if (status === this._engine.STATUSES.PAUSED || status === this._engine.STATUSES.ENDED) {
+    } else if (nextState === this._engine.STATES.PAUSED || nextState === this._engine.STATES.ENDED) {
       this.setControlStatus(false);
     }
   }
@@ -78,7 +78,7 @@ export default class PlayControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
   }
 
   reset() {

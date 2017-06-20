@@ -86,7 +86,7 @@ export default class ControlBlock {
     this._eventEmitter.on(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
     this._eventEmitter.on(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED, this._startHideControlsTimeout);
 
-    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
   }
 
   _startHideControlsTimeout() {
@@ -127,14 +127,14 @@ export default class ControlBlock {
     }
   }
 
-  _updatePlayingStatus(status) {
-    if (status === this._engine.STATUSES.PLAY_REQUESTED) {
+  _updatePlayingStatus({ nextState }) {
+    if (nextState === this._engine.STATES.PLAY_REQUESTED) {
       this._isVideoPaused = false;
       this._startHideControlsTimeout();
-    } else if (status === this._engine.STATUSES.ENDED) {
+    } else if (nextState === this._engine.STATES.ENDED) {
       this._isVideoPaused = false;
       this._hideContent();
-    } else if (status === this._engine.STATUSES.PAUSED) {
+    } else if (nextState === this._engine.STATES.PAUSED) {
       this._isVideoPaused = true;
       this._showContent();
     }
@@ -155,7 +155,7 @@ export default class ControlBlock {
     this._eventEmitter.off(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
     this._eventEmitter.off(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED, this._startHideControlsTimeout);
 
-    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
   }
 
   destroy() {

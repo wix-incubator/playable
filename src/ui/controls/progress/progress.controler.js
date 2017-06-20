@@ -32,10 +32,8 @@ export default class ProgressControl {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._toggleIntervalUpdates, this);
-    this._eventEmitter.on(VIDEO_EVENTS.SEEK_STARTED, this._updatePlayedIndicator, this);
+    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
-    this._eventEmitter.on(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
   }
 
   _initUI() {
@@ -56,6 +54,7 @@ export default class ProgressControl {
     this._onUserInteractionStarts = this._onUserInteractionStarts.bind(this);
     this._onUserInteractionEnds = this._onUserInteractionEnds.bind(this);
     this._toggleIntervalUpdates = this._toggleIntervalUpdates.bind(this);
+    this._playVideoOnProgressManipulationEnd = this._playVideoOnProgressManipulationEnd.bind(this);
   }
 
   _changePlayedProgress(value) {
@@ -99,13 +98,23 @@ export default class ProgressControl {
     this._updateBufferIndicator();
   }
 
-  _toggleIntervalUpdates(status) {
-    if (status === this._engine.STATUSES.SRC_SET) {
-      this.reset();
-    } else if (status === this._engine.STATUSES.PLAYING) {
-      this._startIntervalUpdates();
-    } else {
-      this._stopIntervalUpdates();
+  _toggleIntervalUpdates({ nextState }) {
+    const { STATES } = this._engine;
+
+    switch (nextState) {
+      case STATES.SRC_SET:
+        this.reset();
+        break;
+      case STATES.PLAYING:
+        this._startIntervalUpdates();
+        break;
+      case STATES.SEEK_STARTED:
+        this._updatePlayedIndicator();
+        this._updateBufferIndicator();
+        break;
+      default:
+        this._stopIntervalUpdates();
+        break;
     }
   }
 
@@ -118,19 +127,19 @@ export default class ProgressControl {
   }
 
   _pauseVideoOnProgressManipulationStart() {
-    this._previousPlaybackStatus = this._engine._currentStatus;
+    this._previousPlaybackState = this._engine.getState();
     this._engine.pause();
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
   }
 
   _playVideoOnProgressManipulationEnd() {
-    if (this._previousPlaybackStatus === this._engine.STATUSES.PLAYING ||
-      this._previousPlaybackStatus === this._engine.STATUSES.PLAY_REQUESTED) {
+    if (this._previousPlaybackState === this._engine.STATES.PLAYING ||
+      this._previousPlaybackState === this._engine.STATES.PLAY_REQUESTED) {
       this._engine.play();
     }
 
-    this._previousPlaybackStatus = null;
+    this._previousPlaybackState = null;
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
   }
 
@@ -171,10 +180,8 @@ export default class ProgressControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.PLAYBACK_STATUS_CHANGED, this._toggleIntervalUpdates, this);
-    this._eventEmitter.off(VIDEO_EVENTS.SEEK_STARTED, this._updatePlayedIndicator, this);
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.off(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
-    this._eventEmitter.off(VIDEO_EVENTS.SEEK_ENDED, this._updateBufferIndicator, this);
   }
 
   reset() {

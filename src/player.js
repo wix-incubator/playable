@@ -4,7 +4,8 @@ import { iPhone, iPod, Android } from './utils/device-detection';
 
 import PlayerUI from './ui/ui.controler';
 import Engine from './playback-engine/playback-engine';
-import FullScreen from './full-screen/full-screen';
+import Logger from './logger/logger';
+
 
 class Player {
   constructor(config) {
@@ -12,7 +13,7 @@ class Player {
 
     const {
       preload,
-      autoplay,
+      autoPlay,
       loop,
       muted,
       volume,
@@ -22,6 +23,7 @@ class Player {
       controls,
       overlay,
       loader,
+      logger,
       screen,
       customUI = {}
     } = this._config;
@@ -36,16 +38,18 @@ class Player {
 
     this._createUI(size, controls, overlay, loader, screen, customUI);
 
-    this._fullScreen = new FullScreen({
-      eventEmitter: this._eventEmitter,
-      engine: this._engine,
-      ui: this.ui
-    });
+    if (logger) {
+      this._logger = new Logger({
+        eventEmitter: this._eventEmitter,
+        engine: this._engine,
+        config: logger
+      });
+    }
 
     this.setPreload(preload);
 
-    if (autoplay) {
-      this.setAutoplay(true);
+    if (autoPlay) {
+      this.setAutoPlay(true);
     }
 
     if (loop) {
@@ -106,12 +110,12 @@ class Player {
     return this.ui.node;
   }
 
-  setAutoplay(isAutoplay) {
-    this._engine.setAutoplay(isAutoplay);
+  setAutoPlay(isAutoPlay) {
+    this._engine.setAutoPlay(isAutoPlay);
   }
 
-  getAutoplay() {
-    return this._engine.getAutoplay();
+  getAutoPlay() {
+    return this._engine.getAutoPlay();
   }
 
   setLoop(isLoop) {
@@ -174,18 +178,6 @@ class Player {
     this._engine.pause();
   }
 
-  enterFullScreen() {
-    this._fullScreen.enterFullScreen();
-  }
-
-  exitFullScreen() {
-    this._fullScreen.exitFullScreen();
-  }
-
-  isInFullScreen() {
-    return this._fullScreen.isInFullScreen;
-  }
-
   _unbindAllEvents() {
     const eventsName = this._eventEmitter.eventNames();
 
@@ -204,8 +196,10 @@ class Player {
     this._engine.destroy();
     delete this._engine;
 
-    this._fullScreen.destroy();
-    delete this._fullScreen;
+    if (this._logger) {
+      this._logger.destroy();
+      delete this._logger;
+    }
   }
 }
 
