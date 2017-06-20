@@ -39,6 +39,7 @@ export {
 export default {
   DefaultUIComponents,
   DefaultControls,
+  DefaultModules,
   UI_EVENTS,
   VIDEO_EVENTS,
   ENGINE_STATES,
