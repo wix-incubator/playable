@@ -12,6 +12,10 @@ const DOWN_ARROW_KEYCODE = 40;
 const AMOUNT_TO_SKIP_SECONDS = 5;
 const AMOUNT_TO_CHANGE_VOLUME = 0.1;
 
+const DEFAULT_CONFIG = {
+  indicateScreenClick: true,
+  nativeControls: false
+};
 
 export default class Screen {
   static View = View;
@@ -24,6 +28,7 @@ export default class Screen {
     this._engine = engine;
     this._delayedToggleVideoPlaybackTimeout = null;
     this.config = {
+      ...DEFAULT_CONFIG,
       ...config
     };
 
