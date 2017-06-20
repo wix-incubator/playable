@@ -82,22 +82,22 @@ export default class Screen {
         break;
       case LEFT_ARROW_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this.view.activateRewindIcon();
+        this.config.indicateScreenClick && this.view.activateRewindIcon();
         this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
         break;
       case RIGHT_ARROW_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this.view.activateForwardIcon();
+        this.config.indicateScreenClick && this.view.activateForwardIcon();
         this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
         break;
       case UP_ARROW_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this.view.activateIncreaseVolumeIcon();
+        this.config.indicateScreenClick && this.view.activateIncreaseVolumeIcon();
         this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
         break;
       case DOWN_ARROW_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this.view.activateDecreaseVolumeIcon();
+        this.config.indicateScreenClick && this.view.activateDecreaseVolumeIcon();
         this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
         break;
       default: break;
