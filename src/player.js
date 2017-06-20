@@ -4,7 +4,7 @@ import { iPhone, iPod, Android } from './utils/device-detection';
 
 import PlayerUI from './ui/ui.controler';
 import Engine from './playback-engine/playback-engine';
-import Logger from './logger/logger';
+import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
 
 
 class Player {
@@ -39,7 +39,7 @@ class Player {
     this._createUI(size, controls, overlay, loader, screen, customUI);
 
     if (logger) {
-      this._logger = new Logger({
+      this._anomalyBloodhound = new AnomalyBloodhound({
         eventEmitter: this._eventEmitter,
         engine: this._engine,
         config: logger
@@ -196,9 +196,9 @@ class Player {
     this._engine.destroy();
     delete this._engine;
 
-    if (this._logger) {
-      this._logger.destroy();
-      delete this._logger;
+    if (this._anomalyBloodhound) {
+      this._anomalyBloodhound.destroy();
+      delete this._anomalyBloodhound;
     }
   }
 }

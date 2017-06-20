@@ -38,6 +38,10 @@ export default class Loader {
       case STATES.SEEK_STARTED:
         this._startDelayedShow();
         break;
+      case STATES.SEEK_ENDED:
+        this._stopDelayedShow();
+        this.hide();
+        break;
       case STATES.WAITING:
         this._startDelayedShow();
         break;

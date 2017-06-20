@@ -5,6 +5,8 @@ import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../utils/vid
 import VIDEO_EVENTS from '../constants/events/video';
 
 
+//TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
+
 export const STATES = {
   SRC_SET: 'src-set',
   LOAD_STARTED: 'load-started',
@@ -25,12 +27,11 @@ export default class Engine {
     this._video = document.createElement('video');
     this._vidi = new Vidi(this._video);
 
-    this._processEventFromVideo = this._processEventFromVideo.bind(this);
-    this._sendError = this._sendError.bind(this);
+    this._currentState = null;
 
+    this._bindCallbacks();
     this._bindEvents();
 
-    this._currentState = null;
     this.STATES = STATES;
   }
 
@@ -40,6 +41,11 @@ export default class Engine {
 
   _sendError(error) {
     this._eventEmitter.emit(VIDEO_EVENTS.ERROR, error);
+  }
+
+  _bindCallbacks() {
+    this._processEventFromVideo = this._processEventFromVideo.bind(this);
+    this._sendError = this._sendError.bind(this);
   }
 
   _bindEvents() {

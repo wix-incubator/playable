@@ -105,13 +105,15 @@ describe('ProgressControl', () => {
     it('should toggle playback on manipulation change', () => {
       const startSpy = sinon.spy(control, '_pauseVideoOnProgressManipulationStart');
       const stopSpy = sinon.spy(control, '_playVideoOnProgressManipulationEnd');
+      const timeoutSpy = sinon.spy(global, 'setTimeout');
       control._onUserInteractionStarts();
       expect(startSpy.called).to.be.true;
       control._onUserInteractionEnds();
-      expect(stopSpy.called).to.be.true;
+      expect(timeoutSpy.calledWith(stopSpy)).to.be.true;
 
       control._playVideoOnProgressManipulationEnd.restore();
       control._pauseVideoOnProgressManipulationStart.restore();
+      global.setTimeout.restore();
     });
 
     it('should toggle interval updates', () => {

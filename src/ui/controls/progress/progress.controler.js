@@ -89,7 +89,7 @@ export default class ProgressControl {
   _onUserInteractionEnds() {
     if (this._isUserInteracting) {
       this._isUserInteracting = false;
-      this._playVideoOnProgressManipulationEnd();
+      setTimeout(this._playVideoOnProgressManipulationEnd, 100);
     }
   }
 
