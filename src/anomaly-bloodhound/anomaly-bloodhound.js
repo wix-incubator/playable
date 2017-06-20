@@ -40,7 +40,10 @@ export default class AnomalyBloodhound {
     switch (nextState) {
       case STATES.LOAD_STARTED:
         if (this._engine.getAutoPlay() || this._engine.getPreload() !== 'none') {
-          this.startDelayedReport(DELAYED_REPORT_TYPES.METADATA_LOADING, REPORT_REASONS.LONG_METADATA_LOADING);
+          this.startDelayedReport(
+            DELAYED_REPORT_TYPES.METADATA_LOADING,
+            REPORT_REASONS.LONG_METADATA_LOADING
+          );
         }
         break;
 
@@ -51,7 +54,7 @@ export default class AnomalyBloodhound {
           if (this._engine.getPreload() !== 'metadata') {
             this.startDelayedReport(
               DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING,
-            REPORT_REASONS.LONG_INITIAL_VIDEO_PARTS_LOADING
+              REPORT_REASONS.LONG_INITIAL_VIDEO_PARTS_LOADING
             );
           }
         }
@@ -62,7 +65,7 @@ export default class AnomalyBloodhound {
           this.stopDelayedReport(DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING);
         }
         if (this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)) {
-          this.startDelayedReport(DELAYED_REPORT_TYPES.RUNTIME_LOADING);
+          this.stopDelayedReport(DELAYED_REPORT_TYPES.RUNTIME_LOADING);
         }
         break;
 
