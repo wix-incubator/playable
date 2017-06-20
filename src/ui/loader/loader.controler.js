@@ -52,6 +52,11 @@ export default class Loader {
         this._stopDelayedShow();
         this.hide();
         break;
+      case STATES.PLAYING:
+        this._stopDelayedShow();
+        this.hide();
+        break;
+
       default: break;
     }
   }
