@@ -11,7 +11,9 @@ class OverlayView extends View {
 
     this._callbacks = callbacks;
 
-    this.$node = $('<div>');
+    this.$node = $('<div>', {
+      'data-hook': 'overlay'
+    });
 
     this.$content = $('<div>', {
       class: this.styleNames.overlay

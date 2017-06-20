@@ -12,7 +12,8 @@ class ProgressView extends View {
 
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: this.styleNames['seek-block']
+      class: this.styleNames['seek-block'],
+      'data-hook': 'progress-control'
     });
 
     this.$played = $('<progress>', {

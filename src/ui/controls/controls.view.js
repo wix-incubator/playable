@@ -13,6 +13,7 @@ class ControlsView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['controls-block'],
+      'data-hook': 'controls-block',
       tabIndex: 0
     });
 

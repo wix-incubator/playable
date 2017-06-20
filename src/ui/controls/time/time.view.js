@@ -22,7 +22,8 @@ class TimeView extends View {
     super(config);
 
     this.$node = $('<div>', {
-      class: this.styleNames['time-wrapper']
+      class: this.styleNames['time-wrapper'],
+      'data-hook': 'time-control'
     });
 
     this.$currentTime = $('<span>', {

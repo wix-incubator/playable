@@ -12,7 +12,8 @@ class PlayView extends View {
 
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: this.styleNames['play-control']
+      class: this.styleNames['play-control'],
+      'data-hook': 'playback-control'
     });
 
     this.$playbackControl = $('<div>', {

@@ -14,7 +14,8 @@ class VolumeView extends View {
 
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: this.styleNames['volume-control']
+      class: this.styleNames['volume-control'],
+      'data-hook': 'volume-control'
     });
 
     this.$muteControl = $('<div>', {

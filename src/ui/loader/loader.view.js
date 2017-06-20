@@ -10,7 +10,8 @@ class LoaderView extends View {
     super(config);
 
     this.$node = $('<div>', {
-      class: this.styleNames.loader
+      class: this.styleNames.loader,
+      'data-hook': 'loader'
     });
   }
 
