@@ -193,9 +193,15 @@ export default class Engine {
 
   _getDashInfo(dashPlayer) {
     const currentStream = dashPlayer.getActiveStream();
-    const currentTime = dashPlayer.time(currentStream.getId());
+    let currentTime = null;
+    if (currentStream) {
+      currentTime = dashPlayer.time(currentStream.getId());
+    }
     const bitrates = dashPlayer.getBitrateInfoListFor('video');
-    const currentBitrate = bitrates[dashPlayer.getQualityFor('video')];
+    let currentBitrate = null;
+    if (dashPlayer.getQualityFor('video')) {
+      currentBitrate = bitrates[dashPlayer.getQualityFor('video')];
+    }
     const overallBufferLength = dashPlayer.getBufferLength('video');
     const currentTrack = dashPlayer.getCurrentTrackFor('video');
     const nearestBufferSegInfo = getNearestBufferSegmentInfo(dashPlayer.getVideoElement().buffered, currentTime);
