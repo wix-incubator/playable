@@ -199,7 +199,7 @@ export default class Engine {
     }
     const bitrates = dashPlayer.getBitrateInfoListFor('video');
     let currentBitrate = null;
-    if (dashPlayer.getQualityFor('video')) {
+    if (dashPlayer.getQualityFor('video') && bitrates) {
       currentBitrate = bitrates[dashPlayer.getQualityFor('video')];
     }
     const overallBufferLength = dashPlayer.getBufferLength('video');
