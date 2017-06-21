@@ -14,6 +14,7 @@ import ControlBlock from './ui/controls/controls.controler';
 
 import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
 import UI from './ui/ui.controler';
+import FullScreenManager from './full-screen/full-screen';
 
 const DefaultUIComponents = {
   Screen,
@@ -24,7 +25,8 @@ const DefaultUIComponents = {
 
 const DefaultModules = {
   AnomalyBloodhound,
-  UI
+  UI,
+  FullScreenManager
 };
 
 export {
