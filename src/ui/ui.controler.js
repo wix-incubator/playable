@@ -9,20 +9,21 @@ import ControlsBlock from './controls/controls.controler';
 import Loader from './loader/loader.controler';
 import Screen from './screen/screen.controler';
 
-import FullScreenManager from '../full-screen/full-screen';
-
-const DEFAULT_CONFIG = {
+export const DEFAULT_CONFIG = {
   overlay: false,
   customUI: {}
 };
 
 class PlayerUI {
+  static dependencies = ['engine', 'eventEmitter', 'config'];
+
   constructor({ engine, eventEmitter, config }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
+
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config
+      ...config.ui
     };
     this.isHidden = false;
 
@@ -35,12 +36,6 @@ class PlayerUI {
     this._bindEvents();
 
     ElementQueries.listen();
-
-    this._fullScreen = new FullScreenManager({
-      eventEmitter: this._eventEmitter,
-      engine: this._engine,
-      ui: this
-    });
   }
 
   get node() {
@@ -204,18 +199,6 @@ class PlayerUI {
     this.view.setHeight(height);
   }
 
-  enterFullScreen() {
-    this._fullScreen.enterFullScreen();
-  }
-
-  exitFullScreen() {
-    this._fullScreen.exitFullScreen();
-  }
-
-  isInFullScreen() {
-    return this._fullScreen.isInFullScreen;
-  }
-
   destroy() {
     this._unbindEvents();
 
@@ -242,14 +225,10 @@ class PlayerUI {
     this.view.destroy();
     delete this.view;
 
-    this._fullScreen.destroy();
-    delete this._fullScreen;
-
     delete this._eventEmitter;
     delete this._engine;
     delete this.config;
   }
 }
-
 
 export default PlayerUI;

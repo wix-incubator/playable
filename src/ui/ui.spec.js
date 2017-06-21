@@ -13,16 +13,19 @@ describe('PlayerUI', () => {
   let ui = {};
   let engine = {};
   let eventEmitter = {};
+  let config = {};
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
-      eventEmitter
+      eventEmitter,
+      config
     });
 
     ui = new PlayerUI({
       engine,
-      eventEmitter
+      eventEmitter,
+      config
     });
   });
 
@@ -41,27 +44,31 @@ describe('PlayerUI', () => {
 
   describe('instance created with extended config', () => {
     it('should create instance with hidden controls', () => {
-      const uiConfig = {
-        controls: false
+      const config = {
+        ui: {
+          controls: false
+        }
       };
 
       ui = new PlayerUI({
         engine,
         eventEmitter,
-        config: uiConfig
+        config
       });
 
       expect(ui.controls).to.not.exist;
     });
     it('should create instance with overlay', () => {
-      const uiConfig = {
-        overlay: true
+      const config = {
+        ui: {
+          overlay: true
+        }
       };
 
       ui = new PlayerUI({
         engine,
         eventEmitter,
-        config: uiConfig
+        config
       });
 
       expect(ui.overlay).to.exist;
@@ -72,7 +79,8 @@ describe('PlayerUI', () => {
     beforeEach(() => {
       ui = new PlayerUI({
         engine,
-        eventEmitter
+        eventEmitter,
+        config
       });
     });
 

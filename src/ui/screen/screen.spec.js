@@ -19,6 +19,7 @@ describe('Loader', () => {
   let eventEmitter = {};
   let spiedVideo = {};
   let eventEmitterSpy = null;
+  let config = {};
 
   function generateVideoObjectWithSpies() {
     const video = {
@@ -60,13 +61,14 @@ describe('Loader', () => {
     };
     eventEmitter = new EventEmitter();
     engine = getProxy(Engine, {
-      eventEmitter
+      eventEmitter,
+      config
     });
 
     screen = new Screen({
       engine,
       ui,
-      eventEmitter
+      eventEmitter,
     });
   });
 

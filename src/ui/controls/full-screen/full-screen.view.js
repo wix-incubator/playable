@@ -17,14 +17,14 @@ class FullScreenView extends View {
 
     this._callbacks = callbacks;
     this.$node = $('<div>', {
-      class: this.styleNames['full-screen-control'],
-      'data-hook': 'full-screen-control',
+      class: this.styleNames['full-screen-manager-control'],
+      'data-hook': 'full-screen-manager-control',
       'data-tooltip-pos': 'up'
     });
 
     this.$toggleFullScreenControl = $('<div>', {
-      class: `${this.styleNames['full-screen-toggle']} ${this.styleNames.icon}`,
-      'data-hook': 'full-screen-button'
+      class: `${this.styleNames['full-screen-manager-toggle']} ${this.styleNames.icon}`,
+      'data-hook': 'full-screen-manager-button'
     });
 
     this.$node
@@ -43,7 +43,7 @@ class FullScreenView extends View {
   }
 
   setState({ isInFullScreen }) {
-    this.$toggleFullScreenControl.toggleClass(this.styleNames['in-full-screen'], isInFullScreen);
+    this.$toggleFullScreenControl.toggleClass(this.styleNames['in-full-screen-manager'], isInFullScreen);
     this.$node.attr('data-tooltip', isInFullScreen ? this.translations.exitFullScreen : this.translations.enterFullScreen);
   }
 

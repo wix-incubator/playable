@@ -21,17 +21,48 @@ export const STATES = {
 };
 
 export default class Engine {
-  constructor({ eventEmitter }) {
+  static dependencies = ['eventEmitter', 'config'];
+
+  constructor({ eventEmitter, config }) {
     this._eventEmitter = eventEmitter;
     this._video = document.createElement('video');
     this._vidi = new Vidi(this._video);
-
     this._currentState = null;
 
     this._bindCallbacks();
     this._bindEvents();
 
     this.STATES = STATES;
+    this._applyConfig(config.engine);
+  }
+
+  _applyConfig(config = {}) {
+    const { preload, autoPlay, loop, muted, volume, playInline, src } = config;
+    this.setPreload(preload);
+
+    if (autoPlay) {
+      this.setAutoPlay(true);
+    }
+
+    if (loop) {
+      this.setLoop(true);
+    }
+
+    if (muted) {
+      this.setMute(true);
+    }
+
+    if (volume) {
+      this.setVolume(volume);
+    }
+
+    if (playInline) {
+      this.setPlayInline(playInline);
+    }
+
+    if (src) {
+      this.setSrc(src);
+    }
   }
 
   getNode() {

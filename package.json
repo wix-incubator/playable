@@ -24,13 +24,16 @@
     "precommit": "npm run lint && npm run csscomb:lint && npm test"
   },
   "dependencies": {
+    "awilix": "^2.4.0",
     "css-element-queries": "^0.4.0",
     "eventemitter3": "^2.0.2",
     "jbone": "^1.2.0",
+    "lodash": "^4.17.4",
     "vidi": "^0.5.0"
   },
   "private": false,
   "devDependencies": {
+    "babel-plugin-lodash": "^3.2.11",
     "babel-preset-es2015": "~6.9.0",
     "babel-preset-stage-0": "^6.5.0",
     "chai": "~3.5.0",
@@ -54,7 +57,10 @@
     "exports": "VideoPlayer",
     "entry": {
       "video-player": "./index.js"
-    }
+    },
+    "externalUnprocessedModules": [
+      "awilix"
+    ]
   },
   "keywords": [
     "player",

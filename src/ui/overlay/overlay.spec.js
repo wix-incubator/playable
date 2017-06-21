@@ -17,11 +17,13 @@ describe('Overlay', () => {
   let engine = {};
   let eventEmitter = {};
   let eventEmitterSpy = null;
+  let config = {};
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
-      eventEmitter
+      eventEmitter,
+      config
     });
   });
 
