@@ -13,6 +13,7 @@ import Screen from './ui/screen/screen.controler';
 import ControlBlock from './ui/controls/controls.controler';
 
 import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
+import UI from './ui/ui.controler';
 
 const DefaultUIComponents = {
   Screen,
@@ -22,7 +23,8 @@ const DefaultUIComponents = {
 };
 
 const DefaultModules = {
-  AnomalyBloodhound
+  AnomalyBloodhound,
+  UI
 };
 
 export {
