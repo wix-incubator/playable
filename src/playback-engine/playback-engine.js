@@ -12,10 +12,9 @@ export const STATES = {
   LOAD_STARTED: 'load-started',
   METADATA_LOADED: 'metadata-loaded',
   READY_TO_PLAY: 'ready-to-play',
-  SEEK_STARTED: 'seek-started',
+  SEEK_IN_PROGRESS: 'seek-in-progress',
   PLAY_REQUESTED: 'play-requested',
   WAITING: 'waiting',
-  SEEK_ENDED: 'seek-ended',
   PLAYING: 'playing',
   PAUSED: 'paused',
   ENDED: 'ended'
@@ -147,11 +146,11 @@ export default class Engine {
         break;
       }
       case 'seeking': {
-        this._setState(STATES.SEEK_STARTED);
+        this._setState(STATES.SEEK_IN_PROGRESS);
         break;
       }
       case 'seeked': {
-        this._setState(STATES.SEEK_ENDED);
+        this._setState(videoEl.paused ? STATES.PAUSED : STATES.PLAYING);
         break;
       }
       case 'volumechange': {

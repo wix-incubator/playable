@@ -108,7 +108,7 @@ export default class ProgressControl {
       case STATES.PLAYING:
         this._startIntervalUpdates();
         break;
-      case STATES.SEEK_STARTED:
+      case STATES.SEEK_IN_PROGRESS:
         this._updatePlayedIndicator();
         this._updateBufferIndicator();
         break;

@@ -59,7 +59,7 @@ export default class TimeControl {
       case STATES.PLAYING:
         this._startIntervalUpdates();
         break;
-      case STATES.SEEK_STARTED:
+      case STATES.SEEK_IN_PROGRESS:
         this._updateCurrentTime();
         break;
       default:

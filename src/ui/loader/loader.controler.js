@@ -35,12 +35,8 @@ export default class Loader {
   _checkForWaitingState({ nextState }) {
     const { STATES } = this._engine;
     switch (nextState) {
-      case STATES.SEEK_STARTED:
+      case STATES.SEEK_IN_PROGRESS:
         this._startDelayedShow();
-        break;
-      case STATES.SEEK_ENDED:
-        this._stopDelayedShow();
-        this.hide();
         break;
       case STATES.WAITING:
         this._startDelayedShow();
@@ -53,6 +49,10 @@ export default class Loader {
         this.hide();
         break;
       case STATES.PLAYING:
+        this._stopDelayedShow();
+        this.hide();
+        break;
+      case STATES.PAUSED:
         this._stopDelayedShow();
         this.hide();
         break;

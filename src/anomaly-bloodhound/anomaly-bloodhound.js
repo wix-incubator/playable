@@ -69,7 +69,7 @@ export default class AnomalyBloodhound {
         }
         break;
 
-      case STATES.SEEK_STARTED:
+      case STATES.SEEK_IN_PROGRESS:
         if (prevState === STATES.PAUSED) {
           this.startDelayedReport(
             DELAYED_REPORT_TYPES.RUNTIME_LOADING,
@@ -97,6 +97,11 @@ export default class AnomalyBloodhound {
         }
         break;
 
+      case STATES.PLAYING:
+        if (this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)) {
+          this.stopDelayedReport(DELAYED_REPORT_TYPES.RUNTIME_LOADING);
+        }
+        break;
       default: break;
     }
   }

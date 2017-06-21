@@ -94,7 +94,7 @@ describe('TimeControl', () => {
     it('should call callback on seek', () => {
       const spy = sinon.spy(control, '_updateCurrentTime');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: control._engine.STATES.SEEK_STARTED});
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: control._engine.STATES.SEEK_IN_PROGRESS});
       expect(spy.called).to.be.true;
     });
 

@@ -88,7 +88,7 @@ describe('ProgressControl', () => {
       const spyPlayed = sinon.spy(control, '_updatePlayedIndicator');
       const spyBuffered = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: control._engine.STATES.SEEK_STARTED});
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: control._engine.STATES.SEEK_IN_PROGRESS});
       expect(spyPlayed.called).to.be.true;
       expect(spyBuffered.called).to.be.true;
     });
