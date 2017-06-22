@@ -225,7 +225,10 @@ export default class Engine {
       currentBitrate = bitrates[hls.levelController.level];
     }
     const currentTime = hls.streamController.lastCurrentTime;
-    const nearestBufferSegInfo = getNearestBufferSegmentInfo(hls.streamController.mediaBuffer.buffered, currentTime);
+    let nearestBufferSegInfo = null;
+    if (hls.streamController.mediaBuffer) {
+      nearestBufferSegInfo = getNearestBufferSegmentInfo(hls.streamController.mediaBuffer.buffered, currentTime);
+    }
 
     return {
       hlsInfo: {
