@@ -165,6 +165,13 @@ export default class Engine {
   }
 
   _setState(state) {
+    //This case is happens only with dash.js sometimes when manifest got some problems
+    if (this._currentState === STATES.METADATA_LOADED) {
+      if (state === STATES.SEEK_IN_PROGRESS || state === STATES.PAUSED) {
+        return;
+      }
+    }
+
     this._eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { prevState: this._currentState, nextState: state });
     this._currentState = state;
   }
