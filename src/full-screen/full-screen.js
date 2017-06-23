@@ -3,16 +3,18 @@ import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
 import UI_EVENTS from '../constants/events/ui';
+import VIDEO_EVENTS from '../constants/events/video';
 
 
 export default class FullScreenManager {
   constructor({ eventEmitter, engine, ui }) {
     this._eventEmitter = eventEmitter;
+    this._engine = engine;
 
     this._onChange = this._onChange.bind(this);
 
     if (iPhone || iPod || iPad) {
-      this._helper = new IOSFullScreen(engine.getNode(), this._onChange);
+      this._helper = new IOSFullScreen(this._engine.getNode(), this._onChange);
     } else {
       this._helper = new DesktopFullScreen(ui.view.getNode(), this._onChange);
     }
@@ -25,13 +27,21 @@ export default class FullScreenManager {
   }
 
   _bindEvents() {
+    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._closeOnEndState, this);
     this._eventEmitter.on(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED, this.enterFullScreen, this);
     this._eventEmitter.on(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED, this.exitFullScreen, this);
   }
 
   _unbindEvents() {
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._closeOnEndState, this);
     this._eventEmitter.off(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED, this.enterFullScreen, this);
     this._eventEmitter.off(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED, this.exitFullScreen, this);
+  }
+
+  _closeOnEndState({ nextState }) {
+    if (nextState === this._engine.STATES.ENDED && this.isInFullScreen) {
+      this.exitFullScreen();
+    }
   }
 
   enterFullScreen() {

@@ -170,21 +170,26 @@ export default class Engine {
   }
 
   getDebugInfo() {
-    const { attachedStream } = this._vidi;
+    const { attachedStream, src } = this._vidi;
     const { networkState, readyState } = this._video;
     let data;
 
-    if (attachedStream.hls) {
-      data = this._getHLSInfo(attachedStream.hls);
-    } else if (attachedStream.dashPlayer) {
-      data = this._getDashInfo(attachedStream.dashPlayer);
+    if (attachedStream) {
+      if (attachedStream.hls) {
+        data = this._getHLSInfo(attachedStream.hls);
+      } else if (attachedStream.dashPlayer) {
+        data = this._getDashInfo(attachedStream.dashPlayer);
+      } else {
+        data = this._getNativeInfo(this._vidi);
+      }
     } else {
       data = this._getNativeInfo(this._vidi);
     }
 
     return {
-      attachedStreamName: attachedStream.constructor.name,
+      attachedStreamName: attachedStream && attachedStream.constructor.name,
       ...data,
+      src,
       networkState,
       readyState
     };
@@ -246,11 +251,17 @@ export default class Engine {
 
     const overallBufferLength = geOverallBufferLength(buffered);
     const nearestBufferSegInfo = getNearestBufferSegmentInfo(buffered, currentTime);
+    let bitrates;
+    let currentBitrates;
+    if (vidi.attachedStream) {
+      bitrates = vidi.attachedStream.mediaStreams;
+      currentBitrates = bitrates[0];
+    }
 
     return {
       nativeInfo: {
-        bitrates: vidi.attachedStream.mediaStreams,
-        currentBitrate: vidi.attachedStream.mediaStreams[0],
+        bitrates,
+        currentBitrates,
         currentTime,
         overallBufferLength,
         nearestBufferSegInfo
