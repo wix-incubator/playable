@@ -3,7 +3,7 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import Player from './player';
+import create from './player-fabric';
 
 
 describe('Player', () => {
@@ -11,30 +11,30 @@ describe('Player', () => {
 
   describe('constructor', () => {
     beforeEach(() => {
-      player = new Player({});
+      player = create({});
     });
 
     it('should create instance ', () => {
       expect(player).to.exists;
-      expect(player._engine).to.exist;
-      expect(player.ui).to.exists;
+      expect(player._defaultModules.engine).to.exist;
+      expect(player._defaultModules.ui).to.exists;
       expect(player.node).to.exists;
-      expect(player._eventEmitter).to.exists;
+      expect(player._defaultModules.eventEmitter).to.exists;
     });
 
     it('should create separate instances', () => {
-      const player2 = new Player({});
+      const player2 = create({});
 
-      expect(player._engine).to.not.be.equal(player2._engine);
-      expect(player.ui).to.not.be.equal(player2.ui);
+      expect(player._defaultModules.engine).to.not.be.equal(player2._defaultModules.engine);
+      expect(player._defaultModules.ui).to.not.be.equal(player2._defaultModules.ui);
       expect(player.node).to.not.be.equal(player2.node);
-      expect(player._eventEmitter).to.not.be.equal(player2._eventEmitter);
+      expect(player._defaultModules.eventEmitter).to.not.be.equal(player2._defaultModules.eventEmitter);
     });
   });
 
   describe('API', () => {
     beforeEach(() => {
-      player = new Player({});
+      player = create({});
     });
 
     it('should have method for set autoplay flag', () => {
@@ -109,21 +109,21 @@ describe('Player', () => {
 
     it('should have method for start playback of video', () => {
       expect(player.play).to.exist;
-      const playSpy = sinon.spy(player._engine, 'play');
+      const playSpy = sinon.spy(player._defaultModules.engine, 'play');
       player.play();
       expect(playSpy.called).to.be.true;
     });
 
     it('should have method for stop playback of video', () => {
       expect(player.pause).to.exist;
-      const pauseSpy = sinon.spy(player._engine, 'pause');
+      const pauseSpy = sinon.spy(player._defaultModules.engine, 'pause');
       player.pause();
       expect(pauseSpy.called).to.be.true;
     });
 
     it('should have method for destroying player', () => {
       expect(player.destroy).to.exist;
-      const uiDestroySpy = sinon.spy(player.ui, 'destroy');
+      const uiDestroySpy = sinon.spy(player._defaultModules.ui, 'destroy');
 
       player.destroy();
       expect(uiDestroySpy.called).to.be.true;
@@ -132,7 +132,7 @@ describe('Player', () => {
 
     it('should have method for subscribing on events', () => {
       expect(player.on).to.exist;
-      const onSpy = sinon.spy(player._eventEmitter, 'on');
+      const onSpy = sinon.spy(player._defaultModules.eventEmitter, 'on');
       const eventName = 'test';
       const callback = () => {};
 
@@ -142,7 +142,7 @@ describe('Player', () => {
 
     it('should have method for unsubscribing from events', () => {
       expect(player.off).to.exist;
-      const offSpy = sinon.spy(player._eventEmitter, 'off');
+      const offSpy = sinon.spy(player._defaultModules.eventEmitter, 'off');
       const eventName = 'test';
       const callback = () => {};
 

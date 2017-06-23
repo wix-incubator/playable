@@ -25,7 +25,7 @@ Or in old school way, add a `<script>` element for video-player
 And write awesome code:
 
 ```javascript
-const player = new VideoPlayer.Player({
+const player = VideoPlayer.create({
   size: {
     width: 700,
     height: 394
@@ -57,6 +57,8 @@ document.getElementById('content').appendChild(player.node);
 
 ```config.volume``` Start value of volume for audio
 
+```config.playInline``` Attribute for playing inline in iOS
+
 #### UI
 
 ##### Size ```config.size```
@@ -68,7 +70,7 @@ document.getElementById('content').appendChild(player.node);
 Create a new instance of video player
 
 ```javascript
-const player = new VideoPlayer.Player({
+const player = VideoPlayer.create({
     src: [
       'http://my-url/video.mp4',
       'http://my-url/video.webm',
@@ -90,6 +92,8 @@ const player = new VideoPlayer.Player({
 
 ```Player.setPreload(type)``` Set preload type
 
+```Player.setPlayInline(playInline)``` Set playInline flag
+
 ```Player.on(eventName, listener)``` Method for adding listeners of events inside player. You can check all events inside ```VideoPlayer.UI_EVENTS``` and ```VideoPlayer.VIDEO_EVENTS```
 
 ```Player.off(eventName, listener)``` Method for removing listeners of events inside player.
@@ -97,17 +101,22 @@ const player = new VideoPlayer.Player({
 ```Player.node``` Getter for DOM node with player UI element
 
 ```javascript
-const player = new VideoPlayer.Player({ src: 'http://my-url/video.mp4' });
+const player = VideoPlayer.create({ src: 'http://my-url/video.mp4' });
 
 document.body.appendChild(player.node);
 ```
 
+```Player.show()/hide()``` Show/Hide whole ui
+
+```Player.setWidth``` Set width of player
+
+```Player.setHeight``` Set height of player
+
+```Player.enterFullScreen``` Manual enter full screen
+
+```Player.exitFullScreen``` Manual exit full screen
+
+```Player.isInFullScreen``` Return `true` if player is in full screen
+
 ```Player.destroy``` Destroy instance of player
 
-### PlayerUI public methods
-
-```Player.ui.show()/hide()``` Show/Hide whole ui
-
-```Player.ui.setWidth``` Set width of player
-
-```Player.ui.setHeight``` Set height of player

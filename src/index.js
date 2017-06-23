@@ -1,6 +1,6 @@
 import { MediaStreamTypes } from 'vidi';
 
-import Player from './player';
+import create, { registerModule } from './core/player-fabric';
 import UI_EVENTS from './constants/events/ui';
 import VIDEO_EVENTS from './constants/events/video';
 import { STATES as ENGINE_STATES } from './playback-engine/playback-engine';
@@ -14,7 +14,7 @@ import ControlBlock from './ui/controls/controls.controler';
 
 import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
 import UI from './ui/ui.controler';
-import FullScreenManager from './full-screen/full-screen';
+import FullScreenManager from './full-screen-manager/full-screen-manager';
 
 const DefaultUIComponents = {
   Screen,
@@ -37,7 +37,8 @@ export {
   VIDEO_EVENTS,
   ENGINE_STATES,
   MediaStreamTypes,
-  Player
+  create,
+  registerModule
 };
 
 export default {
@@ -48,5 +49,6 @@ export default {
   VIDEO_EVENTS,
   ENGINE_STATES,
   MediaStreamTypes,
-  Player
+  create,
+  registerModule
 };

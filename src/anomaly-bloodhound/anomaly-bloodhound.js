@@ -16,8 +16,12 @@ export const DELAYED_REPORT_TYPES = {
 };
 
 export default class AnomalyBloodhound {
+  static dependencies = ['eventEmitter', 'engine', 'config'];
+
   constructor({ engine, eventEmitter, config }) {
-    this._config = config;
+    this._config = {
+      ...config.anomalyBloodhound
+    };
     this._engine = engine;
     this._eventEmitter = eventEmitter;
 

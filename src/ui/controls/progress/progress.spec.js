@@ -15,11 +15,13 @@ describe('ProgressControl', () => {
   let control = {};
   let engine = {};
   let eventEmitter = {};
+  let config = {};
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
     engine = getProxy(Engine, {
-      eventEmitter
+      eventEmitter,
+      config
     });
 
     control = new ProgressControl({

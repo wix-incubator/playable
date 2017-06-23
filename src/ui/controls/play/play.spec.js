@@ -14,15 +14,18 @@ describe('PlayControl', () => {
   let control = {};
   let engine = {};
   let eventEmitter = {};
+  let config = {};
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
-      eventEmitter
+      eventEmitter,
+      config
     });
     control = new PlayControl({
       engine,
-      eventEmitter
+      eventEmitter,
+      config
     });
   });
 

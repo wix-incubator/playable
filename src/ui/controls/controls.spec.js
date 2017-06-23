@@ -22,7 +22,7 @@ describe('ControlsBlock', () => {
   let ui = {};
   let engine = {};
   let eventEmitter = null;
-
+  let config = {};
 
   beforeEach(() => {
     ui = {
@@ -37,7 +37,8 @@ describe('ControlsBlock', () => {
     };
     eventEmitter = new EventEmitter();
     engine = new Engine({
-      eventEmitter
+      eventEmitter,
+      config
     });
     controls = new ControlsBlock({
       ui,
