@@ -106,11 +106,11 @@ class PlayerUIView extends View {
 
   setFullScreenStatus(isFullScreen) {
     if (isFullScreen) {
-      this.$node.attr('data-in-full-screen-manager', true);
+      this.$node.attr('data-in-full-screen', true);
     } else {
-      this.$node.removeAttr('data-in-full-screen-manager');
+      this.$node.removeAttr('data-in-full-screen');
     }
-    this.$node.toggleClass(this.styleNames['full-screen-manager'], isFullScreen);
+    this.$node.toggleClass(this.styleNames['full-screen'], isFullScreen);
     this._inFullScreen = isFullScreen;
   }
 
