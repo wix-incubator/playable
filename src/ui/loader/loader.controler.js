@@ -7,13 +7,14 @@ const DELAY_FOR_SHOW_ON_WAITING_STATE = 100;
 
 export default class Loader {
   static View = View;
+  static dependencies = ['engine', 'eventEmitter', 'config'];
 
   constructor({ config, eventEmitter, engine }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
     this.config = {
-      ...config
+      ...config.ui.loader
     };
 
     this.show = this.show.bind(this);

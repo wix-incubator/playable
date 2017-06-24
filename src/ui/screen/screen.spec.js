@@ -20,6 +20,7 @@ describe('Loader', () => {
   let spiedVideo = {};
   let eventEmitterSpy = null;
   let config = {};
+  let fullScreenManager = {};
 
   function generateVideoObjectWithSpies() {
     const video = {
@@ -48,6 +49,13 @@ describe('Loader', () => {
 
 
   beforeEach(() => {
+    config = {
+      ui: {}
+    };
+    fullScreenManager = {
+      enterFullScreen: sinon.spy(),
+      exitFullScreen: sinon.spy()
+    };
     ui = {
       setFullScreenStatus() {
 
@@ -67,7 +75,9 @@ describe('Loader', () => {
 
     screen = new Screen({
       engine,
+      fullScreenManager,
       ui,
+      config,
       eventEmitter,
     });
   });
@@ -128,13 +138,13 @@ describe('Loader', () => {
     it('should emit ui event on enter full screen', () => {
       screen._enterFullScreen();
 
-      expect(eventEmitterSpy.calledWith(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED)).to.be.true;
+      expect(fullScreenManager.enterFullScreen.called).to.be.true;
     });
 
     it('should emit ui event on exit full screen', () => {
       screen._exitFullScreen();
 
-      expect(eventEmitterSpy.calledWith(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED)).to.be.true;
+      expect(fullScreenManager.exitFullScreen.called).to.be.true;
     });
 
 

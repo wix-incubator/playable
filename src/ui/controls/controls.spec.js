@@ -4,27 +4,28 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 
 import ControlsBlock from './controls.controler';
+
 import Engine from '../../playback-engine/playback-engine';
+import { container } from '../../core/player-fabric';
 
 import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
 
 import EventEmitter from 'eventemitter3';
 
 describe('ControlsBlock', () => {
-  const DEFAULT_CONFIG = {
-    timeIndicator: true,
-    progressControl: true,
-    volumeControl: true,
-    fullscreenControl: true
-  };
-
   let controls = {};
   let ui = {};
   let engine = {};
   let eventEmitter = null;
   let config = {};
+  let scope = {};
+  let rootNode = {};
 
   beforeEach(() => {
+    rootNode = document.createElement('div');
+    config = {
+      ui: {}
+    };
     ui = {
       setFullScreenStatus() {
 
@@ -40,12 +41,19 @@ describe('ControlsBlock', () => {
       eventEmitter,
       config
     });
-    controls = new ControlsBlock({
-      ui,
-      engine,
-      eventEmitter,
-      ...DEFAULT_CONFIG
+    scope = container.createScope();
+    scope.registerValue({
+      config,
+      rootNode
     });
+    controls = new ControlsBlock({
+        ui,
+        engine,
+        eventEmitter,
+        config
+      },
+      scope
+    );
   });
   describe('constructor', () => {
     it('should create instance ', () => {

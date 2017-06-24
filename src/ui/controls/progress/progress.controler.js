@@ -10,6 +10,7 @@ const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
 export default class ProgressControl {
   static View = View;
+  static dependencies = ['engine', 'eventEmitter'];
 
   constructor({ engine, eventEmitter }) {
     this._engine = engine;

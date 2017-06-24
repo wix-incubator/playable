@@ -15,6 +15,9 @@ describe('Loader', () => {
   let config = {};
 
   beforeEach(() => {
+    config = {
+      ui: {}
+    };
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
@@ -23,6 +26,7 @@ describe('Loader', () => {
 
     loader = new Loader({
       engine,
+      config,
       eventEmitter
     });
   });

@@ -90,9 +90,9 @@ function generateResolve(fn, dependencyParseTarget) {
         return wrapper;
       }, {});
 
-      return fn(wrapper);
+      return fn(wrapper, container);
     }
-    return fn();
+    return fn(container);
   };
 }
 

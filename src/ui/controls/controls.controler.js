@@ -8,7 +8,10 @@ import PlayControl from './play/play.controler';
 import TimeControl from './time/time.controler';
 import VolumeControl from './volume/volume.controler';
 import FullscreenControl from './full-screen/full-screen.controler';
+import DependencyContainer from '../../core/dependency-container';
 
+
+const { asClass } = DependencyContainer;
 
 const DEFAULT_CONFIG = {
   list: [PlayControl, TimeControl, ProgressControl, VolumeControl, FullscreenControl],
@@ -19,16 +22,16 @@ const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 
 export default class ControlBlock {
   static View = View;
+  static dependencies = ['engine', 'eventEmitter', 'config'];
 
-  constructor({ engine, ui, eventEmitter, config }) {
+  constructor({ engine, eventEmitter, config }, scope) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
-    this._ui = ui;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config
+      ...config.ui.controls
     };
-
+    this._scope = scope;
     this.isHidden = false;
     this._isVideoPaused = false;
     this._delayedToggleVideoPlaybackTimeout = null;
@@ -63,11 +66,9 @@ export default class ControlBlock {
 
   _initControls() {
     this.config.list.forEach(Control => {
-      const control = new Control({
-        engine: this._engine,
-        eventEmitter: this._eventEmitter
-      });
-
+      const controlName = Control.name;
+      this._scope.register(controlName, asClass(Control));
+      const control = this._scope.resolve(controlName);
       this._controls.push(control);
       this.view.appendControlNode(control.node || control.getNode());
     });
