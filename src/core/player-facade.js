@@ -17,6 +17,8 @@ export default class Player {
       modules[moduleName] = scope.resolve(moduleName);
       return modules;
     }, {});
+
+    this._config = scope.resolve('config');
   }
 
   get node() {
