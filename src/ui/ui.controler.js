@@ -173,6 +173,14 @@ class PlayerUI {
     this.view.setHeight(height);
   }
 
+  getWidth() {
+    return this.view.getWidth();
+  }
+
+  getHeight() {
+    return this.view.getHeight();
+  }
+
   destroy() {
     this._unbindEvents();
 

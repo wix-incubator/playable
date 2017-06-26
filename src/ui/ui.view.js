@@ -84,6 +84,14 @@ class PlayerUIView extends View {
       });
   }
 
+  getWidth() {
+    return this._width;
+  }
+
+  getHeight() {
+    return this._height;
+  }
+
   show() {
     this.$node.toggleClass(this.styleNames.hidden, false);
   }

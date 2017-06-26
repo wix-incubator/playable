@@ -119,8 +119,16 @@ export default class Player {
     this._defaultModules.ui.setWidth(width);
   }
 
+  getWidth() {
+    return this._defaultModules.ui.getWidth();
+  }
+
   setHeight(height) {
     this._defaultModules.ui.setHeight(height);
+  }
+
+  getHeight() {
+    return this._defaultModules.ui.getHeight();
   }
 
   destroy() {
