@@ -10,17 +10,18 @@ const DEFAULT_CONFIG = {
 
 export default class Overlay {
   static View = View;
+  static dependencies = ['engine', 'eventEmitter', 'config'];
 
   constructor({ config, eventEmitter, engine }) {
     this._eventEmitter = eventEmitter;
+    this._engine = engine;
+
     this.isHidden = false;
     this.isContentHidden = false;
-    this.enabled = true;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config
+      ...config.ui.overlay
     };
-    this._engine = engine;
 
     this._bindEvents();
     this._initUI(this.config.poster);

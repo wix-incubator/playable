@@ -20,6 +20,9 @@ describe('Overlay', () => {
   let config = {};
 
   beforeEach(() => {
+    config = {
+      ui: {}
+    };
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
@@ -31,7 +34,8 @@ describe('Overlay', () => {
     beforeEach(() => {
       overlay = new Overlay({
         engine,
-        eventEmitter
+        eventEmitter,
+        config
       });
     });
 
@@ -47,7 +51,9 @@ describe('Overlay', () => {
         engine,
         eventEmitter,
         config: {
-          poster: 'test'
+          ui:{
+            poster: 'test'
+          }
         }
       });
 
@@ -74,7 +80,8 @@ describe('Overlay', () => {
     beforeEach(() => {
       overlay = new Overlay({
         engine,
-        eventEmitter
+        eventEmitter,
+        config
       });
     });
 
@@ -114,7 +121,8 @@ describe('Overlay', () => {
     beforeEach(() => {
       overlay = new Overlay({
         engine,
-        eventEmitter
+        eventEmitter,
+        config
       });
     });
 

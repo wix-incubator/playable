@@ -19,17 +19,20 @@ const DEFAULT_CONFIG = {
 
 export default class Screen {
   static View = View;
+  static dependencies = ['engine', 'eventEmitter', 'config', 'fullScreenManager'];
 
-  constructor({ config, eventEmitter, engine, ui }) {
-    this._ui = ui;
+  constructor({ config, eventEmitter, engine, fullScreenManager }) {
     this._eventEmitter = eventEmitter;
+    this._engine = engine;
+    this._fullScreenManager = fullScreenManager;
+
     this._isInFullScreen = false;
     this.isHidden = false;
-    this._engine = engine;
+
     this._delayedToggleVideoPlaybackTimeout = null;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config
+      ...config.ui.screen
     };
 
     this._bindCallbacks();
@@ -182,11 +185,11 @@ export default class Screen {
   }
 
   _enterFullScreen() {
-    this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
+    this._fullScreenManager.enterFullScreen();
   }
 
   _exitFullScreen() {
-    this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
+    this._fullScreenManager.exitFullScreen();
   }
 
   destroy() {
@@ -198,6 +201,6 @@ export default class Screen {
 
     delete this._eventEmitter;
     delete this._engine;
-    delete this._ui;
+    delete this._fullScreenManager;
   }
 }

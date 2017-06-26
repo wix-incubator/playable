@@ -1,13 +1,16 @@
 import { ElementQueries } from 'css-element-queries';
 
+import DependencyContainer from '../core/dependency-container';
+
 import UI_EVENTS from '../constants/events/ui';
 
 import View from './ui.view';
 
-import Overlay from './overlay/overlay.controler';
-import ControlsBlock from './controls/controls.controler';
-import Loader from './loader/loader.controler';
 import Screen from './screen/screen.controler';
+import Overlay from './overlay/overlay.controler';
+import Loader from './loader/loader.controler';
+import ControlsBlock from './controls/controls.controler';
+
 
 export const DEFAULT_CONFIG = {
   overlay: false,
@@ -15,12 +18,12 @@ export const DEFAULT_CONFIG = {
 };
 
 class PlayerUI {
-  static dependencies = ['engine', 'eventEmitter', 'config'];
+  static dependencies = ['engine', 'eventEmitter', 'rootNode', 'config'];
 
-  constructor({ engine, eventEmitter, config }) {
+  constructor({ engine, eventEmitter, config, rootNode }, scope) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
-
+    this._scope = scope;
     this.config = {
       ...DEFAULT_CONFIG,
       ...config.ui
@@ -28,13 +31,11 @@ class PlayerUI {
     this.isHidden = false;
 
     this._bindCallbacks();
-    this._initUI();
-
+    this._initUI(rootNode);
     this._initComponents();
     this._initCustomUI();
 
     this._bindEvents();
-
     ElementQueries.listen();
   }
 
@@ -56,9 +57,10 @@ class PlayerUI {
     this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.view.setFullScreenStatus, this.view);
   }
 
-  _initUI() {
+  _initUI(rootNode) {
     const { width, height } = this.config;
     const config = {
+      rootNode,
       width,
       height,
       callbacks: {
@@ -72,24 +74,22 @@ class PlayerUI {
   }
 
   _initComponents() {
+    this._scope.register({
+      screen: DependencyContainer.asClass(Screen).scoped(),
+      overlay: DependencyContainer.asClass(Overlay).scoped(),
+      loader: DependencyContainer.asClass(Loader).scoped(),
+      controls: DependencyContainer.asClass(ControlsBlock).scoped()
+    });
+
+    this._screen = this._scope.resolve('screen');
+
     this._initOverlay();
 
     this._initLoader();
 
-    this._initScreen();
+    this.view.appendComponentNode(this._screen.node);
 
     this._initControls();
-  }
-
-  _initScreen() {
-    this.screen = new Screen({
-      config: this.config.screen,
-      engine: this._engine,
-      ui: this,
-      eventEmitter: this._eventEmitter
-    });
-
-    this.view.appendComponentNode(this.screen.node);
   }
 
   _initOverlay() {
@@ -99,24 +99,9 @@ class PlayerUI {
       return;
     }
 
-    if (typeof config === 'function') {
-      this.overlay = new config({
-        engine: this._engine,
-        eventEmitter: this._eventEmitter,
-        ui: this
-      });
+    this._overlay = this._scope.resolve('overlay');
 
-      this.view.appendComponentNode(this.overlay.getNode());
-    } else {
-      this.overlay = new Overlay({
-        engine: this._engine,
-        eventEmitter: this._eventEmitter,
-        config: this.config.overlay,
-        ui: this
-      });
-
-      this.view.appendComponentNode(this.overlay.node);
-    }
+    this.view.appendComponentNode(this._overlay.node);
   }
 
   _initLoader() {
@@ -125,15 +110,9 @@ class PlayerUI {
     if (config === false) {
       return;
     }
+    this._loader = this._scope.resolve('loader');
 
-    this.loader = new Loader({
-      engine: this._engine,
-      eventEmitter: this._eventEmitter,
-      config: this.config.loader,
-      ui: this
-    });
-
-    this.view.appendComponentNode(this.loader.node);
+    this.view.appendComponentNode(this._loader.node);
   }
 
   _initControls() {
@@ -143,14 +122,9 @@ class PlayerUI {
       return;
     }
 
-    this.controls = new ControlsBlock({
-      engine: this._engine,
-      eventEmitter: this._eventEmitter,
-      ui: this,
-      config
-    });
+    this._controls = this._scope.resolve('controls');
 
-    this.screen.view.appendComponentNode(this.controls.node);
+    this._screen.view.appendComponentNode(this._controls.node);
   }
 
   _initCustomUI() {
@@ -165,7 +139,7 @@ class PlayerUI {
 
       this.customComponents[key] = component;
 
-      this.screen.view.appendComponentNode(component.getNode());
+      this._screen.view.appendComponentNode(component.getNode());
     });
   }
 
@@ -202,25 +176,23 @@ class PlayerUI {
   destroy() {
     this._unbindEvents();
 
-    if (this.controls) {
-      this.controls.destroy();
-      delete this.controls;
+    if (this._controls) {
+      this._controls.destroy();
+      delete this._controls;
     }
 
-    if (this.screen) {
-      this.screen.destroy();
-      delete this.screen;
+    if (this._overlay) {
+      this._overlay.destroy();
+      delete this._overlay;
     }
 
-    if (this.overlay) {
-      this.overlay.destroy();
-      delete this.overlay;
+    if (this._loader) {
+      this._loader.destroy();
+      delete this._loader;
     }
 
-    if (this.loader) {
-      this.loader.destroy();
-      delete this.loader;
-    }
+    this._screen.destroy();
+    delete this._screen;
 
     this.view.destroy();
     delete this.view;

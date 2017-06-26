@@ -6,6 +6,7 @@ const UPDATE_INTERVAL_DELAY = 500;
 
 export default class TimeControl {
   static View = View;
+  static dependencies = ['engine', 'eventEmitter'];
 
   constructor({ eventEmitter, engine }) {
     this._eventEmitter = eventEmitter;

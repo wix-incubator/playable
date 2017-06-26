@@ -5,9 +5,11 @@ import View from './full-screen.view';
 
 export default class FullScreenControl {
   static View = View;
+  static dependencies = ['eventEmitter', 'fullScreenManager'];
 
-  constructor({ eventEmitter }) {
+  constructor({ eventEmitter, fullScreenManager }) {
     this._eventEmitter = eventEmitter;
+    this._fullScreenManager = fullScreenManager;
     this._isInFullScreen = null;
 
     this._bindCallbacks();
@@ -50,11 +52,11 @@ export default class FullScreenControl {
   }
 
   _enterFullScreen() {
-    this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED);
+    this._fullScreenManager.enterFullScreen();
   }
 
   _exitFullScreen() {
-    this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED);
+    this._fullScreenManager.exitFullScreen();
   }
 
   setControlStatus(isInFullScreen) {
@@ -82,6 +84,7 @@ export default class FullScreenControl {
     delete this.view;
 
     delete this._eventEmitter;
+    delete this._fullScreenManager;
 
     delete this.isHidden;
   }

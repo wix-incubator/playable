@@ -3,9 +3,10 @@ import convertParamsToConfig from './config';
 
 
 export default class Player {
-  constructor(params, scope, additionalModules) {
+  constructor(rootNode, params, scope, additionalModules) {
     scope.registerValue({
-      config: convertParamsToConfig(params)
+      config: convertParamsToConfig(params),
+      rootNode
     });
 
     this._defaultModules = Object.keys(defaultModules).reduce((modules, moduleName) => {
@@ -19,14 +20,11 @@ export default class Player {
     }, {});
 
     this._config = scope.resolve('config');
+    this._rootNode = scope.resolve('rootNode');
   }
 
   get node() {
-    if (!(this._defaultModules && this._defaultModules.ui)) {
-      return;
-    }
-
-    return this._defaultModules.ui.node;
+    return this._rootNode;
   }
 
   setAutoPlay(isAutoPlay) {
@@ -140,5 +138,7 @@ export default class Player {
 
     delete this._defaultModules;
     delete this._additionalModules;
+    delete this._config;
+    delete this._rootNode;
   }
 }

@@ -11,11 +11,17 @@ import UI_EVENTS from '../../../constants/events/ui';
 describe('FullScreenControl', () => {
   let control = {};
   let eventEmitter = {};
+  let fullScreenManager = {};
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
+    fullScreenManager = {
+      enterFullScreen: sinon.spy(),
+      exitFullScreen: sinon.spy()
+    };
     control = new FullScreenControl({
-      eventEmitter
+      eventEmitter,
+      fullScreenManager
     });
   });
 
@@ -71,9 +77,9 @@ describe('FullScreenControl', () => {
       const emit = sinon.spy(eventEmitter, 'emit');
 
       control._enterFullScreen();
-      expect(emit.calledWith(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED)).to.be.true;
+      expect(fullScreenManager.enterFullScreen.called).to.be.true;
       control._exitFullScreen();
-      expect(emit.calledWith(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED)).to.be.true;
+      expect(fullScreenManager.exitFullScreen.called).to.be.true;
     });
   });
 

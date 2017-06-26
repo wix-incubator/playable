@@ -16,10 +16,6 @@ export default function createContainer(options, __parentContainer) {
   // to the poor developer who fucked up.
   let resolutionStack = [];
 
-  // For performance reasons, we store
-  // the rolled-up registrations when starting a resolve.
-  let __tempRegistrations = null;
-
   // Internal registration store.
   const registrations = {};
 
@@ -79,17 +75,14 @@ export default function createContainer(options, __parentContainer) {
   container.registerClass = makeRegister(asClass);
   container.registerValue = makeRegister(asValue, /* verbatimValue: */ true);
   container.resolve = name => {
-    if (!__tempRegistrations) {
-      __tempRegistrations = container.registrations;
-    }
-
     // We need a reference to the root container,
     // so we can retrieve and store singletons.
     const root = last(familyTree);
 
     try {
       // Grab the registration by name.
-      const registration = __tempRegistrations[name];
+      const registration = container.registrations[name];
+
       if (resolutionStack.indexOf(name) > -1) {
         throw new ResolutionError(name, resolutionStack, 'Cyclic dependencies detected.');
       }
@@ -152,12 +145,6 @@ export default function createContainer(options, __parentContainer) {
       // When we get an error we need to reset the stack.
       resolutionStack = [];
       throw err;
-    } finally {
-      // Clear the temporary registrations
-      // so we get a fresh one next time.
-      if (!resolutionStack.length) {
-        __tempRegistrations = null;
-      }
     }
   };
 

@@ -3,15 +3,31 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
+import Engine from '../playback-engine/playback-engine';
+
+import EventEmitter from 'eventemitter3';
+
 import create from './player-fabric';
 
 
 describe('Player', () => {
   let player = {};
+  let eventEmitter = {};
+  let engine = {};
+  let config = {};
 
   describe('constructor', () => {
     beforeEach(() => {
-      player = create({});
+      config = {};
+      eventEmitter = new EventEmitter();
+      engine = new Engine({
+        eventEmitter,
+        config
+      });
+      player = create({
+        engine,
+        eventEmitter
+      });
     });
 
     it('should create instance ', () => {

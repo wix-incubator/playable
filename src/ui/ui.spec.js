@@ -5,6 +5,7 @@ import sinon from 'sinon';
 
 import EventEmitter from 'eventemitter3';
 
+import { container } from '../core/player-fabric';
 import PlayerUI from './ui.controler';
 import Engine from '../playback-engine/playback-engine';
 
@@ -14,19 +15,31 @@ describe('PlayerUI', () => {
   let engine = {};
   let eventEmitter = {};
   let config = {};
+  let rootNode = {};
+  let scope = {};
 
   beforeEach(() => {
+    rootNode = document.createElement('div');
+    config = {
+      ui: {}
+    };
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
       config
     });
+    scope = container.createScope();
+    scope.registerValue({
+      config,
+      rootNode
+    });
 
     ui = new PlayerUI({
       engine,
       eventEmitter,
-      config
-    });
+      config,
+      rootNode
+    }, scope);
   });
 
   describe('constructor', () => {
@@ -38,7 +51,7 @@ describe('PlayerUI', () => {
 
   describe('instance created with default config', () => {
     it('should have controls', () => {
-      expect(ui.controls).to.exist;
+      expect(ui._controls).to.exist;
     });
   });
 
@@ -53,10 +66,11 @@ describe('PlayerUI', () => {
       ui = new PlayerUI({
         engine,
         eventEmitter,
-        config
-      });
+        config,
+        rootNode
+      }, scope);
 
-      expect(ui.controls).to.not.exist;
+      expect(ui._controls).to.not.exist;
     });
     it('should create instance with overlay', () => {
       const config = {
@@ -68,10 +82,11 @@ describe('PlayerUI', () => {
       ui = new PlayerUI({
         engine,
         eventEmitter,
-        config
-      });
+        config,
+        rootNode
+      }, scope);
 
-      expect(ui.overlay).to.exist;
+      expect(ui._overlay).to.exist;
     });
   });
 
@@ -80,8 +95,9 @@ describe('PlayerUI', () => {
       ui = new PlayerUI({
         engine,
         eventEmitter,
-        config
-      });
+        config,
+        rootNode
+      }, scope);
     });
 
     it('should have method for setting width', () => {

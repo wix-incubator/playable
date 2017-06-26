@@ -6,6 +6,7 @@ import UI_EVENTS from '../../../constants/events/ui';
 
 export default class PlayControl {
   static View = View;
+  static dependencies = ['engine', 'eventEmitter'];
 
   constructor({ engine, eventEmitter }) {
     this._engine = engine;

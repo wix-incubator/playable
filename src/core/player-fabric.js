@@ -4,7 +4,7 @@ import PlayerFacade from './player-facade';
 import defaultModules from './default-modules';
 
 
-const container = DependencyContainer.createContainer();
+export const container = DependencyContainer.createContainer();
 container.register(defaultModules);
 
 const additionalModules = {};
@@ -23,5 +23,7 @@ export default function create(params) {
     additionalModuleNames.forEach(moduleName => scope.registerClass(moduleName, additionalModules[moduleName]));
   }
 
-  return new PlayerFacade(params, scope, additionalModuleNames);
+  const rootNode = document.createElement('div');
+
+  return new PlayerFacade(rootNode, params, scope, additionalModuleNames);
 }

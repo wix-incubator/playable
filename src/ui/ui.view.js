@@ -7,16 +7,12 @@ import styles from './ui.scss';
 class PlayerUIView extends View {
   constructor(config) {
     super(config);
-    const { width, height, callbacks } = config;
-
-    this._inFullScreen = false;
+    const { rootNode, width, height, callbacks } = config;
 
     this._callbacks = callbacks;
-
-    this.$node = $('<div>', {
-      class: this.styleNames['video-wrapper'],
-      'data-hook': 'player-container'
-    });
+    this.$node = $(rootNode);
+    this.$node.addClass(this.styleNames['video-wrapper']);
+    this.$node.attr('data-hook', 'player-container');
 
     this.$innerWrapper = $('<div>', {
       class: this.styleNames['inner-wrapper']
@@ -111,7 +107,6 @@ class PlayerUIView extends View {
       this.$node.removeAttr('data-in-full-screen');
     }
     this.$node.toggleClass(this.styleNames['full-screen'], isFullScreen);
-    this._inFullScreen = isFullScreen;
   }
 
   destroy() {
