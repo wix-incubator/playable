@@ -8,7 +8,7 @@ export function getAnomalyBloodhoundConfig(params) {
 }
 
 export function getUIConfig(params) {
-  const { size, controls, overlay, loader, screen, customUI = {} } = params;
+  const { size, controls, overlay, loader, screen, customUI = {}, loadingCover } = params;
   const config = {
     ...size,
     overlay,
@@ -28,6 +28,12 @@ export function getUIConfig(params) {
   } else {
     config.loader = loader;
     config.controls = controls;
+  }
+
+  if (loadingCover) {
+    config.loadingCover = {
+      url: loadingCover
+    };
   }
 
   return config;

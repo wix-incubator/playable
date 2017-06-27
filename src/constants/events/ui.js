@@ -11,11 +11,13 @@ const UI_EVENTS = {
   MOUSE_ENTER_ON_PLAYER_TRIGGERED: 'ui-mouse-enter-on-player-triggered',
   MOUSE_MOVE_ON_PLAYER_TRIGGERED: 'ui-mouse-move-on-player-triggered',
   MOUSE_LEAVE_ON_PLAYER_TRIGGERED: 'ui-mouse-leave-on-player-triggered',
-  CONTROL_BLOCK_HIDE_TRIGGERED: 'control-block-hide-triggered',
-  CONTROL_BLOCK_SHOW_TRIGGERED: 'control-block-show-triggered',
+  CONTROL_BLOCK_HIDE_TRIGGERED: 'ui-control-block-hide-triggered',
+  CONTROL_BLOCK_SHOW_TRIGGERED: 'ui-control-block-show-triggered',
   PROGRESS_MANIPULATION_STARTED: 'ui-progress-manipulation-started',
   PROGRESS_MANIPULATION_ENDED: 'ui-progress-manipulation-ended',
-  ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED: 'engine-control-through-keyboard-triggered'
+  ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED: 'ui-engine-control-through-keyboard-triggered',
+  LOADER_SHOW_TRIGGERED: 'ui-loader-show-triggered',
+  LOADER_HIDE_TRIGGERED: 'ui-loader-hide-triggered'
 };
 
 export default UI_EVENTS;
