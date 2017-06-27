@@ -82,6 +82,8 @@ export default class Screen {
   }
 
   _processKeyboardInput(e) {
+    e.stopPropagation();
+    e.preventDefault();
     switch (e.keyCode) {
       case SPACE_BAR_KEYCODE:
         this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);

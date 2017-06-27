@@ -105,7 +105,7 @@ describe('Loader', () => {
     it('should trigger _toggleVideoPlayback on keyboard input', () => {
       const togglePlaybackSpy = sinon.spy(screen, '_toggleVideoPlayback');
 
-      screen._processKeyboardInput({keyCode: 32});
+      screen._processKeyboardInput({keyCode: 32, stopPropagation: () => {}, preventDefault: () => {}});
       expect(togglePlaybackSpy.called).to.be.true;
     });
 
