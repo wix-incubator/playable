@@ -13,7 +13,9 @@ const VIDEO_EVENTS = {
   SET_CURRENT_TIME: 'set-current-time',
   VOLUME_STATUS_CHANGED: 'volume-status-changed',
   UPLOAD_STALLED: 'upload-stalled',
-  UPLOAD_SUSPEND: 'upload-suspend'
+  UPLOAD_SUSPEND: 'upload-suspend',
+  PLAY_REQUEST_TRIGGERED: 'play-request-triggered',
+  PAUSE_REQUEST_TRIGGERED: 'pause-request-triggered'
 };
 
 export default VIDEO_EVENTS;

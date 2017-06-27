@@ -10,6 +10,7 @@ export default class FullScreenControl {
   constructor({ eventEmitter, fullScreenManager }) {
     this._eventEmitter = eventEmitter;
     this._fullScreenManager = fullScreenManager;
+
     this._isInFullScreen = null;
 
     this._bindCallbacks();
@@ -19,6 +20,10 @@ export default class FullScreenControl {
     this._bindEvents();
 
     this.setControlStatus(false);
+
+    if (!this._fullScreenManager.isEnabled) {
+      this.hide();
+    }
   }
 
   get node() {

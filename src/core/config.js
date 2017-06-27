@@ -1,4 +1,4 @@
-import { iPhone, iPod, Android } from '../utils/device-detection';
+import { iPhone, iPod, Android, iPad } from '../utils/device-detection';
 
 
 export function getAnomalyBloodhoundConfig(params) {
@@ -16,7 +16,7 @@ export function getUIConfig(params) {
     customUI
   };
 
-  if (iPhone || iPod || Android) {
+  if (iPhone || iPod || Android || iPad) {
     config.screen = {
       ...screen,
       indicateScreenClick: false,
@@ -40,11 +40,33 @@ export function getEngineConfig(params) {
 }
 
 export function getFullScreenManagerConfig(params) {
-  const { exitFullScreenOnEnd } = params;
+  const {
+    exitFullScreenOnEnd,
+    enterFullScreenOnPlay,
+    exitFullScreenOnPause,
+    disableFullScreen,
+    pauseVideoOnFullScreenExit
+  } = params;
   const config = {};
 
   if (exitFullScreenOnEnd !== void 0) {
     config.exitOnEnd = exitFullScreenOnEnd;
+  }
+
+  if (enterFullScreenOnPlay !== void 0) {
+    config.enterOnPlay = enterFullScreenOnPlay;
+  }
+
+  if (disableFullScreen !== void 0) {
+    config.disabled = disableFullScreen;
+  }
+
+  if (exitFullScreenOnPause !== void 0) {
+    config.exitOnPause = exitFullScreenOnPause;
+  }
+
+  if (pauseVideoOnFullScreenExit !== void 0) {
+    config.pauseOnExit = pauseVideoOnFullScreenExit;
   }
 
   return config;

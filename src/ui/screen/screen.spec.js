@@ -54,7 +54,9 @@ describe('Loader', () => {
     };
     fullScreenManager = {
       enterFullScreen: sinon.spy(),
-      exitFullScreen: sinon.spy()
+      exitFullScreen: sinon.spy(),
+      isEnabled: true,
+      _config: {}
     };
     ui = {
       setFullScreenStatus() {

@@ -7,7 +7,11 @@ import VIDEO_EVENTS from '../constants/events/video';
 
 
 const DEFAULT_CONFIG = {
-  exitOnEnd: true
+  exitOnEnd: true,
+  exitOnPause: false,
+  enterOnPlay: false,
+  pauseOnExit: false,
+  disabled: false
 };
 
 export default class FullScreenManager {
@@ -29,49 +33,86 @@ export default class FullScreenManager {
       this._helper = new DesktopFullScreen(rootNode, this._onChange);
     }
 
-    this._bindCallbacks();
     this._bindEvents();
   }
 
   _onChange() {
+    if (!this._helper.isInFullScreen && this._config.pauseOnExit) {
+      this._engine.pause();
+    }
     this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._helper.isInFullScreen);
   }
 
-  _bindCallbacks() {
-    this._exitOnEndState = this._exitOnEndState.bind(this);
-  }
-
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._exitOnEndState, this);
-    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED, this.enterFullScreen, this);
-    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED, this.exitFullScreen, this);
+    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine, this);
+    this._eventEmitter.on(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested, this);
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._exitOnEndState, this);
-    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_ENTER_TRIGGERED, this.enterFullScreen, this);
-    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_EXIT_TRIGGERED, this.exitFullScreen, this);
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine, this);
+    this._eventEmitter.off(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested, this);
   }
 
-  _exitOnEndState({ nextState }) {
-    if (!this._config.exitOnEnd) {
-      return;
-    }
-    if (nextState === this._engine.STATES.ENDED && this.isInFullScreen) {
+  _exitOnEnd() {
+    if (this._config.exitOnEnd && this.isInFullScreen) {
       this.exitFullScreen();
     }
   }
 
+  _enterOnPlayRequested() {
+    if (this._config.enterOnPlay && !this.isInFullScreen) {
+      this.enterFullScreen();
+    }
+  }
+
+  _exitOnPauseRequested() {
+    if (this._config.exitOnPause && this.isInFullScreen) {
+      this.exitFullScreen();
+    }
+  }
+
+  _processNextStateFromEngine({ nextState }) {
+    const { STATES } = this._engine;
+
+    switch (nextState) {
+      case STATES.ENDED: {
+        this._exitOnEnd();
+        break;
+      }
+      case STATES.PAUSED: {
+        this._exitOnPauseRequested();
+        break;
+      }
+      default: break;
+    }
+  }
+
   enterFullScreen() {
+    if (this._config.disabled) {
+      return;
+    }
+
     this._helper.request();
   }
 
   exitFullScreen() {
+    if (!this.isEnabled) {
+      return;
+    }
+
     this._helper.exit();
   }
 
   get isInFullScreen() {
+    if (!this.isEnabled) {
+      return false;
+    }
+
     return this._helper.isInFullScreen;
+  }
+
+  get isEnabled() {
+    return this._helper.isEnabled && !this._config.disabled;
   }
 
   destroy() {

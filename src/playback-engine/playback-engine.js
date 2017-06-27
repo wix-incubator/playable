@@ -20,6 +20,11 @@ export const STATES = {
   ENDED: 'ended'
 };
 
+const NATIVE_VIDEO_EVENTS = [
+  'loadstart', 'loadedmetadata', 'canplay', 'progress', 'play', 'playing', 'pause', 'ended',
+  'stalled', 'suspend', 'waiting', 'durationchange', 'timeupdate', 'seeking', 'seeked', 'volumechange'
+];
+
 export default class Engine {
   static dependencies = ['eventEmitter', 'config'];
 
@@ -81,43 +86,12 @@ export default class Engine {
   _bindEvents() {
     this._vidi.on('error', this._sendError);
 
-    this._video.addEventListener('loadstart', this._processEventFromVideo);
-    this._video.addEventListener('loadedmetadata', this._processEventFromVideo);
-    this._video.addEventListener('canplay', this._processEventFromVideo);
-    this._video.addEventListener('progress', this._processEventFromVideo);
-    this._video.addEventListener('play', this._processEventFromVideo);
-    this._video.addEventListener('playing', this._processEventFromVideo);
-    this._video.addEventListener('pause', this._processEventFromVideo);
-    this._video.addEventListener('ended', this._processEventFromVideo);
-    this._video.addEventListener('stalled', this._processEventFromVideo);
-    this._video.addEventListener('suspend', this._processEventFromVideo);
-    this._video.addEventListener('waiting', this._processEventFromVideo);
-    this._video.addEventListener('durationchange', this._processEventFromVideo);
-    this._video.addEventListener('timeupdate', this._processEventFromVideo);
-    this._video.addEventListener('seeking', this._processEventFromVideo);
-    this._video.addEventListener('seeked', this._processEventFromVideo);
-    this._video.addEventListener('volumechange', this._processEventFromVideo);
+    NATIVE_VIDEO_EVENTS.forEach(event => this._video.addEventListener(event, this._processEventFromVideo));
   }
 
   _unbindEvents() {
     this._vidi.off('error', this._sendError);
-
-    this._video.removeEventListener('loadstart', this._processEventFromVideo);
-    this._video.removeEventListener('loadedmetadata', this._processEventFromVideo);
-    this._video.removeEventListener('canplay', this._processEventFromVideo);
-    this._video.removeEventListener('progress', this._processEventFromVideo);
-    this._video.removeEventListener('play', this._processEventFromVideo);
-    this._video.removeEventListener('playing', this._processEventFromVideo);
-    this._video.removeEventListener('pause', this._processEventFromVideo);
-    this._video.removeEventListener('ended', this._processEventFromVideo);
-    this._video.removeEventListener('stalled', this._processEventFromVideo);
-    this._video.removeEventListener('suspend', this._processEventFromVideo);
-    this._video.removeEventListener('waiting', this._processEventFromVideo);
-    this._video.removeEventListener('durationchange', this._processEventFromVideo);
-    this._video.removeEventListener('timeupdate', this._processEventFromVideo);
-    this._video.removeEventListener('seeking', this._processEventFromVideo);
-    this._video.removeEventListener('seeked', this._processEventFromVideo);
-    this._video.removeEventListener('volumechange', this._processEventFromVideo);
+    NATIVE_VIDEO_EVENTS.forEach(event => this._video.removeEventListener(event, this._processEventFromVideo));
   }
 
   _processEventFromVideo(event) {
@@ -433,6 +407,8 @@ export default class Engine {
   }
 
   play() {
+    //Workaround for triggering functionality that requires user event pipe
+    this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
     this._vidi.play();
   }
 

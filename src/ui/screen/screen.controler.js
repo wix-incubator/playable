@@ -113,7 +113,10 @@ export default class Screen {
   }
 
   _processNodeClick() {
-    if (this._delayedToggleVideoPlaybackTimeout) {
+    if (!this._fullScreenManager.isEnabled || this._fullScreenManager._config.enterOnPlay) {
+      this._showPlaybackChangeIndicator();
+      this._toggleVideoPlayback();
+    } else if (this._delayedToggleVideoPlaybackTimeout) {
       clearTimeout(this._delayedToggleVideoPlaybackTimeout);
       this._delayedToggleVideoPlaybackTimeout = null;
 
