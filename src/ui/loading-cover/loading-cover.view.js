@@ -36,11 +36,11 @@ class LoadingCoverView extends View {
   }
 
   hide() {
-    this.$node.addClass(this.styleNames.hidden);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   show() {
-    this.$node.removeClass(this.styleNames.hidden);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   destroy() {

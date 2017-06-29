@@ -13,10 +13,12 @@ export function getUIConfig(params) {
     ...size,
     overlay,
     screen,
-    customUI
+    customUI,
+    loader,
+    controls
   };
 
-  if (iPhone || iPod || Android || iPad) {
+  if (iPhone || iPod || iPad) {
     config.screen = {
       ...screen,
       indicateScreenClick: false,
@@ -25,9 +27,11 @@ export function getUIConfig(params) {
     };
     config.loader = false;
     config.controls = false;
-  } else {
-    config.loader = loader;
-    config.controls = controls;
+  } else if (Android) {
+    config.screen = {
+      ...screen,
+      disableClickProcessing: true
+    };
   }
 
   if (loadingCover) {

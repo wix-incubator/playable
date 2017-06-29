@@ -23,6 +23,7 @@ export default class Loader {
 
     this._initUI();
     this._bindEvents();
+    this.hide();
   }
 
   get node() {
@@ -44,7 +45,9 @@ export default class Loader {
         this._startDelayedShow();
         break;
       case STATES.LOAD_STARTED:
-        this.show();
+        if (this._engine.isPreloadAvailable) {
+          this.show();
+        }
         break;
       case STATES.READY_TO_PLAY:
         this._stopDelayedShow();

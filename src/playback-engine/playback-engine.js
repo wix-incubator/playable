@@ -1,4 +1,5 @@
 import Vidi from 'vidi';
+import { iPhone, iPod, Android, iPad } from '../utils/device-detection';
 
 import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../utils/video-data';
 
@@ -33,7 +34,7 @@ export default class Engine {
     this._video = document.createElement('video');
     this._vidi = new Vidi(this._video);
     this._currentState = null;
-
+    this._isMetadataLoaded = false;
     this._bindCallbacks();
     this._bindEvents();
 
@@ -104,6 +105,7 @@ export default class Engine {
       }
       case 'loadedmetadata': {
         this._setState(STATES.METADATA_LOADED);
+        this._isMetadataLoaded = true;
         break;
       }
       case 'canplay': {
@@ -279,6 +281,26 @@ export default class Engine {
         nearestBufferSegInfo
       }
     };
+  }
+
+  get isMetadataLoaded() {
+    return this._isMetadataLoaded;
+  }
+
+  get isPreloadAvailable() {
+    if (iPad || iPhone || iPod || Android) {
+      return false;
+    }
+
+    return this.getPreload() !== 'none';
+  }
+
+  get isAutoPlayAvailable() {
+    if (iPad || iPhone || iPod || Android) {
+      return false;
+    }
+
+    return this.getAutoPlay();
   }
 
   setSrc(src) {

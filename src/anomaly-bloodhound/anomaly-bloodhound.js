@@ -10,9 +10,9 @@ export const REPORT_REASONS = {
 };
 
 export const DELAYED_REPORT_TYPES = {
-  INITIAL_VIDEO_PARTS_LOADING: { id: '_initialVideoPartsLoading', timeoutTime: 2000 },
-  METADATA_LOADING: { id: '_metadataLoading', timeoutTime: 2000 },
-  RUNTIME_LOADING: { id: '_runtimeLoading', timeoutTime: 2000 }
+  INITIAL_VIDEO_PARTS_LOADING: { id: '_initialVideoPartsLoading', timeoutTime: 5000 },
+  METADATA_LOADING: { id: '_metadataLoading', timeoutTime: 5000 },
+  RUNTIME_LOADING: { id: '_runtimeLoading', timeoutTime: 5000 }
 };
 
 export default class AnomalyBloodhound {
@@ -43,7 +43,7 @@ export default class AnomalyBloodhound {
 
     switch (nextState) {
       case STATES.LOAD_STARTED:
-        if (this._engine.getAutoPlay() || this._engine.getPreload() !== 'none') {
+        if (this._engine.isAutoPlayAvailable || this._engine.isPreloadAvailable) {
           this.startDelayedReport(
             DELAYED_REPORT_TYPES.METADATA_LOADING,
             REPORT_REASONS.LONG_METADATA_LOADING

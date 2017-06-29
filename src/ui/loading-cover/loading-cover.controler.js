@@ -38,7 +38,14 @@ export default class LoadingCover {
     const { STATES } = this._engine;
     switch (nextState) {
       case STATES.LOAD_STARTED:
-        this.show();
+        if (this._engine.isPreloadAvailable) {
+          this.show();
+        }
+        break;
+      case STATES.WAITING:
+        if (!this._engine.isMetadataLoaded) {
+          this.show();
+        }
         break;
       case STATES.READY_TO_PLAY:
         this.hide();
