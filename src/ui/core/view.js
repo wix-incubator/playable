@@ -23,7 +23,7 @@ export default class View {
   }
 
   get styleNames() {
-    return this.constructor._styles;
+    return this.constructor._styles || {};
   }
 
   get translations() {
