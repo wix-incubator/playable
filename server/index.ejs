@@ -35,19 +35,19 @@
 </div>
 <script>
   var player = VideoPlayer.create({
-    autoplay: false,
+    autoPlay: true,
     muted: false,
     loop: false,
     logger: true,
-    preload: "none",
+    preload: "auto",
     volume: 0.5,
     size: {
       width: 760,
       height: 428
     },
+    loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
     src: [
-      'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-      'https://clips.vorwaerts-gmbh.de/big_buck_bunny.webm',
+      'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
     ],
     overlay: false,
   });

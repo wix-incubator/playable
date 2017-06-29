@@ -9,11 +9,13 @@ import View from './ui.view';
 import Screen from './screen/screen.controler';
 import Overlay from './overlay/overlay.controler';
 import Loader from './loader/loader.controler';
+import LoadingCover from './loading-cover/loading-cover.controler';
 import ControlsBlock from './controls/controls.controler';
 
 
 export const DEFAULT_CONFIG = {
   overlay: false,
+  loadingCover: false,
   customUI: {}
 };
 
@@ -78,6 +80,7 @@ class PlayerUI {
       screen: DependencyContainer.asClass(Screen).scoped(),
       overlay: DependencyContainer.asClass(Overlay).scoped(),
       loader: DependencyContainer.asClass(Loader).scoped(),
+      loadingCover: DependencyContainer.asClass(LoadingCover).scoped(),
       controls: DependencyContainer.asClass(ControlsBlock).scoped()
     });
 
@@ -113,6 +116,14 @@ class PlayerUI {
     this._loader = this._scope.resolve('loader');
 
     this.view.appendComponentNode(this._loader.node);
+
+    if (!this.config.loadingCover) {
+      return;
+    }
+
+    this._loadingCover = this._scope.resolve('loadingCover');
+
+    this.view.appendComponentNode(this._loadingCover.node);
   }
 
   _initControls() {
@@ -197,6 +208,11 @@ class PlayerUI {
     if (this._loader) {
       this._loader.destroy();
       delete this._loader;
+    }
+
+    if (this._loadingCover) {
+      this._loadingCover.destroy();
+      delete this._loadingCover;
     }
 
     this._screen.destroy();

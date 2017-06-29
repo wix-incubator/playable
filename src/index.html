@@ -28,24 +28,21 @@
 </div>
 <script>
   var player = VideoPlayer.create({
-    autoplay: false,
+    autoPlay: true,
     muted: false,
     loop: false,
-    preload: 'auto',
-    volume: 0.5,
+    logger: true,
+    preload: "auto",
+    volume: 1,
     size: {
       width: 760,
       height: 428
     },
+    loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
     src: [
-      'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+      'https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8',
     ],
-    overlay: {
-      poster: '//images-vod.wixmp.com/aeca062c-f534-491f-bc7d-54ff3e5a9d18/images/e12e73a79c824e1b88db52411886e62b~mv2/v1/fill/w_768,h_431,q_100,usm_0.66_1.00_0.01/file.jpg'
-    },
-    screen: {
-      indicateScreenClick: true
-    }
+    overlay: false,
   });
   document.getElementById('player').appendChild(player.node);
 </script>

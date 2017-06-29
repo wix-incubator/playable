@@ -1,27 +1,27 @@
 import VIDEO_EVENTS from '../../constants/events/video';
 import UI_EVENTS from '../../constants/events/ui';
 
-import View from './loader.view';
+import View from './loading-cover.view';
 
 
-const DELAY_FOR_SHOW_ON_WAITING_STATE = 100;
-
-export default class Loader {
+export default class LoadingCover {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config'];
+  static dependencies = ['engine', 'eventEmitter', 'config', 'controls'];
 
-  constructor({ config, eventEmitter, engine }) {
+  constructor({ config, eventEmitter, engine, controls }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
+    this._controls = controls;
     this.config = {
-      ...config.ui.loader
+      ...config.ui.loadingCover
     };
 
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
 
     this._initUI();
+    this.hide();
     this._bindEvents();
   }
 
@@ -37,25 +37,10 @@ export default class Loader {
   _checkForWaitingState({ nextState }) {
     const { STATES } = this._engine;
     switch (nextState) {
-      case STATES.SEEK_IN_PROGRESS:
-        this._startDelayedShow();
-        break;
-      case STATES.WAITING:
-        this._startDelayedShow();
-        break;
       case STATES.LOAD_STARTED:
         this.show();
         break;
       case STATES.READY_TO_PLAY:
-        this._stopDelayedShow();
-        this.hide();
-        break;
-      case STATES.PLAYING:
-        this._stopDelayedShow();
-        this.hide();
-        break;
-      case STATES.PAUSED:
-        this._stopDelayedShow();
         this.hide();
         break;
 
@@ -64,13 +49,11 @@ export default class Loader {
   }
 
   _initUI() {
-    const { view } = this.config;
+    const { url } = this.config;
 
-    if (view) {
-      this.view = new view();
-    } else {
-      this.view = new this.constructor.View();
-    }
+    this.view = new View({
+      url
+    });
   }
 
   hide() {
@@ -83,20 +66,11 @@ export default class Loader {
 
   show() {
     if (this.isHidden) {
+      this._controls._hideContent();
       this._eventEmitter.emit(UI_EVENTS.LOADER_SHOW_TRIGGERED);
       this.view.show();
       this.isHidden = false;
     }
-  }
-
-  _startDelayedShow() {
-    this._stopDelayedShow();
-    this._delayedShowTimeout = setTimeout(this.show, DELAY_FOR_SHOW_ON_WAITING_STATE);
-  }
-
-  _stopDelayedShow() {
-    clearTimeout(this._delayedShowTimeout);
-    this._delayedShowTimeout = null;
   }
 
   _unbindEvents() {
@@ -106,12 +80,12 @@ export default class Loader {
 
   destroy() {
     this._unbindEvents();
-    this._stopDelayedShow();
 
     this.view.destroy();
 
     delete this.view;
 
+    delete this._controls;
     delete this._eventEmitter;
     delete this._engine;
   }
