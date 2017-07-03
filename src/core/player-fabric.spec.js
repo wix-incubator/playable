@@ -146,6 +146,17 @@ describe('Player', () => {
       expect(player.node).to.not.exist;
     });
 
+    it('should have method for setting loading cover', () => {
+      expect(player.setLoadingCover);
+
+      const uiLoadingCoverSpy = sinon.spy(player._defaultModules.ui._loadingCover, 'destroy');
+
+    });
+
+    it('should have method for getting loading cover', () => {
+
+    });
+
     it('should have method for subscribing on events', () => {
       expect(player.on).to.exist;
       const onSpy = sinon.spy(player._defaultModules.eventEmitter, 'on');

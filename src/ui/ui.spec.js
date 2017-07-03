@@ -55,41 +55,6 @@ describe('PlayerUI', () => {
     });
   });
 
-  describe('instance created with extended config', () => {
-    it('should create instance with hidden controls', () => {
-      const config = {
-        ui: {
-          controls: false
-        }
-      };
-
-      ui = new PlayerUI({
-        engine,
-        eventEmitter,
-        config,
-        rootNode
-      }, scope);
-
-      expect(ui._controls).to.not.exist;
-    });
-    it('should create instance with overlay', () => {
-      const config = {
-        ui: {
-          overlay: true
-        }
-      };
-
-      ui = new PlayerUI({
-        engine,
-        eventEmitter,
-        config,
-        rootNode
-      }, scope);
-
-      expect(ui._overlay).to.exist;
-    });
-  });
-
   describe('API', () => {
     beforeEach(() => {
       ui = new PlayerUI({

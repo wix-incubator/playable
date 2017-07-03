@@ -24,7 +24,6 @@
     "precommit": "npm run lint && npm run csscomb:lint && npm test"
   },
   "dependencies": {
-    "awilix": "^2.4.0",
     "classnames": "^2.2.5",
     "css-element-queries": "^0.4.0",
     "eventemitter3": "^2.0.2",
@@ -58,10 +57,7 @@
     "exports": "VideoPlayer",
     "entry": {
       "video-player": "./index.js"
-    },
-    "externalUnprocessedModules": [
-      "awilix"
-    ]
+    }
   },
   "keywords": [
     "player",

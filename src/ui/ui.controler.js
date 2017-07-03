@@ -90,6 +90,8 @@ class PlayerUI {
 
     this._initLoader();
 
+    this._initLoadingCover();
+
     this.view.appendComponentNode(this._screen.node);
 
     this._initControls();
@@ -98,30 +100,29 @@ class PlayerUI {
   _initOverlay() {
     const config = this.config.overlay;
 
+    this._overlay = this._scope.resolve('overlay');
+
     if (config === false) {
       return;
     }
-
-    this._overlay = this._scope.resolve('overlay');
-
     this.view.appendComponentNode(this._overlay.node);
   }
 
   _initLoader() {
-    const config = this.config.loader;
-
-    if (config === false) {
-      return;
-    }
     this._loader = this._scope.resolve('loader');
 
-    this.view.appendComponentNode(this._loader.node);
-
-    if (!this.config.loadingCover) {
+    if (this.config.loader === false) {
       return;
     }
+    this.view.appendComponentNode(this._loader.node);
+  }
 
+  _initLoadingCover() {
     this._loadingCover = this._scope.resolve('loadingCover');
+
+    if (this.config.loadingCover === false) {
+      return;
+    }
 
     this.view.appendComponentNode(this._loadingCover.node);
   }
@@ -129,12 +130,11 @@ class PlayerUI {
   _initControls() {
     const config = this.config.controls;
 
+    this._controls = this._scope.resolve('controls');
+
     if (config === false) {
       return;
     }
-
-    this._controls = this._scope.resolve('controls');
-
     this._screen.view.appendComponentNode(this._controls.node);
   }
 
@@ -192,28 +192,30 @@ class PlayerUI {
     return this.view.getHeight();
   }
 
+  setLoadingCover(url) {
+    if (this._loadingCover) {
+      this._loadingCover.setLoadingCover(url);
+    }
+  }
+
   destroy() {
     this._unbindEvents();
 
-    if (this._controls) {
-      this._controls.destroy();
-      delete this._controls;
-    }
+    this._controls.destroy();
+    delete this._controls;
 
-    if (this._overlay) {
-      this._overlay.destroy();
-      delete this._overlay;
-    }
 
-    if (this._loader) {
-      this._loader.destroy();
-      delete this._loader;
-    }
+    this._overlay.destroy();
+    delete this._overlay;
 
-    if (this._loadingCover) {
-      this._loadingCover.destroy();
-      delete this._loadingCover;
-    }
+
+    this._loader.destroy();
+    delete this._loader;
+
+
+    this._loadingCover.destroy();
+    delete this._loadingCover;
+
 
     this._screen.destroy();
     delete this._screen;

@@ -85,6 +85,10 @@ export default class LoadingCover {
     this._eventEmitter.off(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
+  setLoadingCover(url) {
+    this.view.setCover(url);
+  }
+
   destroy() {
     this._unbindEvents();
 

@@ -118,7 +118,7 @@ describe('Loader', () => {
       expect(processClickSpy.called).to.be.true;
     });
 
-    it('should remove timeout of delayed playback change and call _toggleFullScreen on _processNodeClick ', () => {
+    it('should remove timeout of delayed playback change on _processNodeClick and call _toggleFullScreen on _processNodeDblClick', () => {
       const timeoutClearSpy = sinon.spy(global, 'clearTimeout');
       const toggleFullscreenSpy = sinon.spy(screen, '_toggleFullScreen');
       const id = setTimeout(()=> {
@@ -131,6 +131,7 @@ describe('Loader', () => {
 
       screen._processNodeClick();
       expect(timeoutClearSpy.calledWith(id)).to.be.true;
+      screen._processNodeDblClick();
       expect(toggleFullscreenSpy.called).to.be.true;
 
       timeoutClearSpy.restore();

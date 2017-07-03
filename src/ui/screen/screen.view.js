@@ -42,7 +42,7 @@ class ScreenView extends View {
 
   _bindEvents() {
     this.$node[0].addEventListener('click', this._callbacks.onWrapperMouseClick);
-    this.$node[0].addEventListener('dblclick', this._callbacks.onWrapperMouseClick);
+    this.$node[0].addEventListener('dblclick', this._callbacks.onWrapperMouseDblClick);
     this.$node[0].addEventListener('keydown', this._callbacks.onWrapperKeyPress);
   }
 
@@ -99,7 +99,7 @@ class ScreenView extends View {
 
   _unbindEvents() {
     this.$node[0].removeEventListener('click', this._callbacks.onWrapperMouseClick);
-    this.$node[0].removeEventListener('dblclick', this._callbacks.onWrapperMouseClick);
+    this.$node[0].removeEventListener('dblclick', this._callbacks.onWrapperMouseDblClick);
     this.$node[0].removeEventListener('keypress', this._callbacks.onWrapperKeyPress);
   }
 

@@ -15,14 +15,14 @@ class LoadingCoverView extends View {
     });
 
     this.$image = $('<img>', {
-      class: this.styleNames.image,
-      src: config.url
+      class: this.styleNames.image
     });
 
-    this.showImageOnLoad = this.showImageOnLoad.bind(this);
+    this._showImageOnLoad = this._showImageOnLoad.bind(this);
 
-    this.$image.addClass(this.styleNames.hidden);
-    this.$image.on('load', this.showImageOnLoad);
+    this.$image.on('load', this._showImageOnLoad);
+
+    this.setCover(config.url);
 
     this.$node.append(this.$image);
   }
@@ -31,7 +31,7 @@ class LoadingCoverView extends View {
     return this.$node[0];
   }
 
-  showImageOnLoad() {
+  _showImageOnLoad() {
     this.$image.removeClass(this.styleNames.hidden);
   }
 
@@ -43,8 +43,13 @@ class LoadingCoverView extends View {
     this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
+  setCover(url) {
+    this.$image.addClass(this.styleNames.hidden);
+    this.$image.attr('src', url);
+  }
+
   destroy() {
-    this.$image.off('load', this.showImageOnLoad);
+    this.$image.off('load', this._showImageOnLoad);
     this.$node.remove();
 
     delete this.$node;

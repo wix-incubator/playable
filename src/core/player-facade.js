@@ -131,6 +131,10 @@ export default class Player {
     return this._defaultModules.ui.getHeight();
   }
 
+  setLoadingCover(url) {
+    this._defaultModules.ui.setLoadingCover(url);
+  }
+
   destroy() {
     Object.keys(this._defaultModules).forEach(moduleName => {
       this._defaultModules[moduleName].destroy();

@@ -47,6 +47,7 @@ export default class Screen {
 
   _bindCallbacks() {
     this._processNodeClick = this._processNodeClick.bind(this);
+    this._processNodeDblClick = this._processNodeDblClick.bind(this);
     this._processKeyboardInput = this._processKeyboardInput.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
   }
@@ -62,6 +63,7 @@ export default class Screen {
 
     if (!this.config.disableClickProcessing) {
       config.callbacks.onWrapperMouseClick = this._processNodeClick;
+      config.callbacks.onWrapperMouseDblClick = this._processNodeDblClick;
     }
 
     this.view = new View(config);
@@ -118,17 +120,20 @@ export default class Screen {
     if (!this._fullScreenManager.isEnabled || this._fullScreenManager._config.enterOnPlay) {
       this._showPlaybackChangeIndicator();
       this._toggleVideoPlayback();
-    } else if (this._delayedToggleVideoPlaybackTimeout) {
-      clearTimeout(this._delayedToggleVideoPlaybackTimeout);
-      this._delayedToggleVideoPlaybackTimeout = null;
+      return;
+    }
 
+    if (this._isDelayedPlaybackToggleExist) {
+      this._clearDelayedPlaybackToggle();
       this._hideDelayedPlaybackChangeIndicator();
-
-      this._toggleFullScreen();
     } else {
       this._showPlaybackChangeIndicator();
-      this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
+      this._setDelayedPlaybackToggle();
     }
+  }
+
+  _processNodeDblClick() {
+    this._toggleFullScreen();
   }
 
   _showPlaybackChangeIndicator() {
@@ -152,8 +157,23 @@ export default class Screen {
     }
   }
 
-  _toggleVideoPlayback() {
+  _setDelayedPlaybackToggle() {
+    this._clearDelayedPlaybackToggle();
+
+    this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
+  }
+
+  _clearDelayedPlaybackToggle() {
+    clearTimeout(this._delayedToggleVideoPlaybackTimeout);
     this._delayedToggleVideoPlaybackTimeout = null;
+  }
+
+  get _isDelayedPlaybackToggleExist() {
+    return Boolean(this._delayedToggleVideoPlaybackTimeout);
+  }
+
+  _toggleVideoPlayback() {
+    this._clearDelayedPlaybackToggle();
 
     const state = this._engine.getState();
 
@@ -200,7 +220,7 @@ export default class Screen {
   destroy() {
     this._unbindEvents();
 
-    clearTimeout(this._delayedToggleVideoPlaybackTimeout);
+    this._clearDelayedPlaybackToggle();
     this.view.destroy();
     delete this.view;
 
