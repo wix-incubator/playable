@@ -23,4 +23,7 @@
             </roles>
         </developer>
     </developers>
+    <organization>
+      <name>Videos</name>
+    </organization>
 </project>
