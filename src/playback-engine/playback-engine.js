@@ -34,12 +34,34 @@ export default class Engine {
     this._video = document.createElement('video');
     this._vidi = new Vidi(this._video);
     this._currentState = null;
+
     this._isMetadataLoaded = false;
+    this._statesTimestamps = {};
+
     this._bindCallbacks();
     this._bindEvents();
 
     this.STATES = STATES;
     this._applyConfig(config.engine);
+  }
+
+  _clearTimestamps() {
+    this._statesTimestamps = {};
+  }
+
+  _setInitialTimeStamp() {
+    this._initialTimeStamp = Date.now();
+  }
+
+  _setStateTimestamp(state) {
+    if (!this._statesTimestamps[state]) {
+      this._statesTimestamps[state] = Date.now() - this._initialTimeStamp;
+      this._setInitialTimeStamp();
+    }
+  }
+
+  _getStateTimestamps() {
+    return this._statesTimestamps;
   }
 
   _applyConfig(config = {}) {
@@ -100,15 +122,18 @@ export default class Engine {
 
     switch (event.type) {
       case 'loadstart': {
+        this._setInitialTimeStamp();
         this._setState(STATES.LOAD_STARTED);
         break;
       }
       case 'loadedmetadata': {
+        this._setStateTimestamp(STATES.METADATA_LOADED);
         this._setState(STATES.METADATA_LOADED);
         this._isMetadataLoaded = true;
         break;
       }
       case 'canplay': {
+        this._setStateTimestamp(STATES.READY_TO_PLAY);
         this._setState(STATES.READY_TO_PLAY);
         break;
       }
@@ -185,7 +210,7 @@ export default class Engine {
 
   getDebugInfo() {
     const { attachedStream, src } = this._vidi;
-    const { networkState, readyState } = this._video;
+    const { duration, currentTime } = this._video;
     let data;
 
     if (attachedStream) {
@@ -203,15 +228,17 @@ export default class Engine {
     return {
       attachedStreamName: attachedStream && attachedStream.constructor.name,
       ...data,
+      ...this._getViewPortSizes(),
       src,
-      networkState,
-      readyState
+      currentTime,
+      duration,
+      loadingStateTimestamps: this._getStateTimestamps()
     };
   }
 
   _getDashInfo(dashPlayer) {
     const currentStream = dashPlayer.getActiveStream();
-    let currentTime = null;
+    let currentTime = 0;
     if (currentStream) {
       currentTime = dashPlayer.time(currentStream.getId());
     }
@@ -225,22 +252,19 @@ export default class Engine {
     const nearestBufferSegInfo = getNearestBufferSegmentInfo(dashPlayer.getVideoElement().buffered, currentTime);
 
     return {
-      dashInfo: {
-        bitrates,
-        currentTime,
-        currentBitrate,
-        overallBufferLength,
-        currentTrack,
-        nearestBufferSegInfo
-      }
+      bitrates,
+      currentBitrate,
+      overallBufferLength,
+      currentTrack,
+      nearestBufferSegInfo
     };
   }
 
   _getHLSInfo(hls) {
     const overallBufferLength = geOverallBufferLength(hls.streamController.mediaBuffer.buffered);
     let bitrates;
+    let currentTime = 0;
     let currentBitrate = null;
-    let currentTime;
     let nearestBufferSegInfo = null;
 
     if (hls.levelController) {
@@ -257,13 +281,10 @@ export default class Engine {
     }
 
     return {
-      hlsInfo: {
-        bitrates,
-        currentTime,
-        currentBitrate,
-        overallBufferLength,
-        nearestBufferSegInfo
-      }
+      bitrates,
+      currentBitrate,
+      overallBufferLength,
+      nearestBufferSegInfo
     };
   }
 
@@ -280,13 +301,17 @@ export default class Engine {
     }
 
     return {
-      nativeInfo: {
-        bitrates,
-        currentBitrates,
-        currentTime,
-        overallBufferLength,
-        nearestBufferSegInfo
-      }
+      bitrates,
+      currentBitrates,
+      overallBufferLength,
+      nearestBufferSegInfo
+    };
+  }
+
+  _getViewPortSizes() {
+    return {
+      width: this._video.offsetWidth,
+      height: this._video.offsetHeight
     };
   }
 
@@ -313,6 +338,7 @@ export default class Engine {
   setSrc(src) {
     if (this._vidi.src !== src) {
       this._vidi.src = src;
+      this._clearTimestamps();
       this._setState(STATES.SRC_SET);
     }
   }
