@@ -118,5 +118,21 @@ document.body.appendChild(player.node);
 
 ```Player.isInFullScreen``` Return `true` if player is in full screen
 
+```Player.getDebugInfo``` Return object with internal debug info
+```javascript
+  {
+    attachedStreamName, // Name of current attached stream (HLS, DASH, MPEG, WEBM)
+    width, height, // Current size of view port provided by engine (right now - actual size of video tag)
+    src, // Current source
+    currentTime, // Current time of playback
+    duration, // Duration of current video
+    loadingStateTimestamps, // Object with time spend for different initial phases
+    bitrates, // List of all available bitrates. Internal structure different for different type of streams
+    currentBitrate, // Current bitrate. Internal structure different for different type of streams
+    overallBufferLength, // Overall length of buffer
+    nearestBufferSegInfo // Object with start and end for current buffer segment
+  }
+```
+
 ```Player.destroy``` Destroy instance of player
 
