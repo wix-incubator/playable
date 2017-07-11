@@ -1,11 +1,11 @@
 @mixin query-basic($query, $value) {
-  div[data-hook='player-container'][#{$query}~=#{'"' + $value + '"'}] & {
+  div[data-hook='controls-container'][#{$query}~=#{'"' + $value + '"'}] & {
     @content
   }
 }
 
 @mixin in-full-screen() {
-  @include query-basic(data-in-full-screen, true) {
+  div[data-hook='player-container'][data-in-full-screen='true'] & {
     @content
   }
 }
