@@ -5,3 +5,4 @@ target
 maven
 .idea
 .DS_Store
+yarn-error.log
