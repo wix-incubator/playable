@@ -1,3 +1,4 @@
+
 import isPlainObject from 'lodash/isPlainObject';
 
 export default function (name, value) {

@@ -1,3 +1,4 @@
+
 import Lifetime from './constants/Lifetime';
 import isFunction from 'lodash/isFunction';
 import NotAFunctionError from './errors/NotAFunctionError';

@@ -8,6 +8,7 @@ import PlayControl from './play/play.controler';
 import TimeControl from './time/time.controler';
 import VolumeControl from './volume/volume.controler';
 import FullscreenControl from './full-screen/full-screen.controler';
+import WatchOnSite from './watch-on-site/watch-on-site.controler';
 import DependencyContainer from '../../core/dependency-container';
 
 
@@ -65,13 +66,26 @@ export default class ControlBlock {
   }
 
   _initControls() {
-    this.config.list.forEach(Control => {
+    const { list, watchOnSite } = this.config;
+
+    list.forEach(Control => {
       const controlName = Control.name;
       this._scope.register(controlName, asClass(Control));
       const control = this._scope.resolve(controlName);
       this._controls.push(control);
       this.view.appendControlNode(control.node || control.getNode());
     });
+
+    if (watchOnSite) {
+      this._scope.register('watchOnSite', asClass(WatchOnSite));
+      this._watchOnSite = this._scope.resolve('watchOnSite');
+
+      if (watchOnSite.showAlways && watchOnSite.logo) {
+        this.view.appendComponentNode(this._watchOnSite.node);
+      } else {
+        this.view.appendControlNode(this._watchOnSite.node);
+      }
+    }
   }
 
   _bindViewCallbacks() {
