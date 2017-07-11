@@ -209,7 +209,7 @@ export default class Engine {
   }
 
   getDebugInfo() {
-    const { attachedStream, src } = this._vidi;
+    const { attachedStream } = this._vidi;
     const { duration, currentTime } = this._video;
     let data;
 
@@ -226,10 +226,8 @@ export default class Engine {
     }
 
     return {
-      attachedStreamName: attachedStream && attachedStream.constructor.name,
       ...data,
-      ...this._getViewPortSizes(),
-      src,
+      viewDimensions: this._getViewDimensions(),
       currentTime,
       duration,
       loadingStateTimestamps: this._getStateTimestamps()
@@ -252,6 +250,7 @@ export default class Engine {
     const nearestBufferSegInfo = getNearestBufferSegmentInfo(dashPlayer.getVideoElement().buffered, currentTime);
 
     return {
+      ...this._vidi.attachedStream.mediaStream,
       bitrates,
       currentBitrate,
       overallBufferLength,
@@ -281,6 +280,7 @@ export default class Engine {
     }
 
     return {
+      ...this._vidi.attachedStream.mediaStream,
       bitrates,
       currentBitrate,
       overallBufferLength,
@@ -294,21 +294,20 @@ export default class Engine {
     const overallBufferLength = geOverallBufferLength(buffered);
     const nearestBufferSegInfo = getNearestBufferSegmentInfo(buffered, currentTime);
     let bitrates;
-    let currentBitrates;
+    let currentBitrate;
     if (vidi.attachedStream) {
       bitrates = vidi.attachedStream.mediaStreams;
-      currentBitrates = bitrates[0];
+      currentBitrate = bitrates[0];
     }
 
     return {
-      bitrates,
-      currentBitrates,
+      ...currentBitrate,
       overallBufferLength,
       nearestBufferSegInfo
     };
   }
 
-  _getViewPortSizes() {
+  _getViewDimensions() {
     return {
       width: this._video.offsetWidth,
       height: this._video.offsetHeight

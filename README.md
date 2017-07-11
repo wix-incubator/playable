@@ -121,9 +121,12 @@ document.body.appendChild(player.node);
 ```Player.getDebugInfo``` Return object with internal debug info
 ```javascript
   {
-    attachedStreamName, // Name of current attached stream (HLS, DASH, MPEG, WEBM)
-    width, height, // Current size of view port provided by engine (right now - actual size of video tag)
-    src, // Current source
+    type, // Name of current attached stream (HLS, DASH, MP4, WEBM)
+    viewDimensions: { 
+      width, 
+      height 
+    }, // Current size of view port provided by engine (right now - actual size of video tag)
+    url, // Url of current source
     currentTime, // Current time of playback
     duration, // Duration of current video
     loadingStateTimestamps, // Object with time spend for different initial phases
