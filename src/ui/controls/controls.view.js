@@ -68,6 +68,10 @@ class ControlsView extends View {
     return this.$node[0];
   }
 
+  appendComponentNode(node) {
+    this.$wrapper.append(node);
+  }
+
   appendControlNode(node) {
     this.$controlsContainer.append(node);
   }
