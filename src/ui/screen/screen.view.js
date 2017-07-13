@@ -10,7 +10,7 @@ const SECONDS_COUNT = 5;
 class ScreenView extends View {
   constructor(config) {
     super(config);
-    const { callbacks, nativeControls, indicateScreenClick } = config;
+    const { callbacks, nativeControls, indicateScreenClick, playbackViewNode } = config;
 
     this._nativeControls = nativeControls;
     this._indicateScreenClick = indicateScreenClick;
@@ -38,6 +38,19 @@ class ScreenView extends View {
     this.increaseVolumeIcon = `<div class="${this.styleNames.icon}"><svg class="${this.styleNames['increase-volume-icon']} ${this.styleNames['animated-icon']}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 14"><g fill="none" fill-rule="evenodd"><path fill="#FFF" d="M0 3.919h2.993v5.97H0V3.92zm2.995-.015L7 .924v12L2.995 9.882v-5.98z"/><path stroke="#FFF" d="M12.793 13.716a9.607 9.607 0 0 0 0-13.586M9.853 10.837a5.45 5.45 0 0 0 0-7.707"/></g></svg></div>`;
 
     this._bindEvents();
+
+    this.$topBackground = $('<div>', {
+      class: this.styleNames['top-gradient-background']
+    });
+
+    this.$bottomBackground = $('<div>', {
+      class: this.styleNames['bottom-gradient-background']
+    });
+
+    this.$node
+      .append(playbackViewNode)
+      .append(this.$topBackground)
+      .append(this.$bottomBackground);
   }
 
   _bindEvents() {
@@ -88,6 +101,22 @@ class ScreenView extends View {
 
   getNode() {
     return this.$node[0];
+  }
+
+  showTopShadow() {
+    this.$topBackground.addClass(this.styleNames.visible);
+  }
+
+  hideTopShadow() {
+    this.$topBackground.removeClass(this.styleNames.visible);
+  }
+
+  showBottomShadow() {
+    this.$bottomBackground.addClass(this.styleNames.visible);
+  }
+
+  hideBottomShadow() {
+    this.$bottomBackground.removeClass(this.styleNames.visible);
   }
 
   appendPlaybackViewNode(node) {

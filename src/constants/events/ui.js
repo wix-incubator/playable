@@ -17,7 +17,11 @@ const UI_EVENTS = {
   PROGRESS_MANIPULATION_ENDED: 'ui-progress-manipulation-ended',
   ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED: 'ui-engine-control-through-keyboard-triggered',
   LOADER_SHOW_TRIGGERED: 'ui-loader-show-triggered',
-  LOADER_HIDE_TRIGGERED: 'ui-loader-hide-triggered'
+  LOADER_HIDE_TRIGGERED: 'ui-loader-hide-triggered',
+  SHOW_TOP_SHADOW_TRIGGERED: 'ui-show-top-shadow-triggered',
+  SHOW_BOTTOM_SHADOW_TRIGGERED: 'ui-show-bottom-shadow-triggered',
+  HIDE_TOP_SHADOW_TRIGGERED: 'ui-hide-top-shadow-triggered',
+  HIDE_BOTTOM_SHADOW_TRIGGERED: 'ui-hide-bottom-shadow-triggered'
 };
 
 export default UI_EVENTS;

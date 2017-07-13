@@ -22,17 +22,12 @@ class ControlsView extends View {
       tabIndex: 0
     });
 
-    const background = $('<div>', {
-      class: this.styleNames['gradient-background']
-    });
-
     this.$controlsContainer = $('<div>', {
       class: this.styleNames.controls,
       'data-hook': 'controls-container'
     });
 
     this.$wrapper
-      .append(background)
       .append(this.$controlsContainer);
 
     this.$node.append(this.$wrapper);

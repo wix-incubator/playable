@@ -92,9 +92,9 @@ class PlayerUI {
 
     this._initLoadingCover();
 
-    this.view.appendComponentNode(this._screen.node);
-
     this._initControls();
+
+    this.view.appendComponentNode(this._screen.node);
   }
 
   _initOverlay() {
@@ -135,7 +135,7 @@ class PlayerUI {
     if (config === false) {
       return;
     }
-    this._screen.view.appendComponentNode(this._controls.node);
+    this.view.appendComponentNode(this._controls.node);
   }
 
   _initCustomUI() {
@@ -150,7 +150,7 @@ class PlayerUI {
 
       this.customComponents[key] = component;
 
-      this._screen.view.appendComponentNode(component.getNode());
+      this.view.appendComponentNode(component.getNode());
     });
   }
 

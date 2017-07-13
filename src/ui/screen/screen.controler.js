@@ -37,7 +37,6 @@ export default class Screen {
 
     this._bindCallbacks();
     this._initUI();
-    this.view.appendPlaybackViewNode(this._engine.getNode());
     this._bindEvents();
   }
 
@@ -58,7 +57,8 @@ export default class Screen {
       nativeControls: this.config.nativeControls,
       callbacks: {
         onWrapperKeyPress: this._processKeyboardInput
-      }
+      },
+      playbackViewNode: this._engine.getNode()
     };
 
     if (!this.config.disableClickProcessing) {
@@ -72,11 +72,19 @@ export default class Screen {
   _bindEvents() {
     this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
     this._eventEmitter.on(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
+    this._eventEmitter.on(UI_EVENTS.SHOW_TOP_SHADOW_TRIGGERED, this.view.showTopShadow, this.view);
+    this._eventEmitter.on(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED, this.view.showBottomShadow, this.view);
+    this._eventEmitter.on(UI_EVENTS.HIDE_TOP_SHADOW_TRIGGERED, this.view.hideTopShadow, this.view);
+    this._eventEmitter.on(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED, this.view.hideBottomShadow, this.view);
   }
 
   _unbindEvents() {
     this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
     this._eventEmitter.off(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
+    this._eventEmitter.off(UI_EVENTS.SHOW_TOP_SHADOW_TRIGGERED, this.view.showTopShadow, this.view);
+    this._eventEmitter.off(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED, this.view.showBottomShadow, this.view);
+    this._eventEmitter.off(UI_EVENTS.HIDE_TOP_SHADOW_TRIGGERED, this.view.hideTopShadow, this.view);
+    this._eventEmitter.off(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED, this.view.hideBottomShadow, this.view);
   }
 
   _setFullScreenStatus(isInFullScreen) {
