@@ -2,7 +2,7 @@
 
 .controls-block {
   position: absolute;
-  z-index: 50;
+  z-index: 60;
   right: 0;
   bottom: 0;
   left: 0;
@@ -30,31 +30,7 @@
 
       opacity: 1;
     }
-
-    .gradient-background {
-      visibility: visible;
-
-      opacity: 1;
-    }
   }
-}
-
-.gradient-background {
-  position: absolute;
-  z-index: 3;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  visibility: hidden;
-
-  height: 182px;
-
-  transition: opacity .2s, visibility .2s;
-
-  opacity: 0;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(91, 88, 88, .03) 16%, rgba(43, 41, 41, .09) 39%, rgba(0, 0, 0, .15) 67%, rgba(0, 0, 0, .3));
-  background-size: 100% 182px;
 }
 
 .controls {

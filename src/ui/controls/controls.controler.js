@@ -130,6 +130,7 @@ export default class ControlBlock {
 
   _showContent() {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED);
 
     this.view.showControlsBlock();
   }
@@ -137,6 +138,7 @@ export default class ControlBlock {
   _hideContent() {
     if (!this._isVideoPaused) {
       this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED);
 
       this.view.hideControlsBlock();
     }
