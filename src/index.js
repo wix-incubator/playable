@@ -1,6 +1,6 @@
-import { MediaStreamTypes } from 'vidi';
-
 import create, { registerModule } from './core/player-fabric';
+
+import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from './constants/media-stream';
 import UI_EVENTS from './constants/events/ui';
 import VIDEO_EVENTS from './constants/events/video';
 import { STATES as ENGINE_STATES } from './playback-engine/playback-engine';
@@ -38,7 +38,8 @@ export {
   UI_EVENTS,
   VIDEO_EVENTS,
   ENGINE_STATES,
-  MediaStreamTypes,
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_TYPE,
   create,
   registerModule
 };
@@ -50,7 +51,8 @@ export default {
   UI_EVENTS,
   VIDEO_EVENTS,
   ENGINE_STATES,
-  MediaStreamTypes,
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_TYPE,
   create,
   registerModule
 };

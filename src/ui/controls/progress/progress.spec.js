@@ -72,7 +72,6 @@ describe('ProgressControl', () => {
       expect(control.destroy).to.exist;
       control.destroy();
       expect(control.view).to.not.exist;
-      expect(control._vidi).to.not.exist;
       expect(control._eventEmitter).to.not.exist;
       expect(spy.called).to.be.true;
     });
