@@ -14,12 +14,16 @@
 }
 
 .wrapper img {
-  max-width: 150px;
-  max-height: 25px;
+  max-width: 125px;
+  max-height: 14px;
 
   @include in-full-screen() {
-    max-width: 300px;
-    max-height: 50px;
+    max-width: 400px;
+    max-height: 21px;
+  }
+  @include max-width-550() {
+    max-width: 70px;
+    max-height: 14px;
   }
 }
 
