@@ -56,8 +56,6 @@
   }
 
   &.in-full-screen {
-    background-image: url('../../../assets/view-on-site.svg');
-
     &:hover {
       transform: scale(.8);
     }

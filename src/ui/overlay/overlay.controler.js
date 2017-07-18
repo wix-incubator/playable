@@ -5,7 +5,7 @@ import View from './overlay.view';
 
 
 const DEFAULT_CONFIG = {
-  poster: ''
+  poster: false
 };
 
 export default class Overlay {

@@ -19,9 +19,7 @@ class OverlayView extends View {
       class: this.styleNames.overlay
     });
 
-    if (src) {
-      this.$content.css('background-image', `url('${src}')`);
-    }
+    this.setBackgroundSrc(src);
 
     this.$playButton = $('<div>', {
       class: this.styleNames.icon
@@ -53,7 +51,9 @@ class OverlayView extends View {
   }
 
   setBackgroundSrc(src) {
-    this.$content.css('background-image', `url('${src}')`);
+    if (src) {
+      this.$content.css('background-image', `url('${src}')`);
+    }
   }
 
   _unbindEvents() {

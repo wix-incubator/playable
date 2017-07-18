@@ -44,8 +44,10 @@ class LoadingCoverView extends View {
   }
 
   setCover(url) {
-    this.$image.addClass(this.styleNames.hidden);
-    this.$image.attr('src', url);
+    if (url) {
+      this.$image.addClass(this.styleNames.hidden);
+      this.$image.attr('src', url);
+    }
   }
 
   destroy() {
