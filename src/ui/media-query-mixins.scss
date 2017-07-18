@@ -1,11 +1,11 @@
-@mixin query-basic($query, $value) {
-  div[data-hook='controls-container'][#{$query}~=#{'"' + $value + '"'}] & {
+@mixin in-full-screen() {
+  div[data-hook='player-container'][data-in-full-screen='true'] & {
     @content
   }
 }
 
-@mixin in-full-screen() {
-  div[data-hook='player-container'][data-in-full-screen='true'] & {
+@mixin query-basic($query, $value) {
+  div[data-hook='player-container'][#{$query}~=#{'"' + $value + '"'}] & {
     @content
   }
 }
@@ -30,6 +30,36 @@
 
 @mixin max-width-300() {
   @include query-basic(max-width, 300px) {
+    @content
+  }
+}
+
+@mixin controls-query-basic($query, $value) {
+  div[data-hook='controls-container'][#{$query}~=#{'"' + $value + '"'}] & {
+    @content
+  }
+}
+
+@mixin controls-max-width-550() {
+  @include controls-query-basic(max-width, 550px) {
+    @content
+  }
+}
+
+@mixin controls-max-width-400() {
+  @include controls-query-basic(max-width, 400px) {
+    @content
+  }
+}
+
+@mixin controls-max-width-350() {
+  @include controls-query-basic(max-width, 350px) {
+    @content
+  }
+}
+
+@mixin controls-max-width-300() {
+  @include controls-query-basic(max-width, 300px) {
     @content
   }
 }

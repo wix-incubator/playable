@@ -19,7 +19,7 @@
     margin-right: 30px;
     margin-left: 30px;
   }
-  @include max-width-550() {
+  @include controls-max-width-550() {
     margin-left: 12px;
   }
 }

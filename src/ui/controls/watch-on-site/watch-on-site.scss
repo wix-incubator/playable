@@ -15,15 +15,19 @@
 
 .wrapper img {
   max-width: 125px;
-  max-height: 14px;
+  max-height: 24px;
 
-  @include in-full-screen() {
-    max-width: 400px;
-    max-height: 21px;
-  }
   @include max-width-550() {
+    max-width: 90px;
+    max-height: 18px;
+  }
+  @include max-width-350() {
     max-width: 70px;
     max-height: 14px;
+  }
+  @include in-full-screen() {
+    max-width: 450px;
+    max-height: 36px;
   }
 }
 

@@ -21,7 +21,7 @@ $color: white !default;
     height: 35px;
     margin-right: 30px;
   }
-  @include max-width-300() {
+  @include controls-max-width-300() {
     @include hidden();
   }
 

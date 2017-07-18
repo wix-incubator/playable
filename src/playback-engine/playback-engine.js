@@ -260,11 +260,11 @@ export default class Engine {
   }
 
   _getHLSInfo(hls) {
-    const overallBufferLength = geOverallBufferLength(hls.streamController.mediaBuffer.buffered);
     let bitrates;
     let currentTime = 0;
     let currentBitrate = null;
     let nearestBufferSegInfo = null;
+    let overallBufferLength = null;
 
     if (hls.levelController) {
       bitrates = hls.levelController.levels;
@@ -275,6 +275,7 @@ export default class Engine {
     if (hls.streamController) {
       currentTime = hls.streamController.lastCurrentTime;
       if (hls.streamController.mediaBuffer) {
+        overallBufferLength = geOverallBufferLength(hls.streamController.mediaBuffer.buffered);
         nearestBufferSegInfo = getNearestBufferSegmentInfo(hls.streamController.mediaBuffer.buffered, currentTime);
       }
     }
@@ -419,10 +420,6 @@ export default class Engine {
 
   getPreload() {
     return this._video.preload;
-  }
-
-  getReadyState() {
-    return this._video.readyState;
   }
 
   getCurrentTime() {
