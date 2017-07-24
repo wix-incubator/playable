@@ -1,0 +1,32 @@
+import { expect } from 'chai';
+import { detectStreamType } from './detect-stream-type';
+import { MEDIA_STREAM_TYPES } from '../constants/media-stream';
+
+
+describe('Stream type auto detection', function () {
+  const testURL = 'http://mocked-domain.com/some/internalPath/';
+  const formatsToTest = [
+    { type: MEDIA_STREAM_TYPES.MP4, fileName: 'video.mp4' },
+    { type: MEDIA_STREAM_TYPES.WEBM, fileName: 'video.webm' },
+    { type: MEDIA_STREAM_TYPES.HLS, fileName: 'video.m3u8' },
+    { type: MEDIA_STREAM_TYPES.DASH, fileName: 'video.mpd' },
+  ];
+
+  formatsToTest.forEach(formatToTest => {
+    it(`should detect ${formatToTest.type} URLs`, function () {
+      const URL = testURL + formatToTest.fileName;
+
+      expect(detectStreamType(URL)).to.equal(formatToTest.type);
+    });
+  });
+
+  it('should detect type even if URL contains query params and/or fragments', function () {
+    const mp4URL = testURL + 'video.mp4';
+    const queryParam = '?data=true';
+    const fragment = '#sectionOnPage';
+    expect(detectStreamType(mp4URL + queryParam)).to.equal(MEDIA_STREAM_TYPES.MP4);
+    expect(detectStreamType(mp4URL + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
+    expect(detectStreamType(mp4URL + queryParam + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
+  });
+});
+

@@ -1,14 +1,20 @@
-import express from 'express';
-import { render } from './tmpl';
+const express = require('express');
+const render = require('./tmpl');
+const generateMediaResponse = require('./http-media-response');
 
-export function start(port = 4000) {
+module.exports = function start(port = 5000, onListen = () => {}) {
   const app = express();
 
-  app.use('/', (req, res) => {
+  app.get('/', (req, res) => {
     res.send(render('./server/index.ejs'));
   });
 
+  app.get('/assets/:fileName', (req, res) => {
+    generateMediaResponse(req, res);
+  });
+
   return app.listen(port, () => {
-    console.log(`Fake server is running on port ${port}`); //eslint-disable-line
+    console.log('Server is listening on port ' + port + '...');
+    onListen();
   });
 }

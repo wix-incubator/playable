@@ -3,6 +3,7 @@ node_modules/**
 dist/**
 *.spec.js
 src/index.html
+src/playback-test.js
 *.html
 *.json
 src/*.ejs

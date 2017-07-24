@@ -17,11 +17,11 @@
     "lint": "yoshi lint",
     "csscomb": "csscomb src/.",
     "csscomb:lint": "csscomb -lv src/.",
-    "test": "yoshi test --mocha",
+    "test": "yoshi test --mocha && node ./test/boot-mediaserver-and-test",
     "build": "yoshi build",
     "deploy": "yoshi build && gh-pages -d dist/statics",
     "release": "yoshi release",
-    "precommit": "npm run lint && npm run csscomb:lint && npm test"
+    "precommit": "npm run lint && npm run csscomb:lint && npm run build && npm test"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -47,7 +47,7 @@
     "gh-pages": "^0.12.0",
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
-    "sinon": "^1.17.7",
+    "sinon": "^2.3.8",
     "yoshi": "^1.1.98"
   },
   "babel": {
@@ -60,8 +60,11 @@
     "separateCss": false,
     "exports": "VideoPlayer",
     "entry": {
-      "video-player": "./index.js"
-    }
+      "video-player": "./index.js",
+      "video-player-test": "./playback-test.js"
+    },
+    "externalUnprocessedModules": [
+    ]
   },
   "keywords": [
     "player",

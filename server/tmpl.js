@@ -1,7 +1,7 @@
-import fs from 'fs';
-import ejs from 'ejs';
+const fs = require('fs');
+const ejs = require('ejs');
 
-export function render(template, data) {
+module.exports = function render(template, data) {
   const options = Object.assign({
     debug: true,
     basename: '/',
