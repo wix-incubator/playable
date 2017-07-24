@@ -8,7 +8,7 @@ import ControlsBlock from './controls.controler';
 import Engine from '../../playback-engine/playback-engine';
 import { container } from '../../core/player-fabric';
 
-import VIDEO_EVENTS, { VIDI_PLAYBACK_STATUSES } from '../../constants/events/video';
+import { VIDEO_EVENTS } from '../../constants';
 
 import EventEmitter from 'eventemitter3';
 

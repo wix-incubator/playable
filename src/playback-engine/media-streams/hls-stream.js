@@ -1,11 +1,10 @@
 import HlsJs from 'hls.js/lib';
 
-import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants/media-stream';
-import Errors from '../../constants/errors';
+import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants';
 import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 
-export class HlsStream {
+export default class HlsStream {
   static isSupported(env) {
     return env.MSE && HlsJs.isSupported();
   }
@@ -37,7 +36,7 @@ export class HlsStream {
     };
     this.onError = (type, errorEvent) => {
       if (errorEvent && (errorEvent.details === 'manifestParsingError' || errorEvent.details === 'manifestLoadError')) {
-        this.eventEmitter.emit('error', Errors.SRC_LOAD_ERROR, this.mediaStream && this.mediaStream.url, errorEvent);
+        this.eventEmitter.emit('error', ERRORS.SRC_LOAD_ERROR, this.mediaStream && this.mediaStream.url, errorEvent);
       }
     };
     if (mediaStreams.length === 1) {

@@ -2,7 +2,7 @@ import { ElementQueries } from 'css-element-queries';
 
 import DependencyContainer from '../core/dependency-container';
 
-import UI_EVENTS from '../constants/events/ui';
+import { UI_EVENTS } from '../constants';
 
 import View from './ui.view';
 

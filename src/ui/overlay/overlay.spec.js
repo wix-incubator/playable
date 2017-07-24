@@ -8,8 +8,7 @@ import EventEmitter from 'eventemitter3';
 import Overlay from './overlay.controler';
 import Engine from '../../playback-engine/playback-engine';
 
-import VIDEO_EVENTS from '../../constants/events/video';
-import UI_EVENTS from '../../constants/events/ui';
+import { VIDEO_EVENTS, UI_EVENTS } from '../../constants';
 
 
 describe('Overlay', () => {

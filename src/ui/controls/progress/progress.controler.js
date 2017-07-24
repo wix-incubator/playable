@@ -2,8 +2,7 @@ import View from './progress.view';
 
 import { getOverallBufferedPercent, getOverallPlayedPercent } from '../../../utils/video-data';
 
-import VIDEO_EVENTS from '../../../constants/events/video';
-import UI_EVENTS from '../../../constants/events/ui';
+import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants';
 
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;

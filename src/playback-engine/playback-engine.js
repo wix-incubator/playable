@@ -1,7 +1,7 @@
 import noop from 'lodash/noop';
 
-import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../constants/media-stream';
-import { HlsStream, DashStream, getNativeStreamCreator } from './media-streams';
+import HlsStream from './media-streams/hls-stream';
+import getNativeStreamCreator from './media-streams/native-stream';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import { resolvePlayableStreams } from '../utils/playback-resolution';
 import { detectStreamType } from '../utils/detect-stream-type';
@@ -11,10 +11,18 @@ import NativeEventsBroadcast from './native-events-broadcast';
 
 import { iPhone, iPod, Android, iPad } from '../utils/device-detection';
 
-import VIDEO_EVENTS from '../constants/events/video';
+import { VIDEO_EVENTS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../constants';
 
 
 const DEFAULT_INITIAL_BITRATE = 1750; // 1750kbps, can be modified via setInitialBitrate()
+
+const streamCreators = [
+  getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
+  HlsStream,
+  //DashStream,
+  getNativeStreamCreator(MEDIA_STREAM_TYPES.MP4, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE),
+  getNativeStreamCreator(MEDIA_STREAM_TYPES.WEBM, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE) // Native WebM (Chrome, Firefox)
+];
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 export default class Engine {
@@ -31,14 +39,6 @@ export default class Engine {
     this.currentSrc = null;
     this.playableStreams = null;
     this.attachedStream = null;
-
-    const streamCreators = [
-      getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
-      HlsStream,
-      DashStream,
-      getNativeStreamCreator(MEDIA_STREAM_TYPES.MP4, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE),
-      getNativeStreamCreator(MEDIA_STREAM_TYPES.WEBM, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE) // Native WebM (Chrome, Firefox)
-    ];
 
     // Only add supported handlers
     streamCreators.forEach(
@@ -163,7 +163,7 @@ export default class Engine {
     if (src === this.currentSrc) {
       return;
     }
-    
+
     this._stateEngine.clearTimestamps();
 
     this._detachCurrentStream();

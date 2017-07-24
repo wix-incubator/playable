@@ -1,8 +1,6 @@
 import create, { registerModule } from './core/player-fabric';
 
-import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from './constants/media-stream';
-import UI_EVENTS from './constants/events/ui';
-import VIDEO_EVENTS from './constants/events/video';
+import { UI_EVENTS, VIDEO_EVENTS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from './constants';
 import { STATES as ENGINE_STATES } from './playback-engine/playback-engine';
 
 import DefaultControls from './ui/controls/default-controls';

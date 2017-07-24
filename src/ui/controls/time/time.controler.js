@@ -1,6 +1,6 @@
 import View from './time.view';
 
-import VIDEO_EVENTS from '../../../constants/events/video';
+import { VIDEO_EVENTS } from '../../../constants';
 
 const UPDATE_INTERVAL_DELAY = 500;
 

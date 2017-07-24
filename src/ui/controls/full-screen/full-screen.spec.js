@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 
 import FullScreenControl from './full-screen.controler';
-import UI_EVENTS from '../../../constants/events/ui';
+import { UI_EVENTS } from '../../../constants';
 
 
 describe('FullScreenControl', () => {

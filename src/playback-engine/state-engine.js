@@ -1,4 +1,4 @@
-import VIDEO_EVENTS from '../constants/events/video';
+import { VIDEO_EVENTS } from '../constants';
 
 
 export const STATES = {

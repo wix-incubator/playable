@@ -8,7 +8,7 @@ import ProgressControl from './progress.controler';
 import Engine from '../../../playback-engine/playback-engine';
 import getProxy from '../../../utils/test-proxy';
 
-import VIDEO_EVENTS from '../../../constants/events/video';
+import { VIDEO_EVENTS } from '../../../constants';
 
 
 describe('ProgressControl', () => {

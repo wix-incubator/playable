@@ -5,7 +5,6 @@ import sinon from 'sinon';
 
 import EventEmitter from 'eventemitter3';
 
-import UI_EVENTS from '../../constants/events/ui';
 import getProxy from '../../utils/test-proxy';
 
 import Engine from '../../playback-engine/playback-engine';

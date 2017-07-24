@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import PlayControl from './play.controler';
 import Engine from '../../../playback-engine/playback-engine';
 
-import VIDEO_EVENTS from '../../../constants/events/video';
+import { VIDEO_EVENTS } from '../../../constants';
 
 
 describe('PlayControl', () => {

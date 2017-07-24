@@ -1,13 +1,12 @@
 import { MediaPlayer } from 'dashjs';
 
-import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants/media-stream';
-import Errors from '../../constants/errors';
+import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants';
 import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 
 const DashEvents = MediaPlayer.events;
 
-export class DashStream {
+export default class DashStream {
   static isSupported(env) {
     return env.MSE;
   }
@@ -25,7 +24,7 @@ export class DashStream {
         return;
       }
       if (errorEvent.error === 'manifestError' || (errorEvent.error === 'download' && errorEvent.event.id === 'manifest')) {
-        this.eventEmitter.emit('error', Errors.SRC_LOAD_ERROR, this.mediaStream && this.mediaStream.url, errorEvent);
+        this.eventEmitter.emit('error', ERRORS.SRC_LOAD_ERROR, this.mediaStream && this.mediaStream.url, errorEvent);
       }
     };
     this.onStreamInitialized = () => {

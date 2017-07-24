@@ -2,8 +2,7 @@ import { iPhone, iPod, iPad } from '../utils/device-detection';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
-import UI_EVENTS from '../constants/events/ui';
-import VIDEO_EVENTS from '../constants/events/video';
+import { VIDEO_EVENTS, UI_EVENTS } from '../constants';
 
 
 const DEFAULT_CONFIG = {

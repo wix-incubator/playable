@@ -1,7 +1,7 @@
 import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 
-export function getNativeStreamCreator(streamType, deliveryType) {
+export default function getNativeStreamCreator(streamType, deliveryType) {
   class NativeStream {
     static isSupported(env) {
       return env[streamType];

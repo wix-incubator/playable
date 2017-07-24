@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import TimeControl from './time.controler';
 import Engine from '../../../playback-engine/playback-engine';
 import { formatTime } from './time.view';
-import VIDEO_EVENTS from '../../../constants/events/video';
+import { VIDEO_EVENTS } from '../../../constants';
 
 
 describe('TimeControl', () => {

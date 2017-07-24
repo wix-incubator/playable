@@ -1,5 +1,5 @@
-import VIDEO_EVENTS from '../../constants/events/video';
-import UI_EVENTS from '../../constants/events/ui';
+import { VIDEO_EVENTS, UI_EVENTS } from '../../constants';
+
 
 import View from './loader.view';
 
