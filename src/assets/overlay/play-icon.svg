@@ -1,14 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="71px" height="71px" viewBox="0 0 71 71" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
-    <title>Play_Cover_2px</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Play_Cover_2px">
-            <circle id="Oval" fill-opacity="0.2" fill="#000000" cx="35.5" cy="35.5" r="35.5"></circle>
-            <path d="M35.5,69 C54.0015391,69 69,54.0015391 69,35.5 C69,16.9984609 54.0015391,2 35.5,2 C16.9984609,2 2,16.9984609 2,35.5 C2,54.0015391 16.9984609,69 35.5,69 Z M35.5,71 C15.8938914,71 0,55.1061086 0,35.5 C0,15.8938914 15.8938914,0 35.5,0 C55.1061086,0 71,15.8938914 71,35.5 C71,55.1061086 55.1061086,71 35.5,71 Z" id="Oval" fill="#FFFFFF"></path>
-            <polygon id="Triangle" fill="#FFFFFF" points="48 35.5 28 47 28 24"></polygon>
-        </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+    <g fill="none" fill-rule="evenodd">
+        <circle cx="18" cy="18" r="17" stroke="#FFF" stroke-width="2"/>
+        <path fill="#FFF" d="M23.935 17.708l-10.313 6.033V11.676z"/>
     </g>
 </svg>
