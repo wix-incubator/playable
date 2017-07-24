@@ -12,11 +12,12 @@ class OverlayView extends View {
     this._callbacks = callbacks;
 
     this.$node = $('<div>', {
+      class: this.styleNames.overlay,
       'data-hook': 'overlay'
     });
 
     this.$content = $('<div>', {
-      class: this.styleNames.overlay
+      class: this.styleNames.poster
     });
 
     this.setBackgroundSrc(src);
@@ -25,11 +26,9 @@ class OverlayView extends View {
       class: this.styleNames.icon
     });
 
-    this.$content
-      .append(this.$playButton);
-
     this.$node
-      .append(this.$content);
+      .append(this.$content)
+      .append(this.$playButton);
 
     this._bindEvents();
   }
