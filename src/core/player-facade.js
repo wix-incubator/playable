@@ -135,8 +135,20 @@ export default class Player {
     this._defaultModules.ui.setLoadingCover(url);
   }
 
-  setWatchOnSiteConfig(config) {
-    this._defaultModules.ui.setWatchOnSiteConfig(config);
+  setWatchOnSiteLogo(logo) {
+    this._defaultModules.ui.setLogo(logo);
+  }
+
+  setWatchOnSiteLink(link) {
+    this._defaultModules.ui.setLink(link);
+  }
+
+  setWatchOnSiteAlwaysShowFlag(isShowAlways) {
+    this._defaultModules.ui.setWatchOnSiteAlwaysShowFlag(isShowAlways);
+  }
+
+  removeWatchOnSite() {
+    this._defaultModules.ui.removeWatchOnSite();
   }
 
   getDebugInfo() {

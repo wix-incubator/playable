@@ -44,6 +44,7 @@ export default class ControlBlock {
     this._bindViewCallbacks();
     this._initUI();
     this._initControls();
+    this._initWatchOnSite();
     this._bindEvents();
   }
 
@@ -67,7 +68,7 @@ export default class ControlBlock {
   }
 
   _initControls() {
-    const { list, watchOnSite } = this.config;
+    const { list } = this.config;
 
     list.forEach(Control => {
       const controlName = Control.name;
@@ -77,15 +78,16 @@ export default class ControlBlock {
       this.view.appendControlNode(control.node || control.getNode());
     });
 
+
+  }
+  _initWatchOnSite() {
+    const { watchOnSite } = this.config;
+
     this._scope.register('watchOnSite', asClass(WatchOnSite));
     this._watchOnSite = this._scope.resolve('watchOnSite');
 
     if (watchOnSite) {
-      if (watchOnSite.showAlways && watchOnSite.logo) {
-        this.view.appendComponentNode(this._watchOnSite.node);
-      } else {
-        this.view.appendControlNode(this._watchOnSite.node);
-      }
+      this.setWatchOnSiteAlwaysShowFlag(watchOnSite.showAlways);
     }
   }
 
@@ -176,19 +178,24 @@ export default class ControlBlock {
     this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
   }
 
-  setWatchOnSiteConfig(config) {
-    this.config.watchOnSite = config;
+  setWatchOnSiteLogo(logo) {
+    this._watchOnSite.setLogo(logo);
+  }
 
-    if (config) {
-      this._watchOnSite.setLogo(config.logo);
-      this._watchOnSite.setLink(config.url);
+  setWatchOnSiteLink(link) {
+    this._watchOnSite.setLink(link);
+  }
 
-      if (config.showAlways && config.logo) {
-        this.view.appendComponentNode(this._watchOnSite.node);
-      } else {
-        this.view.appendControlNode(this._watchOnSite.node);
-      }
+  setWatchOnSiteAlwaysShowFlag(isShowAlways) {
+    if (isShowAlways) {
+      this.view.appendComponentNode(this._watchOnSite.node);
+    } else {
+      this.view.appendControlNode(this._watchOnSite.node);
     }
+  }
+
+  removeWatchOnSite() {
+    this._watchOnSite.node.parentNode.removeChild(this._watchOnSite.node);
   }
 
   destroy() {

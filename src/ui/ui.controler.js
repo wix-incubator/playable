@@ -199,10 +199,20 @@ class PlayerUI {
     }
   }
 
-  setWatchOnSiteConfig(config) {
-    if (this._controls) {
-      this._controls.setWatchOnSiteConfig(config);
-    }
+  setWatchOnSiteLogo(logo) {
+    this._controls.setLogo(logo);
+  }
+
+  setWatchOnSiteLink(link) {
+    this._controls.setLink(link);
+  }
+
+  setWatchOnSiteAlwaysShowFlag(isShowAlways) {
+    this._controls.setWatchOnSiteAlwaysShowFlag(isShowAlways);
+  }
+
+  removeWatchOnSite() {
+    this._controls.removeWatchOnSite();
   }
 
   destroy() {
