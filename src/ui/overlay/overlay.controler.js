@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 import { VIDEO_EVENTS, UI_EVENTS } from '../../constants';
 
 import View from './overlay.view';
@@ -19,7 +21,7 @@ export default class Overlay {
     this.isContentHidden = false;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config.ui.overlay
+      ...get(config, 'ui.overlay')
     };
 
     this._bindEvents();

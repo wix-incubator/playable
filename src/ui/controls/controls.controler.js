@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 import { VIDEO_EVENTS, UI_EVENTS } from '../../constants';
 
 import View from './controls.view';
@@ -29,7 +31,7 @@ export default class ControlBlock {
     this._engine = engine;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config.ui.controls
+      ...get(config, 'ui.controls')
     };
     this._scope = scope;
     this.isHidden = false;
@@ -75,10 +77,10 @@ export default class ControlBlock {
       this.view.appendControlNode(control.node || control.getNode());
     });
 
-    if (watchOnSite) {
-      this._scope.register('watchOnSite', asClass(WatchOnSite));
-      this._watchOnSite = this._scope.resolve('watchOnSite');
+    this._scope.register('watchOnSite', asClass(WatchOnSite));
+    this._watchOnSite = this._scope.resolve('watchOnSite');
 
+    if (watchOnSite) {
       if (watchOnSite.showAlways && watchOnSite.logo) {
         this.view.appendComponentNode(this._watchOnSite.node);
       } else {
@@ -172,6 +174,21 @@ export default class ControlBlock {
     this._eventEmitter.off(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED, this._startHideControlsTimeout);
     this._eventEmitter.off(UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideControlsTimeout);
     this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+  }
+
+  setWatchOnSiteConfig(config) {
+    this.config.watchOnSite = config;
+
+    if (config) {
+      this._watchOnSite.setLogo(config.logo);
+      this._watchOnSite.setLink(config.url);
+
+      if (config.showAlways && config.logo) {
+        this.view.appendComponentNode(this._watchOnSite.node);
+      } else {
+        this.view.appendControlNode(this._watchOnSite.node);
+      }
+    }
   }
 
   destroy() {

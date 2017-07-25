@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 import { VIDEO_EVENTS, UI_EVENTS } from '../../constants';
 
 
@@ -15,7 +17,7 @@ export default class Loader {
     this.isHidden = false;
     this._engine = engine;
     this.config = {
-      ...config.ui.loader
+      ...get(config, 'ui.loader')
     };
 
     this.show = this.show.bind(this);

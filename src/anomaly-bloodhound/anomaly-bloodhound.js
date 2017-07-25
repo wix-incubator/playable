@@ -1,4 +1,5 @@
 import { VIDEO_EVENTS } from '../constants';
+import get from 'lodash/get';
 
 
 export const REPORT_REASONS = {
@@ -20,7 +21,7 @@ export default class AnomalyBloodhound {
 
   constructor({ engine, eventEmitter, config }) {
     this._config = {
-      ...config.anomalyBloodhound
+      ...get(config, 'anomalyBloodhound')
     };
     this._engine = engine;
     this._eventEmitter = eventEmitter;

@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 import { UI_EVENTS } from '../../constants';
 
 import View from './screen.view';
@@ -32,7 +34,7 @@ export default class Screen {
     this._delayedToggleVideoPlaybackTimeout = null;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config.ui.screen
+      ...get(config, 'ui.screen')
     };
 
     this._bindCallbacks();

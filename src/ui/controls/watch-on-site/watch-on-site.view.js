@@ -3,6 +3,7 @@ import $ from 'jbone';
 import View from '../../core/view';
 
 import styles from './watch-on-site.scss';
+import watchOnSiteIcon from '../../../assets/view-on-site.svg';
 
 
 class WatchOnSiteView extends View {
@@ -16,22 +17,27 @@ class WatchOnSiteView extends View {
       class: `${this.styleNames.wrapper} ${this.styleNames.icon}`
     });
 
-    if (config.logo) {
-      const $logo = $('<img>', {
-        src: config.logo
-      });
+    this.$logo = $('<img>', {
+      class: this.styleNames['watch-on-site-toggle'],
+      src: config.logo || watchOnSiteIcon
+    });
 
-      this.$node.append($logo);
-    } else {
-      const $toggle = $('<div>', {
-        class: this.styleNames['watch-on-site-toggle']
-      });
+    this.$node.append(this.$logo);
 
-      this.$node.append($toggle);
-    }
+    this.setLogo(config.logo);
 
     this._bindCallbacks();
     this._bindEvents();
+  }
+
+  setLogo(url) {
+    if (url) {
+      this.$logo.removeClass(this.styleNames['watch-on-site-toggle']);
+      this.$logo.attr('src', url);
+    } else {
+      this.$logo.addClass(this.styleNames['watch-on-site-toggle']);
+      this.$logo.attr('src', watchOnSiteIcon);
+    }
   }
 
   _bindCallbacks() {

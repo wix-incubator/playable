@@ -135,6 +135,10 @@ export default class Player {
     this._defaultModules.ui.setLoadingCover(url);
   }
 
+  setWatchOnSiteConfig(config) {
+    this._defaultModules.ui.setWatchOnSiteConfig(config);
+  }
+
   getDebugInfo() {
    return this._defaultModules.engine.getDebugInfo();
   }

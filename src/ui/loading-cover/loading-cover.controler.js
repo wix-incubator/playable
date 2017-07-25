@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 import { VIDEO_EVENTS, UI_EVENTS } from '../../constants';
 
 import View from './loading-cover.view';
@@ -13,7 +15,7 @@ export default class LoadingCover {
     this._engine = engine;
     this._controls = controls;
     this.config = {
-      ...config.ui.loadingCover
+      ...get(config, 'ui.loadingCover')
     };
 
     this.show = this.show.bind(this);

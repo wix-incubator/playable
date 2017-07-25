@@ -135,6 +135,7 @@ class PlayerUI {
     if (config === false) {
       return;
     }
+
     this.view.appendComponentNode(this._controls.node);
   }
 
@@ -195,6 +196,12 @@ class PlayerUI {
   setLoadingCover(url) {
     if (this._loadingCover) {
       this._loadingCover.setLoadingCover(url);
+    }
+  }
+
+  setWatchOnSiteConfig(config) {
+    if (this._controls) {
+      this._controls.setWatchOnSiteConfig(config);
     }
   }
 

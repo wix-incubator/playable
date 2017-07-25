@@ -1,3 +1,5 @@
+import get from 'lodash/get';
+
 import View from './watch-on-site.view';
 
 
@@ -7,7 +9,7 @@ export default class FullScreenControl {
 
   constructor({ engine, config }) {
     this._config = {
-      ...config.ui.controls.watchOnSite
+      ...get(config, 'ui.controls.watchOnSite')
     };
 
     this._engine = engine;
@@ -41,6 +43,14 @@ export default class FullScreenControl {
       this._engine.pause();
       window.open(this._config.url, '_blank');
     }
+  }
+
+  setLogo(url) {
+    this.view.setLogo(url);
+  }
+
+  setLink(url) {
+    this._config.url = url;
   }
 
   hide() {
