@@ -15,15 +15,15 @@
 
 .wrapper img {
   max-width: 125px;
-  max-height: 24px;
+  max-height: 26px;
 
   @include max-width-550() {
     max-width: 90px;
-    max-height: 18px;
+    max-height: 20px;
   }
   @include max-width-350() {
     max-width: 70px;
-    max-height: 14px;
+    max-height: 18px;
   }
   @include in-full-screen() {
     max-width: 450px;

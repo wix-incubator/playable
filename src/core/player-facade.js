@@ -136,11 +136,11 @@ export default class Player {
   }
 
   setWatchOnSiteLogo(logo) {
-    this._defaultModules.ui.setLogo(logo);
+    this._defaultModules.ui.setWatchOnSiteLogo(logo);
   }
 
   setWatchOnSiteLink(link) {
-    this._defaultModules.ui.setLink(link);
+    this._defaultModules.ui.setWatchOnSiteLink(link);
   }
 
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
