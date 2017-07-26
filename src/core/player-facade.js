@@ -27,6 +27,10 @@ export default class Player {
     return this._rootNode;
   }
 
+  attachToElement(node) {
+    this._defaultModules.ui.attachToElement(node);
+  }
+
   setAutoPlay(isAutoPlay) {
     this._defaultModules.engine.setAutoPlay(isAutoPlay);
   }

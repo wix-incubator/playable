@@ -25,16 +25,18 @@ Or in old school way, add a `<script>` element for video-player
 And write awesome code:
 
 ```javascript
-const player = VideoPlayer.create({
-  size: {
-    width: 700,
-    height: 394
-  }
-  src: 'http://my-url/video.mp4',
-  preload: 'metadata'
+document.addEventListener('DOMContentLoaded', function() {
+  const player = VideoPlayer.create({
+    size: {
+      width: 700,
+      height: 394
+    },
+    src: 'http://my-url/video.mp4',
+    preload: 'metadata'
+  });
+  
+  player.attachToElement(document.getElementById('content'));
 });
-
-document.getElementById('content').appendChild(player.node);
 ```
 
 ## API
@@ -98,13 +100,17 @@ const player = VideoPlayer.create({
 
 ```Player.off(eventName, listener)``` Method for removing listeners of events inside player.
 
-```Player.node``` Getter for DOM node with player UI element
+```Player.attachToElement(node)``` Method for attaching player node to your container
 
 ```javascript
-const player = VideoPlayer.create({ src: 'http://my-url/video.mp4' });
-
-document.body.appendChild(player.node);
+document.addEventListener('DOMContentLoaded', function() {
+  const player = VideoPlayer.create({ src: 'http://my-url/video.mp4' });
+  
+  player.attachToElement(document.getElementById('content'));
+});
 ```
+
+```Player.node``` Getter for DOM node with player UI element(use it only for debug, if you need attach player to your document use ```attachToElement``` method)
 
 ```Player.show()/hide()``` Show/Hide whole ui
 

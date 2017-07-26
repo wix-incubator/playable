@@ -38,11 +38,15 @@ class PlayerUI {
     this._initCustomUI();
 
     this._bindEvents();
-    ElementQueries.listen();
   }
 
   get node() {
     return this.view.getNode();
+  }
+
+  attachToElement(node) {
+    node.appendChild(this.node);
+    ElementQueries.init();
   }
 
   _bindCallbacks() {

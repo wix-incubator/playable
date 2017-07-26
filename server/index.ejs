@@ -34,7 +34,7 @@
   </div>
 </div>
 <script>
-  var player = VideoPlayer.create({
+  window.player = VideoPlayer.create({
     autoPlay: true,
     muted: false,
     loop: false,
@@ -57,8 +57,11 @@
       }
     },
     overlay: false,
+  }, false);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    window.player.attachToElement(document.getElementById('player'));
   });
-  document.getElementById('player').appendChild(player.node);
 </script>
 </body>
 </html>
