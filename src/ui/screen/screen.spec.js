@@ -1,3 +1,4 @@
+import $ from 'jbone';
 
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -135,6 +136,31 @@ describe('Loader', () => {
       timeoutClearSpy.restore();
     });
 
+    it('should add native controls if config passed', () => {
+      config = {
+        ui: {
+          screen: {
+            nativeControls: true
+          }
+        }
+      };
+
+      const video = $('<video>')[0];
+
+      video.setAttribute = sinon.spy();
+
+      engine.getNode = () => video;
+
+      screen = new Screen({
+        engine,
+        fullScreenManager,
+        ui,
+        config,
+        eventEmitter,
+      });
+
+      expect(video.setAttribute.calledWith('controls', 'true')).to.be.true;
+    })
 
     it('should emit ui event on enter full screen', () => {
       screen._enterFullScreen();

@@ -14,7 +14,6 @@ class ScreenView extends View {
 
     this._nativeControls = nativeControls;
     this._indicateScreenClick = indicateScreenClick;
-
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['screen-block'],
@@ -46,6 +45,10 @@ class ScreenView extends View {
     this.$bottomBackground = $('<div>', {
       class: this.styleNames['bottom-gradient-background']
     });
+
+    if (this._nativeControls) {
+      playbackViewNode.setAttribute('controls', 'true');
+    }
 
     this.$node
       .append(playbackViewNode)
@@ -112,18 +115,13 @@ class ScreenView extends View {
   }
 
   showBottomShadow() {
-    this.$bottomBackground.addClass(this.styleNames.visible);
+    if (!this._nativeControls) {
+      this.$bottomBackground.addClass(this.styleNames.visible);
+    }
   }
 
   hideBottomShadow() {
     this.$bottomBackground.removeClass(this.styleNames.visible);
-  }
-
-  appendPlaybackViewNode(node) {
-    this.$node.append(node);
-    if (this._nativeControls) {
-      node.setAttribute('controls', 'true');
-    }
   }
 
   _unbindEvents() {
