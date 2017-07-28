@@ -1,6 +1,7 @@
 import noop from 'lodash/noop';
 
 import HlsStream from './media-streams/hls-stream';
+import DashStream from './media-streams/dash-stream';
 import getNativeStreamCreator from './media-streams/native-stream';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import { resolvePlayableStreams } from '../utils/playback-resolution';
@@ -19,7 +20,7 @@ const DEFAULT_INITIAL_BITRATE = 1750; // 1750kbps, can be modified via setInitia
 const streamCreators = [
   getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
   HlsStream,
-  //DashStream,
+  DashStream,
   getNativeStreamCreator(MEDIA_STREAM_TYPES.MP4, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE),
   getNativeStreamCreator(MEDIA_STREAM_TYPES.WEBM, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE) // Native WebM (Chrome, Firefox)
 ];
