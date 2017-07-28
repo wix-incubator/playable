@@ -315,7 +315,7 @@ export default class Engine {
 
     this._stateEngine.destroy();
     this._nativeEventsBroadcast.destroy();
-    this._video.remove();
+    this._video.parentNode && this._video.parentNode.removeChild(this._video);
 
     delete this._eventEmitter;
     delete this._video;
