@@ -31,8 +31,7 @@ module.exports = function (config) {
 
         plugins: [
           require('karma-mocha'),
-          require('karma-chrome-launcher'),
-          require('karma-ie-launcher')
+          require('karma-chrome-launcher')
         ],
 
         // web server port
