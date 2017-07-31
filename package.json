@@ -29,11 +29,9 @@
     "css-element-queries": "^0.4.0",
     "dashjs": "^2.5.0",
     "eventemitter3": "^2.0.3",
-    "jbone": "^1.2.0",
     "hls.js": "^0.7.9",
-    "lodash": "^4.17.4",
-    "url-toolkit": "^2.1.1",
-    "webworkify": "^1.4.0"
+    "jbone": "^1.2.0",
+    "lodash": "^4.17.4"
   },
   "private": false,
   "devDependencies": {
@@ -63,8 +61,7 @@
       "video-player": "./index.js",
       "video-player-test": "./playback-test.js"
     },
-    "externalUnprocessedModules": [
-    ]
+    "externalUnprocessedModules": []
   },
   "keywords": [
     "player",

@@ -1,4 +1,4 @@
-import HlsJs from 'hls.js/lib';
+import HlsJs from 'hls.js';
 
 import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants';
 import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../../utils/video-data';
