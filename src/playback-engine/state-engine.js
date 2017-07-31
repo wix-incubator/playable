@@ -140,7 +140,6 @@ export default class Engine {
 
   destroy() {
     this._unbindEvents();
-    this._video.remove();
 
     delete this._eventEmitter;
     delete this._video;
