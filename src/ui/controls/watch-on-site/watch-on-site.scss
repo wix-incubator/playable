@@ -11,6 +11,10 @@
 
   justify-content: center;
   align-items: center;
+  @include max-width-550() {
+    margin-right: 12px;
+    margin-left: 6px;
+  }
 }
 
 .wrapper img {
