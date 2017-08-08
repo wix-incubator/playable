@@ -15,6 +15,9 @@
     margin-right: 12px;
     margin-left: 6px;
   }
+  @include in-full-screen() {
+    margin-right: 30px;
+  }
 }
 
 .wrapper img {
