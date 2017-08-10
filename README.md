@@ -50,25 +50,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 #### Playback attributes
 
-```config.loop``` Loop video playback
+```config.loop: Boolean``` Loop video playback
 
-```config.autoPlay``` Start video playback as soon as it can do so without stopping to finish loading the data.
+```config.autoPlay: Boolean``` Start video playback as soon as it can do so without stopping to finish loading the data.
 
-```config.preload``` Type of preloading. For more info check ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video))
+```config.preload: OneOf('auto', 'metadata', 'none')``` Type of preloading. For more info check ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video))
 
-```config.muted``` Status of audio playback. If set, the audio will be initially silenced
+```config.muted: Boolean``` Status of audio playback. If set, the audio will be initially silenced
 
-```config.volume``` Start value of volume for audio
+```config.volume: Number<0..1>``` Start value of volume for audio
 
-```config.playInline``` Attribute for playing inline in iOS
+```config.playInline: Boolean``` Attribute for playing inline in iOS
 
 #### UI
 
 ##### Size ```config.size```
 
-```config.size.width``` Width of video player
+```config.size.width: Number``` Width of video player
 
-```config.size.height``` Height of video player
+```config.size.height: Number``` Height of video player
 
 Create a new instance of video player
 
