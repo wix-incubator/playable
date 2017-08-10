@@ -8,7 +8,8 @@ describe('Playback e2e test', function () {
     { type: 'MP4', url: 'http://localhost:5000/assets/sample.mp4', supportedByEnv: NativeEnvironmentSupport.MP4 },
     { type: 'WEBM', url: 'http://localhost:5000/assets/sample.webm', supportedByEnv: NativeEnvironmentSupport.WEBM },
     { type: 'HLS', url: 'http://localhost:5000/assets/sample.m3u8', supportedByEnv: NativeEnvironmentSupport.HLS || NativeEnvironmentSupport.MSE },
-    { type: 'DASH', url: 'http://localhost:5000/assets/sample.mpd', supportedByEnv: NativeEnvironmentSupport.DASH || NativeEnvironmentSupport.MSE }
+    { type: 'DASH', url: 'http://localhost:5000/assets/sample.mpd', supportedByEnv: NativeEnvironmentSupport.DASH || NativeEnvironmentSupport.MSE },
+    { type: 'DASH or HLS', url: ['http://localhost:5000/assets/sample.m3u8', 'http://localhost:5000/assets/sample.mpd'], supportedByEnv: NativeEnvironmentSupport.HLS || NativeEnvironmentSupport.DASH || NativeEnvironmentSupport.MSE }
   ];
 
   formatsToTest.forEach(formatToTest => {
