@@ -26,15 +26,16 @@ And write awesome code:
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
-  const player = VideoPlayer.create({
-    size: {
-      width: 700,
-      height: 394
-    },
-    src: 'http://my-url/video.mp4',
-    preload: 'metadata'
-  });
-  
+  const config = {
+   size: {
+     width: 700,
+     height: 394
+   },
+   src: 'http://my-url/video.mp4',
+   preload: 'metadata'
+  };
+  const player = VideoPlayer.create(config);
+
   player.attachToElement(document.getElementById('content'));
 });
 ```
@@ -72,40 +73,42 @@ document.addEventListener('DOMContentLoaded', function() {
 Create a new instance of video player
 
 ```javascript
-const player = VideoPlayer.create({
-    src: [
-      'http://my-url/video.mp4',
-      'http://my-url/video.webm',
-      'http://my-url/video.m3u8'
-    ],
-    loop: true
-});
+const config = {
+   src: [
+     'http://my-url/video.mp4',
+     'http://my-url/video.webm',
+     'http://my-url/video.m3u8'
+   ],
+   loop: true
+};
+const player = VideoPlayer.create(config);
 ```
 
 ### Player public methods
 
-```Player.setAutoPlay(flag)``` Set autoPlay flag
+```Player.setAutoPlay(flag: Boolean)``` Set autoPlay flag
 
-```Player.setLoop(flag)``` Set loop flag
+```Player.setLoop(flag: Boolean)``` Set loop flag
 
-```Player.setMute(flag)``` Set mute flag
+```Player.setMute(flag: Boolean)``` Set mute flag
 
-```Player.setVolume(volume)``` Set volume
+```Player.setVolume(volume: Number<0..1>)``` Set volume
 
-```Player.setPreload(type)``` Set preload type
+```Player.setPreload(type: OneOf('auto', 'metadata', 'none'))``` Set preload type
 
-```Player.setPlayInline(playInline)``` Set playInline flag
+```Player.setPlayInline(playInline: Boolean)``` Set playInline flag
 
-```Player.on(eventName, listener)``` Method for adding listeners of events inside player. You can check all events inside ```VideoPlayer.UI_EVENTS``` and ```VideoPlayer.VIDEO_EVENTS```
+```Player.on(eventName: String, listener: Function)``` Method for adding listeners of events inside player. You can check all events inside ```VideoPlayer.UI_EVENTS``` and ```VideoPlayer.VIDEO_EVENTS```
 
-```Player.off(eventName, listener)``` Method for removing listeners of events inside player.
+```Player.off(eventName: String, listener: Function)``` Method for removing listeners of events inside player.
 
-```Player.attachToElement(node)``` Method for attaching player node to your container
+```Player.attachToElement(node: Node)``` Method for attaching player node to your container
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
-  const player = VideoPlayer.create({ src: 'http://my-url/video.mp4' });
-  
+  const config = { src: 'http://my-url/video.mp4' }
+  const player = VideoPlayer.create(config);
+
   player.attachToElement(document.getElementById('content'));
 });
 ```
@@ -114,23 +117,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ```Player.show()/hide()``` Show/Hide whole ui
 
-```Player.setWidth``` Set width of player
+```Player.setWidth(width: Number)``` Set width of player
 
-```Player.setHeight``` Set height of player
+```Player.setHeight(height: Number)``` Set height of player
 
-```Player.enterFullScreen``` Manual enter full screen
+```Player.enterFullScreen()``` Manual enter full screen
 
-```Player.exitFullScreen``` Manual exit full screen
+```Player.exitFullScreen()``` Manual exit full screen
 
-```Player.isInFullScreen``` Return `true` if player is in full screen
+```Player.isInFullScreen()``` Return `true` if player is in full screen
 
-```Player.getDebugInfo``` Return object with internal debug info
+```Player.getDebugInfo()``` Return object with internal debug info
 ```javascript
   {
     type, // Name of current attached stream (HLS, DASH, MP4, WEBM)
-    viewDimensions: { 
-      width, 
-      height 
+    viewDimensions: {
+      width,
+      height
     }, // Current size of view port provided by engine (right now - actual size of video tag)
     url, // Url of current source
     currentTime, // Current time of playback
@@ -143,5 +146,5 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 ```
 
-```Player.destroy``` Destroy instance of player
+```Player.destroy()``` Destroy instance of player
 
