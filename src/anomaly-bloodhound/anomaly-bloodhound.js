@@ -1,5 +1,6 @@
 import { VIDEO_EVENTS } from '../constants';
 import get from 'lodash/get';
+import { getNearestBufferSegmentInfo } from '../utils/video-data';
 
 
 export const REPORT_REASONS = {
@@ -85,9 +86,27 @@ export default class AnomalyBloodhound {
 
       case STATES.WAITING:
         switch (prevState) {
-          case STATES.PLAYING:
-            this.reportDebugInfo({ reason: REPORT_REASONS.BUFFER_EMPTY_FOR_CURRENT_SEGMENT });
+          case STATES.PLAYING: {
+            // This check is for problem with dash.js and mpd manifest in WixVOD
+            // Somehow native video tag triggers that buffer is empty for current segment
+            // but when you checking it, you can see, that it's not empty and there still
+            // couple milliseconds until end of buffer segment. It's happens only at last seconds of video
+            // that's why we manually triggering "end" but seeking to end of buffer.
+            const nearestBufferSegment = getNearestBufferSegmentInfo(
+              this._engine._video.buffered,
+              this._engine.getCurrentTime()
+            );
+
+            if (nearestBufferSegment.end > this._engine.getCurrentTime()) {
+              this._engine.setCurrentTime(nearestBufferSegment.end);
+            } else {
+              this.reportDebugInfo({
+                reason: REPORT_REASONS.BUFFER_EMPTY_FOR_CURRENT_SEGMENT
+              });
+            }
+
             break;
+          }
 
           case STATES.PLAY_REQUESTED:
             if (!this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)) {
