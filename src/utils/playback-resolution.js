@@ -6,7 +6,7 @@ export function resolvePlayableStreams(mediaStreams, playableStreamCreators, eve
         for (let i = 0; i < playableStreamCreators.length; i += 1) {
             const playableStreamCreator = playableStreamCreators[i];
             if (playableStreamCreator.canPlay(mediaType)) {
-                playableStreams.push(new playableStreamCreator(mediaStreams, eventEmitter));
+                playableStreams.unshift(new playableStreamCreator(mediaStreams, eventEmitter));
                 break;
             }
         }
