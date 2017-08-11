@@ -143,10 +143,6 @@ export default class Player {
     this._defaultModules.ui.setWatchOnSiteLogo(logo);
   }
 
-  setWatchOnSiteLink(link) {
-    this._defaultModules.ui.setWatchOnSiteLink(link);
-  }
-
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
     this._defaultModules.ui.setWatchOnSiteAlwaysShowFlag(isShowAlways);
   }

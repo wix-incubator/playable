@@ -182,10 +182,6 @@ export default class ControlBlock {
     this._watchOnSite.setLogo(logo);
   }
 
-  setWatchOnSiteLink(link) {
-    this._watchOnSite.setLink(link);
-  }
-
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
     if (isShowAlways) {
       this.view.appendComponentNode(this._watchOnSite.node);
@@ -209,7 +205,6 @@ export default class ControlBlock {
 
     delete this._eventEmitter;
     delete this._engine;
-    delete this._ui;
     delete this.config;
 
     this.isHidden = null;

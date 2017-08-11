@@ -1,17 +1,19 @@
 import get from 'lodash/get';
 
+import { UI_EVENTS } from '../../../constants';
 import View from './watch-on-site.view';
 
 
 export default class FullScreenControl {
   static View = View;
-  static dependencies = ['engine', 'config'];
+  static dependencies = ['engine', 'config', 'eventEmitter'];
 
-  constructor({ engine, config }) {
+  constructor({ engine, eventEmitter, config }) {
     this._config = {
       ...get(config, 'ui.controls.watchOnSite')
     };
 
+    this._eventEmitter = eventEmitter;
     this._engine = engine;
 
     this._bindCallbacks();
@@ -39,18 +41,11 @@ export default class FullScreenControl {
   }
 
   _triggerWatchOnSite() {
-    if (this._config.url) {
-      this._engine.pause();
-      window.open(this._config.url, '_blank');
-    }
+    this._eventEmitter.emit(UI_EVENTS.WATCH_ON_SITE_TRIGGERED);
   }
 
   setLogo(url) {
     this.view.setLogo(url);
-  }
-
-  setLink(url) {
-    this._config.url = url;
   }
 
   hide() {
@@ -68,6 +63,7 @@ export default class FullScreenControl {
     delete this.view;
 
     delete this._engine;
+    delete this._eventEmitter;
 
     delete this.isHidden;
   }

@@ -207,10 +207,6 @@ class PlayerUI {
     this._controls.setWatchOnSiteLogo(logo);
   }
 
-  setWatchOnSiteLink(link) {
-    this._controls.setWatchOnSiteLink(link);
-  }
-
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
     this._controls.setWatchOnSiteAlwaysShowFlag(isShowAlways);
   }
