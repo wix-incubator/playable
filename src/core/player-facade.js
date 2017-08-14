@@ -159,6 +159,10 @@ export default class Player {
    return this._defaultModules.engine.getDebugInfo();
   }
 
+  getCurrentPlaybackState() {
+    return this._defaultModules.engine.getCurrentState();
+  }
+
   destroy() {
     Object.keys(this._defaultModules).forEach(moduleName => {
       this._defaultModules[moduleName].destroy();

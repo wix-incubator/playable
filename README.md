@@ -87,16 +87,22 @@ const player = VideoPlayer.create(config);
 ### Player public methods
 
 ```Player.setAutoPlay(flag: Boolean)``` Set autoPlay flag
+```Player.getAutoPlay()``` Get autoPlay flag
 
 ```Player.setLoop(flag: Boolean)``` Set loop flag
+```Player.getLoop()``` Get loop flag
 
 ```Player.setMute(flag: Boolean)``` Set mute flag
+```Player.getMute()``` Get mute flag
 
 ```Player.setVolume(volume: Number<0..1>)``` Set volume
+```Player.getVolume()``` Get volume
 
 ```Player.setPreload(type: OneOf('auto', 'metadata', 'none'))``` Set preload type
+```Player.getPreload()``` Get preload type
 
 ```Player.setPlayInline(playInline: Boolean)``` Set playInline flag
+```Player.getPlayInline()``` Get playInline flag
 
 ```Player.on(eventName: String, listener: Function)``` Method for adding listeners of events inside player. You can check all events inside ```VideoPlayer.UI_EVENTS``` and ```VideoPlayer.VIDEO_EVENTS```
 
@@ -118,14 +124,18 @@ document.addEventListener('DOMContentLoaded', function() {
 ```Player.show()/hide()``` Show/Hide whole ui
 
 ```Player.setWidth(width: Number)``` Set width of player
+```Player.getWidth()``` Get width of player
 
 ```Player.setHeight(height: Number)``` Set height of player
+```Player.getHeight()``` Get height of player
 
 ```Player.enterFullScreen()``` Manual enter full screen
 
 ```Player.exitFullScreen()``` Manual exit full screen
 
 ```Player.isInFullScreen()``` Return `true` if player is in full screen
+
+```Player.getCurrentPlaybackState()``` Return current state of playback
 
 ```Player.getDebugInfo()``` Return object with internal debug info
 ```javascript

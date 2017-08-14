@@ -288,6 +288,10 @@ export default class Engine {
     return this._video.getAttribute('playsInline');
   }
 
+  getCurrentState() {
+    return this._stateEngine.getState();
+  }
+
   play() {
     //Workaround for triggering functionality that requires user event pipe
     this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
