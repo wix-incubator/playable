@@ -17,6 +17,7 @@ const { asClass } = DependencyContainer;
 
 const DEFAULT_CONFIG = {
   list: [PlayControl, TimeControl, ProgressControl, VolumeControl, FullscreenControl],
+  shouldAlwaysShow: false,
   view: null
 };
 
@@ -139,7 +140,7 @@ export default class ControlBlock {
   }
 
   _hideContent() {
-    if (!this._isVideoPaused) {
+    if (!this._isVideoPaused && !this.config.shouldAlwaysShow) {
       this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED);
       this._eventEmitter.emit(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED);
 
@@ -192,6 +193,16 @@ export default class ControlBlock {
 
   removeWatchOnSite() {
     this._watchOnSite.node.parentNode.removeChild(this._watchOnSite.node);
+  }
+
+  setShouldAlwaysShow(flag) {
+    this.config.shouldAlwaysShow = flag;
+
+    if (this.config.shouldAlwaysShow) {
+      this._showContent();
+    } else {
+      this._startHideControlsTimeout();
+    }
   }
 
   destroy() {

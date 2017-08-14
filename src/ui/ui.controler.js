@@ -215,6 +215,10 @@ class PlayerUI {
     this._controls.removeWatchOnSite();
   }
 
+  setControlsShouldAlwaysShow(flag) {
+    this._controls.setShouldAlwaysShow(flag);
+  }
+
   destroy() {
     this._unbindEvents();
 

@@ -151,6 +151,10 @@ export default class Player {
     this._defaultModules.ui.removeWatchOnSite();
   }
 
+  setControlsShouldAlwaysShow(flag) {
+    this._defaultModules.ui.setControlsShouldAlwaysShow(flag);
+  }
+
   getDebugInfo() {
    return this._defaultModules.engine.getDebugInfo();
   }
