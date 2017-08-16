@@ -97,7 +97,7 @@ export default class AnomalyBloodhound {
               this._engine.getCurrentTime()
             );
 
-            if (nearestBufferSegment.end > this._engine.getCurrentTime()) {
+            if (nearestBufferSegment && nearestBufferSegment.end > this._engine.getCurrentTime()) {
               this._engine.setCurrentTime(nearestBufferSegment.end);
             } else {
               this.reportDebugInfo({
