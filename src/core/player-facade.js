@@ -163,6 +163,10 @@ export default class Player {
     return this._defaultModules.engine.getCurrentState();
   }
 
+  setFillAllSpace(flag) {
+    this._defaultModules.ui.setFillAllSpace(flag);
+  }
+
   destroy() {
     Object.keys(this._defaultModules).forEach(moduleName => {
       this._defaultModules[moduleName].destroy();

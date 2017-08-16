@@ -8,7 +8,7 @@ export function getAnomalyBloodhoundConfig(params) {
 }
 
 export function getUIConfig(params) {
-  const { size, controls, overlay, loader, screen, customUI = {}, loadingCover, watchOnSite } = params;
+  const { size, controls, overlay, loader, screen, customUI = {}, loadingCover, watchOnSite, fillAllSpace } = params;
   const config = {
     ...size,
     overlay,
@@ -16,7 +16,8 @@ export function getUIConfig(params) {
     customUI,
     loader,
     controls,
-    watchOnSite
+    watchOnSite,
+    fillAllSpace
   };
 
   if (iPhone || iPod || iPad) {

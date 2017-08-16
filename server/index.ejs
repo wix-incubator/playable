@@ -4,20 +4,16 @@
   <meta charset="UTF-8">
   <title>Video Player</title>
   <style>
-    #content {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    * {
+      margin: 0;
+      padding: 0;
     }
-    #player {
-      position: relative;
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
     }
   </style>
   <% if (debug) { %>
@@ -27,27 +23,49 @@
   <% } %>
 </head>
 <body>
-
-<div id="content">
-  <div id="player">
-
-  </div>
-</div>
 <script>
+  function parseQuery(qstr) {
+    const query = {};
+    const a = (qstr[0] === '?' ? qstr.substr(1) : qstr).split('&');
+    for (var i = 0; i < a.length; i++) {
+      let b = a[i].split('=');
+      const value = decodeURIComponent(b[1] || '');
+
+      if (!isNaN(Number(value))) {
+        query[decodeURIComponent(b[0])] = Number(value);
+      } else if (value === 'false') {
+        query[decodeURIComponent(b[0])] = false;
+      } else if (value === 'true') {
+        query[decodeURIComponent(b[0])] = true;
+      } else {
+        query[decodeURIComponent(b[0])] = value;
+      }
+    }
+    return query;
+  }
+
+  const searchQuery = parseQuery(window.location.search);
+  const url = searchQuery.url ||  'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
+  const type = searchQuery.type || 'HLS';
+  
   window.player = VideoPlayer.create({
-    autoPlay: true,
+    autoPlay: false,
     muted: false,
     loop: false,
     logger: true,
     preload: "auto",
     volume: 0.5,
+    fillAllSpace: true,
     size: {
       width: 760,
       height: 428
     },
     loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
     src: [
-      'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
+      {
+        url: url,
+        type: type
+      },
     ],
     controls: {
       watchOnSite: {
@@ -60,7 +78,7 @@
   }, false);
 
   document.addEventListener('DOMContentLoaded', function() {
-    window.player.attachToElement(document.getElementById('player'));
+    window.player.attachToElement(document.body);
   });
 </script>
 </body>

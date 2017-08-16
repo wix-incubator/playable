@@ -7,7 +7,7 @@ import styles from './ui.scss';
 class PlayerUIView extends View {
   constructor(config) {
     super(config);
-    const { rootNode, width, height, callbacks } = config;
+    const { rootNode, width, height, callbacks, fillAllSpace } = config;
 
     this._callbacks = callbacks;
     this.$node = $(rootNode);
@@ -17,6 +17,8 @@ class PlayerUIView extends View {
     this.$innerWrapper = $('<div>', {
       class: this.styleNames['inner-wrapper']
     });
+
+    this.setFillAllSpaceFlag(fillAllSpace);
 
     this.setWidth(width);
     this.setHeight(height);
@@ -114,7 +116,12 @@ class PlayerUIView extends View {
     } else {
       this.$node.removeAttr('data-in-full-screen');
     }
+
     this.$node.toggleClass(this.styleNames['full-screen'], isFullScreen);
+  }
+
+  setFillAllSpaceFlag(isFillAllSpace = false) {
+    this.$node.toggleClass(this.styleNames['fill-all-space'], isFillAllSpace);
   }
 
   destroy() {

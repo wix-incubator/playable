@@ -14,6 +14,7 @@ import ControlsBlock from './controls/controls.controler';
 
 
 export const DEFAULT_CONFIG = {
+  fillAllSpace: false,
   overlay: false,
   loadingCover: false,
   customUI: {}
@@ -64,11 +65,13 @@ class PlayerUI {
   }
 
   _initUI(rootNode) {
-    const { width, height } = this.config;
+    const { width, height, fillAllSpace } = this.config;
+
     const config = {
       rootNode,
       width,
       height,
+      fillAllSpace,
       callbacks: {
         onMouseEnter: this._proxyMouseEnter,
         onMouseMove: this._proxyMouseMove,
@@ -217,6 +220,10 @@ class PlayerUI {
 
   setControlsShouldAlwaysShow(flag) {
     this._controls.setShouldAlwaysShow(flag);
+  }
+
+  setFillAllSpace(flag) {
+    this.view.setFillAllSpaceFlag(flag);
   }
 
   destroy() {

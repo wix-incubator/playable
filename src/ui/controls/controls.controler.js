@@ -150,6 +150,7 @@ export default class ControlBlock {
       this._eventEmitter.emit(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED);
 
       this.view.hideControlsBlock();
+
       if (!this.shouldWatchOnSiteAlwaysShow) {
         this._watchOnSite.hide();
       }
@@ -211,6 +212,8 @@ export default class ControlBlock {
 
     if (this.shouldWatchOnSiteAlwaysShow && this._watchOnSite.isHidden) {
       this._watchOnSite.show();
+    } else {
+      this._watchOnSite.hide();
     }
   }
 
