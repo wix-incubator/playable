@@ -30,12 +30,6 @@
   <div id="player">
 
   </div>
-  <div id="player2">
-
-  </div>
-  <div id="player3">
-
-  </div>
 </div>
 <script>
   var player = VideoPlayer.create({
@@ -47,7 +41,7 @@
     volume: 0.5,
     size: {
       width: 700,
-      height: 300
+      height: 500
     },
     loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
     src: [
@@ -62,57 +56,7 @@
     },
     overlay: false,
   });
-
-  var player2 = VideoPlayer.create({
-    autoPlay: true,
-    muted: false,
-    loop: false,
-    logger: true,
-    preload: "auto",
-    volume: 0.5,
-    size: {
-      width: 700,
-      height: 300
-    },
-    loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
-    src: [
-      'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
-    ],
-    controls: {
-      watchOnSite: {
-        url: 'http://www.wix.com/',
-        showAlways: false,
-        logo: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png'
-      }
-    },
-    overlay: false,
-  });
-
-  var player3 = VideoPlayer.create({
-    autoPlay: true,
-    muted: false,
-    loop: false,
-    logger: true,
-    preload: "auto",
-    volume: 0.5,
-    size: {
-      width: 700,
-      height: 300
-    },
-    loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
-    src: [
-      'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8',
-    ],
-    controls: {
-      watchOnSite: {
-        url: 'http://www.wix.com/'
-      }
-    },
-    overlay: false,
-  });
   document.getElementById('player').appendChild(player.node);
-  document.getElementById('player2').appendChild(player2.node);
-  document.getElementById('player3').appendChild(player3.node);
 </script>
 </body>
 </html>

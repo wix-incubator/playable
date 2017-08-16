@@ -79,9 +79,11 @@ describe('ControlsBlock', () => {
 
     it('should have method for setting playback status', () => {
       expect(controls._updatePlayingStatus).to.exist;
+      
       const startTimeout = sinon.spy(controls, '_startHideControlsTimeout');
       const hideTimeout = sinon.spy(controls, '_hideContent');
       const showTimeout = sinon.spy(controls, '_showContent');
+
       controls._updatePlayingStatus({ nextState: engine.STATES.PLAY_REQUESTED });
       expect(startTimeout.called).to.be.true;
       controls._updatePlayingStatus({ nextState: engine.STATES.PAUSED });

@@ -88,6 +88,7 @@ export default class ControlBlock {
     this._watchOnSite = this._scope.resolve('watchOnSite');
 
     if (watchOnSite) {
+      this.view.appendComponentNode(this._watchOnSite.node);
       this.setWatchOnSiteAlwaysShowFlag(watchOnSite.showAlways);
     }
   }
@@ -137,6 +138,10 @@ export default class ControlBlock {
     this._eventEmitter.emit(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED);
 
     this.view.showControlsBlock();
+
+    if (this._watchOnSite.isHidden) {
+      this._watchOnSite.show();
+    }
   }
 
   _hideContent() {
@@ -145,6 +150,9 @@ export default class ControlBlock {
       this._eventEmitter.emit(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED);
 
       this.view.hideControlsBlock();
+      if (!this.shouldWatchOnSiteAlwaysShow) {
+        this._watchOnSite.hide();
+      }
     }
   }
 
@@ -199,10 +207,10 @@ export default class ControlBlock {
   }
 
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
-    if (isShowAlways) {
-      this.view.appendComponentNode(this._watchOnSite.node);
-    } else {
-      this.view.appendControlNode(this._watchOnSite.node);
+    this.shouldWatchOnSiteAlwaysShow = isShowAlways;
+
+    if (this.shouldWatchOnSiteAlwaysShow && this._watchOnSite.isHidden) {
+      this._watchOnSite.show();
     }
   }
 

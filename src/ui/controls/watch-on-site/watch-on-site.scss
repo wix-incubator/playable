@@ -1,5 +1,10 @@
-@import '../../shared';
+@import '../../media-query-mixins';
 
+.hidden {
+  visibility: hidden;
+
+  opacity: 0;
+}
 
 .wrapper {
   position: relative;
@@ -8,6 +13,8 @@
   display: flex;
 
   margin-right: 18px;
+
+  transition: opacity .2s, visibility .2s;
 
   justify-content: center;
   align-items: center;
