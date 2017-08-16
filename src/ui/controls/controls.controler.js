@@ -36,7 +36,7 @@ export default class ControlBlock {
     };
     this._scope = scope;
     this.isHidden = false;
-    this._isVideoPaused = false;
+    this._shouldShowContent = true;
     this._delayedToggleVideoPlaybackTimeout = null;
     this._hideControlsTimeout = null;
     this._isControlsFocused = false;
@@ -140,7 +140,7 @@ export default class ControlBlock {
   }
 
   _hideContent() {
-    if (!this._isVideoPaused && !this.config.shouldAlwaysShow) {
+    if (!this._shouldShowContent && !this.config.shouldAlwaysShow) {
       this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED);
       this._eventEmitter.emit(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED);
 
@@ -149,15 +149,30 @@ export default class ControlBlock {
   }
 
   _updatePlayingStatus({ nextState }) {
-    if (nextState === this._engine.STATES.PLAY_REQUESTED) {
-      this._isVideoPaused = false;
-      this._startHideControlsTimeout();
-    } else if (nextState === this._engine.STATES.ENDED) {
-      this._isVideoPaused = false;
-      this._hideContent();
-    } else if (nextState === this._engine.STATES.PAUSED) {
-      this._isVideoPaused = true;
-      this._showContent();
+    const { STATES } = this._engine;
+
+    switch (nextState) {
+      case STATES.PLAY_REQUESTED: {
+        this._shouldShowContent = false;
+        this._startHideControlsTimeout();
+        break;
+      }
+      case STATES.ENDED: {
+        this._shouldShowContent = true;
+        this._showContent();
+        break;
+      }
+      case STATES.PAUSED: {
+        this._shouldShowContent = true;
+        this._showContent();
+        break;
+      }
+      case STATES.SRC_SET: {
+        this._shouldShowContent = true;
+        this._showContent();
+        break;
+      }
+      default: break;
     }
   }
 
@@ -219,7 +234,7 @@ export default class ControlBlock {
     delete this.config;
 
     this.isHidden = null;
-    this._isVideoPaused = null;
+    this._shouldShowContent = null;
     this._hideControlsTimeout = null;
     this._isControlsFocused = null;
     this._delayedToggleVideoPlaybackTimeout = null;

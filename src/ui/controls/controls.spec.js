@@ -86,8 +86,12 @@ describe('ControlsBlock', () => {
       expect(startTimeout.called).to.be.true;
       controls._updatePlayingStatus({ nextState: engine.STATES.PAUSED });
       expect(showTimeout.called).to.be.true;
+      showTimeout.reset();
       controls._updatePlayingStatus({ nextState: engine.STATES.ENDED });
-      expect(hideTimeout.called).to.be.true;
+      expect(showTimeout.called).to.be.true;
+      showTimeout.reset();
+      controls._updatePlayingStatus({ nextState: engine.STATES.SRC_SET });
+      expect(showTimeout.called).to.be.true;
     });
 
     it('should have method for hiding controls on timeout', () => {
