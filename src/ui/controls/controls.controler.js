@@ -138,10 +138,9 @@ export default class ControlBlock {
     this._eventEmitter.emit(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED);
 
     this.view.showControlsBlock();
+    this._controlContentHidden = false;
 
-    if (this._watchOnSite.isHidden) {
-      this._watchOnSite.show();
-    }
+    this._watchOnSite.show();
   }
 
   _hideContent() {
@@ -150,7 +149,7 @@ export default class ControlBlock {
       this._eventEmitter.emit(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED);
 
       this.view.hideControlsBlock();
-
+      this._controlContentHidden = true;
       if (!this.shouldWatchOnSiteAlwaysShow) {
         this._watchOnSite.hide();
       }
@@ -210,9 +209,9 @@ export default class ControlBlock {
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
     this.shouldWatchOnSiteAlwaysShow = isShowAlways;
 
-    if (this.shouldWatchOnSiteAlwaysShow && this._watchOnSite.isHidden) {
+    if (this.shouldWatchOnSiteAlwaysShow) {
       this._watchOnSite.show();
-    } else {
+    } else if (this._controlContentHidden) {
       this._watchOnSite.hide();
     }
   }

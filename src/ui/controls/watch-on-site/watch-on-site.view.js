@@ -14,7 +14,7 @@ class WatchOnSiteView extends View {
     this._callbacks = callbacks;
 
     this.$node = $('<div>', {
-      class: `${this.styleNames.wrapper} ${this.styleNames.icon}`
+      class: `${this.styleNames.wrapper}`
     });
 
     this.$logo = $('<img>', {
