@@ -55,9 +55,13 @@ export default class PlayControl {
   _updatePlayingStatus({ nextState }) {
     if (nextState === this._engine.STATES.SRC_SET) {
       this.reset();
-    } else if (nextState === this._engine.STATES.PLAY_REQUESTED) {
+    } else if (nextState === this._engine.STATES.PLAYING) {
       this.setControlStatus(true);
-    } else if (nextState === this._engine.STATES.PAUSED || nextState === this._engine.STATES.ENDED) {
+    } else if (
+      nextState === this._engine.STATES.PAUSED ||
+      nextState === this._engine.STATES.ENDED ||
+      nextState === this._engine.STATES.SEEK_IN_PROGRESS
+    ) {
       this.setControlStatus(false);
     }
   }

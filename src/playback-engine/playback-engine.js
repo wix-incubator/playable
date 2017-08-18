@@ -1,5 +1,3 @@
-import noop from 'lodash/noop';
-
 import HlsStream from './media-streams/hls-stream';
 import DashStream from './media-streams/dash-stream';
 import getNativeStreamCreator from './media-streams/native-stream';
@@ -295,22 +293,33 @@ export default class Engine {
   play() {
     //Workaround for triggering functionality that requires user event pipe
     this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
-    try {
-      const res = this._video.play();
-      if (res && res.catch) {
-        res.catch(noop);
+
+    this._pauseRequested = false;
+
+    if (!this._playPromise) {
+      this._playPromise = this._video.play();
+      if (this._playPromise !== undefined) {
+        this._playPromise
+          .then(() => {
+            this._playPromise = null;
+
+            if (this._pauseRequested) {
+              this.pause();
+            }
+          })
+          .catch(() => {
+            this._playPromise = null;
+          });
       }
-    } catch (e) {
     }
   }
 
   pause() {
-    try {
-      const res = this._video.pause();
-      if (res && res.catch) {
-        res.catch(noop);
-      }
-    } catch (e) {
+    if (this._playPromise) {
+      this._pauseRequested = true;
+    } else {
+      this._video.pause();
+      this._pauseRequested = false;
     }
   }
 

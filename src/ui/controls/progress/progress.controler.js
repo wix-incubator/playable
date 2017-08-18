@@ -127,19 +127,25 @@ export default class ProgressControl {
   }
 
   _pauseVideoOnProgressManipulationStart() {
-    this._previousPlaybackState = this._engine.getState();
-    this._engine.pause();
+    const currentState = this._engine.getState();
 
+    if (
+      currentState === this._engine.STATES.PLAYING ||
+      currentState === this._engine.STATES.PLAY_REQUESTED
+    ) {
+      this._shouldPlayAfterManipulationEnd = true;
+      this._engine.pause();
+    }
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
   }
 
   _playVideoOnProgressManipulationEnd() {
-    if (this._previousPlaybackState === this._engine.STATES.PLAYING ||
-      this._previousPlaybackState === this._engine.STATES.PLAY_REQUESTED) {
+    if (this._shouldPlayAfterManipulationEnd) {
       this._engine.play();
+
+      this._shouldPlayAfterManipulationEnd = false;
     }
 
-    this._previousPlaybackState = null;
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
   }
 
