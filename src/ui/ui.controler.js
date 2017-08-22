@@ -1,6 +1,7 @@
 import { ElementQueries } from 'css-element-queries';
 
 import DependencyContainer from '../core/dependency-container';
+import publicAPI from '../utils/public-api-decorator';
 
 import { UI_EVENTS } from '../constants';
 
@@ -41,13 +42,9 @@ class PlayerUI {
     this._bindEvents();
   }
 
+  @publicAPI()
   get node() {
     return this.view.getNode();
-  }
-
-  attachToElement(node) {
-    node.appendChild(this.node);
-    ElementQueries.init();
   }
 
   _bindCallbacks() {
@@ -174,54 +171,72 @@ class PlayerUI {
     this._eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED);
   }
 
+  @publicAPI()
+  attachToElement(node) {
+    node.appendChild(this.node);
+    ElementQueries.init();
+  }
+
+  @publicAPI()
   hide() {
     this.isHidden = true;
     this.view.hide();
   }
 
+  @publicAPI()
   show() {
     this.isHidden = false;
     this.view.show();
   }
 
+  @publicAPI()
   setWidth(width) {
     this.view.setWidth(width);
   }
 
+  @publicAPI()
   setHeight(height) {
     this.view.setHeight(height);
   }
 
+  @publicAPI()
   getWidth() {
     return this.view.getWidth();
   }
 
+  @publicAPI()
   getHeight() {
     return this.view.getHeight();
   }
 
+  @publicAPI()
   setLoadingCover(url) {
     if (this._loadingCover) {
       this._loadingCover.setLoadingCover(url);
     }
   }
 
+  @publicAPI()
   setWatchOnSiteLogo(logo) {
     this._controls.setWatchOnSiteLogo(logo);
   }
 
+  @publicAPI()
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
     this._controls.setWatchOnSiteAlwaysShowFlag(isShowAlways);
   }
 
+  @publicAPI()
   removeWatchOnSite() {
     this._controls.removeWatchOnSite();
   }
 
+  @publicAPI()
   setControlsShouldAlwaysShow(flag) {
     this._controls.setShouldAlwaysShow(flag);
   }
 
+  @publicAPI()
   setFillAllSpace(flag) {
     this.view.setFillAllSpaceFlag(flag);
   }

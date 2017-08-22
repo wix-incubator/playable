@@ -4,6 +4,7 @@ import getNativeStreamCreator from './media-streams/native-stream';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import { resolvePlayableStreams } from '../utils/playback-resolution';
 import { detectStreamType } from '../utils/detect-stream-type';
+import publicAPI from '../utils/public-api-decorator';
 
 import StateEngine, { STATES } from './state-engine';
 import NativeEventsBroadcast from './native-events-broadcast';
@@ -114,23 +115,6 @@ export default class Engine {
     this.playableStreams = resolvePlayableStreams(mediaStreams, this.playableStreamCreators, this._eventEmitter);
   }
 
-  getDebugInfo() {
-    const { duration, currentTime } = this._video;
-    let data;
-
-    if (this.attachedStream) {
-      data = this.attachedStream.getDebugInfo();
-    }
-
-    return {
-      ...data,
-      viewDimensions: this._getViewDimensions(),
-      currentTime,
-      duration,
-      loadingStateTimestamps: this._stateEngine.getStateTimestamps()
-    };
-  }
-
   _getViewDimensions() {
     return {
       width: this._video.offsetWidth,
@@ -158,6 +142,25 @@ export default class Engine {
     return this.getAutoPlay();
   }
 
+  @publicAPI()
+  getDebugInfo() {
+    const { duration, currentTime } = this._video;
+    let data;
+
+    if (this.attachedStream) {
+      data = this.attachedStream.getDebugInfo();
+    }
+
+    return {
+      ...data,
+      viewDimensions: this._getViewDimensions(),
+      currentTime,
+      duration,
+      loadingStateTimestamps: this._stateEngine.getStateTimestamps()
+    };
+  }
+
+  @publicAPI()
   setSrc(src) {
     if (src === this.currentSrc) {
       return;
@@ -173,14 +176,12 @@ export default class Engine {
     this._stateEngine.setState(STATES.SRC_SET);
   }
 
+  @publicAPI()
   getSrc() {
     return this.currentSrc;
   }
 
-  getState() {
-    return this._stateEngine.getState();
-  }
-
+  @publicAPI()
   goForward(sec) {
     const duration = this.getDurationTime();
 
@@ -190,6 +191,7 @@ export default class Engine {
     }
   }
 
+  @publicAPI()
   goBackward(sec) {
     const duration = this.getDurationTime();
 
@@ -199,10 +201,12 @@ export default class Engine {
     }
   }
 
+  @publicAPI()
   decreaseVolume(value) {
     this.setVolume(this.getVolume() - value);
   }
 
+  @publicAPI()
   increaseVolume(value) {
     this.setVolume(this.getVolume() + value);
   }
@@ -211,63 +215,78 @@ export default class Engine {
     this.initialBitrate = bitrate;
   }
 
+  @publicAPI()
   setAutoPlay(isAutoPlay) {
     this._video.autoplay = Boolean(isAutoPlay);
   }
 
+  @publicAPI()
   getAutoPlay() {
     return this._video.autoplay;
   }
 
+  @publicAPI()
   setLoop(isLoop) {
     this._video.loop = Boolean(isLoop);
   }
 
+  @publicAPI()
   getLoop() {
     return this._video.loop;
   }
 
+  @publicAPI()
   setMute(isMuted) {
     this._video.muted = Boolean(isMuted);
   }
 
+  @publicAPI()
   getMute() {
     return this._video.muted;
   }
 
+  @publicAPI()
   setVolume(volume) {
     const parsedVolume = Number(volume);
     this._video.volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume) / 100, 1));
   }
 
+  @publicAPI()
   getVolume() {
     return this._video.volume * 100;
   }
 
+  @publicAPI()
   setPlaybackRate(rate) {
     this._video.playbackRate = rate;
   }
 
+  @publicAPI()
   getPlaybackRate() {
     return this._video.playbackRate;
   }
 
+  @publicAPI()
   setPreload(preload) {
     this._video.preload = preload || 'auto';
   }
 
+  @publicAPI()
   getPreload() {
     return this._video.preload;
   }
 
+  @publicAPI()
   getCurrentTime() {
     return this._video.currentTime;
   }
 
+  @publicAPI()
   setCurrentTime(time) {
     this._video.currentTime = time;
   }
 
+  @publicAPI()
   getDurationTime() {
     return this._video.duration || 0;
   }
@@ -276,20 +295,24 @@ export default class Engine {
     return this._video.buffered;
   }
 
+  @publicAPI()
   setPlayInline(isPlayInline) {
     if (isPlayInline) {
       this._video.setAttribute('playsInline', isPlayInline);
     }
   }
 
+  @publicAPI()
   getPlayInline() {
     return this._video.getAttribute('playsInline');
   }
 
+  @publicAPI('getCurrentPlaybackState')
   getCurrentState() {
     return this._stateEngine.getState();
   }
 
+  @publicAPI()
   play() {
     //Workaround for triggering functionality that requires user event pipe
     this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
@@ -314,6 +337,7 @@ export default class Engine {
     }
   }
 
+  @publicAPI()
   pause() {
     if (this._playPromise) {
       this._pauseRequested = true;

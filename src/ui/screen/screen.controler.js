@@ -148,7 +148,7 @@ export default class Screen {
 
   _showPlaybackChangeIndicator() {
     if (this.config.indicateScreenClick) {
-      const state = this._engine.getState();
+      const state = this._engine.getCurrentState();
 
       if (
         state === this._engine.STATES.PLAY_REQUESTED ||
@@ -185,7 +185,7 @@ export default class Screen {
   _toggleVideoPlayback() {
     this._clearDelayedPlaybackToggle();
 
-    const state = this._engine.getState();
+    const state = this._engine.getCurrentState();
 
     if (
       state === this._engine.STATES.PLAY_REQUESTED ||

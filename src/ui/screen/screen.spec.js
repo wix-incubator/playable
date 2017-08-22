@@ -180,7 +180,7 @@ describe('Loader', () => {
       const playSpy = sinon.spy();
       const pauseSpy = sinon.spy();
       screen._engine = {
-        getState: () => state,
+        getCurrentState: () => state,
         play: playSpy,
         pause: pauseSpy,
         STATES: engine.STATES

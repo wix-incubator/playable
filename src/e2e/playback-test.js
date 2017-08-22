@@ -1,5 +1,5 @@
-import VideoPlayer from './index';
-import { NativeEnvironmentSupport } from './utils/environment-detection';
+import VideoPlayer from '../index';
+import { NativeEnvironmentSupport } from '../utils/environment-detection';
 
 describe('Playback e2e test', function () {
   this.timeout(10000);
@@ -15,7 +15,7 @@ describe('Playback e2e test', function () {
   formatsToTest.forEach(formatToTest => {
     if (formatToTest.supportedByEnv) {
       it(`allows playback of ${formatToTest.type}`, function (done) {
-        const player = VideoPlayer.create({});
+        const player = VideoPlayer.create();
         player.on(VideoPlayer.VIDEO_EVENTS.DURATION_UPDATED, newDuration => {
           if (newDuration > 0) {
             player.off(VideoPlayer.VIDEO_EVENTS.DURATION_UPDATED);

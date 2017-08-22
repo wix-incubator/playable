@@ -127,7 +127,7 @@ export default class ProgressControl {
   }
 
   _pauseVideoOnProgressManipulationStart() {
-    const currentState = this._engine.getState();
+    const currentState = this._engine.getCurrentState();
 
     if (
       currentState === this._engine.STATES.PLAYING ||

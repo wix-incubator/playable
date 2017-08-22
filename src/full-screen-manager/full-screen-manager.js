@@ -1,4 +1,5 @@
 import { iPhone, iPod, iPad } from '../utils/device-detection';
+import publicAPI from '../utils/public-api-decorator';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
@@ -86,6 +87,7 @@ export default class FullScreenManager {
     }
   }
 
+  @publicAPI()
   enterFullScreen() {
     if (this._config.disabled) {
       return;
@@ -94,6 +96,7 @@ export default class FullScreenManager {
     this._helper.request();
   }
 
+  @publicAPI()
   exitFullScreen() {
     if (!this.isEnabled) {
       return;
@@ -102,6 +105,7 @@ export default class FullScreenManager {
     this._helper.exit();
   }
 
+  @publicAPI()
   get isInFullScreen() {
     if (!this.isEnabled) {
       return false;

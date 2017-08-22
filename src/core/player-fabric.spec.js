@@ -3,33 +3,19 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import Engine from '../playback-engine/playback-engine';
 
-import EventEmitter from 'eventemitter3';
 
 import create from './player-fabric';
 
 
 describe('Player', () => {
-  let player = {};
-  let eventEmitter = {};
-  let engine = {};
-  let config = {};
+  let player;
+
+  beforeEach(() => {
+    player = create();
+  });
 
   describe('constructor', () => {
-    beforeEach(() => {
-      config = {};
-      eventEmitter = new EventEmitter();
-      engine = new Engine({
-        eventEmitter,
-        config
-      });
-      player = create({
-        engine,
-        eventEmitter
-      });
-    });
-
     it('should create instance ', () => {
       expect(player).to.exists;
       expect(player._defaultModules.engine).to.exist;
@@ -39,7 +25,7 @@ describe('Player', () => {
     });
 
     it('should create separate instances', () => {
-      const player2 = create({});
+      const player2 = create();
 
       expect(player._defaultModules.engine).to.not.be.equal(player2._defaultModules.engine);
       expect(player._defaultModules.ui).to.not.be.equal(player2._defaultModules.ui);
@@ -48,11 +34,7 @@ describe('Player', () => {
     });
   });
 
-  describe('API', () => {
-    beforeEach(() => {
-      player = create({});
-    });
-
+  describe('API methods', () => {
     it('should have method for set autoplay flag', () => {
       expect(player.setAutoPlay).to.exist;
       player.setAutoPlay(true);
@@ -125,16 +107,10 @@ describe('Player', () => {
 
     it('should have method for start playback of video', () => {
       expect(player.play).to.exist;
-      const playSpy = sinon.spy(player._defaultModules.engine, 'play');
-      player.play();
-      expect(playSpy.called).to.be.true;
     });
 
     it('should have method for stop playback of video', () => {
       expect(player.pause).to.exist;
-      const pauseSpy = sinon.spy(player._defaultModules.engine, 'pause');
-      player.pause();
-      expect(pauseSpy.called).to.be.true;
     });
 
     it('should have method for destroying player', () => {
@@ -148,33 +124,14 @@ describe('Player', () => {
 
     it('should have method for setting loading cover', () => {
       expect(player.setLoadingCover);
-
-      const uiLoadingCoverSpy = sinon.spy(player._defaultModules.ui._loadingCover, 'destroy');
-
-    });
-
-    it('should have method for getting loading cover', () => {
-
     });
 
     it('should have method for subscribing on events', () => {
       expect(player.on).to.exist;
-      const onSpy = sinon.spy(player._defaultModules.eventEmitter, 'on');
-      const eventName = 'test';
-      const callback = () => {};
-
-      player.on(eventName, callback);
-      expect(onSpy.calledWith(eventName, callback)).to.be.true;
     });
 
     it('should have method for unsubscribing from events', () => {
       expect(player.off).to.exist;
-      const offSpy = sinon.spy(player._defaultModules.eventEmitter, 'off');
-      const eventName = 'test';
-      const callback = () => {};
-
-      player.off(eventName, callback);
-      expect(offSpy.calledWith(eventName, callback)).to.be.true;
     });
   });
 });
