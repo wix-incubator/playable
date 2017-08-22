@@ -17,9 +17,11 @@ class FullScreenView extends View {
       'data-tooltip-pos': 'up'
     });
 
-    this.$toggleFullScreenControl = $('<div>', {
-      class: `${this.styleNames['full-screen-toggle']} ${this.styleNames.icon}`,
-      'data-hook': 'full-screen-button'
+    this.$toggleFullScreenControl = $('<button>', {
+      class: `${this.styleNames['full-screen-toggle']} ${this.styleNames['control-button']}`,
+      'data-hook': 'full-screen-button',
+      type: 'button',
+      tabIndex: 0
     });
 
     this.$node

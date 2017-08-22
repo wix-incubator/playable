@@ -8,6 +8,9 @@ import { isIPhone, isIPod, isIPad, isAndroid } from '../../utils/device-detectio
 
 import { VIDEO_EVENTS } from '../../constants/index';
 
+export {
+  STATES
+};
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 export default class Engine {

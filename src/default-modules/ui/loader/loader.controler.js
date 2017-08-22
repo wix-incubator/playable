@@ -6,7 +6,7 @@ import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
 import View from './loader.view';
 
 
-const DELAY_FOR_SHOW_ON_WAITING_STATE = 100;
+export const DELAYED_SHOW_TIMEOUT = 100;
 
 export default class Loader {
   static View = View;
@@ -41,10 +41,10 @@ export default class Loader {
     const { STATES } = this._engine;
     switch (nextState) {
       case STATES.SEEK_IN_PROGRESS:
-        this._startDelayedShow();
+        this.startDelayedShow();
         break;
       case STATES.WAITING:
-        this._startDelayedShow();
+        this.startDelayedShow();
         break;
       case STATES.LOAD_STARTED:
         if (this._engine.isPreloadAvailable) {
@@ -52,18 +52,19 @@ export default class Loader {
         }
         break;
       case STATES.READY_TO_PLAY:
-        this._stopDelayedShow();
+        this.stopDelayedShow();
         this.hide();
         break;
       case STATES.PLAYING:
-        this._stopDelayedShow();
+        this.stopDelayedShow();
         this.hide();
         break;
       case STATES.PAUSED:
-        this._stopDelayedShow();
+        this.stopDelayedShow();
         this.hide();
         break;
 
+      /* ignore coverage */
       default: break;
     }
   }
@@ -94,14 +95,20 @@ export default class Loader {
     }
   }
 
-  _startDelayedShow() {
-    this._stopDelayedShow();
-    this._delayedShowTimeout = setTimeout(this.show, DELAY_FOR_SHOW_ON_WAITING_STATE);
+  startDelayedShow() {
+    if (this.isDelayedShowScheduled) {
+      this.stopDelayedShow();
+    }
+    this._delayedShowTimeout = setTimeout(this.show, DELAYED_SHOW_TIMEOUT);
   }
 
-  _stopDelayedShow() {
+  stopDelayedShow() {
     clearTimeout(this._delayedShowTimeout);
     this._delayedShowTimeout = null;
+  }
+
+  get isDelayedShowScheduled() {
+    return Boolean(this._delayedShowTimeout);
   }
 
   _unbindEvents() {
@@ -111,7 +118,7 @@ export default class Loader {
 
   destroy() {
     this._unbindEvents();
-    this._stopDelayedShow();
+    this.stopDelayedShow();
 
     this.view.destroy();
 

@@ -15,6 +15,7 @@ $color: white !default;
 
   justify-content: flex-start;
   align-items: center;
+
   @include in-full-screen() {
     width: 25px;
     max-width: 25px;
@@ -25,7 +26,7 @@ $color: white !default;
     @include hidden();
   }
 
-  &:hover {
+  &:hover, &:focus {
     .container {
       visibility: visible;
 
@@ -148,7 +149,6 @@ $color: white !default;
 
   opacity: 0;
   border: 0;
-  outline: none;
 
   -webkit-appearance: slider-vertical;
 }

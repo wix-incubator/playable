@@ -22,7 +22,9 @@ const UI_EVENTS = {
   SHOW_BOTTOM_SHADOW_TRIGGERED: 'ui-show-bottom-shadow-triggered',
   HIDE_TOP_SHADOW_TRIGGERED: 'ui-hide-top-shadow-triggered',
   HIDE_BOTTOM_SHADOW_TRIGGERED: 'ui-hide-bottom-shadow-triggered',
-  WATCH_ON_SITE_TRIGGERED: 'ui-watch-on-site-triggered'
+  WATCH_ON_SITE_TRIGGERED: 'ui-watch-on-site-triggered',
+  LOADING_COVER_SHOW_TRIGGERED: 'ui-loading-cover-show-triggered',
+  LOADING_COVER_HIDE_TRIGGERED: 'ui-loading-cover-hide-triggered'
 };
 
 export default UI_EVENTS;

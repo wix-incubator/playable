@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import EventEmitter from 'eventemitter3';
 
 import { expect } from 'chai';

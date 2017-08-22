@@ -1,4 +1,6 @@
 import { ElementQueries } from 'css-element-queries';
+//import focusWithin from 'ally.js/src/style/focus-within';
+//import focusSource from 'ally.js/src/style/focus-source';
 
 import DependencyContainer from '../../core/dependency-container/index';
 import publicAPI from '../../utils/public-api-decorator';
@@ -109,6 +111,7 @@ class PlayerUI {
     if (config === false) {
       return;
     }
+
     this.view.appendComponentNode(this._overlay.node);
   }
 
@@ -118,6 +121,7 @@ class PlayerUI {
     if (this.config.loader === false) {
       return;
     }
+
     this.view.appendComponentNode(this._loader.node);
   }
 
@@ -146,6 +150,7 @@ class PlayerUI {
   _initCustomUI() {
     this.customComponents = {};
     const keys = Object.keys(this.config.customUI);
+
     keys.forEach(key => {
       const component = new this.config.customUI[key]({
         engine: this._engine,
@@ -175,6 +180,8 @@ class PlayerUI {
   attachToElement(node) {
     node.appendChild(this.node);
     ElementQueries.init();
+    //focusSource();
+    //focusWithin();
   }
 
   @publicAPI()
@@ -247,18 +254,14 @@ class PlayerUI {
     this._controls.destroy();
     delete this._controls;
 
-
     this._overlay.destroy();
     delete this._overlay;
-
 
     this._loader.destroy();
     delete this._loader;
 
-
     this._loadingCover.destroy();
     delete this._loadingCover;
-
 
     this._screen.destroy();
     delete this._screen;

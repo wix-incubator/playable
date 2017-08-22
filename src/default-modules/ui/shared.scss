@@ -17,6 +17,20 @@ $video-progress-bg: transparentize(#fff, .75) !default;
   }
 }
 
+.control-button {
+  cursor: pointer;
+  transition-duration: .2s;
+  transition-property: opacity;
+
+  opacity: 1;
+  border: 0;
+  background-color: transparent;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
 @mixin hidden() {
   visibility: hidden !important;
 
@@ -49,7 +63,6 @@ $video-progress-bg: transparentize(#fff, .75) !default;
   color: $color-main;
   border: 1px solid $color-main;
   border-radius: 18px;
-  outline: none;
   background-color: $color-main;
 
   align-items: center;

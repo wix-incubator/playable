@@ -16,9 +16,10 @@ class PlayView extends View {
       'data-hook': 'playback-control'
     });
 
-    this.$playbackControl = $('<div>', {
-      class: `${this.styleNames['playback-toggle']} ${this.styleNames.icon}`,
-      'data-hook': 'toggle-playback-button'
+    this.$playbackControl = $('<button>', {
+      class: `${this.styleNames['playback-toggle']} ${this.styleNames['control-button']}`,
+      'data-hook': 'toggle-playback-button',
+      tabIndex: 0
     });
 
     this.$node

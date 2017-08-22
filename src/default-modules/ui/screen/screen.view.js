@@ -17,8 +17,7 @@ class ScreenView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['screen-block'],
-      'data-hook': 'screen-block',
-      tabIndex: 0
+      'data-hook': 'screen-block'
     });
 
     if (this._indicateScreenClick) {

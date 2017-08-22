@@ -4,6 +4,7 @@ import View from './core/view';
 
 import styles from './ui.scss';
 
+
 class PlayerUIView extends View {
   constructor(config) {
     super(config);

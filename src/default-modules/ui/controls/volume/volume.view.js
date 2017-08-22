@@ -15,11 +15,12 @@ class VolumeView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['volume-control'],
+      tabIndex: 0,
       'data-hook': 'volume-control'
     });
 
-    this.$muteControl = $('<div>', {
-      class: `${this.styleNames['mute-button']} ${this.styleNames.icon}`,
+    this.$muteControl = $('<button>', {
+      class: `${this.styleNames['mute-button']} ${this.styleNames['control-button']}`,
       'data-hook': 'mute-button'
     });
 

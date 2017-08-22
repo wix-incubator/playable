@@ -42,6 +42,25 @@ describe('Overlay', () => {
       expect(overlay).to.exists;
       expect(overlay.view).to.exists;
     });
+
+    it('should create instance with custom view if passed', () => {
+      config.ui.overlay = {
+        view: sinon.spy(() => {
+          return {
+            hide: () => {},
+            show: () => {}
+          }
+        })
+      };
+
+      overlay = new Overlay({
+        engine,
+        config,
+        eventEmitter
+      });
+
+      expect(config.ui.overlay.view.calledWithNew()).to.be.true;
+    });
   });
 
   describe('instance callbacks to controls', () => {
@@ -132,5 +151,12 @@ describe('Overlay', () => {
       overlay.setBackgroundSrc(src);
       expect(cssSpy.calledWith('background-image', `url('${src}')`)).to.be.true;
     });
+
+    it('should have method for getting view node', () => {
+      const getNodeSpy = sinon.spy(overlay.view, 'getNode');
+      overlay.node;
+      expect(getNodeSpy.called).to.be.true;
+    });
+
   });
 });

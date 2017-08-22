@@ -50,6 +50,7 @@ export default class LoadingCover {
         this.hide();
         break;
 
+      /* ignore coverage */
       default: break;
     }
   }
@@ -62,7 +63,7 @@ export default class LoadingCover {
 
   hide() {
     if (!this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADER_HIDE_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_HIDE_TRIGGERED);
       this.view.hide();
       this.isHidden = true;
     }
@@ -71,7 +72,7 @@ export default class LoadingCover {
   show() {
     if (this.isHidden) {
       this._controls._hideContent();
-      this._eventEmitter.emit(UI_EVENTS.LOADER_SHOW_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED);
       this.view.show();
       this.isHidden = false;
     }
