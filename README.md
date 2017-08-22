@@ -98,7 +98,7 @@ const player = VideoPlayer.create(config);
 
 ```Player.getMute()``` Get mute flag
 
-```Player.setVolume(volume: Number<0..1>)``` Set volume
+```Player.setVolume(volume: Number<0..100>)``` Set volume
 
 ```Player.getVolume()``` Get volume
 

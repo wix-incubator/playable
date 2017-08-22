@@ -36,7 +36,7 @@ describe('VolumeControl', () => {
   });
 
   describe('API', () => {
-    it('should have method for setting current time', () => {
+    it('should have method for setting current volume', () => {
       const spy = sinon.spy(control.view, 'setState');
       expect(control.setVolumeLevel).to.exist;
       control.setVolumeLevel(100);
@@ -101,7 +101,7 @@ describe('VolumeControl', () => {
       const muteSpy = sinon.spy(control, '_toggleMuteStatus');
 
       control._changeVolumeStatus(90);
-      expect(volumeSpy.calledWith(0.9)).to.be.true;
+      expect(volumeSpy.calledWith(90)).to.be.true;
       expect(muteSpy.called).to.be.false;
       control._isMuted = true;
       control._changeVolumeStatus(90);

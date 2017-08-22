@@ -237,11 +237,11 @@ export default class Engine {
 
   setVolume(volume) {
     const parsedVolume = Number(volume);
-    this._video.volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume), 1));
+    this._video.volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume) / 100, 1));
   }
 
   getVolume() {
-    return this._video.volume;
+    return this._video.volume * 100;
   }
 
   setPlaybackRate(rate) {

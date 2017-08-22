@@ -79,8 +79,8 @@ describe('Player', () => {
 
     it('should have method for set volume', () => {
       expect(player.setVolume).to.exist;
-      player.setVolume(0.5);
-      expect(player.getVolume()).to.be.equal(0.5);
+      player.setVolume(50);
+      expect(player.getVolume()).to.be.equal(50);
     });
 
     it('should have method for set preload', () => {
@@ -117,7 +117,7 @@ describe('Player', () => {
     });
 
     it('should have method for get volume', () => {
-      const volume = 0.3;
+      const volume = 30;
       expect(player.getVolume).to.exist;
       player.setVolume(volume);
       expect(player.getVolume()).to.be.equal(volume);

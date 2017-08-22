@@ -12,7 +12,7 @@ export default class VolumeControl {
     this._eventEmitter = eventEmitter;
 
     this._isMuted = this._engine.getMute();
-    this._volumeLevel = this._convertVideoVolumeToVolumeLevel(this._engine.getVolume());
+    this._volumeLevel = this._engine.getVolume();
 
     this._bindCallbacks();
 
@@ -52,14 +52,6 @@ export default class VolumeControl {
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
   }
 
-  _convertVolumeLevelToVideoVolume(level) {
-    return level / 100;
-  }
-
-  _convertVideoVolumeToVolumeLevel(level) {
-    return level * 100;
-  }
-
   _changeVolumeLevel(level) {
     this._engine.setVolume(level);
     this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
@@ -82,7 +74,7 @@ export default class VolumeControl {
   }
 
   _changeVolumeStatus(level) {
-    this._changeVolumeLevel(this._convertVolumeLevelToVideoVolume(level));
+    this._changeVolumeLevel(level);
     if (this._isMuted) {
       this._toggleMuteStatus();
     }
@@ -98,7 +90,7 @@ export default class VolumeControl {
       return;
     }
 
-    this._volumeLevel = this._convertVideoVolumeToVolumeLevel(level);
+    this._volumeLevel = level;
 
     this.view.setState({
       volume: this._volumeLevel,
