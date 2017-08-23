@@ -5,7 +5,7 @@ import Lifetime from './constants/Lifetime';
 import last from 'lodash/last';
 
 
-const FAMILY_TREE = Symbol('familyTree');
+const FAMILY_TREE = '__familyTree__';
 
 export default function createContainer(options, __parentContainer) {
   options = Object.assign({}, options);
