@@ -2,7 +2,7 @@ import convertParamsToConfig from './config';
 
 
 export default class Player {
-  constructor(rootNode, params, scope, defaultModules, additionalModules) {
+  constructor(rootNode, params, scope, defaultModules, additionalModules = []) {
     scope.registerValue({
       config: convertParamsToConfig(params),
       rootNode
@@ -26,12 +26,7 @@ export default class Player {
   }
 
   _resolveAdditionalModules(scope, modules) {
-    if (!modules) {
-      this._additionalModules = Object.create(null);
-      return;
-    }
-
-    this._additionalModules = Object.keys(modules).reduce((modules, moduleName) => {
+    this._additionalModules = modules.reduce((modules, moduleName) => {
       modules[moduleName] = scope.resolve(moduleName);
       return modules;
     }, {});

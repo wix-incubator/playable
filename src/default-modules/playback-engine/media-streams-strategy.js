@@ -7,18 +7,18 @@ import { resolvePlayableStreams } from '../../utils/playback-resolution';
 import { detectStreamType } from '../../utils/detect-stream-type';
 import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants/index';
 
-const streamCreators = [
-  getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
-  DashStream,
-  HlsStream,
-  getNativeStreamCreator(MEDIA_STREAM_TYPES.MP4, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE),
-  getNativeStreamCreator(MEDIA_STREAM_TYPES.WEBM, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE) // Native WebM (Chrome, Firefox)
-];
-
 
 const DEFAULT_INITIAL_BITRATE = 1750;
 
 export default class MediaStreamsStrategy {
+  static streamCreators = [
+    getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
+    DashStream,
+    HlsStream,
+    getNativeStreamCreator(MEDIA_STREAM_TYPES.MP4, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE),
+    getNativeStreamCreator(MEDIA_STREAM_TYPES.WEBM, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE) // Native WebM (Chrome, Firefox)
+  ];
+
   constructor(eventEmitter, video) {
     this._eventEmitter = eventEmitter;
     this._video = video;
@@ -26,10 +26,10 @@ export default class MediaStreamsStrategy {
     this._initialBitrate = DEFAULT_INITIAL_BITRATE;
 
     this._playableStreamCreators = [];
-    this._playableStreams = null;
+    this._playableStreams = [];
     this._attachedStream = null;
 
-    streamCreators.forEach(
+    MediaStreamsStrategy.streamCreators.forEach(
       streamCreator =>
         streamCreator.isSupported(NativeEnvironmentSupport) &&
         this._playableStreamCreators.push(streamCreator)
@@ -58,10 +58,6 @@ export default class MediaStreamsStrategy {
   }
 
   _connectStreamToVideo() {
-    if (!this._playableStreams) {
-      return;
-    }
-
     if (this._playableStreams.length > 0) {
       // Use the first PlayableStream for now
       // Later, we can use the others as fallback
@@ -81,9 +77,11 @@ export default class MediaStreamsStrategy {
     return this._attachedStream;
   }
 
+  /*
   setInitialBitrate(bitrate) {
     this.initialBitrate = bitrate;
   }
+  */
 
   connectMediaStream(src) {
     this._detachCurrentStream();

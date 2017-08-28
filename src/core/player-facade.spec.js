@@ -59,15 +59,27 @@ describe('Player\'s instance', () => {
       class ClassB {}
       const resolveSpy = sinon.spy(container, 'resolve');
 
-      additionalModules = {
-        ClassB
-      };
-
       container.registerClass('ClassB', ClassB);
 
-      player = new Player(rootNode, {}, container, {}, additionalModules);
+      player = new Player(rootNode, {}, container, {}, ['ClassB']);
 
       expect(resolveSpy.calledWith('ClassB')).to.be.true;
+    });
+
+    it('should call destroy on player destroy', () => {
+      const destroySpy = sinon.spy();
+      class ClassA {
+        destroy() {
+          destroySpy();
+        }
+      }
+
+      container.registerClass('ClassA', ClassA);
+
+      player = new Player(rootNode, {}, container, {}, ['ClassA']);
+      player.destroy();
+
+      expect(destroySpy.called).to.be.true;
     })
   });
 
@@ -86,6 +98,16 @@ describe('Player\'s instance', () => {
         @publicAPI()
         methodA() {
           methodASpy();
+        }
+
+        @publicAPI()
+        get methodC() {
+
+        }
+
+        @publicAPI()
+        set methodC(a) {
+
         }
 
         destroy() {}
@@ -117,6 +139,7 @@ describe('Player\'s instance', () => {
 
       expect(player.methodA).to.be.defined;
       expect(player.methodB).to.not.be.defined;
+      expect(player.methodC).to.be.defined;
 
       container.registerClass('ClassB', ClassB);
       defaultModules = {

@@ -143,10 +143,6 @@ export default class Engine {
     this.setVolume(this.getVolume() + value);
   }
 
-  setInitialBitrate(bitrate) {
-    this._mediaStreamStrategy.setInitialBitrate(bitrate);
-  }
-
   @publicAPI()
   setAutoPlay(isAutoPlay) {
     this._video.autoplay = Boolean(isAutoPlay);

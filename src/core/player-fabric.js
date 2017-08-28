@@ -4,13 +4,17 @@ import PlayerFacade from './player-facade';
 import defaultModules from '../default-modules';
 
 
-const additionalModules = {};
+let additionalModules = {};
 
 export const container = DependencyContainer.createContainer();
 container.register(defaultModules);
 
 export function registerModule(id, config) {
   additionalModules[id] = config;
+}
+
+export function clearAdditionalModules() {
+  additionalModules = {};
 }
 
 export default function create(params = {}) {

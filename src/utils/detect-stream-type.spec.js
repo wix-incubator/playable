@@ -1,3 +1,4 @@
+import 'jsdom-global';
 import { expect } from 'chai';
 import { detectStreamType } from './detect-stream-type';
 import { MEDIA_STREAM_TYPES } from '../constants/media-stream';
@@ -27,6 +28,10 @@ describe('Stream type auto detection', function () {
     expect(detectStreamType(mp4URL + queryParam)).to.equal(MEDIA_STREAM_TYPES.MP4);
     expect(detectStreamType(mp4URL + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
     expect(detectStreamType(mp4URL + queryParam + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
+  });
+
+  it('should throw error if can\'t parse url', () => {
+      expect(() => detectStreamType('test.url')).to.throw('Vidi: cannot auto-detect url \'test.url\'. Please specify type manually using the MediaStream interface.');
   });
 });
 

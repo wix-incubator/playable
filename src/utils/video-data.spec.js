@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { getOverallBufferedPercent, getOverallPlayedPercent } from './video-data';
+import { getOverallBufferedPercent, getOverallPlayedPercent, geOverallBufferLength, getNearestBufferSegmentInfo } from './video-data';
 
 function getValidBuffer(seq) {
   return {
@@ -9,6 +9,46 @@ function getValidBuffer(seq) {
     length: seq.length
   }
 }
+
+describe('getNearestBufferSegmentInfo', () => {
+  it('should return null if invalid buffer provided', () => {
+    const buffer1 = null;
+    const buffer2 = [];
+
+    expect(getNearestBufferSegmentInfo(buffer1)).to.be.equal(null);
+    expect(getNearestBufferSegmentInfo(buffer2)).to.be.equal(null);
+  });
+
+  it('should return proper size of buffer', () => {
+    const buffer = getValidBuffer([[2, 10], [30, 40]]);
+
+    expect(getNearestBufferSegmentInfo(buffer, 3)).to.be.deep.equal({
+      start: 2,
+      end: 10
+    });
+
+    expect(getNearestBufferSegmentInfo(buffer, 35)).to.be.deep.equal({
+      start: 30,
+      end: 40
+    });
+  });
+});
+
+describe('geOverallBufferLength', () => {
+  it('should return 0 if invalid buffer provided', () => {
+    const buffer1 = null;
+    const buffer2 = [];
+
+    expect(geOverallBufferLength(buffer1)).to.be.equal(0);
+    expect(geOverallBufferLength(buffer2)).to.be.equal(0);
+  });
+
+  it('should return proper size of buffer', () => {
+    const buffer = getValidBuffer([[0, 10]]);
+
+    expect(geOverallBufferLength(buffer)).to.be.equal(10);
+  });
+});
 
 describe('getOverallBufferedPercent', () => {
   it('should return 0 if invalid buffer provided', () => {

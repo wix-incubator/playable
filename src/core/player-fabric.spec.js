@@ -5,8 +5,25 @@ import sinon from 'sinon';
 
 
 
-import create from './player-fabric';
+import create, { registerModule, clearAdditionalModules } from './player-fabric';
 
+describe('registerModule', () => {
+  it('should add additional module', () => {
+    const spy = sinon.spy();
+
+    class ClassA {
+      constructor() {
+        spy();
+      }
+    }
+
+    registerModule('ClassA', ClassA);
+
+    const player = create();
+    expect(spy.called).to.be.true;
+    clearAdditionalModules();
+  });
+});
 
 describe('Player', () => {
   let player;

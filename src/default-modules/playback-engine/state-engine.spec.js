@@ -86,7 +86,7 @@ describe('NativeEventsBroadcaster', () => {
     expect(
       engine.setState.calledWith(STATES.METADATA_LOADED)
     ).to.be.true;
-    expect(engine._isMetadataLoaded).to.be.true;
+    expect(engine.isMetadataLoaded).to.be.true;
   });
 
   it('should set state on canplay event', () => {
@@ -150,6 +150,22 @@ describe('NativeEventsBroadcaster', () => {
     expect(
       engine.setState.calledWith(STATES.PLAYING)
     ).to.be.true;
+  });
+
+  it('should dodge sneaky bug with dash manifest', () => {
+    engine.setState(STATES.METADATA_LOADED);
+    engine.setState(STATES.SEEK_IN_PROGRESS);
+    expect(engine.getState()).to.be.equal(STATES.METADATA_LOADED);
+    engine.setState(STATES.PAUSED);
+    expect(engine.getState()).to.be.equal(STATES.METADATA_LOADED);
+  });
+
+  it('should collect timestamps', () => {
+    engine._processEventFromVideo(NATIVE_EVENTS.LOAD_START);
+    engine._processEventFromVideo(NATIVE_EVENTS.LOADED_META_DATA);
+    engine._processEventFromVideo(NATIVE_EVENTS.CAN_PLAY);
+
+    expect(Object.keys(engine.getStateTimestamps())).to.be.deep.equal(['metadata-loaded','ready-to-play']);
   });
 
   it('should do nothing if event is not in list', () => {
