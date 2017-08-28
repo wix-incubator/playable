@@ -9,7 +9,6 @@ export default class Player {
     });
 
     this._config = scope.resolve('config');
-    this._rootNode = scope.resolve('rootNode');
 
     this._resolveDefaultModules(scope, defaultModules);
     this._resolveAdditionalModules(scope, additionalModules);
@@ -114,7 +113,5 @@ export default class Player {
     delete this._defaultModules;
     delete this._additionalModules;
     delete this._config;
-    delete this._rootNode;
-
   }
 }

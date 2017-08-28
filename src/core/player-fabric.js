@@ -1,7 +1,7 @@
 import DependencyContainer from './dependency-container';
 import PlayerFacade from './player-facade';
 
-import defaultModules from './default-modules';
+import defaultModules from '../default-modules';
 
 
 const additionalModules = {};

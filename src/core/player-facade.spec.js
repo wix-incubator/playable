@@ -32,7 +32,7 @@ describe('Player\'s instance', () => {
         })
       ).to.be.true;
       expect(resolveSpy.args).to.deep.equal(
-        [['config'], ['rootNode']]
+        [['config']]
       );
     });
   });

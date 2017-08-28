@@ -20,12 +20,14 @@
 </head>
 <body>
 <script>
+  var DEFAULT_URL = 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
+
   function parseQuery(qstr) {
-    const query = {};
-    const a = (qstr[0] === '?' ? qstr.substr(1) : qstr).split('&');
+    var query = {};
+    var a = (qstr[0] === '?' ? qstr.substr(1) : qstr).split('&');
     for (var i = 0; i < a.length; i++) {
-      let b = a[i].split('=');
-      const value = decodeURIComponent(b[1] || '');
+      var b = a[i].split('=');
+      var value = decodeURIComponent(b[1] || '');
 
       if (!isNaN(Number(value))) {
         query[decodeURIComponent(b[0])] = Number(value);
@@ -40,9 +42,23 @@
     return query;
   }
 
-  const searchQuery = parseQuery(window.location.search);
-  const url = searchQuery.url ||  'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
-  const type = searchQuery.type || 'HLS';
+  var searchQuery = parseQuery(window.location.search);
+  var url = searchQuery.url;
+  var type = searchQuery.type;
+  var src;
+
+  if (!url) {
+    src = DEFAULT_URL;
+  } else {
+    if (type) {
+      src = {
+        url,
+        type
+      }
+    } else {
+      src = url;
+    }
+  }
 
   window.player = VideoPlayer.create({
     autoPlay: false,
@@ -50,19 +66,14 @@
     loop: false,
     logger: true,
     preload: "auto",
-    volume: 0.5,
+    volume: 100,
     fillAllSpace: true,
     size: {
       width: 760,
       height: 428
     },
-    loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
-    src: [
-      {
-        url: url,
-        type: type
-      },
-    ],
+    loadingCover: 'https://www.pets4homes.co.uk/images/breeds/142/large/184f5cc944e278ad4a20f70258b75cdd.jpg',
+    src: src,
     controls: {
       watchOnSite: {
         url: 'http://www.wix.com/',
@@ -71,7 +82,7 @@
       }
     },
     overlay: false,
-  }, false);
+  });
 
   document.addEventListener('DOMContentLoaded', function() {
     window.player.attachToElement(document.body);

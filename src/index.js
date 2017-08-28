@@ -1,18 +1,18 @@
 import create, { registerModule } from './core/player-fabric';
 
 import { UI_EVENTS, VIDEO_EVENTS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from './constants';
-import { STATES as ENGINE_STATES } from './playback-engine/playback-engine';
+import { STATES as ENGINE_STATES } from './default-modules/playback-engine/playback-engine';
 
-import DefaultControls from './ui/controls/default-controls';
+import DefaultControls from './default-modules/ui/controls/default-controls';
 
-import Overlay from './ui/overlay/overlay.controler';
-import Loader from './ui/loader/loader.controler';
-import Screen from './ui/screen/screen.controler';
-import ControlBlock from './ui/controls/controls.controler';
+import Overlay from './default-modules/ui/overlay/overlay.controler';
+import Loader from './default-modules/ui/loader/loader.controler';
+import Screen from './default-modules/ui/screen/screen.controler';
+import ControlBlock from './default-modules/ui/controls/controls.controler';
 
-import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
-import UI from './ui/ui.controler';
-import FullScreenManager from './full-screen-manager/full-screen-manager';
+import AnomalyBloodhound from './default-modules/anomaly-bloodhound/anomaly-bloodhound';
+import UI from './default-modules/ui/ui.controler';
+import FullScreenManager from './default-modules/full-screen-manager/full-screen-manager';
 import PlayerFacade from './core/player-facade';
 
 const DefaultUIComponents = {
