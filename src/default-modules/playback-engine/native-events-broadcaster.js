@@ -1,11 +1,11 @@
 import { VIDEO_EVENTS } from '../../constants/index';
 
 
-const NATIVE_VIDEO_TO_BROADCAST = [
+export const NATIVE_VIDEO_TO_BROADCAST = [
   'progress', 'error', 'stalled', 'suspend', 'durationchange', 'timeupdate', 'volumechange'
 ];
 
-export default class NativeEventsBroadcast {
+export default class NativeEventsBroadcaster {
   constructor(eventEmitter, video) {
     this._eventEmitter = eventEmitter;
     this._video = video;
@@ -26,7 +26,7 @@ export default class NativeEventsBroadcast {
     NATIVE_VIDEO_TO_BROADCAST.forEach(event => this._video.removeEventListener(event, this._processEventFromVideo));
   }
 
-  _processEventFromVideo(event) {
+  _processEventFromVideo(event = {}) {
     const videoEl = this._video;
 
     switch (event.type) {

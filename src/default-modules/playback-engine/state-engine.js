@@ -14,11 +14,11 @@ export const STATES = {
   ENDED: 'ended'
 };
 
-const NATIVE_VIDEO_EVENTS_TO_STATE = [
+export const NATIVE_VIDEO_EVENTS_TO_STATE = [
   'loadstart', 'loadedmetadata', 'canplay', 'play', 'playing', 'pause', 'ended', 'waiting', 'seeking', 'seeked'
 ];
 
-export default class Engine {
+export default class StateEngine {
   static dependencies = ['eventEmitter', 'config'];
 
   constructor(eventEmitter, video) {
@@ -65,7 +65,7 @@ export default class Engine {
     return this._statesTimestamps;
   }
 
-  _processEventFromVideo(event) {
+  _processEventFromVideo(event = {}) {
     const videoEl = this._video;
 
     switch (event.type) {

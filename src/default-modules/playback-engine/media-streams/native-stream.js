@@ -37,6 +37,10 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
       return deliveryType;
     }
 
+    getMediaStreamType() {
+      return streamType;
+    }
+
     setMediaLevel(newLevel, videoElement) {
       if (newLevel < this.mediaStreams.length) {
         this.currentLevel = newLevel;
