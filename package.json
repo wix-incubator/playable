@@ -58,6 +58,7 @@
   },
   "yoshi": {
     "separateCss": false,
+    "optimizeMoment": true,
     "exports": "VideoPlayer",
     "entry": {
       "video-player": "./index.js",
