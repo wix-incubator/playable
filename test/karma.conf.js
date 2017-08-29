@@ -1,5 +1,6 @@
 // Karma configuration
 
+/* ignore coverage */
 module.exports = function (config) {
     config.set({
 

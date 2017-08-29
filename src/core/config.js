@@ -17,7 +17,8 @@ export function getUIConfig(params) {
     loader,
     controls,
     watchOnSite,
-    fillAllSpace
+    fillAllSpace,
+    loadingCover
   };
 
   if (iPhone || iPod || iPad) {
@@ -33,12 +34,6 @@ export function getUIConfig(params) {
     config.screen = {
       ...screen,
       disableClickProcessing: true
-    };
-  }
-
-  if (loadingCover) {
-    config.loadingCover = {
-      url: loadingCover
     };
   }
 
@@ -61,25 +56,11 @@ export function getFullScreenManagerConfig(params) {
   } = params;
   const config = {};
 
-  if (exitFullScreenOnEnd !== void 0) {
-    config.exitOnEnd = exitFullScreenOnEnd;
-  }
-
-  if (enterFullScreenOnPlay !== void 0) {
-    config.enterOnPlay = enterFullScreenOnPlay;
-  }
-
-  if (disableFullScreen !== void 0) {
-    config.disabled = disableFullScreen;
-  }
-
-  if (exitFullScreenOnPause !== void 0) {
-    config.exitOnPause = exitFullScreenOnPause;
-  }
-
-  if (pauseVideoOnFullScreenExit !== void 0) {
-    config.pauseOnExit = pauseVideoOnFullScreenExit;
-  }
+  config.exitOnEnd = Boolean(exitFullScreenOnEnd);
+  config.enterOnPlay = Boolean(enterFullScreenOnPlay);
+  config.disabled = Boolean(disableFullScreen);
+  config.exitOnPause = Boolean(exitFullScreenOnPause);
+  config.pauseOnExit = Boolean(pauseVideoOnFullScreenExit);
 
   return config;
 }

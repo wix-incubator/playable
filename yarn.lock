@@ -3820,8 +3820,8 @@ ieee754@^1.1.4:
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
 
 ignore@^3.2.0:
-  version "3.3.4"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/ignore/-/ignore-3.3.4.tgz#85ab6d0a9ca8b27b31604c09efe1c14dc21ab872"
+  version "3.3.5"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/ignore/-/ignore-3.3.5.tgz#c4e715455f6073a8d7e5dae72d2fc9d71663dba6"
 
 image-size@~0.5.0:
   version "0.5.5"
@@ -5199,8 +5199,8 @@ mem@^1.1.0:
     mimic-fn "^1.0.0"
 
 memoizee@^0.4.5:
-  version "0.4.6"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/memoizee/-/memoizee-0.4.6.tgz#04393e4541373921a88274ffc86d084d288614bb"
+  version "0.4.8"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/memoizee/-/memoizee-0.4.8.tgz#e74521719da98279ee1595669cca0949edd25857"
   dependencies:
     d "1"
     es5-ext "^0.10.13"
@@ -5284,9 +5284,13 @@ mime@1.3.4:
   version "1.3.4"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
 
-mime@1.3.x, mime@^1.2.11, mime@^1.3.4:
+mime@1.3.x:
   version "1.3.6"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/mime/-/mime-1.3.6.tgz#591d84d3653a6b0b4a3b9df8de5aa8108e72e5e0"
+
+mime@^1.2.11, mime@^1.3.4:
+  version "1.4.0"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/mime/-/mime-1.4.0.tgz#69e9e0db51d44f2a3b56e48b7817d7d137f1a343"
 
 mimeparse@^0.1.4:
   version "0.1.4"
@@ -7641,8 +7645,8 @@ stylable-integration@^5.0.0:
     yargs "^8.0.2"
 
 stylable@^4.0.7:
-  version "4.0.8"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/stylable/-/stylable-4.0.8.tgz#64ddc1e888144463ad2ce2f18ae074d6caf66e92"
+  version "4.0.9"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/stylable/-/stylable-4.0.9.tgz#d07875ff522ec1b6bc891698b61f81a7453c1e35"
   dependencies:
     camelcase-css "^1.0.1"
     css-selector-tokenizer "^0.7.0"
@@ -8110,10 +8114,6 @@ type-is@~1.6.15:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
-
-typescript@~2.3.0:
-  version "2.3.4"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
 uglify-js@3.0.x:
   version "3.0.28"
@@ -8826,8 +8826,8 @@ yoshi-copy@latest:
     mkdirp "~0.5.1"
 
 yoshi-eslint@latest:
-  version "1.0.34"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/yoshi-eslint/-/yoshi-eslint-1.0.34.tgz#59b88ea392814d11fd0a60afe309bb672e9933ed"
+  version "1.0.35"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/yoshi-eslint/-/yoshi-eslint-1.0.35.tgz#6b4efe8adfc91e479348cca9699f5172ce18fe25"
   dependencies:
     eslint "~3.19.0"
     glob "~7.1.2"
@@ -8879,22 +8879,20 @@ yoshi-stylelint@latest:
     stylelint "~7.13.0"
 
 yoshi-tslint@latest:
-  version "1.0.6"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/yoshi-tslint/-/yoshi-tslint-1.0.6.tgz#675a0b0cbe1efb0fc65ba8a4cf982627dbda51fe"
+  version "1.0.7"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/yoshi-tslint/-/yoshi-tslint-1.0.7.tgz#7250ef86b05d2cb34be20ee67fd467ed23f12810"
   dependencies:
     glob "~7.1.2"
     tslint "~5.5.0"
-    typescript "~2.3.0"
 
 yoshi-typescript@latest:
-  version "1.0.14"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/yoshi-typescript/-/yoshi-typescript-1.0.14.tgz#b486f9a4d1f47a83e49ba16a6603b081ba03ab7f"
+  version "1.0.15"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/yoshi-typescript/-/yoshi-typescript-1.0.15.tgz#d2ab79d93a2134301fc17aa8d6556d8a62adce19"
   dependencies:
     chalk "~2.0.1"
     cross-spawn "~5.1.0"
     lodash.flowright "^3.5.0"
     lodash.topairs "^4.3.0"
-    typescript "~2.3.0"
 
 yoshi-update-node-version@latest:
   version "1.0.5"
@@ -8911,8 +8909,8 @@ yoshi-wnpm-release@latest:
     wnpm-ci latest
 
 yoshi@^1.1.98:
-  version "1.1.227"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/yoshi/-/yoshi-1.1.227.tgz#5422776fac7fddaa4cbf370d8d560b853d71f771"
+  version "1.1.233"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/yoshi/-/yoshi-1.1.233.tgz#8ffb66996f3283b78a9fbad0b923e83c7c2c5a70"
   dependencies:
     autoprefixer "~7.1.2"
     babel-jest "~20.0.3"
@@ -8975,7 +8973,6 @@ yoshi@^1.1.98:
     ts-node "~1.7.3"
     tslint "~5.5.0"
     tslint-config-wix "~1.0.23"
-    typescript "~2.3.0"
     url-loader "~0.5.9"
     webpack "~3.2.0"
     webpack-bundle-analyzer "~2.8.3"

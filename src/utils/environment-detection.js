@@ -15,6 +15,7 @@ export const NativeEnvironmentSupport = {
     WEBM: false
 };
 
+/* ignore coverage */
 function detectEnvironment() {
     if (!isBrowser) {
         return; // Not in a browser

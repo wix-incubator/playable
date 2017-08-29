@@ -14,9 +14,7 @@ export default class LoadingCover {
     this.isHidden = false;
     this._engine = engine;
     this._controls = controls;
-    this.config = {
-      ...get(config, 'ui.loadingCover')
-    };
+    this._url = get(config, 'ui.loadingCover');
 
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
@@ -57,10 +55,8 @@ export default class LoadingCover {
   }
 
   _initUI() {
-    const { url } = this.config;
-
     this.view = new View({
-      url
+      url: this._url
     });
   }
 

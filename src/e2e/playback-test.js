@@ -1,6 +1,7 @@
 import VideoPlayer from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 
+/* ignore coverage */
 describe('Playback e2e test', function () {
   this.timeout(10000);
 
