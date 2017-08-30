@@ -2,9 +2,9 @@
 
 
 .hidden {
-  visibility: hidden;
+  visibility: hidden!important;
 
-  opacity: 0;
+  opacity: 0!important;
 }
 
 .wrapper {
@@ -60,8 +60,6 @@
   min-width: 14px;
   height: 14px;
   min-height: 14px;
-
-  transition: transform .2s;
 
   background-image: url('../../../../assets/view-on-site.svg');
   background-size: 14px 14px;
