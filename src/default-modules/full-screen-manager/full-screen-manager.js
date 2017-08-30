@@ -1,4 +1,4 @@
-import { iPhone, iPod, iPad } from '../../utils/device-detection';
+import { isIPhone, isIPod, isIPad } from '../../utils/device-detection';
 import publicAPI from '../../utils/public-api-decorator';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
@@ -27,7 +27,7 @@ export default class FullScreenManager {
 
     this._onChange = this._onChange.bind(this);
 
-    if (iPhone || iPod || iPad) {
+    if (isIPhone() || isIPod() || isIPad()) {
       this._helper = new IOSFullScreen(this._engine.getNode(), this._onChange);
     } else {
       this._helper = new DesktopFullScreen(rootNode, this._onChange);

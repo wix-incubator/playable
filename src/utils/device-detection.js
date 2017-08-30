@@ -1,11 +1,13 @@
-/* ignore coverage */
-export const iPhone = /iPhone/.test(navigator.userAgent) && !window.MSStream;
+const getNavigator = () => window.navigator || {};
 
 /* ignore coverage */
-export const iPod = /iPod/.test(navigator.userAgent) && !window.MSStream;
+export const isIPhone = () => /iPhone/.test(getNavigator().userAgent) && !window.MSStream;
 
 /* ignore coverage */
-export const iPad = /iPad/.test(navigator.userAgent) && !window.MSStream;
+export const isIPod = () => /iPod/.test(getNavigator().userAgent) && !window.MSStream;
 
 /* ignore coverage */
-export const Android = /(android)/i.test(navigator.userAgent);
+export const isIPad = () => /iPad/.test(getNavigator().userAgent) && !window.MSStream;
+
+/* ignore coverage */
+export const isAndroid = () => /(android)/i.test(getNavigator().userAgent);

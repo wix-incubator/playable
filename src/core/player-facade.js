@@ -1,10 +1,10 @@
-import convertParamsToConfig from './config';
+import mapParamsToConfig from './config-mapper';
 
 
 export default class Player {
   constructor(rootNode, params, scope, defaultModules, additionalModules = []) {
     scope.registerValue({
-      config: convertParamsToConfig(params),
+      config: mapParamsToConfig(params),
       rootNode
     });
 

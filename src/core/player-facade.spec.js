@@ -1,16 +1,18 @@
+import 'jsdom-global';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import convertParamsToConfig from './config';
+import mapParamsToConfig from './config-mapper';
 import Player from './player-facade';
 import DependencyContainer from './dependency-container';
 import publicAPI from '../utils/public-api-decorator';
+
 
 describe('Player\'s instance', () => {
   let container;
   let player;
   let defaultModules;
-  let additionalModules;
+
   const rootNode = document.createElement('div');
 
   beforeEach(() => {
@@ -27,7 +29,7 @@ describe('Player\'s instance', () => {
 
       expect(
         registerValueSpy.calledWith({
-          config: convertParamsToConfig(params),
+          config: mapParamsToConfig(params),
           rootNode
         })
       ).to.be.true;

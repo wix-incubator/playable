@@ -4,7 +4,7 @@ import StateEngine, { STATES } from './state-engine';
 import NativeEventsBroadcaster from './native-events-broadcaster';
 import MediaStreamsStrategy from './media-streams-strategy';
 
-import { iPhone, iPod, Android, iPad } from '../../utils/device-detection';
+import { isIPhone, isIPod, isIPad, isAndroid } from '../../utils/device-detection';
 
 import { VIDEO_EVENTS } from '../../constants/index';
 
@@ -61,7 +61,7 @@ export default class Engine {
   }
 
   get isPreloadAvailable() {
-    if (iPad || iPhone || iPod || Android) {
+    if (isIPad() || isIPhone() || isIPod() || isAndroid()) {
       return false;
     }
 
@@ -69,7 +69,7 @@ export default class Engine {
   }
 
   get isAutoPlayAvailable() {
-    if (iPad || iPhone || iPod || Android) {
+    if (isIPad() || isIPhone() || isIPod() || isAndroid()) {
       return false;
     }
 
