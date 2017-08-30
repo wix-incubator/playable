@@ -13,7 +13,7 @@
   @include in-full-screen() {
     margin-right: 30px;
   }
-  @include controls-max-width-400() {
+  @include max-width-400() {
     @include hidden();
   }
 }

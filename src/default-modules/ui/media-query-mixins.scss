@@ -33,33 +33,3 @@
     @content
   }
 }
-
-@mixin controls-query-basic($query, $value) {
-  div[data-hook='controls-container'][#{$query}~=#{'"' + $value + '"'}] & {
-    @content
-  }
-}
-
-@mixin controls-max-width-550() {
-  @include controls-query-basic(max-width, 550px) {
-    @content
-  }
-}
-
-@mixin controls-max-width-400() {
-  @include controls-query-basic(max-width, 400px) {
-    @content
-  }
-}
-
-@mixin controls-max-width-350() {
-  @include controls-query-basic(max-width, 350px) {
-    @content
-  }
-}
-
-@mixin controls-max-width-300() {
-  @include controls-query-basic(max-width, 300px) {
-    @content
-  }
-}

@@ -9,7 +9,7 @@
 
   align-items: center;
   justify-content: center;
-  @include controls-max-width-550() {
+  @include max-width-550() {
     margin-right: 12px;
   }
   @include in-full-screen() {
