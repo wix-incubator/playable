@@ -32,7 +32,7 @@ describe('getTextMapConfig function', () => {
 
     expect(getTextMapConfig(params)).to.be.equal(params.texts);
   });
-  
+
   it('should return empty object if nothing pass passed', () => {
     const params = {};
     expect(getTextMapConfig(params)).to.be.deep.equal({});

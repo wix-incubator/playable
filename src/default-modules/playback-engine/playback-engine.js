@@ -209,7 +209,7 @@ export default class Engine {
     return this._video.currentTime;
   }
 
-  @publicAPI()
+  @publicAPI('goTo')
   setCurrentTime(time) {
     this._video.currentTime = time;
   }

@@ -10,6 +10,7 @@ const NATIVE_EVENTS = {
   ERROR: { type: 'error' },
   STALLED: { type: 'stalled' },
   PROGRESS: { type: 'progress' },
+  SEEKING: { type: 'seeking' },
   SUSPEND: { type: 'suspend' },
   DURATION_CHANGE: { type: 'durationchange' },
   TIME_UPDATE: { type: 'timeupdate' },
@@ -72,6 +73,12 @@ describe('NativeEventsBroadcaster', () => {
     video.error = 'Test error';
     broadcaster._processEventFromVideo(NATIVE_EVENTS.ERROR);
     expect(eventEmitter.emit.calledWith(VIDEO_EVENTS.ERROR, video.error)).to.be.true;
+  });
+
+  it('should broadcast seeking event', () => {
+    video.currentTime = 100;
+    broadcaster._processEventFromVideo(NATIVE_EVENTS.SEEKING);
+    expect(eventEmitter.emit.calledWith(VIDEO_EVENTS.SEEK_IN_PROGRESS, 100)).to.be.true;
   });
 
   it('should broadcast durationchange event', () => {

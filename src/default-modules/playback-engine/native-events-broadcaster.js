@@ -2,7 +2,7 @@ import { VIDEO_EVENTS } from '../../constants/index';
 
 
 export const NATIVE_VIDEO_TO_BROADCAST = [
-  'progress', 'error', 'stalled', 'suspend', 'durationchange', 'timeupdate', 'volumechange'
+  'progress', 'error', 'stalled', 'suspend', 'durationchange', 'timeupdate', 'volumechange', 'seeking'
 ];
 
 export default class NativeEventsBroadcaster {
@@ -44,6 +44,10 @@ export default class NativeEventsBroadcaster {
       }
       case 'suspend': {
         this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
+        break;
+      }
+      case 'seeking': {
+        this._eventEmitter.emit(VIDEO_EVENTS.SEEK_IN_PROGRESS, videoEl.currentTime);
         break;
       }
       case 'durationchange': {
