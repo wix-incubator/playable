@@ -33,13 +33,24 @@
   }
 
   &:hover {
-    opacity: .7;
+    .watch-on-site-toggle,
+    img {
+      opacity: .7;
+    }
+
+    .tooltip {
+      visibility: visible;
+
+      opacity: 1;
+    }
   }
 }
 
-.wrapper img {
+.company-logo {
   max-width: 125px;
   max-height: 26px;
+
+  transition: opacity .2s, visibility .2s;
 
   @include max-width-550() {
     max-width: 90px;
@@ -82,4 +93,24 @@
       transform: scale(.8);
     }
   }
+}
+
+.tooltip {
+  font-size: 10px;
+  line-height: 17px;
+
+  position: absolute;
+  top: -25px;
+  right: -12px;
+
+  visibility: hidden;
+
+  padding: 0 5px;
+
+  transition: opacity .2s, visibility .2s;
+  white-space: nowrap;
+
+  opacity: 0;
+  color: white;
+  background: rgba(0,0,0,.5);
 }

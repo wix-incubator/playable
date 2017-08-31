@@ -9,7 +9,7 @@ import watchOnSiteIcon from '../../../../assets/view-on-site.svg';
 class WatchOnSiteView extends View {
   constructor(config) {
     super(config);
-    const { callbacks } = config;
+    const { callbacks, tooltip } = config;
 
     this._callbacks = callbacks;
 
@@ -22,6 +22,14 @@ class WatchOnSiteView extends View {
       src: config.logo || watchOnSiteIcon
     });
 
+    if (tooltip) {
+      this.$tooltip = $('<div>', {
+        class: `${this.styleNames.tooltip}`
+      });
+      this.$tooltip.html(tooltip);
+      this.$node.append(this.$tooltip);
+    }
+
     this.$node.append(this.$logo);
 
     this.setLogo(config.logo);
@@ -33,8 +41,10 @@ class WatchOnSiteView extends View {
   setLogo(url) {
     if (url) {
       this.$logo.removeClass(this.styleNames['watch-on-site-toggle']);
+      this.$logo.addClass(this.styleNames['company-logo']);
       this.$logo.attr('src', url);
     } else {
+      this.$logo.removeClass(this.styleNames['company-logo']);
       this.$logo.addClass(this.styleNames['watch-on-site-toggle']);
       this.$logo.attr('src', watchOnSiteIcon);
     }

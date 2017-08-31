@@ -1,6 +1,6 @@
 import create, { registerModule } from './core/player-fabric';
 
-import { UI_EVENTS, VIDEO_EVENTS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from './constants';
+import { UI_EVENTS, VIDEO_EVENTS, TEXT_LABELS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from './constants';
 import { STATES as ENGINE_STATES } from './default-modules/playback-engine/playback-engine';
 
 import DefaultControls from './default-modules/ui/controls/default-controls';
@@ -35,6 +35,7 @@ export {
   DefaultModules,
   UI_EVENTS,
   VIDEO_EVENTS,
+  TEXT_LABELS,
   ENGINE_STATES,
   MEDIA_STREAM_TYPES,
   MEDIA_STREAM_DELIVERY_TYPE,
@@ -49,6 +50,7 @@ export default {
   UI_EVENTS,
   VIDEO_EVENTS,
   ENGINE_STATES,
+  TEXT_LABELS,
   MEDIA_STREAM_TYPES,
   MEDIA_STREAM_DELIVERY_TYPE,
   create,

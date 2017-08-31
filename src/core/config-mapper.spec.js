@@ -5,6 +5,7 @@ import {
   getAnomalyBloodhoundConfig,
   getEngineConfig,
   getFullScreenManagerConfig,
+  getTextMapConfig,
   getUIConfig,
   convertUIConfigForIOS,
   convertUIConfigForAndroid
@@ -19,6 +20,23 @@ describe('getAnomalyBloodhoundConfig function', () => {
 
     expect(getAnomalyBloodhoundConfig(params)).to.be.equal(params.logger);
   })
+});
+
+describe('getTextMapConfig function', () => {
+  it('should return config in proper format', () => {
+    const params = {
+      texts: {
+        text: "TEXT"
+      }
+    };
+
+    expect(getTextMapConfig(params)).to.be.equal(params.texts);
+  });
+  
+  it('should return empty object if nothing pass passed', () => {
+    const params = {};
+    expect(getTextMapConfig(params)).to.be.deep.equal({});
+  });
 });
 
 describe('getEngineConfig function', () => {

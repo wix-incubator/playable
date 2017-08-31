@@ -1,20 +1,21 @@
 import get from 'lodash/get';
 
-import { UI_EVENTS } from '../../../../constants/index';
+import { UI_EVENTS, TEXT_LABELS } from '../../../../constants/index';
 import View from './watch-on-site.view';
 
 
 export default class FullScreenControl {
   static View = View;
-  static dependencies = ['engine', 'config', 'eventEmitter'];
+  static dependencies = ['engine', 'config', 'eventEmitter', 'textMap'];
 
-  constructor({ engine, eventEmitter, config }) {
+  constructor({ engine, eventEmitter, config, textMap }) {
     this._config = {
       ...get(config, 'ui.controls.watchOnSite')
     };
 
     this._eventEmitter = eventEmitter;
     this._engine = engine;
+    this._textMap = textMap;
 
     this._bindCallbacks();
 
@@ -34,6 +35,7 @@ export default class FullScreenControl {
       callbacks: {
         onWatchOnSiteClick: this._triggerWatchOnSite
       },
+      tooltip: this._textMap.get(TEXT_LABELS.WATCH_ON_SITE_TOOLTIP),
       logo: this._config.logo
     };
 
@@ -64,6 +66,7 @@ export default class FullScreenControl {
 
     delete this._engine;
     delete this._eventEmitter;
+    delete this._textMap;
 
     delete this.isHidden;
   }

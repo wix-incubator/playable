@@ -1,6 +1,7 @@
 import { isIPhone, isIPod, isIPad, isAndroid } from '../utils/device-detection';
 import pick from 'lodash/pick';
 
+const getTextMapConfig = params => params.texts || {};
 
 const getAnomalyBloodhoundConfig = params => params.logger;
 
@@ -53,6 +54,7 @@ const getUIConfig = params => {
 
 const mapParamsToConfig = (params = {}) =>
   ({
+    textMap: getTextMapConfig(params),
     ui: getUIConfig(params),
     engine: getEngineConfig(params),
     anomalyBloodhound: getAnomalyBloodhoundConfig(params),
@@ -60,6 +62,7 @@ const mapParamsToConfig = (params = {}) =>
   });
 
 export {
+  getTextMapConfig,
   getAnomalyBloodhoundConfig,
   getEngineConfig,
   getUIConfig,
