@@ -45,8 +45,8 @@
   }
 
   const searchQuery = parseQuery(window.location.search);
-  const url = searchQuery.url ||  'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8';
-  const type = searchQuery.type || 'HLS';
+  const url = searchQuery.url ||  'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
+  const type = searchQuery.type || 'DASH';
 
   const texts = {}
   texts[VideoPlayer.TEXT_LABELS.WATCH_ON_SITE_TOOLTIP] = 'Watch On Site';
