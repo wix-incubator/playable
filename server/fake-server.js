@@ -12,7 +12,7 @@ module.exports = function start(port = 5000, onListen = () => {}) {
   app.get('/assets/:fileName', (req, res) => {
     generateMediaResponse(req, res);
   });
-
+  console.log(port);
   return app.listen(port, () => {
     console.log('Server is listening on port ' + port + '...');
     onListen();

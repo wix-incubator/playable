@@ -18,7 +18,7 @@
     "csscomb": "csscomb src/.",
     "csscomb:lint": "csscomb -lv src/.",
     "test:unit": "yoshi test --mocha",
-    "test:playback": "node ./test/boot-mediaserver-and-test",
+    "test:playback": "node ./server/boot-mediaserver-and-test.js",
     "test": "npm run test:unit && npm run test:playback",
     "build": "yoshi build",
     "deploy": "yoshi build && gh-pages -d dist/statics",

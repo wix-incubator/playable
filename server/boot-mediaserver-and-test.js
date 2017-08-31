@@ -1,13 +1,13 @@
 const { Server: KarmaServer } = require('karma');
 
 /* ignore coverage */
-const start = require('../server/fake-server');
+const start = require('./fake-server');
 
 /* ignore coverage */
 function startKarma() {
     const karmaOptions = {
         port: 9876,
-        configFile: `${process.cwd()}/test/karma.conf.js`,
+        configFile: `${process.cwd()}/server/karma.conf.js`,
         singleRun: true
     };
     const karmaServer = new KarmaServer(karmaOptions, cleanup);
