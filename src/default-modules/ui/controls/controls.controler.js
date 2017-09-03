@@ -239,6 +239,9 @@ export default class ControlBlock {
     this._controls.forEach(control => (control.destroy()));
     delete this._controls;
 
+    this._watchOnSite.destroy();
+    delete this._watchOnSite;
+
     delete this._eventEmitter;
     delete this._engine;
     delete this.config;

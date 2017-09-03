@@ -20,12 +20,6 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
     attach(videoElement) {
       this.videoElement = videoElement;
       videoElement.src = this.mediaStreams[this.currentLevel].url;
-      this.eventEmitter.emit('levels',
-        this.mediaStreams.map(
-          mediaStream => ({ name: mediaStream.name || mediaStream.url })
-        )
-      );
-      this.eventEmitter.emit('currentLevel', this.currentLevel);
     }
 
     detach(videoElement) {
@@ -39,16 +33,6 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
 
     getMediaStreamType() {
       return streamType;
-    }
-
-    setMediaLevel(newLevel, videoElement) {
-      if (newLevel < this.mediaStreams.length) {
-        this.currentLevel = newLevel;
-        const timeBeforeSwitch = videoElement.currentTime;
-        videoElement.src = this.mediaStreams[this.currentLevel].url;
-        videoElement.currentTime = timeBeforeSwitch;
-        this.eventEmitter.emit('currentLevel', this.currentLevel);
-      }
     }
 
     getDebugInfo() {

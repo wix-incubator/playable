@@ -95,6 +95,11 @@ export default class Engine {
   }
 
   @publicAPI()
+  setInitialBitrate(bitrate) {
+    this._mediaStreamStrategy.setInitialBitrate(bitrate);
+  }
+
+  @publicAPI()
   setSrc(src) {
     if (src === this.currentSrc) {
       return;

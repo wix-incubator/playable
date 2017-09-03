@@ -41,7 +41,7 @@ export default class AnomalyBloodhound {
     this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
   }
 
-  _processStateChange({ prevState, nextState }) {
+  _processStateChange({ prevState, nextState } = {}) {
     const { STATES } = this._engine;
 
     switch (nextState) {
@@ -98,7 +98,9 @@ export default class AnomalyBloodhound {
               this._engine.getCurrentTime()
             );
 
-            if (nearestBufferSegment && nearestBufferSegment.end > this._engine.getCurrentTime()) {
+            if (nearestBufferSegment && /* ignore coverage */nearestBufferSegment.end > this._engine.getCurrentTime()) {
+
+              /* ignore coverage */
               this._engine.setCurrentTime(nearestBufferSegment.end);
             } else {
               this.reportDebugInfo({
@@ -118,6 +120,7 @@ export default class AnomalyBloodhound {
             }
             break;
 
+          /* ignore coverage */
           default: break;
         }
         break;
@@ -175,11 +178,6 @@ export default class AnomalyBloodhound {
         endTS,
         ...this._engine.getDebugInfo()
       });
-    } else {
-      console.log( // eslint-disable-line no-console
-        `REASON: ${reason}; startTS: ${startTS}; endTS: ${endTS}`,
-        this._engine.getDebugInfo()
-      );
     }
   }
 

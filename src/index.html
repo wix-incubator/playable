@@ -16,77 +16,8 @@
       overflow: hidden;
     }
   </style>
-  <script src="./video-player.bundle.min.js"></script>
+  <script src="./video-player-develop.bundle.min.js"></script>
 </head>
 <body>
-<script>
-  var DEFAULT_URL = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
-
-  function parseQuery(qstr) {
-    var query = {};
-    var a = (qstr[0] === '?' ? qstr.substr(1) : qstr).split('&');
-    for (var i = 0; i < a.length; i++) {
-      var b = a[i].split('=');
-      var value = decodeURIComponent(b[1] || '');
-
-      if (!isNaN(Number(value))) {
-        query[decodeURIComponent(b[0])] = Number(value);
-      } else if (value === 'false') {
-        query[decodeURIComponent(b[0])] = false;
-      } else if (value === 'true') {
-        query[decodeURIComponent(b[0])] = true;
-      } else {
-        query[decodeURIComponent(b[0])] = value;
-      }
-    }
-    return query;
-  }
-
-  var searchQuery = parseQuery(window.location.search);
-  var url = searchQuery.url;
-  var type = searchQuery.type;
-  var src;
-
-  if (!url) {
-    src = DEFAULT_URL;
-  } else {
-    if (type) {
-      src = {
-        url,
-        type
-      }
-    } else {
-      src = url;
-    }
-  }
-
-  window.player = VideoPlayer.create({
-    autoPlay: false,
-    muted: false,
-    loop: false,
-    logger: true,
-    preload: "auto",
-    volume: 100,
-    fillAllSpace: true,
-    size: {
-      width: 760,
-      height: 428
-    },
-    loadingCover: 'https://www.pets4homes.co.uk/images/breeds/142/large/184f5cc944e278ad4a20f70258b75cdd.jpg',
-    src: src,
-    controls: {
-      watchOnSite: {
-        url: 'http://www.wix.com/',
-        showAlways: true,
-        logo: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png'
-      }
-    },
-    overlay: false,
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    window.player.attachToElement(document.body);
-  });
-</script>
 </body>
 </html>

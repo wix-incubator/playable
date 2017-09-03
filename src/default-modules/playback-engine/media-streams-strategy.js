@@ -8,7 +8,7 @@ import { detectStreamType } from '../../utils/detect-stream-type';
 import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants/index';
 
 
-const DEFAULT_INITIAL_BITRATE = 1750;
+const DEFAULT_INITIAL_BITRATE = 5000;
 
 export default class MediaStreamsStrategy {
   static streamCreators = [
@@ -77,11 +77,9 @@ export default class MediaStreamsStrategy {
     return this._attachedStream;
   }
 
-  /*
   setInitialBitrate(bitrate) {
-    this.initialBitrate = bitrate;
+    this._initialBitrate = bitrate;
   }
-  */
 
   connectMediaStream(src) {
     this._detachCurrentStream();

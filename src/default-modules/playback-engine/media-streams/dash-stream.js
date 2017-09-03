@@ -1,6 +1,6 @@
 import { MediaPlayer } from 'dashjs';
 
-import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../../constants/index';
+import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, VIDEO_EVENTS } from '../../../constants/index';
 import { getNearestBufferSegmentInfo } from '../../../utils/video-data';
 
 
@@ -19,21 +19,25 @@ export default class DashStream {
     this.eventEmitter = eventEmitter;
     this.dashPlayer = null;
     this.mediaStream = null;
+
     this.onError = errorEvent => {
       if (!errorEvent) {
         return;
       }
       if (errorEvent.error === 'manifestError' || (errorEvent.error === 'download' && errorEvent.event.id === 'manifest')) {
-        this.eventEmitter.emit('error', ERRORS.SRC_LOAD_ERROR, this.mediaStream && this.mediaStream.url, errorEvent);
+        this.eventEmitter.emit(
+          VIDEO_EVENTS.ERROR,
+          ERRORS.SRC_LOAD_ERROR,
+          this.mediaStream && this.mediaStream.url,
+          errorEvent
+        );
       }
     };
-    this.onStreamInitialized = () => {
-      this.eventEmitter.emit('levels', this.getMediaLevels());
-    };
+
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {
-      throw new Error(`Vidi can only handle a single DASH stream. Received ${mediaStreams.length} streams.`);
+      throw new Error(`Can only handle a single DASH stream. Received ${mediaStreams.length} streams.`);
     }
   }
 
@@ -41,9 +45,9 @@ export default class DashStream {
     if (!this.mediaStream) {
       return;
     }
+
     this.dashPlayer = MediaPlayer().create();
     this.dashPlayer.getDebug().setLogToBrowserConsole(false);
-    this.dashPlayer.on(DashEvents.STREAM_INITIALIZED, this.onStreamInitialized);
     this.dashPlayer.on(DashEvents.ERROR, this.onError);
     this.dashPlayer.initialize(videoElement, this.mediaStream.url, videoElement.autoplay);
     if (initialBitrate) {
@@ -56,23 +60,12 @@ export default class DashStream {
       return;
     }
     this.dashPlayer.reset();
-    this.dashPlayer.off(DashEvents.STREAM_INITIALIZED, this.onStreamInitialized);
     this.dashPlayer.off(DashEvents.ERROR, this.onError);
     this.dashPlayer = null;
   }
 
   getMediaStreamDeliveryType() {
     return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
-  }
-
-  getMediaLevels() {
-    if (!this.dashPlayer) {
-      return [];
-    }
-    const bitrates = this.dashPlayer.getBitrateInfoListFor('video') || [];
-    return bitrates.map(bitrateInfo =>
-      ({ bitrate: bitrateInfo.bitrate, width: bitrateInfo.width, height: bitrateInfo.height })
-    );
   }
 
   getDebugInfo() {

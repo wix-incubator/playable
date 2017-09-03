@@ -58,6 +58,7 @@ export default function createContainer(options, __parentContainer) {
       // If we have options, copy them over.
       opts = Object.assign({}, opts);
 
+      /* ignore coverage */
       if (!verbatimValue && Array.isArray(valueToRegister)) {
         // The ('name', [value, opts]) style
         opts = Object.assign({}, opts, valueToRegister[1]);

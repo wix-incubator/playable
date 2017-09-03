@@ -1,4 +1,4 @@
-import 'jsdom-global';
+import 'jsdom-global/register';
 import { expect } from 'chai';
 
 import {
@@ -133,15 +133,21 @@ describe('convertUIConfigForAndroid function', () => {
   })
 });
 
-/*
 
 describe('getUIConfig function', () => {
+  beforeEach(() => {
+    Reflect.defineProperty(navigator, 'userAgent', {
+        ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
+        get: function() { return this.____navigator },
+        set: function(v) { this.____navigator = v; }
+      });
+  });
   afterEach(() => {
-    delete global.navigator;
+     Reflect.deleteProperty(navigator, 'userAgent');
   });
 
   it('should return config in proper format', () => {
-    global.navigator = 'Computer';
+    navigator.userAgent = 'Computer';
     const params = {
       size: {
         width: 10,
@@ -159,7 +165,7 @@ describe('getUIConfig function', () => {
   });
 
   it('should convert config if iOS', () => {
-    window.navigator.userAgent = 'iPhone';
+    navigator.userAgent = 'iPhone';
 
     const params = {
       size: {
@@ -168,7 +174,7 @@ describe('getUIConfig function', () => {
       }
     };
 
-    expect(getUIConfig(params)).to.be.deep.equal({
+    const expectedConfig = {
       width: 10,
       height: 20,
       loader: false,
@@ -178,40 +184,21 @@ describe('getUIConfig function', () => {
         disableClickProcessing: true,
         nativeControls: true
       }
-    });
+    };
 
-    window.navigator.userAgent = 'iPod';
+    expect(getUIConfig(params)).to.be.deep.equal(expectedConfig);
 
-    expect(getUIConfig(params)).to.be.deep.equal({
-      width: 10,
-      height: 20,
-      loader: false,
-      controls: false,
-      screen: {
-        indicateScreenClick: false,
-        disableClickProcessing: true,
-        nativeControls: true
-      }
-    });
+    navigator.userAgent = 'iPod';
 
-    window.navigator.userAgent = 'iPad';
+    expect(getUIConfig(params)).to.be.deep.equal(expectedConfig);
 
+    navigator.userAgent = 'iPad';
 
-    expect(getUIConfig(params)).to.be.deep.equal({
-      width: 10,
-      height: 20,
-      loader: false,
-      controls: false,
-      screen: {
-        indicateScreenClick: false,
-        disableClickProcessing: true,
-        nativeControls: true
-      }
-    });
+    expect(getUIConfig(params)).to.be.deep.equal(expectedConfig);
   });
 
   it('should convert config if Android', () => {
-    window.navigator.userAgent = 'Android';
+    navigator.userAgent = 'Android';
 
     const params = {
       size: {
@@ -219,8 +206,6 @@ describe('getUIConfig function', () => {
         height: 20
       }
     };
-
-    console.log(window.navigator);
 
     expect(getUIConfig(params)).to.be.deep.equal({
       width: 10,
@@ -232,4 +217,3 @@ describe('getUIConfig function', () => {
   })
 });
 
-*/

@@ -1,19 +1,23 @@
 import isEqual from 'lodash/isEqual';
 
-export default function publicAPI(name) {
-  return (target, property, descriptor) => {
+
+export const PUBLIC_API_PROPERTY = '___publicAPI';
+
+const publicAPI = name => (target, property, descriptor) => {
     const methodName = name || property;
 
-    if (!target._publicAPI) {
-      target._publicAPI = {};
+    if (!target[PUBLIC_API_PROPERTY]) {
+      target[PUBLIC_API_PROPERTY] = {};
     }
 
-    if (target._publicAPI[methodName]) {
-      if (!isEqual(target._publicAPI[methodName], descriptor)) {
+    if (target[PUBLIC_API_PROPERTY][methodName]) {
+      if (!isEqual(target[PUBLIC_API_PROPERTY][methodName], descriptor)) {
         throw new Error(`Method "${methodName}" for public API in ${target.constructor.name} is already defined`);
       }
     }
 
-    target._publicAPI[methodName] = descriptor;
+    target[PUBLIC_API_PROPERTY][methodName] = descriptor;
   };
-}
+
+
+export default publicAPI;

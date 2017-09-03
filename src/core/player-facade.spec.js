@@ -1,4 +1,4 @@
-import 'jsdom-global';
+import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
@@ -53,6 +53,26 @@ describe('Player\'s instance', () => {
       player = new Player(rootNode, {}, container, defaultModules);
 
       expect(resolveSpy.calledWith('ClassA')).to.be.true;
+    });
+
+    it('should call destroy on player destroy', () => {
+      const destroySpy = sinon.spy();
+      class ClassA {
+        destroy() {
+          destroySpy();
+        }
+      }
+
+      defaultModules = {
+        ClassA
+      };
+
+      container.registerClass('ClassA', ClassA);
+
+      player = new Player(rootNode, {}, container, defaultModules);
+      player.destroy();
+
+      expect(destroySpy.called).to.be.true;
     })
   });
 
@@ -82,7 +102,7 @@ describe('Player\'s instance', () => {
       player.destroy();
 
       expect(destroySpy.called).to.be.true;
-    })
+    });
   });
 
   describe('public API', () => {

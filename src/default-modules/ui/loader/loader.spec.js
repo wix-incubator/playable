@@ -18,7 +18,7 @@ describe('Loader', () => {
     config = {
       ui: {}
     };
-    eventEmitter = new EventEmitter
+    eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
       config

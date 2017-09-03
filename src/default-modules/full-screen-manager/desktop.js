@@ -1,4 +1,4 @@
-const keyboardAllowed = typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
+const isKeyboardAllowed = () => typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
 
 const fnMap = [
   [
@@ -82,7 +82,7 @@ export default class DesktopFullScreen {
   }
 
   get isEnabled() {
-    return Boolean(document[this._fullscreenFn.fullscreenEnabled]);
+    return this.isAPIExist && (document[this._fullscreenFn.fullscreenEnabled]);
   }
 
   _bindEvents() {
@@ -108,11 +108,15 @@ export default class DesktopFullScreen {
     if (/5\.1[.\d]* Safari/.test(navigator.userAgent)) {
       this._elem[request]();
     } else {
-      this._elem[request](keyboardAllowed && Element.ALLOW_KEYBOARD_INPUT);
+      this._elem[request](isKeyboardAllowed() && Element.ALLOW_KEYBOARD_INPUT);
     }
   }
 
   exit() {
+    if (!this.isEnabled) {
+      return;
+    }
+
     document[this._fullscreenFn.exitFullscreen]();
   }
 

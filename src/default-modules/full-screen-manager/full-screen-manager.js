@@ -83,13 +83,15 @@ export default class FullScreenManager {
         this._exitOnPauseRequested();
         break;
       }
+
+      /* ignore coverage */
       default: break;
     }
   }
 
   @publicAPI()
   enterFullScreen() {
-    if (this._config.disabled) {
+    if (!this.isEnabled) {
       return;
     }
 

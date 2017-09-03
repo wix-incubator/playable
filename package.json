@@ -66,7 +66,8 @@
     "exports": "VideoPlayer",
     "entry": {
       "video-player": "./index.js",
-      "video-player-test": "./e2e/playback-test.js"
+      "video-player-test": "./e2e/playback-test.js",
+      "video-player-develop": "./develop.js"
     },
     "externalUnprocessedModules": []
   },

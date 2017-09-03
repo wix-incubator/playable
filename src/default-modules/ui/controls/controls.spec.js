@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 
 import { expect } from 'chai';
 import sinon from 'sinon';

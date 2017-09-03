@@ -3,10 +3,10 @@ import Lifetime from './constants/Lifetime';
 import isFunction from 'lodash/isFunction';
 import NotAFunctionError from './errors/NotAFunctionError';
 
-
+export const PROPERTY_FOR_DEPENDENCIES = 'dependencies';
 const makeOptions = (defaults, input) => Object.assign({}, defaults, input);
 
-const makeFluidInterface = obj => {
+export const makeFluidInterface = obj => {
   const setLifetime = value => {
     obj.lifetime = value;
     return obj;
@@ -64,7 +64,7 @@ export const asClass = (Type, opts) => {
   // A function to handle object construction for us, as to make the generateResolve more reusable
   const newClass = (...args) => new Type(...args);
 
-  const resolve = generateResolve(newClass, Type.prototype.constructor);
+  const resolve = generateResolve(newClass, Type);
   const result = {
     resolve,
     lifetime: opts.lifetime
@@ -81,7 +81,7 @@ function generateResolve(fn, dependencyParseTarget) {
     dependencyParseTarget = fn;
   }
   // Try to resolve the dependencies
-  const { dependencies = [] } = dependencyParseTarget;
+  const dependencies = dependencyParseTarget[PROPERTY_FOR_DEPENDENCIES] || [];
 
   // Use a regular function instead of an arrow function to facilitate binding to the registration.
   return function resolve(container) {

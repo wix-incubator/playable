@@ -15,6 +15,7 @@ import UI from './default-modules/ui/ui.controler';
 import FullScreenManager from './default-modules/full-screen-manager/full-screen-manager';
 import PlayerFacade from './core/player-facade';
 
+/* ignore coverage */
 const DefaultUIComponents = {
   Screen,
   Overlay,
@@ -22,6 +23,7 @@ const DefaultUIComponents = {
   Loader
 };
 
+/* ignore coverage */
 const DefaultModules = {
   AnomalyBloodhound,
   UI,

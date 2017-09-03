@@ -1,4 +1,4 @@
-import 'jsdom-global';
+import 'jsdom-global/register';
 
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -85,6 +85,7 @@ describe('MediaStreamsStrategy', () => {
     strategy.connectMediaStream('http://www.dash.com/dash2.mpd');
     expect(attachedStream.detach.called).to.be.true;
   });
+
   it('should detach current stream on destroy', () => {
     strategy._playableStreamCreators = [
       getNativeStreamCreator(MEDIA_STREAM_TYPES.DASH, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE)
@@ -96,5 +97,17 @@ describe('MediaStreamsStrategy', () => {
     sinon.spy(attachedStream, 'detach');
     strategy.destroy();
     expect(attachedStream.detach.called).to.be.true;
+  });
+
+  it('should set initial bitrate', () => {
+    const bitrate = 5000;
+    const stream = getNativeStreamCreator(MEDIA_STREAM_TYPES.DASH, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE);
+    const attachSpy = sinon.spy(stream.prototype, 'attach');
+
+    strategy.setInitialBitrate(bitrate);
+    strategy._playableStreamCreators = [ stream ];
+    strategy.connectMediaStream('http://www.dash.com/dash.mpd');
+
+    expect(attachSpy.calledWith(strategy._video, bitrate)).to.be.true;
   });
 });

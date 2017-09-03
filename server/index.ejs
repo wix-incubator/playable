@@ -17,73 +17,11 @@
     }
   </style>
   <% if (debug) { %>
-  <script src="<%= staticsBaseUrl %>video-player.bundle.js"></script>
+  <script src="<%= staticsBaseUrl %>video-player-develop.bundle.js"></script>
   <% } else { %>
-  <script src="<%= staticsBaseUrl %>video-player.bundle.min.js"></script>
+  <script src="<%= staticsBaseUrl %>video-player-develop.bundle.min.js"></script>
   <% } %>
 </head>
 <body>
-<script>
-  function parseQuery(qstr) {
-    const query = {};
-    const a = (qstr[0] === '?' ? qstr.substr(1) : qstr).split('&');
-    for (var i = 0; i < a.length; i++) {
-      let b = a[i].split('=');
-      const value = decodeURIComponent(b[1] || '');
-
-      if (!isNaN(Number(value))) {
-        query[decodeURIComponent(b[0])] = Number(value);
-      } else if (value === 'false') {
-        query[decodeURIComponent(b[0])] = false;
-      } else if (value === 'true') {
-        query[decodeURIComponent(b[0])] = true;
-      } else {
-        query[decodeURIComponent(b[0])] = value;
-      }
-    }
-    return query;
-  }
-
-  const searchQuery = parseQuery(window.location.search);
-  const url = searchQuery.url ||  'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
-  const type = searchQuery.type || 'DASH';
-
-  const texts = {}
-  texts[VideoPlayer.TEXT_LABELS.WATCH_ON_SITE_TOOLTIP] = 'Watch On Site';
-
-  window.player = VideoPlayer.create({
-    autoPlay: false,
-    muted: false,
-    loop: false,
-    logger: true,
-    preload: "metadata",
-    volume: 100,
-    fillAllSpace: true,
-    size: {
-      width: 760,
-      height: 428
-    },
-    loadingCover: 'https://www.pets4homes.co.uk/images/breeds/142/large/184f5cc944e278ad4a20f70258b75cdd.jpg',
-    src: [
-      {
-        url: url,
-        type: type
-      },
-    ],
-    controls: {
-      watchOnSite: {
-        url: 'http://www.wix.com/',
-        showAlways: true,
-        logo: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png'
-      }
-    },
-    texts: texts,
-    overlay: false,
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    window.player.attachToElement(document.body);
-  });
-</script>
 </body>
 </html>

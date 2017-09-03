@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import publicAPI from './public-api-decorator';
+import publicAPI, { PUBLIC_API_PROPERTY } from './public-api-decorator';
 
 
 describe('Decorator publicAPI', () => {
@@ -13,7 +13,7 @@ describe('Decorator publicAPI', () => {
       b() {}
     }
 
-    expect(A.prototype._publicAPI).to.deep.equal({
+    expect(A.prototype[PUBLIC_API_PROPERTY]).to.deep.equal({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'b')
     });
@@ -25,7 +25,7 @@ describe('Decorator publicAPI', () => {
       a() {}
     }
 
-    expect(A.prototype._publicAPI).to.deep.equal({
+    expect(A.prototype[PUBLIC_API_PROPERTY]).to.deep.equal({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a')
     });
   });
@@ -36,7 +36,7 @@ describe('Decorator publicAPI', () => {
       get a() {}
     }
 
-    expect(A.prototype._publicAPI).to.deep.equal({
+    expect(A.prototype[PUBLIC_API_PROPERTY]).to.deep.equal({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a')
     });
   });
@@ -50,7 +50,7 @@ describe('Decorator publicAPI', () => {
       set a(a) {}
     }
 
-    expect(A.prototype._publicAPI).to.deep.equal({
+    expect(A.prototype[PUBLIC_API_PROPERTY]).to.deep.equal({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a')
     });
   });

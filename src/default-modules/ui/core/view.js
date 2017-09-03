@@ -2,8 +2,6 @@ import classnames from 'classnames';
 
 
 export default class View {
-  static _translations = {};
-
   static extendStyleNames(styles) {
     if (!this._styles) {
       this._styles = {};
@@ -18,15 +16,11 @@ export default class View {
     });
   }
 
-  static extendTranslations(translations) {
-    this._translations = { ...this._translations, ...translations };
+  static resetStyles() {
+    this._styles = {};
   }
 
   get styleNames() {
     return this.constructor._styles || {};
-  }
-
-  get translations() {
-    return this.constructor._translations;
   }
 }

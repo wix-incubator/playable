@@ -8,6 +8,8 @@ export default class IOSFullScreen {
     this._callback = callback;
 
     this._bindEvents();
+
+    this._enterWhenHasMetaData = this._enterWhenHasMetaData.bind(this);
   }
 
   get isAPIExist() {
@@ -61,7 +63,7 @@ export default class IOSFullScreen {
   }
 
   exit() {
-    if (!this.isAPIExist || !this.isInFullScreen) {
+    if (!this.isEnabled || !this.isInFullScreen) {
       return false;
     }
 

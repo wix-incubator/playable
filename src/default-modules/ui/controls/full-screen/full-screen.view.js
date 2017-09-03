@@ -5,11 +5,6 @@ import View from '../../core/view';
 import styles from './full-screen.scss';
 
 
-const translations = {
-  enterFullScreen: 'Full screen',
-  exitFullScreen: 'Exit Full screen'
-};
-
 class FullScreenView extends View {
   constructor(config) {
     super(config);
@@ -44,7 +39,6 @@ class FullScreenView extends View {
 
   setState({ isInFullScreen }) {
     this.$toggleFullScreenControl.toggleClass(this.styleNames['in-full-screen'], isInFullScreen);
-    this.$node.attr('data-tooltip', isInFullScreen ? this.translations.exitFullScreen : this.translations.enterFullScreen);
   }
 
   hide() {
@@ -69,6 +63,5 @@ class FullScreenView extends View {
 }
 
 FullScreenView.extendStyleNames(styles);
-FullScreenView.extendTranslations(translations);
 
 export default FullScreenView;

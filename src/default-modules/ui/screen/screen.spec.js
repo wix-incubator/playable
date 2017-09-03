@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import $ from 'jbone';
 
 import { expect } from 'chai';
@@ -162,7 +163,7 @@ describe('Loader', () => {
 
     it('should emit ui event on enter full screen', () => {
       screen._enterFullScreen();
-
+      
       expect(fullScreenManager.enterFullScreen.called).to.be.true;
     });
 

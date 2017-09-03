@@ -1,4 +1,5 @@
 import mapParamsToConfig from './config-mapper';
+import { PUBLIC_API_PROPERTY } from '../utils/public-api-decorator';
 
 
 export default class Player {
@@ -66,8 +67,8 @@ export default class Player {
   }
 
   _addPublicAPIFromModule(module, moduleName) {
-    if (module._publicAPI) {
-      Object.keys(module._publicAPI).forEach(apiKey => {
+    if (module[PUBLIC_API_PROPERTY]) {
+      Object.keys(module[PUBLIC_API_PROPERTY]).forEach(apiKey => {
         if (this[apiKey]) {
           throw new Error(`API method ${apiKey} is already defined in Player facade`);
         }
@@ -75,15 +76,15 @@ export default class Player {
         Object.defineProperty(
           this,
           apiKey,
-          this._getPublicAPIMethodDescriptor(module, moduleName, module._publicAPI[apiKey])
+          this._getPublicAPIMethodDescriptor(module, moduleName, module[PUBLIC_API_PROPERTY][apiKey])
         );
       });
     }
   }
 
   _clearPublicAPIForModule(module) {
-    if (module._publicAPI) {
-      Object.keys(module._publicAPI).forEach(apiKey => {
+    if (module[PUBLIC_API_PROPERTY]) {
+      Object.keys(module[PUBLIC_API_PROPERTY]).forEach(apiKey => {
         delete this[apiKey];
       });
     }
