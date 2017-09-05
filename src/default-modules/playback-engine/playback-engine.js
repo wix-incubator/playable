@@ -283,6 +283,20 @@ export default class Engine {
     }
   }
 
+  @publicAPI()
+  togglePlayback() {
+    const state = this.getCurrentState();
+
+    if (
+      state === STATES.PLAY_REQUESTED ||
+      state === STATES.PLAYING
+    ) {
+      this.pause();
+    } else {
+      this.play();
+    }
+  }
+
   destroy() {
     this._stateEngine.destroy();
     this._nativeEventsBroadcaster.destroy();

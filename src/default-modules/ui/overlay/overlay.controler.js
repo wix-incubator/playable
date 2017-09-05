@@ -11,9 +11,9 @@ const DEFAULT_CONFIG = {
 
 export default class Overlay {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config'];
+  static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
-  constructor({ config, eventEmitter, engine }) {
+  constructor({ config, eventEmitter, engine, rootContainer }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
 
@@ -26,6 +26,10 @@ export default class Overlay {
 
     this._bindEvents();
     this._initUI(this.config.poster);
+
+    if (get(config, 'ui.overlay') !== false) {
+      rootContainer.appendComponentNode(this.node);
+    }
   }
 
   get node() {

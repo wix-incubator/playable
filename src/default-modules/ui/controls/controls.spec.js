@@ -5,6 +5,7 @@ import sinon from 'sinon';
 
 import ControlsBlock from './controls.controler';
 
+import RootContainer from '../../root-container/root-container.controler';
 import Engine from '../../playback-engine/playback-engine';
 import { container } from '../../../core/player-fabric';
 
@@ -19,10 +20,9 @@ describe('ControlsBlock', () => {
   let eventEmitter = null;
   let config = {};
   let scope = {};
-  let rootNode = {};
+  let rootContainer = {};
 
   beforeEach(() => {
-    rootNode = document.createElement('div');
     config = {
       ui: {}
     };
@@ -43,14 +43,19 @@ describe('ControlsBlock', () => {
     });
     scope = container.createScope();
     scope.registerValue({
-      config,
-      rootNode
+      config
+    });
+    rootContainer = new RootContainer({
+      eventEmitter,
+      engine,
+      config
     });
     controls = new ControlsBlock({
         ui,
         engine,
         eventEmitter,
-        config
+        config,
+        rootContainer
       },
       scope
     );

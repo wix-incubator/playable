@@ -2,6 +2,8 @@ import get from 'lodash/get';
 
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
 
+import publicAPI from '../../../utils/public-api-decorator';
+
 import View from './controls.view';
 
 import ProgressControl from './progress/progress.controler';
@@ -25,9 +27,9 @@ const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 
 export default class ControlBlock {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config'];
+  static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
-  constructor({ engine, eventEmitter, config }, scope) {
+  constructor({ engine, eventEmitter, config, rootContainer }, scope) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this.config = {
@@ -47,6 +49,9 @@ export default class ControlBlock {
     this._initControls();
     this._initWatchOnSite();
     this._bindEvents();
+    if (get(config, 'ui.controls') !== false) {
+      rootContainer.appendComponentNode(this.node);
+    }
   }
 
   get node() {
@@ -104,9 +109,17 @@ export default class ControlBlock {
   _bindEvents() {
     this._eventEmitter.on(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
     this._eventEmitter.on(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
-    this._eventEmitter.on(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED, this._startHideControlsTimeout);
+    this._eventEmitter.on(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideControlsTimeout);
     this._eventEmitter.on(UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideControlsTimeout);
     this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+  }
+
+  _unbindEvents() {
+    this._eventEmitter.off(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
+    this._eventEmitter.off(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
+    this._eventEmitter.off(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideControlsTimeout);
+    this._eventEmitter.off(UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideControlsTimeout);
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
   }
 
   _startHideControlsTimeout() {
@@ -194,18 +207,12 @@ export default class ControlBlock {
     this.view.show();
   }
 
-  _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.off(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
-    this._eventEmitter.off(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.off(UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
-  }
-
+  @publicAPI()
   setWatchOnSiteLogo(logo) {
     this._watchOnSite.setLogo(logo);
   }
 
+  @publicAPI()
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
     this.shouldWatchOnSiteAlwaysShow = isShowAlways;
 
@@ -216,10 +223,12 @@ export default class ControlBlock {
     }
   }
 
+  @publicAPI()
   removeWatchOnSite() {
     this._watchOnSite.node.parentNode.removeChild(this._watchOnSite.node);
   }
 
+  @publicAPI()
   setShouldAlwaysShow(flag) {
     this.config.shouldAlwaysShow = flag;
 

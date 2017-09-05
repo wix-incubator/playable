@@ -3,9 +3,8 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-
-
 import create, { registerModule, clearAdditionalModules } from './player-fabric';
+
 
 describe('registerModule', () => {
   it('should add additional module', () => {
@@ -45,7 +44,6 @@ describe('Player', () => {
       const player2 = create();
 
       expect(player._defaultModules.engine).to.not.be.equal(player2._defaultModules.engine);
-      expect(player._defaultModules.ui).to.not.be.equal(player2._defaultModules.ui);
       expect(player.node).to.not.be.equal(player2.node);
       expect(player._defaultModules.eventEmitter).to.not.be.equal(player2._defaultModules.eventEmitter);
     });
@@ -132,10 +130,8 @@ describe('Player', () => {
 
     it('should have method for destroying player', () => {
       expect(player.destroy).to.exist;
-      const uiDestroySpy = sinon.spy(player._defaultModules.ui, 'destroy');
 
       player.destroy();
-      expect(uiDestroySpy.called).to.be.true;
       expect(player.node).to.not.exist;
     });
 

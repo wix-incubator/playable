@@ -3,10 +3,9 @@ import { PUBLIC_API_PROPERTY } from '../utils/public-api-decorator';
 
 
 export default class Player {
-  constructor(rootNode, params, scope, defaultModules, additionalModules = []) {
+  constructor(params, scope, defaultModules, additionalModules = []) {
     scope.registerValue({
-      config: mapParamsToConfig(params),
-      rootNode
+      config: mapParamsToConfig(params)
     });
 
     this._config = scope.resolve('config');
@@ -94,7 +93,6 @@ export default class Player {
     Object.keys(this._defaultModules).forEach(moduleName => {
       const module = this._defaultModules[moduleName];
       this._clearPublicAPIForModule(module);
-
       module.destroy();
     });
 

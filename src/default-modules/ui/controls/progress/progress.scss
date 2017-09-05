@@ -1,4 +1,4 @@
-@import '../../shared';
+@import '../../shared.global';
 
 .seek-block {
   position: relative;
@@ -6,12 +6,12 @@
   display: inline-block;
   flex: 1;
 
-  margin-right: 18px;
+  margin-right: 9px;
 
   cursor: pointer;
 
   @include in-full-screen() {
-    margin-right: 30px;
+    margin-right: 20px;
   }
   @include max-width-400() {
     @include hidden();
@@ -119,7 +119,7 @@
   display: block;
 
   width: 100%;
-  height: 16px;
+  height: 25px;
   margin: 0;
   padding: 0;
 

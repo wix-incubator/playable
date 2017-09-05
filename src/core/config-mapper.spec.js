@@ -7,10 +7,63 @@ import {
   getFullScreenManagerConfig,
   getTextMapConfig,
   getUIConfig,
+  getKeyboardInterceptorConfig,
   convertUIConfigForIOS,
   convertUIConfigForAndroid
 } from './config-mapper';
 
+describe('getKeyboardInterceptorConfig function', () => {
+  beforeEach(() => {
+    Reflect.defineProperty(navigator, 'userAgent', {
+      ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
+      get: function() { return this.____navigator },
+      set: function(v) { this.____navigator = v; }
+    });
+  });
+  afterEach(() => {
+    Reflect.deleteProperty(navigator, 'userAgent');
+  });
+
+  it('should return config in proper format', () => {
+    const params = {
+      disableControlWithKeyboard: false
+    };
+
+    expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
+      disabled: params.disableControlWithKeyboard
+    });
+
+    navigator.userAgent = 'iPod';
+
+    expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
+      disabled: true
+    });
+
+    navigator.userAgent = 'iPad';
+
+    expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
+      disabled: true
+    });
+
+    navigator.userAgent = 'iPhone';
+
+    expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
+      disabled: true
+    });
+
+    navigator.userAgent = 'Android';
+
+    expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
+      disabled: true
+    });
+
+    navigator.userAgent = 'Computer';
+
+    expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
+      disabled: params.disableControlWithKeyboard
+    });
+  });
+});
 
 describe('getAnomalyBloodhoundConfig function', () => {
   it('should return config in proper format', () => {
@@ -19,7 +72,7 @@ describe('getAnomalyBloodhoundConfig function', () => {
     };
 
     expect(getAnomalyBloodhoundConfig(params)).to.be.equal(params.logger);
-  })
+  });
 });
 
 describe('getTextMapConfig function', () => {

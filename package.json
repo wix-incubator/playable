@@ -26,6 +26,7 @@
     "precommit": "npm run lint && npm run csscomb:lint && npm run build && npm test"
   },
   "dependencies": {
+    "ally.js": "^1.4.1",
     "classnames": "^2.2.5",
     "core-js": "^2.4.1",
     "css-element-queries": "^0.4.0",
@@ -69,7 +70,7 @@
       "video-player-test": "./e2e/playback-test.js",
       "video-player-develop": "./develop.js"
     },
-    "externalUnprocessedModules": []
+    "externalUnprocessedModules": ["ally.js"]
   },
   "keywords": [
     "player",

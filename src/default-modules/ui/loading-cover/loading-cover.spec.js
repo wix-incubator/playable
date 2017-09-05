@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import Engine, { STATES } from '../../playback-engine/playback-engine';
 import EventEmitter from '../../event-emitter/event-emitter';
 import LoadingCover from './loading-cover.controler';
+import RootContainer from '../../root-container/root-container.controler';
 
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
 
@@ -16,6 +17,7 @@ describe('LoadingCover', () => {
   let config;
   let emitSpy;
   let controls;
+  let rootContainer;
 
   beforeEach(() => {
     config = {
@@ -32,13 +34,19 @@ describe('LoadingCover', () => {
       _hideContent: sinon.spy()
     };
 
+    rootContainer = new RootContainer({
+      eventEmitter,
+      engine,
+      config
+    });
+
     loadingCover = new LoadingCover({
       engine,
       config,
       eventEmitter,
+      rootContainer,
       controls
     });
-
 
     emitSpy = sinon.spy(eventEmitter, 'emit');
   });

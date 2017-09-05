@@ -3,8 +3,8 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import EventEmitter from 'eventemitter3';
-
+import EventEmitter from '../../event-emitter/event-emitter';
+import RootContainer from '../../root-container/root-container.controler';
 import Overlay from './overlay.controler';
 import Engine from '../../playback-engine/playback-engine';
 
@@ -15,6 +15,7 @@ describe('Overlay', () => {
   let overlay = {};
   let engine = {};
   let eventEmitter = {};
+  let rootContainer;
   let eventEmitterSpy = null;
   let config = {};
 
@@ -27,6 +28,11 @@ describe('Overlay', () => {
       eventEmitter,
       config
     });
+    rootContainer = new RootContainer({
+      eventEmitter,
+      engine,
+      config
+    })
   });
 
   describe('constructor', () => {
@@ -34,6 +40,7 @@ describe('Overlay', () => {
       overlay = new Overlay({
         engine,
         eventEmitter,
+        rootContainer,
         config
       });
     });
@@ -47,6 +54,7 @@ describe('Overlay', () => {
       config.ui.overlay = {
         view: sinon.spy(() => {
           return {
+            getNode: () => {},
             hide: () => {},
             show: () => {}
           }
@@ -56,6 +64,7 @@ describe('Overlay', () => {
       overlay = new Overlay({
         engine,
         config,
+        rootContainer,
         eventEmitter
       });
 
@@ -68,6 +77,7 @@ describe('Overlay', () => {
       overlay = new Overlay({
         engine,
         eventEmitter,
+        rootContainer,
         config: {
           ui:{
             poster: 'test'
@@ -99,6 +109,7 @@ describe('Overlay', () => {
       overlay = new Overlay({
         engine,
         eventEmitter,
+        rootContainer,
         config
       });
     });
@@ -140,6 +151,7 @@ describe('Overlay', () => {
       overlay = new Overlay({
         engine,
         eventEmitter,
+        rootContainer,
         config
       });
     });

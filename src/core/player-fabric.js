@@ -26,7 +26,8 @@ export default function create(params = {}) {
     additionalModuleNames.forEach(moduleName => scope.registerClass(moduleName, additionalModules[moduleName]));
   }
 
-  const rootNode = document.createElement('div');
+  //const rootNode = document.createElement('div');
+  //rootNode.setAttribute('tabindex', 0);
 
-  return new PlayerFacade(rootNode, params, scope, defaultModules, additionalModuleNames);
+  return new PlayerFacade(params, scope, defaultModules, additionalModuleNames);
 }

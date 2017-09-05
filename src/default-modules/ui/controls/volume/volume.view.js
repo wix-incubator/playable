@@ -3,6 +3,7 @@ import $ from 'jbone';
 import View from '../../core/view';
 
 import styles from './volume.scss';
+import globalStyles from './volume.global.scss';
 
 
 const MAX_VOLUME_ICON_RANGE = 30;
@@ -15,7 +16,7 @@ class VolumeView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['volume-control'],
-      tabIndex: 0,
+      //tabIndex: 0,
       'data-hook': 'volume-control'
     });
 
@@ -43,11 +44,12 @@ class VolumeView extends View {
     this.$input = $('<input>', {
       class: `${this.styleNames['volume-input']}`,
       'data-hook': 'volume-input',
+      tabIndex: 0,
       orient: 'vertical',
       type: 'range',
       min: 0,
       max: 100,
-      step: 0.1,
+      step: 1,
       value: 0
     });
 
@@ -167,5 +169,6 @@ class VolumeView extends View {
 }
 
 VolumeView.extendStyleNames(styles);
+VolumeView.extendStyleNames(globalStyles);
 
 export default VolumeView;

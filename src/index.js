@@ -11,7 +11,7 @@ import Screen from './default-modules/ui/screen/screen.controler';
 import ControlBlock from './default-modules/ui/controls/controls.controler';
 
 import AnomalyBloodhound from './default-modules/anomaly-bloodhound/anomaly-bloodhound';
-import UI from './default-modules/ui/ui.controler';
+import RootContainer from './default-modules/root-container/root-container.controler';
 import FullScreenManager from './default-modules/full-screen-manager/full-screen-manager';
 import PlayerFacade from './core/player-facade';
 
@@ -26,7 +26,7 @@ const DefaultUIComponents = {
 /* ignore coverage */
 const DefaultModules = {
   AnomalyBloodhound,
-  UI,
+  RootContainer,
   FullScreenManager,
   PlayerFacade
 };

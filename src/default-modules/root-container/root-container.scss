@@ -1,4 +1,5 @@
-@import 'shared';
+@import '../ui/shared.global';
+
 
 $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-45Ligh,Helvetica Neue,Helvetica,Arial,\\30E1\30A4\30EA\30AA,meiryo,\\30D2\30E9\30AE\30CE\89D2\30B4 pro w3,hiragino kaku gothic pro;
 
@@ -12,34 +13,6 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
 
   ::-moz-focus-inner {
     border: 0;
-  }
-
-  .inner-wrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    display: flex;
-
-    width: 100%;
-    height: 100%;
-
-    user-select: none;
-
-    background-color: black;
-
-    justify-content: center;
-    align-items: center;
-  }
-
-  video {
-    position: relative;
-    z-index: 0;
-
-    width: 100%;
-    height: 100%;
   }
 
   .full-screen-control {

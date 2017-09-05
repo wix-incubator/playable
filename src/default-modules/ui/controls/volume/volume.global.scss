@@ -1,0 +1,11 @@
+@import 'volume';
+
+$color: white !default;
+
+.volume-control {
+  &.ally-focus-within {
+    .container {
+      opacity: 1;
+    }
+  }
+}

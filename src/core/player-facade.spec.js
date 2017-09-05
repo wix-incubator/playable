@@ -13,8 +13,6 @@ describe('Player\'s instance', () => {
   let player;
   let defaultModules;
 
-  const rootNode = document.createElement('div');
-
   beforeEach(() => {
     container = DependencyContainer.createContainer();
   });
@@ -25,12 +23,11 @@ describe('Player\'s instance', () => {
       const resolveSpy = sinon.spy(container, 'resolve');
       const params = {};
 
-      player = new Player(rootNode, {}, container, {});
+      player = new Player({}, container, {});
 
       expect(
         registerValueSpy.calledWith({
-          config: mapParamsToConfig(params),
-          rootNode
+          config: mapParamsToConfig(params)
         })
       ).to.be.true;
       expect(resolveSpy.args).to.deep.equal(
@@ -50,7 +47,7 @@ describe('Player\'s instance', () => {
 
       container.registerClass('ClassA', ClassA);
 
-      player = new Player(rootNode, {}, container, defaultModules);
+      player = new Player({}, container, defaultModules);
 
       expect(resolveSpy.calledWith('ClassA')).to.be.true;
     });
@@ -69,7 +66,7 @@ describe('Player\'s instance', () => {
 
       container.registerClass('ClassA', ClassA);
 
-      player = new Player(rootNode, {}, container, defaultModules);
+      player = new Player({}, container, defaultModules);
       player.destroy();
 
       expect(destroySpy.called).to.be.true;
@@ -83,7 +80,7 @@ describe('Player\'s instance', () => {
 
       container.registerClass('ClassB', ClassB);
 
-      player = new Player(rootNode, {}, container, {}, ['ClassB']);
+      player = new Player({}, container, {}, ['ClassB']);
 
       expect(resolveSpy.calledWith('ClassB')).to.be.true;
     });
@@ -98,7 +95,7 @@ describe('Player\'s instance', () => {
 
       container.registerClass('ClassA', ClassA);
 
-      player = new Player(rootNode, {}, container, {}, ['ClassA']);
+      player = new Player({}, container, {}, ['ClassA']);
       player.destroy();
 
       expect(destroySpy.called).to.be.true;
@@ -157,7 +154,7 @@ describe('Player\'s instance', () => {
       defaultModules = {
         ClassA
       };
-      player = new Player(rootNode, {}, container, defaultModules);
+      player = new Player({}, container, defaultModules);
 
       expect(player.methodA).to.be.defined;
       expect(player.methodB).to.not.be.defined;
@@ -169,7 +166,7 @@ describe('Player\'s instance', () => {
         ClassB
       };
 
-      player = new Player(rootNode, {}, container, defaultModules);
+      player = new Player({}, container, defaultModules);
 
       expect(player.methodA).to.be.defined;
       expect(player.methodB).to.be.defined;
@@ -181,7 +178,7 @@ describe('Player\'s instance', () => {
       };
       container.registerClass('ClassA', ClassA);
 
-      player = new Player(rootNode, {}, container, defaultModules);
+      player = new Player({}, container, defaultModules);
       player.methodA();
       expect(methodASpy.called).to.be.true;
     });
@@ -195,7 +192,7 @@ describe('Player\'s instance', () => {
       container.registerClass('ClassC', ClassC);
 
       const getDuplicateAPIMethodPlayer = () => {
-        return new Player(rootNode, {}, container, defaultModules);
+        return new Player({}, container, defaultModules);
       };
 
       expect(getDuplicateAPIMethodPlayer).to.throw('API method methodA is already defined in Player facade');
@@ -207,7 +204,7 @@ describe('Player\'s instance', () => {
       };
       container.registerClass('ClassA', ClassA);
 
-      player = new Player(rootNode, {}, container, defaultModules);
+      player = new Player({}, container, defaultModules);
       const methodA = player.methodA;
 
       player.destroy();

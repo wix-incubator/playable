@@ -1,19 +1,25 @@
 import DependencyContainer from '../core/dependency-container';
 
-import PlayerUI from './ui/ui.controler';
 import Engine from './playback-engine/playback-engine';
 import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
 import FullScreenManager from './full-screen-manager/full-screen-manager';
 import EventEmitter from './event-emitter/event-emitter';
 import TextMap from './text-map/text-map';
+import KeyboardInterceptor from './keyboard-intercepter/keyboard-intercepter';
+import MouseInterceptor from './mouse-intercepter/mouse-intercepter';
+import RootContainer from './root-container/root-container.controler';
+import allUI from './ui';
 
 const { asFunction, asClass } = DependencyContainer;
 
 export default {
   eventEmitter: asFunction(EventEmitter).scoped(),
+  rootContainer: asClass(RootContainer).scoped(),
   textMap: asClass(TextMap).scoped(),
   engine: asClass(Engine).scoped(),
   fullScreenManager: asClass(FullScreenManager).scoped(),
-  ui: asClass(PlayerUI).scoped(),
-  anomalyBloodhound: asClass(AnomalyBloodhound).scoped()
+  keyboardInterceptor: asClass(KeyboardInterceptor).scoped(),
+  mouseInterceptor: asClass(MouseInterceptor).scoped(),
+  anomalyBloodhound: asClass(AnomalyBloodhound).scoped(),
+  ...allUI
 };

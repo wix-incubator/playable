@@ -15,9 +15,9 @@ const DEFAULT_CONFIG = {
 };
 
 export default class FullScreenManager {
-  static dependencies = ['eventEmitter', 'engine', 'rootNode', 'config'];
+  static dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
 
-  constructor({ eventEmitter, engine, rootNode, config }) {
+  constructor({ eventEmitter, engine, rootContainer, config }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._config = {
@@ -30,7 +30,7 @@ export default class FullScreenManager {
     if (isIPhone() || isIPod() || isIPad()) {
       this._helper = new IOSFullScreen(this._engine.getNode(), this._onChange);
     } else {
-      this._helper = new DesktopFullScreen(rootNode, this._onChange);
+      this._helper = new DesktopFullScreen(rootContainer.node, this._onChange);
     }
 
     this._bindEvents();

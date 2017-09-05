@@ -1,38 +1,42 @@
-@import '../../shared';
+@import '../../shared.global';
 
 .full-screen-control {
   position: relative;
 
   display: flex;
 
-  margin-right: 18px;
+  margin-right: 13px;
+  margin-left: 5px;
 
   align-items: center;
   justify-content: center;
   @include max-width-550() {
-    margin-right: 12px;
+    margin-right: 7px;
   }
   @include in-full-screen() {
-    margin-right: 30px;
+    margin-right: 25px;
+    margin-left: 0px;
   }
 }
 
 
 .full-screen-toggle {
-  width: 14px;
-  min-width: 14px;
-  height: 14px;
-  min-height: 14px;
+  width: 25px;
+  min-width: 25px;
+  height: 25px;
+  min-height: 25px;
 
   transition: transform .2s;
 
   background-image: url('../../../../assets/enter-full-screen.svg');
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: 14px 14px;
 
   @include in-full-screen() {
-    width: 21px;
-    min-width: 21px;
-    height: 21px;
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
     min-height: 21px;
 
     background-size: 21px 21px;

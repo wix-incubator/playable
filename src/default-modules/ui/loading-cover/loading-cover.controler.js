@@ -2,14 +2,16 @@ import get from 'lodash/get';
 
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
 
+import publicAPI from '../../../utils/public-api-decorator';
+
 import View from './loading-cover.view';
 
 
 export default class LoadingCover {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config', 'controls'];
+  static dependencies = ['engine', 'eventEmitter', 'config', 'controls', 'rootContainer'];
 
-  constructor({ config, eventEmitter, engine, controls }) {
+  constructor({ config, eventEmitter, engine, controls, rootContainer }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
@@ -22,6 +24,10 @@ export default class LoadingCover {
     this._initUI();
     this.hide();
     this._bindEvents();
+
+    if (get(config, 'ui.loadingCover') !== false) {
+      rootContainer.appendComponentNode(this.node);
+    }
   }
 
   get node() {
@@ -83,6 +89,7 @@ export default class LoadingCover {
     this._eventEmitter.off(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
+  @publicAPI()
   setLoadingCover(url) {
     this.view.setCover(url);
   }

@@ -5,21 +5,17 @@ import sinon from 'sinon';
 
 import EventEmitter from 'eventemitter3';
 
-import { container } from '../../core/player-fabric';
-import PlayerUI from './ui.controler';
+import RootContainer from './root-container.controler';
 import Engine from '../playback-engine/playback-engine';
 
 
-describe('PlayerUI', () => {
+describe('RootContainer', () => {
   let ui = {};
   let engine = {};
   let eventEmitter = {};
   let config = {};
-  let rootNode = {};
-  let scope = {};
 
   beforeEach(() => {
-    rootNode = document.createElement('div');
     config = {
       ui: {}
     };
@@ -28,18 +24,12 @@ describe('PlayerUI', () => {
       eventEmitter,
       config
     });
-    scope = container.createScope();
-    scope.registerValue({
-      config,
-      rootNode
-    });
 
-    ui = new PlayerUI({
+    ui = new RootContainer({
       engine,
       eventEmitter,
       config,
-      rootNode
-    }, scope);
+    });
   });
 
   describe('constructor', () => {
@@ -49,20 +39,13 @@ describe('PlayerUI', () => {
     });
   });
 
-  describe('instance created with default config', () => {
-    it('should have controls', () => {
-      expect(ui._controls).to.exist;
-    });
-  });
-
   describe('API', () => {
     beforeEach(() => {
-      ui = new PlayerUI({
+      ui = new RootContainer({
         engine,
         eventEmitter,
-        config,
-        rootNode
-      }, scope);
+        config
+      });
     });
 
     it('should have method for setting width', () => {

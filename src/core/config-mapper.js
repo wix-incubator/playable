@@ -1,6 +1,18 @@
 import { isIPhone, isIPod, isIPad, isAndroid } from '../utils/device-detection';
 import pick from 'lodash/pick';
 
+const getKeyboardInterceptorConfig = params => {
+  if (isIPhone() || isIPod() || isIPad() || isAndroid()) {
+    return {
+      disabled: true
+    };
+  }
+
+  return {
+    disabled: params.disableControlWithKeyboard
+  };
+};
+
 const getTextMapConfig = params => params.texts || {};
 
 const getAnomalyBloodhoundConfig = params => params.logger;
@@ -54,6 +66,7 @@ const getUIConfig = params => {
 
 const mapParamsToConfig = (params = {}) =>
   ({
+    keyboardInterceptor: getKeyboardInterceptorConfig(params),
     textMap: getTextMapConfig(params),
     ui: getUIConfig(params),
     engine: getEngineConfig(params),
@@ -62,6 +75,7 @@ const mapParamsToConfig = (params = {}) =>
   });
 
 export {
+  getKeyboardInterceptorConfig,
   getTextMapConfig,
   getAnomalyBloodhoundConfig,
   getEngineConfig,

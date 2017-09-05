@@ -8,6 +8,7 @@ import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
+import RootContainer from '../root-container/root-container.controler';
 
 import { VIDEO_EVENTS, UI_EVENTS } from '../../constants/index';
 
@@ -32,7 +33,8 @@ describe('FullScreenManager' , () => {
   let fullScreenManager;
   let eventEmitter;
   let engine;
-  let rootNode;
+  let rootContainer;
+
   const config = {};
 
   beforeEach(() => {
@@ -41,11 +43,15 @@ describe('FullScreenManager' , () => {
       config,
       eventEmitter
     });
-    rootNode = document.createElement('div');
+    rootContainer = new RootContainer({
+      config,
+      engine,
+      eventEmitter
+    });
     fullScreenManager = new FullScreenManager({
       eventEmitter,
       engine,
-      rootNode,
+      rootContainer,
       config
     });
 
@@ -75,7 +81,7 @@ describe('FullScreenManager' , () => {
       fullScreenManager = new FullScreenManager({
         eventEmitter,
         engine,
-        rootNode,
+        rootContainer,
         config
       });
 
@@ -88,7 +94,7 @@ describe('FullScreenManager' , () => {
       fullScreenManager = new FullScreenManager({
         eventEmitter,
         engine,
-        rootNode,
+        rootContainer,
         config
       });
 
@@ -99,7 +105,7 @@ describe('FullScreenManager' , () => {
       fullScreenManager = new FullScreenManager({
         eventEmitter,
         engine,
-        rootNode,
+        rootContainer,
         config
       });
 
@@ -110,7 +116,7 @@ describe('FullScreenManager' , () => {
       fullScreenManager = new FullScreenManager({
         eventEmitter,
         engine,
-        rootNode,
+        rootContainer,
         config
       });
 

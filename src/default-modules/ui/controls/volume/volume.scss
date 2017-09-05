@@ -1,4 +1,4 @@
-@import '../../shared';
+@import '../../shared.global';
 
 
 $color: white !default;
@@ -8,47 +8,49 @@ $color: white !default;
 
   display: flex;
 
-  width: 18px;
-  max-width: 18px;
+  width: 25px;
+  max-width: 25px;
   height: 25px;
-  margin-right: 18px;
+  margin-right: 5px;
+  margin-left: 5px;
 
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-
   @include in-full-screen() {
-    width: 25px;
-    max-width: 25px;
+    width: 35px;
+    max-width: 35px;
     height: 35px;
-    margin-right: 30px;
+    margin-right: 20px;
   }
   @include max-width-300() {
     @include hidden();
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     .container {
-      visibility: visible;
-
+      //visibility: visible;
       opacity: 1;
     }
   }
 }
 
 .mute-button {
-  width: 17px;
-  min-width: 17px;
-  height: 14px;
-  min-height: 14px;
+  width: 25px;
+  min-width: 25px;
+  height: 25px;
+  min-height: 25px;
 
   background-image: url('../../../../assets/volume-100.svg');
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: 17px 14px;
 
   @include in-full-screen() {
-    width: 25px;
-    min-width: 25px;
-    height: 21px;
-    min-height: 21px;
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+    min-height: 35px;
 
     background-size: 25px 21px;
   }
@@ -67,9 +69,7 @@ $color: white !default;
 
   position: absolute;
   top: -82px;
-  left: -5px;
-
-  visibility: hidden;
+  //visibility: hidden;
 
   padding: 9px 3px;
 
@@ -80,7 +80,7 @@ $color: white !default;
 
   @include in-full-screen() {
     top: -122px;
-    left: -7px;
+    //left: -7px;
   }
 }
 

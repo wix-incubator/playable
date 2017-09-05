@@ -6,13 +6,6 @@ import View from './screen.view';
 
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
-const SPACE_BAR_KEYCODE = 32;
-const LEFT_ARROW_KEYCODE = 37;
-const RIGHT_ARROW_KEYCODE = 39;
-const UP_ARROW_KEYCODE = 38;
-const DOWN_ARROW_KEYCODE = 40;
-const AMOUNT_TO_SKIP_SECONDS = 5;
-const AMOUNT_TO_CHANGE_VOLUME = 0.1;
 
 const DEFAULT_CONFIG = {
   indicateScreenClick: true,
@@ -21,12 +14,13 @@ const DEFAULT_CONFIG = {
 
 export default class Screen {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config', 'fullScreenManager'];
+  static dependencies = ['engine', 'eventEmitter', 'config', 'fullScreenManager', 'manipulationIndicator', 'rootContainer'];
 
-  constructor({ config, eventEmitter, engine, fullScreenManager }) {
+  constructor({ config, eventEmitter, engine, fullScreenManager, manipulationIndicator, rootContainer }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._fullScreenManager = fullScreenManager;
+    this._manipulationIndicator = manipulationIndicator;
 
     this._isInFullScreen = false;
     this.isHidden = false;
@@ -40,6 +34,12 @@ export default class Screen {
     this._bindCallbacks();
     this._initUI();
     this._bindEvents();
+
+    if (this.config.indicateScreenClick) {
+      this.view.appendComponentNode(this._manipulationIndicator.node);
+    }
+
+    rootContainer.appendComponentNode(this.node);
   }
 
   get node() {
@@ -49,17 +49,13 @@ export default class Screen {
   _bindCallbacks() {
     this._processNodeClick = this._processNodeClick.bind(this);
     this._processNodeDblClick = this._processNodeDblClick.bind(this);
-    this._processKeyboardInput = this._processKeyboardInput.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
   }
 
   _initUI() {
     const config = {
-      indicateScreenClick: this.config.indicateScreenClick,
       nativeControls: this.config.nativeControls,
-      callbacks: {
-        onWrapperKeyPress: this._processKeyboardInput
-      },
+      callbacks: {},
       playbackViewNode: this._engine.getNode()
     };
 
@@ -93,57 +89,25 @@ export default class Screen {
     this._isInFullScreen = isInFullScreen;
   }
 
-  _processKeyboardInput(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    switch (e.keyCode) {
-      case SPACE_BAR_KEYCODE:
-        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this._showPlaybackChangeIndicator();
-        this._toggleVideoPlayback();
-        break;
-      case LEFT_ARROW_KEYCODE:
-        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this.config.indicateScreenClick && this.view.activateRewindIcon();
-        this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
-        break;
-      case RIGHT_ARROW_KEYCODE:
-        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this.config.indicateScreenClick && this.view.activateForwardIcon();
-        this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
-        break;
-      case UP_ARROW_KEYCODE:
-        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this.config.indicateScreenClick && this.view.activateIncreaseVolumeIcon();
-        this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
-        break;
-      case DOWN_ARROW_KEYCODE:
-        this._eventEmitter.emit(UI_EVENTS.ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED);
-        this.config.indicateScreenClick && this.view.activateDecreaseVolumeIcon();
-        this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
-        break;
-      default: break;
-    }
-  }
-
   _processNodeClick() {
-    if (!this._fullScreenManager.isEnabled || this._fullScreenManager._config.enterOnPlay) {
-      this._showPlaybackChangeIndicator();
-      this._toggleVideoPlayback();
-      return;
-    }
+    this._showPlaybackChangeIndicator();
 
-    if (this._isDelayedPlaybackToggleExist) {
-      this._clearDelayedPlaybackToggle();
-      this._hideDelayedPlaybackChangeIndicator();
+    if (!this._fullScreenManager.isEnabled || this._fullScreenManager._config.enterOnPlay) {
+      this._toggleVideoPlayback();
     } else {
-      this._showPlaybackChangeIndicator();
       this._setDelayedPlaybackToggle();
     }
   }
 
   _processNodeDblClick() {
-    this._toggleFullScreen();
+    if (this._fullScreenManager.isEnabled || !this._fullScreenManager._config.enterOnPlay) {
+      if (this._isDelayedPlaybackToggleExist) {
+        this._clearDelayedPlaybackToggle();
+        this._hideDelayedPlaybackChangeIndicator();
+      }
+
+      this._toggleFullScreen();
+    }
   }
 
   _showPlaybackChangeIndicator() {
@@ -154,16 +118,16 @@ export default class Screen {
         state === this._engine.STATES.PLAY_REQUESTED ||
         state === this._engine.STATES.PLAYING
       ) {
-        this.view.activatePauseIcon();
+        this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
       } else {
-        this.view.activatePlayIcon();
+        this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED);
       }
     }
   }
 
   _hideDelayedPlaybackChangeIndicator() {
     if (this.config.indicateScreenClick) {
-      this.view.deactivateIcon();
+      this._eventEmitter.emit(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED);
     }
   }
 
@@ -234,6 +198,7 @@ export default class Screen {
     this.view.destroy();
     delete this.view;
 
+    delete this._manipulationIndicator;
     delete this._eventEmitter;
     delete this._engine;
     delete this._fullScreenManager;

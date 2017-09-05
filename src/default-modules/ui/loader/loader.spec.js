@@ -4,6 +4,7 @@ import sinon from 'sinon';
 
 import Engine, { STATES } from '../../playback-engine/playback-engine';
 import EventEmitter from '../../event-emitter/event-emitter';
+import RootContainer from '../../root-container/root-container.controler';
 import Loader, { DELAYED_SHOW_TIMEOUT } from './loader.controler';
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
 
@@ -12,6 +13,7 @@ describe('Loader', () => {
   let loader;
   let engine;
   let eventEmitter;
+  let rootContainer;
   let config;
   let emitSpy;
 
@@ -25,9 +27,15 @@ describe('Loader', () => {
       eventEmitter,
       config
     });
+    rootContainer = new RootContainer({
+      eventEmitter,
+      engine,
+      config
+    });
 
     loader = new Loader({
       engine,
+      rootContainer,
       config,
       eventEmitter
     });
@@ -48,6 +56,7 @@ describe('Loader', () => {
       config.ui.loader = {
         view: sinon.spy(() => {
           return {
+            getNode: () => {},
             hide: () => {},
             show: () => {}
           }
@@ -57,6 +66,7 @@ describe('Loader', () => {
       loader = new Loader({
         engine,
         config,
+        rootContainer,
         eventEmitter
       });
 

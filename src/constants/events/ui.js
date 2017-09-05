@@ -15,6 +15,7 @@ const UI_EVENTS = {
   CONTROL_BLOCK_SHOW_TRIGGERED: 'ui-control-block-show-triggered',
   PROGRESS_MANIPULATION_STARTED: 'ui-progress-manipulation-started',
   PROGRESS_MANIPULATION_ENDED: 'ui-progress-manipulation-ended',
+  KEYBOARD_KEYDOWN_INTERCEPTED: 'ui-keyboard-keydown-intercepted',
   ENGINE_CONTROL_THROUGH_KEYBOARD_TRIGGERED: 'ui-engine-control-through-keyboard-triggered',
   LOADER_SHOW_TRIGGERED: 'ui-loader-show-triggered',
   LOADER_HIDE_TRIGGERED: 'ui-loader-hide-triggered',
@@ -24,7 +25,15 @@ const UI_EVENTS = {
   HIDE_BOTTOM_SHADOW_TRIGGERED: 'ui-hide-bottom-shadow-triggered',
   WATCH_ON_SITE_TRIGGERED: 'ui-watch-on-site-triggered',
   LOADING_COVER_SHOW_TRIGGERED: 'ui-loading-cover-show-triggered',
-  LOADING_COVER_HIDE_TRIGGERED: 'ui-loading-cover-hide-triggered'
+  LOADING_COVER_HIDE_TRIGGERED: 'ui-loading-cover-hide-triggered',
+  PLAY_WITH_SCREEN_CLICK_TRIGGERED: 'ui-play-with-screen-click-triggered',
+  PAUSE_WITH_SCREEN_CLICK_TRIGGERED: 'ui-pause-with-screen-click-triggered',
+  TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED: 'ui-toggle-playback-with-keyboard-triggered',
+  GO_BACKWARD_WITH_KEYBOARD_TRIGGERED: 'ui-go-backward-with-keyboard-triggered',
+  GO_FORWARD_WITH_KEYBOARD_TRIGGERED: 'ui-go-forward-with-keyboard-triggered',
+  INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-increase-volume-with-keyboard-triggered',
+  DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-decrease-volume-with-keyboard-triggered',
+  HIDE_MANIPULATION_INDICATOR_TRIGGERED: 'ui-hide-manipulation-indicator-triggered'
 };
 
 export default UI_EVENTS;

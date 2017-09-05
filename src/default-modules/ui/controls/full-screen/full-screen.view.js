@@ -13,8 +13,7 @@ class FullScreenView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['full-screen-control'],
-      'data-hook': 'full-screen-control',
-      'data-tooltip-pos': 'up'
+      'data-hook': 'full-screen-control'
     });
 
     this.$toggleFullScreenControl = $('<button>', {

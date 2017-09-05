@@ -10,9 +10,9 @@ export const DELAYED_SHOW_TIMEOUT = 100;
 
 export default class Loader {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config'];
+  static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
-  constructor({ config, eventEmitter, engine }) {
+  constructor({ config, eventEmitter, engine, rootContainer }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
@@ -26,6 +26,10 @@ export default class Loader {
     this._initUI();
     this._bindEvents();
     this.hide();
+
+    if (get(config, 'ui.loader') !== false) {
+      rootContainer.appendComponentNode(this.node);
+    }
   }
 
   get node() {
