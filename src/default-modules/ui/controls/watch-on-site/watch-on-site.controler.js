@@ -1,5 +1,7 @@
 import get from 'lodash/get';
 
+import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
+
 import { UI_EVENTS, TEXT_LABELS } from '../../../../constants/index';
 import View from './watch-on-site.view';
 
@@ -20,6 +22,7 @@ export default class FullScreenControl {
     this._bindCallbacks();
 
     this._initUI();
+    this._initInterceptor();
   }
 
   get node() {
@@ -42,6 +45,26 @@ export default class FullScreenControl {
     this.view = new this.constructor.View(config);
   }
 
+  _initInterceptor() {
+    this._interceptor = new KeyboardInterceptor({
+      node: this.view.$logo[0],
+      callbacks: {
+        [KEYCODES.SPACE_BAR]: e => {
+          e.stopPropagation();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        },
+        [KEYCODES.ENTER]: e => {
+          e.stopPropagation();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        }
+      }
+    });
+  }
+
+  _destroyInterceptor() {
+    this._interceptor.destroy();
+  }
+
   _triggerWatchOnSite() {
     this._eventEmitter.emit(UI_EVENTS.WATCH_ON_SITE_TRIGGERED);
   }
@@ -61,6 +84,7 @@ export default class FullScreenControl {
   }
 
   destroy() {
+    this._destroyInterceptor();
     this.view.destroy();
     delete this.view;
 

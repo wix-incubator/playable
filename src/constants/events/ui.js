@@ -33,6 +33,9 @@ const UI_EVENTS = {
   GO_FORWARD_WITH_KEYBOARD_TRIGGERED: 'ui-go-forward-with-keyboard-triggered',
   INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-increase-volume-with-keyboard-triggered',
   DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-decrease-volume-with-keyboard-triggered',
+  MUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-mute-sound-with-keyboard-triggered',
+  UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-unmute-sound-with-keyboard-triggered',
+  TAB_WITH_KEYBOARD_TRIGGERED: 'ui-tab-with-keyboard-triggered',
   HIDE_MANIPULATION_INDICATOR_TRIGGERED: 'ui-hide-manipulation-indicator-triggered'
 };
 

@@ -29,7 +29,6 @@ $color: white !default;
   &:hover,
   &:focus {
     .container {
-      //visibility: visible;
       opacity: 1;
     }
   }
@@ -69,7 +68,6 @@ $color: white !default;
 
   position: absolute;
   top: -82px;
-  //visibility: hidden;
 
   padding: 9px 3px;
 
@@ -80,7 +78,6 @@ $color: white !default;
 
   @include in-full-screen() {
     top: -122px;
-    //left: -7px;
   }
 }
 

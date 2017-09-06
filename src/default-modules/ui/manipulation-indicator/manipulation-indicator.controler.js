@@ -39,6 +39,16 @@ export default class ManipulationIndicator {
       this.view.activateDecreaseVolumeIcon,
       this.view
     );
+    this._eventEmitter.on(
+      UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+      this.view.activateMuteVolumeIcon,
+      this.view
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+      this.view.activateIncreaseVolumeIcon,
+      this.view
+    );
     this._eventEmitter.on(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED, this.view.deactivateIcon, this.view);
   }
 
@@ -56,6 +66,16 @@ export default class ManipulationIndicator {
     this._eventEmitter.off(
       UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
       this.view.activateDecreaseVolumeIcon,
+      this.view
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+      this.view.activateMuteVolumeIcon,
+      this.view
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+      this.view.activateIncreaseVolumeIcon,
       this.view
     );
     this._eventEmitter.off(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED, this.view.deactivateIcon, this.view);

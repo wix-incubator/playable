@@ -1,5 +1,7 @@
 import { UI_EVENTS } from '../../../../constants/index';
 
+import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
+
 import View from './full-screen.view';
 
 
@@ -24,6 +26,8 @@ export default class FullScreenControl {
     if (!this._fullScreenManager.isEnabled) {
       this.hide();
     }
+
+    this._initInterceptor();
   }
 
   get node() {
@@ -46,6 +50,26 @@ export default class FullScreenControl {
     };
 
     this.view = new this.constructor.View(config);
+  }
+
+  _initInterceptor() {
+    this._interceptor = new KeyboardInterceptor({
+      node: this.view.$toggleFullScreenControl[0],
+      callbacks: {
+        [KEYCODES.SPACE_BAR]: e => {
+          e.stopPropagation();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        },
+        [KEYCODES.ENTER]: e => {
+          e.stopPropagation();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        }
+      }
+    });
+  }
+
+  _destroyInterceptor() {
+    this._interceptor.destroy();
   }
 
   _toggleFullScreen() {
@@ -84,6 +108,7 @@ export default class FullScreenControl {
   }
 
   destroy() {
+    this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
     delete this.view;

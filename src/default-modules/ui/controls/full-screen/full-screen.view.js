@@ -19,7 +19,6 @@ class FullScreenView extends View {
     this.$toggleFullScreenControl = $('<button>', {
       class: `${this.styleNames['full-screen-toggle']} ${this.styleNames['control-button']}`,
       'data-hook': 'full-screen-button',
-      type: 'button',
       tabIndex: 0
     });
 
@@ -31,11 +30,18 @@ class FullScreenView extends View {
   }
 
   _bindEvents() {
-    this.$toggleFullScreenControl[0].addEventListener('click', this._callbacks.onToggleFullScreenButtonClick);
+    this._onButtonClick = this._onButtonClick.bind(this);
+
+    this.$toggleFullScreenControl[0].addEventListener('click', this._onButtonClick);
   }
 
   _unbindEvents() {
-    this.$toggleFullScreenControl[0].removeEventListener('click', this._callbacks.onToggleFullScreenButtonClick);
+    this.$toggleFullScreenControl[0].removeEventListener('click', this._onButtonClick);
+  }
+
+  _onButtonClick() {
+    this.$toggleFullScreenControl[0].focus();
+    this._callbacks.onToggleFullScreenButtonClick();
   }
 
   setState({ isInFullScreen }) {

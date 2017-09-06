@@ -3,6 +3,9 @@ import View from './progress.view';
 import { getOverallBufferedPercent, getOverallPlayedPercent } from '../../../../utils/video-data';
 
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
+import { AMOUNT_TO_SKIP_SECONDS } from '../../../keyboard-control/keyboard-control';
+
+import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
 
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
@@ -25,6 +28,8 @@ export default class ProgressControl {
       played: 0,
       buffered: 0
     });
+
+    this._initInterceptor();
   }
 
   get node() {
@@ -46,6 +51,46 @@ export default class ProgressControl {
     };
 
     this.view = new this.constructor.View(config);
+  }
+
+  _initInterceptor() {
+    this._interceptor = new KeyboardInterceptor({
+      node: this.view.$input[0],
+      callbacks: {
+        [KEYCODES.UP_ARROW]: e => {
+          e.stopPropagation();
+          e.preventDefault();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
+          this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
+        },
+        [KEYCODES.DOWN_ARROW]: e => {
+          e.stopPropagation();
+          e.preventDefault();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
+          this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
+        },
+        [KEYCODES.RIGHT_ARROW]: e => {
+          e.stopPropagation();
+          e.preventDefault();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
+          this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
+        },
+        [KEYCODES.LEFT_ARROW]: e => {
+          e.stopPropagation();
+          e.preventDefault();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
+          this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
+        }
+      }
+    });
+  }
+
+  _destroyInterceptor() {
+    this._interceptor.destroy();
   }
 
   _bindCallbacks() {
@@ -196,6 +241,7 @@ export default class ProgressControl {
   }
 
   destroy() {
+    this._destroyInterceptor();
     this._stopIntervalUpdates();
     this._unbindEvents();
     this.view.destroy();

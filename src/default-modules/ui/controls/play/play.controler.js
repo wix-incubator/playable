@@ -1,5 +1,7 @@
 import View from './play.view';
 
+import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
+
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
 
 
@@ -18,10 +20,32 @@ export default class PlayControl {
     this._bindEvents();
 
     this.setControlStatus(false);
+
+    this._initInterceptor();
   }
 
   get node() {
     return this.view.getNode();
+  }
+
+  _initInterceptor() {
+    this._interceptor = new KeyboardInterceptor({
+      node: this.view.$playbackControl[0],
+      callbacks: {
+        [KEYCODES.SPACE_BAR]: e => {
+          e.stopPropagation();
+          this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
+        },
+        [KEYCODES.ENTER]: e => {
+          e.stopPropagation();
+          this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
+        }
+      }
+    });
+  }
+
+  _destroyInterceptor() {
+    this._interceptor.destroy();
   }
 
   _bindCallbacks() {
@@ -90,6 +114,7 @@ export default class PlayControl {
   }
 
   destroy() {
+    this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
     delete this.view;

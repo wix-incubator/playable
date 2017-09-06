@@ -1,4 +1,14 @@
-div {
-  outline: none;
-  box-shadow: 0 0 1px #000;
+[data-hook='player-container'] {
+  * {
+    outline: none;
+  }
+}
+
+[data-focus-source='key'] [data-hook='player-container'],
+[data-focus-source='script'] [data-hook='player-container'] {
+  button.ally-focus-within,
+  input.ally-focus-within,
+  img.ally-focus-within {
+    outline: 2px solid rgba(56, 153, 236, .8);
+  }
 }

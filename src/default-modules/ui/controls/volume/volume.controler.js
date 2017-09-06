@@ -1,5 +1,8 @@
 import View from './volume.view';
 
+import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
+
+import { AMOUNT_TO_CHANGE_VOLUME } from '../../../keyboard-control/keyboard-control';
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
 
 
@@ -24,6 +27,8 @@ export default class VolumeControl {
       volume: this._volumeLevel,
       isMuted: this._isMuted
     });
+
+    this._initInterceptor();
   }
 
   get node() {
@@ -40,6 +45,57 @@ export default class VolumeControl {
     };
 
     this.view = new this.constructor.View(config);
+  }
+
+  _initInterceptor() {
+    this._buttonInterceptor = new KeyboardInterceptor({
+      node: this.view.$muteControl[0],
+      callbacks: {
+        [KEYCODES.SPACE_BAR]: e => {
+          e.stopPropagation();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(
+            this._isMuted ?
+              UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED :
+              UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED
+          );
+        },
+        [KEYCODES.ENTER]: e => {
+          e.stopPropagation();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(
+            this._isMuted ?
+              UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED :
+              UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED
+          );
+        }
+      }
+    });
+
+    this._inputInterceptor = new KeyboardInterceptor({
+      node: this.view.$input[0],
+      callbacks: {
+        [KEYCODES.RIGHT_ARROW]: e => {
+          e.stopPropagation();
+          e.preventDefault();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
+          this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
+        },
+        [KEYCODES.LEFT_ARROW]: e => {
+          e.stopPropagation();
+          e.preventDefault();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
+          this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
+        }
+      }
+    });
+  }
+
+  _destroyInterceptor() {
+    this._buttonInterceptor.destroy();
+    this._inputInterceptor.destroy();
   }
 
   _bindEvents() {
@@ -126,6 +182,7 @@ export default class VolumeControl {
   }
 
   destroy() {
+    this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
     delete this.view;

@@ -24,6 +24,7 @@ $video-progress-bg: transparentize(#fff, .75) !default;
 
   opacity: 1;
   border: 0;
+  outline: none;
   background-color: transparent;
 
   &:hover {

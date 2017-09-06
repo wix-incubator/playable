@@ -37,6 +37,30 @@ describe('RootContainer', () => {
       expect(ui).to.exists;
       expect(ui.view).to.exists;
     });
+
+    it('should init custom UI', () => {
+      config.ui.customUI = {
+        'ui': sinon.spy(
+          () => (
+            {
+              getNode: () => {}
+            }
+          )
+        )
+      };
+      ui = new RootContainer({
+        engine,
+        eventEmitter,
+        config,
+      });
+
+      expect(config.ui.customUI['ui'].calledWithNew()).to.be.true;
+      expect(config.ui.customUI['ui'].calledWith({
+        engine,
+        eventEmitter,
+        ui
+      })).to.be.true;
+    });
   });
 
   describe('API', () => {
@@ -72,6 +96,30 @@ describe('RootContainer', () => {
       })).to.be.true;
     });
 
+    it('should have method for getting width', () => {
+      ui.setWidth(340);
+      expect(ui.getWidth()).to.be.equal(340);
+    });
+
+    it('should have method for getting width', () => {
+      ui.setHeight(350);
+      expect(ui.getHeight()).to.be.equal(350);
+    });
+
+    it('should have method for attaching player to node', () => {
+      const node = document.createElement('div');
+      sinon.spy(node, 'appendChild');
+      ui._disengageFocusWithin = () => {};
+      ui.attachToElement(node);
+      expect(node.appendChild.calledWith(ui.node)).to.be.true;
+    });
+
+    it('should have method for setting setFillAllSpace', () => {
+      sinon.spy(ui.view,'setFillAllSpaceFlag');
+      ui.setFillAllSpace(true);
+      expect(ui.view.setFillAllSpaceFlag.calledWith(true)).to.be.true;
+    });
+
     it('should have method for showing whole view', () => {
       expect(ui.show).to.exist;
       ui.show();
@@ -83,6 +131,14 @@ describe('RootContainer', () => {
       ui.hide();
       expect(ui.isHidden).to.be.true;
     });
+
+    it('should have method for destroy', () => {
+      const node = document.createElement('div');
+      expect(ui.destroy).to.exist;
+      ui._disengageFocusWithin = () => {};
+      ui.attachToElement(node);
+      ui.destroy();
+    })
   });
 
   describe('View', () => {

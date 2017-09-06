@@ -5,8 +5,8 @@ import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
 import FullScreenManager from './full-screen-manager/full-screen-manager';
 import EventEmitter from './event-emitter/event-emitter';
 import TextMap from './text-map/text-map';
-import KeyboardInterceptor from './keyboard-intercepter/keyboard-intercepter';
-import MouseInterceptor from './mouse-intercepter/mouse-intercepter';
+import KeyboardInterceptor from './keyboard-control/keyboard-control';
+import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
 import RootContainer from './root-container/root-container.controler';
 import allUI from './ui';
 

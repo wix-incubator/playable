@@ -1,6 +1,5 @@
 import { ElementQueries } from 'css-element-queries';
-import focusWithin from 'ally.js/src/style/focus-within';
-//import focusSource from 'ally.js/src/style/focus-source';
+import { style } from 'ally.js';
 
 import publicAPI from '../../utils/public-api-decorator';
 
@@ -17,9 +16,9 @@ export const DEFAULT_CONFIG = {
 };
 
 class RootContainer {
-  static dependencies = ['engine', 'eventEmitter', 'config'];
+  static dependencies = ['eventEmitter', 'config', 'engine'];
 
-  constructor({ engine, eventEmitter, config }) {
+  constructor({ eventEmitter, config, engine }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this.config = {
@@ -82,9 +81,8 @@ class RootContainer {
 
   @publicAPI()
   attachToElement(node) {
-    if (!this._disengageFocusWithin) {
-      this._disengageFocusWithin = focusWithin();
-    }
+    this._disengageFocusWithin = this._disengageFocusWithin || /* ignore coverage */style.focusWithin();
+    this._disengageFocusSource = this._disengageFocusSource || style.focusSource().disengage;
 
     node.appendChild(this.node);
     ElementQueries.init();
@@ -133,11 +131,12 @@ class RootContainer {
     this.view.destroy();
     delete this.view;
 
-    delete this._eventEmitter;
     delete this._engine;
+    delete this._eventEmitter;
     delete this.config;
 
-    //this._disengageFocusWithin && this._disengageFocusWithin();
+    this._disengageFocusWithin && this._disengageFocusWithin();
+    this._disengageFocusSource && this._disengageFocusSource();
   }
 }
 

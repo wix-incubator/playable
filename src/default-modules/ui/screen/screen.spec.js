@@ -114,13 +114,6 @@ describe('Loader', () => {
       screen._eventEmitter.emit.restore();
     });
 
-    it('should trigger _toggleVideoPlayback on keyboard input', () => {
-      const togglePlaybackSpy = sinon.spy(screen, '_toggleVideoPlayback');
-
-      //screen._processKeyboardInput({keyCode: 32, stopPropagation: () => {}, preventDefault: () => {}});
-      //expect(togglePlaybackSpy.called).to.be.true;
-    });
-
     it('should trigger _toggleVideoPlayback on node click', () => {
       const processClickSpy = sinon.spy(screen, '_processNodeClick');
       screen._bindCallbacks();

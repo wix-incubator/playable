@@ -1,11 +1,4 @@
-@import 'volume';
-
-$color: white !default;
-
-.volume-control {
-  &.ally-focus-within {
-    .container {
-      opacity: 1;
-    }
-  }
+[data-hook='volume-control'] [data-hook='input-container'].ally-focus-within {
+  opacity: 1;
+  outline: 2px solid rgba(56, 153, 236, .8);
 }

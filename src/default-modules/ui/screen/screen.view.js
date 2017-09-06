@@ -31,8 +31,6 @@ class ScreenView extends View {
       playbackViewNode.setAttribute('controls', 'true');
     }
 
-    playbackViewNode.setAttribute('tabindex', '0');
-
     this.$node
       .append(playbackViewNode)
       .append(this.$topBackground)

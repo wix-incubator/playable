@@ -4,7 +4,6 @@ import View from '../../core/view';
 
 import styles from './play.scss';
 
-
 class PlayView extends View {
   constructor(config) {
     super(config);
@@ -22,6 +21,7 @@ class PlayView extends View {
       tabIndex: 0
     });
 
+
     this.$node
       .append(this.$playbackControl);
 
@@ -29,11 +29,18 @@ class PlayView extends View {
   }
 
   _bindEvents() {
-    this.$playbackControl[0].addEventListener('click', this._callbacks.onTogglePlaybackButtonClick);
+    this._onButtonClick = this._onButtonClick.bind(this);
+
+    this.$playbackControl[0].addEventListener('click', this._onButtonClick);
   }
 
   _unbindEvents() {
-    this.$playbackControl[0].removeEventListener('click', this._callbacks.onTogglePlaybackButtonClick);
+    this.$playbackControl[0].removeEventListener('click', this._onButtonClick);
+  }
+
+  _onButtonClick() {
+    this.$playbackControl[0].focus();
+    this._callbacks.onTogglePlaybackButtonClick();
   }
 
   setState({ isPlaying }) {

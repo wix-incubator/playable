@@ -2,11 +2,10 @@ import { UI_EVENTS } from '../../constants/index';
 
 
 export default class MouseInterceptor {
-  static dependencies = ['engine', 'eventEmitter', 'rootContainer'];
+  static dependencies = ['eventEmitter', 'rootContainer'];
 
-  constructor({ eventEmitter, rootContainer, engine }) {
+  constructor({ eventEmitter, rootContainer }) {
     this._eventEmitter = eventEmitter;
-    this._engine = engine;
     this._rootNode = rootContainer.node;
 
     this._bindCallbacks();
@@ -46,10 +45,7 @@ export default class MouseInterceptor {
   destroy() {
     this._unbindEvents();
 
-    delete this.config;
-
     delete this._rootNode;
     delete this._eventEmitter;
-    delete this._engine;
   }
 }

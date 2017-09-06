@@ -14,6 +14,7 @@ class RootContainerView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       'data-hook': 'player-container',
+      tabIndex: 0,
       class: this.styleNames['video-wrapper']
     });
 

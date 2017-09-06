@@ -19,6 +19,7 @@ class WatchOnSiteView extends View {
 
     this.$logo = $('<img>', {
       class: this.styleNames['watch-on-site-toggle'],
+      tabIndex: 0,
       src: config.logo || watchOnSiteIcon
     });
 
@@ -55,15 +56,15 @@ class WatchOnSiteView extends View {
   }
 
   _bindEvents() {
-    this.$node[0].addEventListener('click', this._onNodeClick);
+    this.$logo[0].addEventListener('click', this._onNodeClick);
   }
 
   _unbindEvents() {
-    this.$node[0].removeEventListener('click', this._onNodeClick);
+    this.$logo[0].removeEventListener('click', this._onNodeClick);
   }
 
-  _onNodeClick(e) {
-    e.stopPropagation();
+  _onNodeClick() {
+    this.$logo[0].focus();
     this._callbacks.onWatchOnSiteClick();
   }
 

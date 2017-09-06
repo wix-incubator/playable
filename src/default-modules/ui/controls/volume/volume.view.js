@@ -16,17 +16,18 @@ class VolumeView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['volume-control'],
-      //tabIndex: 0,
       'data-hook': 'volume-control'
     });
 
     this.$muteControl = $('<button>', {
       class: `${this.styleNames['mute-button']} ${this.styleNames['control-button']}`,
-      'data-hook': 'mute-button'
+      'data-hook': 'mute-button',
+      tabIndex: 0
     });
 
     this.$container = $('<div>', {
-      class: this.styleNames.container
+      class: this.styleNames.container,
+      'data-hook': 'input-container'
     });
 
     const $content = $('<div>', {
@@ -88,6 +89,7 @@ class VolumeView extends View {
   _bindEvents() {
     this._onInputChange = this._onInputChange.bind(this);
     this._onWheel = this._onWheel.bind(this);
+    this._onButtonClick = this._onButtonClick.bind(this);
 
     this.$node[0]
       .addEventListener('wheel', this._onWheel);
@@ -102,7 +104,12 @@ class VolumeView extends View {
       .addEventListener('input', this._onInputChange);
 
     this.$muteControl[0]
-      .addEventListener('click', this._callbacks.onToggleMuteClick);
+      .addEventListener('click', this._onButtonClick);
+  }
+
+  _onButtonClick() {
+    this.$muteControl[0].focus();
+    this._callbacks.onToggleMuteClick();
   }
 
   _unbindEvents() {
@@ -119,7 +126,7 @@ class VolumeView extends View {
       .removeEventListener('input', this._onInputChange);
 
     this.$muteControl[0]
-      .removeEventListener('click', this._callbacks.onToggleMuteClick);
+      .removeEventListener('click', this._onButtonClick);
   }
 
   setState({ volume, isMuted }) {

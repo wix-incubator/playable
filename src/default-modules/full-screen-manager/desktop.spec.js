@@ -62,7 +62,6 @@ describe('DesktopFullScreen', () => {
       Reflect.deleteProperty(navigator, 'userAgent');
       element[fullScreenFn.requestFullscreen].reset();
 
-      //Element['ALLOW_KEYBOARD_INPUT'] = true;
       fullScreen.request();
       expect(element[fullScreenFn.requestFullscreen].calledWithExactly(false)).to.be.true;
       element[fullScreenFn.requestFullscreen].reset();

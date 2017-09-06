@@ -34,9 +34,7 @@ $timing: 1s;
 
     border: $border-width solid currentColor;
     border-radius: 50%;
-    //background: #00f;
   }
-  //border: 1px solid #f00;
 
   &::after {
     clip: rect($border-width + 1px, $outer-dim, $outer-dim, $outer-dim / 2);
@@ -44,7 +42,6 @@ $timing: 1s;
     animation: clip $timing linear infinite;
 
     @include inner-circle();
-    //border-color: #f00;
   }
   &::before {
     clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);
