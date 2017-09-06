@@ -48,21 +48,43 @@ describe('AnomalyBloodhound' , () => {
       anomalyBloodhound._processStateChange.restore();
     });
 
-    it('should start delayed report on LOAD_STARTED', () => {
-      anomalyBloodhound._processStateChange({
-        nextState: states.LOAD_STARTED
+    describe('for LOAD_STARTED', () => {
+      it('should not schedule report if preload is not available and autoPlay is false', () => {
+        engine.setPreload('none');
+        engine.setAutoPlay(false);
+        anomalyBloodhound._processStateChange({
+          nextState: states.LOAD_STARTED
+        });
+
+        expect(anomalyBloodhound.isDelayedReportExist(DELAYED_REPORT_TYPES.METADATA_LOADING)).to.be.false;
       });
 
-      expect(anomalyBloodhound.isDelayedReportExist(DELAYED_REPORT_TYPES.METADATA_LOADING)).to.be.true;
+      it('should not schedule report if preload is autoPlay is true', () => {
+        engine.setAutoPlay(true);
+        anomalyBloodhound._processStateChange({
+          nextState: states.LOAD_STARTED
+        });
 
-      anomalyBloodhound.stopAllDelayedReports();
-      engine.setPreload('none');
-      engine.setAutoPlay(false);
-      anomalyBloodhound._processStateChange({
-        nextState: states.LOAD_STARTED
+        expect(anomalyBloodhound.isDelayedReportExist(DELAYED_REPORT_TYPES.METADATA_LOADING)).to.be.true;
       });
 
-      expect(anomalyBloodhound.isDelayedReportExist(DELAYED_REPORT_TYPES.METADATA_LOADING)).to.be.false;
+      it('should schedule report if preload available as metadata', () => {
+        engine.setPreload('metadata');
+        anomalyBloodhound._processStateChange({
+          nextState: states.LOAD_STARTED
+        });
+
+        expect(anomalyBloodhound.isDelayedReportExist(DELAYED_REPORT_TYPES.METADATA_LOADING)).to.be.true;
+      });
+
+      it('should schedule report if preload available as auto', () => {
+        engine.setPreload('metadata');
+        anomalyBloodhound._processStateChange({
+          nextState: states.LOAD_STARTED
+        });
+
+        expect(anomalyBloodhound.isDelayedReportExist(DELAYED_REPORT_TYPES.METADATA_LOADING)).to.be.true;
+      });
     });
 
     it('should start delayed report on METADATA_LOADED', () => {

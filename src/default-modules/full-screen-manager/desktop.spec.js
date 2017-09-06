@@ -1,3 +1,5 @@
+import 'jsdom-global/register';
+
 import { expect } from 'chai';
 import sinon from 'sinon';
 
@@ -27,62 +29,89 @@ describe('DesktopFullScreen', () => {
   });
 
   describe('enable status', () => {
-    it('should be based on native support', () => {
-      document[fullScreenFn.fullscreenEnabled] = false;
-      expect(fullScreen.isEnabled).to.be.false;
-
+    it('should return true in native status is true', () => {
       document[fullScreenFn.fullscreenEnabled] = true;
       expect(fullScreen.isEnabled).to.be.true;
+    });
+
+    it('should return false in native status is false', () => {
+      document[fullScreenFn.fullscreenEnabled] = false;
+      expect(fullScreen.isEnabled).to.be.false;
     });
   });
 
   describe('full screen status', () => {
-    it('should be based on native status', () => {
-      document[fullScreenFn.fullscreenElement] = false;
-      expect(fullScreen.isInFullScreen).to.be.false;
-
+    it('should return true in native status is true', () => {
       document[fullScreenFn.fullscreenElement] = true;
       expect(fullScreen.isInFullScreen).to.be.true;
+    });
+
+    it('should return false in native status is false', () => {
+      document[fullScreenFn.fullscreenElement] = false;
+      expect(fullScreen.isInFullScreen).to.be.false;
     });
   });
 
   describe('method for entering full screen', () => {
-    it('should use native method', () => {
-      document[fullScreenFn.fullscreenEnabled] = true;
-      element[fullScreenFn.requestFullscreen] = sinon.spy();
+    describe('with usage of native method', () => {
+      describe('if it enabled', () => {
+        beforeEach(() => {
+          document[fullScreenFn.fullscreenEnabled] = true;
+        });
+        describe('on Safari 5.1', () => {
+          beforeEach(() => {
+            element[fullScreenFn.requestFullscreen] = sinon.spy();
 
-      Reflect.defineProperty(navigator, 'userAgent', {
-        ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
-        get: function() { return this.____navigator },
-        set: function(v) { this.____navigator = v; }
+            Reflect.defineProperty(navigator, 'userAgent', {
+              ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
+              get: function () {
+                return this.____navigator
+              },
+              set: function (v) {
+                this.____navigator = v;
+              }
+            });
+
+            navigator.userAgent = '5.1 Safari';
+          });
+
+          afterEach(() => {
+            Reflect.deleteProperty(navigator, 'userAgent');
+          });
+
+          it('should call it without arguments', () => {
+            fullScreen.request();
+            expect(element[fullScreenFn.requestFullscreen].calledWithExactly()).to.be.true;
+          })
+        });
+        describe('on not Safari 5.1', () => {
+          beforeEach(() => {
+            element[fullScreenFn.requestFullscreen] = sinon.spy();
+          });
+
+          it('should call it with true if ALLOW_KEYBOARD_INPUT is true', () => {
+            Element['ALLOW_KEYBOARD_INPUT'] = true;
+            fullScreen.request();
+            expect(element[fullScreenFn.requestFullscreen].calledWithExactly(true)).to.be.true;
+          });
+
+          it('should call it with false if ALLOW_KEYBOARD_INPUT is false', () => {
+            Element['ALLOW_KEYBOARD_INPUT'] = false;
+            fullScreen.request();
+            expect(element[fullScreenFn.requestFullscreen].calledWithExactly(false)).to.be.true;
+          });
+        });
       });
-      navigator.userAgent = '5.1 Safari';
-      fullScreen.request();
-      expect(element[fullScreenFn.requestFullscreen].calledWithExactly()).to.be.true;
-      Reflect.deleteProperty(navigator, 'userAgent');
-      element[fullScreenFn.requestFullscreen].reset();
-
-      fullScreen.request();
-      expect(element[fullScreenFn.requestFullscreen].calledWithExactly(false)).to.be.true;
-      element[fullScreenFn.requestFullscreen].reset();
-
-      Element['ALLOW_KEYBOARD_INPUT'] = false;
-      fullScreen.request();
-      expect(element[fullScreenFn.requestFullscreen].calledWithExactly(false)).to.be.true;
-      element[fullScreenFn.requestFullscreen].reset();
-
-      Element['ALLOW_KEYBOARD_INPUT'] = true;
-      fullScreen.request();
-      expect(element[fullScreenFn.requestFullscreen].calledWithExactly(true)).to.be.true;
-      element[fullScreenFn.requestFullscreen].reset();
-
-    });
-
-    it('should do nothing if not enabled', () => {
-      document[fullScreenFn.fullscreenEnabled] = false;
-      element[fullScreenFn.requestFullscreen] = sinon.spy();
-      fullScreen.request();
-      expect(element[fullScreenFn.requestFullscreen].called).to.be.false;
+      describe('if it disabled', () => {
+        beforeEach(() => {
+          document[fullScreenFn.fullscreenEnabled] = false;
+          element[fullScreenFn.requestFullscreen] = sinon.spy();
+        });
+        it('should not call it', () => {
+          fullScreen.request();
+          expect(element[fullScreenFn.requestFullscreen].called).to.be.false;
+        });
+      });
     });
   });
 

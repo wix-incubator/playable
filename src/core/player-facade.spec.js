@@ -20,7 +20,6 @@ describe('Player\'s instance', () => {
   describe('rootNode and params', () => {
     it('should be registered and resolved', () => {
       const registerValueSpy = sinon.spy(container, 'registerValue');
-      const resolveSpy = sinon.spy(container, 'resolve');
       const params = {};
 
       player = new Player({}, container, {});
@@ -30,6 +29,13 @@ describe('Player\'s instance', () => {
           config: mapParamsToConfig(params)
         })
       ).to.be.true;
+    });
+
+    it('should be resolved', () => {
+      const resolveSpy = sinon.spy(container, 'resolve');
+
+      player = new Player({}, container, {});
+
       expect(resolveSpy.args).to.deep.equal(
         [['config']]
       );
@@ -198,19 +204,32 @@ describe('Player\'s instance', () => {
       expect(getDuplicateAPIMethodPlayer).to.throw('API method methodA is already defined in Player facade');
     });
 
-    it('should be cleared on destroy', () => {
-      defaultModules = {
-        ClassA
-      };
-      container.registerClass('ClassA', ClassA);
+    describe('when instance destroyed', () => {
+      it('should clear instance', () => {
+        defaultModules = {
+          ClassA
+        };
+        container.registerClass('ClassA', ClassA);
 
-      player = new Player({}, container, defaultModules);
-      const methodA = player.methodA;
+        player = new Player({}, container, defaultModules);
 
-      player.destroy();
-      expect(player.methodA).to.be.not.defined;
-      methodA();
-      expect(methodASpy.called).to.be.false;
+        player.destroy();
+        expect(player.methodA).to.be.not.defined;
+      });
+
+      it('should not broadcast call methods of module', () => {
+        defaultModules = {
+          ClassA
+        };
+        container.registerClass('ClassA', ClassA);
+
+        player = new Player({}, container, defaultModules);
+        const methodA = player.methodA;
+
+        player.destroy();
+        methodA();
+        expect(methodASpy.called).to.be.false;
+      });
     });
   });
 });

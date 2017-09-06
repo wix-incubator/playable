@@ -1,5 +1,3 @@
-const isKeyboardAllowed = () => typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
-
 const fnMap = [
   [
     'requestFullscreen',
@@ -108,7 +106,7 @@ export default class DesktopFullScreen {
     if (/5\.1[.\d]* Safari/.test(navigator.userAgent)) {
       this._elem[request]();
     } else {
-      this._elem[request](isKeyboardAllowed() && Element.ALLOW_KEYBOARD_INPUT);
+      this._elem[request](Element.ALLOW_KEYBOARD_INPUT);
     }
   }
 

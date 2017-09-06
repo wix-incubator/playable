@@ -33,9 +33,9 @@ window.player = VideoPlayer.create({
   autoPlay: false,
   muted: false,
   loop: false,
-  preload: 'auto',
+  preload: 'metadata',
   volume: 100,
-  fillAllSpace: false,
+  fillAllSpace: true,
   size: {
     width: 760,
     height: 428

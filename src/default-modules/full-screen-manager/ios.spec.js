@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
@@ -18,22 +19,26 @@ describe('IOSFullScreen', () => {
   });
 
   describe('enable status', () => {
-    it('should be based on native support', () => {
-      element.webkitSupportsFullscreen = false;
-      expect(fullScreen.isEnabled).to.be.false;
-
+    it('should return true in native status is true', () => {
       element.webkitSupportsFullscreen = true;
       expect(fullScreen.isEnabled).to.be.true;
+    });
+
+    it('should return false in native status is false', () => {
+      element.webkitSupportsFullscreen = false;
+      expect(fullScreen.isEnabled).to.be.false;
     });
   });
 
   describe('full screen status', () => {
-    it('should be based on native status', () => {
-      element.webkitDisplayingFullscreen = false;
-      expect(fullScreen.isInFullScreen).to.be.false;
-
+    it('should return true in native status is true', () => {
       element.webkitDisplayingFullscreen = true;
       expect(fullScreen.isInFullScreen).to.be.true;
+    });
+
+    it('should return false in native status is false', () => {
+      element.webkitDisplayingFullscreen = false;
+      expect(fullScreen.isInFullScreen).to.be.false;
     });
   });
 
@@ -117,9 +122,7 @@ describe('IOSFullScreen', () => {
   });
 
   describe('destroy method', () => {
-    it('should clear on event listeners', () => {
-      const enterEvent = new Event('webkitbeginfullscreen');
-      const exitEvent = new Event('webkitendfullscreen');
+    it('should clear loadedmetadata listener', () => {
       const metadataEvent = new Event('loadedmetadata');
 
       element.webkitSupportsFullscreen = true;
@@ -127,14 +130,31 @@ describe('IOSFullScreen', () => {
       element.webkitEnterFullscreen = () => {
         throw new Error('Catch');
       };
+
       fullScreen.request();
       element.webkitEnterFullscreen = sinon.spy();
       fullScreen.destroy();
 
       element.dispatchEvent(metadataEvent);
       expect(element.webkitEnterFullscreen.called).to.be.false;
+    });
+
+    it('should clear webkitbeginfullscreen listener', () => {
+      const enterEvent = new Event('webkitbeginfullscreen');
+      element.webkitSupportsFullscreen = true;
+
+      fullScreen.destroy();
+
       element.dispatchEvent(enterEvent);
       expect(callback.called).to.be.false;
+    });
+
+    it('should clear webkitendfullscreen listener', () => {
+      const exitEvent = new Event('webkitendfullscreen');
+      element.webkitSupportsFullscreen = true;
+
+      fullScreen.destroy();
+
       element.dispatchEvent(exitEvent);
       expect(callback.called).to.be.false;
     });

@@ -32,35 +32,49 @@ describe('getKeyboardInterceptorConfig function', () => {
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
       disabled: params.disableControlWithKeyboard
     });
+  });
+
+  it('should return config in proper format on iPod', () => {
+    const params = {
+      disableControlWithKeyboard: false
+    };
 
     navigator.userAgent = 'iPod';
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
       disabled: true
     });
+  });
 
+  it('should return config in proper format on iPad', () => {
+    const params = {
+      disableControlWithKeyboard: false
+    };
     navigator.userAgent = 'iPad';
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
       disabled: true
     });
+  });
+  it('should return config in proper format on iPhone', () => {
+    const params = {
+      disableControlWithKeyboard: false
+    };
 
     navigator.userAgent = 'iPhone';
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
       disabled: true
     });
-
+  });
+  it('should return config in proper format on Androind', () => {
+    const params = {
+      disableControlWithKeyboard: false
+    };
     navigator.userAgent = 'Android';
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
       disabled: true
-    });
-
-    navigator.userAgent = 'Computer';
-
-    expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
-      disabled: params.disableControlWithKeyboard
     });
   });
 });
@@ -195,6 +209,7 @@ describe('getUIConfig function', () => {
         set: function(v) { this.____navigator = v; }
       });
   });
+
   afterEach(() => {
      Reflect.deleteProperty(navigator, 'userAgent');
   });
@@ -217,9 +232,7 @@ describe('getUIConfig function', () => {
     });
   });
 
-  it('should convert config if iOS', () => {
-    navigator.userAgent = 'iPhone';
-
+  it('should convert config if iPod', () => {
     const params = {
       size: {
         width: 10,
@@ -239,12 +252,54 @@ describe('getUIConfig function', () => {
       }
     };
 
-    expect(getUIConfig(params)).to.be.deep.equal(expectedConfig);
-
     navigator.userAgent = 'iPod';
 
     expect(getUIConfig(params)).to.be.deep.equal(expectedConfig);
+  });
 
+  it('should convert config if iPhone', () => {
+    const params = {
+      size: {
+        width: 10,
+        height: 20
+      }
+    };
+
+    const expectedConfig = {
+      width: 10,
+      height: 20,
+      loader: false,
+      controls: false,
+      screen: {
+        indicateScreenClick: false,
+        disableClickProcessing: true,
+        nativeControls: true
+      }
+    };
+    navigator.userAgent = 'iPhone';
+
+    expect(getUIConfig(params)).to.be.deep.equal(expectedConfig);
+  });
+
+  it('should convert config if iPad', () => {
+    const params = {
+      size: {
+        width: 10,
+        height: 20
+      }
+    };
+
+    const expectedConfig = {
+      width: 10,
+      height: 20,
+      loader: false,
+      controls: false,
+      screen: {
+        indicateScreenClick: false,
+        disableClickProcessing: true,
+        nativeControls: true
+      }
+    };
     navigator.userAgent = 'iPad';
 
     expect(getUIConfig(params)).to.be.deep.equal(expectedConfig);
