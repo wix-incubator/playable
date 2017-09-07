@@ -1,0 +1,44 @@
+@import '../ui/shared.global';
+
+.video-player-debug-panel {
+  z-index: 10000;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 400px;
+  height: 250px;
+  background-color: rgba(0, 0, 0, 0.95);
+  overflow: scroll;
+  border-radius: 3px;
+
+  .close-button {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  .info-container {
+    padding: 5px;
+    line-height: 8px;
+    margin: 5px;
+    color: white;
+    font-size: 8px;
+
+    .string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: white; }
+  }
+}
+

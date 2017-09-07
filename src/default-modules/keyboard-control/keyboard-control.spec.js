@@ -64,6 +64,42 @@ describe('KeyboardControl', () => {
       keyboardControl.destroy();
     });
 
+    describe('if it was D', () => {
+      it('should do nothing if shiftKey is false', () => {
+        keyDownEvent.keyCode = KEYCODES.DEBUG_KEY;
+        keyDownEvent.shiftKey = false;
+        rootContainer.node.dispatchEvent(keyDownEvent);
+
+        expect(eventEmitter.emit.calledWith(UI_EVENTS.DEBUG_PANEL_TRIGGERED)).to.be.false;
+      });
+
+      it('should do nothing if ctrlKey is false', () => {
+        keyDownEvent.keyCode = KEYCODES.DEBUG_KEY;
+        keyDownEvent.ctrlKey = false;
+        rootContainer.node.dispatchEvent(keyDownEvent);
+
+        expect(eventEmitter.emit.calledWith(UI_EVENTS.DEBUG_PANEL_TRIGGERED)).to.be.false;
+      });
+
+      it('should emit event if ctrlKey and shiftKey are both true', () => {
+        keyDownEvent.keyCode = KEYCODES.DEBUG_KEY;
+        keyDownEvent.ctrlKey = true;
+        keyDownEvent.shiftKey = true;
+
+        rootContainer.node.dispatchEvent(keyDownEvent);
+
+        expect(eventEmitter.emit.calledWith(UI_EVENTS.DEBUG_PANEL_TRIGGERED)).to.be.true;
+      });
+    });
+
+    it('should do stuff if key was TAB', () => {
+      keyDownEvent.keyCode = KEYCODES.TAB;
+      rootContainer.node.dispatchEvent(keyDownEvent);
+
+      expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
+      expect(eventEmitter.emit.calledWith(UI_EVENTS.TAB_WITH_KEYBOARD_TRIGGERED)).to.be.true;
+    });
+
     it('should do stuff if key was TAB', () => {
       keyDownEvent.keyCode = KEYCODES.TAB;
       rootContainer.node.dispatchEvent(keyDownEvent);

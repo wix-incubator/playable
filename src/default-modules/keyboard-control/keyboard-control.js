@@ -33,6 +33,11 @@ export default class KeyboardControl {
       this._keyboardInterceptor = new KeyboardInterceptor({
         node: this._rootNode,
         callbacks: {
+          [KEYCODES.DEBUG_KEY]: e => {
+            if (e.ctrlKey && e.shiftKey) {
+              this._eventEmitter.emit(UI_EVENTS.DEBUG_PANEL_TRIGGERED);
+            }
+          },
           [KEYCODES.TAB]: () => {
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
             this._eventEmitter.emit(UI_EVENTS.TAB_WITH_KEYBOARD_TRIGGERED);

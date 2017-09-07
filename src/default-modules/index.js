@@ -8,6 +8,7 @@ import TextMap from './text-map/text-map';
 import KeyboardInterceptor from './keyboard-control/keyboard-control';
 import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
 import RootContainer from './root-container/root-container.controler';
+import DebugPanel from './debug-panel/debug-panel';
 import allUI from './ui';
 
 const { asFunction, asClass } = DependencyContainer;
@@ -21,5 +22,6 @@ export default {
   keyboardInterceptor: asClass(KeyboardInterceptor).scoped(),
   mouseInterceptor: asClass(MouseInterceptor).scoped(),
   anomalyBloodhound: asClass(AnomalyBloodhound).scoped(),
+  debugPanel: asClass(DebugPanel).scoped(),
   ...allUI
 };

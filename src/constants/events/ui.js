@@ -36,7 +36,8 @@ const UI_EVENTS = {
   MUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-mute-sound-with-keyboard-triggered',
   UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-unmute-sound-with-keyboard-triggered',
   TAB_WITH_KEYBOARD_TRIGGERED: 'ui-tab-with-keyboard-triggered',
-  HIDE_MANIPULATION_INDICATOR_TRIGGERED: 'ui-hide-manipulation-indicator-triggered'
+  HIDE_MANIPULATION_INDICATOR_TRIGGERED: 'ui-hide-manipulation-indicator-triggered',
+  DEBUG_PANEL_TRIGGERED: 'ui-debug-panel-triggered'
 };
 
 export default UI_EVENTS;
