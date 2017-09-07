@@ -2,3 +2,7 @@
   opacity: 1;
   outline: 2px solid rgba(56, 153, 236, .8);
 }
+
+[data-hook='volume-control'].ally-focus-within {
+  overflow: visible;
+}
