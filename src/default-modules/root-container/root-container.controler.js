@@ -79,10 +79,30 @@ class RootContainer {
     this.view.appendComponentNode(node);
   }
 
+  _enableFocusInterceptors() {
+    if (!this._disengageFocusWithin) {
+      this._disengageFocusWithin = style.focusWithin().disengage;
+    }
+    if (!this._disengageFocusSource) {
+      this._disengageFocusSource = style.focusSource().disengage;
+    }
+  }
+
+  _disableFocusInterceptors() {
+    if (this._disengageFocusSource) {
+      this._disengageFocusSource();
+      delete this._disengageFocusSource;
+    }
+
+    if (this._disengageFocusWithin) {
+      this._disengageFocusWithin();
+      delete this._disengageFocusWithin;
+    }
+  }
+
   @publicAPI()
   attachToElement(node) {
-    this._disengageFocusWithin = this._disengageFocusWithin || /* ignore coverage */style.focusWithin();
-    this._disengageFocusSource = this._disengageFocusSource || style.focusSource().disengage;
+    this._enableFocusInterceptors();
 
     node.appendChild(this.node);
     ElementQueries.init();
@@ -127,6 +147,7 @@ class RootContainer {
 
   destroy() {
     this._unbindEvents();
+    this._disableFocusInterceptors();
 
     this.view.destroy();
     delete this.view;
@@ -134,9 +155,6 @@ class RootContainer {
     delete this._engine;
     delete this._eventEmitter;
     delete this.config;
-
-    this._disengageFocusWithin && this._disengageFocusWithin();
-    this._disengageFocusSource && this._disengageFocusSource();
   }
 }
 
