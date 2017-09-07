@@ -71,7 +71,7 @@ class RootContainer {
 
       this.customComponents[key] = component;
 
-      this.view.appendComponentNode(component.getNode());
+      this.appendComponentNode(component.getNode());
     });
   }
 
@@ -81,10 +81,17 @@ class RootContainer {
 
   _enableFocusInterceptors() {
     if (!this._disengageFocusWithin) {
-      this._disengageFocusWithin = style.focusWithin().disengage;
+      const handler = style.focusWithin();
+      if (handler && handler.disengage) {
+        this._disengageFocusWithin = handler.disengage;
+      }
     }
+
     if (!this._disengageFocusSource) {
-      this._disengageFocusSource = style.focusSource().disengage;
+      const handler = style.focusSource();
+      if (handler && handler.disengage) {
+        this._disengageFocusSource = handler.disengage;
+      }
     }
   }
 
