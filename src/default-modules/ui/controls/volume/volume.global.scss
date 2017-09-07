@@ -1,8 +1,10 @@
-[data-hook='volume-control'] [data-hook='input-container'].ally-focus-within {
+[data-focus-source='key'] [data-hook='volume-control'] [data-hook='input-container'].ally-focus-within,
+[data-focus-source='script'] [data-hook='volume-control'] [data-hook='input-container'].ally-focus-within{
   opacity: 1;
   outline: 2px solid rgba(56, 153, 236, .8);
 }
 
-[data-hook='volume-control'].ally-focus-within {
+[data-hook='volume-control'].ally-focus-within,
+[data-hook='volume-control']:hover {
   overflow: visible;
 }
