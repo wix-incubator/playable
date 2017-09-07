@@ -4,7 +4,7 @@ import { NativeEnvironmentSupport } from '../utils/environment-detection';
 /* ignore coverage */
 describe('Playback e2e test', function () {
   this.timeout(10000);
-
+  const node = document.createElement('div');
   const formatsToTest = [
     { type: 'MP4', url: 'http://localhost:5000/assets/sample.mp4', supportedByEnv: NativeEnvironmentSupport.MP4 },
     { type: 'WEBM', url: 'http://localhost:5000/assets/sample.webm', supportedByEnv: NativeEnvironmentSupport.WEBM },
@@ -17,9 +17,11 @@ describe('Playback e2e test', function () {
     if (formatToTest.supportedByEnv) {
       it(`allows playback of ${formatToTest.type}`, function (done) {
         const player = VideoPlayer.create();
+        player.attachToElement(node);
         player.on(VideoPlayer.VIDEO_EVENTS.DURATION_UPDATED, newDuration => {
           if (newDuration > 0) {
             player.off(VideoPlayer.VIDEO_EVENTS.DURATION_UPDATED);
+            player.destroy();
             done();
           }
         });
