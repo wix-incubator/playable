@@ -2,10 +2,10 @@ import $ from 'jbone';
 
 import View from '../ui/core/view';
 
-import styles from './debug-panel.global.scss';
+import styles from './debug-panel.scss';
 
 
-function syntaxHighlight(json) {
+function syntaxHighlight(json, styleNames) {
   json = json.replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
@@ -13,17 +13,17 @@ function syntaxHighlight(json) {
   return json.replace(
     /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
     match => {
-      let cls = 'number';
+      let cls = styleNames.number;
       if (/^"/.test(match)) {
         if (/:$/.test(match)) {
-          cls = 'key';
+          cls = styleNames.key;
         } else {
-          cls = 'string';
+          cls = styleNames.string;
         }
       } else if (/true|false/.test(match)) {
-        cls = 'boolean';
+        cls = styleNames.boolean;
       } else if (/null/.test(match)) {
-        cls = 'null';
+        cls = styleNames.null;
       }
       return `<span class="${cls}">${match}</span>`;
     }
@@ -36,15 +36,15 @@ class DebugPanelView extends View {
     this.config = config;
 
     this.$node = $('<div>', {
-      class: 'video-player-debug-panel'
+      class: this.styleNames['video-player-debug-panel']
     });
 
     this.$infoContainer = $('<pre>', {
-      class: 'info-container'
+      class: this.styleNames['info-container']
     });
 
     this.$close = $('<div>', {
-      class: 'close-button'
+      class: this.styleNames['close-button']
     });
     this.$close.html('x');
 
@@ -74,15 +74,15 @@ class DebugPanelView extends View {
   }
 
   show() {
-    this.$node.toggleClass('hidden', false);
+    this.$node.toggleClass(this.styleNames.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass('hidden', true);
+    this.$node.toggleClass(this.styleNames.hidden, true);
   }
 
   setInfo(info) {
-    this.$infoContainer.html(syntaxHighlight(JSON.stringify(info, undefined, 4)));
+    this.$infoContainer.html(syntaxHighlight(JSON.stringify(info, undefined, 4), this.styleNames));
   }
 
   getNode() {

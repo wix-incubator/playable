@@ -19,49 +19,57 @@ describe('Utils device detection method', () => {
 
   describe('isIPhone', () => {
     it('should return true on iPhone device', () => {
-      navigator.userAgent = 'Computer';
-
-      expect(isIPhone()).to.be.false;
-
       navigator.userAgent = 'iPhone';
 
       expect(isIPhone()).to.be.true;
     });
+
+    it('should return false if not on iPhone', () => {
+      navigator.userAgent = 'Computer';
+
+      expect(isIPhone()).to.be.false;
+    });
   });
 
   describe('isIPod', () => {
-    it('should return true on iPhone device', () => {
-      navigator.userAgent = 'Computer';
-
-      expect(isIPod()).to.be.false;
-
+    it('should return true on isIPod device', () => {
       navigator.userAgent = 'iPod';
 
       expect(isIPod()).to.be.true;
+    });
+
+    it('should return false if not on isIPod', () => {
+      navigator.userAgent = 'Computer';
+
+      expect(isIPod()).to.be.false;
     });
   });
 
   describe('isIPad', () => {
     it('should return true on iPhone device', () => {
-      navigator.userAgent = 'Computer';
-
-      expect(isIPad()).to.be.false;
-
       navigator.userAgent = 'iPad';
 
       expect(isIPad()).to.be.true;
     });
+
+    it('should return false if not on iPad', () => {
+      navigator.userAgent = 'Computer';
+
+      expect(isIPad()).to.be.false;
+    });
   });
 
   describe('isAndroid', () => {
-    it('should return true on iPhone device', () => {
-      navigator.userAgent = 'Computer';
-
-      expect(isAndroid()).to.be.false;
-
+    it('should return true on Android device', () => {
       navigator.userAgent = 'Android';
 
       expect(isAndroid()).to.be.true;
+    });
+
+    it('should return false if not on Android', () => {
+      navigator.userAgent = 'Computer';
+
+      expect(isAndroid()).to.be.false;
     });
   });
 });

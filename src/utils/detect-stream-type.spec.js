@@ -21,13 +21,22 @@ describe('Stream type auto detection', function () {
     });
   });
 
-  it('should detect type even if URL contains query params and/or fragments', function () {
+  describe('when recieve ULR', () => {
     const mp4URL = testURL + 'video.mp4';
     const queryParam = '?data=true';
     const fragment = '#sectionOnPage';
-    expect(detectStreamType(mp4URL + queryParam)).to.equal(MEDIA_STREAM_TYPES.MP4);
-    expect(detectStreamType(mp4URL + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
-    expect(detectStreamType(mp4URL + queryParam + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
+
+    it('should detect type even if it has query params', () => {
+      expect(detectStreamType(mp4URL + queryParam)).to.equal(MEDIA_STREAM_TYPES.MP4);
+    });
+
+    it('should detect type even if it has fragments', () => {
+      expect(detectStreamType(mp4URL + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
+    });
+
+    it('should detect type even if it has fragments and params', () => {
+      expect(detectStreamType(mp4URL + queryParam + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
+    });
   });
 
   it('should throw error if can\'t parse url', () => {
