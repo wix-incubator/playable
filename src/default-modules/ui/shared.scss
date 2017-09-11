@@ -5,18 +5,6 @@ $color-main: white !default;
 $color-hover: #4eb7f5 !default;
 $video-progress-bg: transparentize(#fff, .75) !default;
 
-.icon {
-  cursor: pointer;
-  transition-duration: .2s;
-  transition-property: opacity;
-
-  opacity: 1;
-
-  &:hover {
-    opacity: .7;
-  }
-}
-
 .control-button {
   cursor: pointer;
   transition-duration: .2s;
@@ -45,37 +33,4 @@ $video-progress-bg: transparentize(#fff, .75) !default;
 
 .hidden {
   @include hidden();
-}
-
-.button {
-  font-size: 16px;
-  line-height: 24px;
-
-  display: flex;
-
-  box-sizing: border-box;
-  height: 36px;
-  padding: 0 23px;
-
-  cursor: pointer;
-  transition: background-color .1s linear,border-color .1s linear,color .1s linear;
-  text-align: center;
-
-  color: $color-main;
-  border: 1px solid $color-main;
-  border-radius: 18px;
-  background-color: $color-main;
-
-  align-items: center;
-  -webkit-font-smoothing: antialiased;
-
-  &:hover {
-    border-color: $color-hover;
-    background-color: $color-hover;
-  }
-
-  &:active {
-    border-color: $color-main;
-    background-color: $color-main;
-  }
 }

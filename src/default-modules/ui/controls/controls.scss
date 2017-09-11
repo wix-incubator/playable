@@ -42,9 +42,7 @@
 
   width: 100%;
   max-width: 100%;
-  height: 25px;
-  padding-top: 13px;
-  padding-bottom: 13px;
+  padding: 13px 0;
 
   transition: opacity .2s, visibility .2s;
 
@@ -52,11 +50,9 @@
 
   align-items: center;
   @include in-full-screen() {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding: 25px 0;
   }
   @include max-width-550() {
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding: 7px 0;
   }
 }
