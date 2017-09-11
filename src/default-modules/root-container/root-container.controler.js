@@ -1,5 +1,6 @@
 import { ElementQueries } from 'css-element-queries';
-import { style } from 'ally.js';
+import focusSource from 'ally.js/src/style/focus-source';
+import focusWithin from 'ally.js/src/style/focus-within';
 
 import publicAPI from '../../utils/public-api-decorator';
 
@@ -81,14 +82,14 @@ class RootContainer {
 
   _enableFocusInterceptors() {
     if (!this._disengageFocusWithin) {
-      const handler = style.focusWithin();
+      const handler = focusWithin();
       if (handler && handler.disengage) {
         this._disengageFocusWithin = handler.disengage;
       }
     }
 
     if (!this._disengageFocusSource) {
-      const handler = style.focusSource();
+      const handler = focusSource();
       if (handler && handler.disengage) {
         this._disengageFocusSource = handler.disengage;
       }
