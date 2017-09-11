@@ -3,7 +3,6 @@ import $ from 'jbone';
 import View from '../../core/view';
 
 import styles from './volume.scss';
-import globalStyles from './volume.global.scss';
 
 
 const MAX_VOLUME_ICON_RANGE = 30;
@@ -176,6 +175,5 @@ class VolumeView extends View {
 }
 
 VolumeView.extendStyleNames(styles);
-VolumeView.extendStyleNames(globalStyles);
 
 export default VolumeView;

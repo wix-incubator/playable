@@ -1,46 +1,63 @@
-@import '../ui/shared.global';
+@import '../ui/shared';
 
 .video-player-debug-panel {
-  z-index: 10000;
   position: absolute;
-  left: 10px;
+  z-index: 10000;
   top: 10px;
+  left: 10px;
+
+  overflow: scroll;
+
   width: 400px;
   height: 250px;
-  background-color: rgba(0, 0, 0, 0.95);
-  overflow: scroll;
+
   border-radius: 3px;
+  background-color: rgba(0, 0, 0, .95);
 
   .close-button {
     position: absolute;
-    right: 5px;
     top: 10px;
-    color: white;
+    right: 5px;
+
     cursor: pointer;
 
+    color: white;
+
     &:hover {
-      opacity: 0.8;
+      opacity: .8;
     }
   }
 
   &.hidden {
     display: none;
-    opacity: 0;
     visibility: hidden;
+
+    opacity: 0;
   }
 
   .info-container {
-    padding: 5px;
-    line-height: 8px;
-    margin: 5px;
-    color: white;
     font-size: 8px;
+    line-height: 8px;
 
-    .string { color: green; }
-    .number { color: darkorange; }
-    .boolean { color: blue; }
-    .null { color: magenta; }
-    .key { color: white; }
+    margin: 5px;
+    padding: 5px;
+
+    color: white;
+
+    .string {
+      color: green;
+    }
+    .number {
+      color: darkorange;
+    }
+    .boolean {
+      color: blue;
+    }
+    .null {
+      color: magenta;
+    }
+    .key {
+      color: white;
+    }
   }
 }
-

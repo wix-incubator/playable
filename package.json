@@ -70,7 +70,9 @@
       "video-player-test": "./e2e/playback-test.js",
       "video-player-develop": "./develop.js"
     },
-    "externalUnprocessedModules": ["ally.js"]
+    "externalUnprocessedModules": [
+      "ally.js"
+    ]
   },
   "keywords": [
     "player",

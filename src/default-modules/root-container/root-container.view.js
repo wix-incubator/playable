@@ -3,7 +3,6 @@ import $ from 'jbone';
 import View from '../ui/core/view';
 
 import styles from './root-container.scss';
-import globalStyles from './root-container.global.scss';
 
 
 class RootContainerView extends View {
@@ -96,6 +95,5 @@ class RootContainerView extends View {
 }
 
 RootContainerView.extendStyleNames(styles);
-RootContainerView.extendStyleNames(globalStyles);
 
 export default RootContainerView;

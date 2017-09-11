@@ -1,4 +1,4 @@
-@import '../../shared.global';
+@import '../../shared';
 
 
 $color: white !default;
@@ -69,7 +69,7 @@ $color: white !default;
 
   position: absolute;
   top: -82px;
-  left: 0px;
+  left: 0;
 
   padding: 9px 3px;
 
@@ -150,4 +150,17 @@ $color: white !default;
   border: 0;
 
   -webkit-appearance: slider-vertical;
+}
+
+:global {
+  [data-focus-source='key'] [data-hook='volume-control'] [data-hook='input-container'].ally-focus-within,
+  [data-focus-source='script'] [data-hook='volume-control'] [data-hook='input-container'].ally-focus-within {
+    opacity: 1;
+    outline: 2px solid rgba(56, 153, 236, .8);
+  }
+
+  [data-hook='volume-control'].ally-focus-within,
+  [data-hook='volume-control']:hover {
+    overflow: visible;
+  }
 }
