@@ -3,18 +3,17 @@
 .seek-block {
   position: relative;
 
-  display: inline-block;
+  display: block;
   flex: 1;
 
-  margin-right: 9px;
+  margin: 0 8px;
 
   cursor: pointer;
 
+  transition: opacity .2s, visibility .2s;
+
   @include in-full-screen() {
     margin-right: 20px;
-  }
-  @include max-width-400() {
-    @include hidden();
   }
 }
 
@@ -23,103 +22,55 @@
   top: 50%;
   left: 0;
 
-  width: 100%;
   height: 2px;
   margin: -1px 0 0;
   padding: 0;
 
-  transition: none;
   vertical-align: top;
 
   border: none;
-  background: transparent;
-
-  @include in-full-screen() {
-    height: 3px;
-    margin: -2px 0 0;
-  }
-  appearance: none;
-
-  &::-webkit-progress-bar {
-    background: transparent;
-  }
-  &::-webkit-progress-value {
-    transition: none;
-
-    background: currentColor;
-  }
-  &::-moz-progress-bar {
-    transition: none;
-
-    background: currentColor;
-  }
-  &::-ms-fill {
-    transition: none;
-
-    border: none;
-  }
 }
-.progress-bar[data-hook='played-indicator'] {
-  &::-ms-fill {
-    display: none;
-  }
-}
-
 
 .progress-played {
-  color: $color-main;
+  background-color: $color-main;
+
+  &:before {
+    position: absolute;
+    top: -4px;
+    right: -5px;
+
+    width: 10px;
+    height: 10px;
+
+    content: '';
+
+    transition: transform .1s cubic-bezier(0.0,0.0,0.2,1);
+
+    border-radius: 50%;
+    background-color: #fff;
+  }
 }
 
 .progress-buffered {
-  color: $video-progress-bg;
-  background: $video-progress-bg;
-
-  &::-webkit-progress-value {
-    transition: width .2s ease;
-  }
-  &::-moz-progress-bar {
-    transition: width .2s ease;
-  }
-  &::-ms-fill {
-    transition: width .2s ease;
-  }
+  background-color: $video-progress-bg;
+  transition: width .2s ease;
 }
 
-@mixin seek-track() {
-  cursor: pointer;
-  user-select: none;
-
-  border: 0;
-  border-radius: 4px;
+.progress-background {
+  width: 100%;
+  background-color: $video-progress-bg;
 }
 
-@mixin seek-thumb() {
-  position: relative;
-
-  box-sizing: border-box;
-  width: 10px;
-  height: 10px;
-
-  cursor: pointer;
-
-  border: none;
-  border-radius: 100%;
-  background: #fff;
-
-  @include in-full-screen() {
-    width: 15px;
-    height: 15px;
-  }
-}
 
 .seek-control {
+  opacity: 0;
   position: relative;
   z-index: 2;
 
   display: block;
 
   width: 100%;
-  height: 25px;
+  height: 15px;
   margin: 0;
   padding: 0;
 
@@ -130,60 +81,12 @@
   background: transparent;
 
   appearance: none;
+}
 
-  &::-webkit-slider-runnable-track {
-    background: transparent;
-
-    @include seek-track();
-  }
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    @include seek-thumb();
-  }
-
-  &::-moz-range-track {
-    background: transparent;
-
-    @include seek-track();
-  }
-  &::-moz-range-thumb {
-    @include seek-thumb();
-  }
-
-  &::-ms-track {
-    height: 2px;
-
-    color: transparent;
-    border: 0;
-    background: transparent;
-
-    @include in-full-screen() {
-      height: 3px;
-    }
-  }
-  &::-ms-fill-upper {
-    background: transparent;
-
-    @include seek-track();
-  }
-  &::-ms-fill-lower {
-    height: 2px;
-
-    color: $color-main;
-    background: $color-main;
-
-    @include in-full-screen() {
-      height: 3px;
-    }
-    @include seek-track();
-  }
-  &::-ms-thumb {
-    @include seek-thumb();
-  }
-  &::-ms-tooltip {
-    display: none;
-  }
-  &::-moz-focus-outer {
-    border: 0;
+:global {
+  [data-focus-source='key'] [data-hook='progress-control'].ally-focus-within,
+  [data-focus-source='script'] [data-hook='progress-control'].ally-focus-within{
+    opacity: 1;
+    outline: 2px solid rgba(56, 153, 236, .8);
   }
 }

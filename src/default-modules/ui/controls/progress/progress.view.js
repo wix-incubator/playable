@@ -16,20 +16,16 @@ class ProgressView extends View {
       'data-hook': 'progress-control'
     });
 
-    this.$played = $('<progress>', {
-      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-played']}`,
-      'data-hook': 'played-indicator',
-      role: 'played',
-      max: 100,
-      value: 0
+    this.$progressPlayed = $('<div>', {
+      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-played']}`
     });
 
-    this.$buffered = $('<progress>', {
-      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-buffered']}`,
-      'data-hook': 'buffered-indicator',
-      role: 'buffered',
-      max: 100,
-      value: 0
+    this.$progressBuffered = $('<div>', {
+      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-buffered']}`
+    });
+
+    this.$progressBackground = $('<div>', {
+      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-background']}`
     });
 
     this.$input = $('<input>', {
@@ -43,9 +39,10 @@ class ProgressView extends View {
     });
 
     this.$node
-      .append(this.$buffered)
-      .append(this.$played)
-      .append(this.$input);
+      .append(this.$input)
+      .append(this.$progressPlayed)
+      .append(this.$progressBuffered)
+      .append(this.$progressBackground);
 
     this._bindCallbacks();
     this._bindEvents();
@@ -69,7 +66,8 @@ class ProgressView extends View {
 
   _onInputValueChange() {
     const value = this.$input.val();
-    this.$played.attr('value', value);
+    this.$input.attr('value', value);
+    this.$progressPlayed.attr('style', `width:${value}%;`);
     this._callbacks.onChangePlayedProgress(value);
   }
 
@@ -98,11 +96,11 @@ class ProgressView extends View {
   _updatePlayed(percent) {
     this.$input.val(percent);
     this.$input.attr('value', percent);
-    this.$played.attr('value', percent);
+    this.$progressPlayed.attr('style', `width:${percent}%;`);
   }
 
   _updateBuffered(percent) {
-    this.$buffered.attr('value', percent);
+    this.$progressBuffered.attr('style', `width:${percent}%;`);
   }
 
   setState({ played, buffered }) {
@@ -127,8 +125,9 @@ class ProgressView extends View {
     this.$node.remove();
 
     delete this.$input;
-    delete this.$played;
-    delete this.$buffered;
+    delete this.$progressPlayed;
+    delete this.$progressBuffered;
+    delete this.$progressBackground;
     delete this.$node;
   }
 }
