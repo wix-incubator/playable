@@ -1,7 +1,7 @@
 import get from 'lodash/get';
 
 import { VIDEO_EVENTS } from '../../constants/index';
-import { getNearestBufferSegmentInfo } from '../../utils/video-data';
+//import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 
 export const REPORT_REASONS = {
@@ -93,20 +93,19 @@ export default class AnomalyBloodhound {
             // but when you checking it, you can see, that it's not empty and there still
             // couple milliseconds until end of buffer segment. It's happens only at last seconds of video
             // that's why we manually triggering "end" but seeking to end of buffer.
+            /*
             const nearestBufferSegment = getNearestBufferSegmentInfo(
               this._engine._video.buffered,
               this._engine.getCurrentTime()
             );
 
-            if (nearestBufferSegment && /* ignore coverage */nearestBufferSegment.end > this._engine.getCurrentTime()) {
-
-              /* ignore coverage */
+            if (nearestBufferSegment && nearestBufferSegment.end > this._engine.getCurrentTime()) {
               this._engine.setCurrentTime(nearestBufferSegment.end);
-            } else {
+            } else { */
               this.reportDebugInfo({
                 reason: REPORT_REASONS.BUFFER_EMPTY_FOR_CURRENT_SEGMENT
               });
-            }
+            //*}
 
             break;
           }
