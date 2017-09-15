@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import publicAPI from '../../../utils/public-api-decorator';
 
@@ -40,7 +40,6 @@ export default class LoadingCover {
   }
 
   _checkForWaitingState({ nextState }) {
-    const { STATES } = this._engine;
     switch (nextState) {
       case STATES.LOAD_STARTED:
         if (this._engine.isPreloadAvailable) {

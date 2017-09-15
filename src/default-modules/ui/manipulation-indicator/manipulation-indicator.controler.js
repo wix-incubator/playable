@@ -1,4 +1,4 @@
-import { UI_EVENTS } from '../../../constants/index';
+import { UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './manipulation-indicator.view';
 
@@ -85,8 +85,8 @@ export default class ManipulationIndicator {
     const state = this._engine.getCurrentState();
 
     if (
-      state === this._engine.STATES.PLAY_REQUESTED ||
-      state === this._engine.STATES.PLAYING
+      state === STATES.PLAY_REQUESTED ||
+      state === STATES.PLAYING
     ) {
       this.view.activatePauseIcon();
     } else {

@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './overlay.view';
 
@@ -59,9 +59,9 @@ export default class Overlay {
   }
 
   _updatePlayingStatus({ nextState }) {
-    if (nextState === this._engine.STATES.PLAY_REQUESTED) {
+    if (nextState === STATES.PLAY_REQUESTED) {
       this._hideContent();
-    } else if (nextState === this._engine.STATES.ENDED) {
+    } else if (nextState === STATES.ENDED) {
       this._showContent();
     }
   }

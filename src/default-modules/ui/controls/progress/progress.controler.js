@@ -2,7 +2,7 @@ import View from './progress.view';
 
 import { getOverallBufferedPercent, getOverallPlayedPercent } from '../../../../utils/video-data';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
 import { AMOUNT_TO_SKIP_SECONDS } from '../../../keyboard-control/keyboard-control';
 
 import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
@@ -134,7 +134,8 @@ export default class ProgressControl {
   _onUserInteractionEnds() {
     if (this._isUserInteracting) {
       this._isUserInteracting = false;
-      setTimeout(this._playVideoOnProgressManipulationEnd, 100);
+      this._updatePlayedIndicator();
+      this._playVideoOnProgressManipulationEnd();
     }
   }
 
@@ -144,8 +145,6 @@ export default class ProgressControl {
   }
 
   _toggleIntervalUpdates({ nextState }) {
-    const { STATES } = this._engine;
-
     switch (nextState) {
       case STATES.SRC_SET:
         this.reset();
@@ -175,8 +174,8 @@ export default class ProgressControl {
     const currentState = this._engine.getCurrentState();
 
     if (
-      currentState === this._engine.STATES.PLAYING ||
-      currentState === this._engine.STATES.PLAY_REQUESTED
+      currentState === STATES.PLAYING ||
+      currentState === STATES.PLAY_REQUESTED
     ) {
       this._shouldPlayAfterManipulationEnd = true;
       this._engine.pause();

@@ -2,7 +2,7 @@ import View from './play.view';
 
 import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
 
 
 export default class PlayControl {
@@ -77,14 +77,14 @@ export default class PlayControl {
   }
 
   _updatePlayingStatus({ nextState }) {
-    if (nextState === this._engine.STATES.SRC_SET) {
+    if (nextState === STATES.SRC_SET) {
       this.reset();
-    } else if (nextState === this._engine.STATES.PLAYING) {
+    } else if (nextState === STATES.PLAYING) {
       this.setControlStatus(true);
     } else if (
-      nextState === this._engine.STATES.PAUSED ||
-      nextState === this._engine.STATES.ENDED ||
-      nextState === this._engine.STATES.SEEK_IN_PROGRESS
+      nextState === STATES.PAUSED ||
+      nextState === STATES.ENDED ||
+      nextState === STATES.SEEK_IN_PROGRESS
     ) {
       this.setControlStatus(false);
     }

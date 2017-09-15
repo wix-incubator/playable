@@ -2,12 +2,12 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import Engine, { STATES } from '../../playback-engine/playback-engine';
+import Engine from '../../playback-engine/playback-engine';
 import EventEmitter from '../../event-emitter/event-emitter';
 import LoadingCover from './loading-cover.controler';
 import RootContainer from '../../root-container/root-container.controler';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 
 describe('LoadingCover', () => {

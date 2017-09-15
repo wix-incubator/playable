@@ -4,6 +4,8 @@ import $ from 'jbone';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
+import { STATES } from '../../../constants';
+
 import EventEmitter from '../../event-emitter/event-emitter';
 import RootContainer from '../../root-container/root-container.controler';
 import Engine from '../../playback-engine/playback-engine';
@@ -184,14 +186,13 @@ describe('Loader', () => {
 
 
     it('should have method for toggling playback', () => {
-      let state = engine.STATES.PLAYING;
+      let state = STATES.PLAYING;
       const playSpy = sinon.spy();
       const pauseSpy = sinon.spy();
       screen._engine = {
         getCurrentState: () => state,
         play: playSpy,
         pause: pauseSpy,
-        STATES: engine.STATES
       };
       screen._toggleVideoPlayback();
       expect(pauseSpy.called).to.be.true;

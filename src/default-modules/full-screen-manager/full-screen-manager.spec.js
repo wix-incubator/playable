@@ -10,7 +10,7 @@ import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
 import RootContainer from '../root-container/root-container.controler';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants/index';
 
 
 const mockedFullscreenHelper = {
@@ -219,8 +219,6 @@ describe('FullScreenManager' , () => {
   describe('due to reaction on state changed', () => {
     describe('to end state', () => {
       it('should exit full screen if config passed', () => {
-        const { STATES } = engine;
-
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
@@ -242,8 +240,6 @@ describe('FullScreenManager' , () => {
 
     describe('to pause state', () => {
       it('should exit full screen if config passed', () => {
-        const { STATES } = engine;
-
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {

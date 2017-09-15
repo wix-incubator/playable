@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-import { VIDEO_EVENTS } from '../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../constants/index';
 //import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 
@@ -42,8 +42,6 @@ export default class AnomalyBloodhound {
   }
 
   _processStateChange({ prevState, nextState } = {}) {
-    const { STATES } = this._engine;
-
     switch (nextState) {
       case STATES.LOAD_STARTED:
         if (this._engine.isAutoPlayAvailable || this._engine.isPreloadAvailable) {

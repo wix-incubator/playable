@@ -2,8 +2,7 @@ import create, { registerModule } from './core/player-fabric';
 
 import publicAPIDecorator from './utils/public-api-decorator';
 
-import { UI_EVENTS, VIDEO_EVENTS, TEXT_LABELS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from './constants';
-import { STATES as ENGINE_STATES } from './default-modules/playback-engine/playback-engine';
+import { UI_EVENTS, VIDEO_EVENTS, TEXT_LABELS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, STATES as ENGINE_STATES } from './constants';
 
 import DefaultControls from './default-modules/ui/controls/default-controls';
 

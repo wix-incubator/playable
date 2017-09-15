@@ -8,7 +8,7 @@ import sinon from 'sinon';
 import TimeControl from './time.controler';
 import Engine from '../../../playback-engine/playback-engine';
 import { formatTime } from './time.view';
-import { VIDEO_EVENTS } from '../../../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 
 describe('TimeControl', () => {
@@ -96,7 +96,7 @@ describe('TimeControl', () => {
     it('should call callback on seek', () => {
       const spy = sinon.spy(control, '_updateCurrentTime');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: control._engine.STATES.SEEK_IN_PROGRESS});
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: STATES.SEEK_IN_PROGRESS});
       expect(spy.called).to.be.true;
     });
 
@@ -111,11 +111,11 @@ describe('TimeControl', () => {
   describe('internal methods', () => {
     it('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
-      control._toggleIntervalUpdates({ nextState: engine.STATES.PLAYING });
+      control._toggleIntervalUpdates({ nextState: STATES.PLAYING });
       expect(startSpy.called).to.be.true;
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
-      control._toggleIntervalUpdates({ nextState: engine.STATES.PAUSED });
+      control._toggleIntervalUpdates({ nextState: STATES.PAUSED });
       expect(stopSpy.called).to.be.true;
     });
 

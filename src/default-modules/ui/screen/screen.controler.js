@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-import { UI_EVENTS } from '../../../constants/index';
+import { UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './screen.view';
 
@@ -115,8 +115,8 @@ export default class Screen {
       const state = this._engine.getCurrentState();
 
       if (
-        state === this._engine.STATES.PLAY_REQUESTED ||
-        state === this._engine.STATES.PLAYING
+        state === STATES.PLAY_REQUESTED ||
+        state === STATES.PLAYING
       ) {
         this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
       } else {
@@ -152,8 +152,8 @@ export default class Screen {
     const state = this._engine.getCurrentState();
 
     if (
-      state === this._engine.STATES.PLAY_REQUESTED ||
-      state === this._engine.STATES.PLAYING
+      state === STATES.PLAY_REQUESTED ||
+      state === STATES.PLAYING
     ) {
       this._engine.pause();
     } else {

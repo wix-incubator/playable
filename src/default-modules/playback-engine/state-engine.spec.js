@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import EventEmitter from 'eventemitter3';
 
-import { VIDEO_EVENTS } from '../../constants/index';
-import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE, STATES } from './state-engine';
+import { VIDEO_EVENTS, STATES } from '../../constants/index';
+import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE } from './state-engine';
 
 
 const NATIVE_EVENTS = {

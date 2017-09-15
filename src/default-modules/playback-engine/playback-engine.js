@@ -1,12 +1,12 @@
 import publicAPI from '../../utils/public-api-decorator';
 
-import StateEngine, { STATES } from './state-engine';
+import StateEngine from './state-engine';
 import NativeEventsBroadcaster from './native-events-broadcaster';
 import MediaStreamsStrategy from './media-streams-strategy';
 
 import { isIPhone, isIPod, isIPad, isAndroid } from '../../utils/device-detection';
 
-import { VIDEO_EVENTS } from '../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../constants/index';
 
 export {
   STATES
@@ -18,8 +18,6 @@ export default class Engine {
 
   constructor({ eventEmitter, config }) {
     this._eventEmitter = eventEmitter;
-
-    this.STATES = STATES;
 
     this.currentSrc = null;
 

@@ -3,7 +3,7 @@ import publicAPI from '../../utils/public-api-decorator';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants/index';
 
 
 const DEFAULT_CONFIG = {
@@ -72,8 +72,6 @@ export default class FullScreenManager {
   }
 
   _processNextStateFromEngine({ nextState }) {
-    const { STATES } = this._engine;
-
     switch (nextState) {
       case STATES.ENDED: {
         this._exitOnEnd();

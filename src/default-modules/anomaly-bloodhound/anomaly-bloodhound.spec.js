@@ -7,7 +7,7 @@ import AnomalyBloodhound, { DELAYED_REPORT_TYPES } from './anomaly-bloodhound';
 import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
 
-import { VIDEO_EVENTS } from '../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../constants/index';
 
 describe('AnomalyBloodhound' , () => {
   let anomalyBloodhound;
@@ -27,7 +27,7 @@ describe('AnomalyBloodhound' , () => {
       config,
       eventEmitter
     });
-    states = engine.STATES;
+    states = STATES;
     anomalyBloodhound = new AnomalyBloodhound({
       eventEmitter,
       engine,

@@ -1,6 +1,6 @@
 import View from './time.view';
 
-import { VIDEO_EVENTS } from '../../../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 const UPDATE_INTERVAL_DELAY = 500;
 
@@ -52,8 +52,6 @@ export default class TimeControl {
   }
 
   _toggleIntervalUpdates({ nextState }) {
-    const { STATES } = this._engine;
-
     switch (nextState) {
       case STATES.SRC_SET:
         this.reset();

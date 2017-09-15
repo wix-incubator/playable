@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 
 import View from './loader.view';
@@ -42,7 +42,6 @@ export default class Loader {
   }
 
   _checkForWaitingState({ nextState }) {
-    const { STATES } = this._engine;
     switch (nextState) {
       case STATES.SEEK_IN_PROGRESS:
         this.startDelayedShow();

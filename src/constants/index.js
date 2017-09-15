@@ -3,6 +3,7 @@ import UI_EVENTS from './events/ui';
 import VIDEO_EVENTS from './events/video';
 import ERRORS from './errors';
 import TEXT_LABELS from './text-labels';
+import STATES from './engine-states';
 
 
 export {
@@ -11,5 +12,6 @@ export {
   TEXT_LABELS,
   UI_EVENTS,
   VIDEO_EVENTS,
-  ERRORS
+  ERRORS,
+  STATES
 };

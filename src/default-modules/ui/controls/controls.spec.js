@@ -9,7 +9,7 @@ import RootContainer from '../../root-container/root-container.controler';
 import Engine from '../../playback-engine/playback-engine';
 import { container } from '../../../core/player-fabric';
 
-import { VIDEO_EVENTS } from '../../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../../constants/index';
 
 import EventEmitter from 'eventemitter3';
 
@@ -90,15 +90,15 @@ describe('ControlsBlock', () => {
       const hideTimeout = sinon.spy(controls, '_hideContent');
       const showTimeout = sinon.spy(controls, '_showContent');
 
-      controls._updatePlayingStatus({ nextState: engine.STATES.PLAY_REQUESTED });
+      controls._updatePlayingStatus({ nextState: STATES.PLAY_REQUESTED });
       expect(startTimeout.called).to.be.true;
-      controls._updatePlayingStatus({ nextState: engine.STATES.PAUSED });
+      controls._updatePlayingStatus({ nextState: STATES.PAUSED });
       expect(showTimeout.called).to.be.true;
       showTimeout.reset();
-      controls._updatePlayingStatus({ nextState: engine.STATES.ENDED });
+      controls._updatePlayingStatus({ nextState: STATES.ENDED });
       expect(showTimeout.called).to.be.true;
       showTimeout.reset();
-      controls._updatePlayingStatus({ nextState: engine.STATES.SRC_SET });
+      controls._updatePlayingStatus({ nextState: STATES.SRC_SET });
       expect(showTimeout.called).to.be.true;
     });
 

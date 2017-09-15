@@ -8,7 +8,7 @@ import RootContainer from '../../root-container/root-container.controler';
 import Overlay from './overlay.controler';
 import Engine from '../../playback-engine/playback-engine';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 
 describe('Overlay', () => {
@@ -119,7 +119,7 @@ describe('Overlay', () => {
       const hideSpy = sinon.spy(overlay, "_hideContent");
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: engine.STATES.PLAY_REQUESTED });
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: STATES.PLAY_REQUESTED });
 
       expect(callback.called).to.be.true;
       expect(hideSpy.called).to.be.true;
@@ -130,7 +130,7 @@ describe('Overlay', () => {
       const showSpy = sinon.spy(overlay, "_showContent");
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: engine.STATES.ENDED });
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: STATES.ENDED });
 
       expect(callback.called).to.be.true;
       expect(showSpy.called).to.be.true;

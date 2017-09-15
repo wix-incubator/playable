@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import PlayControl from './play.controler';
 import Engine from '../../../playback-engine/playback-engine';
 
-import { VIDEO_EVENTS } from '../../../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 
 describe('PlayControl', () => {
@@ -65,9 +65,9 @@ describe('PlayControl', () => {
   describe('internal methods', () => {
     it('should change view based on playback status', () => {
       const spy = sinon.spy(control, 'setControlStatus');
-      control._updatePlayingStatus({ nextState: engine.STATES.PLAYING });
+      control._updatePlayingStatus({ nextState: STATES.PLAYING });
       expect(spy.calledWith(true)).to.be.true;
-      control._updatePlayingStatus({ nextState: engine.STATES.PAUSED });
+      control._updatePlayingStatus({ nextState: STATES.PAUSED });
       expect(spy.calledWith(false)).to.be.true;
     });
 
