@@ -12,14 +12,13 @@
   height: 100%;
 
   transition: opacity .3s, visibility .3s, transform .3s;
+  animation: trans 15s linear infinite;
 
   background: black no-repeat center;
   background-size: contain;
 
   justify-content: center;
   align-items: center;
-
-  animation: trans 15s linear infinite;
 }
 
 .hidden {

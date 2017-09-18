@@ -28,6 +28,7 @@ describe('Playback e2e test', function () {
         player.setSrc(formatToTest.url);
         player.play();
       });
+
       it(`allows playback of ${formatToTest.type} when preload = none`, function (done) {
         const player = VideoPlayer.create({
           preload: "none"

@@ -31,9 +31,9 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
 :global {
   [data-focus-source='key'] [data-hook='player-container'],
   [data-focus-source='script'] [data-hook='player-container'] {
-    button.ally-focus-within,
-    input.ally-focus-within,
-    img.ally-focus-within {
+    button.focus-within,
+    input.focus-within,
+    img.focus-within {
       outline: 2px solid rgba(56, 153, 236, .8);
     }
   }

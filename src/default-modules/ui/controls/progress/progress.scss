@@ -9,7 +9,6 @@
   margin: 0 8px;
 
   cursor: pointer;
-
   transition: opacity .2s, visibility .2s;
 
   @include in-full-screen() {
@@ -43,8 +42,7 @@
     height: 10px;
 
     content: '';
-
-    transition: transform .1s cubic-bezier(0.0,0.0,0.2,1);
+    transition: transform .1s cubic-bezier(.0,.0,.2,1);
 
     border-radius: 50%;
     background-color: #fff;
@@ -52,18 +50,19 @@
 }
 
 .progress-buffered {
-  background-color: $video-progress-bg;
   transition: width .2s ease;
+
+  background-color: $video-progress-bg;
 }
 
 .progress-background {
   width: 100%;
+
   background-color: $video-progress-bg;
 }
 
 
 .seek-control {
-  opacity: 0;
   position: relative;
   z-index: 2;
 
@@ -77,6 +76,7 @@
   cursor: pointer;
   vertical-align: middle;
 
+  opacity: 0;
   border: none;
   background: transparent;
 
@@ -84,8 +84,8 @@
 }
 
 :global {
-  [data-focus-source='key'] [data-hook='progress-control'].ally-focus-within,
-  [data-focus-source='script'] [data-hook='progress-control'].ally-focus-within{
+  [data-focus-source='key'] [data-hook='progress-control'].focus-within,
+  [data-focus-source='script'] [data-hook='progress-control'].focus-within {
     opacity: 1;
     outline: 2px solid rgba(56, 153, 236, .8);
   }

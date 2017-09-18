@@ -1,6 +1,6 @@
 import { ElementQueries } from 'css-element-queries';
 import focusSource from 'ally.js/src/style/focus-source';
-import focusWithin from 'ally.js/src/style/focus-within';
+import focusWithin from '../../utils/focus-within';
 
 import publicAPI from '../../utils/public-api-decorator';
 

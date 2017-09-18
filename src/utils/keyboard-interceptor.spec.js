@@ -27,7 +27,7 @@ describe('KeyboardInterceptor', () => {
     });
   });
 
-  it('should intercept and broadcast mouse events', () => {
+  it('should intercept and broadcast keydown events', () => {
     keydownEvent.keyCode = testKeyCode1;
     node.dispatchEvent(keydownEvent);
 
