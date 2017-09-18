@@ -69,12 +69,6 @@ describe('NativeEventsBroadcaster', () => {
     expect(eventEmitter.emit.calledWith(VIDEO_EVENTS.UPLOAD_SUSPEND)).to.be.true;
   });
 
-  it('should broadcast error event', () => {
-    video.error = 'Test error';
-    broadcaster._processEventFromVideo(NATIVE_EVENTS.ERROR);
-    expect(eventEmitter.emit.calledWith(VIDEO_EVENTS.ERROR, video.error)).to.be.true;
-  });
-
   it('should broadcast seeking event', () => {
     video.currentTime = 100;
     broadcaster._processEventFromVideo(NATIVE_EVENTS.SEEKING);

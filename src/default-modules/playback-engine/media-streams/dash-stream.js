@@ -15,6 +15,18 @@ export default class DashStream {
     return mediaType === MEDIA_STREAM_TYPES.DASH;
   }
 
+  logError(error, errorEvent) {
+    this.eventEmitter.emit(
+      VIDEO_EVENTS.ERROR,
+      {
+        errorType: error,
+        streamType: MEDIA_STREAM_TYPES.DASH,
+        streamProvider: 'dash.js',
+        errorInstance: errorEvent
+      }
+    );
+  }
+
   constructor(mediaStreams, eventEmitter) {
     this.eventEmitter = eventEmitter;
     this.dashPlayer = null;
@@ -37,13 +49,36 @@ export default class DashStream {
       if (!errorEvent) {
         return;
       }
-      if (errorEvent.error === 'manifestError' || (errorEvent.error === 'download' && errorEvent.event.id === 'manifest')) {
-        this.eventEmitter.emit(
-          VIDEO_EVENTS.ERROR,
-          ERRORS.SRC_LOAD_ERROR,
-          this.mediaStream && this.mediaStream.url,
-          errorEvent
-        );
+
+      if (errorEvent.error === 'download') {
+        switch (errorEvent.event.id) {
+          case 'manifest':
+            this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+            break;
+          case 'content':
+            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+            break;
+          case 'initialization':
+            this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+            break;
+          default:
+            this.logError(ERRORS.UNKNOWN, errorEvent);
+        }
+      } else if (errorEvent.error === 'manifestError') {
+        switch (errorEvent.event.id) {
+          case 'codec':
+            this.logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
+            break;
+          case 'parse':
+            this.logError(ERRORS.MANIFEST_PARSE, errorEvent);
+            break;
+          default:
+            this.logError(ERRORS.UNKNOWN, errorEvent);
+        }
+      } else if (errorEvent.error === 'mediasource') {
+        this.logError(ERRORS.MEDIA, errorEvent);
+      } else {
+        this.logError(ERRORS.UNKNOWN, errorEvent);
       }
     };
 

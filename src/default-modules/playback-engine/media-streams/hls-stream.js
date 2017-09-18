@@ -13,11 +13,24 @@ export default class HlsStream {
     return mediaType === MEDIA_STREAM_TYPES.HLS;
   }
 
+  logError(error, errorEvent) {
+    this.eventEmitter.emit(
+      VIDEO_EVENTS.ERROR,
+      {
+        errorType: error,
+        streamType: MEDIA_STREAM_TYPES.HLS,
+        streamProvider: 'hls.js',
+        errorInstance: errorEvent
+      }
+    );
+  }
+
   constructor(mediaStreams, eventEmitter) {
     this.eventEmitter = eventEmitter;
     this.hls = null;
     this.videoElement = null;
     this.mediaStream = null;
+
     this.attachOnPlay = () => {
       if (!this.videoElement) {
         return;
@@ -27,15 +40,53 @@ export default class HlsStream {
     };
 
     this.onError = (type, errorEvent) => {
-      if (errorEvent && (errorEvent.details === 'manifestParsingError' || errorEvent.details === 'manifestLoadError')) {
-        this.eventEmitter.emit(
-          VIDEO_EVENTS.ERROR,
-          ERRORS.SRC_LOAD_ERROR,
-          this.mediaStream && this.mediaStream.url,
-          errorEvent
-        );
+      const { ErrorTypes, ErrorDetails } = HlsJs;
+
+      if (errorEvent.type === ErrorTypes.NETWORK_ERROR) {
+        switch (errorEvent.details) {
+          case ErrorDetails.MANIFEST_LOAD_ERROR:
+            this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+            break;
+          case ErrorDetails.MANIFEST_LOAD_TIMEOUT:
+            this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+            break;
+          case ErrorDetails.MANIFEST_PARSING_ERROR:
+            this.logError(ERRORS.MANIFEST_PARSE, errorEvent);
+            break;
+          case ErrorDetails.LEVEL_LOAD_ERROR:
+            this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+            break;
+          case ErrorDetails.LEVEL_LOAD_TIMEOUT:
+            this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+            break;
+          case ErrorDetails.AUDIO_TRACK_LOAD_ERROR:
+            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+            break;
+          case ErrorDetails.AUDIO_TRACK_LOAD_TIMEOUT:
+            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+            break;
+          case ErrorDetails.FRAG_LOAD_ERROR:
+            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+            break;
+          case ErrorDetails.FRAG_LOAD_TIMEOUT:
+            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+            break;
+          default:
+            this.logError(ERRORS.UNKNOWN, errorEvent);
+        }
+      } else if (errorEvent.type === ErrorTypes.MEDIA_ERROR) {
+        switch (errorEvent.details) {
+          case ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR:
+            this.logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
+            break;
+          default:
+            this.logError(ERRORS.MEDIA, errorEvent);
+        }
+      } else {
+        this.logError(VIDEO_EVENTS.UNKNOWN, errorEvent);
       }
     };
+
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {

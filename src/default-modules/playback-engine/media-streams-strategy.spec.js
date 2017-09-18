@@ -9,7 +9,10 @@ import MediaStreamsStrategy from './media-streams-strategy';
 import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants/index';
 
 describe('MediaStreamsStrategy', () => {
-  const video = {};
+  const video = {
+    addEventListener: () => {},
+    removeEventListener: () => {}
+  };
   let strategy;
   let eventEmitter;
 

@@ -30,10 +30,6 @@ export default class NativeEventsBroadcaster {
     const videoEl = this._video;
 
     switch (event.type) {
-      case 'error': {
-        this._eventEmitter.emit(VIDEO_EVENTS.ERROR, videoEl.error);
-        break;
-      }
       case 'progress': {
         this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
         break;
