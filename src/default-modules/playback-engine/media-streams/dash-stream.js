@@ -19,6 +19,19 @@ export default class DashStream {
     this.eventEmitter = eventEmitter;
     this.dashPlayer = null;
     this.mediaStream = null;
+    this.videoElement = null;
+
+    this.attachOnPlay = () => {
+      if (!this.videoElement) {
+        return;
+      }
+      this.dashPlayer.initialize(this.videoElement, this.mediaStream.url, true);
+
+      if (this._initialBitrate) {
+        this.dashPlayer.setInitialBitrateFor('video', this._initialBitrate);
+      }
+      this.videoElement.removeEventListener('play', this.attachOnPlay);
+    };
 
     this.onError = errorEvent => {
       if (!errorEvent) {
@@ -45,13 +58,19 @@ export default class DashStream {
     if (!this.mediaStream) {
       return;
     }
-
+    this._initialBitrate = initialBitrate;
+    this.videoElement = videoElement;
     this.dashPlayer = MediaPlayer().create();
     this.dashPlayer.getDebug().setLogToBrowserConsole(false);
     this.dashPlayer.on(DashEvents.ERROR, this.onError);
-    this.dashPlayer.initialize(videoElement, this.mediaStream.url, videoElement.autoplay);
-    if (initialBitrate) {
-      this.dashPlayer.setInitialBitrateFor('video', initialBitrate);
+    if (videoElement.preload === 'none') {
+      this.dashPlayer.setScheduleWhilePaused(true);
+      videoElement.addEventListener('play', this.attachOnPlay);
+    } else {
+      this.dashPlayer.initialize(videoElement, this.mediaStream.url, videoElement.autoplay);
+      if (this._initialBitrate) {
+        this.dashPlayer.setInitialBitrateFor('video', this._initialBitrate);
+      }
     }
   }
 
@@ -62,6 +81,7 @@ export default class DashStream {
     this.dashPlayer.reset();
     this.dashPlayer.off(DashEvents.ERROR, this.onError);
     this.dashPlayer = null;
+    this.videoElement = null;
   }
 
   getMediaStreamDeliveryType() {

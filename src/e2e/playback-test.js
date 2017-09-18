@@ -18,14 +18,30 @@ describe('Playback e2e test', function () {
       it(`allows playback of ${formatToTest.type}`, function (done) {
         const player = VideoPlayer.create();
         player.attachToElement(node);
-        player.on(VideoPlayer.VIDEO_EVENTS.DURATION_UPDATED, newDuration => {
-          if (newDuration > 0) {
-            player.off(VideoPlayer.VIDEO_EVENTS.DURATION_UPDATED);
+        player.on(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
+          if (nextState === VideoPlayer.ENGINE_STATES.PLAYING) {
+            player.off(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED);
             player.destroy();
             done();
           }
         });
         player.setSrc(formatToTest.url);
+        player.play();
+      });
+      it(`allows playback of ${formatToTest.type} when preload = none`, function (done) {
+        const player = VideoPlayer.create({
+          preload: "none"
+        });
+        player.attachToElement(node);
+        player.on(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
+          if (nextState === VideoPlayer.ENGINE_STATES.PLAYING) {
+            player.off(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED);
+            player.destroy();
+            done();
+          }
+        });
+        player.setSrc(formatToTest.url);
+        player.play();
       });
     }
   });
