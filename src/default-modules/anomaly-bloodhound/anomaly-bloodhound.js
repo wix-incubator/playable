@@ -22,7 +22,7 @@ export default class AnomalyBloodhound {
   static dependencies = ['eventEmitter', 'engine', 'config'];
 
   constructor({ engine, eventEmitter, config }) {
-    this._config = {
+      this._config = {
       ...get(config, 'anomalyBloodhound')
     };
     this._engine = engine;

@@ -28,7 +28,8 @@ $color: white !default;
   }
 
   &:hover,
-  &:focus {
+  &:focus,
+  .focus-withing {
     .container {
       opacity: 1;
     }
@@ -149,6 +150,7 @@ $color: white !default;
   opacity: 0;
   border: 0;
 
+      writing-mode: bt-lr;
   -webkit-appearance: slider-vertical;
 }
 

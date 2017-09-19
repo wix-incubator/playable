@@ -1,5 +1,5 @@
 import { ElementQueries } from 'css-element-queries';
-import focusSource from 'ally.js/src/style/focus-source';
+import focusSource from '../../utils/focus-source';
 import focusWithin from '../../utils/focus-within';
 
 import publicAPI from '../../utils/public-api-decorator';
@@ -89,10 +89,8 @@ class RootContainer {
     }
 
     if (!this._disengageFocusSource) {
-      const handler = focusSource();
-      if (handler && handler.disengage) {
-        this._disengageFocusSource = handler.disengage;
-      }
+      focusSource.engage();
+      this._disengageFocusSource = focusSource.disengage;
     }
   }
 
