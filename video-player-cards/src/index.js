@@ -1,2 +1,2 @@
-import Counter from './counter';
-export default new Counter();
+import CardsModule from './cards-module/cards-module';
+export default CardsModule;

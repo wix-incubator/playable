@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Player Cards module</title>
+  <style>
+    #content {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    #player {
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+  <% if (debug) { %>
+  <script src="<%= staticsBaseUrl %>player-with-module.bundle.js"></script>
+  <% } else { %>
+  <script src="<%= staticsBaseUrl %>player-with-module.bundle.min.js"></script>
+  <% } %>
+</head>
+<body>
+
+<div id="content">
+  <div id="player">
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+     window.player = SingularModule.default.VideoPlayer.create({
+      autoPlay: false,
+      muted: false,
+      loop: false,
+      logger: true,
+      preload: "auto",
+      volume: 0.5,
+      size: {
+        width: 760,
+        height: 428
+      },
+      loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
+      src: [
+        'https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+      ],
+      controls: {
+        watchOnSite: {
+          url: 'http://www.wix.com/',
+          showAlways: true,
+          logo: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png'
+        }
+      },
+      overlay: false,
+    }, false);
+
+    window.player.attachToElement(document.getElementById('player'));
+  });
+</script>
+</body>
+</html>
