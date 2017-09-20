@@ -1,10 +1,6 @@
-coverage/**
 node_modules/**
 dist/**
 *.spec.js
-src/index.html
 src/e2e/playback-test.js
-test/**
 *.html
 *.json
-src/*.ejs

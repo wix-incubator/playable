@@ -1,8 +1,6 @@
 dist
 node_modules
-*npm-debug.log
 target
-maven
 .idea
 .DS_Store
 yarn-error.log

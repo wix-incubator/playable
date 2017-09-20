@@ -1,6 +1,4 @@
 target
 node_modules
-test
 dist/src
-dist/test
 .npmrc
