@@ -21,6 +21,7 @@ class VolumeView extends View {
     this.$muteControl = $('<button>', {
       class: `${this.styleNames['mute-button']} ${this.styleNames['control-button']}`,
       'data-hook': 'mute-button',
+      type: 'button',
       tabIndex: 0
     });
 

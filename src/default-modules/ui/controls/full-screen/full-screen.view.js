@@ -19,6 +19,7 @@ class FullScreenView extends View {
     this.$toggleFullScreenControl = $('<button>', {
       class: `${this.styleNames['full-screen-toggle']} ${this.styleNames['control-button']}`,
       'data-hook': 'full-screen-button',
+      type: 'button',
       tabIndex: 0
     });
 
