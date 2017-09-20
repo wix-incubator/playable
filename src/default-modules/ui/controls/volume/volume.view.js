@@ -5,6 +5,14 @@ import View from '../../core/view';
 import styles from './volume.scss';
 
 
+const DATA_HOOK_ATTRIBUTE = 'data-hook';
+const DATA_HOOK_CONTROL_VALUE = 'volume-control';
+const DATA_HOOK_BUTTON_VALUE = 'mute-button';
+const DATA_HOOK_INPUT_VALUE = 'volume-input';
+
+const DATA_IS_MUTED = 'data-is-muted';
+const DATA_VOLUME = 'data-volume-percent';
+
 const MAX_VOLUME_ICON_RANGE = 30;
 
 class VolumeView extends View {
@@ -15,19 +23,20 @@ class VolumeView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['volume-control'],
-      'data-hook': 'volume-control'
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
+      [DATA_VOLUME]: 100,
+      [DATA_IS_MUTED]: false
     });
 
     this.$muteControl = $('<button>', {
       class: `${this.styleNames['mute-button']} ${this.styleNames['control-button']}`,
-      'data-hook': 'mute-button',
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
       type: 'button',
       tabIndex: 0
     });
 
     this.$container = $('<div>', {
-      class: this.styleNames.container,
-      'data-hook': 'input-container'
+      class: this.styleNames.container
     });
 
     const $content = $('<div>', {
@@ -44,7 +53,7 @@ class VolumeView extends View {
 
     this.$input = $('<input>', {
       class: `${this.styleNames['volume-input']}`,
-      'data-hook': 'volume-input',
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_VALUE,
       tabIndex: 0,
       orient: 'vertical',
       type: 'range',
@@ -139,6 +148,8 @@ class VolumeView extends View {
     this.$input.attr('value', volume);
     this.$filledProgress.attr('style', `height:${volume}%;`);
 
+    this.$node.attr(DATA_VOLUME, volume);
+
     if (volume >= MAX_VOLUME_ICON_RANGE) {
       this.$muteControl.toggleClass(this.styleNames['half-volume'], false);
     } else {
@@ -148,6 +159,7 @@ class VolumeView extends View {
 
   _setMuteStatus(isMuted) {
     this.$muteControl.toggleClass(this.styleNames.muted, isMuted);
+    this.$node.attr(DATA_IS_MUTED, isMuted);
   }
 
   show() {

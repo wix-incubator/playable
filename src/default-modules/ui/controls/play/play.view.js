@@ -4,6 +4,13 @@ import View from '../../core/view';
 
 import styles from './play.scss';
 
+
+const DATA_HOOK_ATTRIBUTE = 'data-hook';
+const DATA_HOOK_CONTROL_VALUE = 'playback-control';
+const DATA_HOOK_BUTTON_VALUE = 'toggle-playback-button';
+
+const DATA_IS_PLAYING = 'data-is-playing';
+
 class PlayView extends View {
   constructor(config) {
     super(config);
@@ -12,12 +19,13 @@ class PlayView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['play-control'],
-      'data-hook': 'playback-control'
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
+      [DATA_IS_PLAYING]: false
     });
 
     this.$playbackControl = $('<button>', {
       class: `${this.styleNames['playback-toggle']} ${this.styleNames['control-button']}`,
-      'data-hook': 'toggle-playback-button',
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
       type: 'button',
       tabIndex: 0
     });
@@ -46,6 +54,7 @@ class PlayView extends View {
 
   setState({ isPlaying }) {
     this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
+    this.$node.attr(DATA_IS_PLAYING, isPlaying);
   }
 
   show() {

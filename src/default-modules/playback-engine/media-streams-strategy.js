@@ -12,6 +12,7 @@ const DEFAULT_INITIAL_BITRATE = 5000;
 
 export default class MediaStreamsStrategy {
   static streamCreators = [
+    getNativeStreamCreator(MEDIA_STREAM_TYPES.DASH, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
     getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
     DashStream,
     HlsStream,

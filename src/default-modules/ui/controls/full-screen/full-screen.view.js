@@ -5,6 +5,12 @@ import View from '../../core/view';
 import styles from './full-screen.scss';
 
 
+const DATA_HOOK_ATTRIBUTE = 'data-hook';
+const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
+const DATA_HOOK_BUTTON_VALUE = 'full-screen-button';
+
+const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
+
 class FullScreenView extends View {
   constructor(config) {
     super(config);
@@ -13,12 +19,13 @@ class FullScreenView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['full-screen-control'],
-      'data-hook': 'full-screen-control'
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
+      [DATA_IS_IN_FULL_SCREEN]: false
     });
 
     this.$toggleFullScreenControl = $('<button>', {
       class: `${this.styleNames['full-screen-toggle']} ${this.styleNames['control-button']}`,
-      'data-hook': 'full-screen-button',
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
       type: 'button',
       tabIndex: 0
     });
@@ -47,6 +54,7 @@ class FullScreenView extends View {
 
   setState({ isInFullScreen }) {
     this.$toggleFullScreenControl.toggleClass(this.styleNames['in-full-screen'], isInFullScreen);
+    this.$node.attr(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
   }
 
   hide() {

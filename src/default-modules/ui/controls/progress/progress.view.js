@@ -5,6 +5,12 @@ import View from '../../core/view';
 import styles from './progress.scss';
 
 
+const DATA_HOOK_ATTRIBUTE = 'data-hook';
+const DATA_HOOK_CONTROL_VALUE = 'progress-control';
+const DATA_HOOK_INPUT_VALUE = 'seek-input';
+
+const DATA_PLAYED = 'data-played-percent';
+
 class ProgressView extends View {
   constructor(config) {
     super(config);
@@ -13,7 +19,8 @@ class ProgressView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['seek-block'],
-      'data-hook': 'progress-control'
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
+      [DATA_PLAYED]: 0
     });
 
     this.$progressPlayed = $('<div>', {
@@ -30,7 +37,7 @@ class ProgressView extends View {
 
     this.$input = $('<input>', {
       class: this.styleNames['seek-control'],
-      'data-hook': 'seek-input',
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_VALUE,
       type: 'range',
       min: 0,
       max: 100,
@@ -96,6 +103,7 @@ class ProgressView extends View {
   _updatePlayed(percent) {
     this.$input.val(percent);
     this.$input.attr('value', percent);
+    this.$node.attr(DATA_PLAYED, percent);
     this.$progressPlayed.attr('style', `width:${percent}%;`);
   }
 
