@@ -47,7 +47,7 @@ const used = {
 
 function handleFocusEvent(event) {
   let source = '';
-  if (event.type === focusEventName || event.type === 'shadow-focus') {
+  if (event.type === focusEventName) {
     const interactionType = interactionTypeHandler.get();
     source = lock ||
       interactionType.pointer && 'pointer' ||
@@ -91,9 +91,6 @@ function disengage() {
   });
   // kill interaction type identification listener
   engageInteractionTypeObserver.disengage();
-  // kill shadow-focus event dispatcher
-  //shadowHandle && shadowHandle.disengage();
-  document.removeEventListener('shadow-focus', handleFocusEvent, true);
   document.documentElement.removeEventListener(focusEventName, handleFocusEvent, true);
   document.documentElement.removeEventListener(blurEventName, handleFocusEvent, true);
   document.documentElement.removeAttribute('data-focus-source');

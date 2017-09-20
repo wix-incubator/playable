@@ -9,6 +9,8 @@ import RootContainer from './root-container.controler';
 import Engine from '../playback-engine/playback-engine';
 
 
+global.requestAnimationFrame = () => {};
+
 describe('RootContainer', () => {
   let ui = {};
   let engine = {};
@@ -109,7 +111,6 @@ describe('RootContainer', () => {
     it('should have method for attaching player to node', () => {
       const node = document.createElement('div');
       sinon.spy(node, 'appendChild');
-      ui._disengageFocusWithin = () => {};
       ui.attachToElement(node);
       expect(node.appendChild.calledWith(ui.node)).to.be.true;
     });

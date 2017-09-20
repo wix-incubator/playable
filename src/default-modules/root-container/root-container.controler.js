@@ -82,10 +82,7 @@ class RootContainer {
 
   _enableFocusInterceptors() {
     if (!this._disengageFocusWithin) {
-      const handler = focusWithin();
-      if (handler && handler.disengage) {
-        this._disengageFocusWithin = handler.disengage;
-      }
+      this._disengageFocusWithin = focusWithin();
     }
 
     if (!this._disengageFocusSource) {
