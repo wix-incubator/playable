@@ -98,7 +98,7 @@ describe('engageInteractionTypeObserver', () => {
           setTimeout(() => {
             expect(get().key).to.be.equal(false);
             done();
-          }, 100);
+          }, 2);
         });
 
         it('should return true if keyCode 16', done => {
@@ -109,7 +109,7 @@ describe('engageInteractionTypeObserver', () => {
           setTimeout(() => {
             expect(get().key).to.be.equal(true);
             done();
-          }, 100);
+          }, 2);
         });
 
         it('should return true if keyCode 17', done => {
@@ -120,7 +120,7 @@ describe('engageInteractionTypeObserver', () => {
           setTimeout(() => {
             expect(get().key).to.be.equal(true);
             done();
-          }, 100);
+          }, 2);
         });
 
         it('should return true if keyCode 18', done => {
@@ -131,7 +131,7 @@ describe('engageInteractionTypeObserver', () => {
           setTimeout(() => {
             expect(get().key).to.be.equal(true);
             done();
-          }, 100);
+          }, 2);
         });
 
         it('should return true if keyCode 91', done => {
@@ -142,7 +142,7 @@ describe('engageInteractionTypeObserver', () => {
           setTimeout(() => {
             expect(get().key).to.be.equal(true);
             done();
-          }, 100);
+          }, 2);
         });
 
         it('should return true if keyCode 93', done => {
@@ -153,7 +153,7 @@ describe('engageInteractionTypeObserver', () => {
           setTimeout(() => {
             expect(get().key).to.be.equal(true);
             done();
-          }, 100);
+          }, 2);
         });
       });
     });
@@ -236,7 +236,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(false);
           done();
-        }, 10);
+        }, 2);
       });
 
       it('should return true after touchend if there is still touches', done => {
@@ -247,7 +247,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete touchendEvent.touches;
       });
@@ -260,7 +260,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete touchendEvent.isPrimary;
       });
@@ -272,7 +272,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(false);
           done();
-        }, 10);
+        }, 2);
       });
 
       it('should return true after touchcancel if there is still touches', done => {
@@ -283,7 +283,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete touchcancelEvent.touches;
       });
@@ -296,7 +296,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete touchcancelEvent.isPrimary;
       });
@@ -308,7 +308,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(false);
           done();
-        }, 10);
+        }, 2);
       });
 
       it('should return true after MSPointerUpEvent if there is still touches', done => {
@@ -319,7 +319,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete MSPointerUpEvent.touches;
       });
@@ -332,7 +332,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete MSPointerUpEvent.isPrimary;
       });
@@ -344,7 +344,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(false);
           done();
-        }, 10);
+        }, 2);
       });
 
       it('should return true after MSPointerCancelEvent if there is still touches', done => {
@@ -355,7 +355,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete MSPointerCancelEvent.touches;
       });
@@ -368,7 +368,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete MSPointerCancelEvent.isPrimary;
       });
@@ -380,7 +380,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(false);
           done();
-        }, 10);
+        }, 2);
       });
 
       it('should return true after pointerupEvent if there is still touches', done => {
@@ -391,7 +391,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete pointerupEvent.touches;
       });
@@ -404,7 +404,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete pointerupEvent.isPrimary;
       });
@@ -416,7 +416,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(false);
           done();
-        }, 10);
+        }, 2);
       });
 
       it('should return true after pointercancelEvent if there is still touches', done => {
@@ -427,7 +427,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete pointercancelEvent.touches;
       });
@@ -440,7 +440,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete pointercancelEvent.isPrimary;
       });
@@ -452,7 +452,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(false);
           done();
-        }, 10);
+        }, 2);
       });
 
       it('should return true after mouseup if there is still touches', done => {
@@ -463,7 +463,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete mouseupEvent.touches;
       });
@@ -476,7 +476,7 @@ describe('engageInteractionTypeObserver', () => {
         setTimeout(() => {
           expect(get().pointer).to.be.equal(true);
           done();
-        }, 10);
+        }, 2);
 
         delete mouseupEvent.isPrimary;
       });
@@ -495,7 +495,7 @@ describe('engageInteractionTypeObserver', () => {
           pointer: false
         });
         done();
-      }, 10);
+      }, 2);
 
       engageInteractionTypeObserver.disengage();
     });

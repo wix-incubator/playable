@@ -88,7 +88,7 @@ describe('FullScreenManager' , () => {
       expect(fullScreenManager._helper instanceof DesktopFullScreen).to.be.true;
     });
 
-    it('should be for iOS if device use it', () => {
+    it('should be for iPhone', () => {
       navigator.userAgent = 'iPhone';
 
       fullScreenManager = new FullScreenManager({
@@ -99,7 +99,9 @@ describe('FullScreenManager' , () => {
       });
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
+    });
 
+    it('should be for iPod', () => {
       navigator.userAgent = 'iPod';
 
       fullScreenManager = new FullScreenManager({
@@ -110,7 +112,9 @@ describe('FullScreenManager' , () => {
       });
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
+    });
 
+    it('should be for iPad', () => {
       navigator.userAgent = 'iPad';
 
       fullScreenManager = new FullScreenManager({
@@ -122,7 +126,6 @@ describe('FullScreenManager' , () => {
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
     });
-
   });
 
   describe('enable status', () => {
@@ -130,18 +133,19 @@ describe('FullScreenManager' , () => {
       expect(fullScreenManager.isEnabled).to.be.true;
       mockedFullscreenHelper.isEnabled = false;
       expect(fullScreenManager.isEnabled).to.be.false;
+    });
+
+    it('should return false in disabled flag passed in config', () => {
       mockedFullscreenHelper.isEnabled = true;
       fullScreenManager._config.disabled = true;
       expect(fullScreenManager.isEnabled).to.be.false;
-    });
+    })
   });
 
   describe('full screen status', () => {
     it('should return status of helper', () => {
       mockedFullscreenHelper.isInFullScreen = true;
       expect(fullScreenManager.isInFullScreen).to.be.true;
-      mockedFullscreenHelper.isInFullScreen = false;
-      expect(fullScreenManager.isInFullScreen).to.be.false;
     });
 
     it('should return false if disabled', () => {
@@ -205,12 +209,11 @@ describe('FullScreenManager' , () => {
       const spy = sinon.spy(fullScreenManager, 'enterFullScreen');
 
       eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
-      expect(spy.called).to.be.false;
 
       fullScreenManager._config.enterOnPlay = true;
       mockedFullscreenHelper.isInFullScreen = false;
       eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
-      expect(spy.called).to.be.true;
+      expect(spy.calledOnce).to.be.true;
 
       fullScreenManager.enterFullScreen.restore();
     });
@@ -224,7 +227,6 @@ describe('FullScreenManager' , () => {
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: STATES.ENDED
         });
-        expect(spy.called).to.be.false;
 
         fullScreenManager._config.exitOnEnd = true;
         mockedFullscreenHelper.isInFullScreen = true;
@@ -232,7 +234,7 @@ describe('FullScreenManager' , () => {
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: STATES.ENDED
         });
-        expect(spy.called).to.be.true;
+        expect(spy.calledOnce).to.be.true;
 
         fullScreenManager.exitFullScreen.restore();
       });
@@ -245,7 +247,6 @@ describe('FullScreenManager' , () => {
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: STATES.PAUSED
         });
-        expect(spy.called).to.be.false;
 
         fullScreenManager._config.exitOnPause = true;
         mockedFullscreenHelper.isInFullScreen = true;
@@ -253,7 +254,7 @@ describe('FullScreenManager' , () => {
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: STATES.PAUSED
         });
-        expect(spy.called).to.be.true;
+        expect(spy.calledOnce).to.be.true;
 
         fullScreenManager.exitFullScreen.restore();
       });
