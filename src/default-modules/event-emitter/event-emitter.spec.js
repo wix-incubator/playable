@@ -4,13 +4,13 @@ import EventEmitter from 'eventemitter3';
 import { PUBLIC_API_PROPERTY } from '../../utils/public-api-decorator';
 
 
-import eventEmitterWrapper from './event-emitter';
+import EventEmitterModule from './event-emitter';
 
-describe('eventEmitterWrapper' , () => {
+describe('EventEmitterModule' , () => {
   let eventEmitter;
 
   beforeEach(() => {
-    eventEmitter = eventEmitterWrapper();
+    eventEmitter = new EventEmitterModule();
   });
 
   it('should return instance of EventEmitter', () => {

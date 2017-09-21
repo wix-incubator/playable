@@ -9,12 +9,19 @@ import KeyboardInterceptor from './keyboard-control/keyboard-control';
 import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
 import RootContainer from './root-container/root-container.controler';
 import DebugPanel from './debug-panel/debug-panel';
-import allUI from './ui';
 
-const { asFunction, asClass } = DependencyContainer;
+import Screen from './ui/screen/screen.controler';
+import Overlay from './ui/overlay/overlay.controler';
+import Loader from './ui/loader/loader.controler';
+import LoadingCover from './ui/loading-cover/loading-cover.controler';
+import ControlsBlock from './ui/controls/controls.controler';
+import ManipulationIndicator from './ui/manipulation-indicator/manipulation-indicator.controler';
+
+
+const { asClass } = DependencyContainer;
 
 export default {
-  eventEmitter: asFunction(EventEmitter).scoped(),
+  eventEmitter: asClass(EventEmitter).scoped(),
   rootContainer: asClass(RootContainer).scoped(),
   textMap: asClass(TextMap).scoped(),
   engine: asClass(Engine).scoped(),
@@ -23,5 +30,10 @@ export default {
   mouseInterceptor: asClass(MouseInterceptor).scoped(),
   anomalyBloodhound: asClass(AnomalyBloodhound).scoped(),
   debugPanel: asClass(DebugPanel).scoped(),
-  ...allUI
+  manipulationIndicator: asClass(ManipulationIndicator).scoped(),
+  screen: asClass(Screen).scoped(),
+  overlay: asClass(Overlay).scoped(),
+  loader: asClass(Loader).scoped(),
+  loadingCover: asClass(LoadingCover).scoped(),
+  controls: asClass(ControlsBlock).scoped()
 };
