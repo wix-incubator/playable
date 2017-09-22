@@ -1,15 +1,15 @@
 import EventEmitter from 'eventemitter3';
 
-import publicAPI from '../../utils/public-api-decorator';
+import playerAPI from '../../utils/player-api-decorator';
 
 
 export default class EventEmitterModule extends EventEmitter {
-  @publicAPI()
+  @playerAPI()
   on(event, fn, context) {
     return super.on(event, fn, context);
   }
 
-  @publicAPI()
+  @playerAPI()
   off(event, fn, context, once) {
     return super.off(event, fn, context, once);
   }

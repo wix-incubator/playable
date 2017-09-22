@@ -1,5 +1,5 @@
 import mapParamsToConfig from './config-mapper';
-import { PUBLIC_API_PROPERTY } from '../utils/public-api-decorator';
+import { PLAYER_API_PROPERTY } from '../utils/player-api-decorator';
 
 
 export default class Player {
@@ -14,11 +14,17 @@ export default class Player {
     this._resolveAdditionalModules(scope, additionalModules);
   }
 
+  /*
+    Separation for default and additional modules is needed
+    for future implementation of public methods of resolved modules and
+    could be abolished in future
+  */
+
   _resolveDefaultModules(scope, modules) {
     this._defaultModules = Object.keys(modules).reduce((modules, moduleName) => {
       const resolvedModule = scope.resolve(moduleName);
 
-      this._addPublicAPIFromModule(resolvedModule, moduleName);
+      this._addPlayerAPIFromModule(resolvedModule, moduleName);
 
       modules[moduleName] = resolvedModule;
       return modules;
@@ -26,8 +32,12 @@ export default class Player {
   }
 
   _resolveAdditionalModules(scope, modules) {
-    this._additionalModules = modules.reduce((modules, moduleName) => {
-      modules[moduleName] = scope.resolve(moduleName);
+    this._additionalModules = Object.keys(modules).reduce((modules, moduleName) => {
+      const resolvedModule = scope.resolve(moduleName);
+
+      this._addPlayerAPIFromModule(resolvedModule, moduleName);
+
+      modules[moduleName] = resolvedModule;
       return modules;
     }, {});
   }
@@ -42,8 +52,8 @@ export default class Player {
     };
   }
 
-  _getPublicAPIMethodDescriptor(module, moduleName, descriptor) {
-    const publicMethodDescriptor = {
+  _getPlayerAPIMethodDescriptor(module, moduleName, descriptor) {
+    const playerMethodDescriptor = {
       enumerable: true,
       configurable: true
     };
@@ -51,23 +61,23 @@ export default class Player {
     const { get, set, value } = descriptor;
 
     if (get) {
-      publicMethodDescriptor.get = this._getWrappedCallToModuleFunction(module, moduleName, get);
+      playerMethodDescriptor.get = this._getWrappedCallToModuleFunction(module, moduleName, get);
     }
 
     if (set) {
-      publicMethodDescriptor.set = this._getWrappedCallToModuleFunction(module, moduleName, set);
+      playerMethodDescriptor.set = this._getWrappedCallToModuleFunction(module, moduleName, set);
     }
 
     if (value) {
-      publicMethodDescriptor.value = this._getWrappedCallToModuleFunction(module, moduleName, value);
+      playerMethodDescriptor.value = this._getWrappedCallToModuleFunction(module, moduleName, value);
     }
 
-    return publicMethodDescriptor;
+    return playerMethodDescriptor;
   }
 
-  _addPublicAPIFromModule(module, moduleName) {
-    if (module[PUBLIC_API_PROPERTY]) {
-      Object.keys(module[PUBLIC_API_PROPERTY]).forEach(apiKey => {
+  _addPlayerAPIFromModule(module, moduleName) {
+    if (module[PLAYER_API_PROPERTY]) {
+      Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
         if (this[apiKey]) {
           throw new Error(`API method ${apiKey} is already defined in Player facade`);
         }
@@ -75,15 +85,15 @@ export default class Player {
         Object.defineProperty(
           this,
           apiKey,
-          this._getPublicAPIMethodDescriptor(module, moduleName, module[PUBLIC_API_PROPERTY][apiKey])
+          this._getPlayerAPIMethodDescriptor(module, moduleName, module[PLAYER_API_PROPERTY][apiKey])
         );
       });
     }
   }
 
-  _clearPublicAPIForModule(module) {
-    if (module[PUBLIC_API_PROPERTY]) {
-      Object.keys(module[PUBLIC_API_PROPERTY]).forEach(apiKey => {
+  _clearPlayerAPIForModule(module) {
+    if (module[PLAYER_API_PROPERTY]) {
+      Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
         delete this[apiKey];
       });
     }
@@ -92,13 +102,13 @@ export default class Player {
   destroy() {
     Object.keys(this._defaultModules).forEach(moduleName => {
       const module = this._defaultModules[moduleName];
-      this._clearPublicAPIForModule(module);
+      this._clearPlayerAPIForModule(module);
       module.destroy();
     });
 
     Object.keys(this._additionalModules).forEach(moduleName => {
       const module = this._additionalModules[moduleName];
-
+      this._clearPlayerAPIForModule(module);
       if (module.destroy) {
         module.destroy();
       }

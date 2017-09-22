@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import EventEmitter from 'eventemitter3';
-import { PUBLIC_API_PROPERTY } from '../../utils/public-api-decorator';
+import { PLAYER_API_PROPERTY } from '../../utils/player-api-decorator';
 
 
 import EventEmitterModule from './event-emitter';
@@ -31,11 +31,11 @@ describe('EventEmitterModule' , () => {
 
   describe('public API', () => {
     it('should have "on" method', () => {
-      expect(eventEmitter[PUBLIC_API_PROPERTY].on).to.be.defined;
+      expect(eventEmitter[PLAYER_API_PROPERTY].on).to.be.defined;
     });
 
     it('should have "off" method', () => {
-      expect(eventEmitter[PUBLIC_API_PROPERTY].off).to.be.defined;
+      expect(eventEmitter[PLAYER_API_PROPERTY].off).to.be.defined;
     });
   });
 });

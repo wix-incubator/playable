@@ -1,19 +1,19 @@
 import { expect } from 'chai';
 
-import publicAPI, { PUBLIC_API_PROPERTY } from './public-api-decorator';
+import playerAPI, { PLAYER_API_PROPERTY } from './player-api-decorator';
 
 
-describe('Decorator publicAPI', () => {
+describe('Decorator playerAPI', () => {
   it('should add method to private property in prototype', () => {
     class A {
-      @publicAPI()
+      @playerAPI()
       a() {}
 
-      @publicAPI()
+      @playerAPI()
       b() {}
     }
 
-    expect(A.prototype[PUBLIC_API_PROPERTY]).to.deep.equal({
+    expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'b')
     });
@@ -21,36 +21,36 @@ describe('Decorator publicAPI', () => {
 
   it('should add method to private property in prototype with custom key', () => {
     class A {
-      @publicAPI('b')
+      @playerAPI('b')
       a() {}
     }
 
-    expect(A.prototype[PUBLIC_API_PROPERTY]).to.deep.equal({
+    expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a')
     });
   });
 
   it('should add descriptor if setter or getter', () => {
     class A {
-      @publicAPI('b')
+      @playerAPI('b')
       get a() {}
     }
 
-    expect(A.prototype[PUBLIC_API_PROPERTY]).to.deep.equal({
+    expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a')
     });
   });
 
   it('should add descriptor if setter and getter', () => {
     class A {
-      @publicAPI()
+      @playerAPI()
       get a() {}
 
-      @publicAPI()
+      @playerAPI()
       set a(a) {}
     }
 
-    expect(A.prototype[PUBLIC_API_PROPERTY]).to.deep.equal({
+    expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a')
     });
   });
@@ -58,10 +58,10 @@ describe('Decorator publicAPI', () => {
   it('should throw error if same keys for public API', () => {
     const getWrongDecoratedClassB = () => {
       class B {
-        @publicAPI('b')
+        @playerAPI('b')
         a() {}
 
-        @publicAPI()
+        @playerAPI()
         b() {}
       }
 

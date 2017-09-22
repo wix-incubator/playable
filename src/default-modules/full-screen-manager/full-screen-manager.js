@@ -1,5 +1,5 @@
 import { isIPhone, isIPod, isIPad } from '../../utils/device-detection';
-import publicAPI from '../../utils/public-api-decorator';
+import playerAPI from '../../utils/player-api-decorator';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
@@ -87,7 +87,7 @@ export default class FullScreenManager {
     }
   }
 
-  @publicAPI()
+  @playerAPI()
   enterFullScreen() {
     if (!this.isEnabled) {
       return;
@@ -96,7 +96,7 @@ export default class FullScreenManager {
     this._helper.request();
   }
 
-  @publicAPI()
+  @playerAPI()
   exitFullScreen() {
     if (!this.isEnabled) {
       return;
@@ -105,7 +105,7 @@ export default class FullScreenManager {
     this._helper.exit();
   }
 
-  @publicAPI()
+  @playerAPI()
   get isInFullScreen() {
     if (!this.isEnabled) {
       return false;

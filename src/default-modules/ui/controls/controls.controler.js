@@ -2,7 +2,7 @@ import get from 'lodash/get';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
-import publicAPI from '../../../utils/public-api-decorator';
+import playerAPI from '../../../utils/player-api-decorator';
 
 import View from './controls.view';
 
@@ -205,12 +205,12 @@ export default class ControlBlock {
     this.view.show();
   }
 
-  @publicAPI()
+  @playerAPI()
   setWatchOnSiteLogo(logo) {
     this._watchOnSite.setLogo(logo);
   }
 
-  @publicAPI()
+  @playerAPI()
   setWatchOnSiteAlwaysShowFlag(isShowAlways) {
     this.shouldWatchOnSiteAlwaysShow = isShowAlways;
 
@@ -221,12 +221,12 @@ export default class ControlBlock {
     }
   }
 
-  @publicAPI()
+  @playerAPI()
   removeWatchOnSite() {
     this._watchOnSite.node.parentNode.removeChild(this._watchOnSite.node);
   }
 
-  @publicAPI()
+  @playerAPI()
   setShouldAlwaysShow(flag) {
     this.config.shouldAlwaysShow = flag;
 

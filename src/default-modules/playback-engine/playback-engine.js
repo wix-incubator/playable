@@ -1,4 +1,4 @@
-import publicAPI from '../../utils/public-api-decorator';
+import playerAPI from '../../utils/player-api-decorator';
 
 import StateEngine from './state-engine';
 import NativeEventsBroadcaster from './native-events-broadcaster';
@@ -77,7 +77,7 @@ export default class Engine {
     return this.getAutoPlay();
   }
 
-  @publicAPI()
+  @playerAPI()
   getDebugInfo() {
     const { duration, currentTime } = this._video;
     let data;
@@ -95,12 +95,12 @@ export default class Engine {
     };
   }
 
-  @publicAPI()
+  @playerAPI()
   setInitialBitrate(bitrate) {
     this._mediaStreamStrategy.setInitialBitrate(bitrate);
   }
 
-  @publicAPI()
+  @playerAPI()
   setSrc(src) {
     if (src === this.currentSrc) {
       return;
@@ -114,12 +114,12 @@ export default class Engine {
     this._stateEngine.setState(STATES.SRC_SET);
   }
 
-  @publicAPI()
+  @playerAPI()
   getSrc() {
     return this.currentSrc;
   }
 
-  @publicAPI()
+  @playerAPI()
   goForward(sec) {
     const duration = this.getDurationTime();
 
@@ -129,7 +129,7 @@ export default class Engine {
     }
   }
 
-  @publicAPI()
+  @playerAPI()
   goBackward(sec) {
     const duration = this.getDurationTime();
 
@@ -139,88 +139,88 @@ export default class Engine {
     }
   }
 
-  @publicAPI()
+  @playerAPI()
   decreaseVolume(value) {
     this.setVolume(this.getVolume() - value);
   }
 
-  @publicAPI()
+  @playerAPI()
   increaseVolume(value) {
     this.setVolume(this.getVolume() + value);
   }
 
-  @publicAPI()
+  @playerAPI()
   setAutoPlay(isAutoPlay) {
     this._video.autoplay = Boolean(isAutoPlay);
   }
 
-  @publicAPI()
+  @playerAPI()
   getAutoPlay() {
     return this._video.autoplay;
   }
 
-  @publicAPI()
+  @playerAPI()
   setLoop(isLoop) {
     this._video.loop = Boolean(isLoop);
   }
 
-  @publicAPI()
+  @playerAPI()
   getLoop() {
     return this._video.loop;
   }
 
-  @publicAPI()
+  @playerAPI()
   setMute(isMuted) {
     this._video.muted = Boolean(isMuted);
   }
 
-  @publicAPI()
+  @playerAPI()
   getMute() {
     return this._video.muted;
   }
 
-  @publicAPI()
+  @playerAPI()
   setVolume(volume) {
     const parsedVolume = Number(volume);
     this._video.volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume) / 100, 1));
   }
 
-  @publicAPI()
+  @playerAPI()
   getVolume() {
     return this._video.volume * 100;
   }
 
-  @publicAPI()
+  @playerAPI()
   setPlaybackRate(rate) {
     this._video.playbackRate = rate;
   }
 
-  @publicAPI()
+  @playerAPI()
   getPlaybackRate() {
     return this._video.playbackRate;
   }
 
-  @publicAPI()
+  @playerAPI()
   setPreload(preload) {
     this._video.preload = preload || 'auto';
   }
 
-  @publicAPI()
+  @playerAPI()
   getPreload() {
     return this._video.preload;
   }
 
-  @publicAPI()
+  @playerAPI()
   getCurrentTime() {
     return this._video.currentTime;
   }
 
-  @publicAPI('goTo')
+  @playerAPI('goTo')
   setCurrentTime(time) {
     this._video.currentTime = time;
   }
 
-  @publicAPI()
+  @playerAPI()
   getDurationTime() {
     return this._video.duration || 0;
   }
@@ -229,24 +229,24 @@ export default class Engine {
     return this._video.buffered;
   }
 
-  @publicAPI()
+  @playerAPI()
   setPlayInline(isPlayInline) {
     if (isPlayInline) {
       this._video.setAttribute('playsInline', isPlayInline);
     }
   }
 
-  @publicAPI()
+  @playerAPI()
   getPlayInline() {
     return this._video.getAttribute('playsInline');
   }
 
-  @publicAPI('getCurrentPlaybackState')
+  @playerAPI('getCurrentPlaybackState')
   getCurrentState() {
     return this._stateEngine.getState();
   }
 
-  @publicAPI()
+  @playerAPI()
   play() {
     //Workaround for triggering functionality that requires user event pipe
     this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
@@ -271,7 +271,7 @@ export default class Engine {
     }
   }
 
-  @publicAPI()
+  @playerAPI()
   pause() {
     if (this._playPromise) {
       this._pauseRequested = true;
@@ -281,7 +281,7 @@ export default class Engine {
     }
   }
 
-  @publicAPI()
+  @playerAPI()
   togglePlayback() {
     const state = this.getCurrentState();
 

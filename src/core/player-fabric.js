@@ -29,5 +29,5 @@ export default function create(params = {}) {
   //const rootNode = document.createElement('div');
   //rootNode.setAttribute('tabindex', 0);
 
-  return new PlayerFacade(params, scope, defaultModules, additionalModuleNames);
+  return new PlayerFacade(params, scope, defaultModules, additionalModules);
 }

@@ -5,13 +5,14 @@ import sinon from 'sinon';
 import mapParamsToConfig from './config-mapper';
 import Player from './player-facade';
 import DependencyContainer from './dependency-container';
-import publicAPI from '../utils/public-api-decorator';
+import playerAPI from '../utils/player-api-decorator';
 
 
 describe('Player\'s instance', () => {
   let container;
   let player;
   let defaultModules;
+  let additionalModules;
 
   beforeEach(() => {
     container = DependencyContainer.createContainer();
@@ -86,7 +87,7 @@ describe('Player\'s instance', () => {
 
       container.registerClass('ClassB', ClassB);
 
-      player = new Player({}, container, {}, ['ClassB']);
+      player = new Player({}, container, {}, { ClassB });
 
       expect(resolveSpy.calledWith('ClassB')).to.be.true;
     });
@@ -101,7 +102,7 @@ describe('Player\'s instance', () => {
 
       container.registerClass('ClassA', ClassA);
 
-      player = new Player({}, container, {}, ['ClassA']);
+      player = new Player({}, container, {}, { ClassA });
       player.destroy();
 
       expect(destroySpy.called).to.be.true;
@@ -120,17 +121,17 @@ describe('Player\'s instance', () => {
       methodBSpy = sinon.spy();
 
       ClassA = class A {
-        @publicAPI()
+        @playerAPI()
         methodA() {
           methodASpy();
         }
 
-        @publicAPI()
+        @playerAPI()
         get methodC() {
 
         }
 
-        @publicAPI()
+        @playerAPI()
         set methodC(a) {
 
         }
@@ -139,7 +140,7 @@ describe('Player\'s instance', () => {
       };
 
       ClassB = class B {
-        @publicAPI()
+        @playerAPI()
         methodB() {
           methodBSpy();
         }
@@ -148,7 +149,7 @@ describe('Player\'s instance', () => {
       };
 
       ClassC = class C {
-        @publicAPI('methodA')
+        @playerAPI('methodA')
         methodA() {}
 
         destroy() {}
@@ -176,6 +177,17 @@ describe('Player\'s instance', () => {
 
       expect(player.methodA).to.be.defined;
       expect(player.methodB).to.be.defined;
+    });
+
+    it('should be constructed from additional modules', () => {
+      container.registerClass('ClassA', ClassA);
+      additionalModules = {
+        ClassA
+      };
+      player = new Player({}, container, {}, additionalModules);
+
+      expect(player.methodA).to.be.defined;
+      expect(player.methodC).to.be.defined;
     });
 
     it('methods should call proper methods from modules', () => {

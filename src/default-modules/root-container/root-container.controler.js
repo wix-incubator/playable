@@ -2,7 +2,7 @@ import { ElementQueries } from 'css-element-queries';
 import focusSource from '../../utils/focus-source';
 import focusWithin from '../../utils/focus-within';
 
-import publicAPI from '../../utils/public-api-decorator';
+import playerAPI from '../../utils/player-api-decorator';
 
 import { UI_EVENTS } from '../../constants/index';
 
@@ -34,7 +34,7 @@ class RootContainer {
     this._bindEvents();
   }
 
-  @publicAPI()
+  @playerAPI()
   get node() {
     return this.view.getNode();
   }
@@ -103,7 +103,7 @@ class RootContainer {
     }
   }
 
-  @publicAPI()
+  @playerAPI()
   attachToElement(node) {
     this._enableFocusInterceptors();
 
@@ -111,39 +111,39 @@ class RootContainer {
     ElementQueries.init();
   }
 
-  @publicAPI()
+  @playerAPI()
   hide() {
     this.isHidden = true;
     this.view.hide();
   }
 
-  @publicAPI()
+  @playerAPI()
   show() {
     this.isHidden = false;
     this.view.show();
   }
 
-  @publicAPI()
+  @playerAPI()
   setWidth(width) {
     this.view.setWidth(width);
   }
 
-  @publicAPI()
+  @playerAPI()
   setHeight(height) {
     this.view.setHeight(height);
   }
 
-  @publicAPI()
+  @playerAPI()
   getWidth() {
     return this.view.getWidth();
   }
 
-  @publicAPI()
+  @playerAPI()
   getHeight() {
     return this.view.getHeight();
   }
 
-  @publicAPI()
+  @playerAPI()
   setFillAllSpace(flag) {
     this.view.setFillAllSpaceFlag(flag);
   }
