@@ -1,6 +1,6 @@
 import VIDEO_EVENTS from 'video-player/dist/src/constants/events/video';
 import STATES from 'video-player/dist/src/constants/engine-states';
-import publicAPI from 'video-player/dist/src/utils/public-api-decorator';
+import playerAPI from 'video-player/dist/src/utils/player-api-decorator';
 
 import Card from './card/card';
 import styles from './cards-module.scss';
@@ -8,11 +8,11 @@ import styles from './cards-module.scss';
 const CARDS_UPDATE_INTERVAL = 100;
 
 export default class CardsModule {
-  static dependencies = ['eventEmitter', 'screen', 'engine'];
+  static dependencies = ['eventEmitter', 'rootContainer', 'engine'];
 
-  constructor({ eventEmitter, screen, engine }) {
+  constructor({ eventEmitter, rootContainer, engine }) {
     this.eventEmitter = eventEmitter;
-    this.screen = screen;
+    this.rootContainer = rootContainer;
     this.engine = engine;
 
     this.cards = [];
@@ -26,16 +26,16 @@ export default class CardsModule {
   initContainer() {
     this.cardsContainer = document.createElement('div');
     this.cardsContainer.className = styles.container;
-    this.screen.view.appendComponentNode(this.cardsContainer);
+    this.rootContainer.view.appendComponentNode(this.cardsContainer);
   }
 
-  @publicAPI()
+  @playerAPI()
   addCard(cardData) {
     const card = new Card(cardData);
     this.cards.push(card);
   }
 
-  @publicAPI()
+  @playerAPI()
   addCards(cards) {
     cards.forEach(card => this.addCard(card));
   }
