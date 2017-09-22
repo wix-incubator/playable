@@ -98,18 +98,36 @@ export default class DashStream {
     this.dashPlayer = MediaPlayer().create();
     this.dashPlayer.getDebug().setLogToBrowserConsole(false);
     this.dashPlayer.on(DashEvents.ERROR, this.onError);
+
     if (videoElement.preload === 'none') {
-      this.dashPlayer.setScheduleWhilePaused(true);
-      videoElement.addEventListener('play', this.attachOnPlay);
+      this.startDelayedInitPlayer();
     } else {
-      this.dashPlayer.initialize(videoElement, this.mediaStream.url, videoElement.autoplay);
-      if (this._initialBitrate) {
-        this.dashPlayer.setInitialBitrateFor('video', this._initialBitrate);
-      }
+      this.initPlayer();
+    }
+  }
+
+  delayedInitPlayer() {
+    this.stopDelayedInitPlayer();
+    this.initPlayer(true);
+  }
+
+  startDelayedInitPlayer() {
+    this.eventEmitter.on(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this.delayedInitPlayer, this);
+  }
+
+  stopDelayedInitPlayer() {
+    this.eventEmitter.off(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this.delayedInitPlayer, this);
+  }
+
+  initPlayer(forceAutoplay) {
+    this.dashPlayer.initialize(this.videoElement, this.mediaStream.url, forceAutoplay || this.videoElement.autoplay);
+    if (this._initialBitrate) {
+      this.dashPlayer.setInitialBitrateFor('video', this._initialBitrate);
     }
   }
 
   detach() {
+    this.stopDelayedInitPlayer();
     if (!this.mediaStream) {
       return;
     }
