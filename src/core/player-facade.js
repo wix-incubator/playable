@@ -44,8 +44,8 @@ export default class Player {
 
   _getWrappedCallToModuleFunction(module, moduleName, fn) {
     return (...args) => {
-      if (!this._defaultModules || !this._defaultModules[moduleName]) {
-        return;
+      if (this._destroyed) {
+        throw new Error('Player instance is destroyed');
       }
 
       return fn.apply(module, args);
@@ -117,5 +117,7 @@ export default class Player {
     delete this._defaultModules;
     delete this._additionalModules;
     delete this._config;
+
+    this._destroyed = true;
   }
 }

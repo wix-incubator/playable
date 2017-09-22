@@ -194,11 +194,19 @@ describe('Player\'s instance', () => {
       defaultModules = {
         ClassA
       };
+      additionalModules = {
+        ClassB
+      };
       container.registerClass('ClassA', ClassA);
+      container.registerClass('ClassB', ClassB);
 
-      player = new Player({}, container, defaultModules);
+
+      player = new Player({}, container, defaultModules, additionalModules);
       player.methodA();
+      player.methodB();
+
       expect(methodASpy.called).to.be.true;
+      expect(methodBSpy.called).to.be.true;
     });
 
     it('should throw error on duplicate method in API', () => {
@@ -239,8 +247,7 @@ describe('Player\'s instance', () => {
         const methodA = player.methodA;
 
         player.destroy();
-        methodA();
-        expect(methodASpy.called).to.be.false;
+        expect(methodA).to.throw('Player instance is destroyed');
       });
     });
   });
