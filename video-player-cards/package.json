@@ -36,10 +36,10 @@
   },
   "yoshi": {
     "separateCss": false,
-    "exports": "SingularModule",
+    "exports": "CardsModuleDemo",
     "entry": {
-      "singular-module": "./index.js",
-      "player-with-module": "./registered-module.js"
+      "cards-module": "./index.js",
+      "demo": "./demo.js"
     },
     "externalUnprocessedModules": [
       "ally.js",
