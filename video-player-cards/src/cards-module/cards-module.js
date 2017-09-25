@@ -25,6 +25,7 @@ export default class CardsModule {
 
   initContainer() {
     this.cardsContainer = new CardsContainer();
+
     this.rootContainer.appendComponentNode(this.cardsContainer.node);
   }
 
@@ -37,12 +38,17 @@ export default class CardsModule {
 
     this.eventEmitter.on(
       UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
-      this.cardsContainer.moveContainerToBottom,
+      this.cardsContainer.onControlsHidded,
       this.cardsContainer
     );
     this.eventEmitter.on(
       UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
-      this.cardsContainer.moveContainerToTop,
+      this.cardsContainer.onControlsShowed,
+      this.cardsContainer
+    );
+    this.eventEmitter.on(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.cardsContainer.checkNeedsOfCarousel,
       this.cardsContainer
     );
   }
@@ -52,12 +58,17 @@ export default class CardsModule {
 
     this.eventEmitter.off(
       UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
-      this.cardsContainer.moveContainerToBottom,
+      this.cardsContainer.onControlsHidded,
       this.cardsContainer
     );
     this.eventEmitter.off(
       UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
-      this.cardsContainer.moveContainerToTop,
+      this.cardsContainer.onControlsShowed,
+      this.cardsContainer
+    );
+    this.eventEmitter.off(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.cardsContainer.checkNeedsOfCarousel,
       this.cardsContainer
     );
   }

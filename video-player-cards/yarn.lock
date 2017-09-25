@@ -3899,7 +3899,7 @@ jasminewd2@^2.1.0:
   version "2.1.0"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/jasminewd2/-/jasminewd2-2.1.0.tgz#da595275d1ae631de736ac0a7c7d85c9f73ef652"
 
-jbone@^1.2.0:
+jbone@^1.2.0, jbone@^1.2.1:
   version "1.2.1"
   resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/jbone/-/jbone-1.2.1.tgz#7b14b2b18f7d3f3ef3f01c9ec9de71e0c98324fc"
 
