@@ -19,7 +19,7 @@ export default class Card {
   initContainer() {
     this.node = document.createElement('div');
     this.node.className = styles.container;
-    this.node.append(this.contentNode);
+    this.node.appendChild(this.contentNode);
   }
 
   shouldBeShownAt(time) {

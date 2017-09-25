@@ -78,7 +78,7 @@ export default class CardsContainer {
     card.appear();
 
     this.cards.push(card);
-    this.$node[0].prepend(card.node);
+    this.$node[0].insertBefore(card.node, this.$node[0].firstElementChild);
 
     this.checkNeedsOfCarousel();
   }
@@ -113,7 +113,7 @@ export default class CardsContainer {
   }
 
   slideNextCard() {
-    this.$node[0].prepend(this.$node[0].lastElementChild);
+    this.$node[0].insertBefore(this.$node[0].lastElementChild, this.$node[0].firstElementChild);
   }
 
   startCarousel() {
