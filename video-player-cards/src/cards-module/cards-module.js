@@ -1,9 +1,9 @@
-import VIDEO_EVENTS from 'video-player/dist/src/constants/events/video';
-import STATES from 'video-player/dist/src/constants/engine-states';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from 'video-player/dist/src/constants';
 import playerAPI from 'video-player/dist/src/utils/player-api-decorator';
 
 import Card from './card/card';
-import styles from './cards-module.scss';
+import CardsContainer from './cards-container/cards-container';
+
 
 const CARDS_UPDATE_INTERVAL = 100;
 
@@ -16,17 +16,50 @@ export default class CardsModule {
     this.engine = engine;
 
     this.cards = [];
+
     this.initContainer();
 
-    this.handlePlayerStateChange = this.handlePlayerStateChange.bind(this);
-
-    eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this.handlePlayerStateChange);
+    this.bindCallbacks();
+    this.bindEvents();
   }
 
   initContainer() {
-    this.cardsContainer = document.createElement('div');
-    this.cardsContainer.className = styles.container;
-    this.rootContainer.view.appendComponentNode(this.cardsContainer);
+    this.cardsContainer = new CardsContainer();
+    this.rootContainer.appendComponentNode(this.cardsContainer.node);
+  }
+
+  bindCallbacks() {
+    this.updateCardsState = this.updateCardsState.bind(this);
+  }
+
+  bindEvents() {
+    this.eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this.handlePlayerStateChange, this);
+
+    this.eventEmitter.on(
+      UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
+      this.cardsContainer.moveContainerToBottom,
+      this.cardsContainer
+    );
+    this.eventEmitter.on(
+      UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
+      this.cardsContainer.moveContainerToTop,
+      this.cardsContainer
+    );
+  }
+
+  unbindEvents() {
+    this.eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this.handlePlayerStateChange, this);
+
+    this.eventEmitter.off(
+      UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
+      this.cardsContainer.moveContainerToBottom,
+      this.cardsContainer
+    );
+    this.eventEmitter.off(
+      UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
+      this.cardsContainer.moveContainerToTop,
+      this.cardsContainer
+    );
   }
 
   @playerAPI()
@@ -41,15 +74,16 @@ export default class CardsModule {
   }
 
   showCard(card) {
-    this.cardsContainer.prepend(card.node);
+    this.cardsContainer.addCard(card);
   }
 
   hideCard(card) {
-    this.cardsContainer.removeChild(card.node);
+    this.cardsContainer.removeCard(card);
   }
 
   startTimeTracking() {
-    this.trackingInterval = setInterval(this.handleTimeUpdated.bind(this), CARDS_UPDATE_INTERVAL);
+    this.stopTimeTracking();
+    this.trackingInterval = setInterval(this.updateCardsState, CARDS_UPDATE_INTERVAL);
   }
 
   stopTimeTracking() {
@@ -60,16 +94,14 @@ export default class CardsModule {
     switch (nextState) {
       case STATES.PLAYING: return this.startTimeTracking();
       case STATES.PAUSED: return this.stopTimeTracking();
+      case STATES.SEEK_IN_PROGRESS: return this.updateCardsState();
       default: return;
     }
   }
 
-  handleTimeUpdated() {
+  updateCardsState() {
     const currentTime = this.engine.getCurrentTime();
-    this.updateCardsState(currentTime);
-  }
 
-  updateCardsState(currentTime) {
     this.cards.forEach(card => {
       this.updateCardState(card, currentTime);
     });
@@ -78,27 +110,19 @@ export default class CardsModule {
   updateCardState(card, currentTime) {
     if (!card.isDisplayed && card.shouldBeShownAt(currentTime)) {
       this.showCard(card);
-      card.setDisplayed(true);
     }
 
     if (card.isDisplayed && !card.shouldBeShownAt(currentTime)) {
       this.hideCard(card);
-      card.setDisplayed(false);
     }
   }
 
-  getOccupiedWidth() {
-    const children = this.cardsContainer.children;
-    let occupiedWidth = 0;
-
-    children.forEach(child => {
-      occupiedWidth += child.offsetWidth;
-    });
-
-    return occupiedWidth;
-  }
-
   destroy() {
-    this.eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this.handlePlayerStateChange);
+    this.cardsContainer.destroy();
+
+    this.stopTimeTracking();
+    this.unbindEvents();
+
+    delete this.cardsContainer;
   }
 }

@@ -12,6 +12,39 @@ export function getDemoCards() {
     }
   };
 
+  const card11Node = document.createElement('div');
+  card11Node.className = styles.card3;
+
+  const card11 = {
+    contentNode: card11Node,
+    appearance: {
+      duration: 10,
+      start: 0
+    }
+  };
+
+  const card111Node = document.createElement('div');
+  card111Node.className = styles.card4;
+
+  const card111 = {
+    contentNode: card111Node,
+    appearance: {
+      duration: 10,
+      start: 0
+    }
+  };
+
+  const card1111Node = document.createElement('div');
+  card1111Node.className = styles.card5;
+
+  const card1111 = {
+    contentNode: card1111Node,
+    appearance: {
+      duration: 10,
+      start: 0
+    }
+  };
+
   const card2Node = document.createElement('div');
   card2Node.className = styles.card2;
 
@@ -56,6 +89,6 @@ export function getDemoCards() {
     }
   };
 
-  return [card1, card2, card3, card4, card5];
+  return [card1, card11, card111, card1111, card2, card3, card4, card5];
 }
 

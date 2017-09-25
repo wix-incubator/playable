@@ -7352,8 +7352,8 @@ verror@1.10.0:
     extsprintf "^1.2.0"
 
 video-player@^1.0.403:
-  version "1.0.403"
-  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/video-player/-/video-player-1.0.403.tgz#7c8e5936080186f69a4da7a2e9692dc9d177263f"
+  version "1.0.413"
+  resolved "https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/video-player/-/video-player-1.0.413.tgz#240bf96a6b2f84e3640b39881488e35dc8f0ece3"
   dependencies:
     classnames "^2.2.5"
     core-js "^2.4.1"

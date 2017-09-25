@@ -1,7 +1,7 @@
 import styles from './card.scss';
 
-export default class Card {
 
+export default class Card {
   constructor({ contentNode, appearance }) {
     this.contentNode = contentNode;
     this.isDisplayed = false;
@@ -28,5 +28,15 @@ export default class Card {
 
   setDisplayed(isDisplayed) {
     this.isDisplayed = isDisplayed;
+  }
+
+  appear() {
+    this.setDisplayed(true);
+    this.node.className = `${styles.container} ${styles.appeared}`;
+  }
+
+  disappear() {
+    this.setDisplayed(false);
+    this.node.className = `${styles.container} ${styles.disappeared}`;
   }
 }
