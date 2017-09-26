@@ -37,7 +37,9 @@ const UI_EVENTS = {
   UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-unmute-sound-with-keyboard-triggered',
   TAB_WITH_KEYBOARD_TRIGGERED: 'ui-tab-with-keyboard-triggered',
   HIDE_MANIPULATION_INDICATOR_TRIGGERED: 'ui-hide-manipulation-indicator-triggered',
-  DEBUG_PANEL_TRIGGERED: 'ui-debug-panel-triggered'
+  DEBUG_PANEL_TRIGGERED: 'ui-debug-panel-triggered',
+  PLAYER_WIDTH_CHANGE_TRIGGERED: 'ui-player-width-change-triggered',
+  PLAYER_HEIGHT_CHANGE_TRIGGERED: 'ui-player-height-change-triggered'
 };
 
 export default UI_EVENTS;

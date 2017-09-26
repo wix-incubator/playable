@@ -126,11 +126,13 @@ class RootContainer {
   @playerAPI()
   setWidth(width) {
     this.view.setWidth(width);
+    this._eventEmitter.emit(UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED, width);
   }
 
   @playerAPI()
   setHeight(height) {
     this.view.setHeight(height);
+    this._eventEmitter.emit(UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED, height);
   }
 
   @playerAPI()
