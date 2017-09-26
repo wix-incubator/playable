@@ -50,7 +50,7 @@ export default class CardsContainer {
     this.$node.addClass(styles['controls-showed']);
   }
 
-  onControlsHidded() {
+  onControlsHided() {
     this.$node.removeClass(styles['controls-showed']);
   }
 
@@ -97,6 +97,11 @@ export default class CardsContainer {
   }
 
   checkNeedsOfCarousel() {
+    if (!this.cards.length) {
+      this.stopCarousel();
+      return;
+    }
+
     let occupiedWidth = 0;
 
     this.cards.forEach(card => {

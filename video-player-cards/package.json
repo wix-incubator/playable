@@ -35,7 +35,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "husky": "^0.13.4",
-    "yoshi": "latest"
+    "yoshi": "^1.1.267"
   },
   "yoshi": {
     "separateCss": false,

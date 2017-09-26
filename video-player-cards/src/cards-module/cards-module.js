@@ -38,7 +38,7 @@ export default class CardsModule {
 
     this.eventEmitter.on(
       UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
-      this.cardsContainer.onControlsHidded,
+      this.cardsContainer.onControlsHided,
       this.cardsContainer
     );
     this.eventEmitter.on(
@@ -46,8 +46,19 @@ export default class CardsModule {
       this.cardsContainer.onControlsShowed,
       this.cardsContainer
     );
+    console.log(UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED);
     this.eventEmitter.on(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer
+    );
+    this.eventEmitter.on(
+      UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED,
+      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer
+    );
+    this.eventEmitter.on(
+      UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED,
       this.cardsContainer.checkNeedsOfCarousel,
       this.cardsContainer
     );
@@ -58,7 +69,7 @@ export default class CardsModule {
 
     this.eventEmitter.off(
       UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
-      this.cardsContainer.onControlsHidded,
+      this.cardsContainer.onControlsHided,
       this.cardsContainer
     );
     this.eventEmitter.off(
@@ -66,8 +77,19 @@ export default class CardsModule {
       this.cardsContainer.onControlsShowed,
       this.cardsContainer
     );
+
     this.eventEmitter.off(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer
+    );
+    this.eventEmitter.off(
+      UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED,
+      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer
+    );
+    this.eventEmitter.off(
+      UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED,
       this.cardsContainer.checkNeedsOfCarousel,
       this.cardsContainer
     );
