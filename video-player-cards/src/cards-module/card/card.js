@@ -28,15 +28,24 @@ export default class Card {
 
   setDisplayed(isDisplayed) {
     this.isDisplayed = isDisplayed;
+    this.node.setAttribute('data-is-displayed', isDisplayed);
   }
 
   appear() {
     this.setDisplayed(true);
-    this.node.className = `${styles.container} ${styles.appeared}`;
+    this.show();
   }
 
   disappear() {
     this.setDisplayed(false);
-    this.node.className = `${styles.container} ${styles.disappeared}`;
+    this.hide();
+  }
+
+  show() {
+    this.node.className = `${styles.container} ${styles.shown}`;
+  }
+
+  hide() {
+    this.node.className = `${styles.container} ${styles.hidden}`;
   }
 }

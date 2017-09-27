@@ -1,31 +1,31 @@
 .container {
   padding: 6px;
 
-  &.appeared {
-    animation-name: appear;
+  &.shown {
+    animation-name: show;
     animation-duration: .2s;
 
     opacity: 1;
   }
 
-  &.disappeared {
-    animation-name: disappear;
+  &.hidden {
+    animation-name: hide;
     animation-duration: .2s;
 
     opacity: 0;
   }
 }
 
-@keyframes appear {
+@keyframes show {
   from {
     opacity: 0;
   }
   to {
-    opacity: 1;
+    height: auto;
   }
 }
 
-@keyframes disappear {
+@keyframes hide {
   from {
     opacity: 1;
   }

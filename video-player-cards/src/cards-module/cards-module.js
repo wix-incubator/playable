@@ -49,17 +49,17 @@ export default class CardsModule {
 
     this.eventEmitter.on(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer.checkCardsToShow,
       this.cardsContainer
     );
     this.eventEmitter.on(
       UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED,
-      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer.checkCardsToShow,
       this.cardsContainer
     );
     this.eventEmitter.on(
       UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED,
-      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer.checkCardsToShow,
       this.cardsContainer
     );
   }
@@ -80,17 +80,17 @@ export default class CardsModule {
 
     this.eventEmitter.off(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer.checkCardsToShow,
       this.cardsContainer
     );
     this.eventEmitter.off(
       UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED,
-      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer.checkCardsToShow,
       this.cardsContainer
     );
     this.eventEmitter.off(
       UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED,
-      this.cardsContainer.checkNeedsOfCarousel,
+      this.cardsContainer.checkCardsToShow,
       this.cardsContainer
     );
   }

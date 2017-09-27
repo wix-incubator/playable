@@ -5,8 +5,13 @@ const CAROUSEL_INTERVAL = 4000;
 const CARD_REMOVE_TIMEOUT = 200;
 
 export const DIRECTIONS = {
-  LEFT_TO_RIGHT: 'direction-left-to-right',
-  RIGHT_TO_LEFT: 'direction-right-to-left'
+  STANDARD: 'direction-standard',
+  REVERSE: 'direction-reserve'
+};
+
+export const FLOW_TYPE = {
+  VERTICAL: 'flow-vertical',
+  HORIZONTAL: 'flow-horizontal'
 };
 
 export const ANCHOR_POINTS = {
@@ -26,7 +31,8 @@ export default class CardsContainer {
 
     this.initUI();
 
-    this.setDirection(DIRECTIONS.LEFT_TO_RIGHT);
+    this.setDirection(DIRECTIONS.STANDARD);
+    this.setFlowType(FLOW_TYPE.HORIZONTAL);
     this.setAnchorPoint(ANCHOR_POINTS.BOTTOM_LEFT);
   }
 
@@ -68,51 +74,79 @@ export default class CardsContainer {
     this.node.classList.add(styles[this.anchorPoint]);
   }
 
-  addCard(card) {
-    card.appear();
+  setFlowType(newFlowType) {
+    this.flowType = newFlowType;
 
-    this.cards.push(card);
+    Object.keys(FLOW_TYPE).forEach(type => {
+      this.node.classList.remove(styles[type]);
+    });
+
+    this.node.classList.add(styles[this.flowType]);
+  }
+
+  addCard(card) {
+    card.setDisplayed(true);
+
+    this.cards.unshift(card);
+
     this.node.insertBefore(card.node, this.node.firstElementChild);
 
-    this.checkNeedsOfCarousel();
+    this.checkCardsToShow();
   }
 
   removeCard(card) {
     card.disappear();
 
     this.cards.splice(this.cards.indexOf(card), 1);
+
     setTimeout(() => {
-      if (this.node && card.node.parentNode === this.node) {
+      if (!card.isDisplayed && card.node && card.node.parentNode === this.node) {
         this.node.removeChild(card.node);
       }
     }, CARD_REMOVE_TIMEOUT);
 
-    this.checkNeedsOfCarousel();
-  }
-
-  checkNeedsOfCarousel() {
-    if (!this.cards.length) {
-      this.stopCarousel();
-      return;
-    }
-
-    let occupiedWidth = 0;
-
-    this.cards.forEach(card => {
-      if (card.isDisplayed) {
-        occupiedWidth += card.node.offsetWidth;
-      }
-    });
-
-    if (occupiedWidth > this.node.offsetWidth) {
-      this.startCarousel();
-    } else {
-      this.stopCarousel();
-    }
+    this.checkCardsToShow();
   }
 
   slideNextCard() {
     this.node.insertBefore(this.node.lastElementChild, this.node.firstElementChild);
+
+    this.cards.unshift(this.cards.pop());
+    this.checkCardsToShow();
+  }
+
+  checkCardsToShow() {
+    let occupiedSize = 0;
+    let allCardsShown = true;
+    const availableSize = (this.flowType === FLOW_TYPE.HORIZONTAL) ? this.node.offsetWidth : this.node.offsetHeight;
+
+    this.cards
+      .forEach((currentCard, childIndex) => {
+        const cardNode = currentCard.node;
+
+        if (this.flowType === FLOW_TYPE.HORIZONTAL) {
+          occupiedSize += cardNode.offsetWidth;
+        } else {
+          occupiedSize += cardNode.offsetHeight;
+        }
+
+        if (occupiedSize > availableSize) {
+          if (childIndex === 0) {
+            currentCard.show();
+          } else {
+            currentCard.hide();
+            allCardsShown = false;
+          }
+        } else {
+          currentCard.show();
+        }
+      });
+
+    if (allCardsShown) {
+      this.stopCarousel();
+    } else {
+      this.startCarousel();
+    }
   }
 
   startCarousel() {
