@@ -15,7 +15,9 @@
     "start": "yoshi start --entry-point=./server/start-fake-server.js",
     "build": ":",
     "lint": "yoshi lint",
-    "precommit": "yoshi lint",
+    "csscomb": "csscomb src/.",
+    "csscomb:lint": "csscomb -lv src/.",
+    "precommit": "yoshi lint && yoshi csscomb:lint",
     "pretest": "yoshi build",
     "test": "yoshi test",
     "posttest": "yoshi lint",
@@ -33,6 +35,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-runtime": "^6.22.0",
     "chai": "^3.5.0",
+    "csscomb": "^4.2.0",
     "husky": "^0.13.4",
     "yoshi": "^1.1.267"
   },
