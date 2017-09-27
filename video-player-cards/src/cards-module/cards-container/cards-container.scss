@@ -43,36 +43,36 @@ $container-margin-full-screen: 24px;
     margin: 0 $container-margin-full-screen;
   }
 
-  &.flow-vertical {
-    &.direction-standard {
+  &[data-flow-type='flow-vertical'] {
+    &[data-direction='direction-standard'] {
       flex-direction: column;
     }
 
-    &.direction-reverse {
+    &[data-direction='direction-reverse'] {
       flex-direction: column-reverse;
     }
   }
 
-  &.flow-horizontal {
-    &.direction-standard {
+  &[data-flow-type='flow-horizontal'] {
+    &[data-direction='direction-standard'] {
       flex-direction: row;
     }
 
-    &.direction-reserve {
+    &[data-direction='direction-reverse'] {
       flex-direction: row-reverse;
     }
   }
 
-  &.anchor-top-left {
+  &[data-anchor-point='anchor-top-left'] {
     left: 0;
   }
 
-  &.anchor-top-right {
+  &[data-anchor-point='anchor-top-right'] {
     right: 0;
   }
 
-  &.anchor-top-left,
-  &.anchor-top-right {
+  &[data-anchor-point='anchor-top-left'],
+  &[data-anchor-point='anchor-top-right'] {
     top: 12px;
 
     @include max-width-550() {
@@ -83,16 +83,16 @@ $container-margin-full-screen: 24px;
     }
   }
 
-  &.anchor-bottom-left {
+  &[data-anchor-point='anchor-bottom-left'] {
     left: 0;
   }
 
-  &.anchor-bottom-right {
+  &[data-anchor-point='anchor-bottom-right'] {
     right: 0;
   }
 
-  &.anchor-bottom-right,
-  &.anchor-bottom-left {
+  &[data-anchor-point='anchor-bottom-left'],
+  &[data-anchor-point='anchor-bottom-right'] {
     bottom: $container-margin-more-550px;
 
     @include max-width-550() {

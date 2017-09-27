@@ -106,6 +106,21 @@ export default class CardsModule {
     cards.forEach(card => this.addCard(card));
   }
 
+  @playerAPI()
+  setFlow(flow) {
+    this.cardsContainer.setFlowType(flow);
+  }
+
+  @playerAPI()
+  setAnchor(anchor) {
+    this.cardsContainer.setAnchorPoint(anchor);
+  }
+
+  @playerAPI()
+  setDirection(direction) {
+    this.cardsContainer.setDirection(direction);
+  }
+
   showCard(card) {
     this.cardsContainer.addCard(card);
   }

@@ -1,25 +1,8 @@
 import styles from './cards-container.scss';
-
+import { DIRECTIONS, FLOW_TYPES, ANCHOR_POINTS } from '../constants';
 
 const CAROUSEL_INTERVAL = 4000;
 const CARD_REMOVE_TIMEOUT = 200;
-
-export const DIRECTIONS = {
-  STANDARD: 'direction-standard',
-  REVERSE: 'direction-reserve'
-};
-
-export const FLOW_TYPE = {
-  VERTICAL: 'flow-vertical',
-  HORIZONTAL: 'flow-horizontal'
-};
-
-export const ANCHOR_POINTS = {
-  TOP_LEFT: 'anchor-top-left',
-  TOP_RIGHT: 'anchor-top-right',
-  BOTTOM_LEFT: 'anchor-bottom-left',
-  BOTTOM_RIGHT: 'anchor-bottom-right'
-};
 
 export default class CardsContainer {
   static dependencies = ['eventEmitter', 'rootContainer', 'engine'];
@@ -32,7 +15,7 @@ export default class CardsContainer {
     this.initUI();
 
     this.setDirection(DIRECTIONS.STANDARD);
-    this.setFlowType(FLOW_TYPE.HORIZONTAL);
+    this.setFlowType(FLOW_TYPES.HORIZONTAL);
     this.setAnchorPoint(ANCHOR_POINTS.BOTTOM_LEFT);
   }
 
@@ -55,33 +38,35 @@ export default class CardsContainer {
   }
 
   setDirection(newDirection) {
+    if (newDirection === this.direction) {
+      return;
+    }
+
     this.direction = newDirection;
 
-    Object.keys(DIRECTIONS).forEach(direction => {
-      this.node.classList.remove(styles[direction]);
-    });
-
-    this.node.classList.add(styles[this.direction]);
+    this.node.setAttribute('data-direction', this.direction);
   }
 
   setAnchorPoint(newPoint) {
+    if (newPoint === this.anchorPoint) {
+      return;
+    }
+
     this.anchorPoint = newPoint;
 
-    Object.keys(ANCHOR_POINTS).forEach(point => {
-      this.node.classList.remove(styles[point]);
-    });
-
-    this.node.classList.add(styles[this.anchorPoint]);
+    this.node.setAttribute('data-anchor-point', this.anchorPoint);
   }
 
   setFlowType(newFlowType) {
+    if (newFlowType === this.flowType) {
+      return;
+    }
+
     this.flowType = newFlowType;
 
-    Object.keys(FLOW_TYPE).forEach(type => {
-      this.node.classList.remove(styles[type]);
-    });
+    this.node.setAttribute('data-flow-type', this.flowType);
 
-    this.node.classList.add(styles[this.flowType]);
+    this.checkCardsToShow();
   }
 
   addCard(card) {
@@ -118,13 +103,13 @@ export default class CardsContainer {
   checkCardsToShow() {
     let occupiedSize = 0;
     let allCardsShown = true;
-    const availableSize = (this.flowType === FLOW_TYPE.HORIZONTAL) ? this.node.offsetWidth : this.node.offsetHeight;
+    const availableSize = (this.flowType === FLOW_TYPES.HORIZONTAL) ? this.node.offsetWidth : this.node.offsetHeight;
 
     this.cards
       .forEach((currentCard, childIndex) => {
         const cardNode = currentCard.node;
 
-        if (this.flowType === FLOW_TYPE.HORIZONTAL) {
+        if (this.flowType === FLOW_TYPES.HORIZONTAL) {
           occupiedSize += cardNode.offsetWidth;
         } else {
           occupiedSize += cardNode.offsetHeight;
