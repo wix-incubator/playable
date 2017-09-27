@@ -17,7 +17,7 @@
     "lint": "yoshi lint",
     "csscomb": "csscomb src/.",
     "csscomb:lint": "csscomb -lv src/.",
-    "precommit": "yoshi lint && yoshi csscomb:lint",
+    "precommit": "yoshi lint && yarn csscomb:lint",
     "pretest": "yoshi build",
     "test": "yoshi test",
     "posttest": "yoshi lint",

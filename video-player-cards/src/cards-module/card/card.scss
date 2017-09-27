@@ -4,12 +4,14 @@
   &.appeared {
     animation-name: appear;
     animation-duration: .2s;
+
     opacity: 1;
   }
 
   &.disappeared {
     animation-name: disappear;
     animation-duration: .2s;
+
     opacity: 0;
   }
 }

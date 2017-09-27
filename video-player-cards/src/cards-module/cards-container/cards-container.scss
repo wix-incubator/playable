@@ -14,18 +14,19 @@
   position: absolute;
   z-index: 65;
   bottom: 12px;
+
   display: flex;
   overflow: hidden;
-  padding: 0 12px;
-  flex-wrap: wrap;
+
   height: 122px;
+  padding: 0 12px;
 
   transition: bottom .2s;
 
+  flex-wrap: wrap;
   @include max-width-550() {
     padding: 0 6px;
   }
-
   @include in-full-screen() {
     padding: 0 24px;
   }
@@ -39,39 +40,36 @@
   }
 
   &.anchor-top-left {
-    left: 0;
     top: 12px;
+    left: 0;
 
     @include max-width-550() {
       top: 18px;
     }
-
     @include in-full-screen() {
       top: 24px;
     }
   }
 
   &.anchor-top-right {
-    right: 0;
     top: 12px;
+    right: 0;
 
     @include max-width-550() {
       top: 18px;
     }
-
     @include in-full-screen() {
       top: 24px;
     }
   }
 
   &.anchor-bottom-left {
-    left: 0;
     bottom: 12px;
+    left: 0;
 
     @include max-width-550() {
       bottom: 18px;
     }
-
     @include in-full-screen() {
       bottom: 24px;
     }
@@ -82,7 +80,6 @@
       @include max-width-550() {
         bottom: 33px;
       }
-
       @include in-full-screen() {
         bottom: 79px;
       }
@@ -96,7 +93,6 @@
     @include max-width-550() {
       bottom: 18px;
     }
-
     @include in-full-screen() {
       bottom: 24px;
     }
@@ -107,7 +103,6 @@
       @include max-width-550() {
         bottom: 33px;
       }
-
       @include in-full-screen() {
         bottom: 79px;
       }
