@@ -97,7 +97,12 @@ export default class CardsModule {
 
   @playerAPI()
   addCard(cardData) {
-    const card = new Card(cardData);
+    const card = new Card({
+      ...cardData,
+      onClose: () => {
+        this.hideCard(card);
+      }
+    });
     this.cards.push(card);
   }
 

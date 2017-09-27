@@ -1,16 +1,17 @@
 .container {
-  padding: 6px;
+  position: relative;
 
+  padding: 6px;
   &.shown {
     animation-name: show;
-    animation-duration: .2s;
+    animation-duration: .5s;
 
     opacity: 1;
   }
 
   &.hidden {
     animation-name: hide;
-    animation-duration: .2s;
+    animation-duration: .5s;
 
     opacity: 0;
   }
@@ -21,7 +22,7 @@
     opacity: 0;
   }
   to {
-    height: auto;
+    opacity: 1;
   }
 }
 
@@ -31,5 +32,21 @@
   }
   to {
     opacity: 0;
+  }
+}
+
+.close-button {
+  font-size: 12px;
+
+  position: absolute;
+  top: 16px;
+  right: 11px;
+
+  cursor: pointer;
+
+  &:before {
+    content: 'X';
+
+    color: white;
   }
 }

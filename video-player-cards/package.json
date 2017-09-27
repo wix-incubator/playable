@@ -25,6 +25,7 @@
     "release": "yoshi release"
   },
   "dependencies": {
+    "gh-pages": "^1.0.0",
     "video-player": "^1.0.403"
   },
   "devDependencies": {

@@ -2,10 +2,11 @@ import styles from './card.scss';
 
 
 export default class Card {
-  constructor({ contentNode, appearance }) {
+  constructor({ contentNode, appearance, onClose }) {
     this.contentNode = contentNode;
     this.isDisplayed = false;
-
+    this.isClosed = false;
+    this.onClose = onClose;
     this.initTiming(appearance);
     this.initContainer();
   }
@@ -19,11 +20,18 @@ export default class Card {
   initContainer() {
     this.node = document.createElement('div');
     this.node.className = styles.container;
+
+    const closeButton = document.createElement('div');
+    closeButton.className = styles['close-button'];
+
     this.node.appendChild(this.contentNode);
+    this.node.appendChild(closeButton);
+
+    closeButton.addEventListener('click', this.close.bind(this));
   }
 
   shouldBeShownAt(time) {
-    return time > this.start && time < this.end;
+    return !this.isClosed && time > this.start && time < this.end;
   }
 
   setDisplayed(isDisplayed) {
@@ -39,6 +47,11 @@ export default class Card {
   disappear() {
     this.setDisplayed(false);
     this.hide();
+  }
+
+  close() {
+    this.onClose(this);
+    this.isClosed = true;
   }
 
   show() {

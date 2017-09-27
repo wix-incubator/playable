@@ -57,6 +57,7 @@
   flex-direction: column;
 
   width: 210px;
+  min-width: 210px;
   height: 110px;
 }
 
@@ -90,5 +91,6 @@
 }
 .img {
   width: 110px;
+  min-width: 110px;
   height: 110px;
 }
