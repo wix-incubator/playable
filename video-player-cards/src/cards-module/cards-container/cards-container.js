@@ -1,8 +1,7 @@
-import $ from 'jbone';
 import styles from './cards-container.scss';
 
 
-const CAROUSEL_INTERVAL = 2000;
+const CAROUSEL_INTERVAL = 4000;
 const CARD_REMOVE_TIMEOUT = 200;
 
 export const DIRECTIONS = {
@@ -31,14 +30,9 @@ export default class CardsContainer {
     this.setAnchorPoint(ANCHOR_POINTS.BOTTOM_LEFT);
   }
 
-  get node() {
-    return this.$node[0];
-  }
-
   initUI() {
-    this.$node = $('<div>', {
-      class: styles.container
-    });
+    this.node = document.createElement('div');
+    this.node.classList.add(styles.container);
     this.onControlsShowed();
   }
 
@@ -47,38 +41,38 @@ export default class CardsContainer {
   }
 
   onControlsShowed() {
-    this.$node.addClass(styles['controls-showed']);
+    this.node.classList.add(styles['controls-showed']);
   }
 
   onControlsHided() {
-    this.$node.removeClass(styles['controls-showed']);
+    this.node.classList.remove(styles['controls-showed']);
   }
 
   setDirection(newDirection) {
     this.direction = newDirection;
 
     Object.keys(DIRECTIONS).forEach(direction => {
-      this.$node.removeClass(styles[direction]);
+      this.node.classList.remove(styles[direction]);
     });
 
-    this.$node.addClass(styles[this.direction]);
+    this.node.classList.add(styles[this.direction]);
   }
 
   setAnchorPoint(newPoint) {
     this.anchorPoint = newPoint;
 
     Object.keys(ANCHOR_POINTS).forEach(point => {
-      this.$node.removeClass(styles[point]);
+      this.node.classList.remove(styles[point]);
     });
 
-    this.$node.addClass(styles[this.anchorPoint]);
+    this.node.classList.add(styles[this.anchorPoint]);
   }
 
   addCard(card) {
     card.appear();
 
     this.cards.push(card);
-    this.$node[0].insertBefore(card.node, this.$node[0].firstElementChild);
+    this.node.insertBefore(card.node, this.node.firstElementChild);
 
     this.checkNeedsOfCarousel();
   }
@@ -88,8 +82,8 @@ export default class CardsContainer {
 
     this.cards.splice(this.cards.indexOf(card), 1);
     setTimeout(() => {
-      if (card.node.parentNode === this.$node[0]) {
-        this.$node[0].removeChild(card.node);
+      if (this.node && card.node.parentNode === this.node) {
+        this.node.removeChild(card.node);
       }
     }, CARD_REMOVE_TIMEOUT);
 
@@ -110,7 +104,7 @@ export default class CardsContainer {
       }
     });
 
-    if (occupiedWidth > this.$node[0].offsetWidth) {
+    if (occupiedWidth > this.node.offsetWidth) {
       this.startCarousel();
     } else {
       this.stopCarousel();
@@ -118,7 +112,7 @@ export default class CardsContainer {
   }
 
   slideNextCard() {
-    this.$node[0].insertBefore(this.$node[0].lastElementChild, this.$node[0].firstElementChild);
+    this.node.insertBefore(this.node.lastElementChild, this.node.firstElementChild);
   }
 
   startCarousel() {
@@ -137,9 +131,11 @@ export default class CardsContainer {
   destroy() {
     this.stopCarousel();
 
-    this.$node.remove();
+    if (this.node.parentNode) {
+      this.node.parentNode.removeChild(this.node);
+    }
 
     delete this.cards;
-    delete this.$node;
+    delete this.node;
   }
 }

@@ -46,7 +46,7 @@ export default class CardsModule {
       this.cardsContainer.onControlsShowed,
       this.cardsContainer
     );
-    console.log(UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED);
+
     this.eventEmitter.on(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
       this.cardsContainer.checkNeedsOfCarousel,
@@ -125,10 +125,17 @@ export default class CardsModule {
 
   handlePlayerStateChange({ nextState }) {
     switch (nextState) {
-      case STATES.PLAYING: return this.startTimeTracking();
-      case STATES.PAUSED: return this.stopTimeTracking();
-      case STATES.SEEK_IN_PROGRESS: return this.updateCardsState();
-      default: return;
+      case STATES.PLAYING:
+        this.startTimeTracking();
+        break;
+      case STATES.PAUSED:
+        this.stopTimeTracking();
+        break;
+      case STATES.SEEK_IN_PROGRESS:
+        this.updateCardsState();
+        break;
+      default:
+        break;
     }
   }
 
@@ -151,10 +158,10 @@ export default class CardsModule {
   }
 
   destroy() {
-    this.cardsContainer.destroy();
-
     this.stopTimeTracking();
     this.unbindEvents();
+
+    this.cardsContainer.destroy();
 
     delete this.cardsContainer;
   }
