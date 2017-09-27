@@ -44,7 +44,6 @@ export default class CardsContainer {
     }
 
     this.direction = newDirection;
-
     this.node.setAttribute('data-direction', this.direction);
   }
 
@@ -54,7 +53,6 @@ export default class CardsContainer {
     }
 
     this.anchorPoint = newPoint;
-
     this.node.setAttribute('data-anchor-point', this.anchorPoint);
   }
 
@@ -64,7 +62,6 @@ export default class CardsContainer {
     }
 
     this.flowType = newFlowType;
-
     this.node.setAttribute('data-flow-type', this.flowType);
 
     this.checkCardsToShow();
@@ -72,9 +69,7 @@ export default class CardsContainer {
 
   addCard(card) {
     card.setDisplayed(true);
-
     this.cards.unshift(card);
-
     this.node.insertBefore(card.node, this.node.firstElementChild);
 
     this.checkCardsToShow();
@@ -82,7 +77,6 @@ export default class CardsContainer {
 
   removeCard(card) {
     card.disappear();
-
     this.cards.splice(this.cards.indexOf(card), 1);
 
     setTimeout(() => {
@@ -96,8 +90,8 @@ export default class CardsContainer {
 
   slideNextCard() {
     this.node.insertBefore(this.node.lastElementChild, this.node.firstElementChild);
-
     this.cards.unshift(this.cards.pop());
+
     this.checkCardsToShow();
   }
 
