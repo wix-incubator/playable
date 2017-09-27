@@ -1,6 +1,7 @@
 import styles from './cards-container.scss';
 import { DIRECTIONS, FLOW_TYPES, ANCHOR_POINTS } from '../constants';
 
+
 const CAROUSEL_INTERVAL = 4000;
 const CARD_REMOVE_TIMEOUT = 200;
 
