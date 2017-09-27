@@ -42,3 +42,53 @@
 
   flex-shrink: 0;
 }
+
+.card {
+  display: flex;
+  flex-direction: row;
+
+  height: 110px;
+
+  background-color: black;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  width: 210px;
+  height: 110px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+
+  margin: 10px;
+  padding-bottom: 5px;
+
+  text-align: left;
+
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+
+.text {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+
+  overflow: hidden;
+
+  height: 100%;
+  margin: 0 10px 10px;
+
+  text-align: left;
+
+  color: #fff;
+}
+.img {
+  width: 110px;
+  height: 110px;
+}

@@ -1,36 +1,52 @@
 import styles from './demo-cards.scss';
 
+function createCard(title, text, img) {
+  const node = document.createElement('div');
+  node.className = styles.card;
+
+  const contentNode = document.createElement('div');
+  contentNode.className = styles.content;
+
+  const titleNode = document.createElement('div');
+  titleNode.className = styles.title;
+  titleNode.innerHTML = title;
+  const textNode = document.createElement('div');
+  textNode.className = styles.text;
+  textNode.innerHTML = text;
+
+  contentNode.appendChild(titleNode);
+  contentNode.appendChild(textNode);
+
+  if (img) {
+    const imgNode = document.createElement('img');
+    imgNode.className = styles.img;
+    imgNode.setAttribute('src', img);
+
+    node.appendChild(imgNode);
+  }
+
+  node.appendChild(contentNode);
+
+  return node;
+}
+
 export function getDemoCards() {
   const card1Node = document.createElement('div');
   card1Node.className = styles.card1;
 
   const card1 = {
-    contentNode: card1Node,
+    contentNode: createCard('Test card', 'Test title lOrem ipsuim pisuinipsum.', 'https://scontent-frx5-1.cdninstagram.com/t51.2885-15/e35/16123864_171964476622622_1055696102294028288_n.jpg'),
     appearance: {
-      duration: 10,
+      duration: 15,
       start: 0
     }
   };
-
-  const card11Node = document.createElement('div');
-  card11Node.className = styles.card3;
 
   const card11 = {
-    contentNode: card11Node,
+    contentNode: createCard('Test card 2!!!', 'It\'s another card, boy!'),
     appearance: {
       duration: 10,
-      start: 0
-    }
-  };
-
-  const card111Node = document.createElement('div');
-  card111Node.className = styles.card4;
-
-  const card111 = {
-    contentNode: card111Node,
-    appearance: {
-      duration: 10,
-      start: 0
+      start: 5
     }
   };
 
@@ -38,32 +54,10 @@ export function getDemoCards() {
   card1111Node.className = styles.card5;
 
   const card1111 = {
-    contentNode: card1111Node,
+    contentNode: createCard('Test card3', 'Test title lOrem ipsuim pisuinipsum.', 'https://scontent-frx5-1.cdninstagram.com/t51.2885-15/e35/20590144_1012019698938562_2521454400447184896_n.jpg'),
     appearance: {
-      duration: 10,
-      start: 0
-    }
-  };
-
-  const card2Node = document.createElement('div');
-  card2Node.className = styles.card2;
-
-  const card2 = {
-    contentNode: card2Node,
-    appearance: {
-      duration: 10,
-      start: 5.5
-    }
-  };
-
-  const card3Node = document.createElement('div');
-  card3Node.className = styles.card3;
-
-  const card3 = {
-    contentNode: card3Node,
-    appearance: {
-      duration: 10,
-      start: 10.3
+      duration: 15,
+      start: 8
     }
   };
 
@@ -89,6 +83,6 @@ export function getDemoCards() {
     }
   };
 
-  return [card1, card11, card111, card1111, card2, card3, card4, card5];
+  return [card1, card11, card1111, card4, card5];
 }
 
