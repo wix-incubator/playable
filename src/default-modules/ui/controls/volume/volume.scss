@@ -155,8 +155,8 @@ $color: white !default;
 }
 
 :global {
-  [data-focus-source='key'] [data-hook='volume-control'] [data-hook='input-container'].focus-within,
-  [data-focus-source='script'] [data-hook='volume-control'] [data-hook='input-container'].focus-within {
+  [data-focus-source='key'] [data-hook='volume-control'] [data-hook='volume-input-container'].focus-within,
+  [data-focus-source='script'] [data-hook='volume-control'] [data-hook='volume-input-container'].focus-within {
     opacity: 1;
     outline: 2px solid rgba(56, 153, 236, .8);
   }

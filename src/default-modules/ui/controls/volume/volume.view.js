@@ -9,6 +9,7 @@ const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'volume-control';
 const DATA_HOOK_BUTTON_VALUE = 'mute-button';
 const DATA_HOOK_INPUT_VALUE = 'volume-input';
+const DATA_HOOK_INPUT_CONTAINER = 'volume-input-container';
 
 const DATA_IS_MUTED = 'data-is-muted';
 const DATA_VOLUME = 'data-volume-percent';
@@ -36,15 +37,16 @@ class VolumeView extends View {
     });
 
     this.$container = $('<div>', {
-      class: this.styleNames.container
-    });
+      class: this.styleNames.container,
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_CONTAINER
+  });
 
     const $content = $('<div>', {
       class: this.styleNames.content
     });
 
     const $inputWrapper = $('<div>', {
-      class: this.styleNames['input-wrapper']
+      class: this.styleNames['input-wrapper'],
     });
 
     this.$filledProgress = $('<div>', {
