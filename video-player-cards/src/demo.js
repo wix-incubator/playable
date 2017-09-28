@@ -30,3 +30,7 @@ export const player = VideoPlayer.create({
 }, false);
 
 player.addCards(getDemoCards());
+
+document.addEventListener('DOMContentLoaded', function() {
+  CardsModuleDemo.player.attachToElement(document.getElementById('player'));
+});

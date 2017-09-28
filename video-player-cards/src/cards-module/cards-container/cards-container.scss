@@ -10,13 +10,13 @@
   }
 }
 
-$controls-size-less-550px: 39px;
-$controls-size-more-550px: 51px;
-$controls-size-full-screen: 85px;
+$controls-size-less-550px: 39;
+$controls-size-more-550px: 51;
+$controls-size-full-screen: 85;
 
-$container-margin-less-550px: 6px;
-$container-margin-more-550px: 12px;
-$container-margin-full-screen: 24px;
+$container-margin-less-550px: 6;
+$container-margin-more-550px: 12;
+$container-margin-full-screen: 24;
 
 .container {
   position: absolute;
@@ -26,21 +26,21 @@ $container-margin-full-screen: 24px;
   display: flex;
   overflow: hidden;
 
-  max-width: calc(100% - 2 * #{$container-margin-more-550px});
-  max-height: calc(100% - #{$controls-size-more-550px});
-  margin: 0 $container-margin-more-550px;
+  max-width: calc(100% - #{2 * $container-margin-more-550px}px);
+  max-height: calc(100% - #{$controls-size-more-550px}px);
+  margin: 0 #{$container-margin-more-550px}px;
 
   transition: bottom .2s;
 
   @include max-width-550() {
-    max-width: calc(100% - 2 * #{$container-margin-less-550px});
-    max-height: calc(100% - #{$controls-size-less-550px});
-    margin: 0 $container-margin-less-550px;
+    max-width: calc(100% - #{2 * $container-margin-less-550px}px);
+    max-height: calc(100% - #{$controls-size-less-550px}px);
+    margin: 0 #{$container-margin-less-550px}px;
   }
   @include in-full-screen() {
     max-width: calc(100% - 2 * #{$container-margin-full-screen});
     max-height: calc(100% - 85px);
-    margin: 0 $container-margin-full-screen;
+    margin: 0 #{$container-margin-full-screen}px;
   }
 
   &[data-flow-type='flow-vertical'] {
@@ -93,23 +93,23 @@ $container-margin-full-screen: 24px;
 
   &[data-anchor-point='anchor-bottom-left'],
   &[data-anchor-point='anchor-bottom-right'] {
-    bottom: $container-margin-more-550px;
+    bottom: #{$container-margin-more-550px}px;
 
     @include max-width-550() {
-      bottom: $container-margin-less-550px;
+      bottom: #{$container-margin-less-550px}px;
     }
     @include in-full-screen() {
-      bottom: $container-margin-full-screen;
+      bottom: #{$container-margin-full-screen}px;
     }
 
     &.controls-showed {
-      bottom: calc(#{$controls-size-more-550px} - #{$container-margin-less-550px});
+      bottom: #{$controls-size-more-550px - $container-margin-less-550px}px;
 
       @include max-width-550() {
-        bottom: calc(#{$controls-size-less-550px} - #{$container-margin-less-550px});
+        bottom: #{$controls-size-less-550px - $container-margin-less-550px}px;
       }
       @include in-full-screen() {
-        bottom: calc(#{$controls-size-full-screen} - #{$container-margin-less-550px});
+        bottom: #{$controls-size-full-screen - $container-margin-less-550px}px;
       }
     }
   }
