@@ -31,6 +31,6 @@ export const player = VideoPlayer.create({
 
 player.addCards(getDemoCards());
 
-document.addEventListener('DOMContentLoaded', function() {
-  CardsModuleDemo.player.attachToElement(document.getElementById('player'));
+document.addEventListener('DOMContentLoaded', function () {
+  window.CardsModuleDemo.player.attachToElement(document.getElementById('player'));
 });
