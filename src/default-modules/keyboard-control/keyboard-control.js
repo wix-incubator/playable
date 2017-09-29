@@ -43,35 +43,35 @@ export default class KeyboardControl {
             this._eventEmitter.emit(UI_EVENTS.TAB_WITH_KEYBOARD_TRIGGERED);
           },
           [KEYCODES.SPACE_BAR]: e => {
-            e.stopPropagation();
+            //e.stopPropagation();
             e.preventDefault();
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
             this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
             this._engine.togglePlayback();
           },
           [KEYCODES.LEFT_ARROW]: e => {
-            e.stopPropagation();
+            //e.stopPropagation();
             e.preventDefault();
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
             this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
             this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
           },
           [KEYCODES.RIGHT_ARROW]: e => {
-            e.stopPropagation();
+            //e.stopPropagation();
             e.preventDefault();
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
             this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
             this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
           },
           [KEYCODES.UP_ARROW]: e => {
-            e.stopPropagation();
+            //e.stopPropagation();
             e.preventDefault();
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
             this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
             this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
           },
           [KEYCODES.DOWN_ARROW]: e => {
-            e.stopPropagation();
+            //e.stopPropagation();
             e.preventDefault();
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
             this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);

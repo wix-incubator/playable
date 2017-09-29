@@ -46,7 +46,7 @@ class VolumeView extends View {
     });
 
     const $inputWrapper = $('<div>', {
-      class: this.styleNames['input-wrapper'],
+      class: this.styleNames['input-wrapper']
     });
 
     this.$filledProgress = $('<div>', {
