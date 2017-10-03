@@ -72,6 +72,10 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
       videoElement.src = '';
     }
 
+    get currentUrl() {
+      return this.mediaStreams[this.currentLevel].url;
+    }
+
     getMediaStreamDeliveryType() {
       return deliveryType;
     }

@@ -121,6 +121,11 @@ export default class HlsStream {
     this.videoElement = null;
   }
 
+  get currentUrl() {
+    return this.mediaStream.url;
+  }
+
+
   getMediaStreamDeliveryType() {
     return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
   }

@@ -77,6 +77,10 @@ export default class Engine {
     return this.getAutoPlay();
   }
 
+  getAttachedStream() {
+    return this._mediaStreamStrategy.attachedStream;
+  }
+
   @playerAPI()
   getDebugInfo() {
     const { duration, currentTime } = this._video;

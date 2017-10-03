@@ -126,6 +126,10 @@ export default class DashStream {
     }
   }
 
+  get currentUrl() {
+    return this.mediaStream.url;
+  }
+
   detach() {
     this.stopDelayedInitPlayer();
     if (!this.mediaStream) {
