@@ -25,7 +25,9 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
       this.eventEmitter = eventEmitter;
       this.currentLevel = 0;
 
-      this.onError = error => {
+      this.onError = () => {
+        const error = this.videoElement.error;
+
         switch (error.code) {
           case NATIVE_ERROR_CODES.ABORTED:
             //No need for broadcasting
@@ -38,7 +40,13 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
             this.logError(ERRORS.MEDIA, error);
             break;
           case NATIVE_ERROR_CODES.SRC_NOT_SUPPORTED:
-            //No need for broadcasting
+
+            /*
+              Our url checks would not allow not supported formats, so only case would be
+               when video tag couldn't retriev any info from endpoit
+            */
+
+            this.logError(ERRORS.CONTENT_LOAD, error);
 
             break;
           default:
