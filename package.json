@@ -10,7 +10,8 @@
   "jsnext:main": "dist/src/index.js",
   "files": [
     "dist",
-    "src"
+    "src",
+    "video-player-cards"
   ],
   "scripts": {
     "start": "yoshi start --entry-point=./server/start-fake-server.js",
