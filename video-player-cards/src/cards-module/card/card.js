@@ -2,19 +2,14 @@ import styles from './card.scss';
 
 
 export default class Card {
-  constructor({ contentNode, appearance, onClose }) {
+  constructor({ contentNode, onClose, from, to }) {
     this.contentNode = contentNode;
     this.isDisplayed = false;
     this.isClosed = false;
     this.onClose = onClose;
-    this.initTiming(appearance);
+    this.from = from;
+    this.to = to;
     this.initContainer();
-  }
-
-  initTiming(appearance) {
-    this.start = appearance.start;
-    this.duration = appearance.duration;
-    this.end = appearance.start + appearance.duration;
   }
 
   initContainer() {
@@ -31,7 +26,7 @@ export default class Card {
   }
 
   shouldBeShownAt(time) {
-    return !this.isClosed && time > this.start && time < this.end;
+    return !this.isClosed && time > this.from && time < this.to;
   }
 
   setDisplayed(isDisplayed) {

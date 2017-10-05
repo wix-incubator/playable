@@ -36,18 +36,14 @@ export function getDemoCards() {
 
   const card1 = {
     contentNode: createCard('Test card', 'Test title lOrem ipsuim pisuinipsum.', 'https://scontent-frx5-1.cdninstagram.com/t51.2885-15/e35/16123864_171964476622622_1055696102294028288_n.jpg'),
-    appearance: {
-      duration: 15,
-      start: 0
-    }
+    from: 0,
+    to: 15
   };
 
   const card11 = {
     contentNode: createCard('Test card 2!!!', 'It\'s another card, boy!'),
-    appearance: {
-      duration: 10,
-      start: 5
-    }
+    from: 5,
+    to: 15
   };
 
   const card1111Node = document.createElement('div');
@@ -55,10 +51,8 @@ export function getDemoCards() {
 
   const card1111 = {
     contentNode: createCard('Test card3', 'Test title lOrem ipsuim pisuinipsum.', 'https://scontent-frx5-1.cdninstagram.com/t51.2885-15/e35/20590144_1012019698938562_2521454400447184896_n.jpg'),
-    appearance: {
-      duration: 15,
-      start: 8
-    }
+    from: 8,
+    to: 23
   };
 
   const card4Node = document.createElement('div');
@@ -66,10 +60,8 @@ export function getDemoCards() {
 
   const card4 = {
     contentNode: card4Node,
-    appearance: {
-      duration: 10,
-      start: 15
-    }
+    from: 15,
+    to: 25
   };
 
   const card5Node = document.createElement('div');
@@ -77,10 +69,8 @@ export function getDemoCards() {
 
   const card5 = {
     contentNode: card5Node,
-    appearance: {
-      duration: 10,
-      start: 20
-    }
+    from: 20,
+    to: 30
   };
 
   return [card1, card11, card1111, card4, card5];
