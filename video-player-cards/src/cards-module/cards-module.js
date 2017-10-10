@@ -112,6 +112,11 @@ export default class CardsModule {
   }
 
   @playerAPI()
+  clearCards() {
+    this.cards = [];
+  }
+
+  @playerAPI()
   setFlow(flow) {
     this.cardsContainer.setFlowType(flow);
   }

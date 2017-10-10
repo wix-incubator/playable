@@ -7,8 +7,8 @@ export default class Card {
     this.isDisplayed = false;
     this.isClosed = false;
     this.onClose = onClose;
-    this.from = from;
-    this.to = to;
+    this.from = from / 1000;
+    this.to = to / 1000;
     this.initContainer();
   }
 
