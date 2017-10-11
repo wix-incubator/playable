@@ -16,11 +16,18 @@ export default class CardsModule {
     this.engine = engine;
 
     this.cards = [];
+    this.initialized = false;
+  }
+
+  initialize() {
+    if (this.initialized) {
+      return;
+    }
 
     this.initContainer();
-
     this.bindCallbacks();
     this.bindEvents();
+    this.initialized = true;
   }
 
   initContainer() {
@@ -97,6 +104,10 @@ export default class CardsModule {
 
   @playerAPI()
   addCard(cardData) {
+    if(!this.initialized) {
+      this.initialize();
+    }
+
     const card = new Card({
       ...cardData,
       onClose: () => {
@@ -183,7 +194,12 @@ export default class CardsModule {
   }
 
   destroy() {
+    if(!this.initialized) {
+      return;
+    }
+
     this.stopTimeTracking();
+
     this.unbindEvents();
 
     this.cardsContainer.destroy();
