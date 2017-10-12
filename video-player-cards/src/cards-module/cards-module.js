@@ -124,6 +124,9 @@ export default class CardsModule {
 
   @playerAPI()
   clearCards() {
+    this.cards.forEach(card => {
+      this.cardsContainer.removeCard(card);
+    });
     this.cards = [];
   }
 
