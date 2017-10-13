@@ -26,7 +26,7 @@ export default class Card {
   }
 
   shouldBeShownAt(time) {
-    return !this.isClosed && time > this.from && time < this.to;
+    return !this.isClosed && time >= this.from && time <= this.to;
   }
 
   setDisplayed(isDisplayed) {
