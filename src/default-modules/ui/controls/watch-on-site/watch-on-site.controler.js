@@ -52,10 +52,12 @@ export default class FullScreenControl {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._triggerWatchOnSite();
         },
         [KEYCODES.ENTER]: e => {
           e.stopPropagation();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._triggerWatchOnSite();
         }
       }
     });

@@ -104,7 +104,7 @@ export default class CardsModule {
 
   @playerAPI()
   addCard(cardData) {
-    if(!this.initialized) {
+    if (!this.initialized) {
       this.initialize();
     }
 
@@ -197,7 +197,7 @@ export default class CardsModule {
   }
 
   destroy() {
-    if(!this.initialized) {
+    if (!this.initialized) {
       return;
     }
 
