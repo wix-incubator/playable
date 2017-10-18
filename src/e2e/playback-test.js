@@ -6,11 +6,11 @@ describe('Playback e2e test', function () {
   this.timeout(10000);
   const node = document.createElement('div');
   const formatsToTest = [
-    { type: 'MP4', url: 'http://localhost:5000/assets/sample.mp4', supportedByEnv: NativeEnvironmentSupport.MP4 },
-    { type: 'WEBM', url: 'http://localhost:5000/assets/sample.webm', supportedByEnv: NativeEnvironmentSupport.WEBM },
-    { type: 'HLS', url: 'http://localhost:5000/assets/sample.m3u8', supportedByEnv: NativeEnvironmentSupport.HLS || NativeEnvironmentSupport.MSE },
-    { type: 'DASH', url: 'http://localhost:5000/assets/sample.mpd', supportedByEnv: NativeEnvironmentSupport.DASH || NativeEnvironmentSupport.MSE },
-    { type: 'DASH or HLS', url: ['http://localhost:5000/assets/sample.m3u8', 'http://localhost:5000/assets/sample.mpd'], supportedByEnv: NativeEnvironmentSupport.HLS || NativeEnvironmentSupport.DASH || NativeEnvironmentSupport.MSE }
+    { type: 'MP4', url: 'https://storage.googleapis.com/video-player-media-server-static/sample.mp4', supportedByEnv: NativeEnvironmentSupport.MP4 },
+    { type: 'WEBM', url: 'https://storage.googleapis.com/video-player-media-server-static/sample.webm', supportedByEnv: NativeEnvironmentSupport.WEBM },
+    { type: 'HLS', url: 'https://storage.googleapis.com/video-player-media-server-static/sample.m3u8', supportedByEnv: NativeEnvironmentSupport.HLS || NativeEnvironmentSupport.MSE },
+    { type: 'DASH', url: 'https://storage.googleapis.com/video-player-media-server-static/sample.mpd', supportedByEnv: NativeEnvironmentSupport.DASH || NativeEnvironmentSupport.MSE },
+    { type: 'DASH or HLS', url: ['https://storage.googleapis.com/video-player-media-server-static/sample.m3u8', 'https://storage.googleapis.com/video-player-media-server-static/sample.mpd'], supportedByEnv: NativeEnvironmentSupport.HLS || NativeEnvironmentSupport.DASH || NativeEnvironmentSupport.MSE }
   ];
 
   formatsToTest.forEach(formatToTest => {

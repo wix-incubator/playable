@@ -35,7 +35,7 @@ window.player = VideoPlayer.create({
   loop: false,
   preload: 'metadata',
   volume: 100,
-  fillAllSpace: true,
+  fillAllSpace: false,
   size: {
     width: 760,
     height: 428
@@ -58,7 +58,76 @@ window.player = VideoPlayer.create({
   overlay: false
 });
 
+function getStreamStatus() {
+  const oReq = new XMLHttpRequest();
+  oReq.addEventListener('load', reqListener);
+  oReq.open('GET', 'https://video-player-media-server-dot-wixgamma.appspot.com/live/stream');
+  oReq.send();
+
+  function reqListener() {
+    const json = JSON.parse(oReq.responseText);
+    document.getElementById('stream-status').innerHTML = `status: ${json.ongoing ? 'ongoning' : 'ended'}`;
+    setTimeout(getStreamStatus, 2000);
+  }
+}
+
+function getEventStatus() {
+  const oReq = new XMLHttpRequest();
+  oReq.addEventListener('load', reqListener);
+  oReq.open('GET', 'https://video-player-media-server-dot-wixgamma.appspot.com/live/event');
+  oReq.send();
+
+  function reqListener() {
+    const json = JSON.parse(oReq.responseText);
+    document.getElementById('event-status').innerHTML = `status: ${json.ongoing ? 'ongoning' : 'ended'}`;
+    setTimeout(getEventStatus, 2000);
+  }
+}
+
 /* ignore coverage */
 document.addEventListener('DOMContentLoaded', () => {
-  window.player.attachToElement(document.body);
+  window.player.attachToElement(document.getElementById('player-wrapper'));
+
+  getStreamStatus();
+  getEventStatus();
+
+  document.getElementById('start-stream').addEventListener('click', () => {
+    const oReq = new XMLHttpRequest();
+    oReq.open('GET', 'https://video-player-media-server-dot-wixgamma.appspot.com/live/stream/start');
+    oReq.send();
+  });
+
+  document.getElementById('load-stream-to-player').addEventListener('click', () => {
+    window.player.setSrc({
+      url: 'https://video-player-media-server-dot-wixgamma.appspot.com/live/stream/manifest.m3u8',
+      type: 'HLS'
+    });
+    window.player.play();
+  });
+
+  document.getElementById('end-stream').addEventListener('click', () => {
+    const oReq = new XMLHttpRequest();
+    oReq.open('GET', 'https://video-player-media-server-dot-wixgamma.appspot.com/live/stream/end');
+    oReq.send();
+  });
+
+  document.getElementById('start-event').addEventListener('click', () => {
+    const oReq = new XMLHttpRequest();
+    oReq.open('GET', 'https://video-player-media-server-dot-wixgamma.appspot.com/live/event/start');
+    oReq.send();
+  });
+
+  document.getElementById('load-event-to-player').addEventListener('click', () => {
+    window.player.setSrc({
+      url: 'https://video-player-media-server-dot-wixgamma.appspot.com/live/event/manifest.m3u8',
+      type: 'HLS'
+    });
+    window.player.play();
+  });
+
+  document.getElementById('end-event').addEventListener('click', () => {
+    const oReq = new XMLHttpRequest();
+    oReq.open('GET', 'https://video-player-media-server-dot-wixgamma.appspot.com/live/event/end');
+    oReq.send();
+  });
 });

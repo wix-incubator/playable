@@ -14,12 +14,12 @@
     "video-player-cards"
   ],
   "scripts": {
-    "start": "yoshi start --entry-point=./server/start-fake-server.js",
+    "start": "yoshi start --entry-point=./dev-env/start-dev-env.js",
     "lint": "yoshi lint",
     "csscomb": "csscomb src/.",
     "csscomb:lint": "csscomb -lv src/.",
     "test:unit": "yoshi test --mocha",
-    "test:playback": "node ./server/boot-mediaserver-and-test.js",
+    "test:playback": "node ./dev-env/boot-devserver-and-test.js",
     "test": "npm run test:unit && npm run test:playback",
     "build": "yoshi build",
     "deploy": "yoshi build && gh-pages -d dist/statics",

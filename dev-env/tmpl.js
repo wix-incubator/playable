@@ -8,5 +8,12 @@ module.exports = function render(template, data) {
     staticsBaseUrl: '//localhost:3200/'
   }, data);
 
-  return ejs.render(fs.readFileSync(template, { encoding: 'utf8' }), options);
-}
+  return ejs.render(
+    fs.readFileSync(
+      template,
+      { encoding: 'utf8' },
+      () => {}
+    ),
+    options
+  );
+};
