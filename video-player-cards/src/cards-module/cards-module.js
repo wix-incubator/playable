@@ -166,9 +166,11 @@ export default class CardsModule {
     switch (nextState) {
       case STATES.PLAYING:
         this.startTimeTracking();
+        this.cardsContainer.checkCardsToShow();
         break;
       case STATES.PAUSED:
         this.stopTimeTracking();
+        this.cardsContainer.stopCarousel();
         break;
       case STATES.SEEK_IN_PROGRESS:
         this.updateCardsState();
