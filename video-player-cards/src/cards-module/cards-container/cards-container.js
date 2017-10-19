@@ -1,15 +1,15 @@
 import styles from './cards-container.scss';
 import { DIRECTIONS, FLOW_TYPES, ANCHOR_POINTS } from '../constants';
 
-
 const CAROUSEL_INTERVAL = 6000;
-const CARD_REMOVE_TIMEOUT = 200;
+const CARD_REMOVE_TIMEOUT = 1000;
 
 export default class CardsContainer {
   static dependencies = ['eventEmitter', 'rootContainer', 'engine'];
 
   constructor() {
     this.cards = [];
+    this.timeouts = [];
 
     this.bindCallbacks();
 
@@ -18,6 +18,8 @@ export default class CardsContainer {
     this.setDirection(DIRECTIONS.STANDARD);
     this.setFlowType(FLOW_TYPES.HORIZONTAL);
     this.setAnchorPoint(ANCHOR_POINTS.BOTTOM_LEFT);
+
+    this.enableAnimation();
   }
 
   initUI() {
@@ -67,32 +69,60 @@ export default class CardsContainer {
     this.checkCardsToShow();
   }
 
+  enableAnimation() {
+    setTimeout(() => {
+      this.isAnimationEnabled = true;
+    });
+  }
+
+  disableAnimation() {
+    this.isAnimationEnabled = false;
+  }
+
+  onSizeChange() {
+    this.disableAnimation();
+    this.checkCardsToShow();
+    this.enableAnimation();
+  }
+
   addCard(card) {
-    card.setDisplayed(true);
     this.cards.unshift(card);
     this.node.insertBefore(card.node, this.node.firstElementChild);
-
+    this.resetCard(card);
     this.checkCardsToShow();
   }
 
   removeCard(card) {
-    card.disappear();
+    this.hideCard(card);
+
+    if (this.isAnimationEnabled) {
+      this.timeouts.push(setTimeout(() => this.removeFromContainer(card), CARD_REMOVE_TIMEOUT));
+    } else {
+      this.removeFromContainer(card);
+    }
+  }
+
+  removeFromContainer(card) {
     this.cards.splice(this.cards.indexOf(card), 1);
-
-    setTimeout(() => {
-      if (!card.isDisplayed && card.node && card.node.parentNode === this.node) {
-        this.node.removeChild(card.node);
-      }
-    }, CARD_REMOVE_TIMEOUT);
-
+    this.resetCard(card);
+    card.setDisplayed(false);
+    this.node.removeChild(card.node);
     this.checkCardsToShow();
   }
 
   slideNextCard() {
+    const card = this.cards.pop();
+    this.resetCard(card);
+
     this.node.insertBefore(this.node.lastElementChild, this.node.firstElementChild);
-    this.cards.unshift(this.cards.pop());
+
+    this.cards.unshift(card);
 
     this.checkCardsToShow();
+  }
+
+  resetCard(card) {
+    card.setInitialPosition(this.flowType, this.direction);
   }
 
   checkCardsToShow() {
@@ -102,23 +132,18 @@ export default class CardsContainer {
 
     this.cards
       .forEach((currentCard, childIndex) => {
-        const cardNode = currentCard.node;
 
-        if (this.flowType === FLOW_TYPES.HORIZONTAL) {
-          occupiedSize += cardNode.offsetWidth;
-        } else {
-          occupiedSize += cardNode.offsetHeight;
-        }
+        occupiedSize += currentCard.getFlowDimension(this.flowType);
 
         if (occupiedSize > availableSize) {
           if (childIndex === 0) {
-            currentCard.show();
+            this.showCard(currentCard);
           } else {
-            currentCard.hide();
+            this.hideCard(currentCard);
             allCardsShown = false;
           }
         } else {
-          currentCard.show();
+          this.showCard(currentCard);
         }
       });
 
@@ -127,6 +152,29 @@ export default class CardsContainer {
     } else {
       this.startCarousel();
     }
+  }
+
+  showCard(card) {
+    card.appear();
+    this.updateCardsPositions();
+  }
+
+
+  hideCard(card) {
+    card.disappear();
+    this.updateCardsPositions();
+  }
+
+  updateCardsPositions() {
+    setTimeout(() => {
+      this.cards
+        .filter(card => card.isDisplayed)
+        .reduce((offset, card) => {
+          card.setAnimationEnabled(this.isAnimationEnabled);
+          card.updatePosition(this.flowType, this.direction, offset);
+          return offset + card.getFlowDimension(this.flowType);
+        }, 0);
+    });
   }
 
   startCarousel() {
@@ -148,6 +196,8 @@ export default class CardsContainer {
     if (this.node.parentNode) {
       this.node.parentNode.removeChild(this.node);
     }
+
+    this.timeouts.forEach(timeout => clearTimeout(timeout));
 
     delete this.cards;
     delete this.node;

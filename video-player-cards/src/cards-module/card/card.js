@@ -1,5 +1,17 @@
+import classnames from 'classnames';
+import { FLOW_TYPES, DIRECTIONS } from '../constants';
 import styles from './card.scss';
 
+const positionProperties = {
+  [FLOW_TYPES.HORIZONTAL]: {
+    [DIRECTIONS.STANDARD]: 'left',
+    [DIRECTIONS.REVERSE]: 'right'
+  },
+  [FLOW_TYPES.VERTICAL]: {
+    [DIRECTIONS.STANDARD]: 'top',
+    [DIRECTIONS.REVERSE]: 'bottom'
+  }
+};
 
 export default class Card {
   constructor({ contentNode, onClose, from, to }) {
@@ -35,25 +47,32 @@ export default class Card {
   }
 
   appear() {
-    this.setDisplayed(true);
-    this.show();
+    this.node.style.opacity = 1;
   }
 
   disappear() {
-    this.setDisplayed(false);
-    this.hide();
+    this.node.style.opacity = 0;
+  }
+
+  setAnimationEnabled(isEnabled) {
+    this.node.className = classnames(styles.container, { [styles.animated]: isEnabled });
+  }
+
+  getFlowDimension(flowType) {
+    return flowType === FLOW_TYPES.HORIZONTAL ? this.node.offsetWidth : this.node.offsetHeight;
+  }
+
+  setInitialPosition(flowType, direction) {
+    this.updatePosition(flowType, direction, -this.getFlowDimension(flowType));
+  }
+
+  updatePosition(flowType, direction, offset) {
+    const positionProperty = positionProperties[flowType][direction];
+    this.node.style[positionProperty] = `${offset}px`;
   }
 
   close() {
     this.onClose(this);
     this.isClosed = true;
-  }
-
-  show() {
-    this.node.className = `${styles.container} ${styles.shown}`;
-  }
-
-  hide() {
-    this.node.className = `${styles.container} ${styles.hidden}`;
   }
 }

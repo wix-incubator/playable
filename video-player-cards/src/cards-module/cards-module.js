@@ -56,17 +56,17 @@ export default class CardsModule {
 
     this.eventEmitter.on(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.cardsContainer.checkCardsToShow,
+      this.cardsContainer.onSizeChange,
       this.cardsContainer
     );
     this.eventEmitter.on(
       UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED,
-      this.cardsContainer.checkCardsToShow,
+      this.cardsContainer.onSizeChange,
       this.cardsContainer
     );
     this.eventEmitter.on(
       UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED,
-      this.cardsContainer.checkCardsToShow,
+      this.cardsContainer.onSizeChange,
       this.cardsContainer
     );
   }
@@ -146,10 +146,12 @@ export default class CardsModule {
   }
 
   showCard(card) {
+    card.setDisplayed(true);
     this.cardsContainer.addCard(card);
   }
 
   hideCard(card) {
+    card.setDisplayed(false);
     this.cardsContainer.removeCard(card);
   }
 
@@ -173,11 +175,17 @@ export default class CardsModule {
         this.cardsContainer.stopCarousel();
         break;
       case STATES.SEEK_IN_PROGRESS:
-        this.updateCardsState();
+        this.onSeekChange();
         break;
       default:
         break;
     }
+  }
+
+  onSeekChange() {
+    this.cardsContainer.disableAnimation();
+    this.updateCardsState();
+    this.cardsContainer.enableAnimation();
   }
 
   updateCardsState() {

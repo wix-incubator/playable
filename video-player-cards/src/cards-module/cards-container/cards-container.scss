@@ -20,11 +20,14 @@ $container-margin-full-screen: 24;
 
 .container {
   position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
   z-index: 65;
   bottom: 12px;
 
-  display: flex;
-  overflow: hidden;
+  overflow: visible;
 
   max-width: calc(100% - #{2 * $container-margin-more-550px}px);
   max-height: calc(100% - #{$controls-size-more-550px}px);

@@ -13,7 +13,7 @@ export const player = VideoPlayer.create({
   volume: 0.5,
   size: {
     width: 760,
-    height: 428
+    height: 528
   },
   loadingCover: 'https://i.imgflip.com/1rjoyq.jpg',
   src: [
