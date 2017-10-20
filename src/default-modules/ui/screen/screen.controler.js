@@ -70,19 +70,35 @@ export default class Screen {
   _bindEvents() {
     this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
     this._eventEmitter.on(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
-    this._eventEmitter.on(UI_EVENTS.SHOW_TOP_SHADOW_TRIGGERED, this.view.showTopShadow, this.view);
-    this._eventEmitter.on(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED, this.view.showBottomShadow, this.view);
-    this._eventEmitter.on(UI_EVENTS.HIDE_TOP_SHADOW_TRIGGERED, this.view.hideTopShadow, this.view);
-    this._eventEmitter.on(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED, this.view.hideBottomShadow, this.view);
+    this._eventEmitter.on(UI_EVENTS.SHOW_TOP_SHADOW_TRIGGERED, this.showTopShadow, this);
+    this._eventEmitter.on(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED, this.showBottomShadow, this);
+    this._eventEmitter.on(UI_EVENTS.HIDE_TOP_SHADOW_TRIGGERED, this.hideTopShadow, this);
+    this._eventEmitter.on(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED, this.hideBottomShadow, this);
   }
 
   _unbindEvents() {
     this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
     this._eventEmitter.off(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
-    this._eventEmitter.off(UI_EVENTS.SHOW_TOP_SHADOW_TRIGGERED, this.view.showTopShadow, this.view);
-    this._eventEmitter.off(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED, this.view.showBottomShadow, this.view);
-    this._eventEmitter.off(UI_EVENTS.HIDE_TOP_SHADOW_TRIGGERED, this.view.hideTopShadow, this.view);
-    this._eventEmitter.off(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED, this.view.hideBottomShadow, this.view);
+    this._eventEmitter.off(UI_EVENTS.SHOW_TOP_SHADOW_TRIGGERED, this.showTopShadow, this);
+    this._eventEmitter.off(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED, this.showBottomShadow, this);
+    this._eventEmitter.off(UI_EVENTS.HIDE_TOP_SHADOW_TRIGGERED, this.hideTopShadow, this);
+    this._eventEmitter.off(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED, this.hideBottomShadow, this);
+  }
+
+  showTopShadow() {
+    this.view.showTopShadow();
+  }
+
+  hideTopShadow() {
+    this.view.hideTopShadow();
+  }
+
+  showBottomShadow() {
+    this.view.showBottomShadow();
+  }
+
+  hideBottomShadow() {
+    this.view.hideBottomShadow();
   }
 
   _setFullScreenStatus(isInFullScreen) {

@@ -27,11 +27,12 @@ const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 
 export default class ControlBlock {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
+  static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer', 'screen'];
 
-  constructor({ engine, eventEmitter, config, rootContainer }, scope) {
+  constructor({ engine, eventEmitter, config, rootContainer, screen }, scope) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
+    this._screen = screen;
     this.config = {
       ...DEFAULT_CONFIG,
       ...get(config, 'ui.controls')
@@ -148,6 +149,7 @@ export default class ControlBlock {
 
   _showContent() {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
+    this._screen.showBottomShadow();
     this._eventEmitter.emit(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED);
 
     this.view.showControlsBlock();
@@ -159,7 +161,7 @@ export default class ControlBlock {
   _hideContent() {
     if (!this._shouldShowContent && !this.config.shouldAlwaysShow) {
       this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED);
-      this._eventEmitter.emit(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED);
+      this._screen.hideBottomShadow();
 
       this.view.hideControlsBlock();
       this._controlContentHidden = true;
@@ -251,6 +253,7 @@ export default class ControlBlock {
 
     delete this._eventEmitter;
     delete this._engine;
+    delete this._screen;
     delete this.config;
 
     this.isHidden = null;
