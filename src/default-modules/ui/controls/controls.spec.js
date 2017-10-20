@@ -21,6 +21,7 @@ describe('ControlsBlock', () => {
   let config = {};
   let scope = {};
   let rootContainer = {};
+  let screen = {}
 
   beforeEach(() => {
     config = {
@@ -36,6 +37,11 @@ describe('ControlsBlock', () => {
       exitFullScreen() {},
       enterFullScreen() {}
     };
+    screen = {
+      showBottomShadow() {},
+      hideBottomShadow() {},
+    };
+
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
@@ -55,7 +61,8 @@ describe('ControlsBlock', () => {
         engine,
         eventEmitter,
         config,
-        rootContainer
+        rootContainer,
+        screen
       },
       scope
     );
