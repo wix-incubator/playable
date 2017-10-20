@@ -4,6 +4,8 @@ import EventEmitter from 'eventemitter3';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
+import TextMap from '../../../text-map/text-map';
+
 import FullScreenControl from './full-screen.controler';
 import { UI_EVENTS } from '../../../../constants/index';
 
@@ -12,6 +14,8 @@ describe('FullScreenControl', () => {
   let control = {};
   let eventEmitter = {};
   let fullScreenManager = {};
+  let textMap;
+  let config = {};
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
@@ -19,9 +23,13 @@ describe('FullScreenControl', () => {
       enterFullScreen: sinon.spy(),
       exitFullScreen: sinon.spy()
     };
+    textMap = new TextMap({
+      config
+    });
     control = new FullScreenControl({
       eventEmitter,
-      fullScreenManager
+      fullScreenManager,
+      textMap
     });
   });
 

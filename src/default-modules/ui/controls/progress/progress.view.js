@@ -1,5 +1,7 @@
 import $ from 'jbone';
 
+import { TEXT_LABELS } from '../../../../constants/index';
+
 import View from '../../core/view';
 
 import styles from './progress.scss';
@@ -14,9 +16,10 @@ const DATA_PLAYED = 'data-played-percent';
 class ProgressView extends View {
   constructor(config) {
     super(config);
-    const { callbacks } = config;
+    const { callbacks, texts } = config;
 
     this._callbacks = callbacks;
+    this._texts = texts;
     this.$node = $('<div>', {
       class: this.styleNames['seek-block'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
@@ -38,6 +41,10 @@ class ProgressView extends View {
     this.$input = $('<input>', {
       class: this.styleNames['seek-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_VALUE,
+      'aria-label': this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_LABEL),
+      'aria-valuemin': 0,
+      'aria-valuenow': 0,
+      'aria-valuemax': 100,
       type: 'range',
       min: 0,
       max: 100,
@@ -73,8 +80,7 @@ class ProgressView extends View {
 
   _onInputValueChange() {
     const value = this.$input.val();
-    this.$input.attr('value', value);
-    this.$progressPlayed.attr('style', `width:${value}%;`);
+    this._updateDOMAttributes(value);
     this._callbacks.onChangePlayedProgress(value);
   }
 
@@ -100,11 +106,18 @@ class ProgressView extends View {
     this.$node[0].removeEventListener('mouseup', this._onMouseInteractionEnd);
   }
 
-  _updatePlayed(percent) {
-    this.$input.val(percent);
+  _updateDOMAttributes(percent) {
     this.$input.attr('value', percent);
+    this.$input.attr('aria-valuetext', this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, percent));
+    this.$input.attr('aria-valuenow', percent);
+
     this.$node.attr(DATA_PLAYED, percent);
     this.$progressPlayed.attr('style', `width:${percent}%;`);
+  }
+
+  _updatePlayed(percent) {
+    this.$input.val(percent);
+    this._updateDOMAttributes(percent);
   }
 
   _updateBuffered(percent) {
@@ -137,6 +150,8 @@ class ProgressView extends View {
     delete this.$progressBuffered;
     delete this.$progressBackground;
     delete this.$node;
+
+    delete this._texts;
   }
 }
 

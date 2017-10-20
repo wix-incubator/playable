@@ -1,5 +1,3 @@
-import { UI_EVENTS } from '../../constants/index';
-
 import { MEDIA_STREAM_DELIVERY_TYPE } from '../../constants';
 import View from './debug-panel.view';
 
@@ -15,7 +13,6 @@ export default class DebugPanel {
     this._engine = engine;
 
     this._bindCallbacks();
-    this._bindEvents();
 
     this._initUI();
 
@@ -39,14 +36,6 @@ export default class DebugPanel {
   _bindCallbacks() {
     this.updateInfo = this.updateInfo.bind(this);
     this.hide = this.hide.bind(this);
-  }
-
-  _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.DEBUG_PANEL_TRIGGERED, this.show, this);
-  }
-
-  _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.DEBUG_PANEL_TRIGGERED, this.show, this);
   }
 
   getDebugInfo() {
@@ -109,7 +98,6 @@ export default class DebugPanel {
 
   destroy() {
     this.clearUpdateInterval();
-    this._unbindEvents();
 
     this.view.destroy();
     delete this.view;

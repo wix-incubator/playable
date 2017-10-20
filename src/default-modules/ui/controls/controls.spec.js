@@ -14,14 +14,14 @@ import { VIDEO_EVENTS, STATES } from '../../../constants/index';
 import EventEmitter from 'eventemitter3';
 
 describe('ControlsBlock', () => {
-  let controls = {};
-  let ui = {};
-  let engine = {};
-  let eventEmitter = null;
+  let controls;
+  let ui;
+  let engine;
+  let eventEmitter;
   let config = {};
-  let scope = {};
-  let rootContainer = {};
-  let screen = {}
+  let scope;
+  let rootContainer;
+  let screen;
 
   beforeEach(() => {
     config = {

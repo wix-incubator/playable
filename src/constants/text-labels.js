@@ -1,5 +1,20 @@
 export default {
+  WATCH_ON_SITE_LABEL: 'watch-on-site-label',
   WATCH_ON_SITE_TOOLTIP: 'watch-on-site-tooltip',
+  ENTER_FULL_SCREEN_LABEL: 'enter-full-screen-label',
   ENTER_FULL_SCREEN_TOOLTIP: 'enter-full-screen-tooltip',
-  EXIT_FULL_SCREEN_TOOLTIP: 'exit-full-screen-tooltip'
+  EXIT_FULL_SCREEN_LABEL: 'exit-full-screen-label',
+  EXIT_FULL_SCREEN_TOOLTIP: 'exit-full-screen-tooltip',
+  PLAY_CONTROL_LABEL: 'play-control-label',
+  PLAY_CONTROL_TOOLTIP: 'play-control-tooltip',
+  PAUSE_CONTROL_LABEL: 'pause-control-label',
+  PAUSE_CONTROL_TOOLTIP: 'pause-control-tooltip',
+  PROGRESS_CONTROL_LABEL: 'progress-control-label',
+  PROGRESS_CONTROL_VALUE: 'progress-control-value',
+  UNMUTE_CONTROL_LABEL: 'unmute-control-label',
+  UNMUTE_CONTROL_TOOLTIP: 'unmute-control-label',
+  MUTE_CONTROL_LABEL: 'mute-control-label',
+  MUTE_CONTROL_TOOLTIP: 'mute-control-tooltip',
+  VOLUME_CONTROL_LABEL: 'volume-control-label',
+  VOLUME_CONTROL_VALUE: 'volume-control-value'
 };

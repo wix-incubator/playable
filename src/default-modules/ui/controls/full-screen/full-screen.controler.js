@@ -7,11 +7,12 @@ import View from './full-screen.view';
 
 export default class FullScreenControl {
   static View = View;
-  static dependencies = ['eventEmitter', 'fullScreenManager'];
+  static dependencies = ['eventEmitter', 'fullScreenManager', 'textMap'];
 
-  constructor({ eventEmitter, fullScreenManager }) {
+  constructor({ eventEmitter, fullScreenManager, textMap }) {
     this._eventEmitter = eventEmitter;
     this._fullScreenManager = fullScreenManager;
+    this._textMap = textMap;
 
     this._isInFullScreen = null;
 
@@ -46,7 +47,8 @@ export default class FullScreenControl {
     const config = {
       callbacks: {
         onToggleFullScreenButtonClick: this._toggleFullScreen
-      }
+      },
+      texts: this._textMap
     };
 
     this.view = new this.constructor.View(config);
@@ -115,6 +117,7 @@ export default class FullScreenControl {
 
     delete this._eventEmitter;
     delete this._fullScreenManager;
+    delete this._textMap;
 
     delete this.isHidden;
   }

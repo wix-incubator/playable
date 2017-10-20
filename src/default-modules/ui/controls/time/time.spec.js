@@ -12,9 +12,9 @@ import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 
 describe('TimeControl', () => {
-  let control = {};
-  let engine = {};
-  let eventEmitter = {};
+  let control;
+  let engine;
+  let eventEmitter;
   let config = {};
 
   beforeEach(() => {

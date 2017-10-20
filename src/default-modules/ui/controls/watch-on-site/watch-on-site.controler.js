@@ -38,6 +38,7 @@ export default class FullScreenControl {
       callbacks: {
         onWatchOnSiteClick: this._triggerWatchOnSite
       },
+      texts: this._textMap,
       tooltip: this._textMap.get(TEXT_LABELS.WATCH_ON_SITE_TOOLTIP),
       logo: this._config.logo
     };

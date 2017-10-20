@@ -5,15 +5,17 @@ import sinon from 'sinon';
 
 import ProgressControl from './progress.controler';
 import Engine from '../../../playback-engine/playback-engine';
+import TextMap from '../../../text-map/text-map';
 
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 
 describe('ProgressControl', () => {
-  let control = {};
-  let engine = {};
-  let eventEmitter = {};
+  let control;
+  let engine;
+  let eventEmitter;
   let config = {};
+  let textMap;
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
@@ -22,9 +24,14 @@ describe('ProgressControl', () => {
       config
     });
 
+    textMap = new TextMap({
+      config
+    });
+
     control = new ProgressControl({
       engine,
-      eventEmitter
+      eventEmitter,
+      textMap
     });
   });
 

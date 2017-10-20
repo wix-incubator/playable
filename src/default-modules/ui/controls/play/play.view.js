@@ -1,5 +1,7 @@
 import $ from 'jbone';
 
+import { TEXT_LABELS } from '../../../../constants/index';
+
 import View from '../../core/view';
 
 import styles from './play.scss';
@@ -14,9 +16,11 @@ const DATA_IS_PLAYING = 'data-is-playing';
 class PlayView extends View {
   constructor(config) {
     super(config);
-    const { callbacks } = config;
+    const { callbacks, texts } = config;
 
     this._callbacks = callbacks;
+    this._texts = texts;
+
     this.$node = $('<div>', {
       class: this.styleNames['play-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
@@ -26,10 +30,10 @@ class PlayView extends View {
     this.$playbackControl = $('<button>', {
       class: `${this.styleNames['playback-toggle']} ${this.styleNames['control-button']}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
+      'aria-label': this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
       type: 'button',
       tabIndex: 0
     });
-
 
     this.$node
       .append(this.$playbackControl);
@@ -55,6 +59,11 @@ class PlayView extends View {
   setState({ isPlaying }) {
     this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
     this.$node.attr(DATA_IS_PLAYING, isPlaying);
+    this.$playbackControl.attr('aria-label',
+      isPlaying ?
+      this._texts.get(TEXT_LABELS.PAUSE_CONTROL_LABEL) :
+      this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL)
+    );
   }
 
   show() {
@@ -75,6 +84,7 @@ class PlayView extends View {
 
     delete this.$playbackControl;
     delete this.$node;
+    delete this._texts;
   }
 }
 

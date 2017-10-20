@@ -8,11 +8,12 @@ import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
 
 export default class VolumeControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter'];
+  static dependencies = ['engine', 'eventEmitter', 'textMap'];
 
-  constructor({ engine, eventEmitter }) {
+  constructor({ engine, eventEmitter, textMap }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
+    this._textMap = textMap;
 
     this._isMuted = this._engine.getMute();
     this._volumeLevel = this._engine.getVolume();
@@ -41,7 +42,8 @@ export default class VolumeControl {
         onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
         onToggleMuteClick: this._toggleMuteStatus
-      }
+      },
+      texts: this._textMap
     };
 
     this.view = new this.constructor.View(config);
@@ -53,6 +55,7 @@ export default class VolumeControl {
       callbacks: {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
+
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(
             this._isMuted ?
@@ -62,6 +65,7 @@ export default class VolumeControl {
         },
         [KEYCODES.ENTER]: e => {
           e.stopPropagation();
+
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(
             this._isMuted ?
@@ -78,15 +82,19 @@ export default class VolumeControl {
         [KEYCODES.RIGHT_ARROW]: e => {
           e.stopPropagation();
           e.preventDefault();
+
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
+
           this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
         },
         [KEYCODES.LEFT_ARROW]: e => {
           e.stopPropagation();
           e.preventDefault();
+
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
+
           this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
         }
       }
@@ -189,6 +197,7 @@ export default class VolumeControl {
 
     delete this._eventEmitter;
     delete this._engine;
+    delete this._textMap;
 
     this.isHidden = null;
     this._isMuted = null;

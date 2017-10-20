@@ -21,6 +21,7 @@ describe('KeyboardControl', () => {
   let eventEmitter;
   let rootContainer;
   let keyboardControl;
+  let debugPanel;
 
   beforeEach(() => {
     config = {};
@@ -34,11 +35,14 @@ describe('KeyboardControl', () => {
       engine,
       config
     });
-
+    debugPanel = {
+      show: sinon.spy()
+    };
     keyboardControl = new KeyboardControl({
       eventEmitter,
       engine,
       rootContainer,
+      debugPanel,
       config
     });
   });
@@ -68,7 +72,7 @@ describe('KeyboardControl', () => {
         keyDownEvent.shiftKey = false;
         rootContainer.node.dispatchEvent(keyDownEvent);
 
-        expect(eventEmitter.emit.calledWith(UI_EVENTS.DEBUG_PANEL_TRIGGERED)).to.be.false;
+        expect(debugPanel.show.called).to.be.false;
       });
 
       it('should do nothing if ctrlKey is false', () => {
@@ -76,7 +80,7 @@ describe('KeyboardControl', () => {
         keyDownEvent.ctrlKey = false;
         rootContainer.node.dispatchEvent(keyDownEvent);
 
-        expect(eventEmitter.emit.calledWith(UI_EVENTS.DEBUG_PANEL_TRIGGERED)).to.be.false;
+        expect(debugPanel.show.called).to.be.false;
       });
 
       it('should emit event if ctrlKey and shiftKey are both true', () => {
@@ -86,7 +90,7 @@ describe('KeyboardControl', () => {
 
         rootContainer.node.dispatchEvent(keyDownEvent);
 
-        expect(eventEmitter.emit.calledWith(UI_EVENTS.DEBUG_PANEL_TRIGGERED)).to.be.true;
+        expect(debugPanel.show.called).to.be.true;
       });
     });
 
@@ -95,7 +99,6 @@ describe('KeyboardControl', () => {
       rootContainer.node.dispatchEvent(keyDownEvent);
 
       expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.TAB_WITH_KEYBOARD_TRIGGERED)).to.be.true;
     });
 
     it('should do stuff if key was TAB', () => {
@@ -103,7 +106,6 @@ describe('KeyboardControl', () => {
       rootContainer.node.dispatchEvent(keyDownEvent);
 
       expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.TAB_WITH_KEYBOARD_TRIGGERED)).to.be.true;
     });
 
     it('should do stuff if key was SPACE_BAR', () => {

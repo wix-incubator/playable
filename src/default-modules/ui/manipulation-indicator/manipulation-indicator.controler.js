@@ -24,61 +24,57 @@ export default class ManipulationIndicator {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED, this.view.activatePauseIcon, this.view);
-    this._eventEmitter.on(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED, this.view.activatePlayIcon, this.view);
     this._eventEmitter.on(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED, this._showPlaybackChangeIndicator, this);
-    this._eventEmitter.on(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.view.activateRewindIcon, this.view);
-    this._eventEmitter.on(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.view.activateForwardIcon, this.view);
-    this._eventEmitter.on(
-      UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-      this.view.activateIncreaseVolumeIcon,
-      this.view
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-      this.view.activateDecreaseVolumeIcon,
-      this.view
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
-      this.view.activateMuteVolumeIcon,
-      this.view
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
-      this.view.activateIncreaseVolumeIcon,
-      this.view
-    );
-    this._eventEmitter.on(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED, this.view.deactivateIcon, this.view);
+    this._eventEmitter.on(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.showRewind, this);
+    this._eventEmitter.on(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.showForward, this);
+    this._eventEmitter.on(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
+    this._eventEmitter.on(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showDecreaseVolume, this);
+    this._eventEmitter.on(UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showMute, this);
+    this._eventEmitter.on(UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
+    this._eventEmitter.on(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED, this.hide, this);
+  }
+
+  showPause() {
+    this.view.activatePauseIcon();
+  }
+
+  showPlay() {
+    this.view.activatePlayIcon();
+  }
+
+  showRewind() {
+    this.view.activateRewindIcon();
+  }
+
+  showForward() {
+    this.view.activateForwardIcon();
+  }
+
+  showMute() {
+    this.view.activateMuteVolumeIcon();
+  }
+
+  showIncreaseVolume() {
+    this.view.activateIncreaseVolumeIcon();
+  }
+
+  showDecreaseVolume() {
+    this.view.activateDecreaseVolumeIcon();
+  }
+
+  hide() {
+    this.view.deactivateIcon();
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED, this.view.activatePauseIcon, this.view);
-    this._eventEmitter.off(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED, this.view.activatePlayIcon, this.view);
     this._eventEmitter.off(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED, this._showPlaybackChangeIndicator, this);
-    this._eventEmitter.off(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.view.activateRewindIcon, this.view);
-    this._eventEmitter.off(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.view.activateForwardIcon, this.view);
-    this._eventEmitter.off(
-      UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-      this.view.activateIncreaseVolumeIcon,
-      this.view
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-      this.view.activateDecreaseVolumeIcon,
-      this.view
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
-      this.view.activateMuteVolumeIcon,
-      this.view
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
-      this.view.activateIncreaseVolumeIcon,
-      this.view
-    );
-    this._eventEmitter.off(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED, this.view.deactivateIcon, this.view);
+    this._eventEmitter.off(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.showRewind, this);
+    this._eventEmitter.off(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.showForward, this);
+    this._eventEmitter.off(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
+    this._eventEmitter.off(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showDecreaseVolume, this);
+    this._eventEmitter.off(UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showMute, this);
+    this._eventEmitter.off(UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
+    this._eventEmitter.off(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED, this.hide, this);
   }
 
   _showPlaybackChangeIndicator() {

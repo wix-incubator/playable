@@ -5,15 +5,16 @@ import sinon from 'sinon';
 
 import PlayControl from './play.controler';
 import Engine from '../../../playback-engine/playback-engine';
-
+import TextMap from '../../../text-map/text-map';
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 
 describe('PlayControl', () => {
-  let control = {};
-  let engine = {};
-  let eventEmitter = {};
+  let control;
+  let engine;
+  let eventEmitter;
   let config = {};
+  let textMap;
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
@@ -21,9 +22,13 @@ describe('PlayControl', () => {
       eventEmitter,
       config
     });
+    textMap = new TextMap({
+      config
+    });
     control = new PlayControl({
       engine,
       eventEmitter,
+      textMap,
       config
     });
   });

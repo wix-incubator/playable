@@ -12,12 +12,12 @@ const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
 export default class ProgressControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter'];
+  static dependencies = ['engine', 'eventEmitter', 'textMap'];
 
-  constructor({ engine, eventEmitter }) {
+  constructor({ engine, eventEmitter, textMap }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
-
+    this._textMap = textMap;
     this._isUserInteracting = false;
     this._currentProgress = 0;
 
@@ -47,7 +47,8 @@ export default class ProgressControl {
         onChangePlayedProgress: this._changePlayedProgress,
         onUserInteractionStart: this._onUserInteractionStarts,
         onUserInteractionEnd: this._onUserInteractionEnds
-      }
+      },
+      texts: this._textMap
     };
 
     this.view = new this.constructor.View(config);

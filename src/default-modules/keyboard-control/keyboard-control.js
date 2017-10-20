@@ -13,11 +13,12 @@ const DEFAULT_CONFIG = {
 };
 
 export default class KeyboardControl {
-  static dependencies = ['engine', 'eventEmitter', 'rootContainer', 'config'];
+  static dependencies = ['engine', 'eventEmitter', 'rootContainer', 'config', 'debugPanel'];
 
-  constructor({ config, eventEmitter, rootContainer, engine }) {
+  constructor({ config, eventEmitter, rootContainer, engine, debugPanel }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
+    this._debugPanel = debugPanel;
     this._rootNode = rootContainer.node;
 
     this.config = {
@@ -35,12 +36,11 @@ export default class KeyboardControl {
         callbacks: {
           [KEYCODES.DEBUG_KEY]: e => {
             if (e.ctrlKey && e.shiftKey) {
-              this._eventEmitter.emit(UI_EVENTS.DEBUG_PANEL_TRIGGERED);
+              this._debugPanel.show();
             }
           },
           [KEYCODES.TAB]: () => {
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-            this._eventEmitter.emit(UI_EVENTS.TAB_WITH_KEYBOARD_TRIGGERED);
           },
           [KEYCODES.SPACE_BAR]: e => {
             e.preventDefault();
@@ -91,5 +91,6 @@ export default class KeyboardControl {
     delete this._rootNode;
     delete this._eventEmitter;
     delete this._engine;
+    delete this._debugPanel;
   }
 }

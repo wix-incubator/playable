@@ -49,9 +49,6 @@ window.player = VideoPlayer.create({
       logo: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png'
     }
   },
-  texts: {
-    [VideoPlayer.TEXT_LABELS.WATCH_ON_SITE_TOOLTIP]: 'Watch On Site'
-  },
   logger: ({ reason, startTS, endTS }) => {
     console.log(`REASON: ${reason}; startTS: ${startTS}; endTS: ${endTS}`); // eslint-disable-line no-console
   },

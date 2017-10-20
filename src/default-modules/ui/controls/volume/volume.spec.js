@@ -7,15 +7,17 @@ import sinon from 'sinon';
 
 import VolumeControl from './volume.controler';
 import Engine from '../../../playback-engine/playback-engine';
+import TextMap from '../../../text-map/text-map';
 
 import { VIDEO_EVENTS } from '../../../../constants/index';
 
 
 describe('VolumeControl', () => {
-  let control = {};
-  let engine = {};
-  let eventEmitter = {};
+  let control;
+  let engine;
+  let eventEmitter;
   let config = {};
+  let textMap;
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
@@ -23,9 +25,15 @@ describe('VolumeControl', () => {
       eventEmitter,
       config
     });
+
+    textMap = new TextMap({
+      config
+    });
+
     control = new VolumeControl({
       engine,
       eventEmitter,
+      textMap,
       config
     });
   });

@@ -1,5 +1,7 @@
 import $ from 'jbone';
 
+import { TEXT_LABELS } from '../../../../constants/index';
+
 import View from '../../core/view';
 
 import styles from './full-screen.scss';
@@ -14,9 +16,11 @@ const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 class FullScreenView extends View {
   constructor(config) {
     super(config);
-    const { callbacks } = config;
+    const { callbacks, texts } = config;
 
     this._callbacks = callbacks;
+    this._texts = texts;
+
     this.$node = $('<div>', {
       class: this.styleNames['full-screen-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
@@ -26,6 +30,7 @@ class FullScreenView extends View {
     this.$toggleFullScreenControl = $('<button>', {
       class: `${this.styleNames['full-screen-toggle']} ${this.styleNames['control-button']}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
+      'aria-label': this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
       type: 'button',
       tabIndex: 0
     });
@@ -54,6 +59,11 @@ class FullScreenView extends View {
 
   setState({ isInFullScreen }) {
     this.$toggleFullScreenControl.toggleClass(this.styleNames['in-full-screen'], isInFullScreen);
+    this.$toggleFullScreenControl.attr('aria-label',
+      isInFullScreen ?
+        this._texts.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL) :
+        this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL)
+    );
     this.$node.attr(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
   }
 
@@ -75,6 +85,8 @@ class FullScreenView extends View {
 
     delete this.$toggleFullScreenControl;
     delete this.$node;
+
+    delete this._texts;
   }
 }
 

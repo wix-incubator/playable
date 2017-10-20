@@ -1,5 +1,7 @@
 import $ from 'jbone';
 
+import { TEXT_LABELS } from '../../../../constants/index';
+
 import View from '../../core/view';
 
 import styles from './watch-on-site.scss';
@@ -9,9 +11,10 @@ import watchOnSiteIcon from '../../../../assets/view-on-site.svg';
 class WatchOnSiteView extends View {
   constructor(config) {
     super(config);
-    const { callbacks, tooltip } = config;
+    const { callbacks, texts } = config;
 
     this._callbacks = callbacks;
+    this._texts = texts;
 
     this.$node = $('<div>', {
       class: `${this.styleNames.wrapper}`
@@ -19,15 +22,19 @@ class WatchOnSiteView extends View {
 
     this.$logo = $('<img>', {
       class: this.styleNames['watch-on-site-toggle'],
+      'aria-label': this._texts.get(TEXT_LABELS.WATCH_ON_SITE_LABEL),
+      role: 'button',
       tabIndex: 0,
       src: config.logo || watchOnSiteIcon
     });
+
+    const tooltip = this._texts.get(TEXT_LABELS.WATCH_ON_SITE_TOOLTIP);
 
     if (tooltip) {
       this.$tooltip = $('<div>', {
         class: `${this.styleNames.tooltip}`
       });
-      this.$tooltip.html(tooltip);
+      this.$tooltip.html(this._texts.get(tooltip));
       this.$node.append(this.$tooltip);
     }
 
@@ -87,6 +94,8 @@ class WatchOnSiteView extends View {
     delete this.$wrapper;
     delete this.$controlsContainer;
     delete this.$node;
+
+    delete this._texts;
   }
 }
 

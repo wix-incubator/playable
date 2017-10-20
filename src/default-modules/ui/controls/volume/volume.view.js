@@ -1,5 +1,7 @@
 import $ from 'jbone';
 
+import { TEXT_LABELS } from '../../../../constants/index';
+
 import View from '../../core/view';
 
 import styles from './volume.scss';
@@ -19,9 +21,11 @@ const MAX_VOLUME_ICON_RANGE = 30;
 class VolumeView extends View {
   constructor(config) {
     super(config);
-    const { callbacks } = config;
+    const { callbacks, texts } = config;
 
     this._callbacks = callbacks;
+    this._texts = texts;
+
     this.$node = $('<div>', {
       class: this.styleNames['volume-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
@@ -32,6 +36,7 @@ class VolumeView extends View {
     this.$muteControl = $('<button>', {
       class: `${this.styleNames['mute-button']} ${this.styleNames['control-button']}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
+      'aria-label': this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
       type: 'button',
       tabIndex: 0
     });
@@ -56,6 +61,10 @@ class VolumeView extends View {
     this.$input = $('<input>', {
       class: `${this.styleNames['volume-input']}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_VALUE,
+      'aria-label': this._texts.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
+      'aria-valuemin': 0,
+      'aria-valuenow': 0,
+      'aria-valuemax': 100,
       tabIndex: 0,
       orient: 'vertical',
       type: 'range',
@@ -148,6 +157,9 @@ class VolumeView extends View {
   _setVolumeLevel(volume) {
     this.$input.val(volume);
     this.$input.attr('value', volume);
+    this.$input.attr('aria-valuetext', this._texts.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, volume));
+    this.$input.attr('aria-valuenow', volume);
+
     this.$filledProgress.attr('style', `height:${volume}%;`);
 
     this.$node.attr(DATA_VOLUME, volume);
@@ -162,6 +174,11 @@ class VolumeView extends View {
   _setMuteStatus(isMuted) {
     this.$muteControl.toggleClass(this.styleNames.muted, isMuted);
     this.$node.attr(DATA_IS_MUTED, isMuted);
+    this.$muteControl.attr('aria-label',
+      isMuted ?
+        this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL) :
+        this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL)
+    );
   }
 
   show() {
@@ -186,6 +203,7 @@ class VolumeView extends View {
     delete this.$container;
     delete this.$node;
 
+    delete this._texts;
   }
 }
 

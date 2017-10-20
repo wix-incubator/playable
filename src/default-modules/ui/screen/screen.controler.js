@@ -70,19 +70,11 @@ export default class Screen {
   _bindEvents() {
     this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
     this._eventEmitter.on(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
-    this._eventEmitter.on(UI_EVENTS.SHOW_TOP_SHADOW_TRIGGERED, this.showTopShadow, this);
-    this._eventEmitter.on(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED, this.showBottomShadow, this);
-    this._eventEmitter.on(UI_EVENTS.HIDE_TOP_SHADOW_TRIGGERED, this.hideTopShadow, this);
-    this._eventEmitter.on(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED, this.hideBottomShadow, this);
   }
 
   _unbindEvents() {
     this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
     this._eventEmitter.off(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
-    this._eventEmitter.off(UI_EVENTS.SHOW_TOP_SHADOW_TRIGGERED, this.showTopShadow, this);
-    this._eventEmitter.off(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED, this.showBottomShadow, this);
-    this._eventEmitter.off(UI_EVENTS.HIDE_TOP_SHADOW_TRIGGERED, this.hideTopShadow, this);
-    this._eventEmitter.off(UI_EVENTS.HIDE_BOTTOM_SHADOW_TRIGGERED, this.hideBottomShadow, this);
   }
 
   showTopShadow() {
@@ -134,9 +126,9 @@ export default class Screen {
         state === STATES.PLAY_REQUESTED ||
         state === STATES.PLAYING
       ) {
-        this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
+        this._manipulationIndicator.showPause();
       } else {
-        this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED);
+        this._manipulationIndicator.showPlay();
       }
     }
   }
