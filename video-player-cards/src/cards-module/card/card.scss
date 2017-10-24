@@ -16,8 +16,8 @@
   width: 10px;
   height: 10px;
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 12px;
+  right: 12px;
   cursor: pointer;
   background: url('./close.svg');
 
@@ -30,11 +30,11 @@
   display: block;
 }
 
-:global [data-hook="player-container"][max-width~="579px"] {
+:global [data-hook="player-container"][min-width~="901px"] {
   :local {
     .close-button {
-      top: 10px;
-      right: 10px;
+      top: 16px;
+      right: 16px;
     }
   }
 }
