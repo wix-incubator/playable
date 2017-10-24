@@ -1,5 +1,5 @@
 import HlsStream from './media-streams/hls-stream';
-import DashStream from './media-streams/dash-stream';
+//import DashStream from './media-streams/dash-stream';
 import getNativeStreamCreator from './media-streams/native-stream';
 
 import { NativeEnvironmentSupport } from '../../utils/environment-detection';
@@ -13,7 +13,7 @@ const DEFAULT_INITIAL_BITRATE = 5000;
 const DEFAULT_STREAM_CREATOR_SET = [
   getNativeStreamCreator(MEDIA_STREAM_TYPES.DASH, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
   getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
-  DashStream,
+  //DashStream,
   HlsStream,
   getNativeStreamCreator(MEDIA_STREAM_TYPES.MP4, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE),
   getNativeStreamCreator(MEDIA_STREAM_TYPES.WEBM, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE) // Native WebM (Chrome, Firefox)

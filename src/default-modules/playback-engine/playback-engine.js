@@ -19,7 +19,7 @@ export default class Engine {
   constructor({ eventEmitter, config }) {
     this._eventEmitter = eventEmitter;
 
-    this.currentSrc = null;
+    this._currentSrc = null;
 
     this._createVideoTag(config.engine);
 
@@ -43,6 +43,7 @@ export default class Engine {
     this.setMute(muted);
     this.setVolume(volume);
     this.setPlayInline(playInline);
+
     this.setSrc(src);
   }
 
@@ -106,21 +107,21 @@ export default class Engine {
 
   @playerAPI()
   setSrc(src) {
-    if (src === this.currentSrc) {
+    if (src === this._currentSrc) {
       return;
     }
 
     this._stateEngine.clearTimestamps();
 
-    this.currentSrc = src;
-    this._mediaStreamStrategy.connectMediaStream(this.currentSrc);
+    this._currentSrc = src;
+    this._mediaStreamStrategy.connectMediaStream(this._currentSrc);
 
     this._stateEngine.setState(STATES.SRC_SET);
   }
 
   @playerAPI()
   getSrc() {
-    return this.currentSrc;
+    return this._currentSrc;
   }
 
   @playerAPI()

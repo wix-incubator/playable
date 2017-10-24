@@ -125,7 +125,6 @@ export default class HlsStream {
     return this.mediaStream.url;
   }
 
-
   getMediaStreamDeliveryType() {
     return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
   }
