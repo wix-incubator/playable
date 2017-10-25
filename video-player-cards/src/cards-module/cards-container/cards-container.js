@@ -103,7 +103,9 @@ export default class CardsContainer {
     this.cards.splice(this.cards.indexOf(card), 1);
     this.resetCard(card);
     card.setDisplayed(false);
-    this.node.removeChild(card.node);
+    if (card.node.parentNode === this.node) {
+      this.node.removeChild(card.node);
+    }
   }
 
   slideNextCard() {
