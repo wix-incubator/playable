@@ -5,7 +5,6 @@ const CAROUSEL_INTERVAL = 6000;
 const CARD_REMOVE_TIMEOUT = 1000;
 
 export default class CardsContainer {
-  static dependencies = ['eventEmitter', 'rootContainer', 'engine'];
 
   constructor() {
     this.cards = [];

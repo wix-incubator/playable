@@ -1,3 +1,4 @@
+import { ResizeSensor } from 'css-element-queries';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from 'video-player/dist/src/constants';
 import playerAPI from 'video-player/dist/src/utils/player-api-decorator';
 
@@ -69,6 +70,12 @@ export default class CardsModule {
       this.cardsContainer.onSizeChange,
       this.cardsContainer
     );
+
+    const playerContainerNode = this.rootContainer.node;
+
+    ResizeSensor(playerContainerNode, () => {
+      this.cardsContainer.onSizeChange();
+    });
   }
 
   unbindEvents() {
@@ -87,17 +94,17 @@ export default class CardsModule {
 
     this.eventEmitter.off(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.cardsContainer.checkCardsToShow,
+      this.cardsContainer.onSizeChange,
       this.cardsContainer
     );
     this.eventEmitter.off(
       UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED,
-      this.cardsContainer.checkCardsToShow,
+      this.cardsContainer.onSizeChange,
       this.cardsContainer
     );
     this.eventEmitter.off(
       UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED,
-      this.cardsContainer.checkCardsToShow,
+      this.cardsContainer.onSizeChange,
       this.cardsContainer
     );
   }
