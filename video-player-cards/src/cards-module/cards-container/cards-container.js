@@ -47,6 +47,7 @@ export default class CardsContainer {
 
     this.direction = newDirection;
     this.node.setAttribute('data-direction', this.direction);
+    this.checkCardsToShow();
   }
 
   setAnchorPoint(newPoint) {
@@ -70,9 +71,7 @@ export default class CardsContainer {
   }
 
   enableAnimation() {
-    setTimeout(() => {
-      this.isAnimationEnabled = true;
-    });
+    this.isAnimationEnabled = true;
   }
 
   disableAnimation() {
@@ -81,15 +80,14 @@ export default class CardsContainer {
 
   onSizeChange() {
     this.disableAnimation();
-    this.checkCardsToShow();
-    this.enableAnimation();
+    this.checkCardsToShow()
+      .then(() => this.enableAnimation());
   }
 
   addCard(card) {
     this.cards.unshift(card);
     this.node.insertBefore(card.node, this.node.firstElementChild);
     this.resetCard(card);
-    this.checkCardsToShow();
   }
 
   removeCard(card) {
@@ -107,7 +105,6 @@ export default class CardsContainer {
     this.resetCard(card);
     card.setDisplayed(false);
     this.node.removeChild(card.node);
-    this.checkCardsToShow();
   }
 
   slideNextCard() {
@@ -117,7 +114,6 @@ export default class CardsContainer {
     this.node.insertBefore(this.node.lastElementChild, this.node.firstElementChild);
 
     this.cards.unshift(card);
-
     this.checkCardsToShow();
   }
 
@@ -152,28 +148,30 @@ export default class CardsContainer {
     } else {
       this.startCarousel();
     }
+
+    return this.updateCardsPositions();
   }
 
   showCard(card) {
-    card.appear();
-    this.updateCardsPositions();
+    if (card.isDisplayed) {
+      card.appear();
+    }
   }
-
 
   hideCard(card) {
     card.disappear();
-    this.updateCardsPositions();
   }
 
   updateCardsPositions() {
-    setTimeout(() => {
-      this.cards
-        .filter(card => card.isDisplayed)
-        .reduce((offset, card) => {
-          card.setAnimationEnabled(this.isAnimationEnabled);
-          card.updatePosition(this.flowType, this.direction, offset);
-          return offset + card.getFlowDimension(this.flowType);
-        }, 0);
+    return Promise.resolve()
+      .then(() => {
+        this.cards
+          .filter(card => card.isDisplayed)
+          .reduce((offset, card) => {
+            card.setAnimationEnabled(this.isAnimationEnabled);
+            card.updatePosition(this.flowType, this.direction, offset);
+            return offset + card.getFlowDimension(this.flowType);
+          }, 0);
     });
   }
 

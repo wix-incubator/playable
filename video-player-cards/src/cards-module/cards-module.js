@@ -184,26 +184,23 @@ export default class CardsModule {
 
   onSeekChange() {
     this.cardsContainer.disableAnimation();
-    this.updateCardsState();
-    this.cardsContainer.enableAnimation();
+    this.updateCardsState()
+      .then(() => this.cardsContainer.enableAnimation());
   }
 
   updateCardsState() {
     const currentTime = this.engine.getCurrentTime();
+    const cardsToUpdate = this.cards.filter(card => card.shouldBeChangedAt(currentTime));
 
-    this.cards.forEach(card => {
-      this.updateCardState(card, currentTime);
+    if (!cardsToUpdate.length) {
+      return Promise.resolve();
+    }
+
+    cardsToUpdate.forEach(card => {
+      card.isDisplayed ? this.hideCard(card) : this.showCard(card);
     });
-  }
 
-  updateCardState(card, currentTime) {
-    if (!card.isDisplayed && card.shouldBeShownAt(currentTime)) {
-      this.showCard(card);
-    }
-
-    if (card.isDisplayed && !card.shouldBeShownAt(currentTime)) {
-      this.hideCard(card);
-    }
+    return this.cardsContainer.checkCardsToShow();
   }
 
   destroy() {

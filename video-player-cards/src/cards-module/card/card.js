@@ -26,7 +26,7 @@ export default class Card {
 
   initContainer() {
     this.node = document.createElement('div');
-    this.node.className = styles.container;
+    this.node.className = classnames(styles.container, styles.animated);
 
     const closeButton = document.createElement('div');
     closeButton.className = styles['close-button'];
@@ -39,6 +39,10 @@ export default class Card {
 
   shouldBeShownAt(time) {
     return !this.isClosed && time >= this.from && time <= this.to;
+  }
+
+  shouldBeChangedAt(time) {
+    return this.isDisplayed ? !this.shouldBeShownAt(time) : this.shouldBeShownAt(time);
   }
 
   setDisplayed(isDisplayed) {

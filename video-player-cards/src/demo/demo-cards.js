@@ -36,7 +36,7 @@ export function getDemoCards() {
 
   const card1 = {
     contentNode: createCard('Test card', 'Test title lOrem ipsuim pisuinipsum.', 'https://scontent-frx5-1.cdninstagram.com/t51.2885-15/e35/16123864_171964476622622_1055696102294028288_n.jpg'),
-    from: 0,
+    from: 2000,
     to: 5000
   };
 
@@ -60,7 +60,7 @@ export function getDemoCards() {
 
   const card4 = {
     contentNode: card4Node,
-    from: 18000,
+    from: 20000,
     to: 60000
   };
 
@@ -69,7 +69,7 @@ export function getDemoCards() {
 
   const card5 = {
     contentNode: card5Node,
-    from: 20000,
+    from: 25000,
     to: 60000
   };
 
