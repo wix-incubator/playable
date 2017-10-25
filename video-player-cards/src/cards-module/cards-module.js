@@ -112,6 +112,7 @@ export default class CardsModule {
       ...cardData,
       onClose: () => {
         this.hideCard(card);
+        this.cardsContainer.checkCardsToShow();
       }
     });
     this.cards.push(card);
