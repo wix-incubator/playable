@@ -25,35 +25,11 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
       this.eventEmitter = eventEmitter;
       this.currentLevel = 0;
 
-      this.onError = () => {
-        const error = this.videoElement.error;
+      this._bindCallbacks();
+    }
 
-        switch (error.code) {
-          case NATIVE_ERROR_CODES.ABORTED:
-            //No need for broadcasting
-
-            break;
-          case NATIVE_ERROR_CODES.NETWORK:
-            this.logError(ERRORS.CONTENT_LOAD, error);
-            break;
-          case NATIVE_ERROR_CODES.DECODE:
-            this.logError(ERRORS.MEDIA, error);
-            break;
-          case NATIVE_ERROR_CODES.SRC_NOT_SUPPORTED:
-
-            /*
-              Our url checks would not allow not supported formats, so only case would be
-               when video tag couldn't retriev any info from endpoit
-            */
-
-            this.logError(ERRORS.CONTENT_LOAD, error);
-
-            break;
-          default:
-            this.logError(ERRORS.UNKNOWN, error);
-            break;
-        }
-      };
+    _bindCallbacks() {
+      this.broadcastError = this.broadcastError.bind(this);
     }
 
     logError(error, errorEvent) {
@@ -68,16 +44,46 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
       );
     }
 
-    attach(videoElement) {
-      this.videoElement = videoElement;
-      this.videoElement.addEventListener('error', this.onError);
-      videoElement.src = this.mediaStreams[this.currentLevel].url;
+    broadcastError() {
+      const error = this.videoElement.error;
+
+      switch (error.code) {
+        case NATIVE_ERROR_CODES.ABORTED:
+          //No need for broadcasting
+
+          break;
+        case NATIVE_ERROR_CODES.NETWORK:
+          this.logError(ERRORS.CONTENT_LOAD, error);
+          break;
+        case NATIVE_ERROR_CODES.DECODE:
+          this.logError(ERRORS.MEDIA, error);
+          break;
+        case NATIVE_ERROR_CODES.SRC_NOT_SUPPORTED:
+
+          /*
+            Our url checks would not allow not supported formats, so only case would be
+             when video tag couldn't retriev any info from endpoit
+          */
+
+          this.logError(ERRORS.CONTENT_LOAD, error);
+
+          break;
+        default:
+          this.logError(ERRORS.UNKNOWN, error);
+          break;
+      }
     }
 
-    detach(videoElement) {
-      this.videoElement.removeEventListener('error', this.onError);
+    attach(videoElement) {
+      this.videoElement = videoElement;
+      this.videoElement.addEventListener('error', this.broadcastError);
+      this.videoElement.src = this.mediaStreams[this.currentLevel].url;
+    }
+
+    detach() {
+      this.videoElement.removeEventListener('error', this.broadcastError);
+      this.videoElement.src = '';
       this.videoElement = null;
-      videoElement.src = '';
     }
 
     get currentUrl() {

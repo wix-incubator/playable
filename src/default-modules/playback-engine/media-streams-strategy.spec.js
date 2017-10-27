@@ -101,16 +101,4 @@ describe('MediaStreamsStrategy', () => {
     strategy.destroy();
     expect(attachedStream.detach.called).to.be.true;
   });
-
-  it('should set initial bitrate', () => {
-    const bitrate = 5000;
-    const stream = getNativeStreamCreator(MEDIA_STREAM_TYPES.DASH, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE);
-    const attachSpy = sinon.spy(stream.prototype, 'attach');
-
-    strategy.setInitialBitrate(bitrate);
-    strategy._playableStreamCreators = [ stream ];
-    strategy.connectMediaStream('http://www.dash.com/dash.mpd');
-
-    expect(attachSpy.calledWith(strategy._video, bitrate)).to.be.true;
-  });
 });

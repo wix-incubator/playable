@@ -8,7 +8,7 @@ import TextMap from './text-map/text-map';
 import KeyboardInterceptor from './keyboard-control/keyboard-control';
 import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
 import RootContainer from './root-container/root-container.controler';
-import DebugPanel from './debug-panel/debug-panel';
+import DebugPanel from './ui/debug-panel/debug-panel';
 
 import Screen from './ui/screen/screen.controler';
 import Overlay from './ui/overlay/overlay.controler';

@@ -1,6 +1,6 @@
 import $ from 'jbone';
 
-import View from '../ui/core/view';
+import View from '../core/view';
 
 import styles from './debug-panel.scss';
 

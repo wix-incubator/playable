@@ -4,6 +4,11 @@ import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, VIDEO_EVENTS } 
 import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../../../utils/video-data';
 
 
+const DEFAULT_HLS_CONFIG = {
+  abrEwmaDefaultEstimate: 5000 * 1000,
+  liveSyncDuration: 4
+};
+
 export default class HlsStream {
   static isSupported(env) {
     return env.MSE && HlsJs.isSupported();
@@ -11,6 +16,26 @@ export default class HlsStream {
 
   static canPlay(mediaType) {
     return mediaType === MEDIA_STREAM_TYPES.HLS;
+  }
+
+  constructor(mediaStreams, eventEmitter) {
+    this.eventEmitter = eventEmitter;
+    this.hls = null;
+    this.videoElement = null;
+    this.mediaStream = null;
+
+    if (mediaStreams.length === 1) {
+      this.mediaStream = mediaStreams[0];
+    } else {
+      throw new Error(`Can only handle a single HLS stream. Received ${mediaStreams.length} streams.`);
+    }
+
+    this._bindCallbacks();
+  }
+
+  _bindCallbacks() {
+    this.attachOnPlay = this.attachOnPlay.bind(this);
+    this.broadcastError = this.broadcastError.bind(this);
   }
 
   logError(error, errorEvent) {
@@ -25,104 +50,100 @@ export default class HlsStream {
     );
   }
 
-  constructor(mediaStreams, eventEmitter) {
-    this.eventEmitter = eventEmitter;
-    this.hls = null;
-    this.videoElement = null;
-    this.mediaStream = null;
+  broadcastError(type, errorEvent) {
+    const { ErrorTypes, ErrorDetails } = HlsJs;
 
-    this.attachOnPlay = () => {
-      if (!this.videoElement) {
-        return;
+    if (errorEvent.type === ErrorTypes.NETWORK_ERROR) {
+      switch (errorEvent.details) {
+        case ErrorDetails.MANIFEST_LOAD_ERROR:
+          this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+          break;
+        case ErrorDetails.MANIFEST_LOAD_TIMEOUT:
+          this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+          break;
+        case ErrorDetails.MANIFEST_PARSING_ERROR:
+          this.logError(ERRORS.MANIFEST_PARSE, errorEvent);
+          break;
+        case ErrorDetails.LEVEL_LOAD_ERROR:
+          this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+          break;
+        case ErrorDetails.LEVEL_LOAD_TIMEOUT:
+          this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+          break;
+        case ErrorDetails.AUDIO_TRACK_LOAD_ERROR:
+          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          break;
+        case ErrorDetails.AUDIO_TRACK_LOAD_TIMEOUT:
+          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          break;
+        case ErrorDetails.FRAG_LOAD_ERROR:
+          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          break;
+        case ErrorDetails.FRAG_LOAD_TIMEOUT:
+          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          break;
+        default:
+          this.logError(ERRORS.UNKNOWN, errorEvent);
       }
-      this.hls.startLoad();
-      this.videoElement.removeEventListener('play', this.attachOnPlay);
-    };
-
-    this.onError = (type, errorEvent) => {
-      const { ErrorTypes, ErrorDetails } = HlsJs;
-
-      if (errorEvent.type === ErrorTypes.NETWORK_ERROR) {
-        switch (errorEvent.details) {
-          case ErrorDetails.MANIFEST_LOAD_ERROR:
-            this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
-            break;
-          case ErrorDetails.MANIFEST_LOAD_TIMEOUT:
-            this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
-            break;
-          case ErrorDetails.MANIFEST_PARSING_ERROR:
-            this.logError(ERRORS.MANIFEST_PARSE, errorEvent);
-            break;
-          case ErrorDetails.LEVEL_LOAD_ERROR:
-            this.logError(ERRORS.LEVEL_LOAD, errorEvent);
-            break;
-          case ErrorDetails.LEVEL_LOAD_TIMEOUT:
-            this.logError(ERRORS.LEVEL_LOAD, errorEvent);
-            break;
-          case ErrorDetails.AUDIO_TRACK_LOAD_ERROR:
-            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
-            break;
-          case ErrorDetails.AUDIO_TRACK_LOAD_TIMEOUT:
-            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
-            break;
-          case ErrorDetails.FRAG_LOAD_ERROR:
-            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
-            break;
-          case ErrorDetails.FRAG_LOAD_TIMEOUT:
-            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
-            break;
-          default:
-            this.logError(ERRORS.UNKNOWN, errorEvent);
-        }
-      } else if (errorEvent.type === ErrorTypes.MEDIA_ERROR) {
-        switch (errorEvent.details) {
-          case ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR:
-            this.logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
-            break;
-          default:
-            this.logError(ERRORS.MEDIA, errorEvent);
-        }
-      } else {
-        this.logError(VIDEO_EVENTS.UNKNOWN, errorEvent);
+    } else if (errorEvent.type === ErrorTypes.MEDIA_ERROR) {
+      switch (errorEvent.details) {
+        case ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR:
+          this.logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
+          break;
+        default:
+          this.logError(ERRORS.MEDIA, errorEvent);
       }
-    };
-
-    if (mediaStreams.length === 1) {
-      this.mediaStream = mediaStreams[0];
     } else {
-      throw new Error(`Can only handle a single HLS stream. Received ${mediaStreams.length} streams.`);
+      this.logError(VIDEO_EVENTS.UNKNOWN, errorEvent);
     }
   }
 
-  attach(videoElement, initialBitrate) {
+  attachOnPlay() {
+    if (!this.videoElement) {
+      return;
+    }
+    this.hls.startLoad();
+    this.videoElement.removeEventListener('play', this.attachOnPlay);
+  }
+
+  attach(videoElement) {
     if (!this.mediaStream) {
       return;
     }
+
+    const config = { ...DEFAULT_HLS_CONFIG };
+
     this.videoElement = videoElement;
-    const config = { abrEwmaDefaultEstimate: initialBitrate * 1000 };
-    if (videoElement.preload === 'none') {
+
+    if (this.videoElement.preload === 'none') {
       config.autoStartLoad = false;
-      videoElement.addEventListener('play', this.attachOnPlay);
+      this.videoElement.addEventListener('play', this.attachOnPlay);
     }
+
     this.hls = new HlsJs(config);
-    this.hls.on(HlsJs.Events.ERROR, this.onError);
+    this.hls.on(HlsJs.Events.ERROR, this.broadcastError);
     this.hls.loadSource(this.mediaStream.url);
-    this.hls.attachMedia(videoElement);
+    this.hls.attachMedia(this.videoElement);
   }
 
-  detach(videoElement) {
+  detach() {
     if (!this.mediaStream) {
       return;
     }
-    this.hls.off(HlsJs.Events.ERROR, this.onError);
+    this.hls.off(HlsJs.Events.ERROR, this.broadcastError);
     this.hls.destroy();
     this.hls = null;
-    videoElement.removeEventListener('play', this.attachOnPlay);
+
+    this.videoElement.removeEventListener('play', this.attachOnPlay);
     this.videoElement = null;
   }
 
   get currentUrl() {
     return this.mediaStream.url;
+  }
+
+  get livePosition() {
+    return this.hls.liveSyncPosition;
   }
 
   getMediaStreamDeliveryType() {

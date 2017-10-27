@@ -101,11 +101,6 @@ export default class Engine {
   }
 
   @playerAPI()
-  setInitialBitrate(bitrate) {
-    this._mediaStreamStrategy.setInitialBitrate(bitrate);
-  }
-
-  @playerAPI()
   setSrc(src) {
     if (src === this._currentSrc) {
       return;
@@ -122,6 +117,15 @@ export default class Engine {
   @playerAPI()
   getSrc() {
     return this._currentSrc;
+  }
+
+  @playerAPI()
+  goLive() {
+    const attachedStream = this.getAttachedStream();
+
+    this.setCurrentTime(attachedStream.livePosition);
+
+    this.play();
   }
 
   @playerAPI()
@@ -304,13 +308,11 @@ export default class Engine {
     this._stateEngine.destroy();
     this._nativeEventsBroadcaster.destroy();
     this._mediaStreamStrategy.destroy();
+    this._video.parentNode && this._video.parentNode.removeChild(this._video);
 
     delete this._stateEngine;
     delete this._nativeEventsBroadcaster;
     delete this._mediaStreamStrategy;
-
-    this._video.parentNode && this._video.parentNode.removeChild(this._video);
-
     delete this._eventEmitter;
     delete this._video;
   }

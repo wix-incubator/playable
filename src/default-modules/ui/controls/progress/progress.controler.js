@@ -39,6 +39,7 @@ export default class ProgressControl {
   _bindEvents() {
     this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
+    this._eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators, this);
   }
 
   _initUI() {
@@ -209,6 +210,15 @@ export default class ProgressControl {
     this.updatePlayed(getOverallPlayedPercent(currentTime, duration));
   }
 
+  _updateAllIndicators() {
+    const currentTime = this._engine.getCurrentTime();
+    const buffered = this._engine.getBuffered();
+    const duration = this._engine.getDurationTime();
+
+    this.updatePlayed(getOverallPlayedPercent(currentTime, duration));
+    this.updateBuffered(getOverallBufferedPercent(buffered, currentTime, duration));
+  }
+
   updatePlayed(percent) {
     if (!this._isUserInteracting) {
       this._currentProgress = percent;
@@ -231,6 +241,7 @@ export default class ProgressControl {
   }
 
   _unbindEvents() {
+    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updateAllIndicators, this);
     this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.off(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
   }

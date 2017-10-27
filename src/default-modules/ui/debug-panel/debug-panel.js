@@ -1,4 +1,4 @@
-import { MEDIA_STREAM_DELIVERY_TYPE } from '../../constants';
+import { MEDIA_STREAM_DELIVERY_TYPE } from '../../../constants';
 import View from './debug-panel.view';
 
 

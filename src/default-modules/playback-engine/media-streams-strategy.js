@@ -8,8 +8,6 @@ import { detectStreamType } from '../../utils/detect-stream-type';
 import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants/index';
 
 
-const DEFAULT_INITIAL_BITRATE = 5000;
-
 const DEFAULT_STREAM_CREATOR_SET = [
   getNativeStreamCreator(MEDIA_STREAM_TYPES.DASH, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
   getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
@@ -25,8 +23,6 @@ export default class MediaStreamsStrategy {
   constructor(eventEmitter, video) {
     this._eventEmitter = eventEmitter;
     this._video = video;
-
-    this._initialBitrate = DEFAULT_INITIAL_BITRATE;
 
     this._playableStreamCreators = [];
     this._playableStreams = [];
@@ -65,7 +61,7 @@ export default class MediaStreamsStrategy {
       // Use the first PlayableStream for now
       // Later, we can use the others as fallback
       this._attachedStream = this._playableStreams[0];
-      this._attachedStream.attach(this._video, this._initialBitrate);
+      this._attachedStream.attach(this._video);
     }
   }
 
@@ -78,10 +74,6 @@ export default class MediaStreamsStrategy {
 
   get attachedStream() {
     return this._attachedStream;
-  }
-
-  setInitialBitrate(bitrate) {
-    this._initialBitrate = bitrate;
   }
 
   connectMediaStream(src) {

@@ -4,6 +4,8 @@ import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, VIDEO_EVENTS } 
 import { getNearestBufferSegmentInfo } from '../../../utils/video-data';
 
 
+const INITIAL_BITRATE = 5000;
+
 const DashEvents = MediaPlayer.events;
 
 export default class DashStream {
@@ -13,6 +15,26 @@ export default class DashStream {
 
   static canPlay(mediaType) {
     return mediaType === MEDIA_STREAM_TYPES.DASH;
+  }
+
+  constructor(mediaStreams, eventEmitter) {
+    this.eventEmitter = eventEmitter;
+
+    this.dashPlayer = null;
+    this.mediaStream = null;
+    this.videoElement = null;
+
+    if (mediaStreams.length === 1) {
+      this.mediaStream = mediaStreams[0];
+    } else {
+      throw new Error(`Can only handle a single DASH stream. Received ${mediaStreams.length} streams.`);
+    }
+
+    this._bindCallbacks();
+  }
+
+  _bindCallbacks() {
+    this.broadcastError = this.broadcastError.bind(this);
   }
 
   logError(error, errorEvent) {
@@ -27,77 +49,51 @@ export default class DashStream {
     );
   }
 
-  constructor(mediaStreams, eventEmitter) {
-    this.eventEmitter = eventEmitter;
-    this.dashPlayer = null;
-    this.mediaStream = null;
-    this.videoElement = null;
+  broadcastError(errorEvent) {
+    if (!errorEvent) {
+      return;
+    }
 
-    this.attachOnPlay = () => {
-      if (!this.videoElement) {
-        return;
+    if (errorEvent.error === 'download') {
+      switch (errorEvent.event.id) {
+        case 'manifest':
+          this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+          break;
+        case 'content':
+          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          break;
+        case 'initialization':
+          this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+          break;
+        default:
+          this.logError(ERRORS.UNKNOWN, errorEvent);
       }
-      this.dashPlayer.initialize(this.videoElement, this.mediaStream.url, true);
-
-      if (this._initialBitrate) {
-        this.dashPlayer.setInitialBitrateFor('video', this._initialBitrate);
+    } else if (errorEvent.error === 'manifestError') {
+      switch (errorEvent.event.id) {
+        case 'codec':
+          this.logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
+          break;
+        case 'parse':
+          this.logError(ERRORS.MANIFEST_PARSE, errorEvent);
+          break;
+        default:
+          this.logError(ERRORS.UNKNOWN, errorEvent);
       }
-      this.videoElement.removeEventListener('play', this.attachOnPlay);
-    };
-
-    this.onError = errorEvent => {
-      if (!errorEvent) {
-        return;
-      }
-
-      if (errorEvent.error === 'download') {
-        switch (errorEvent.event.id) {
-          case 'manifest':
-            this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
-            break;
-          case 'content':
-            this.logError(ERRORS.CONTENT_LOAD, errorEvent);
-            break;
-          case 'initialization':
-            this.logError(ERRORS.LEVEL_LOAD, errorEvent);
-            break;
-          default:
-            this.logError(ERRORS.UNKNOWN, errorEvent);
-        }
-      } else if (errorEvent.error === 'manifestError') {
-        switch (errorEvent.event.id) {
-          case 'codec':
-            this.logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
-            break;
-          case 'parse':
-            this.logError(ERRORS.MANIFEST_PARSE, errorEvent);
-            break;
-          default:
-            this.logError(ERRORS.UNKNOWN, errorEvent);
-        }
-      } else if (errorEvent.error === 'mediasource') {
-        this.logError(ERRORS.MEDIA, errorEvent);
-      } else {
-        this.logError(ERRORS.UNKNOWN, errorEvent);
-      }
-    };
-
-    if (mediaStreams.length === 1) {
-      this.mediaStream = mediaStreams[0];
+    } else if (errorEvent.error === 'mediasource') {
+      this.logError(ERRORS.MEDIA, errorEvent);
     } else {
-      throw new Error(`Can only handle a single DASH stream. Received ${mediaStreams.length} streams.`);
+      this.logError(ERRORS.UNKNOWN, errorEvent);
     }
   }
 
-  attach(videoElement, initialBitrate) {
+  attach(videoElement) {
     if (!this.mediaStream) {
       return;
     }
-    this._initialBitrate = initialBitrate;
     this.videoElement = videoElement;
     this.dashPlayer = MediaPlayer().create();
     this.dashPlayer.getDebug().setLogToBrowserConsole(false);
-    this.dashPlayer.on(DashEvents.ERROR, this.onError);
+    this.dashPlayer.on(DashEvents.ERROR, this.broadcastError);
 
     if (videoElement.preload === 'none') {
       this.startDelayedInitPlayer();
@@ -121,9 +117,7 @@ export default class DashStream {
 
   initPlayer(forceAutoplay) {
     this.dashPlayer.initialize(this.videoElement, this.mediaStream.url, forceAutoplay || this.videoElement.autoplay);
-    if (this._initialBitrate) {
-      this.dashPlayer.setInitialBitrateFor('video', this._initialBitrate);
-    }
+    this.dashPlayer.setInitialBitrateFor('video', INITIAL_BITRATE);
   }
 
   get currentUrl() {
@@ -136,7 +130,7 @@ export default class DashStream {
       return;
     }
     this.dashPlayer.reset();
-    this.dashPlayer.off(DashEvents.ERROR, this.onError);
+    this.dashPlayer.off(DashEvents.ERROR, this.broadcastError);
     this.dashPlayer = null;
     this.videoElement = null;
   }
