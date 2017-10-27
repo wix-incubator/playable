@@ -89,7 +89,6 @@ export default class CardsContainer {
     this.cards.unshift(card);
     this.node.insertBefore(card.node, this.node.firstElementChild);
     this.resetCard(card);
-    card.resizeSensor = new ResizeSensor(card.node, this.handleCardSizeChange);
   }
 
   removeCard(card) {
@@ -103,10 +102,6 @@ export default class CardsContainer {
   }
 
   removeFromContainer(card) {
-    if (card.resizeSensor) {
-      card.resizeSensor.detach(this.handleCardSizeChange);
-    }
-
     this.cards.splice(this.cards.indexOf(card), 1);
     this.resetCard(card);
     card.setDisplayed(false);
@@ -168,10 +163,14 @@ export default class CardsContainer {
   showCard(card) {
     if (card.isDisplayed) {
       card.appear();
+      card.resizeSensor = new ResizeSensor(card.node, this.handleCardSizeChange);
     }
   }
 
   hideCard(card) {
+    if (card.resizeSensor) {
+      card.resizeSensor.detach(this.handleCardSizeChange);
+    }
     card.disappear();
   }
 
