@@ -1,4 +1,5 @@
 import { ResizeSensor } from 'css-element-queries';
+import throttle from 'lodash/throttle';
 import styles from './cards-container.scss';
 import { DIRECTIONS, FLOW_TYPES, ANCHOR_POINTS } from '../constants';
 
@@ -30,7 +31,7 @@ export default class CardsContainer {
 
   bindCallbacks() {
     this.slideNextCard = this.slideNextCard.bind(this);
-    this.handleCardSizeChange = this.handleCardSizeChange.bind(this);
+    this.handleCardSizeChange = throttle(this.handleCardSizeChange.bind(this), 200);
   }
 
   onControlsShowed() {
@@ -163,7 +164,9 @@ export default class CardsContainer {
   showCard(card) {
     if (card.isDisplayed) {
       card.appear();
-      card.resizeSensor = new ResizeSensor(card.node, this.handleCardSizeChange);
+      if (!card.resizeSensor) {
+        card.resizeSensor = new ResizeSensor(card.node, this.handleCardSizeChange);
+      }
     }
   }
 
