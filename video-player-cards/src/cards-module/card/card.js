@@ -14,13 +14,14 @@ const positionProperties = {
 };
 
 export default class Card {
-  constructor({ contentNode, onClose, from, to }) {
+  constructor({ contentNode, onClose, from, to, order }) {
     this.contentNode = contentNode;
     this.isDisplayed = false;
     this.isClosed = false;
     this.onClose = onClose;
     this.from = from / 1000;
     this.to = to / 1000;
+    this.order = order;
     this.initContainer();
   }
 

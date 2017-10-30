@@ -90,6 +90,7 @@ export default class CardsContainer {
     this.cards.unshift(card);
     this.node.insertBefore(card.node, this.node.firstElementChild);
     this.resetCard(card);
+    this.sortCards();
   }
 
   removeCard(card) {
@@ -177,6 +178,16 @@ export default class CardsContainer {
     card.disappear();
   }
 
+  sortCards() {
+    this.cards.sort((card1, card2) => {
+      if (card1.from === card2.from) {
+        return card1.order < card2.order;
+      }
+
+      return card1.from < card2.from;
+    });
+  }
+
   updateCardsPositions() {
     return Promise.resolve()
       .then(() => {
@@ -187,7 +198,7 @@ export default class CardsContainer {
             card.updatePosition(this.flowType, this.direction, offset);
             return offset + card.getFlowDimension(this.flowType);
           }, 0);
-    });
+      });
   }
 
   startCarousel() {
