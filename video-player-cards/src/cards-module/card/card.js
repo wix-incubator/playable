@@ -52,10 +52,12 @@ export default class Card {
   }
 
   appear() {
+    this.node.style.minWidth = 0;
     this.node.style.opacity = 1;
   }
 
   disappear() {
+    this.node.style.minWidth = `${this.node.offsetWidth}px`;
     this.node.style.opacity = 0;
   }
 
