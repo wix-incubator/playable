@@ -2,7 +2,7 @@ import get from 'lodash/get';
 
 import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
 
-import { UI_EVENTS, TEXT_LABELS } from '../../../../constants/index';
+import { UI_EVENTS } from '../../../../constants/index';
 import View from './watch-on-site.view';
 
 
@@ -39,7 +39,6 @@ export default class FullScreenControl {
         onWatchOnSiteClick: this._triggerWatchOnSite
       },
       texts: this._textMap,
-      tooltip: this._textMap.get(TEXT_LABELS.WATCH_ON_SITE_TOOLTIP),
       logo: this._config.logo
     };
 

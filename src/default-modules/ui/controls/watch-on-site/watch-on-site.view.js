@@ -28,15 +28,11 @@ class WatchOnSiteView extends View {
       src: config.logo || watchOnSiteIcon
     });
 
-    const tooltip = this._texts.get(TEXT_LABELS.WATCH_ON_SITE_TOOLTIP);
-
-    if (tooltip) {
-      this.$tooltip = $('<div>', {
-        class: `${this.styleNames.tooltip}`
-      });
-      this.$tooltip.html(this._texts.get(tooltip));
-      this.$node.append(this.$tooltip);
-    }
+    this.$tooltip = $('<div>', {
+      class: `${this.styleNames.tooltip}`
+    });
+    this.$tooltip.html(this._texts.get(TEXT_LABELS.WATCH_ON_SITE_TOOLTIP));
+    this.$node.append(this.$tooltip);
 
     this.$node.append(this.$logo);
 
