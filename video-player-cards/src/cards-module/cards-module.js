@@ -7,6 +7,7 @@ import CardsContainer from './cards-container/cards-container';
 
 
 const CARDS_UPDATE_INTERVAL = 100;
+const CARDS_UPDATE_ONCLOSE_DELAY = 500;
 
 export default class CardsModule {
   static dependencies = ['eventEmitter', 'rootContainer', 'engine'];
@@ -119,6 +120,7 @@ export default class CardsModule {
       ...cardData,
       onClose: () => {
         this.hideCard(card);
+        setTimeout(() => this.cardsContainer.checkCardsToShow(), CARDS_UPDATE_ONCLOSE_DELAY);
         this.cardsContainer.checkCardsToShow();
       }
     });
