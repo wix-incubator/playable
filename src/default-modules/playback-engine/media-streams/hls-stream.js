@@ -50,51 +50,59 @@ export default class HlsStream {
     );
   }
 
-  broadcastError(type, errorEvent) {
+  broadcastError(error, data) {
+    if (!data.fatal) {
+      return;
+    }
+
     const { ErrorTypes, ErrorDetails } = HlsJs;
 
-    if (errorEvent.type === ErrorTypes.NETWORK_ERROR) {
-      switch (errorEvent.details) {
+    if (data.type === ErrorTypes.NETWORK_ERROR) {
+      switch (data.details) {
         case ErrorDetails.MANIFEST_LOAD_ERROR:
-          this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+          this.logError(ERRORS.MANIFEST_LOAD, data);
           break;
         case ErrorDetails.MANIFEST_LOAD_TIMEOUT:
-          this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+          this.logError(ERRORS.MANIFEST_LOAD, data);
           break;
         case ErrorDetails.MANIFEST_PARSING_ERROR:
-          this.logError(ERRORS.MANIFEST_PARSE, errorEvent);
+          this.logError(ERRORS.MANIFEST_PARSE, data);
           break;
         case ErrorDetails.LEVEL_LOAD_ERROR:
-          this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+          this.logError(ERRORS.LEVEL_LOAD, data);
           break;
         case ErrorDetails.LEVEL_LOAD_TIMEOUT:
-          this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+          this.logError(ERRORS.LEVEL_LOAD, data);
           break;
         case ErrorDetails.AUDIO_TRACK_LOAD_ERROR:
-          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          this.logError(ERRORS.CONTENT_LOAD, data);
           break;
         case ErrorDetails.AUDIO_TRACK_LOAD_TIMEOUT:
-          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          this.logError(ERRORS.CONTENT_LOAD, data);
           break;
         case ErrorDetails.FRAG_LOAD_ERROR:
-          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          this.logError(ERRORS.CONTENT_LOAD, data);
           break;
         case ErrorDetails.FRAG_LOAD_TIMEOUT:
-          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          this.logError(ERRORS.CONTENT_LOAD, data);
           break;
         default:
-          this.logError(ERRORS.UNKNOWN, errorEvent);
+          this.logError(ERRORS.UNKNOWN, data);
       }
-    } else if (errorEvent.type === ErrorTypes.MEDIA_ERROR) {
-      switch (errorEvent.details) {
+
+      this.hls.startLoad();
+    } else if (data.type === ErrorTypes.MEDIA_ERROR) {
+      switch (data.details) {
         case ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR:
-          this.logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
+          this.logError(ERRORS.MANIFEST_INCOMPATIBLE, data);
           break;
         default:
-          this.logError(ERRORS.MEDIA, errorEvent);
+          this.logError(ERRORS.MEDIA, data);
       }
+
+      this.hls.recoverMediaError();
     } else {
-      this.logError(VIDEO_EVENTS.UNKNOWN, errorEvent);
+      this.logError(VIDEO_EVENTS.UNKNOWN, data);
     }
   }
 
