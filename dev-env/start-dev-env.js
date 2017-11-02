@@ -1,4 +1,4 @@
 require('babel-register');
 const startDevServer = require('./dev-server');
 
-startDevServer();
+startDevServer(process.env.PORT);
