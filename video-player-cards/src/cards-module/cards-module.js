@@ -30,6 +30,7 @@ export default class CardsModule {
     this.bindCallbacks();
     this.bindEvents();
     this.initialized = true;
+    this.handlePlayerStateChange({ nextState: this.engine.getCurrentState() });
   }
 
   initContainer() {
