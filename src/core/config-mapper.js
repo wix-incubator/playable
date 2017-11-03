@@ -52,7 +52,7 @@ const convertUIConfigForAndroid = config =>
 const getUIConfig = params => {
     const config = {
       ...params.size,
-      ...pick(params, ['overlay', 'screen', 'customUI', 'loader', 'controls', 'watchOnSite', 'fillAllSpace', 'loadingCover'])
+      ...pick(params, ['overlay', 'screen', 'customUI', 'loader', 'controls', 'logo', 'fillAllSpace', 'loadingCover'])
     };
 
     if (isIPhone() || isIPod() || isIPad()) {

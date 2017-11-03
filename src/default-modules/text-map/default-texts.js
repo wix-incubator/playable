@@ -2,8 +2,8 @@ import { TEXT_LABELS } from '../../constants';
 
 
 export default {
-  [TEXT_LABELS.WATCH_ON_SITE_LABEL]: 'Watch On Site',
-  [TEXT_LABELS.WATCH_ON_SITE_TOOLTIP]: 'Watch On Site',
+  [TEXT_LABELS.LOGO_LABEL]: 'Watch On Site',
+  [TEXT_LABELS.LOGO_TOOLTIP]: 'Watch On Site',
   [TEXT_LABELS.PAUSE_CONTROL_LABEL]: 'Pause',
   [TEXT_LABELS.PLAY_CONTROL_LABEL]: 'Play',
   [TEXT_LABELS.PROGRESS_CONTROL_LABEL]: 'Progress control',

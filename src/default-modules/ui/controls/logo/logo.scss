@@ -15,7 +15,6 @@
 
   margin-right: 18px;
 
-  cursor: pointer;
   transition: opacity .2s, visibility .2s;
   transition-duration: .2s;
 
@@ -33,7 +32,7 @@
   }
 
   &:hover {
-    .watch-on-site-toggle,
+    .default-logo,
     img {
       opacity: .7;
     }
@@ -43,6 +42,10 @@
 
       opacity: 1;
     }
+  }
+
+  &.link {
+    cursor: pointer;
   }
 }
 
@@ -66,7 +69,7 @@
   }
 }
 
-.watch-on-site-toggle {
+.default-logo {
   width: 14px;
   min-width: 14px;
   height: 14px;

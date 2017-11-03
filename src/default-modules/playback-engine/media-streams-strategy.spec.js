@@ -50,10 +50,10 @@ describe('MediaStreamsStrategy', () => {
     ];
 
     strategy.connectMediaStream('http://www.dash.com/dash.mpd');
-    expect(strategy.attachedStream.getMediaStreamType()).to.be.equal(MEDIA_STREAM_TYPES.DASH);
+    expect(strategy.attachedStream.mediaStreamType).to.be.equal(MEDIA_STREAM_TYPES.DASH);
 
     strategy.connectMediaStream('http://www.hls.com/hls.m3u8');
-    expect(strategy.attachedStream.getMediaStreamType()).to.be.equal(MEDIA_STREAM_TYPES.HLS);
+    expect(strategy.attachedStream.mediaStreamType).to.be.equal(MEDIA_STREAM_TYPES.HLS);
 
     strategy.connectMediaStream({ url: 'http://www.mp4.com/mp4.mp4', type: MEDIA_STREAM_TYPES.MP4 });
   });
@@ -65,7 +65,7 @@ describe('MediaStreamsStrategy', () => {
     ];
 
     strategy.connectMediaStream('http://www.dash.com/dash.mpd');
-    expect(strategy.attachedStream.getMediaStreamDeliveryType()).to.be.equal(MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE);
+    expect(strategy.attachedStream.mediaStreamDeliveryType).to.be.equal(MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE);
 
     strategy._playableStreamCreators = [
       getNativeStreamCreator(MEDIA_STREAM_TYPES.HLS, MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE),
@@ -73,7 +73,7 @@ describe('MediaStreamsStrategy', () => {
     ];
 
     strategy.connectMediaStream('http://www.hls.com/hls.m3u8');
-    expect(strategy.attachedStream.getMediaStreamDeliveryType()).to.be.equal(MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE);
+    expect(strategy.attachedStream.mediaStreamDeliveryType).to.be.equal(MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE);
   });
 
   it('should detach current stream on changing of stream and destroy', () => {

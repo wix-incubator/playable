@@ -1,4 +1,4 @@
-import { MediaPlayer } from 'dashjs';
+import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
 
 import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, VIDEO_EVENTS } from '../../../constants/index';
 import { getNearestBufferSegmentInfo } from '../../../utils/video-data';
@@ -31,6 +31,14 @@ export default class DashStream {
     }
 
     this._bindCallbacks();
+  }
+
+  get mediaStreamDeliveryType() {
+    return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+  }
+
+  get currentUrl() {
+    return this.mediaStream.url;
   }
 
   _bindCallbacks() {
@@ -120,10 +128,6 @@ export default class DashStream {
     this.dashPlayer.setInitialBitrateFor('video', INITIAL_BITRATE);
   }
 
-  get currentUrl() {
-    return this.mediaStream.url;
-  }
-
   detach() {
     this.stopDelayedInitPlayer();
     if (!this.mediaStream) {
@@ -133,10 +137,6 @@ export default class DashStream {
     this.dashPlayer.off(DashEvents.ERROR, this.broadcastError);
     this.dashPlayer = null;
     this.videoElement = null;
-  }
-
-  getMediaStreamDeliveryType() {
-    return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
   }
 
   getDebugInfo() {
@@ -158,7 +158,7 @@ export default class DashStream {
 
     return {
       ...this.mediaStream,
-      deliveryType: this.getMediaStreamDeliveryType(),
+      deliveryType: this.mediaStreamDeliveryType,
       bitrates,
       currentBitrate,
       overallBufferLength,

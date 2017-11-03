@@ -16,7 +16,6 @@ const UI_EVENTS = {
   KEYBOARD_KEYDOWN_INTERCEPTED: 'ui-keyboard-keydown-intercepted',
   LOADER_SHOW_TRIGGERED: 'ui-loader-show-triggered',
   LOADER_HIDE_TRIGGERED: 'ui-loader-hide-triggered',
-  WATCH_ON_SITE_TRIGGERED: 'ui-watch-on-site-triggered',
   LOADING_COVER_SHOW_TRIGGERED: 'ui-loading-cover-show-triggered',
   LOADING_COVER_HIDE_TRIGGERED: 'ui-loading-cover-hide-triggered',
   TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED: 'ui-toggle-playback-with-keyboard-triggered',

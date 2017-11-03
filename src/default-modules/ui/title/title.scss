@@ -1,0 +1,46 @@
+@import '../shared';
+
+.wrapper {
+  position: absolute;
+  z-index: 100;
+
+  overflow: hidden;
+
+  margin-top: 18px;
+  margin-left: 18px;
+
+  transition: opacity .2s, visibility .2s;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  color: white;
+
+  @include max-width-550() {
+    margin: 12px 12px auto 12px;
+  }
+  @include in-full-screen {
+    margin: 30px 12px auto 30px;
+  }
+}
+
+.title {
+  font-size: 16px;
+  line-height: 17px;
+
+  @include max-width-550() {
+    font-size: 14px;
+    line-height: 15px;
+  }
+  @include max-width-300 {
+    font-size: 12px;;
+    line-height: 13px;
+  }
+  @include in-full-screen {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  &.link {
+    cursor: pointer;
+  }
+}

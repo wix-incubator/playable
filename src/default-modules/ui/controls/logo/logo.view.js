@@ -4,11 +4,11 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
 
-import styles from './watch-on-site.scss';
-import watchOnSiteIcon from '../../../../assets/view-on-site.svg';
+import styles from './logo.scss';
+import viewOnSiteIcon from '../../../../assets/view-on-site.svg';
 
 
-class WatchOnSiteView extends View {
+class LogoView extends View {
   constructor(config) {
     super(config);
     const { callbacks, texts } = config;
@@ -21,17 +21,16 @@ class WatchOnSiteView extends View {
     });
 
     this.$logo = $('<img>', {
-      class: this.styleNames['watch-on-site-toggle'],
-      'aria-label': this._texts.get(TEXT_LABELS.WATCH_ON_SITE_LABEL),
+      class: this.styleNames['default-logo'],
+      'aria-label': this._texts.get(TEXT_LABELS.LOGO_LABEL),
       role: 'button',
-      tabIndex: 0,
-      src: config.logo || watchOnSiteIcon
+      tabIndex: 0
     });
 
     this.$tooltip = $('<div>', {
       class: `${this.styleNames.tooltip}`
     });
-    this.$tooltip.html(this._texts.get(TEXT_LABELS.WATCH_ON_SITE_TOOLTIP));
+    this.$tooltip.html(this._texts.get(TEXT_LABELS.LOGO_TOOLTIP));
     this.$node.append(this.$tooltip);
 
     this.$node.append(this.$logo);
@@ -44,14 +43,18 @@ class WatchOnSiteView extends View {
 
   setLogo(url) {
     if (url) {
-      this.$logo.removeClass(this.styleNames['watch-on-site-toggle']);
+      this.$logo.removeClass(this.styleNames['default-logo']);
       this.$logo.addClass(this.styleNames['company-logo']);
       this.$logo.attr('src', url);
     } else {
       this.$logo.removeClass(this.styleNames['company-logo']);
-      this.$logo.addClass(this.styleNames['watch-on-site-toggle']);
-      this.$logo.attr('src', watchOnSiteIcon);
+      this.$logo.addClass(this.styleNames['default-logo']);
+      this.$logo.attr('src', viewOnSiteIcon);
     }
+  }
+
+  setDisplayAsLink(flag) {
+    this.$node.toggleClass(this.styleNames.link, flag);
   }
 
   _bindCallbacks() {
@@ -68,7 +71,7 @@ class WatchOnSiteView extends View {
 
   _onNodeClick() {
     this.$logo[0].focus();
-    this._callbacks.onWatchOnSiteClick();
+    this._callbacks.onLogoClick();
   }
 
   show() {
@@ -95,6 +98,6 @@ class WatchOnSiteView extends View {
   }
 }
 
-WatchOnSiteView.extendStyleNames(styles);
+LogoView.extendStyleNames(styles);
 
-export default WatchOnSiteView;
+export default LogoView;

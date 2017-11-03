@@ -17,7 +17,7 @@ export function resolvePlayableStreams(mediaStreams, playableStreamCreators, eve
 
   playableStreams.sort(
     (firstStream, secondStream) =>
-      secondStream.getMediaStreamDeliveryType() - firstStream.getMediaStreamDeliveryType()
+      secondStream.mediaStreamDeliveryType - firstStream.mediaStreamDeliveryType
   );
 
   return playableStreams;

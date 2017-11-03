@@ -84,7 +84,7 @@ describe('ProgressControl', () => {
 
   describe('video events listeners', () => {
     it('should call callback on playback status change', () => {
-      const spy = sinon.spy(control, '_toggleIntervalUpdates');
+      const spy = sinon.spy(control, '_processStateChange');
       control._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
@@ -124,11 +124,11 @@ describe('ProgressControl', () => {
 
     it('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
-      control._toggleIntervalUpdates({ nextState: STATES.PLAYING });
+      control._processStateChange({ nextState: STATES.PLAYING });
       expect(startSpy.called).to.be.true;
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
-      control._toggleIntervalUpdates({ nextState: STATES.PAUSED });
+      control._processStateChange({ nextState: STATES.PAUSED });
       expect(stopSpy.called).to.be.true;
     });
 

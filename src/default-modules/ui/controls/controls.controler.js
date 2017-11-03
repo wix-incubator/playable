@@ -11,7 +11,7 @@ import PlayControl from './play/play.controler';
 import TimeControl from './time/time.controler';
 import VolumeControl from './volume/volume.controler';
 import FullscreenControl from './full-screen/full-screen.controler';
-import WatchOnSite from './watch-on-site/watch-on-site.controler';
+import Logo from './logo/logo';
 import DependencyContainer from '../../../core/dependency-container/index';
 
 
@@ -49,7 +49,7 @@ export default class ControlBlock {
     this._bindViewCallbacks();
     this._initUI();
     this._initControls();
-    this._initWatchOnSite();
+    this._initLogo();
     this._bindEvents();
     if (get(config, 'ui.controls') !== false) {
       rootContainer.appendComponentNode(this.node);
@@ -88,15 +88,16 @@ export default class ControlBlock {
 
 
   }
-  _initWatchOnSite() {
-    const { watchOnSite } = this.config;
 
-    this._scope.register('watchOnSite', asClass(WatchOnSite));
-    this._watchOnSite = this._scope.resolve('watchOnSite');
+  _initLogo() {
+    const { logo } = this.config;
 
-    if (watchOnSite) {
-      this.view.appendComponentNode(this._watchOnSite.node);
-      this.setWatchOnSiteAlwaysShowFlag(watchOnSite.showAlways);
+    this._scope.register('logo', asClass(Logo));
+    this._logo = this._scope.resolve('logo');
+
+    if (logo) {
+      this.view.appendComponentNode(this._logo.node);
+      this.setLogoAlwaysShowFlag(logo.showAlways);
     }
   }
 
@@ -166,7 +167,7 @@ export default class ControlBlock {
     this.view.showControlsBlock();
     this._controlContentHidden = false;
 
-    this._watchOnSite.show();
+    this._logo.show();
   }
 
   _tryHideContent() {
@@ -181,8 +182,8 @@ export default class ControlBlock {
 
     this.view.hideControlsBlock();
     this._controlContentHidden = true;
-    if (!this.shouldWatchOnSiteAlwaysShow) {
-      this._watchOnSite.hide();
+    if (!this.shouldLogoAlwaysShow) {
+      this._logo.hide();
     }
   }
 
@@ -235,24 +236,29 @@ export default class ControlBlock {
   }
 
   @playerAPI()
-  setWatchOnSiteLogo(logo) {
-    this._watchOnSite.setLogo(logo);
+  setLogo(logo) {
+    this._logo.setLogo(logo);
   }
 
   @playerAPI()
-  setWatchOnSiteAlwaysShowFlag(isShowAlways) {
-    this.shouldWatchOnSiteAlwaysShow = isShowAlways;
+  setLogoAlwaysShowFlag(isShowAlways) {
+    this.shouldLogoAlwaysShow = isShowAlways;
 
-    if (this.shouldWatchOnSiteAlwaysShow) {
-      this._watchOnSite.show();
+    if (this.shouldLogoAlwaysShow) {
+      this._logo.show();
     } else if (this._controlContentHidden) {
-      this._watchOnSite.hide();
+      this._logo.hide();
     }
   }
 
   @playerAPI()
-  removeWatchOnSite() {
-    this._watchOnSite.node.parentNode.removeChild(this._watchOnSite.node);
+  setLogoClickCallback(callback) {
+    this._logo.setLogoClickCallback(callback);
+  }
+
+  @playerAPI()
+  removeLogo() {
+    this._logo.node.parentNode.removeChild(this._logo.node);
   }
 
   @playerAPI()
@@ -275,8 +281,8 @@ export default class ControlBlock {
     this._controls.forEach(control => (control.destroy()));
     delete this._controls;
 
-    this._watchOnSite.destroy();
-    delete this._watchOnSite;
+    this._logo.destroy();
+    delete this._logo;
 
     delete this._eventEmitter;
     delete this._engine;

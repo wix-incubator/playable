@@ -9,14 +9,14 @@ describe('Picking proper playback stream', () => {
 
     }
 
-    getMediaStreamDeliveryType() {
+    get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
     }
   }
   class AdaptiveCanBePlayedStreamB {
     static canPlay = () => true;
 
-    getMediaStreamDeliveryType() {
+    get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
     }
   }
@@ -24,7 +24,7 @@ describe('Picking proper playback stream', () => {
   class NativeCanBePlayedStreamA {
     static canPlay = () => true;
 
-    getMediaStreamDeliveryType() {
+    get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE;
     }
   }
@@ -32,7 +32,7 @@ describe('Picking proper playback stream', () => {
   class CantBePlayedStream {
     static canPlay = () => false;
 
-    getMediaStreamDeliveryType() {
+    get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
     }
   }

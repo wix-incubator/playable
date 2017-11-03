@@ -43,10 +43,9 @@ window.player = VideoPlayer.create({
   loadingCover: 'https://www.pets4homes.co.uk/images/breeds/142/large/184f5cc944e278ad4a20f70258b75cdd.jpg',
   src: flow([parseQuery, getURLFromQuery])(window.location.search),
   controls: {
-    watchOnSite: {
-      url: 'http://www.wix.com/',
+    logo: {
       showAlways: true,
-      logo: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png'
+      src: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png'
     }
   },
   logger: ({ reason, startTS, endTS }) => {

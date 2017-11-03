@@ -90,11 +90,23 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
       return this.mediaStreams[this.currentLevel].url;
     }
 
-    getMediaStreamDeliveryType() {
+    get isDynamicContent() {
+      return Number.isFinite(this.videoElement.duration);
+    }
+
+    get isSeekAvailable() {
+      if (this.isDynamicContent) {
+        return false;
+      }
+
+      return Boolean(this.videoElement.seekable.length);
+    }
+
+    get mediaStreamDeliveryType() {
       return deliveryType;
     }
 
-    getMediaStreamType() {
+    get mediaStreamType() {
       return streamType;
     }
 
@@ -107,7 +119,7 @@ export default function getNativeStreamCreator(streamType, deliveryType) {
 
         return {
           ...this.mediaStreams[0],
-          deliveryType: this.getMediaStreamDeliveryType(),
+          deliveryType: this.mediaStreamDeliveryType,
           overallBufferLength,
           nearestBufferSegInfo
         };

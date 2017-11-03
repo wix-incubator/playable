@@ -9,11 +9,11 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
 
   position: relative;
 
+  overflow: hidden;
+
   height: inherit;
 
   outline: none;
-
-  overflow: hidden;
 
   ::-moz-focus-inner {
     border: 0;

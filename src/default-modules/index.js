@@ -10,6 +10,7 @@ import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
 import RootContainer from './root-container/root-container.controler';
 import DebugPanel from './ui/debug-panel/debug-panel';
 
+import Title from './ui/title/title';
 import Screen from './ui/screen/screen.controler';
 import Overlay from './ui/overlay/overlay.controler';
 import Loader from './ui/loader/loader.controler';
@@ -35,5 +36,6 @@ export default {
   overlay: asClass(Overlay).scoped(),
   loader: asClass(Loader).scoped(),
   loadingCover: asClass(LoadingCover).scoped(),
-  controls: asClass(ControlsBlock).scoped()
+  controls: asClass(ControlsBlock).scoped(),
+  title: asClass(Title).scoped()
 };

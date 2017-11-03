@@ -3,16 +3,16 @@ import get from 'lodash/get';
 import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
 
 import { UI_EVENTS } from '../../../../constants/index';
-import View from './watch-on-site.view';
+import View from './logo.view';
 
 
-export default class FullScreenControl {
+export default class Logo {
   static View = View;
   static dependencies = ['engine', 'config', 'eventEmitter', 'textMap'];
 
   constructor({ engine, eventEmitter, config, textMap }) {
     this._config = {
-      ...get(config, 'ui.controls.watchOnSite')
+      ...get(config, 'ui.controls.logo')
     };
 
     this._eventEmitter = eventEmitter;
@@ -23,6 +23,9 @@ export default class FullScreenControl {
 
     this._initUI();
     this._initInterceptor();
+
+    this.setLogo(this._config.src);
+    this.setLogoClickCallback(this._config.callback);
   }
 
   get node() {
@@ -30,16 +33,15 @@ export default class FullScreenControl {
   }
 
   _bindCallbacks() {
-    this._triggerWatchOnSite = this._triggerWatchOnSite.bind(this);
+    this._triggerCallback = this._triggerCallback.bind(this);
   }
 
   _initUI() {
     const config = {
       callbacks: {
-        onWatchOnSiteClick: this._triggerWatchOnSite
+        onLogoClick: this._triggerCallback
       },
-      texts: this._textMap,
-      logo: this._config.logo
+      texts: this._textMap
     };
 
     this.view = new this.constructor.View(config);
@@ -52,12 +54,12 @@ export default class FullScreenControl {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._triggerWatchOnSite();
+          this._triggerCallback();
         },
         [KEYCODES.ENTER]: e => {
           e.stopPropagation();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._triggerWatchOnSite();
+          this._triggerCallback();
         }
       }
     });
@@ -67,12 +69,19 @@ export default class FullScreenControl {
     this._interceptor.destroy();
   }
 
-  _triggerWatchOnSite() {
-    this._eventEmitter.emit(UI_EVENTS.WATCH_ON_SITE_TRIGGERED);
+  _triggerCallback() {
+    if (this._callback) {
+      this._callback();
+    }
   }
 
   setLogo(url) {
     this.view.setLogo(url);
+  }
+
+  setLogoClickCallback(callback) {
+    this._callback = callback;
+    this.view.setDisplayAsLink(Boolean(this._callback));
   }
 
   hide() {

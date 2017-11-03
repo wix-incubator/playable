@@ -1,6 +1,6 @@
 export default {
-  WATCH_ON_SITE_LABEL: 'watch-on-site-label',
-  WATCH_ON_SITE_TOOLTIP: 'watch-on-site-tooltip',
+  LOGO_LABEL: 'logo-label',
+  LOGO_TOOLTIP: 'logo-tooltip',
   ENTER_FULL_SCREEN_LABEL: 'enter-full-screen-label',
   ENTER_FULL_SCREEN_TOOLTIP: 'enter-full-screen-tooltip',
   EXIT_FULL_SCREEN_LABEL: 'exit-full-screen-label',

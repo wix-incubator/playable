@@ -21,7 +21,7 @@ export default class Engine {
 
     this._currentSrc = null;
 
-    this._createVideoTag(config.engine);
+    this._createVideoTag();
 
     this._stateEngine = new StateEngine(eventEmitter, this._video);
     this._nativeEventsBroadcaster = new NativeEventsBroadcaster(eventEmitter, this._video);
@@ -58,6 +58,22 @@ export default class Engine {
     };
   }
 
+  get isDynamicContent() {
+    if (!this.attachedStream) {
+      return false;
+    }
+
+    return this.attachedStream.isDynamicContent;
+  }
+
+  get isSeekAvailable() {
+    if (!this.attachedStream) {
+      return false;
+    }
+
+    return this.attachedStream.isSeekAvailable;
+  }
+
   get isMetadataLoaded() {
     return this._stateEngine.isMetadataLoaded;
   }
@@ -78,7 +94,7 @@ export default class Engine {
     return this.getAutoPlay();
   }
 
-  getAttachedStream() {
+  get attachedStream() {
     return this._mediaStreamStrategy.attachedStream;
   }
 
@@ -121,9 +137,7 @@ export default class Engine {
 
   @playerAPI()
   goLive() {
-    const attachedStream = this.getAttachedStream();
-
-    this.setCurrentTime(attachedStream.livePosition);
+    this.setCurrentTime(this.attachedStream.livePosition);
 
     this.play();
   }

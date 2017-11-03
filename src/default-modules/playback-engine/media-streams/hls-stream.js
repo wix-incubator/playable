@@ -1,4 +1,4 @@
-import HlsJs from 'hls.js';
+import HlsJs from 'hls.js/dist/hls.light';
 
 import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, VIDEO_EVENTS } from '../../../constants/index';
 import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../../../utils/video-data';
@@ -154,7 +154,26 @@ export default class HlsStream {
     return this.hls.liveSyncPosition;
   }
 
-  getMediaStreamDeliveryType() {
+  get isDynamicContent() {
+    if (!this.hls) {
+      return false;
+    }
+    const { details } = this.hls.levels[this.hls.firstLevel];
+
+    return details.live;
+  }
+
+  get isSeekAvailable() {
+    if (this.isDynamicContent) {
+      const { details } = this.hls.levels[this.hls.firstLevel];
+
+      return details.type === 'EVENT';
+    }
+
+    return true;
+  }
+
+  get mediaStreamDeliveryType() {
     return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
   }
 
@@ -181,7 +200,7 @@ export default class HlsStream {
 
     return {
       ...this.mediaStream,
-      deliveryType: this.getMediaStreamDeliveryType(),
+      deliveryType: this.mediaStreamDeliveryType,
       bitrates,
       currentBitrate,
       overallBufferLength,
