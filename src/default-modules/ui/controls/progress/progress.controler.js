@@ -241,7 +241,7 @@ export default class ProgressControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updateAllIndicators, this);
+    this._eventEmitter.off(VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators, this);
     this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
     this._eventEmitter.off(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
   }
