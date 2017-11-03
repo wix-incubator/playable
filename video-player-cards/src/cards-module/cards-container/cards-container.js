@@ -1,5 +1,6 @@
 import { ResizeSensor } from 'css-element-queries';
 import throttle from 'lodash/throttle';
+import { STATES } from 'video-player/dist/src/constants';
 import styles from './cards-container.scss';
 import { DIRECTIONS, FLOW_TYPES, ANCHOR_POINTS } from '../constants';
 
@@ -8,9 +9,10 @@ const CARD_REMOVE_TIMEOUT = 1000;
 
 export default class CardsContainer {
 
-  constructor() {
+  constructor({ engine }) {
     this.cards = [];
     this.timeouts = [];
+    this.engine = engine;
 
     this.bindCallbacks();
 
@@ -153,10 +155,10 @@ export default class CardsContainer {
         }
       });
 
-    if (allCardsShown) {
-      this.stopCarousel();
-    } else {
+    if (!allCardsShown && this.engine.getCurrentState() !== STATES.PAUSED) {
       this.startCarousel();
+    } else {
+      this.stopCarousel();
     }
 
     return this.updateCardsPositions();

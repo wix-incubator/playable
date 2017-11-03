@@ -34,7 +34,7 @@ export default class CardsModule {
   }
 
   initContainer() {
-    this.cardsContainer = new CardsContainer();
+    this.cardsContainer = new CardsContainer({ engine: this.engine });
 
     this.rootContainer.appendComponentNode(this.cardsContainer.node);
   }
