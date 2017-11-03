@@ -126,6 +126,7 @@ export default class CardsModule {
       }
     });
     this.cards.push(card);
+    this.updateCardsState();
   }
 
   @playerAPI()
