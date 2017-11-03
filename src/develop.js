@@ -1,4 +1,4 @@
-import over from 'lodash/over';
+import flow from 'lodash/flow';
 import VideoPlayer from './index';
 
 /* ignore coverage */
@@ -41,7 +41,7 @@ window.player = VideoPlayer.create({
     height: 428
   },
   loadingCover: 'https://www.pets4homes.co.uk/images/breeds/142/large/184f5cc944e278ad4a20f70258b75cdd.jpg',
-  src: over([parseQuery, getURLFromQuery])(window.location.search),
+  src: flow([parseQuery, getURLFromQuery])(window.location.search),
   controls: {
     watchOnSite: {
       url: 'http://www.wix.com/',
