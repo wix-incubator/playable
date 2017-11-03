@@ -155,7 +155,7 @@ export default class CardsContainer {
         }
       });
 
-    if (!allCardsShown && this.engine.getCurrentState() !== STATES.PAUSED) {
+    if (!allCardsShown && this.canSlideCards()) {
       this.startCarousel();
     } else {
       this.stopCarousel();
@@ -163,6 +163,12 @@ export default class CardsContainer {
 
     return this.updateCardsPositions();
   }
+
+  canSlideCards() {
+    const state = this.engine.getCurrentState();
+    return state === STATES.PLAYING || state === STATES.PLAY_REQUESTED;
+  }
+
 
   showCard(card) {
     if (card.isDisplayed) {
