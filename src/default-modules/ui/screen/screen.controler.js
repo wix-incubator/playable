@@ -126,8 +126,10 @@ export default class Screen {
         state === STATES.PLAY_REQUESTED ||
         state === STATES.PLAYING
       ) {
+        this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
         this._manipulationIndicator.showPause();
       } else {
+        this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED);
         this._manipulationIndicator.showPlay();
       }
     }
