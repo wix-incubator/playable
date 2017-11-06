@@ -166,6 +166,11 @@ export default class CardsModule {
     this.isCardsClosable = isClosable;
   }
 
+  @playerAPI()
+  setActiveCard(id) {
+    this.cardsContainer.setActive(id);
+  }
+
   showCard(card) {
     card.setDisplayed(true);
     this.cardsContainer.addCard(card);

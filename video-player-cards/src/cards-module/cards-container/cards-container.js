@@ -196,6 +196,17 @@ export default class CardsContainer {
     });
   }
 
+  setActive(id) {
+    const activeCard = find(this.cards, { id });
+    if (!activeCard) {
+      return;
+    }
+
+    while (!activeCard.isVisible) {
+      this.slideNextCard();
+    }
+  }
+
   updateCardsPositions() {
     return Promise.resolve()
       .then(() => {
