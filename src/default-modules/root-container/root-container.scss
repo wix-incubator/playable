@@ -36,7 +36,7 @@ $font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-4
     button.focus-within,
     input.focus-within,
     img.focus-within {
-      outline: 2px solid rgba(56, 153, 236, .8);
+      box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
     }
   }
 

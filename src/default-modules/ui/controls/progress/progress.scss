@@ -90,6 +90,6 @@
   [data-focus-source='key'] [data-hook='progress-control'].focus-within,
   [data-focus-source='script'] [data-hook='progress-control'].focus-within {
     opacity: 1;
-    outline: 2px solid rgba(56, 153, 236, .8);
+    box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
   }
 }
