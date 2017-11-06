@@ -19,6 +19,7 @@ export default class CardsModule {
 
     this.cards = [];
     this.initialized = false;
+    this.isCardsClosable = true;
   }
 
   initialize() {
@@ -120,9 +121,12 @@ export default class CardsModule {
     const card = new Card({
       ...cardData,
       onClose: () => {
-        this.hideCard(card);
-        setTimeout(() => this.cardsContainer.checkCardsToShow(), CARDS_UPDATE_ONCLOSE_DELAY);
-        this.cardsContainer.checkCardsToShow();
+        if (this.isCardsClosable) {
+          this.hideCard(card);
+          setTimeout(() => this.cardsContainer.checkCardsToShow(), CARDS_UPDATE_ONCLOSE_DELAY);
+          this.cardsContainer.checkCardsToShow();
+          card.isClosed = true;
+        }
       }
     });
     this.cards.push(card);
@@ -155,6 +159,11 @@ export default class CardsModule {
   @playerAPI()
   setDirection(direction) {
     this.cardsContainer.setDirection(direction);
+  }
+
+  @playerAPI()
+  setCardsClosable(isClosable) {
+    this.isCardsClosable = isClosable;
   }
 
   showCard(card) {

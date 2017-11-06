@@ -80,6 +80,5 @@ export default class Card {
 
   close() {
     this.onClose(this);
-    this.isClosed = true;
   }
 }
