@@ -158,7 +158,13 @@ export default class CardsModule {
 
   @playerAPI()
   setDirection(direction) {
+    this.cards.forEach(card => {
+      this.cardsContainer.removeFromContainer(card);
+    });
+
     this.cardsContainer.setDirection(direction);
+
+    this.updateCardsState();
   }
 
   @playerAPI()

@@ -73,6 +73,8 @@ export default class Card {
   }
 
   setInitialPosition(flowType, direction) {
+    this.node.style.left = 'auto';
+    this.node.style.right = 'auto';
     this.updatePosition(flowType, direction, -this.getFlowDimension(flowType));
   }
 
