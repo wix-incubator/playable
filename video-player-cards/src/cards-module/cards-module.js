@@ -168,7 +168,9 @@ export default class CardsModule {
 
   @playerAPI()
   setActiveCard(id) {
-    this.cardsContainer.setActive(id);
+    if (this.initialized) {
+      this.cardsContainer.setActive(id);
+    }
   }
 
   showCard(card) {
