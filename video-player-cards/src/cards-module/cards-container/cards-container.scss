@@ -18,6 +18,11 @@ $container-margin-less-550px: 6;
 $container-margin-more-550px: 12;
 $container-margin-full-screen: 24;
 
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
 .container {
   position: absolute;
   left: 0;

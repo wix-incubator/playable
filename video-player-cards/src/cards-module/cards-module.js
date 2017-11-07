@@ -133,6 +133,20 @@ export default class CardsModule {
   }
 
   @playerAPI()
+  hideCards() {
+    if (this.initialized) {
+      this.cardsContainer.hideCards();
+    }
+  }
+
+  @playerAPI()
+  showCards() {
+    if (this.initialized) {
+      this.cardsContainer.showCards();
+    }
+  }
+
+  @playerAPI()
   addCards(cards) {
     cards.forEach(card => this.addCard(card));
   }
