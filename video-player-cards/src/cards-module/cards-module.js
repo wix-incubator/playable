@@ -2,13 +2,12 @@ import { ResizeSensor } from 'css-element-queries';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '@wix/video-player/dist/src/constants';
 import playerAPI from '@wix/video-player/dist/src/utils/player-api-decorator';
 import noop from 'lodash/noop';
+import { waitForDomUpdate } from './utils/dom-update-delay';
 
-import Card from './card/card';
 import CardsContainer from './cards-container/cards-container';
-
-
-const CARDS_UPDATE_INTERVAL = 100;
-const CARDS_UPDATE_ONCLOSE_DELAY = 500;
+import CardsManager from './cards-manager/cards-manager';
+import CardsConfig from './cards-config/cards-config';
+import { CARD_CLOSED } from './constants/events';
 
 export default class CardsModule {
   static dependencies = ['eventEmitter', 'rootContainer', 'engine'];
@@ -17,71 +16,146 @@ export default class CardsModule {
     this.eventEmitter = eventEmitter;
     this.rootContainer = rootContainer;
     this.engine = engine;
+    this.cardsConfig = new CardsConfig();
 
-    this.cards = [];
-    this.initialized = false;
-    this.isCardsClosable = true;
+    this.isInitialized = false;
 
-    this._onCardClose = noop;
+    this.hide = noop;
+    this.show = noop;
+
+    this.handlePlayerSizeChange = this.handlePlayerSizeChange.bind(this);
   }
 
+  // Lazy initialization of cards-related stuff
   initialize() {
-    if (this.initialized) {
+    if (this.isInitialized) {
       return;
     }
 
     this.initContainer();
-    this.bindCallbacks();
-    this.bindEvents();
-    this.initialized = true;
+    this.initManager();
+    this.initEventListeners();
+
+    this.hide = () => this.cardsContainer.hide();
+    this.show = () => this.cardsContainer.show();
+
+    this.isInitialized = true;
+
     this.handlePlayerStateChange({ nextState: this.engine.getCurrentState() });
   }
 
   initContainer() {
-    this.cardsContainer = new CardsContainer({ engine: this.engine });
-    this.cardsContainer.setPreviewMode(!this.isCardsClosable);
+    this.cardsContainer = new CardsContainer({ cardsConfig: this.cardsConfig });
     this.rootContainer.appendComponentNode(this.cardsContainer.node);
   }
 
-  bindCallbacks() {
-    this.updateCardsState = this.updateCardsState.bind(this);
+  initManager() {
+    this.cardsManager = new CardsManager({
+      cardsContainer: this.cardsContainer,
+      eventEmitter: this.eventEmitter,
+      cardsConfig: this.cardsConfig,
+      engine: this.engine
+    });
   }
 
-  bindEvents() {
+  initEventListeners() {
     this.eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this.handlePlayerStateChange, this);
 
     this.eventEmitter.on(
       UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
-      this.cardsContainer.onControlsHided,
+      this.cardsContainer.onControlsHidden,
       this.cardsContainer
     );
     this.eventEmitter.on(
       UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
-      this.cardsContainer.onControlsShowed,
-      this.cardsContainer
-    );
-
-    this.eventEmitter.on(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.cardsContainer.onSizeChange,
-      this.cardsContainer
-    );
-    this.eventEmitter.on(
-      UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED,
-      this.cardsContainer.onSizeChange,
-      this.cardsContainer
-    );
-    this.eventEmitter.on(
-      UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED,
-      this.cardsContainer.onSizeChange,
+      this.cardsContainer.onControlsShown,
       this.cardsContainer
     );
 
     const playerContainerNode = this.rootContainer.node;
 
-    ResizeSensor(playerContainerNode, () => {
-      this.cardsContainer.onSizeChange();
-    });
+    // wait for playerContainerNode inserted to DOM and get size for case if it's not added yet
+    waitForDomUpdate()
+      .then(() => (this.resizeSensor = ResizeSensor(playerContainerNode, this.handlePlayerSizeChange)));
+
+    this.eventEmitter.on(CARD_CLOSED, this.cardsManager.handleCardClose, this.cardsManager);
+  }
+
+  @playerAPI()
+  addCard(cardData) {
+    this.initialize();
+    this.cardsManager.addCard(cardData);
+  }
+
+  @playerAPI()
+  addCards(cardsData) {
+    this.initialize();
+    this.cardsManager.addCards(cardsData);
+  }
+
+  @playerAPI()
+  clearCards() {
+    this.cardsManager.clearCards();
+  }
+
+  @playerAPI()
+  setAnchorPoint(anchorPoint) {
+    this.cardsConfig.anchorPoint = anchorPoint;
+    this.cardsConfig.setAnchorPoint(anchorPoint);
+    this.handleConfigChange();
+  }
+
+  @playerAPI()
+  setOrientation(orientation) {
+    this.cardsConfig.setOrientation(orientation);
+    this.handleConfigChange();
+  }
+
+  @playerAPI()
+  onCardClose(callback) {
+    this.eventEmitter.on(CARD_CLOSED, callback);
+  }
+
+  @playerAPI()
+  setCardsClosable(isClosable) {
+    this.cardsConfig.isPreviewMode = !isClosable;
+    this.handleConfigChange();
+  }
+
+  @playerAPI()
+  setActiveCard(id) {
+    if (this.isInitialized) {
+      return this.cardsManager.showSelectedCard(id);
+    }
+  }
+
+  handlePlayerSizeChange() {
+    this.cardsManager.handlePlayerSizeChange();
+  }
+
+  handleConfigChange() {
+    if (!this.isInitialized) {
+      return;
+    }
+
+    this.cardsManager.handleConfigChange();
+    this.cardsContainer.handleConfigChange();
+  }
+
+  handlePlayerStateChange({ nextState }) {
+    switch (nextState) {
+      case STATES.PLAYING:
+        this.cardsManager.handleVideoPlayStart();
+        break;
+      case STATES.PAUSED:
+        this.cardsManager.handleVideoPlayPause();
+        break;
+      case STATES.SEEK_IN_PROGRESS:
+        this.cardsManager.handleSeekPositionChange();
+        break;
+      default:
+        break;
+    }
   }
 
   unbindEvents() {
@@ -89,192 +163,33 @@ export default class CardsModule {
 
     this.eventEmitter.off(
       UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
-      this.cardsContainer.onControlsHided,
+      this.cardsContainer.onControlsHidden,
       this.cardsContainer
     );
     this.eventEmitter.off(
       UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
-      this.cardsContainer.onControlsShowed,
+      this.cardsContainer.onControlsShown,
       this.cardsContainer
     );
 
-    this.eventEmitter.off(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.cardsContainer.onSizeChange,
-      this.cardsContainer
-    );
-    this.eventEmitter.off(
-      UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED,
-      this.cardsContainer.onSizeChange,
-      this.cardsContainer
-    );
-    this.eventEmitter.off(
-      UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED,
-      this.cardsContainer.onSizeChange,
-      this.cardsContainer
-    );
-  }
-
-  @playerAPI()
-  addCard(cardData) {
-    if (!this.initialized) {
-      this.initialize();
-    }
-
-    const card = new Card({
-      ...cardData,
-      onClose: () => {
-        if (this.isCardsClosable) {
-          this.hideCard(card);
-          this._onCardClose(cardData);
-          setTimeout(() => this.cardsContainer.checkCardsToShow(), CARDS_UPDATE_ONCLOSE_DELAY);
-          card.isClosed = true;
-        }
-      }
-    });
-    this.cards.push(card);
-    this.cardsContainer.disableAnimation();
-    this.updateCardsState()
-      .then(() => this.cardsContainer.enableAnimation());
-  }
-
-  hide() {
-    if (this.initialized) {
-      this.cardsContainer.hideCards();
-    }
-  }
-
-  show() {
-    if (this.initialized) {
-      this.cardsContainer.showCards();
-    }
-  }
-
-  @playerAPI()
-  addCards(cards) {
-    cards.forEach(card => this.addCard(card));
-  }
-
-  @playerAPI()
-  clearCards() {
-    this.cards.forEach(card => {
-      this.cardsContainer.removeFromContainer(card);
-    });
-    this.cards = [];
-  }
-
-  @playerAPI()
-  setFlow(flow) {
-    this.cardsContainer.setFlowType(flow);
-  }
-
-  @playerAPI()
-  setAnchor(anchor) {
-    this.cardsContainer.setAnchorPoint(anchor);
-  }
-
-  @playerAPI()
-  setDirection(direction) {
-    this.cards.forEach(card => {
-      this.cardsContainer.removeFromContainer(card);
-    });
-
-    this.cardsContainer.setDirection(direction);
-
-    this.updateCardsState();
-  }
-
-  @playerAPI()
-  onCardClose(callback) {
-    this._onCardClose = callback;
-  }
-
-  @playerAPI()
-  setCardsClosable(isClosable) {
-    this.isCardsClosable = isClosable;
-    if (this.initialized) {
-      this.cardsContainer.setPreviewMode(!isClosable);
-    }
-  }
-
-  @playerAPI()
-  setActiveCard(id) {
-    if (this.initialized) {
-      this.cardsContainer.setActive(id);
-    }
-  }
-
-  showCard(card) {
-    card.setDisplayed(true);
-    this.cardsContainer.addCard(card);
-  }
-
-  hideCard(card) {
-    card.setDisplayed(false);
-    this.cardsContainer.removeCard(card);
-  }
-
-  startTimeTracking() {
-    this.stopTimeTracking();
-    this.trackingInterval = setInterval(this.updateCardsState, CARDS_UPDATE_INTERVAL);
-  }
-
-  stopTimeTracking() {
-    clearInterval(this.trackingInterval);
-  }
-
-  handlePlayerStateChange({ nextState }) {
-    switch (nextState) {
-      case STATES.PLAYING:
-        this.startTimeTracking();
-        this.cardsContainer.checkCardsToShow(nextState);
-        break;
-      case STATES.PAUSED:
-        this.stopTimeTracking();
-        this.cardsContainer.stopCarousel();
-        break;
-      case STATES.SEEK_IN_PROGRESS:
-        this.onSeekChange();
-        break;
-      default:
-        break;
-    }
-  }
-
-  onSeekChange() {
-    this.cardsContainer.disableAnimation();
-    this.updateCardsState()
-      .then(() => this.cardsContainer.enableAnimation());
-  }
-
-  updateCardsState() {
-    const currentTime = this.engine.getCurrentTime();
-    const cardsToUpdate = this.cards.filter(card => card.shouldBeChangedAt(currentTime));
-
-    if (!cardsToUpdate.length) {
-      return Promise.resolve();
-    }
-
-    cardsToUpdate.forEach(card => {
-      card.isDisplayed ? this.hideCard(card) : this.showCard(card);
-    });
-
-    return this.cardsContainer.checkCardsToShow();
+    this.eventEmitter.off(CARD_CLOSED);
   }
 
   destroy() {
-    if (!this.initialized) {
+    if (!this.isInitialized) {
       return;
     }
-
-    this.stopTimeTracking();
 
     this.unbindEvents();
 
     this.cardsContainer.destroy();
+    this.cardsManager.destroy();
+
+    if (this.resizeSensor) {
+      this.resizeSensor.detach(this.handlePlayerSizeChange);
+    }
 
     delete this.cardsContainer;
-
-    this._onCardClose = noop;
+    delete this.cardsManager;
   }
 }

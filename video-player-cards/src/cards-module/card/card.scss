@@ -6,8 +6,22 @@
   visibility: hidden;
   padding: 6px;
   z-index: 59;
+}
 
-  &.animated {
+.visible {
+  opacity: 1;
+  visibility: visible;
+  z-index: 59;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 58;
+}
+
+:global .animated {
+  :local .container {
     transition-property: left, right, top, bottom, opacity, visibility;
     transition-duration: 1s;
   }

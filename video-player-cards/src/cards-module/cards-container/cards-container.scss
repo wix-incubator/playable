@@ -50,26 +50,6 @@ $container-margin-full-screen: 24;
     margin: 0 #{$container-margin-full-screen}px;
   }
 
-  &[data-flow-type='flow-vertical'] {
-    &[data-direction='direction-standard'] {
-      flex-direction: column;
-    }
-
-    &[data-direction='direction-reverse'] {
-      flex-direction: column-reverse;
-    }
-  }
-
-  &[data-flow-type='flow-horizontal'] {
-    &[data-direction='direction-standard'] {
-      flex-direction: row;
-    }
-
-    &[data-direction='direction-reverse'] {
-      flex-direction: row-reverse;
-    }
-  }
-
   &[data-anchor-point='anchor-top-left'] {
     left: 0;
   }

@@ -1,9 +1,9 @@
-import FLOW_TYPES from './flow-types';
+import ORIENTATIONS from './orientations';
 import DIRECTIONS from './directions';
 import ANCHOR_POINTS from './anchor-points';
 
 export {
-  FLOW_TYPES,
+  ORIENTATIONS,
   DIRECTIONS,
   ANCHOR_POINTS
 };

@@ -99,7 +99,7 @@ export default class DesktopFullScreen {
   }
 
   request() {
-    if (!this.isEnabled) {
+    if (!this.isActive) {
       return;
     }
 
@@ -118,7 +118,7 @@ export default class DesktopFullScreen {
   }
 
   exit() {
-    if (!this.isEnabled) {
+    if (!this.isActive) {
       return;
     }
 

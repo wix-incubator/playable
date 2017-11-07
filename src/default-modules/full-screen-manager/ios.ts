@@ -54,7 +54,7 @@ export default class IOSFullScreen {
   }
 
   request() {
-    if (!this.isEnabled || this.isInFullScreen) {
+    if (!this.isActive || this.isInFullScreen) {
       return false;
     }
 
@@ -75,7 +75,7 @@ export default class IOSFullScreen {
   }
 
   exit() {
-    if (!this.isEnabled || !this.isInFullScreen) {
+    if (!this.isActive || !this.isInFullScreen) {
       return false;
     }
 

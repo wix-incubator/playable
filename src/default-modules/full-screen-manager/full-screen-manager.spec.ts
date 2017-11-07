@@ -22,7 +22,7 @@ const mockedFullscreenHelper = {
   destroy: sinon.spy(),
   _reset: function() {
     this.isInFullScreen = false;
-    this.isEnabled = true;
+    this.isActive = true;
 
     this.request.reset();
     this.exit.reset();
@@ -138,15 +138,15 @@ describe('FullScreenManager', () => {
 
   describe('enable status', () => {
     it('should be based on helper status and config', () => {
-      expect(fullScreenManager.isEnabled).to.be.true;
-      mockedFullscreenHelper.isEnabled = false;
-      expect(fullScreenManager.isEnabled).to.be.false;
+      expect(fullScreenManager.isActive).to.be.true;
+      mockedFullscreenHelper.isActive = false;
+      expect(fullScreenManager.isActive).to.be.false;
     });
 
     it('should return false in disabled flag passed in config', () => {
-      mockedFullscreenHelper.isEnabled = true;
+      mockedFullscreenHelper.isActive = true;
       fullScreenManager._config.disabled = true;
-      expect(fullScreenManager.isEnabled).to.be.false;
+      expect(fullScreenManager.isActive).to.be.false;
     });
   });
 
@@ -157,7 +157,7 @@ describe('FullScreenManager', () => {
     });
 
     it('should return false if disabled', () => {
-      mockedFullscreenHelper.isEnabled = false;
+      mockedFullscreenHelper.isActive = false;
       mockedFullscreenHelper.isInFullScreen = true;
       expect(fullScreenManager.isInFullScreen).to.be.false;
     });
@@ -170,7 +170,7 @@ describe('FullScreenManager', () => {
     });
 
     it('should do nothing if full screen is not enable', () => {
-      mockedFullscreenHelper.isEnabled = false;
+      mockedFullscreenHelper.isActive = false;
       fullScreenManager.enterFullScreen();
       expect(mockedFullscreenHelper.request.called).to.be.false;
     });
@@ -183,7 +183,7 @@ describe('FullScreenManager', () => {
     });
 
     it('should do nothing if full screen is not enable', () => {
-      mockedFullscreenHelper.isEnabled = false;
+      mockedFullscreenHelper.isActive = false;
       fullScreenManager.exitFullScreen();
       expect(mockedFullscreenHelper.exit.called).to.be.false;
     });

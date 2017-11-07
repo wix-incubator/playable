@@ -1,34 +1,40 @@
 import classnames from 'classnames';
-import { FLOW_TYPES, DIRECTIONS } from '../constants';
+import { ResizeSensor } from 'css-element-queries';
+import { ORIENTATIONS, DIRECTIONS } from '../constants';
+import { CARD_CLOSED } from '../constants/events';
 import styles from './card.scss';
 
 const positionProperties = {
-  [FLOW_TYPES.HORIZONTAL]: {
+  [ORIENTATIONS.HORIZONTAL]: {
     [DIRECTIONS.STANDARD]: 'left',
     [DIRECTIONS.REVERSE]: 'right'
   },
-  [FLOW_TYPES.VERTICAL]: {
+  [ORIENTATIONS.VERTICAL]: {
     [DIRECTIONS.STANDARD]: 'top',
     [DIRECTIONS.REVERSE]: 'bottom'
   }
 };
 
 export default class Card {
-  constructor({ contentNode, onClose, from, to, order, clientId }) {
+  constructor({ eventEmitter, cardsConfig, contentNode, from, to, order, clientId }) {
+    this.eventEmitter = eventEmitter;
+    this.cardsConfig = cardsConfig;
     this.contentNode = contentNode;
-    this.isDisplayed = false;
+    this.isActive = false;
+    this.isVisible = false;
     this.isClosed = false;
-    this.onClose = onClose;
     this.from = from / 1000;
     this.to = to / 1000;
     this.order = order;
+
+    //TODO change to 'id'
     this.id = clientId;
     this.initContainer();
   }
 
   initContainer() {
     this.node = document.createElement('div');
-    this.node.className = classnames(styles.container, styles.animated, 'action-card');
+    this.node.className = classnames(styles.container, styles.hidden, 'action-card');
 
     const closeButton = document.createElement('div');
     closeButton.className = styles['close-button'];
@@ -39,59 +45,53 @@ export default class Card {
     closeButton.addEventListener('click', this.close.bind(this));
   }
 
-  shouldBeShownAt(time) {
-    return !this.isClosed && time >= this.from && time <= this.to;
-  }
-
-  shouldBeChangedAt(time) {
-    return this.isDisplayed ? !this.shouldBeShownAt(time) : this.shouldBeShownAt(time);
-  }
-
-  setDisplayed(isDisplayed) {
-    this.isDisplayed = isDisplayed;
-    this.node.setAttribute('data-is-displayed', isDisplayed);
-  }
-
-  appear() {
-    this.node.style.minWidth = 0;
-    this.node.style.opacity = 1;
-    this.node.style.zIndex = 59;
-    this.node.style.visibility = 'visible';
+  show() {
     this.isVisible = true;
+    this.node.classList.remove(styles.hidden);
+    this.node.classList.add(styles.visible);
   }
 
-  disappear() {
-    this.node.style.minWidth = `${this.node.offsetWidth}px`;
-    this.node.style.opacity = 0;
-    this.node.style.visibility = 'hidden';
-    this.node.style.zIndex = 58;
+  hide() {
     this.isVisible = false;
-  }
-
-  hideContent() {
-    this.node.style.zIndex = -100;
-  }
-
-  setAnimationEnabled(isEnabled) {
-    this.node.className = classnames(styles.container, { [styles.animated]: isEnabled }, 'action-card');
-  }
-
-  getFlowDimension(flowType) {
-    return flowType === FLOW_TYPES.HORIZONTAL ? this.node.offsetWidth : this.node.offsetHeight;
-  }
-
-  setInitialPosition(flowType, direction) {
-    this.node.style.left = 'auto';
-    this.node.style.right = 'auto';
-    this.updatePosition(flowType, direction, -this.getFlowDimension(flowType));
-  }
-
-  updatePosition(flowType, direction, offset) {
-    const positionProperty = positionProperties[flowType][direction];
-    this.node.style[positionProperty] = `${offset}px`;
+    this.node.classList.remove(styles.visible);
+    this.node.classList.add(styles.hidden);
   }
 
   close() {
-    this.onClose(this);
+    this.isClosed = true;
+    this.eventEmitter.emit(CARD_CLOSED, this);
+  }
+
+  shouldBeActiveAt(time) {
+    return !this.isClosed && time >= this.from && time <= this.to;
+  }
+
+  getSize() {
+    const { orientation } = this.cardsConfig;
+    return orientation === ORIENTATIONS.HORIZONTAL ? this.node.offsetWidth : this.node.offsetHeight;
+  }
+
+  setInitialPosition(offset = 0) {
+    this.node.style.left = 'auto';
+    this.node.style.right = 'auto';
+    this.updatePosition(-(this.getSize() + offset));
+  }
+
+  updatePosition(offset) {
+    const { orientation, direction } = this.cardsConfig;
+    const positionProperty = positionProperties[orientation][direction];
+    this.node.style[positionProperty] = `${offset}px`;
+  }
+
+  addResizeHandler(handler) {
+    if (!this.resizeSensor) {
+      this.resizeSensor = new ResizeSensor(this.node, handler);
+    }
+  }
+
+  removeResizeHandler(handler) {
+    if (this.resizeSensor) {
+      this.resizeSensor.detach(handler);
+    }
   }
 }
