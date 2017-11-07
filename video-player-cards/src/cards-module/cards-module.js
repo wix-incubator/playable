@@ -132,15 +132,13 @@ export default class CardsModule {
     this.updateCardsState();
   }
 
-  @playerAPI()
-  hideCards() {
+  hide() {
     if (this.initialized) {
       this.cardsContainer.hideCards();
     }
   }
 
-  @playerAPI()
-  showCards() {
+  show() {
     if (this.initialized) {
       this.cardsContainer.showCards();
     }
