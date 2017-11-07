@@ -124,7 +124,6 @@ export default class CardsModule {
         if (this.isCardsClosable) {
           this.hideCard(card);
           setTimeout(() => this.cardsContainer.checkCardsToShow(), CARDS_UPDATE_ONCLOSE_DELAY);
-          this.cardsContainer.checkCardsToShow();
           card.isClosed = true;
         }
       }
@@ -202,7 +201,7 @@ export default class CardsModule {
     switch (nextState) {
       case STATES.PLAYING:
         this.startTimeTracking();
-        this.cardsContainer.checkCardsToShow();
+        this.cardsContainer.checkCardsToShow(nextState);
         break;
       case STATES.PAUSED:
         this.stopTimeTracking();

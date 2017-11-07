@@ -134,7 +134,7 @@ export default class CardsContainer {
     card.setInitialPosition(this.flowType, this.direction);
   }
 
-  checkCardsToShow() {
+  checkCardsToShow(nextPlayerState) {
     let occupiedSize = 0;
     let allCardsShown = true;
     const availableSize = (this.flowType === FLOW_TYPES.HORIZONTAL) ? this.node.offsetWidth : this.node.offsetHeight;
@@ -156,7 +156,7 @@ export default class CardsContainer {
         }
       });
 
-    if (!allCardsShown && this.canSlideCards()) {
+    if (!allCardsShown && this.canSlideCards(nextPlayerState)) {
       this.startCarousel();
     } else {
       this.stopCarousel();
@@ -165,9 +165,9 @@ export default class CardsContainer {
     return this.updateCardsPositions();
   }
 
-  canSlideCards() {
+  canSlideCards(nextPlayerState) {
     const state = this.engine.getCurrentState();
-    return state === STATES.PLAYING || state === STATES.PLAY_REQUESTED;
+    return state === STATES.PLAYING || state === STATES.PLAY_REQUESTED || nextPlayerState === STATES.PLAYING;
   }
 
 
