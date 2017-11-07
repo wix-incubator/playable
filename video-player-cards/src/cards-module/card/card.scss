@@ -4,7 +4,7 @@
   display: inline-block;
   opacity: 0;
   padding: 6px;
-  z-index: 65;
+  z-index: 59;
 
   &.animated {
     transition-property: left, right, top, bottom, opacity;
