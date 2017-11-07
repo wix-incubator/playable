@@ -37,6 +37,14 @@ export default class CardsContainer {
     this.handleCardSizeChange = throttle(this.handleCardSizeChange.bind(this), 200);
   }
 
+  hideCards() {
+    this.node.classList.add(styles.hidden);
+  }
+
+  showCards() {
+    this.node.classList.remove(styles.hidden);
+  }
+
   onControlsShowed() {
     this.node.classList.add(styles['controls-showed']);
   }
