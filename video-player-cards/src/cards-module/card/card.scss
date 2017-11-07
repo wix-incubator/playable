@@ -3,11 +3,12 @@
   bottom: 0;
   display: inline-block;
   opacity: 0;
+  visibility: hidden;
   padding: 6px;
   z-index: 59;
 
   &.animated {
-    transition-property: left, right, top, bottom, opacity;
+    transition-property: left, right, top, bottom, opacity, visibility;
     transition-duration: 1s;
   }
 }

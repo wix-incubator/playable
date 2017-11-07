@@ -55,12 +55,14 @@ export default class Card {
   appear() {
     this.node.style.minWidth = 0;
     this.node.style.opacity = 1;
+    this.node.style.visibility = 'visible';
     this.isVisible = true;
   }
 
   disappear() {
     this.node.style.minWidth = `${this.node.offsetWidth}px`;
     this.node.style.opacity = 0;
+    this.node.style.visibility = 'hidden';
     this.isVisible = false;
   }
 
