@@ -39,6 +39,7 @@ export default class ControlBlock {
     };
     this._scope = scope;
     this.isHidden = false;
+    this._isContentShowingEnabled = true;
     this._shouldShowContent = true;
     this._delayedToggleVideoPlaybackTimeout = null;
     this._hideControlsTimeout = null;
@@ -148,6 +149,10 @@ export default class ControlBlock {
   }
 
   _showContent() {
+    if (!this._isContentShowingEnabled) {
+      return;
+    }
+
     this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
     this._screen.showBottomShadow();
     this._eventEmitter.emit(UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED);
@@ -207,6 +212,15 @@ export default class ControlBlock {
     this.view.show();
   }
 
+  disableShowingContent() {
+    this._isContentShowingEnabled = false;
+    this._hideContent();
+  }
+
+  enableShowingContent() {
+    this._isContentShowingEnabled = true;
+  }
+
   @playerAPI()
   setWatchOnSiteLogo(logo) {
     this._watchOnSite.setLogo(logo);
@@ -257,6 +271,7 @@ export default class ControlBlock {
     delete this.config;
 
     this.isHidden = null;
+    this._isContentShowingEnabled = null;
     this._shouldShowContent = null;
     this._hideControlsTimeout = null;
     this._isControlsFocused = null;
