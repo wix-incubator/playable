@@ -129,7 +129,9 @@ export default class CardsModule {
       }
     });
     this.cards.push(card);
-    this.updateCardsState();
+    this.cardsContainer.disableAnimation();
+    this.updateCardsState()
+      .then(() => this.cardsContainer.enableAnimation());
   }
 
   hide() {
