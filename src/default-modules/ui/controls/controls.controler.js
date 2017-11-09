@@ -104,13 +104,13 @@ export default class ControlBlock {
     this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
     this._setFocusState = this._setFocusState.bind(this);
     this._removeFocusState = this._removeFocusState.bind(this);
-    this._showContent = this._showContent.bind(this);
-    this._hideContent = this._hideContent.bind(this);
+    this._tryShowContent = this._tryShowContent.bind(this);
+    this._tryHideContent = this._tryHideContent.bind(this);
   }
 
   _bindEvents() {
     this._eventEmitter.on(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.on(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
+    this._eventEmitter.on(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent);
     this._eventEmitter.on(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideControlsTimeout);
     this._eventEmitter.on(UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideControlsTimeout);
     this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
@@ -118,7 +118,7 @@ export default class ControlBlock {
 
   _unbindEvents() {
     this._eventEmitter.off(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.off(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._hideContent);
+    this._eventEmitter.off(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent);
     this._eventEmitter.off(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideControlsTimeout);
     this._eventEmitter.off(UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideControlsTimeout);
     this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
@@ -127,10 +127,10 @@ export default class ControlBlock {
   _startHideControlsTimeout() {
     this._stopHideControlsTimeout();
 
-    this._showContent();
+    this._tryShowContent();
 
     if (!this._isControlsFocused) {
-      this._hideControlsTimeout = setTimeout(this._hideContent, HIDE_CONTROLS_BLOCK_TIMEOUT);
+      this._hideControlsTimeout = setTimeout(this._tryHideContent, HIDE_CONTROLS_BLOCK_TIMEOUT);
     }
   }
 
@@ -148,6 +148,12 @@ export default class ControlBlock {
     this._isControlsFocused = false;
   }
 
+  _tryShowContent() {
+    if (this._isContentShowingEnabled) {
+      this._showContent();
+    }
+  }
+
   _showContent() {
     if (!this._isContentShowingEnabled) {
       return;
@@ -163,16 +169,20 @@ export default class ControlBlock {
     this._watchOnSite.show();
   }
 
-  _hideContent() {
+  _tryHideContent() {
     if (!this._shouldShowContent && !this.config.shouldAlwaysShow) {
-      this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED);
-      this._screen.hideBottomShadow();
+      this._hideContent();
+    }
+  }
 
-      this.view.hideControlsBlock();
-      this._controlContentHidden = true;
-      if (!this.shouldWatchOnSiteAlwaysShow) {
-        this._watchOnSite.hide();
-      }
+  _hideContent() {
+    this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED);
+    this._screen.hideBottomShadow();
+
+    this.view.hideControlsBlock();
+    this._controlContentHidden = true;
+    if (!this.shouldWatchOnSiteAlwaysShow) {
+      this._watchOnSite.hide();
     }
   }
 
@@ -185,17 +195,17 @@ export default class ControlBlock {
       }
       case STATES.ENDED: {
         this._shouldShowContent = true;
-        this._showContent();
+        this._tryShowContent();
         break;
       }
       case STATES.PAUSED: {
         this._shouldShowContent = true;
-        this._showContent();
+        this._tryShowContent();
         break;
       }
       case STATES.SRC_SET: {
         this._shouldShowContent = true;
-        this._showContent();
+        this._tryShowContent();
         break;
       }
       default: break;
@@ -219,6 +229,9 @@ export default class ControlBlock {
 
   enableShowingContent() {
     this._isContentShowingEnabled = true;
+    if (this._shouldShowContent) {
+      this._showContent();
+    }
   }
 
   @playerAPI()
@@ -247,7 +260,7 @@ export default class ControlBlock {
     this.config.shouldAlwaysShow = flag;
 
     if (this.config.shouldAlwaysShow) {
-      this._showContent();
+      this._tryShowContent();
     } else {
       this._startHideControlsTimeout();
     }

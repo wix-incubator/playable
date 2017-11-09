@@ -113,7 +113,7 @@ describe('ControlsBlock', () => {
       const timeoutSpy = sinon.spy(global, 'setTimeout');
       const clearSpy = sinon.spy(global, 'clearTimeout');
       controls._startHideControlsTimeout();
-      expect(timeoutSpy.calledWith(controls._hideContent)).to.be.true;
+      expect(timeoutSpy.calledWith(controls._tryHideContent)).to.be.true;
       controls._startHideControlsTimeout();
       expect(clearSpy.called).to.be.true;
 
