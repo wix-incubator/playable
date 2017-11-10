@@ -64,6 +64,7 @@ export default class Card {
     this.node.style.minWidth = `${this.node.offsetWidth}px`;
     this.node.style.opacity = 0;
     this.node.style.visibility = 'hidden';
+    this.node.style.zIndex = 58;
     this.isVisible = false;
   }
 

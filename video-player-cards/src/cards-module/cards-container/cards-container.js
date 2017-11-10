@@ -221,7 +221,7 @@ export default class CardsContainer {
     return Promise.resolve()
       .then(() => {
         this.cards
-          .filter(card => card.isDisplayed)
+          .filter(card => card.isVisible)
           .reduce((offset, card) => {
             card.setAnimationEnabled(this.isAnimationEnabled);
             card.updatePosition(this.flowType, this.direction, offset);
