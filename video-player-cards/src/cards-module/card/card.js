@@ -55,6 +55,7 @@ export default class Card {
   appear() {
     this.node.style.minWidth = 0;
     this.node.style.opacity = 1;
+    this.node.style.zIndex = 59;
     this.node.style.visibility = 'visible';
     this.isVisible = true;
   }
@@ -64,6 +65,10 @@ export default class Card {
     this.node.style.opacity = 0;
     this.node.style.visibility = 'hidden';
     this.isVisible = false;
+  }
+
+  hideContent() {
+    this.node.style.zIndex = -100;
   }
 
   setAnimationEnabled(isEnabled) {

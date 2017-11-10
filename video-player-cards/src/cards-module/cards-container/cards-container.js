@@ -193,6 +193,7 @@ export default class CardsContainer {
       card.resizeSensor.detach(this.handleCardSizeChange);
     }
     card.disappear();
+    setTimeout(() => card.hideContent(), CARD_REMOVE_TIMEOUT);
   }
 
   sortCards() {
