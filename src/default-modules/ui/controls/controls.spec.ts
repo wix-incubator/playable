@@ -49,7 +49,8 @@ describe('ControlsBlock', () => {
     });
     scope = container.createScope();
     scope.registerValue({
-      config
+      config,
+      availablePlaybackAdapters: []
     });
     rootContainer = new RootContainer({
       eventEmitter,

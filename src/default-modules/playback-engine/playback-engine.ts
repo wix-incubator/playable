@@ -2,7 +2,7 @@ import playerAPI from '../../utils/player-api-decorator';
 
 import StateEngine from './state-engine';
 import NativeEventsBroadcaster from './native-events-broadcaster';
-import MediaStreamsStrategy from './media-streams-strategy';
+import AdapterStrategy from './adapters-strategy';
 
 import { isIPhone, isIPod, isIPad, isAndroid } from '../../utils/device-detection';
 
@@ -14,18 +14,18 @@ export {
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 export default class Engine {
-  static dependencies = ['eventEmitter', 'config'];
+  static dependencies = ['eventEmitter', 'config', 'availablePlaybackAdapters'];
 
   private _eventEmitter;
   private _currentSrc;
   private _stateEngine;
   private _video;
   private _nativeEventsBroadcaster;
-  private _mediaStreamStrategy;
+  private _adapterStrategy;
   private _playPromise: Promise<any>;
   private _pauseRequested: boolean;
 
-  constructor({ eventEmitter, config }) {
+  constructor({ eventEmitter, config, availablePlaybackAdapters = [] }) {
     this._eventEmitter = eventEmitter;
 
     this._currentSrc = null;
@@ -34,7 +34,7 @@ export default class Engine {
 
     this._stateEngine = new StateEngine(eventEmitter, this._video);
     this._nativeEventsBroadcaster = new NativeEventsBroadcaster(eventEmitter, this._video);
-    this._mediaStreamStrategy = new MediaStreamsStrategy(eventEmitter, this._video);
+    this._adapterStrategy = new AdapterStrategy(this._eventEmitter, this._video, availablePlaybackAdapters);
 
     this._applyConfig(config.engine);
   }
@@ -68,19 +68,19 @@ export default class Engine {
   }
 
   get isDynamicContent() {
-    if (!this.attachedStream) {
+    if (!this.attachedAdapter) {
       return false;
     }
 
-    return this.attachedStream.isDynamicContent;
+    return this.attachedAdapter.isDynamicContent;
   }
 
   get isSeekAvailable() {
-    if (!this.attachedStream) {
+    if (!this.attachedAdapter) {
       return false;
     }
 
-    return this.attachedStream.isSeekAvailable;
+    return this.attachedAdapter.isSeekAvailable;
   }
 
   get isMetadataLoaded() {
@@ -103,8 +103,8 @@ export default class Engine {
     return this.getAutoPlay();
   }
 
-  get attachedStream() {
-    return this._mediaStreamStrategy.attachedStream;
+  get attachedAdapter() {
+    return this._adapterStrategy.attachedAdapter;
   }
 
   @playerAPI()
@@ -112,8 +112,8 @@ export default class Engine {
     const { duration, currentTime } = this._video;
     let data;
 
-    if (this._mediaStreamStrategy.attachedStream) {
-      data = this._mediaStreamStrategy.attachedStream.getDebugInfo();
+    if (this._adapterStrategy.attachedAdapter) {
+      data = this._adapterStrategy.attachedAdapter.debugInfo;
     }
 
     return {
@@ -134,7 +134,7 @@ export default class Engine {
     this._stateEngine.clearTimestamps();
 
     this._currentSrc = src;
-    this._mediaStreamStrategy.connectMediaStream(this._currentSrc);
+    this._adapterStrategy.connectAdapter(this._currentSrc);
 
     this._stateEngine.setState(STATES.SRC_SET);
   }
@@ -146,7 +146,7 @@ export default class Engine {
 
   @playerAPI()
   goLive() {
-    this.setCurrentTime(this.attachedStream.livePosition);
+    this.setCurrentTime(this.attachedAdapter.livePosition);
 
     this.play();
   }
@@ -330,12 +330,12 @@ export default class Engine {
   destroy() {
     this._stateEngine.destroy();
     this._nativeEventsBroadcaster.destroy();
-    this._mediaStreamStrategy.destroy();
+    this._adapterStrategy.destroy();
     this._video.parentNode && this._video.parentNode.removeChild(this._video);
 
     delete this._stateEngine;
     delete this._nativeEventsBroadcaster;
-    delete this._mediaStreamStrategy;
+    delete this._adapterStrategy;
     delete this._eventEmitter;
     delete this._video;
   }

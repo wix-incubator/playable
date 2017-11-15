@@ -1,5 +1,8 @@
 import * as flow from 'lodash/flow';
 import VideoPlayer from './index';
+import HLSAdapter from './adapters/hls';
+import DASHAdapter from './adapters/dash';
+
 
 /* ignore coverage */
 const DEFAULT_URL = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
@@ -27,6 +30,9 @@ const parseQuery = qstr =>
 
 /* ignore coverage */
 const getURLFromQuery = ({ url = DEFAULT_URL, type }) => (type ? { url, type } : url);
+
+VideoPlayer.registerPlaybackAdapter(HLSAdapter);
+VideoPlayer.registerPlaybackAdapter(DASHAdapter);
 
 /* ignore coverage */
 const player: any = VideoPlayer.create({

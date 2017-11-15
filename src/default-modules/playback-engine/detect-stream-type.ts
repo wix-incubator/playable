@@ -1,4 +1,4 @@
-import { MEDIA_STREAM_TYPES } from '../constants/media-stream';
+import { MEDIA_STREAM_TYPES } from '../../constants/media-stream';
 
 const extensionsMap = Object.create(null);
 extensionsMap.mp4 = MEDIA_STREAM_TYPES.MP4;

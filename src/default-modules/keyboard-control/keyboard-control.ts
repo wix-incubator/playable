@@ -56,16 +56,20 @@ export default class KeyboardControl {
             this._engine.togglePlayback();
           },
           [KEYCODES.LEFT_ARROW]: e => {
-            e.preventDefault();
-            this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-            this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
-            this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
+            if (this._engine.isSeekAvailable) {
+              e.preventDefault();
+              this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+              this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
+              this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
+            }
           },
           [KEYCODES.RIGHT_ARROW]: e => {
-            e.preventDefault();
-            this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-            this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
-            this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
+            if (this._engine.isSeekAvailable) {
+              e.preventDefault();
+              this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+              this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
+              this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
+            }
           },
           [KEYCODES.UP_ARROW]: e => {
             e.preventDefault();

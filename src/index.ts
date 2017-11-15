@@ -1,4 +1,4 @@
-import create, { registerModule } from './core/player-fabric';
+import create, { registerModule, registerPlaybackAdapter } from './core/player-fabric';
 
 import playerAPIDecorator from './utils/player-api-decorator';
 
@@ -44,7 +44,8 @@ export {
   MEDIA_STREAM_DELIVERY_TYPE,
   playerAPIDecorator,
   create,
-  registerModule
+  registerModule,
+  registerPlaybackAdapter
 };
 
 export default {
@@ -59,5 +60,6 @@ export default {
   MEDIA_STREAM_DELIVERY_TYPE,
   playerAPIDecorator,
   create,
-  registerModule
+  registerModule,
+  registerPlaybackAdapter
 };

@@ -2,9 +2,11 @@ import DependencyContainer from './dependency-container';
 import PlayerFacade from './player-facade';
 
 import defaultModules from '../default-modules';
+import defaultPlaybackAdapters from '../default-modules/playback-engine/adapters/default-set';
 
 
 let additionalModules = {};
+let playbackAdapters = [...defaultPlaybackAdapters];
 
 export const container = DependencyContainer.createContainer();
 container.register(defaultModules);
@@ -13,8 +15,16 @@ export function registerModule(id, config) {
   additionalModules[id] = config;
 }
 
+export function registerPlaybackAdapter(adapter) {
+  playbackAdapters.push(adapter);
+}
+
 export function clearAdditionalModules() {
   additionalModules = {};
+}
+
+export function clearPlaybackAdapters() {
+  playbackAdapters = [...defaultPlaybackAdapters];
 }
 
 export default function create(params = {}) {
@@ -26,8 +36,7 @@ export default function create(params = {}) {
     additionalModuleNames.forEach(moduleName => scope.registerClass(moduleName, additionalModules[moduleName]));
   }
 
-  //const rootNode = document.createElement('div');
-  //rootNode.setAttribute('tabindex', 0);
+  scope.registerValue('availablePlaybackAdapters', playbackAdapters);
 
   return new PlayerFacade(params, scope, defaultModules, additionalModules);
 }

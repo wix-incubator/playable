@@ -1,27 +1,28 @@
-// TODO: check if `eventEmitter` is optional parameter
-export function resolvePlayableStreams(mediaStreams, playableStreamCreators, eventEmitter?) {
-  const playableStreams = [];
+export function resolveAdapters(mediaStreams, availableAdapters) {
+  const playableAdapters = [];
 
   const groupedStreams = groupStreamsByMediaType(mediaStreams);
   const groupedStreamKeys = Object.keys(groupedStreams);
 
-  playableStreamCreators.forEach(playableStreamCreator => {
+  availableAdapters.forEach(adapter => {
     for (let i = 0; i < groupedStreamKeys.length; i += 1) {
       const mediaType = groupedStreamKeys[i];
       const mediaStreams = groupedStreams[mediaType];
-      if (playableStreamCreator.canPlay(mediaType)) {
-        playableStreams.push(new playableStreamCreator(mediaStreams, eventEmitter));
+
+      if (adapter.canPlay(mediaType)) {
+        adapter.setMediaStreams(mediaStreams);
+        playableAdapters.push(adapter);
         break;
       }
     }
   });
 
-  playableStreams.sort(
-    (firstStream, secondStream) =>
-      secondStream.mediaStreamDeliveryType - firstStream.mediaStreamDeliveryType
+  playableAdapters.sort(
+    (firstAdapter, secondAdapter) =>
+      secondAdapter.mediaStreamDeliveryType - firstAdapter.mediaStreamDeliveryType
   );
 
-  return playableStreams;
+  return playableAdapters;
 }
 
 function groupStreamsByMediaType(mediaStreams) {

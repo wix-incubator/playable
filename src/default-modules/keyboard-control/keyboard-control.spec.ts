@@ -30,6 +30,11 @@ describe('KeyboardControl', () => {
       eventEmitter,
       config
     });
+    engine._adapterStrategy._attachedAdapter = {
+      isSeekAvailable: true,
+      attach: () => {},
+      detach: () => {}
+    };
     rootContainer = new RootContainer({
       eventEmitter,
       engine,

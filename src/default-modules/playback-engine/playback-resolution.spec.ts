@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import { resolvePlayableStreams } from './playback-resolution';
-import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../constants';
+import { resolveAdapters } from './playback-resolution';
+import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants';
 
 describe('Picking proper playback stream', () => {
   class AdaptiveCanBePlayedStreamA {
-    static canPlay = () => true;
+    canPlay = () => true;
     constructor() {
 
     }
@@ -12,28 +12,47 @@ describe('Picking proper playback stream', () => {
     get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
     }
+
+    setMediaStreams() {
+      return true;
+    }
   }
   class AdaptiveCanBePlayedStreamB {
-    static canPlay = () => true;
+    canPlay = () => true;
+    constructor() {
+
+    }
 
     get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+    }
+
+    setMediaStreams() {
+      return true;
     }
   }
 
   class NativeCanBePlayedStreamA {
-    static canPlay = () => true;
+    canPlay = () => true;
 
     get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE;
     }
+
+    setMediaStreams() {
+      return true;
+    }
   }
 
   class CantBePlayedStream {
-    static canPlay = () => false;
+    canPlay = () => false;
 
     get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+    }
+
+    setMediaStreams() {
+      return true;
     }
   }
 
@@ -45,33 +64,33 @@ describe('Picking proper playback stream', () => {
   ];
 
   it('should use priority based on indexes in array of playableStreamCreators if same delivery type', () => {
-    let resolvedStream = resolvePlayableStreams(mediaStreams, [
-      AdaptiveCanBePlayedStreamA,
-      AdaptiveCanBePlayedStreamB,
+    let resolvedStream = resolveAdapters(mediaStreams, [
+      new AdaptiveCanBePlayedStreamA(),
+      new AdaptiveCanBePlayedStreamB(),
     ]);
     expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamA).to.be.true;
 
-    resolvedStream = resolvePlayableStreams(mediaStreams, [
-      AdaptiveCanBePlayedStreamB,
-      AdaptiveCanBePlayedStreamA,
+    resolvedStream = resolveAdapters(mediaStreams, [
+      new AdaptiveCanBePlayedStreamB(),
+      new AdaptiveCanBePlayedStreamA(),
     ]);
 
     expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamB).to.be.true;
   });
 
   it('should choose only stream that can be played', () => {
-    let resolvedStream = resolvePlayableStreams(mediaStreams, [
-      CantBePlayedStream,
-      AdaptiveCanBePlayedStreamA,
+    let resolvedStream = resolveAdapters(mediaStreams, [
+      new CantBePlayedStream(),
+      new AdaptiveCanBePlayedStreamA(),
     ]);
     expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamA).to.be.true;
   });
 
   it('should sort resolved stream based on delivery type', () => {
-    let resolvedStream = resolvePlayableStreams(mediaStreams, [
-      AdaptiveCanBePlayedStreamA,
-      AdaptiveCanBePlayedStreamB,
-      NativeCanBePlayedStreamA,
+    let resolvedStream = resolveAdapters(mediaStreams, [
+      new AdaptiveCanBePlayedStreamA(),
+      new AdaptiveCanBePlayedStreamB(),
+      new NativeCanBePlayedStreamA(),
     ]);
     expect(resolvedStream[0] instanceof NativeCanBePlayedStreamA).to.be.true;
   });

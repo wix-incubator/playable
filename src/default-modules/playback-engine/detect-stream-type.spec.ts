@@ -1,7 +1,7 @@
 import 'jsdom-global';
 import { expect } from 'chai';
 import { detectStreamType } from './detect-stream-type';
-import { MEDIA_STREAM_TYPES } from '../constants/media-stream';
+import { MEDIA_STREAM_TYPES } from '../../constants/media-stream';
 
 
 describe('Stream type auto detection', function () {
