@@ -1,6 +1,7 @@
 import { ResizeSensor } from 'css-element-queries';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from 'video-player/dist/src/constants';
 import playerAPI from 'video-player/dist/src/utils/player-api-decorator';
+import noop from 'lodash/noop';
 
 import Card from './card/card';
 import CardsContainer from './cards-container/cards-container';
@@ -20,6 +21,8 @@ export default class CardsModule {
     this.cards = [];
     this.initialized = false;
     this.isCardsClosable = true;
+
+    this._onCardClose = noop;
   }
 
   initialize() {
@@ -123,6 +126,7 @@ export default class CardsModule {
       onClose: () => {
         if (this.isCardsClosable) {
           this.hideCard(card);
+          this._onCardClose(cardData);
           setTimeout(() => this.cardsContainer.checkCardsToShow(), CARDS_UPDATE_ONCLOSE_DELAY);
           card.isClosed = true;
         }
@@ -178,6 +182,11 @@ export default class CardsModule {
     this.cardsContainer.setDirection(direction);
 
     this.updateCardsState();
+  }
+
+  @playerAPI()
+  onCardClose(callback) {
+    this._onCardClose = callback;
   }
 
   @playerAPI()
@@ -262,5 +271,7 @@ export default class CardsModule {
     this.cardsContainer.destroy();
 
     delete this.cardsContainer;
+
+    this._onCardClose = noop;
   }
 }
