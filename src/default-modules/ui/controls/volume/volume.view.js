@@ -157,7 +157,7 @@ class VolumeView extends View {
   _setVolumeLevel(volume) {
     this.$input.val(volume);
     this.$input.attr('value', volume);
-    this.$input.attr('aria-valuetext', this._texts.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, volume));
+    this.$input.attr('aria-valuetext', this._texts.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { volume }));
     this.$input.attr('aria-valuenow', volume);
 
     this.$filledProgress.attr('style', `height:${volume}%;`);

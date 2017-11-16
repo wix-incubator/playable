@@ -26,12 +26,12 @@ describe('TextMap module', () => {
   it('should pass arguments to translate function', () => {
     container.registerValue('config', {
       textMap: {
-        'testID': arg => `Test:${arg}`
+        'testID': ({ arg }) => `Test:${arg}`
       }
     });
 
     const map = container.resolve('textMap');
-    expect(map.get('testID', 1)).to.be.equal('Test:1');
+    expect(map.get('testID', { arg: 1 })).to.be.equal('Test:1');
   });
 
   it('should return undefined if destroyed', () => {

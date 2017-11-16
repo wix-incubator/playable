@@ -108,7 +108,7 @@ class ProgressView extends View {
 
   _updateDOMAttributes(percent) {
     this.$input.attr('value', percent);
-    this.$input.attr('aria-valuetext', this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, percent));
+    this.$input.attr('aria-valuetext', this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }));
     this.$input.attr('aria-valuenow', percent);
 
     this.$node.attr(DATA_PLAYED, percent);

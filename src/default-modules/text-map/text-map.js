@@ -11,7 +11,7 @@ export default class TextMap {
     };
   }
 
-  get(id, ...args) {
+  get(id, args) {
     if (!this._textMap) {
       return;
     }
@@ -19,7 +19,7 @@ export default class TextMap {
     const text = this._textMap[id];
 
     if (typeof text === 'function') {
-      return text(...args);
+      return text(args);
     }
 
     return text;
