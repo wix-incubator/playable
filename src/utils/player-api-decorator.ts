@@ -3,6 +3,7 @@ import * as isEqual from 'lodash/isEqual';
 
 export const PLAYER_API_PROPERTY = '___playerAPI';
 
+// tslint:disable-next-line
 const playerAPI = (name?) => (target, property, descriptor) => {
     const methodName = name || property;
 

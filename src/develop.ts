@@ -55,6 +55,7 @@ const player: any = VideoPlayer.create({
     }
   },
   logger: ({ reason, startTS, endTS }) => {
+    // tslint:disable-next-line
     console.log(`REASON: ${reason}; startTS: ${startTS}; endTS: ${endTS}`); // eslint-disable-line no-console
   },
   overlay: false

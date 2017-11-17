@@ -1,0 +1,112 @@
+{
+  "extends": [
+    "tslint-eslint-rules"
+  ],
+  "rules": {
+    "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
+    "no-conditional-assignment": true,
+    "no-console": true,
+    "no-constant-condition": true,
+    "no-debugger": true,
+    "no-dupe-args": false, // The rule is not applicable to Typescript.
+    "no-dupe-keys": false, // The rule is not applicable to Typescript.
+    "no-duplicate-case": true,
+    "no-empty": [true, "allow-empty-catch"],
+    "no-empty-character-class": true,
+    "no-ex-assign": true,
+    "no-extra-boolean-cast": true,
+    "no-extra-semi": true,
+    "no-func-assign": false, // The rule is not applicable to Typescript.
+    "no-inner-declarations": [true, "both"],
+    "no-invalid-regexp": true,
+    "ter-no-irregular-whitespace": true,
+    "no-negated-in-lhs": false, // The rule is not applicable to Typescript.
+    "no-obj-calls": false, // The rule is not applicable to Typescript.
+    "no-regex-spaces": true,
+    "ter-no-sparse-arrays": true,
+    "no-unexpected-multiline": true,
+    "no-unreachable": false, // The rule is not applicable to Typescript.
+    "use-isnan": true,
+    "valid-typeof": true,
+    "accessor-pairs": false, // The rule is currently unavailable.
+    "array-callback-return": false, // The rule is currently unavailable.
+    "block-scoped-var": false, // The rule is currently unavailable.
+    "cyclomatic-complexity": true,
+    "curly": [true, "all"],
+    "switch-default": true,
+    "dot-location": false, // The rule is currently unavailable.
+    "no-string-literal": true,
+    "triple-equals": [true, "smart"],
+    "forin": true,
+    "ban": true,
+    "no-arg": true,
+    "no-case-declarations": false, // The rule is currently unavailable.
+    "no-else-return": false, // The rule is currently unavailable.
+    "no-empty-pattern": false, // The rule is currently unavailable.
+    "no-eq-null": false, // The rule is currently unavailable.
+    "no-eval": true,
+    "no-extend-native": false, // The rule is currently unavailable.
+    "no-extra-bind": false, // The rule is currently unavailable.
+    "no-extra-label": false, // The rule is currently unavailable.
+    "no-switch-case-fall-through": true,
+    "no-floating-decimal": false, // The rule is currently unavailable.
+    "no-implicit-coercion": false, // The rule is currently unavailable.
+    "no-implicit-globals": false, // The rule is currently unavailable.
+    "no-implied-eval": false, // The rule is currently unavailable.
+    "no-invalid-this": true,
+    "no-iterator": false, // The rule is currently unavailable.
+    "label-position": true,
+    "no-lone-blocks": false, // The rule is currently unavailable.
+    "no-loop-func": false, // The rule is currently unavailable.
+    "no-multi-spaces": true,
+    "no-multi-str": false, // The rule is currently unavailable.
+    "no-native-reassign": false, // The rule is not applicable to Typescript.
+    "no-construct": true,
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "no-octal-escape": false, // The rule is currently unavailable.
+    "no-octal": false, // The rule is not applicable to Typescript.
+    "no-proto": false, // The rule is currently unavailable.
+    "no-duplicate-variable": true,
+    "no-return-assign": false, // The rule is currently unavailable.
+    "no-script-url": false, // The rule is currently unavailable.
+    "no-self-assign": false, // The rule is currently unavailable.
+    "no-self-compare": false, // The rule is currently unavailable.
+    "no-sequences": false, // The rule is currently unavailable.
+    "no-string-throw": true,
+    "no-unmodified-loop-condition": false, // The rule is currently unavailable.
+    "no-unused-labels": false, // The rule is currently unavailable.
+    "no-useless-call": false, // The rule is currently unavailable.
+    "no-useless-concat": false, // The rule is currently unavailable.
+    "no-with": false, // The rule is currently unavailable.
+    "radix": [true, "as-needed"],
+    "wrap-iife": false, // The rule is currently unavailable.
+    "no-delete-var": false, // The rule is not applicable to Typescript.
+    "no-label-var": false, // The rule is currently unavailable.
+    "no-undef-init": false, // The rule is currently unavailable.
+    "no-undef": false, // The rule is not applicable to Typescript.
+    "no-unused-variable": true,
+    "no-use-before-declare": [true, "nofunc"],
+    "callback-return": false, // The rule is currently unavailable.
+    "ter-arrow-body-style": [true, "as-needed"],
+    "ter-arrow-parens": [true, "as-needed"],
+    "ter-arrow-spacing": true,
+    "no-confusing-arrow": false, // The rule is currently unavailable.
+    "no-const-assign": false, // The rule is not applicable to Typescript.
+    "no-dupe-class-members": false, // The rule is not applicable to Typescript.
+    "no-new-symbol": false, // The rule is currently unavailable.
+    "no-this-before-super": false, // The rule is not applicable to Typescript.
+    "no-var-keyword": true,
+    "no-useless-constructor": false, // The rule is currently unavailable.
+    "object-literal-shorthand": [true, "always"],
+    "prefer-const": true,
+    "prefer-spread": false, // The rule is currently unavailable.
+    "prefer-template": false, // The rule is currently unavailable.
+    "template-curly-spacing": false // The rule is currently unavailable.
+  },
+  "linterOptions": {
+    "exclude": [
+      "src/**/*.spec.ts",
+      "src/e2e/playback-test.ts"
+    ]
+  }
+}

@@ -1,6 +1,0 @@
-node_modules/**
-dist/**
-*.spec.js
-src/e2e/playback-test.js
-*.html
-*.json
