@@ -13,13 +13,9 @@
     "no-empty-character-class": true, // tslint-eslint-rules
     "no-ex-assign": true, // tslint-eslint-rules
     "no-extra-boolean-cast": true, // tslint-eslint-rules
-    "no-extra-semi": true, // tslint-eslint-rules
     "no-inner-declarations": [true, "both"], // tslint-eslint-rules
     "no-invalid-regexp": true, // tslint-eslint-rules
-    "ter-no-irregular-whitespace": true, // tslint-eslint-rules
     "no-regex-spaces": true, // tslint-eslint-rules
-    "ter-no-sparse-arrays": true, // tslint-eslint-rules
-    "no-unexpected-multiline": true, // tslint-eslint-rules
     "use-isnan": true,
     "valid-typeof": true, // tslint-eslint-rules
     "cyclomatic-complexity": true,
@@ -33,8 +29,8 @@
     "no-eval": true,
     "no-switch-case-fall-through": true,
     "no-invalid-this": true,
+    "no-sparse-arrays": true,
     "label-position": true,
-    "no-multi-spaces": true, // tslint-eslint-rules
     "no-construct": true,
     "no-unused-expression": [true, "allow-fast-null-checks"],
     "no-duplicate-variable": true,
@@ -42,9 +38,6 @@
     "radix": [true, "as-needed"],
     "no-unused-variable": true,
     "no-use-before-declare": [true, "nofunc"],
-    "ter-arrow-body-style": [true, "as-needed"], // tslint-eslint-rules
-    "ter-arrow-parens": [true, "as-needed"], // tslint-eslint-rules
-    "ter-arrow-spacing": true, // tslint-eslint-rules
     "no-var-keyword": true,
     "object-literal-shorthand": [true, "always"],
     "prefer-const": true

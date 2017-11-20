@@ -16,6 +16,7 @@
   "scripts": {
     "start": "PORT=5000 yoshi start --entry-point=./dev-env/start-dev-env.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "prettier": "prettier  --config ./.prettierrc 'src/**/*.ts'",
     "csscomb": "csscomb src/.",
     "csscomb:lint": "csscomb -lv src/.",
     "test:unit": "yoshi test --mocha",
@@ -46,6 +47,7 @@
     "gh-pages": "^0.12.0",
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
+    "prettier": "1.8.2",
     "sinon": "^2.3.8",
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
