@@ -39,11 +39,15 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
     }
 
     get isSeekAvailable() {
+      return true;
+      //Need to find better solution
+      /*
       if (this.isDynamicContent) {
         return false;
       }
 
       return Boolean(this.videoElement.seekable.length);
+      */
     }
 
     get mediaStreamDeliveryType() {
