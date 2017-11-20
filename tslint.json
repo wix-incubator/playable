@@ -6,28 +6,28 @@
     "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
     "no-conditional-assignment": true,
     "no-console": true,
-    "no-constant-condition": true,
+    "no-constant-condition": true, // tslint-eslint-rules
     "no-debugger": true,
     "no-dupe-args": false, // The rule is not applicable to Typescript.
     "no-dupe-keys": false, // The rule is not applicable to Typescript.
-    "no-duplicate-case": true,
+    "no-duplicate-case": true, // tslint-eslint-rules
     "no-empty": [true, "allow-empty-catch"],
-    "no-empty-character-class": true,
-    "no-ex-assign": true,
-    "no-extra-boolean-cast": true,
-    "no-extra-semi": true,
+    "no-empty-character-class": true, // tslint-eslint-rules
+    "no-ex-assign": true, // tslint-eslint-rules
+    "no-extra-boolean-cast": true, // tslint-eslint-rules
+    "no-extra-semi": true, // tslint-eslint-rules
     "no-func-assign": false, // The rule is not applicable to Typescript.
-    "no-inner-declarations": [true, "both"],
-    "no-invalid-regexp": true,
-    "ter-no-irregular-whitespace": true,
+    "no-inner-declarations": [true, "both"], // tslint-eslint-rules
+    "no-invalid-regexp": true, // tslint-eslint-rules
+    "ter-no-irregular-whitespace": true, // tslint-eslint-rules
     "no-negated-in-lhs": false, // The rule is not applicable to Typescript.
     "no-obj-calls": false, // The rule is not applicable to Typescript.
-    "no-regex-spaces": true,
-    "ter-no-sparse-arrays": true,
-    "no-unexpected-multiline": true,
+    "no-regex-spaces": true, // tslint-eslint-rules
+    "ter-no-sparse-arrays": true, // tslint-eslint-rules
+    "no-unexpected-multiline": true, // tslint-eslint-rules
     "no-unreachable": false, // The rule is not applicable to Typescript.
     "use-isnan": true,
-    "valid-typeof": true,
+    "valid-typeof": true, // tslint-eslint-rules
     "accessor-pairs": false, // The rule is currently unavailable.
     "array-callback-return": false, // The rule is currently unavailable.
     "block-scoped-var": false, // The rule is currently unavailable.
@@ -58,7 +58,7 @@
     "label-position": true,
     "no-lone-blocks": false, // The rule is currently unavailable.
     "no-loop-func": false, // The rule is currently unavailable.
-    "no-multi-spaces": true,
+    "no-multi-spaces": true, // tslint-eslint-rules
     "no-multi-str": false, // The rule is currently unavailable.
     "no-native-reassign": false, // The rule is not applicable to Typescript.
     "no-construct": true,
@@ -87,9 +87,9 @@
     "no-unused-variable": true,
     "no-use-before-declare": [true, "nofunc"],
     "callback-return": false, // The rule is currently unavailable.
-    "ter-arrow-body-style": [true, "as-needed"],
-    "ter-arrow-parens": [true, "as-needed"],
-    "ter-arrow-spacing": true,
+    "ter-arrow-body-style": [true, "as-needed"], // tslint-eslint-rules
+    "ter-arrow-parens": [true, "as-needed"], // tslint-eslint-rules
+    "ter-arrow-spacing": true, // tslint-eslint-rules
     "no-confusing-arrow": false, // The rule is currently unavailable.
     "no-const-assign": false, // The rule is not applicable to Typescript.
     "no-dupe-class-members": false, // The rule is not applicable to Typescript.
