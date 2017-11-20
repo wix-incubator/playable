@@ -42,7 +42,7 @@ const used = {
   pointer: false,
   key: false,
   script: false,
-  initial: false
+  initial: false,
 };
 
 function handleFocusEvent(event) {
@@ -108,7 +108,7 @@ function engage() {
     used: getUsedFocusSource,
     current: getCurrentFocusSource,
     lock: lockFocusSource,
-    unlock: unlockFocusSource
+    unlock: unlockFocusSource,
   };
 }
 

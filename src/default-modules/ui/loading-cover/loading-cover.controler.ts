@@ -70,7 +70,7 @@ export default class LoadingCover {
 
   _initUI() {
     this.view = new View({
-      url: this._url
+      url: this._url,
     });
   }
 

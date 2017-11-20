@@ -6,7 +6,7 @@ import View from './overlay.view';
 
 
 const DEFAULT_CONFIG = {
-  poster: false
+  poster: false,
 };
 
 export default class Overlay {
@@ -29,7 +29,7 @@ export default class Overlay {
     this.isContentHidden = false;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...get(config, 'ui.overlay')
+      ...get(config, 'ui.overlay'),
     };
 
     this._bindEvents();
@@ -48,9 +48,9 @@ export default class Overlay {
     const { view } = this.config;
     const config = {
       callbacks: {
-        onPlayClick: this._playVideo
+        onPlayClick: this._playVideo,
       },
-      src
+      src,
     };
 
     if (view) {

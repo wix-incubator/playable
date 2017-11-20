@@ -22,12 +22,12 @@ class TitleView extends View {
     this._callbacks = callbacks;
 
     this.$node = $('<div>', {
-      class: this.styleNames.wrapper
+      class: this.styleNames.wrapper,
     });
 
     this.$title = $('<span>', {
       class: this.styleNames.title,
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
     });
 
     this.$node.append(this.$title);

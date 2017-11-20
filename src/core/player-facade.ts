@@ -10,7 +10,7 @@ export default class Player {
 
   constructor(params, scope, defaultModules, additionalModules = {}) {
     scope.registerValue({
-      config: mapParamsToConfig(params)
+      config: mapParamsToConfig(params),
     });
 
     this._config = scope.resolve('config');
@@ -60,7 +60,7 @@ export default class Player {
   _getPlayerAPIMethodDescriptor(module, moduleName, descriptor) {
     const playerMethodDescriptor: any = {
       enumerable: true,
-      configurable: true
+      configurable: true,
     };
 
     const { get, set, value } = descriptor;
@@ -90,7 +90,7 @@ export default class Player {
         Object.defineProperty(
           this,
           apiKey,
-          this._getPlayerAPIMethodDescriptor(module, moduleName, module[PLAYER_API_PROPERTY][apiKey])
+          this._getPlayerAPIMethodDescriptor(module, moduleName, module[PLAYER_API_PROPERTY][apiKey]),
         );
       });
     }

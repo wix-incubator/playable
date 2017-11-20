@@ -14,11 +14,11 @@ class LoadingCoverView extends View {
 
     this.$node = $('<div>', {
       class: this.styleNames['loading-cover'],
-      'data-hook': 'loading-cover'
+      'data-hook': 'loading-cover',
     });
 
     this.$image = $('<img>', {
-      class: this.styleNames.image
+      class: this.styleNames.image,
     });
 
     this._showImageOnLoad = this._showImageOnLoad.bind(this);

@@ -41,7 +41,7 @@ class VolumeView extends View {
       class: this.styleNames['volume-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
       [DATA_VOLUME]: 100,
-      [DATA_IS_MUTED]: false
+      [DATA_IS_MUTED]: false,
     });
 
     this.$muteControl = $('<button>', {
@@ -49,24 +49,24 @@ class VolumeView extends View {
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
       'aria-label': this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
       type: 'button',
-      tabIndex: 0
+      tabIndex: 0,
     });
 
     this.$container = $('<div>', {
       class: this.styleNames.container,
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_CONTAINER
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_CONTAINER,
   });
 
     const $content = $('<div>', {
-      class: this.styleNames.content
+      class: this.styleNames.content,
     });
 
     const $inputWrapper = $('<div>', {
-      class: this.styleNames['input-wrapper']
+      class: this.styleNames['input-wrapper'],
     });
 
     this.$filledProgress = $('<div>', {
-      class: this.styleNames['filled-progress']
+      class: this.styleNames['filled-progress'],
     });
 
     this.$input = $('<input>', {
@@ -82,7 +82,7 @@ class VolumeView extends View {
       min: 0,
       max: 100,
       step: 1,
-      value: 0
+      value: 0,
     });
 
     $inputWrapper
@@ -188,7 +188,7 @@ class VolumeView extends View {
     this.$muteControl.attr('aria-label',
       isMuted ?
         this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL) :
-        this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL)
+        this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
     );
   }
 

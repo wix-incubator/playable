@@ -9,13 +9,13 @@ export const REPORT_REASONS = {
   LONG_METADATA_LOADING: 'long-metadata-loading',
   LONG_SEEK_PROCESSING: 'long-seek-processing',
   BUFFER_EMPTY_FOR_CURRENT_SEGMENT: 'buffer-empty-for-current-segment',
-  LONG_PLAY_REQUESTED_PROCESSING: 'long-play-requested-processing'
+  LONG_PLAY_REQUESTED_PROCESSING: 'long-play-requested-processing',
 };
 
 export const DELAYED_REPORT_TYPES = {
   INITIAL_VIDEO_PARTS_LOADING: { id: '_initialVideoPartsLoading', timeoutTime: 5000 },
   METADATA_LOADING: { id: '_metadataLoading', timeoutTime: 5000 },
-  RUNTIME_LOADING: { id: '_runtimeLoading', timeoutTime: 5000 }
+  RUNTIME_LOADING: { id: '_runtimeLoading', timeoutTime: 5000 },
 };
 
 export default class AnomalyBloodhound {
@@ -28,7 +28,7 @@ export default class AnomalyBloodhound {
 
   constructor({ engine, eventEmitter, config }) {
       this._config = {
-      ...get(config, 'anomalyBloodhound')
+      ...get(config, 'anomalyBloodhound'),
     };
     this._engine = engine;
     this._eventEmitter = eventEmitter;
@@ -52,7 +52,7 @@ export default class AnomalyBloodhound {
         if (this._engine.isAutoPlayAvailable || this._engine.isPreloadAvailable) {
           this.startDelayedReport(
             DELAYED_REPORT_TYPES.METADATA_LOADING,
-            REPORT_REASONS.LONG_METADATA_LOADING
+            REPORT_REASONS.LONG_METADATA_LOADING,
           );
         }
         break;
@@ -64,7 +64,7 @@ export default class AnomalyBloodhound {
           if (this._engine.getPreload() !== 'metadata') {
             this.startDelayedReport(
               DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING,
-              REPORT_REASONS.LONG_INITIAL_VIDEO_PARTS_LOADING
+              REPORT_REASONS.LONG_INITIAL_VIDEO_PARTS_LOADING,
             );
           }
         }
@@ -83,7 +83,7 @@ export default class AnomalyBloodhound {
         if (prevState === STATES.PAUSED) {
           this.startDelayedReport(
             DELAYED_REPORT_TYPES.RUNTIME_LOADING,
-            REPORT_REASONS.LONG_SEEK_PROCESSING
+            REPORT_REASONS.LONG_SEEK_PROCESSING,
           );
         }
         break;
@@ -106,7 +106,7 @@ export default class AnomalyBloodhound {
               this._engine.setCurrentTime(nearestBufferSegment.end);
             } else { */
               this.reportDebugInfo({
-                reason: REPORT_REASONS.BUFFER_EMPTY_FOR_CURRENT_SEGMENT
+                reason: REPORT_REASONS.BUFFER_EMPTY_FOR_CURRENT_SEGMENT,
               });
             //*}
 
@@ -117,7 +117,7 @@ export default class AnomalyBloodhound {
             if (!this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)) {
               this.startDelayedReport(
                 DELAYED_REPORT_TYPES.RUNTIME_LOADING,
-                REPORT_REASONS.LONG_PLAY_REQUESTED_PROCESSING
+                REPORT_REASONS.LONG_PLAY_REQUESTED_PROCESSING,
               );
             }
             break;
@@ -153,10 +153,10 @@ export default class AnomalyBloodhound {
         this.reportDebugInfo({
           reason,
           startTS,
-          endTS
+          endTS,
         });
       },
-      type.timeoutTime
+      type.timeoutTime,
     );
   }
 
@@ -178,7 +178,7 @@ export default class AnomalyBloodhound {
         reason,
         startTS,
         endTS,
-        ...this._engine.getDebugInfo()
+        ...this._engine.getDebugInfo(),
       });
     }
   }

@@ -49,8 +49,8 @@ export default class PlayControl {
         [KEYCODES.ENTER]: e => {
           e.stopPropagation();
           this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
-        }
-      }
+        },
+      },
     });
   }
 
@@ -103,9 +103,9 @@ export default class PlayControl {
   _initUI() {
     const config = {
       callbacks: {
-        onTogglePlaybackButtonClick: this._togglePlayback
+        onTogglePlaybackButtonClick: this._togglePlayback,
       },
-      texts: this._textMap
+      texts: this._textMap,
     };
 
     this.view = new PlayControl.View(config);

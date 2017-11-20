@@ -73,7 +73,7 @@ export default class DashAdapter {
       currentBitrate,
       overallBufferLength,
       currentTrack,
-      nearestBufferSegInfo
+      nearestBufferSegInfo,
     };
   }
 
@@ -96,8 +96,8 @@ export default class DashAdapter {
         errorType: error,
         streamType: MEDIA_STREAM_TYPES.DASH,
         streamProvider: 'dash.js',
-        errorInstance: errorEvent
-      }
+        errorInstance: errorEvent,
+      },
     );
   }
 

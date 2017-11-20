@@ -8,7 +8,7 @@ const STATES = {
   WAITING: 'waiting',
   PLAYING: 'playing',
   PAUSED: 'paused',
-  ENDED: 'ended'
+  ENDED: 'ended',
 };
 
 export default STATES;

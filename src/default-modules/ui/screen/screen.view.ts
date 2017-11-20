@@ -21,17 +21,17 @@ class ScreenView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['screen-block'],
-      'data-hook': 'screen-block'
+      'data-hook': 'screen-block',
     });
 
     this._bindEvents();
 
     this.$topBackground = $('<div>', {
-      class: this.styleNames['top-gradient-background']
+      class: this.styleNames['top-gradient-background'],
     });
 
     this.$bottomBackground = $('<div>', {
-      class: this.styleNames['bottom-gradient-background']
+      class: this.styleNames['bottom-gradient-background'],
     });
 
     if (this._nativeControls) {

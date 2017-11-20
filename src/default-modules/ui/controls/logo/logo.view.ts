@@ -24,18 +24,18 @@ class LogoView extends View {
     this._texts = texts;
 
     this.$node = $('<div>', {
-      class: `${this.styleNames.wrapper}`
+      class: `${this.styleNames.wrapper}`,
     });
 
     this.$logo = $('<img>', {
       class: this.styleNames['default-logo'],
       'aria-label': this._texts.get(TEXT_LABELS.LOGO_LABEL),
       role: 'button',
-      tabIndex: 0
+      tabIndex: 0,
     });
 
     this.$tooltip = $('<div>', {
-      class: `${this.styleNames.tooltip}`
+      class: `${this.styleNames.tooltip}`,
     });
     this.$tooltip.html(this._texts.get(TEXT_LABELS.LOGO_TOOLTIP));
     this.$node.append(this.$tooltip);

@@ -30,8 +30,8 @@ export default class TitleControl {
   _initUI() {
     const config = {
       callbacks: {
-        onClick: this._triggerCallback
-      }
+        onClick: this._triggerCallback,
+      },
     };
 
     this.view = new TitleControl.View(config);

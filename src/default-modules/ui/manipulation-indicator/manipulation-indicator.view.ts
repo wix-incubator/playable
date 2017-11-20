@@ -22,7 +22,7 @@ class ManipulationIndicatorView extends View {
     super();
 
     this.$node = $('<div>', {
-      class: `${this.styleNames['icon-container']}`
+      class: `${this.styleNames['icon-container']}`,
     });
 
     this.playIcon = `<div class="${this.styleNames.icon}"><svg class="${this.styleNames['play-icon']} ${this.styleNames['animated-icon']}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 14"><path fill="#FFF" fill-rule="evenodd" d="M.079 0L0 14l10.5-7.181z"/></svg></div>`;

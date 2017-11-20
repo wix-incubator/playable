@@ -2,7 +2,7 @@ import { VIDEO_EVENTS } from '../../constants/index';
 
 
 export const NATIVE_VIDEO_TO_BROADCAST = [
-  'progress', 'error', 'stalled', 'suspend', 'durationchange', 'timeupdate', 'volumechange', 'seeking'
+  'progress', 'error', 'stalled', 'suspend', 'durationchange', 'timeupdate', 'volumechange', 'seeking',
 ];
 
 export default class NativeEventsBroadcaster {
@@ -60,7 +60,7 @@ export default class NativeEventsBroadcaster {
       case 'volumechange': {
         this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
           volume: videoEl.volume,
-          muted: videoEl.muted
+          muted: videoEl.muted,
         });
         break;
       }

@@ -20,7 +20,7 @@ export default class AdaptersStrategy {
     playbackAdapters.forEach(
       adapter =>
         adapter.isSupported() &&
-        this._availableAdapters.push(new adapter(eventEmitter))
+        this._availableAdapters.push(new adapter(eventEmitter)),
     );
   }
 

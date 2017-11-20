@@ -26,7 +26,7 @@ function syntaxHighlight(json, styleNames) {
         cls = styleNames.null;
       }
       return `<span class="${cls}">${match}</span>`;
-    }
+    },
   );
 }
 
@@ -42,15 +42,15 @@ class DebugPanelView extends View {
     this.config = config;
 
     this.$node = $('<div>', {
-      class: this.styleNames['video-player-debug-panel']
+      class: this.styleNames['video-player-debug-panel'],
     });
 
     this.$infoContainer = $('<pre>', {
-      class: this.styleNames['info-container']
+      class: this.styleNames['info-container'],
     });
 
     this.$close = $('<div>', {
-      class: this.styleNames['close-button']
+      class: this.styleNames['close-button'],
     });
     this.$close.html('x');
 

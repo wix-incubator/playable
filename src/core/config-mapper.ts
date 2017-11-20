@@ -4,12 +4,12 @@ import * as pick from 'lodash/pick';
 const getKeyboardInterceptorConfig = params => {
   if (isIPhone() || isIPod() || isIPad() || isAndroid()) {
     return {
-      disabled: true
+      disabled: true,
     };
   }
 
   return {
-    disabled: params.disableControlWithKeyboard
+    disabled: params.disableControlWithKeyboard,
   };
 };
 
@@ -25,7 +25,7 @@ const getFullScreenManagerConfig = params =>
     exitOnEnd: Boolean(params.exitFullScreenOnEnd),
     enterOnPlay: Boolean(params.enterFullScreenOnPlay),
     exitOnPause: Boolean(params.exitFullScreenOnPause),
-    pauseOnExit: Boolean(params.pauseVideoOnFullScreenExit)
+    pauseOnExit: Boolean(params.pauseVideoOnFullScreenExit),
   });
 
 const convertUIConfigForIOS = config =>
@@ -35,24 +35,24 @@ const convertUIConfigForIOS = config =>
       ...config.screen,
       indicateScreenClick: false,
       disableClickProcessing: true,
-      nativeControls: true
+      nativeControls: true,
     },
     loader: false,
-    controls: false
+    controls: false,
   });
 const convertUIConfigForAndroid = config =>
   ({
     ...config,
     screen: {
       ...config.screen,
-      disableClickProcessing: true
-    }
+      disableClickProcessing: true,
+    },
   });
 
 const getUIConfig = params => {
     const config = {
       ...params.size,
-      ...pick(params, ['overlay', 'screen', 'customUI', 'loader', 'controls', 'logo', 'fillAllSpace', 'loadingCover'])
+      ...pick(params, ['overlay', 'screen', 'customUI', 'loader', 'controls', 'logo', 'fillAllSpace', 'loadingCover']),
     };
 
     if (isIPhone() || isIPod() || isIPad()) {
@@ -71,7 +71,7 @@ const mapParamsToConfig = (params = {}) =>
     ui: getUIConfig(params),
     engine: getEngineConfig(params),
     anomalyBloodhound: getAnomalyBloodhoundConfig(params),
-    fullScreenManager: getFullScreenManagerConfig(params)
+    fullScreenManager: getFullScreenManagerConfig(params),
   });
 
 export {
@@ -82,7 +82,7 @@ export {
   getUIConfig,
   getFullScreenManagerConfig,
   convertUIConfigForIOS,
-  convertUIConfigForAndroid
+  convertUIConfigForAndroid,
 };
 
 export default mapParamsToConfig;

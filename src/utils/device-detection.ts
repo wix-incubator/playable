@@ -1,6 +1,6 @@
 declare const window: {
   navigator: any,
-  MSStream: any
+  MSStream: any,
 };
 
 const getNavigator = () => window.navigator || /* ignore coverage */ {userAgent: undefined};

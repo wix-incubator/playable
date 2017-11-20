@@ -39,7 +39,7 @@ export default class ProgressControl {
     this._bindEvents();
     this.view.setState({
       played: 0,
-      buffered: 0
+      buffered: 0,
     });
 
     this._initInterceptor();
@@ -60,9 +60,9 @@ export default class ProgressControl {
       callbacks: {
         onChangePlayedProgress: this._changePlayedProgress,
         onUserInteractionStart: this._onUserInteractionStarts,
-        onUserInteractionEnd: this._onUserInteractionEnds
+        onUserInteractionEnd: this._onUserInteractionEnds,
       },
-      texts: this._textMap
+      texts: this._textMap,
     };
 
     this.view = new ProgressControl.View(config);
@@ -99,8 +99,8 @@ export default class ProgressControl {
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
           this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
-        }
-      }
+        },
+      },
     });
   }
 

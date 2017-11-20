@@ -11,7 +11,7 @@ const DEFAULT_CONFIG = {
   exitOnPause: false,
   enterOnPlay: false,
   pauseOnExit: false,
-  disabled: false
+  disabled: false,
 };
 
 export default class FullScreenManager {
@@ -27,7 +27,7 @@ export default class FullScreenManager {
     this._engine = engine;
     this._config = {
       ...DEFAULT_CONFIG,
-      ...config.fullScreenManager
+      ...config.fullScreenManager,
     };
 
     this._onChange = this._onChange.bind(this);

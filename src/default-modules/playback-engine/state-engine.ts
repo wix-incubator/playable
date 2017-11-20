@@ -2,7 +2,7 @@ import { VIDEO_EVENTS, STATES } from '../../constants/index';
 
 
 export const NATIVE_VIDEO_EVENTS_TO_STATE = [
-  'loadstart', 'loadedmetadata', 'canplay', 'play', 'playing', 'pause', 'ended', 'waiting', 'seeking', 'seeked'
+  'loadstart', 'loadedmetadata', 'canplay', 'play', 'playing', 'pause', 'ended', 'waiting', 'seeking', 'seeked',
 ];
 
 export default class StateEngine {

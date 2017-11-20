@@ -13,7 +13,7 @@ export const DEFAULT_CONFIG = {
   fillAllSpace: false,
   overlay: false,
   loadingCover: false,
-  customUI: {}
+  customUI: {},
 };
 
 class RootContainer {
@@ -34,7 +34,7 @@ class RootContainer {
     this._engine = engine;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config.ui
+      ...config.ui,
     };
     this.isHidden = false;
 
@@ -63,7 +63,7 @@ class RootContainer {
     const config = {
       width,
       height,
-      fillAllSpace
+      fillAllSpace,
     };
 
     this.view = new View(config);
@@ -76,7 +76,7 @@ class RootContainer {
       const component = new this.config.customUI[key]({
         engine: this._engine,
         eventEmitter: this._eventEmitter,
-        ui: this
+        ui: this,
       });
 
       this.appendComponentNode(component.getNode());

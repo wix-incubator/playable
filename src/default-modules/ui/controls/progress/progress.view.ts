@@ -33,19 +33,19 @@ class ProgressView extends View {
     this.$node = $('<div>', {
       class: this.styleNames['seek-block'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
-      [DATA_PLAYED]: 0
+      [DATA_PLAYED]: 0,
     });
 
     this.$progressPlayed = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-played']}`
+      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-played']}`,
     });
 
     this.$progressBuffered = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-buffered']}`
+      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-buffered']}`,
     });
 
     this.$progressBackground = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-background']}`
+      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-background']}`,
     });
 
     this.$input = $('<input>', {
@@ -59,7 +59,7 @@ class ProgressView extends View {
       min: 0,
       max: 100,
       step: 0.1,
-      value: 0
+      value: 0,
     });
 
     this.$node

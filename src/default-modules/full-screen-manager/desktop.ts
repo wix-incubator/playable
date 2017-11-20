@@ -5,7 +5,7 @@ const fnMap = [
     'fullscreenElement',
     'fullscreenEnabled',
     'fullscreenchange',
-    'fullscreenerror'
+    'fullscreenerror',
   ],
   // new WebKit
   [
@@ -14,7 +14,7 @@ const fnMap = [
     'webkitFullscreenElement',
     'webkitFullscreenEnabled',
     'webkitfullscreenchange',
-    'webkitfullscreenerror'
+    'webkitfullscreenerror',
 
   ],
   // old WebKit (Safari 5.1)
@@ -24,7 +24,7 @@ const fnMap = [
     'webkitCurrentFullScreenElement',
     'webkitCancelFullScreen',
     'webkitfullscreenchange',
-    'webkitfullscreenerror'
+    'webkitfullscreenerror',
 
   ],
   [
@@ -33,7 +33,7 @@ const fnMap = [
     'mozFullScreenElement',
     'mozFullScreenEnabled',
     'mozfullscreenchange',
-    'mozfullscreenerror'
+    'mozfullscreenerror',
   ],
   [
     'msRequestFullscreen',
@@ -41,8 +41,8 @@ const fnMap = [
     'msFullscreenElement',
     'msFullscreenEnabled',
     'MSFullscreenChange',
-    'MSFullscreenError'
-  ]
+    'MSFullscreenError',
+  ],
 ];
 
 /* ignore coverage */

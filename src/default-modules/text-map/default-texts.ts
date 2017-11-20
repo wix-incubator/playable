@@ -13,5 +13,5 @@ export default {
   [TEXT_LABELS.VOLUME_CONTROL_LABEL]: 'Volume control',
   [TEXT_LABELS.VOLUME_CONTROL_VALUE]: ({ volume }) => `Volume is ${volume}%`,
   [TEXT_LABELS.ENTER_FULL_SCREEN_LABEL]: 'Enter full screen mode',
-  [TEXT_LABELS.EXIT_FULL_SCREEN_LABEL]: 'Exit full screen mode'
+  [TEXT_LABELS.EXIT_FULL_SCREEN_LABEL]: 'Exit full screen mode',
 };

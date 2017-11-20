@@ -23,7 +23,7 @@ export default class Logo {
 
   constructor({ engine, eventEmitter, config, textMap }) {
     this._config = {
-      ...get(config, 'ui.controls.logo')
+      ...get(config, 'ui.controls.logo'),
     };
 
     this._eventEmitter = eventEmitter;
@@ -50,9 +50,9 @@ export default class Logo {
   _initUI() {
     const config = {
       callbacks: {
-        onLogoClick: this._triggerCallback
+        onLogoClick: this._triggerCallback,
       },
-      texts: this._textMap
+      texts: this._textMap,
     };
 
     this.view = new Logo.View(config);
@@ -71,8 +71,8 @@ export default class Logo {
           e.stopPropagation();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._triggerCallback();
-        }
-      }
+        },
+      },
     });
   }
 

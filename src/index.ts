@@ -21,7 +21,7 @@ const DefaultUIComponents = {
   Screen,
   Overlay,
   ControlBlock,
-  Loader
+  Loader,
 };
 
 /* ignore coverage */
@@ -29,7 +29,7 @@ const DefaultModules = {
   AnomalyBloodhound,
   RootContainer,
   FullScreenManager,
-  PlayerFacade
+  PlayerFacade,
 };
 
 export {
@@ -45,7 +45,7 @@ export {
   playerAPIDecorator,
   create,
   registerModule,
-  registerPlaybackAdapter
+  registerPlaybackAdapter,
 };
 
 export default {
@@ -61,5 +61,5 @@ export default {
   playerAPIDecorator,
   create,
   registerModule,
-  registerPlaybackAdapter
+  registerPlaybackAdapter,
 };

@@ -13,5 +13,5 @@ export {
   UI_EVENTS,
   VIDEO_EVENTS,
   ERRORS,
-  STATES
+  STATES,
 };

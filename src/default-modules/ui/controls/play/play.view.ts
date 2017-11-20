@@ -30,7 +30,7 @@ class PlayView extends View {
     this.$node = $('<div>', {
       class: this.styleNames['play-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
-      [DATA_IS_PLAYING]: false
+      [DATA_IS_PLAYING]: false,
     });
 
     this.$playbackControl = $('<button>', {
@@ -38,7 +38,7 @@ class PlayView extends View {
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
       'aria-label': this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
       type: 'button',
-      tabIndex: 0
+      tabIndex: 0,
     });
 
     this.$node
@@ -68,7 +68,7 @@ class PlayView extends View {
     this.$playbackControl.attr('aria-label',
       isPlaying ?
       this._texts.get(TEXT_LABELS.PAUSE_CONTROL_LABEL) :
-      this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL)
+      this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
     );
   }
 

@@ -12,7 +12,7 @@ export const NativeEnvironmentSupport = {
     HLS: false,
     DASH: false,
     MP4: false,
-    WEBM: false
+    WEBM: false,
 };
 
 /* ignore coverage */

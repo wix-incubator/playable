@@ -3,7 +3,7 @@
     "tslint-eslint-rules"
   ],
   "rules": {
-    "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
     "no-conditional-assignment": true,
     "no-console": true,
     "no-constant-condition": true, // tslint-eslint-rules

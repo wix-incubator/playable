@@ -26,7 +26,7 @@ export default class Loader {
     this.isHidden = false;
     this._engine = engine;
     this.config = {
-      ...get(config, 'ui.loader')
+      ...get(config, 'ui.loader'),
     };
 
     this.show = this.show.bind(this);

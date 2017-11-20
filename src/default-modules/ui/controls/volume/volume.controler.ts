@@ -39,7 +39,7 @@ export default class VolumeControl {
 
     this.view.setState({
       volume: this._volumeLevel,
-      isMuted: this._isMuted
+      isMuted: this._isMuted,
     });
 
     this._initInterceptor();
@@ -54,9 +54,9 @@ export default class VolumeControl {
       callbacks: {
         onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
-        onToggleMuteClick: this._toggleMuteStatus
+        onToggleMuteClick: this._toggleMuteStatus,
       },
-      texts: this._textMap
+      texts: this._textMap,
     };
 
     this.view = new VolumeControl.View(config);
@@ -73,7 +73,7 @@ export default class VolumeControl {
           this._eventEmitter.emit(
             this._isMuted ?
               UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED :
-              UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED
+              UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
           );
         },
         [KEYCODES.ENTER]: e => {
@@ -83,10 +83,10 @@ export default class VolumeControl {
           this._eventEmitter.emit(
             this._isMuted ?
               UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED :
-              UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED
+              UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
           );
-        }
-      }
+        },
+      },
     });
 
     this._inputInterceptor = new KeyboardInterceptor({
@@ -109,8 +109,8 @@ export default class VolumeControl {
           this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
 
           this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
-        }
-      }
+        },
+      },
     });
   }
 
@@ -171,7 +171,7 @@ export default class VolumeControl {
 
     this.view.setState({
       volume: this._volumeLevel,
-      isMuted: !this._volumeLevel
+      isMuted: !this._volumeLevel,
     });
   }
 
@@ -184,7 +184,7 @@ export default class VolumeControl {
 
     this.view.setState({
       volume: this._isMuted ? 0 : this._volumeLevel,
-      isMuted: this._isMuted || !this._volumeLevel
+      isMuted: this._isMuted || !this._volumeLevel,
     });
   }
 

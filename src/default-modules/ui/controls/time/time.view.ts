@@ -28,22 +28,22 @@ class TimeView extends View {
 
     this.$node = $('<div>', {
       class: this.styleNames['time-wrapper'],
-      'data-hook': 'time-control'
+      'data-hook': 'time-control',
     });
 
     this.$currentTime = $('<span>', {
       class: `${this.styleNames.current} ${this.styleNames.time}`,
-      'data-hook': 'current-time-indicator'
+      'data-hook': 'current-time-indicator',
     });
 
     this.$divider = $('<span>', {
-      class: this.styleNames.time
+      class: this.styleNames.time,
     })
       .html('/');
 
     this.$durationTime = $('<span>', {
       class: `${this.styleNames.duration} ${this.styleNames.time}`,
-      'data-hook': 'duration-time-indicator'
+      'data-hook': 'duration-time-indicator',
     });
 
     this.$node

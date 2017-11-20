@@ -16,5 +16,5 @@ export default {
   MUTE_CONTROL_LABEL: 'mute-control-label',
   MUTE_CONTROL_TOOLTIP: 'mute-control-tooltip',
   VOLUME_CONTROL_LABEL: 'volume-control-label',
-  VOLUME_CONTROL_VALUE: 'volume-control-value'
+  VOLUME_CONTROL_VALUE: 'volume-control-value',
 };

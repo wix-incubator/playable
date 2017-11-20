@@ -30,7 +30,7 @@ class FullScreenView extends View {
     this.$node = $('<div>', {
       class: this.styleNames['full-screen-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
-      [DATA_IS_IN_FULL_SCREEN]: false
+      [DATA_IS_IN_FULL_SCREEN]: false,
     });
 
     this.$toggleFullScreenControl = $('<button>', {
@@ -38,7 +38,7 @@ class FullScreenView extends View {
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
       'aria-label': this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
       type: 'button',
-      tabIndex: 0
+      tabIndex: 0,
     });
 
     this.$node
@@ -68,7 +68,7 @@ class FullScreenView extends View {
     this.$toggleFullScreenControl.attr('aria-label',
       isInFullScreen ?
         this._texts.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL) :
-        this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL)
+        this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
     );
     this.$node.attr(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
   }

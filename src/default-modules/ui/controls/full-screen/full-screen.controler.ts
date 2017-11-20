@@ -56,9 +56,9 @@ export default class FullScreenControl {
   _initUI() {
     const config = {
       callbacks: {
-        onToggleFullScreenButtonClick: this._toggleFullScreen
+        onToggleFullScreenButtonClick: this._toggleFullScreen,
       },
-      texts: this._textMap
+      texts: this._textMap,
     };
 
     this.view = new FullScreenControl.View(config);
@@ -75,8 +75,8 @@ export default class FullScreenControl {
         [KEYCODES.ENTER]: e => {
           e.stopPropagation();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        }
-      }
+        },
+      },
     });
   }
 

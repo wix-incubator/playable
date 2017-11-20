@@ -29,7 +29,7 @@ const UI_EVENTS = {
   PLAYER_WIDTH_CHANGE_TRIGGERED: 'ui-player-width-change-triggered',
   PLAYER_HEIGHT_CHANGE_TRIGGERED: 'ui-player-height-change-triggered',
   PLAY_WITH_SCREEN_CLICK_TRIGGERED: 'ui-play-with-screen-click-triggered',
-  PAUSE_WITH_SCREEN_CLICK_TRIGGERED: 'ui-pause-with-screen-click-triggered'
+  PAUSE_WITH_SCREEN_CLICK_TRIGGERED: 'ui-pause-with-screen-click-triggered',
 };
 
 export default UI_EVENTS;

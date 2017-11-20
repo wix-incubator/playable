@@ -8,7 +8,7 @@ const NATIVE_ERROR_CODES = {
   ABORTED: 1,
   NETWORK: 2,
   DECODE: 3,
-  SRC_NOT_SUPPORTED: 4
+  SRC_NOT_SUPPORTED: 4,
 };
 
 export default function getNativeAdapterCreator(streamType, deliveryType) {
@@ -69,7 +69,7 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
           ...this.mediaStreams[0],
           deliveryType: this.mediaStreamDeliveryType,
           overallBufferLength,
-          nearestBufferSegInfo
+          nearestBufferSegInfo,
         };
       }
 
@@ -95,8 +95,8 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
           errorType: error,
           streamType,
           streamProvider: 'native',
-          errorInstance: errorEvent
-        }
+          errorInstance: errorEvent,
+        },
       );
     }
 

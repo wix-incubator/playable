@@ -5,7 +5,7 @@ const Errors = {
   LEVEL_LOAD: 'error-level-load',
   CONTENT_LOAD: 'error-content-load',
   MEDIA: 'error-media',
-  UNKNOWN: 'error-unknown'
+  UNKNOWN: 'error-unknown',
 };
 
 export default Errors;

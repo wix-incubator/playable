@@ -6,7 +6,7 @@ export const KEYCODES = {
   RIGHT_ARROW: 39,
   UP_ARROW: 38,
   DOWN_ARROW: 40,
-  DEBUG_KEY: 68
+  DEBUG_KEY: 68,
 };
 
 export default class KeyboardInterceptorCore {

@@ -36,8 +36,8 @@ export default class DebugPanel {
   _initUI() {
     this.view = new View({
       callbacks: {
-        onCloseButtonClick: this.hide
-      }
+        onCloseButtonClick: this.hide,
+      },
     });
   }
 
@@ -57,7 +57,7 @@ export default class DebugPanel {
       viewDimensions,
       currentTime,
       duration,
-      loadingStateTimestamps
+      loadingStateTimestamps,
     } = this._engine.getDebugInfo();
 
     return {
@@ -70,7 +70,7 @@ export default class DebugPanel {
       viewDimensions,
       currentTime,
       duration,
-      loadingStateTimestamps
+      loadingStateTimestamps,
     };
   }
 

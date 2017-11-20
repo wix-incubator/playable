@@ -19,17 +19,17 @@ class OverlayView extends View {
 
     this.$node = $('<div>', {
       class: this.styleNames.overlay,
-      'data-hook': 'overlay'
+      'data-hook': 'overlay',
     });
 
     this.$content = $('<div>', {
-      class: this.styleNames.poster
+      class: this.styleNames.poster,
     });
 
     this.setBackgroundSrc(src);
 
     this.$playButton = $('<div>', {
-      class: this.styleNames.icon
+      class: this.styleNames.icon,
     });
 
     this.$node

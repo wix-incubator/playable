@@ -26,9 +26,9 @@ export default function createContainer(options?, __parentContainer?) {
       return Object.assign(
         {},
         __parentContainer && __parentContainer.registrations,
-        registrations
+        registrations,
       );
-    }
+    },
   };
 
   // Track the family tree.

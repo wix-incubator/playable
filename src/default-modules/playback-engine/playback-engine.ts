@@ -9,7 +9,7 @@ import { isIPhone, isIPod, isIPad, isAndroid } from '../../utils/device-detectio
 import { VIDEO_EVENTS, STATES } from '../../constants/index';
 
 export {
-  STATES
+  STATES,
 };
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
@@ -63,7 +63,7 @@ export default class Engine {
   _getViewDimensions() {
     return {
       width: this._video.offsetWidth,
-      height: this._video.offsetHeight
+      height: this._video.offsetHeight,
     };
   }
 
@@ -121,7 +121,7 @@ export default class Engine {
       viewDimensions: this._getViewDimensions(),
       currentTime,
       duration,
-      loadingStateTimestamps: this._stateEngine.getStateTimestamps()
+      loadingStateTimestamps: this._stateEngine.getStateTimestamps(),
     };
   }
 

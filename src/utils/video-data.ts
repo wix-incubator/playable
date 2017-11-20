@@ -44,6 +44,6 @@ export function getNearestBufferSegmentInfo(buffered, currentTime?) {
 
   return {
     start: buffered.start(i),
-    end: buffered.end(i)
+    end: buffered.end(i),
   };
 }

@@ -37,5 +37,5 @@ export default {
   loader: asClass(Loader).scoped(),
   loadingCover: asClass(LoadingCover).scoped(),
   controls: asClass(ControlsBlock).scoped(),
-  title: asClass(Title).scoped()
+  title: asClass(Title).scoped(),
 };

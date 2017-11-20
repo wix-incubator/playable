@@ -18,16 +18,16 @@ class ControlsView extends View {
     this._callbacks = callbacks;
     this.$node = $('<div>', {
       class: this.styleNames['controls-block'],
-      'data-hook': 'controls-block'
+      'data-hook': 'controls-block',
     });
 
     this.$wrapper = $('<div>', {
-      class: this.styleNames['controls-wrapper']
+      class: this.styleNames['controls-wrapper'],
     });
 
     this.$controlsContainer = $('<div>', {
       class: this.styleNames.controls,
-      'data-hook': 'controls-container'
+      'data-hook': 'controls-container',
     });
 
     this.$wrapper

@@ -16,7 +16,7 @@ export const makeFluidInterface = obj => {
     setLifetime,
     transient: () => setLifetime(Lifetime.TRANSIENT),
     scoped: () => setLifetime(Lifetime.SCOPED),
-    singleton: () => setLifetime(Lifetime.SINGLETON)
+    singleton: () => setLifetime(Lifetime.SINGLETON),
   };
 };
 
@@ -25,7 +25,7 @@ export const asValue = value => {
 
   return {
     resolve,
-    lifetime: Lifetime.TRANSIENT
+    lifetime: Lifetime.TRANSIENT,
   };
 };
 
@@ -35,7 +35,7 @@ export const asFunction: any = (fn, opts?) => {
   }
 
   const defaults = {
-    lifetime: Lifetime.TRANSIENT
+    lifetime: Lifetime.TRANSIENT,
   };
 
   opts = makeOptions(defaults, opts);
@@ -43,7 +43,7 @@ export const asFunction: any = (fn, opts?) => {
   const resolve = generateResolve(fn);
   const result = {
     resolve,
-    lifetime: opts.lifetime
+    lifetime: opts.lifetime,
   };
   result.resolve = resolve.bind(result);
   Object.assign(result, makeFluidInterface(result));
@@ -56,7 +56,7 @@ export const asClass: any = (Type: FunctionConstructor, opts?) => {
   }
 
   const defaults = {
-    lifetime: Lifetime.TRANSIENT
+    lifetime: Lifetime.TRANSIENT,
   };
 
   opts = makeOptions(defaults, opts);
@@ -67,7 +67,7 @@ export const asClass: any = (Type: FunctionConstructor, opts?) => {
   const resolve = generateResolve(newClass, Type);
   const result = {
     resolve,
-    lifetime: opts.lifetime
+    lifetime: opts.lifetime,
   };
   result.resolve = resolve.bind(result);
   Object.assign(result, makeFluidInterface(result));
@@ -100,5 +100,5 @@ function generateResolve(fn, dependencyParseTarget?) {
 export default {
   asValue,
   asFunction,
-  asClass
+  asClass,
 };

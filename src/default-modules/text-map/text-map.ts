@@ -9,7 +9,7 @@ export default class TextMap {
   constructor({ config }) {
     this._textMap = {
       ...DEFAULT_TEXTS,
-      ...config.textMap
+      ...config.textMap,
     };
   }
 

@@ -5,5 +5,5 @@ const SCOPED = 'SCOPED';
 export default {
   SINGLETON,
   TRANSIENT,
-  SCOPED
+  SCOPED,
 };

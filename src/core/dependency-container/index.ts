@@ -8,6 +8,6 @@ import 'core-js/fn/array/iterator';
 export default {
   createContainer,
   Lifetime,
-  ...registrations
+  ...registrations,
 };
 

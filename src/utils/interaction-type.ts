@@ -18,7 +18,7 @@ const pointerStartEvents = [
   'touchstart',
   'pointerdown',
   'MSPointerDown',
-  'mousedown'
+  'mousedown',
 ];
 const pointerEndEvents = [
   'touchend',
@@ -27,7 +27,7 @@ const pointerEndEvents = [
   'MSPointerUp',
   'pointercancel',
   'MSPointerCancel',
-  'mouseup'
+  'mouseup',
 ];
 
 function handleWindowBlurEvent() {
@@ -108,7 +108,7 @@ function handleKeyEndEvent(event) {
 function getInteractionType() {
   return {
     pointer: Boolean(_activePointers),
-    key: Boolean(_activeKeys)
+    key: Boolean(_activeKeys),
   };
 }
 
@@ -139,7 +139,7 @@ function engage() {
   });
 
   return {
-    get: getInteractionType
+    get: getInteractionType,
   };
 }
 

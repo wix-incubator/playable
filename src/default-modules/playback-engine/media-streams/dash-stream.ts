@@ -58,8 +58,8 @@ export default class DashStream {
         errorType: error,
         streamType: MEDIA_STREAM_TYPES.DASH,
         streamProvider: 'dash.js',
-        errorInstance: errorEvent
-      }
+        errorInstance: errorEvent,
+      },
     );
   }
 
@@ -169,7 +169,7 @@ export default class DashStream {
       currentBitrate,
       overallBufferLength,
       currentTrack,
-      nearestBufferSegInfo
+      nearestBufferSegInfo,
     };
   }
 }

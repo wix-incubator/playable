@@ -9,7 +9,7 @@ const PLAYBACK_CHANGE_TIMEOUT = 300;
 
 const DEFAULT_CONFIG = {
   indicateScreenClick: true,
-  nativeControls: false
+  nativeControls: false,
 };
 
 export default class Screen {
@@ -40,7 +40,7 @@ export default class Screen {
     this._delayedToggleVideoPlaybackTimeout = null;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...get(config, 'ui.screen')
+      ...get(config, 'ui.screen'),
     };
 
     this._bindCallbacks();
@@ -69,9 +69,9 @@ export default class Screen {
       nativeControls: this.config.nativeControls,
       callbacks: {
         onWrapperMouseClick: undefined,
-        onWrapperMouseDblClick: undefined
+        onWrapperMouseDblClick: undefined,
       },
-      playbackViewNode: this._engine.getNode()
+      playbackViewNode: this._engine.getNode(),
     };
 
     if (!this.config.disableClickProcessing) {

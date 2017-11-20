@@ -9,7 +9,7 @@ export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
 
 const DEFAULT_CONFIG = {
-  disabled: false
+  disabled: false,
 };
 
 export default class KeyboardControl {
@@ -30,7 +30,7 @@ export default class KeyboardControl {
 
     this.config = {
       ...DEFAULT_CONFIG,
-      ...get(config, 'ui.keyboardInterceptor')
+      ...get(config, 'ui.keyboardInterceptor'),
     };
 
     this.initInterceptor();
@@ -82,8 +82,8 @@ export default class KeyboardControl {
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
             this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
             this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
-          }
-        }
+          },
+        },
       });
     }
   }

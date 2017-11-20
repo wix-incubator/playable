@@ -6,7 +6,7 @@ import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../../../uti
 
 const DEFAULT_HLS_CONFIG = {
   abrEwmaDefaultEstimate: 5000 * 1000,
-  liveSyncDuration: 4
+  liveSyncDuration: 4,
 };
 
 export default class HlsStream {
@@ -51,8 +51,8 @@ export default class HlsStream {
         errorType: error,
         streamType: MEDIA_STREAM_TYPES.HLS,
         streamProvider: 'hls.js',
-        errorInstance: errorEvent
-      }
+        errorInstance: errorEvent,
+      },
     );
   }
 
@@ -210,7 +210,7 @@ export default class HlsStream {
       bitrates,
       currentBitrate,
       overallBufferLength,
-      nearestBufferSegInfo
+      nearestBufferSegInfo,
     };
   }
 }

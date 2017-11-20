@@ -9,7 +9,7 @@ const VIDEO_EVENTS = {
   UPLOAD_STALLED: 'upload-stalled',
   UPLOAD_SUSPEND: 'upload-suspend',
   PLAY_REQUEST_TRIGGERED: 'play-request-triggered',
-  UNKNOWN: 'unknown'
+  UNKNOWN: 'unknown',
 };
 
 export default VIDEO_EVENTS;

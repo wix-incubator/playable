@@ -19,7 +19,7 @@ export function resolveAdapters(mediaStreams, availableAdapters) {
 
   playableAdapters.sort(
     (firstAdapter, secondAdapter) =>
-      secondAdapter.mediaStreamDeliveryType - firstAdapter.mediaStreamDeliveryType
+      secondAdapter.mediaStreamDeliveryType - firstAdapter.mediaStreamDeliveryType,
   );
 
   return playableAdapters;

@@ -9,5 +9,5 @@ export default {
   ProgressControl,
   TimeControl,
   VolumeControl,
-  FullscreenControl
+  FullscreenControl,
 };

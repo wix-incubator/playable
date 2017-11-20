@@ -20,7 +20,7 @@ class RootContainerView extends View {
     this.$node = $('<div>', {
       'data-hook': 'player-container',
       tabIndex: 0,
-      class: this.styleNames['video-wrapper']
+      class: this.styleNames['video-wrapper'],
     });
 
     this.setFillAllSpaceFlag(fillAllSpace);
@@ -38,7 +38,7 @@ class RootContainerView extends View {
 
     this.$node
       .css({
-        width: `${this._width}px`
+        width: `${this._width}px`,
       });
   }
 
@@ -51,7 +51,7 @@ class RootContainerView extends View {
 
     this.$node
       .css({
-        height: `${this._height}px`
+        height: `${this._height}px`,
       });
   }
 

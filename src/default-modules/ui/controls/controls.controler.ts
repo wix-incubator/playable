@@ -20,7 +20,7 @@ const { asClass } = DependencyContainer;
 const DEFAULT_CONFIG = {
   list: [PlayControl, TimeControl, ProgressControl, VolumeControl, FullScreenControl],
   shouldAlwaysShow: false,
-  view: null
+  view: null,
 };
 
 const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
@@ -55,7 +55,7 @@ export default class ControlBlock {
     this._screen = screen;
     this.config = {
       ...DEFAULT_CONFIG,
-      ...get(config, 'ui.controls')
+      ...get(config, 'ui.controls'),
     };
     this._scope = scope;
     this.isHidden = false;
@@ -85,8 +85,8 @@ export default class ControlBlock {
     const config = {
       callbacks: {
         onControlsBlockMouseMove: this._setFocusState,
-        onControlsBlockMouseOut: this._removeFocusState
-      }
+        onControlsBlockMouseOut: this._removeFocusState,
+      },
     };
     if (view) {
       this.view = new view(config);

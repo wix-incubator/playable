@@ -7,7 +7,7 @@ import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
 
 const DEFAULT_HLS_CONFIG = {
   abrEwmaDefaultEstimate: 5000 * 1000,
-  liveSyncDuration: 4
+  liveSyncDuration: 4,
 };
 
 export default class HlsAdapter {
@@ -92,7 +92,7 @@ export default class HlsAdapter {
       bitrates,
       currentBitrate,
       overallBufferLength,
-      nearestBufferSegInfo
+      nearestBufferSegInfo,
     };
   }
 
@@ -115,8 +115,8 @@ export default class HlsAdapter {
         errorType: error,
         streamType: MEDIA_STREAM_TYPES.HLS,
         streamProvider: 'hls.js',
-        errorInstance: errorEvent
-      }
+        errorInstance: errorEvent,
+      },
     );
   }
 

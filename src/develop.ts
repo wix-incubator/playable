@@ -44,21 +44,21 @@ const player: any = VideoPlayer.create({
   fillAllSpace: false,
   size: {
     width: 760,
-    height: 428
+    height: 428,
   },
   loadingCover: 'https://www.pets4homes.co.uk/images/breeds/142/large/184f5cc944e278ad4a20f70258b75cdd.jpg',
   src: flow([parseQuery, getURLFromQuery])(window.location.search),
   controls: {
     logo: {
       showAlways: true,
-      src: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png'
-    }
+      src: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png',
+    },
   },
   logger: ({ reason, startTS, endTS }) => {
     // tslint:disable-next-line
     console.log(`REASON: ${reason}; startTS: ${startTS}; endTS: ${endTS}`); // eslint-disable-line no-console
   },
-  overlay: false
+  overlay: false,
 });
 
 function getStreamStatus() {
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('load-stream-to-player').addEventListener('click', () => {
     player.setSrc({
       url: 'https://video-player-media-server-dot-wixgamma.appspot.com/live/stream/manifest.m3u8',
-      type: 'HLS'
+      type: 'HLS',
     });
     player.play();
   });
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('load-event-to-player').addEventListener('click', () => {
     player.setSrc({
       url: 'https://video-player-media-server-dot-wixgamma.appspot.com/live/event/manifest.m3u8',
-      type: 'HLS'
+      type: 'HLS',
     });
     player.play();
   });
