@@ -1,13 +1,18 @@
 import { expect } from 'chai';
 
-import { getOverallBufferedPercent, getOverallPlayedPercent, geOverallBufferLength, getNearestBufferSegmentInfo } from './video-data';
+import {
+  getOverallBufferedPercent,
+  getOverallPlayedPercent,
+  geOverallBufferLength,
+  getNearestBufferSegmentInfo,
+} from './video-data';
 
 function getValidBuffer(seq) {
   return {
     start: i => seq[i][0],
     end: i => seq[i][1],
-    length: seq.length
-  }
+    length: seq.length,
+  };
 }
 
 describe('getNearestBufferSegmentInfo', () => {
@@ -24,12 +29,12 @@ describe('getNearestBufferSegmentInfo', () => {
 
     expect(getNearestBufferSegmentInfo(buffer, 3)).to.be.deep.equal({
       start: 2,
-      end: 10
+      end: 10,
     });
 
     expect(getNearestBufferSegmentInfo(buffer, 35)).to.be.deep.equal({
       start: 30,
-      end: 40
+      end: 40,
     });
   });
 });
@@ -72,10 +77,18 @@ describe('getOverallBufferedPercent', () => {
     const duration1 = 5;
     const duration2 = 7;
 
-    expect(getOverallBufferedPercent(buffer, currentTime1, duration1)).to.be.equal('20.0');
-    expect(getOverallBufferedPercent(buffer, currentTime1, duration2)).to.be.equal('14.3');
-    expect(getOverallBufferedPercent(buffer, currentTime2, duration1)).to.be.equal('100.0');
-    expect(getOverallBufferedPercent(buffer, currentTime2, duration2)).to.be.equal('71.4');
+    expect(
+      getOverallBufferedPercent(buffer, currentTime1, duration1),
+    ).to.be.equal('20.0');
+    expect(
+      getOverallBufferedPercent(buffer, currentTime1, duration2),
+    ).to.be.equal('14.3');
+    expect(
+      getOverallBufferedPercent(buffer, currentTime2, duration1),
+    ).to.be.equal('100.0');
+    expect(
+      getOverallBufferedPercent(buffer, currentTime2, duration2),
+    ).to.be.equal('71.4');
   });
 });
 
@@ -95,7 +108,11 @@ describe('getOverallPlayedPercent', () => {
     const duration1 = 20;
     const duration2 = 90;
 
-    expect(getOverallPlayedPercent(currentTime1, duration1)).to.be.equal('50.0');
-    expect(getOverallPlayedPercent(currentTime2, duration2)).to.be.equal('100.0');
+    expect(getOverallPlayedPercent(currentTime1, duration1)).to.be.equal(
+      '50.0',
+    );
+    expect(getOverallPlayedPercent(currentTime2, duration2)).to.be.equal(
+      '100.0',
+    );
   });
 });

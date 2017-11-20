@@ -23,11 +23,19 @@ export default class KeyboardInterceptorCore {
   }
 
   _bindEvents() {
-    this.config.node.addEventListener('keydown', this._processKeyboardInput, false);
+    this.config.node.addEventListener(
+      'keydown',
+      this._processKeyboardInput,
+      false,
+    );
   }
 
   _unbindEvents() {
-    this.config.node.removeEventListener('keydown', this._processKeyboardInput, false);
+    this.config.node.removeEventListener(
+      'keydown',
+      this._processKeyboardInput,
+      false,
+    );
   }
 
   _processKeyboardInput(e) {

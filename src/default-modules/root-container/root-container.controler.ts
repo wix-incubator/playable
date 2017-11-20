@@ -8,7 +8,6 @@ import { UI_EVENTS } from '../../constants/index';
 
 import View from './root-container.view';
 
-
 export const DEFAULT_CONFIG = {
   fillAllSpace: false,
   overlay: false,
@@ -50,11 +49,19 @@ class RootContainer {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.view.setFullScreenStatus, this.view);
+    this._eventEmitter.on(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.view.setFullScreenStatus,
+      this.view,
+    );
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.view.setFullScreenStatus, this.view);
+    this._eventEmitter.off(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.view.setFullScreenStatus,
+      this.view,
+    );
   }
 
   _initUI() {

@@ -16,7 +16,8 @@
   "scripts": {
     "start": "PORT=5000 yoshi start --entry-point=./dev-env/start-dev-env.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "prettier": "prettier  --config ./.prettierrc 'src/**/*.ts'",
+    "prettier": "prettier --config .prettierrc --write",
+    "prettier:all": "npm run prettier -- 'src/**/*.ts'",
     "csscomb": "csscomb src/.",
     "csscomb:lint": "csscomb -lv src/.",
     "test:unit": "yoshi test --mocha",
@@ -25,7 +26,13 @@
     "build": "yoshi build",
     "deploy": "yoshi build && gh-pages -d dist/statics",
     "release": "yoshi release",
-    "precommit": "npm run lint && npm run csscomb:lint && npm run build && npm test"
+    "precommit": "lint-staged && npm run lint && npm run csscomb:lint && npm run build && npm test"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier",
+      "git add"
+    ]
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -47,6 +54,7 @@
     "gh-pages": "^0.12.0",
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
+    "lint-staged": "^5.0.0",
     "prettier": "1.8.2",
     "sinon": "^2.3.8",
     "tslint": "^5.8.0",

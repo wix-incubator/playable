@@ -1,10 +1,11 @@
 import * as get from 'lodash/get';
 
-import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
+import KeyboardInterceptor, {
+  KEYCODES,
+} from '../../../../utils/keyboard-interceptor';
 
 import { UI_EVENTS } from '../../../../constants/index';
 import View from './logo.view';
-
 
 export default class Logo {
   static View = View;

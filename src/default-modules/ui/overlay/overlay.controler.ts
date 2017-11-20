@@ -4,7 +4,6 @@ import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './overlay.view';
 
-
 const DEFAULT_CONFIG = {
   poster: false,
 };
@@ -63,7 +62,11 @@ export default class Overlay {
   _bindEvents() {
     this._playVideo = this._playVideo.bind(this);
 
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._updatePlayingStatus,
+      this,
+    );
   }
 
   _updatePlayingStatus({ nextState }) {
@@ -96,7 +99,11 @@ export default class Overlay {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._updatePlayingStatus,
+      this,
+    );
   }
 
   destroy() {

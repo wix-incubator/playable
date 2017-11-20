@@ -2,7 +2,6 @@ import { UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './manipulation-indicator.view';
 
-
 export default class ManipulationIndicator {
   static View = View;
   static dependencies = ['engine', 'eventEmitter'];
@@ -29,14 +28,46 @@ export default class ManipulationIndicator {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED, this._showPlaybackChangeIndicator, this);
-    this._eventEmitter.on(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.showRewind, this);
-    this._eventEmitter.on(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.showForward, this);
-    this._eventEmitter.on(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
-    this._eventEmitter.on(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showDecreaseVolume, this);
-    this._eventEmitter.on(UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showMute, this);
-    this._eventEmitter.on(UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
-    this._eventEmitter.on(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED, this.hide, this);
+    this._eventEmitter.on(
+      UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+      this._showPlaybackChangeIndicator,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
+      this.showRewind,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
+      this.showForward,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+      this.showIncreaseVolume,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+      this.showDecreaseVolume,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+      this.showMute,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+      this.showIncreaseVolume,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED,
+      this.hide,
+      this,
+    );
   }
 
   showPause() {
@@ -72,23 +103,52 @@ export default class ManipulationIndicator {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED, this._showPlaybackChangeIndicator, this);
-    this._eventEmitter.off(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.showRewind, this);
-    this._eventEmitter.off(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.showForward, this);
-    this._eventEmitter.off(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
-    this._eventEmitter.off(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showDecreaseVolume, this);
-    this._eventEmitter.off(UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showMute, this);
-    this._eventEmitter.off(UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
-    this._eventEmitter.off(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED, this.hide, this);
+    this._eventEmitter.off(
+      UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+      this._showPlaybackChangeIndicator,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
+      this.showRewind,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
+      this.showForward,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+      this.showIncreaseVolume,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+      this.showDecreaseVolume,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+      this.showMute,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+      this.showIncreaseVolume,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED,
+      this.hide,
+      this,
+    );
   }
 
   _showPlaybackChangeIndicator() {
     const state = this._engine.getCurrentState();
 
-    if (
-      state === STATES.PLAY_REQUESTED ||
-      state === STATES.PLAYING
-    ) {
+    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
       this.view.activatePauseIcon();
     } else {
       this.view.activatePlayIcon();

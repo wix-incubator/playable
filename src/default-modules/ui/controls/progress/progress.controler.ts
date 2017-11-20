@@ -1,12 +1,16 @@
 import View from './progress.view';
 
-import { getOverallBufferedPercent, getOverallPlayedPercent } from '../../../../utils/video-data';
+import {
+  getOverallBufferedPercent,
+  getOverallPlayedPercent,
+} from '../../../../utils/video-data';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
 import { AMOUNT_TO_SKIP_SECONDS } from '../../../keyboard-control/keyboard-control';
 
-import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
-
+import KeyboardInterceptor, {
+  KEYCODES,
+} from '../../../../utils/keyboard-interceptor';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -50,9 +54,21 @@ export default class ProgressControl {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
-    this._eventEmitter.on(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
-    this._eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators, this);
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._processStateChange,
+      this,
+    );
+    this._eventEmitter.on(
+      VIDEO_EVENTS.CHUNK_LOADED,
+      this._updateBufferIndicator,
+      this,
+    );
+    this._eventEmitter.on(
+      VIDEO_EVENTS.DURATION_UPDATED,
+      this._updateAllIndicators,
+      this,
+    );
   }
 
   _initUI() {
@@ -83,7 +99,9 @@ export default class ProgressControl {
           e.stopPropagation();
           e.preventDefault();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
+          this._eventEmitter.emit(
+            UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
+          );
           this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
         },
         [KEYCODES.RIGHT_ARROW]: e => {
@@ -97,7 +115,9 @@ export default class ProgressControl {
           e.stopPropagation();
           e.preventDefault();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
+          this._eventEmitter.emit(
+            UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
+          );
           this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
         },
       },
@@ -114,7 +134,9 @@ export default class ProgressControl {
     this._onUserInteractionStarts = this._onUserInteractionStarts.bind(this);
     this._onUserInteractionEnds = this._onUserInteractionEnds.bind(this);
     this._processStateChange = this._processStateChange.bind(this);
-    this._playVideoOnProgressManipulationEnd = this._playVideoOnProgressManipulationEnd.bind(this);
+    this._playVideoOnProgressManipulationEnd = this._playVideoOnProgressManipulationEnd.bind(
+      this,
+    );
   }
 
   _changePlayedProgress(value) {
@@ -131,7 +153,10 @@ export default class ProgressControl {
       this._stopIntervalUpdates();
     }
 
-    this._updateControlInterval = setInterval(this._updateControlOnInterval, UPDATE_INTERVAL_DELAY);
+    this._updateControlInterval = setInterval(
+      this._updateControlOnInterval,
+      UPDATE_INTERVAL_DELAY,
+    );
   }
 
   _stopIntervalUpdates() {
@@ -220,7 +245,9 @@ export default class ProgressControl {
     const buffered = this._engine.getBuffered();
     const duration = this._engine.getDurationTime();
 
-    this.updateBuffered(getOverallBufferedPercent(buffered, currentTime, duration));
+    this.updateBuffered(
+      getOverallBufferedPercent(buffered, currentTime, duration),
+    );
   }
 
   _updatePlayedIndicator() {
@@ -236,7 +263,9 @@ export default class ProgressControl {
     const duration = this._engine.getDurationTime();
 
     this.updatePlayed(getOverallPlayedPercent(currentTime, duration));
-    this.updateBuffered(getOverallBufferedPercent(buffered, currentTime, duration));
+    this.updateBuffered(
+      getOverallBufferedPercent(buffered, currentTime, duration),
+    );
   }
 
   updatePlayed(percent) {
@@ -261,9 +290,21 @@ export default class ProgressControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators, this);
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
-    this._eventEmitter.off(VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
+    this._eventEmitter.off(
+      VIDEO_EVENTS.DURATION_UPDATED,
+      this._updateAllIndicators,
+      this,
+    );
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._processStateChange,
+      this,
+    );
+    this._eventEmitter.off(
+      VIDEO_EVENTS.CHUNK_LOADED,
+      this._updateBufferIndicator,
+      this,
+    );
   }
 
   reset() {

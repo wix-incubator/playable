@@ -1,8 +1,10 @@
 import { VIDEO_EVENTS, ERRORS } from '../../../constants';
 
-import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../../../utils/video-data';
+import {
+  geOverallBufferLength,
+  getNearestBufferSegmentInfo,
+} from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
-
 
 const NATIVE_ERROR_CODES = {
   ABORTED: 1,
@@ -63,7 +65,10 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
         const { buffered, currentTime } = this.videoElement;
 
         const overallBufferLength = geOverallBufferLength(buffered);
-        const nearestBufferSegInfo = getNearestBufferSegmentInfo(buffered, currentTime);
+        const nearestBufferSegInfo = getNearestBufferSegmentInfo(
+          buffered,
+          currentTime,
+        );
 
         return {
           ...this.mediaStreams[0],
@@ -89,15 +94,12 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
     }
 
     logError(error, errorEvent) {
-      this.eventEmitter.emit(
-        VIDEO_EVENTS.ERROR,
-        {
-          errorType: error,
-          streamType,
-          streamProvider: 'native',
-          errorInstance: errorEvent,
-        },
-      );
+      this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
+        errorType: error,
+        streamType,
+        streamProvider: 'native',
+        errorInstance: errorEvent,
+      });
     }
 
     broadcastError() {
@@ -115,7 +117,6 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
           this.logError(ERRORS.MEDIA, error);
           break;
         case NATIVE_ERROR_CODES.SRC_NOT_SUPPORTED:
-
           /*
             Our url checks would not allow not supported formats, so only case would be
              when video tag couldn't retriev any info from endpoit

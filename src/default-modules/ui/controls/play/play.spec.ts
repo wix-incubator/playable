@@ -8,7 +8,6 @@ import Engine from '../../../playback-engine/playback-engine';
 import TextMap from '../../../text-map/text-map';
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
-
 describe('PlayControl', () => {
   let control;
   let engine;
@@ -20,10 +19,10 @@ describe('PlayControl', () => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
     textMap = new TextMap({
-      config
+      config,
     });
     control = new PlayControl({
       engine,
@@ -88,7 +87,7 @@ describe('PlayControl', () => {
   });
 
   describe('View', () => {
-    it('should react on play/pause icon click' , () => {
+    it('should react on play/pause icon click', () => {
       const toggleSpy = sinon.spy(control, '_togglePlayback');
       control._bindCallbacks();
       control._initUI();

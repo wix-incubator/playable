@@ -7,7 +7,6 @@ import View from '../../core/view';
 import * as styles from './logo.scss';
 import * as viewOnSiteIcon from '../../../../assets/view-on-site.svg';
 
-
 class LogoView extends View {
   private _callbacks;
   private _texts;

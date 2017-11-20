@@ -1,8 +1,16 @@
 import { VIDEO_EVENTS, STATES } from '../../constants/index';
 
-
 export const NATIVE_VIDEO_EVENTS_TO_STATE = [
-  'loadstart', 'loadedmetadata', 'canplay', 'play', 'playing', 'pause', 'ended', 'waiting', 'seeking', 'seeked',
+  'loadstart',
+  'loadedmetadata',
+  'canplay',
+  'play',
+  'playing',
+  'pause',
+  'ended',
+  'waiting',
+  'seeking',
+  'seeked',
 ];
 
 export default class StateEngine {
@@ -33,11 +41,15 @@ export default class StateEngine {
   }
 
   _bindEvents() {
-    NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event => this._video.addEventListener(event, this._processEventFromVideo));
+    NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event =>
+      this._video.addEventListener(event, this._processEventFromVideo),
+    );
   }
 
   _unbindEvents() {
-    NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event => this._video.removeEventListener(event, this._processEventFromVideo));
+    NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event =>
+      this._video.removeEventListener(event, this._processEventFromVideo),
+    );
   }
 
   clearTimestamps() {
@@ -120,7 +132,10 @@ export default class StateEngine {
       }
     }
 
-    this._eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { prevState: this._currentState, nextState: state });
+    this._eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      prevState: this._currentState,
+      nextState: state,
+    });
     this._currentState = state;
   }
 

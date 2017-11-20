@@ -32,9 +32,7 @@ class OverlayView extends View {
       class: this.styleNames.icon,
     });
 
-    this.$node
-      .append(this.$content)
-      .append(this.$playButton);
+    this.$node.append(this.$content).append(this.$playButton);
 
     this._bindEvents();
   }
@@ -62,7 +60,10 @@ class OverlayView extends View {
   }
 
   _unbindEvents() {
-    this.$playButton[0].removeEventListener('click', this._callbacks.onPlayClick);
+    this.$playButton[0].removeEventListener(
+      'click',
+      this._callbacks.onPlayClick,
+    );
   }
 
   destroy() {

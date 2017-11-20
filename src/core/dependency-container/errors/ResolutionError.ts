@@ -1,6 +1,5 @@
 import ExtendableError from './ExtendableError';
 
-
 const createErrorMessage = (name, resolutionStack, message?) => {
   resolutionStack = resolutionStack.slice();
   resolutionStack.push(name);

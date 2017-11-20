@@ -4,7 +4,6 @@ import { UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './screen.view';
 
-
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
 const DEFAULT_CONFIG = {
@@ -14,7 +13,14 @@ const DEFAULT_CONFIG = {
 
 export default class Screen {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config', 'fullScreenManager', 'manipulationIndicator', 'rootContainer'];
+  static dependencies = [
+    'engine',
+    'eventEmitter',
+    'config',
+    'fullScreenManager',
+    'manipulationIndicator',
+    'rootContainer',
+  ];
 
   private config;
   private _eventEmitter;
@@ -28,7 +34,14 @@ export default class Screen {
   view: View;
   isHidden: boolean;
 
-  constructor({ config, eventEmitter, engine, fullScreenManager, manipulationIndicator, rootContainer }) {
+  constructor({
+    config,
+    eventEmitter,
+    engine,
+    fullScreenManager,
+    manipulationIndicator,
+    rootContainer,
+  }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._fullScreenManager = fullScreenManager;
@@ -83,13 +96,29 @@ export default class Screen {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
-    this._eventEmitter.on(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
+    this._eventEmitter.on(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this._setFullScreenStatus,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.PLAY_OVERLAY_TRIGGERED,
+      this.view.focusOnNode,
+      this.view,
+    );
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
-    this._eventEmitter.off(UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
+    this._eventEmitter.off(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this._setFullScreenStatus,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.PLAY_OVERLAY_TRIGGERED,
+      this.view.focusOnNode,
+      this.view,
+    );
   }
 
   showTopShadow() {
@@ -115,7 +144,10 @@ export default class Screen {
   _processNodeClick() {
     this._showPlaybackChangeIndicator();
 
-    if (!this._fullScreenManager.isEnabled || this._fullScreenManager._config.enterOnPlay) {
+    if (
+      !this._fullScreenManager.isEnabled ||
+      this._fullScreenManager._config.enterOnPlay
+    ) {
       this._toggleVideoPlayback();
     } else {
       this._setDelayedPlaybackToggle();
@@ -123,7 +155,10 @@ export default class Screen {
   }
 
   _processNodeDblClick() {
-    if (this._fullScreenManager.isEnabled || !this._fullScreenManager._config.enterOnPlay) {
+    if (
+      this._fullScreenManager.isEnabled ||
+      !this._fullScreenManager._config.enterOnPlay
+    ) {
       if (this._isDelayedPlaybackToggleExist) {
         this._clearDelayedPlaybackToggle();
         this._hideDelayedPlaybackChangeIndicator();
@@ -137,10 +172,7 @@ export default class Screen {
     if (this.config.indicateScreenClick) {
       const state = this._engine.getCurrentState();
 
-      if (
-        state === STATES.PLAY_REQUESTED ||
-        state === STATES.PLAYING
-      ) {
+      if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
         this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
         this._manipulationIndicator.showPause();
       } else {
@@ -159,7 +191,10 @@ export default class Screen {
   _setDelayedPlaybackToggle() {
     this._clearDelayedPlaybackToggle();
 
-    this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
+    this._delayedToggleVideoPlaybackTimeout = setTimeout(
+      this._toggleVideoPlayback,
+      PLAYBACK_CHANGE_TIMEOUT,
+    );
   }
 
   _clearDelayedPlaybackToggle() {
@@ -176,10 +211,7 @@ export default class Screen {
 
     const state = this._engine.getCurrentState();
 
-    if (
-      state === STATES.PLAY_REQUESTED ||
-      state === STATES.PLAYING
-    ) {
+    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
       this._engine.pause();
     } else {
       this._engine.play();

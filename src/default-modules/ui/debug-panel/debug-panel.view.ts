@@ -4,9 +4,9 @@ import View from '../core/view';
 
 import * as styles from './debug-panel.scss';
 
-
 function syntaxHighlight(json, styleNames) {
-  json = json.replace(/&/g, '&amp;')
+  json = json
+    .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
@@ -54,9 +54,7 @@ class DebugPanelView extends View {
     });
     this.$close.html('x');
 
-    this.$node
-      .append(this.$close)
-      .append(this.$infoContainer);
+    this.$node.append(this.$close).append(this.$infoContainer);
 
     this._bindCallbacks();
     this._bindEvents();
@@ -72,11 +70,17 @@ class DebugPanelView extends View {
   }
 
   _bindEvents() {
-    this.$close[0].addEventListener('click', this.config.callbacks.onCloseButtonClick);
+    this.$close[0].addEventListener(
+      'click',
+      this.config.callbacks.onCloseButtonClick,
+    );
   }
 
   _unbindEvents() {
-    this.$close[0].removeEventListener('click', this.config.callbacks.onCloseButtonClick);
+    this.$close[0].removeEventListener(
+      'click',
+      this.config.callbacks.onCloseButtonClick,
+    );
   }
 
   show() {
@@ -88,7 +92,9 @@ class DebugPanelView extends View {
   }
 
   setInfo(info) {
-    this.$infoContainer.html(syntaxHighlight(JSON.stringify(info, undefined, 4), this.styleNames));
+    this.$infoContainer.html(
+      syntaxHighlight(JSON.stringify(info, undefined, 4), this.styleNames),
+    );
   }
 
   getNode() {

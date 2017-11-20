@@ -6,10 +6,15 @@ import playerAPI from '../../../utils/player-api-decorator';
 
 import View from './loading-cover.view';
 
-
 export default class LoadingCover {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config', 'controls', 'rootContainer'];
+  static dependencies = [
+    'engine',
+    'eventEmitter',
+    'config',
+    'controls',
+    'rootContainer',
+  ];
 
   private _eventEmitter;
   private _engine;
@@ -43,7 +48,11 @@ export default class LoadingCover {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState, this);
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._checkForWaitingState,
+      this,
+    );
     this._eventEmitter.on(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
@@ -64,7 +73,8 @@ export default class LoadingCover {
         break;
 
       /* ignore coverage */
-      default: break;
+      default:
+        break;
     }
   }
 
@@ -92,7 +102,11 @@ export default class LoadingCover {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState, this);
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._checkForWaitingState,
+      this,
+    );
     this._eventEmitter.off(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 

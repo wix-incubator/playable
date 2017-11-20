@@ -12,7 +12,6 @@ import Engine from '../../playback-engine/playback-engine';
 import Screen from './screen.controler';
 import ManipulationIndicator from '../manipulation-indicator/manipulation-indicator.controler';
 
-
 describe('Loader', () => {
   let screen: any = {};
   let engine: any = {};
@@ -30,41 +29,38 @@ describe('Loader', () => {
       duration: 100,
       _currentTimeSpy: sinon.spy(),
       _volumeSpy: sinon.spy(),
-      _mutedSpy: sinon.spy()
+      _mutedSpy: sinon.spy(),
     };
 
     Object.defineProperties(video, {
       currentTime: {
-        set: video._currentTimeSpy
+        set: video._currentTimeSpy,
       },
       volume: {
         enumerable: true,
-        set: video._volumeSpy
+        set: video._volumeSpy,
       },
       muted: {
         enumerable: true,
-        set: video._mutedSpy
-      }
+        set: video._mutedSpy,
+      },
     });
 
     return video;
   }
 
-
   beforeEach(() => {
     config = {
-      ui: {}
+      ui: {},
     };
     fullScreenManager = {
       enterFullScreen: sinon.spy(),
       exitFullScreen: sinon.spy(),
       isEnabled: true,
-      _config: {}
+      _config: {},
     };
     ui = {
-      setFullScreenStatus() {
-
-      },
+      setFullScreenStatus() {},
       get node() {
         return new $('<video>');
       },
@@ -72,17 +68,17 @@ describe('Loader', () => {
         return;
       },
       exitFullScreen() {},
-      enterFullScreen() {}
+      enterFullScreen() {},
     };
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
     rootContainer = new RootContainer({
       eventEmitter,
       engine,
-      config
+      config,
     });
     manipulationIndicator = new ManipulationIndicator({
       eventEmitter,
@@ -132,12 +128,10 @@ describe('Loader', () => {
     it('should remove timeout of delayed playback change on _processNodeClick and call _toggleFullScreen on _processNodeDblClick', () => {
       const timeoutClearSpy = sinon.spy(global, 'clearTimeout');
       const toggleFullScreenSpy = sinon.spy(screen, '_toggleFullScreen');
-      const id = setTimeout(()=> {
-      }, 0);
+      const id = setTimeout(() => {}, 0);
       screen._delayedToggleVideoPlaybackTimeout = id;
       screen.fullscreen = {
-        request: ()=> {
-        }
+        request: () => {},
       };
 
       screen._processNodeClick();
@@ -152,9 +146,9 @@ describe('Loader', () => {
       config = {
         ui: {
           screen: {
-            nativeControls: true
-          }
-        }
+            nativeControls: true,
+          },
+        },
       };
 
       const video = $('<video>')[0];
@@ -188,7 +182,6 @@ describe('Loader', () => {
 
       expect(fullScreenManager.exitFullScreen.called).to.be.true;
     });
-
 
     it('should have method for toggling playback', () => {
       let state = STATES.PLAYING;

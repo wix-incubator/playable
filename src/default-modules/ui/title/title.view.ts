@@ -4,7 +4,6 @@ import View from '../core/view';
 
 import * as styles from './title.scss';
 
-
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_VALUE = 'video-title';
 

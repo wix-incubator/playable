@@ -9,7 +9,6 @@ import TextMap from '../../../text-map/text-map';
 import FullScreenControl from './full-screen.controler';
 import { UI_EVENTS } from '../../../../constants/index';
 
-
 describe('FullScreenControl', () => {
   let control: any = {};
   let eventEmitter: any = {};
@@ -21,15 +20,15 @@ describe('FullScreenControl', () => {
     eventEmitter = new EventEmitter();
     fullScreenManager = {
       enterFullScreen: sinon.spy(),
-      exitFullScreen: sinon.spy()
+      exitFullScreen: sinon.spy(),
     };
     textMap = new TextMap({
-      config
+      config,
     });
     control = new FullScreenControl({
       eventEmitter,
       fullScreenManager,
-      textMap
+      textMap,
     });
   });
 
@@ -91,7 +90,7 @@ describe('FullScreenControl', () => {
   });
 
   describe('View', () => {
-    it('should react on play/pause icon click' , () => {
+    it('should react on play/pause icon click', () => {
       const toggleSpy = sinon.spy(control, '_toggleFullScreen');
       control._bindCallbacks();
       control._initUI();

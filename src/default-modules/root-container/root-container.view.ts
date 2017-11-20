@@ -4,7 +4,6 @@ import View from '../ui/core/view';
 
 import * as styles from './root-container.scss';
 
-
 class RootContainerView extends View {
   private _callbacks;
   private _width: number;
@@ -36,10 +35,9 @@ class RootContainerView extends View {
 
     this._width = width;
 
-    this.$node
-      .css({
-        width: `${this._width}px`,
-      });
+    this.$node.css({
+      width: `${this._width}px`,
+    });
   }
 
   setHeight(height) {
@@ -49,10 +47,9 @@ class RootContainerView extends View {
 
     this._height = height;
 
-    this.$node
-      .css({
-        height: `${this._height}px`,
-      });
+    this.$node.css({
+      height: `${this._height}px`,
+    });
   }
 
   getWidth() {

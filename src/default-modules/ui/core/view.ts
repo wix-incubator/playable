@@ -1,6 +1,5 @@
 import * as classnames from 'classnames';
 
-
 export default class View {
   private static _styles;
 
@@ -11,7 +10,10 @@ export default class View {
 
     Object.keys(styles).forEach(styleName => {
       if (this._styles[styleName]) {
-        this._styles[styleName] = classnames(this._styles[styleName], styles[styleName]);
+        this._styles[styleName] = classnames(
+          this._styles[styleName],
+          styles[styleName],
+        );
       } else {
         this._styles[styleName] = styles[styleName];
       }

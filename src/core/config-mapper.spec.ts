@@ -9,7 +9,7 @@ import {
   getUIConfig,
   getKeyboardInterceptorConfig,
   convertUIConfigForIOS,
-  convertUIConfigForAndroid
+  convertUIConfigForAndroid,
 } from './config-mapper';
 
 declare const navigator: any;
@@ -17,9 +17,16 @@ declare const navigator: any;
 describe('getKeyboardInterceptorConfig function', () => {
   beforeEach(() => {
     Reflect.defineProperty(navigator, 'userAgent', {
-      ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
-      get: function() { return this.____navigator },
-      set: function(v) { this.____navigator = v; }
+      ...Reflect.getOwnPropertyDescriptor(
+        navigator.constructor.prototype,
+        'userAgent',
+      ),
+      get: function() {
+        return this.____navigator;
+      },
+      set: function(v) {
+        this.____navigator = v;
+      },
     });
   });
   afterEach(() => {
@@ -29,55 +36,55 @@ describe('getKeyboardInterceptorConfig function', () => {
 
   it('should return config in proper format', () => {
     const params = {
-      disableControlWithKeyboard: false
+      disableControlWithKeyboard: false,
     };
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
-      disabled: params.disableControlWithKeyboard
+      disabled: params.disableControlWithKeyboard,
     });
   });
 
   it('should return config in proper format on iPod', () => {
     const params = {
-      disableControlWithKeyboard: false
+      disableControlWithKeyboard: false,
     };
 
     navigator.userAgent = 'iPod';
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
-      disabled: true
+      disabled: true,
     });
   });
 
   it('should return config in proper format on iPad', () => {
     const params = {
-      disableControlWithKeyboard: false
+      disableControlWithKeyboard: false,
     };
     navigator.userAgent = 'iPad';
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
-      disabled: true
+      disabled: true,
     });
   });
   it('should return config in proper format on iPhone', () => {
     const params = {
-      disableControlWithKeyboard: false
+      disableControlWithKeyboard: false,
     };
 
     navigator.userAgent = 'iPhone';
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
-      disabled: true
+      disabled: true,
     });
   });
   it('should return config in proper format on Android', () => {
     const params = {
-      disableControlWithKeyboard: false
+      disableControlWithKeyboard: false,
     };
     navigator.userAgent = 'Android';
 
     expect(getKeyboardInterceptorConfig(params)).to.be.deep.equal({
-      disabled: true
+      disabled: true,
     });
   });
 });
@@ -85,7 +92,7 @@ describe('getKeyboardInterceptorConfig function', () => {
 describe('getAnomalyBloodhoundConfig function', () => {
   it('should return config in proper format', () => {
     const params = {
-      logger: () => {}
+      logger: () => {},
     };
 
     expect(getAnomalyBloodhoundConfig(params)).to.be.equal(params.logger);
@@ -96,8 +103,8 @@ describe('getTextMapConfig function', () => {
   it('should return config in proper format', () => {
     const params = {
       texts: {
-        text: "TEXT"
-      }
+        text: 'TEXT',
+      },
     };
 
     expect(getTextMapConfig(params)).to.be.equal(params.texts);
@@ -119,7 +126,7 @@ describe('getEngineConfig function', () => {
       volume: 40,
       src: 'kek',
       playInline: false,
-      additionalParameter: 'WOW'
+      additionalParameter: 'WOW',
     };
 
     expect(getEngineConfig(params)).to.be.deep.equal({
@@ -129,9 +136,9 @@ describe('getEngineConfig function', () => {
       muted: true,
       volume: 40,
       src: 'kek',
-      playInline: false
+      playInline: false,
     });
-  })
+  });
 });
 
 describe('getFullScreenManagerConfig function', () => {
@@ -141,7 +148,7 @@ describe('getFullScreenManagerConfig function', () => {
       exitFullScreenOnEnd: true,
       enterFullScreenOnPlay: null,
       exitFullScreenOnPause: {},
-      pauseVideoOnFullScreenExit: 0
+      pauseVideoOnFullScreenExit: 0,
     };
 
     expect(getFullScreenManagerConfig(params)).to.be.deep.equal({
@@ -149,11 +156,10 @@ describe('getFullScreenManagerConfig function', () => {
       exitOnEnd: true,
       enterOnPlay: false,
       exitOnPause: true,
-      pauseOnExit: false
+      pauseOnExit: false,
     });
-  })
+  });
 });
-
 
 describe('convertUIConfigForIOS function', () => {
   it('should return converted config', () => {
@@ -162,8 +168,8 @@ describe('convertUIConfigForIOS function', () => {
       loader: true,
       controls: true,
       screen: {
-        someParameter: 'someParameter'
-      }
+        someParameter: 'someParameter',
+      },
     };
 
     expect(convertUIConfigForIOS(config)).to.be.deep.equal({
@@ -174,10 +180,10 @@ describe('convertUIConfigForIOS function', () => {
         someParameter: 'someParameter',
         indicateScreenClick: false,
         disableClickProcessing: true,
-        nativeControls: true
-      }
+        nativeControls: true,
+      },
     });
-  })
+  });
 });
 
 describe('convertUIConfigForAndroid function', () => {
@@ -187,8 +193,8 @@ describe('convertUIConfigForAndroid function', () => {
       loader: true,
       controls: true,
       screen: {
-        someParameter: 'someParameter'
-      }
+        someParameter: 'someParameter',
+      },
     };
 
     expect(convertUIConfigForAndroid(config)).to.be.deep.equal({
@@ -197,24 +203,30 @@ describe('convertUIConfigForAndroid function', () => {
       controls: true,
       screen: {
         someParameter: 'someParameter',
-        disableClickProcessing: true
-      }
+        disableClickProcessing: true,
+      },
     });
-  })
+  });
 });
-
 
 describe('getUIConfig function', () => {
   beforeEach(() => {
     Reflect.defineProperty(navigator, 'userAgent', {
-        ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
-        get: function() { return this.____navigator },
-        set: function(v) { this.____navigator = v; }
-      });
+      ...Reflect.getOwnPropertyDescriptor(
+        navigator.constructor.prototype,
+        'userAgent',
+      ),
+      get: function() {
+        return this.____navigator;
+      },
+      set: function(v) {
+        this.____navigator = v;
+      },
+    });
   });
 
   afterEach(() => {
-     Reflect.deleteProperty(navigator, 'userAgent');
+    Reflect.deleteProperty(navigator, 'userAgent');
   });
 
   it('should return config in proper format', () => {
@@ -222,16 +234,16 @@ describe('getUIConfig function', () => {
     const params = {
       size: {
         width: 10,
-        height: 20
+        height: 20,
       },
       controls: false,
-      additionalParameter: 'WOW'
+      additionalParameter: 'WOW',
     };
 
     expect(getUIConfig(params)).to.be.deep.equal({
       width: 10,
       height: 20,
-      controls: false
+      controls: false,
     });
   });
 
@@ -239,8 +251,8 @@ describe('getUIConfig function', () => {
     const params = {
       size: {
         width: 10,
-        height: 20
-      }
+        height: 20,
+      },
     };
 
     const expectedConfig = {
@@ -251,8 +263,8 @@ describe('getUIConfig function', () => {
       screen: {
         indicateScreenClick: false,
         disableClickProcessing: true,
-        nativeControls: true
-      }
+        nativeControls: true,
+      },
     };
 
     navigator.userAgent = 'iPod';
@@ -264,8 +276,8 @@ describe('getUIConfig function', () => {
     const params = {
       size: {
         width: 10,
-        height: 20
-      }
+        height: 20,
+      },
     };
 
     const expectedConfig = {
@@ -276,8 +288,8 @@ describe('getUIConfig function', () => {
       screen: {
         indicateScreenClick: false,
         disableClickProcessing: true,
-        nativeControls: true
-      }
+        nativeControls: true,
+      },
     };
     navigator.userAgent = 'iPhone';
 
@@ -288,8 +300,8 @@ describe('getUIConfig function', () => {
     const params = {
       size: {
         width: 10,
-        height: 20
-      }
+        height: 20,
+      },
     };
 
     const expectedConfig = {
@@ -300,8 +312,8 @@ describe('getUIConfig function', () => {
       screen: {
         indicateScreenClick: false,
         disableClickProcessing: true,
-        nativeControls: true
-      }
+        nativeControls: true,
+      },
     };
     navigator.userAgent = 'iPad';
 
@@ -314,17 +326,16 @@ describe('getUIConfig function', () => {
     const params = {
       size: {
         width: 10,
-        height: 20
-      }
+        height: 20,
+      },
     };
 
     expect(getUIConfig(params)).to.be.deep.equal({
       width: 10,
       height: 20,
       screen: {
-        disableClickProcessing: true
-      }
+        disableClickProcessing: true,
+      },
     });
-  })
+  });
 });
-

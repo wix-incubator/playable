@@ -4,7 +4,6 @@ import nameValueToObject from './utils/nameValueToObject';
 import Lifetime from './constants/Lifetime';
 import * as last from 'lodash/last';
 
-
 const FAMILY_TREE = '__familyTree__';
 
 export default function createContainer(options?, __parentContainer?) {
@@ -32,9 +31,9 @@ export default function createContainer(options?, __parentContainer?) {
   };
 
   // Track the family tree.
-  const familyTree = __parentContainer ?
-    [container].concat(__parentContainer[FAMILY_TREE]) :
-    [container];
+  const familyTree = __parentContainer
+    ? [container].concat(__parentContainer[FAMILY_TREE])
+    : [container];
 
   container[FAMILY_TREE] = familyTree;
   container.cache = {};
@@ -48,29 +47,30 @@ export default function createContainer(options?, __parentContainer?) {
     return container;
   };
 
-  const makeRegister = (fn, verbatimValue?) => function (name, value, opts) {
-    // This ensures that we can support name+value style and object style.
-    const obj = nameValueToObject(name, value);
+  const makeRegister = (fn, verbatimValue?) =>
+    function(name, value, opts) {
+      // This ensures that we can support name+value style and object style.
+      const obj = nameValueToObject(name, value);
 
-    Object.keys(obj).forEach(key => {
-      let valueToRegister = obj[key];
+      Object.keys(obj).forEach(key => {
+        let valueToRegister = obj[key];
 
-      // If we have options, copy them over.
-      opts = Object.assign({}, opts);
+        // If we have options, copy them over.
+        opts = Object.assign({}, opts);
 
-      /* ignore coverage */
-      if (!verbatimValue && Array.isArray(valueToRegister)) {
-        // The ('name', [value, opts]) style
-        opts = Object.assign({}, opts, valueToRegister[1]);
-        valueToRegister = valueToRegister[0];
-      }
+        /* ignore coverage */
+        if (!verbatimValue && Array.isArray(valueToRegister)) {
+          // The ('name', [value, opts]) style
+          opts = Object.assign({}, opts, valueToRegister[1]);
+          valueToRegister = valueToRegister[0];
+        }
 
-      container.register(key, fn(valueToRegister, opts));
-    });
+        container.register(key, fn(valueToRegister, opts));
+      });
 
-    // Chaining
-    return container;
-  };
+      // Chaining
+      return container;
+    };
 
   container.registerFunction = makeRegister(asFunction);
   container.registerClass = makeRegister(asClass);
@@ -85,7 +85,11 @@ export default function createContainer(options?, __parentContainer?) {
       const registration = container.registrations[name];
 
       if (resolutionStack.indexOf(name) > -1) {
-        throw new ResolutionError(name, resolutionStack, 'Cyclic dependencies detected.');
+        throw new ResolutionError(
+          name,
+          resolutionStack,
+          'Cyclic dependencies detected.',
+        );
       }
 
       if (!registration) {
@@ -124,7 +128,7 @@ export default function createContainer(options?, __parentContainer?) {
           for (const c of familyTree) {
             cached = c.cache[name];
             if (cached !== undefined) {
-            // We found one!
+              // We found one!
               resolved = cached;
               break;
             }
@@ -137,7 +141,11 @@ export default function createContainer(options?, __parentContainer?) {
           }
           break;
         default:
-          throw new ResolutionError(name, resolutionStack, `Unknown lifetime "${registration.lifetime}"`);
+          throw new ResolutionError(
+            name,
+            resolutionStack,
+            `Unknown lifetime "${registration.lifetime}"`,
+          );
       }
       // Pop it from the stack again, ready for the next resolution
       resolutionStack.pop();

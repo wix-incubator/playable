@@ -11,7 +11,6 @@ import TextMap from '../../../text-map/text-map';
 
 import { VIDEO_EVENTS } from '../../../../constants/index';
 
-
 describe('VolumeControl', () => {
   let control;
   let engine;
@@ -23,11 +22,11 @@ describe('VolumeControl', () => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
 
     textMap = new TextMap({
-      config
+      config,
     });
 
     control = new VolumeControl({
@@ -122,7 +121,7 @@ describe('VolumeControl', () => {
 
   describe('View', () => {
     it('should react on volume range input change event when not muted', () => {
-      const callback = sinon.spy(control.view, "_onInputChange");
+      const callback = sinon.spy(control.view, '_onInputChange');
       control.view._bindEvents();
 
       control.view.$input.trigger('change');
@@ -130,7 +129,7 @@ describe('VolumeControl', () => {
     });
 
     it('should react on volume range input input event', () => {
-      const callback = sinon.spy(control.view, "_onInputChange");
+      const callback = sinon.spy(control.view, '_onInputChange');
       control.view._bindEvents();
 
       control.view.$input.trigger('input');
@@ -138,7 +137,7 @@ describe('VolumeControl', () => {
     });
 
     it('should react on volume range wheel input event', () => {
-      const callback = sinon.spy(control.view, "_onWheel");
+      const callback = sinon.spy(control.view, '_onWheel');
       control.view._bindEvents();
 
       control.view.$node.trigger('wheel');
@@ -146,7 +145,7 @@ describe('VolumeControl', () => {
     });
 
     it('should react on mute button click', () => {
-      const callback = sinon.spy(control, "_toggleMuteStatus");
+      const callback = sinon.spy(control, '_toggleMuteStatus');
       control._bindCallbacks();
       control._initUI();
 
@@ -165,7 +164,7 @@ describe('VolumeControl', () => {
       expect(inputSpy.called).to.be.true;
       control.view._onWheel({
         preventDefault: () => {},
-        deltaY: 10
+        deltaY: 10,
       });
       expect(wheelSpy.called).to.be.true;
     });

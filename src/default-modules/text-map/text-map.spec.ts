@@ -3,7 +3,6 @@ import { expect } from 'chai';
 import DependencyContainer from '../../core/dependency-container';
 import TextMap from './text-map';
 
-
 describe('TextMap module', () => {
   let container;
 
@@ -15,8 +14,8 @@ describe('TextMap module', () => {
   it('should have ability to get text from it', () => {
     container.registerValue('config', {
       textMap: {
-        'testID': 'testText'
-      }
+        testID: 'testText',
+      },
     });
     const map = container.resolve('textMap');
     expect(map.get).to.exist;
@@ -26,8 +25,8 @@ describe('TextMap module', () => {
   it('should pass arguments to translate function', () => {
     container.registerValue('config', {
       textMap: {
-        'testID': ({ arg }) => `Test:${arg}`
-      }
+        testID: ({ arg }) => `Test:${arg}`,
+      },
     });
 
     const map = container.resolve('textMap');
@@ -37,8 +36,8 @@ describe('TextMap module', () => {
   it('should return undefined if destroyed', () => {
     container.registerValue('config', {
       textMap: {
-        'testID': 'testText'
-      }
+        testID: 'testText',
+      },
     });
     const map = container.resolve('textMap');
     map.destroy();

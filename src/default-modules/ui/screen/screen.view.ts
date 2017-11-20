@@ -4,7 +4,6 @@ import View from '../core/view';
 
 import * as styles from './screen.scss';
 
-
 class ScreenView extends View {
   private _nativeControls;
   private _callbacks;
@@ -47,13 +46,25 @@ class ScreenView extends View {
   }
 
   _bindEvents() {
-    this.$node[0].addEventListener('click', this._callbacks.onWrapperMouseClick);
-    this.$node[0].addEventListener('dblclick', this._callbacks.onWrapperMouseDblClick);
+    this.$node[0].addEventListener(
+      'click',
+      this._callbacks.onWrapperMouseClick,
+    );
+    this.$node[0].addEventListener(
+      'dblclick',
+      this._callbacks.onWrapperMouseDblClick,
+    );
   }
 
   _unbindEvents() {
-    this.$node[0].removeEventListener('click', this._callbacks.onWrapperMouseClick);
-    this.$node[0].removeEventListener('dblclick', this._callbacks.onWrapperMouseDblClick);
+    this.$node[0].removeEventListener(
+      'click',
+      this._callbacks.onWrapperMouseClick,
+    );
+    this.$node[0].removeEventListener(
+      'dblclick',
+      this._callbacks.onWrapperMouseDblClick,
+    );
   }
 
   focusOnNode() {

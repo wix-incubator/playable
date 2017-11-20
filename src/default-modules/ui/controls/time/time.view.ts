@@ -4,7 +4,6 @@ import View from '../../core/view';
 
 import * as styles from './time.scss';
 
-
 export function formatTime(seconds) {
   const date = new Date(null);
   seconds = isNaN(seconds) || !isFinite(seconds) ? 0 : Math.floor(seconds);
@@ -38,8 +37,7 @@ class TimeView extends View {
 
     this.$divider = $('<span>', {
       class: this.styleNames.time,
-    })
-      .html('/');
+    }).html('/');
 
     this.$durationTime = $('<span>', {
       class: `${this.styleNames.duration} ${this.styleNames.time}`,
@@ -52,9 +50,9 @@ class TimeView extends View {
       .append(this.$durationTime);
   }
 
-  setState({ duration, current }: { duration?: number, current?: number }) {
-    (duration !== undefined) && this._setDurationTime(duration);
-    (current !== undefined) && this._setCurrentTime(current);
+  setState({ duration, current }: { duration?: number; current?: number }) {
+    duration !== undefined && this._setDurationTime(duration);
+    current !== undefined && this._setCurrentTime(current);
   }
 
   _setDurationTime(duration) {

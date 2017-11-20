@@ -38,10 +38,22 @@ export default class TimeControl {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._toggleIntervalUpdates,
+      this,
+    );
     // TODO: review `VIDEO_EVENTS.SEEK_FINISHED`
-    this._eventEmitter.on((VIDEO_EVENTS as any).SEEK_FINISHED, this._updateCurrentTime, this);
-    this._eventEmitter.on(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
+    this._eventEmitter.on(
+      (VIDEO_EVENTS as any).SEEK_FINISHED,
+      this._updateCurrentTime,
+      this,
+    );
+    this._eventEmitter.on(
+      VIDEO_EVENTS.DURATION_UPDATED,
+      this._updateDurationTime,
+      this,
+    );
   }
 
   _initUI() {
@@ -52,7 +64,10 @@ export default class TimeControl {
     if (this._updateControlInterval) {
       this._stopIntervalUpdates();
     }
-    this._updateControlInterval = setInterval(this._updateCurrentTime, UPDATE_INTERVAL_DELAY);
+    this._updateControlInterval = setInterval(
+      this._updateCurrentTime,
+      UPDATE_INTERVAL_DELAY,
+    );
   }
 
   _stopIntervalUpdates() {
@@ -109,10 +124,22 @@ export default class TimeControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._toggleIntervalUpdates,
+      this,
+    );
     // TODO: review `VIDEO_EVENTS.SEEK_FINISHED`
-    this._eventEmitter.off((VIDEO_EVENTS as any).SEEK_FINISHED, this._updateCurrentTime, this);
-    this._eventEmitter.off(VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
+    this._eventEmitter.off(
+      (VIDEO_EVENTS as any).SEEK_FINISHED,
+      this._updateCurrentTime,
+      this,
+    );
+    this._eventEmitter.off(
+      VIDEO_EVENTS.DURATION_UPDATED,
+      this._updateDurationTime,
+      this,
+    );
   }
 
   destroy() {

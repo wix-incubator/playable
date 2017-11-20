@@ -13,7 +13,9 @@ const focusWithin = () => {
       running = false;
       if (last !== element) {
         last = element;
-        slice.call(document.getElementsByClassName('focus-within')).forEach(removeClass);
+        slice
+          .call(document.getElementsByClassName('focus-within'))
+          .forEach(removeClass);
         while (element && element.classList) {
           element.classList.add('focus-within');
           element = element.parentNode;

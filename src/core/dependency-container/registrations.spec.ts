@@ -8,13 +8,12 @@ import {
   asClass,
   asValue,
   asFunction,
-  PROPERTY_FOR_DEPENDENCIES
+  PROPERTY_FOR_DEPENDENCIES,
 } from './registrations';
-
 
 describe('registration method', () => {
   const container = {
-    resolve: sinon.spy(name => name)
+    resolve: sinon.spy(name => name),
   };
 
   afterEach(() => {
@@ -35,7 +34,9 @@ describe('registration method', () => {
     it('should return error if not function passed', () => {
       const func = 10;
       const errorThrown = () => asFunction(func);
-      expect(errorThrown).to.throw(new NotAFunctionError('asFunction', 'function', typeof func).message);
+      expect(errorThrown).to.throw(
+        new NotAFunctionError('asFunction', 'function', typeof func).message,
+      );
     });
 
     it('should return object in proper format', () => {
@@ -49,12 +50,12 @@ describe('registration method', () => {
     it('should except options', () => {
       const func = () => {};
       const registeredFunction = asFunction(func, {
-        lifetime: Lifetime.SCOPED
+        lifetime: Lifetime.SCOPED,
       });
       expect(registeredFunction.lifetime).to.be.equal(Lifetime.SCOPED);
     });
 
-    describe('returned object\'s resolve method', () => {
+    describe("returned object's resolve method", () => {
       it('should call initial method only with container passed', () => {
         const func = sinon.spy();
         const registeredFunction = asFunction(func);
@@ -71,9 +72,14 @@ describe('registration method', () => {
 
         registeredFunction.resolve(container);
         expect(container.resolve.calledWithExactly(moduleName)).to.be.true;
-        expect(func.calledWithExactly({
-          moduleName
-        }, container)).to.be.true;
+        expect(
+          func.calledWithExactly(
+            {
+              moduleName,
+            },
+            container,
+          ),
+        ).to.be.true;
       });
     });
 
@@ -96,7 +102,9 @@ describe('registration method', () => {
       const classDeclare = 10;
       const errorThrown = () => asClass(classDeclare);
 
-      expect(errorThrown).to.throw(new NotAFunctionError('asClass', 'class', typeof classDeclare).message);
+      expect(errorThrown).to.throw(
+        new NotAFunctionError('asClass', 'class', typeof classDeclare).message,
+      );
     });
 
     it('should return object in proper format', () => {
@@ -110,13 +118,13 @@ describe('registration method', () => {
     it('should except options', () => {
       class Class {}
       const registeredClass = asClass(Class, {
-        lifetime: Lifetime.SCOPED
+        lifetime: Lifetime.SCOPED,
       });
 
       expect(registeredClass.lifetime).to.be.equal(Lifetime.SCOPED);
     });
 
-    describe('returned object\'s resolve method', () => {
+    describe("returned object's resolve method", () => {
       it('should call initial method only with container passed', () => {
         const constructor = sinon.spy();
         const registeredClass = asClass(constructor);
@@ -137,9 +145,14 @@ describe('registration method', () => {
 
         expect(constructor.calledWithNew()).to.be.true;
         expect(container.resolve.calledWithExactly(moduleName)).to.be.true;
-        expect(constructor.calledWithExactly({
-          moduleName
-        }, container)).to.be.true;
+        expect(
+          constructor.calledWithExactly(
+            {
+              moduleName,
+            },
+            container,
+          ),
+        ).to.be.true;
       });
     });
 

@@ -5,7 +5,6 @@ import * as sinon from 'sinon';
 
 import KeyboardInterceptor from './keyboard-interceptor';
 
-
 describe('KeyboardInterceptor', () => {
   let node;
   let callbacks;
@@ -18,12 +17,12 @@ describe('KeyboardInterceptor', () => {
     node = document.createElement('div');
     callbacks = {
       [testKeyCode1]: sinon.spy(),
-      [testKeyCode2]: sinon.spy()
+      [testKeyCode2]: sinon.spy(),
     };
 
     interceptor = new KeyboardInterceptor({
       node,
-      callbacks
+      callbacks,
     });
   });
 
@@ -47,5 +46,5 @@ describe('KeyboardInterceptor', () => {
     node.dispatchEvent(keydownEvent);
 
     expect(callbacks[testKeyCode1].called).to.be.false;
-  })
+  });
 });

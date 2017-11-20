@@ -15,7 +15,6 @@ const fnMap = [
     'webkitFullscreenEnabled',
     'webkitfullscreenchange',
     'webkitfullscreenerror',
-
   ],
   // old WebKit (Safari 5.1)
   [
@@ -25,7 +24,6 @@ const fnMap = [
     'webkitCancelFullScreen',
     'webkitfullscreenchange',
     'webkitfullscreenerror',
-
   ],
   [
     'mozRequestFullScreen',
@@ -61,7 +59,6 @@ function getFullScreenFn() {
   return false;
 }
 
-
 export default class DesktopFullScreen {
   private _elem;
   private _callback;
@@ -84,15 +81,21 @@ export default class DesktopFullScreen {
   }
 
   get isEnabled() {
-    return this.isAPIExist && (document[this._fullscreenFn.fullscreenEnabled]);
+    return this.isAPIExist && document[this._fullscreenFn.fullscreenEnabled];
   }
 
   _bindEvents() {
-    document.addEventListener(this._fullscreenFn.fullscreenchange, this._callback);
+    document.addEventListener(
+      this._fullscreenFn.fullscreenchange,
+      this._callback,
+    );
   }
 
   _unbindEvents() {
-    document.removeEventListener(this._fullscreenFn.fullscreenchange, this._callback);
+    document.removeEventListener(
+      this._fullscreenFn.fullscreenchange,
+      this._callback,
+    );
   }
 
   request() {

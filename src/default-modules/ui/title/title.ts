@@ -2,7 +2,6 @@ import View from './title.view';
 
 import playerAPI from '../../../utils/player-api-decorator';
 
-
 export default class TitleControl {
   static View = View;
   static dependencies = ['rootContainer'];

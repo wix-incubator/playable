@@ -8,7 +8,6 @@ import RootContainer from '../../root-container/root-container.controler';
 import Loader, { DELAYED_SHOW_TIMEOUT } from './loader.controler';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
-
 describe('Loader', () => {
   let loader;
   let engine;
@@ -19,25 +18,25 @@ describe('Loader', () => {
 
   beforeEach(() => {
     config = {
-      ui: {}
+      ui: {},
     };
 
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
     rootContainer = new RootContainer({
       eventEmitter,
       engine,
-      config
+      config,
     });
 
     loader = new Loader({
       engine,
       rootContainer,
       config,
-      eventEmitter
+      eventEmitter,
     });
     emitSpy = sinon.spy(eventEmitter, 'emit');
   });
@@ -58,16 +57,16 @@ describe('Loader', () => {
           return {
             getNode: () => {},
             hide: () => {},
-            show: () => {}
-          }
-        })
+            show: () => {},
+          };
+        }),
       };
 
       loader = new Loader({
         engine,
         config,
         rootContainer,
-        eventEmitter
+        eventEmitter,
       });
 
       expect(config.ui.loader.view.calledWithNew()).to.be.true;
@@ -97,7 +96,8 @@ describe('Loader', () => {
         const setTimeoutSpy = sinon.spy(global, 'setTimeout');
 
         loader.startDelayedShow();
-        expect(setTimeoutSpy.calledWith(loader.show, DELAYED_SHOW_TIMEOUT)).to.be.true;
+        expect(setTimeoutSpy.calledWith(loader.show, DELAYED_SHOW_TIMEOUT)).to
+          .be.true;
         expect(loader.isDelayedShowScheduled).to.be.true;
 
         setTimeoutSpy.restore();
@@ -135,7 +135,7 @@ describe('Loader', () => {
 
         beforeEach(() => {
           delayedShowSpy = sinon.spy(loader, 'startDelayedShow');
-          stopDelayedShowSpy  = sinon.spy(loader, 'stopDelayedShow');
+          stopDelayedShowSpy = sinon.spy(loader, 'stopDelayedShow');
         });
 
         afterEach(() => {
@@ -145,7 +145,7 @@ describe('Loader', () => {
 
         it('should be proper if next state is STATES.SEEK_IN_PROGRESS', () => {
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.SEEK_IN_PROGRESS
+            nextState: STATES.SEEK_IN_PROGRESS,
           });
 
           expect(delayedShowSpy.called).to.be.true;
@@ -153,7 +153,7 @@ describe('Loader', () => {
 
         it('should be proper if next state is STATES.WAITING', () => {
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.WAITING
+            nextState: STATES.WAITING,
           });
 
           expect(delayedShowSpy.called).to.be.true;
@@ -163,14 +163,14 @@ describe('Loader', () => {
           const showSpy = sinon.spy(loader, 'show');
           engine.setPreload('none');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.LOAD_STARTED
+            nextState: STATES.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.false;
 
           engine.setPreload('auto');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.LOAD_STARTED
+            nextState: STATES.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.true;
@@ -179,7 +179,7 @@ describe('Loader', () => {
         it('should be proper if next state is STATES.READY_TO_PLAY', () => {
           const hideSpy = sinon.spy(loader, 'hide');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.READY_TO_PLAY
+            nextState: STATES.READY_TO_PLAY,
           });
 
           expect(hideSpy.called).to.be.true;
@@ -189,7 +189,7 @@ describe('Loader', () => {
         it('should be proper if next state is STATES.PLAYING', () => {
           const hideSpy = sinon.spy(loader, 'hide');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.PLAYING
+            nextState: STATES.PLAYING,
           });
 
           expect(hideSpy.called).to.be.true;
@@ -199,7 +199,7 @@ describe('Loader', () => {
         it('should be proper if next state is STATES.PAUSED', () => {
           const hideSpy = sinon.spy(loader, 'hide');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.PAUSED
+            nextState: STATES.PAUSED,
           });
 
           expect(hideSpy.called).to.be.true;

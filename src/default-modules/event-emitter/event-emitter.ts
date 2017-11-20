@@ -2,7 +2,6 @@ import { EventEmitter } from 'eventemitter3';
 
 import playerAPI from '../../utils/player-api-decorator';
 
-
 export default class EventEmitterModule extends EventEmitter {
   @playerAPI()
   on(event, fn, context) {

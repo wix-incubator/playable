@@ -9,8 +9,10 @@ import { UI_EVENTS } from '../../constants/index';
 import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
 import RootContainer from '../root-container/root-container.controler';
-import KeyboardControl, { AMOUNT_TO_SKIP_SECONDS, AMOUNT_TO_CHANGE_VOLUME } from './keyboard-control';
-
+import KeyboardControl, {
+  AMOUNT_TO_SKIP_SECONDS,
+  AMOUNT_TO_CHANGE_VOLUME,
+} from './keyboard-control';
 
 describe('KeyboardControl', () => {
   const keyDownEvent: any = new Event('keydown');
@@ -28,27 +30,27 @@ describe('KeyboardControl', () => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
     engine._adapterStrategy._attachedAdapter = {
       isSeekAvailable: true,
       attach: () => {},
-      detach: () => {}
+      detach: () => {},
     };
     rootContainer = new RootContainer({
       eventEmitter,
       engine,
-      config
+      config,
     });
     debugPanel = {
-      show: sinon.spy()
+      show: sinon.spy(),
     };
     keyboardControl = new KeyboardControl({
       eventEmitter,
       engine,
       rootContainer,
       debugPanel,
-      config
+      config,
     });
   });
 
@@ -103,14 +105,18 @@ describe('KeyboardControl', () => {
       keyDownEvent.keyCode = KEYCODES.TAB;
       rootContainer.node.dispatchEvent(keyDownEvent);
 
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
+      ).to.be.true;
     });
 
     it('should do stuff if key was TAB', () => {
       keyDownEvent.keyCode = KEYCODES.TAB;
       rootContainer.node.dispatchEvent(keyDownEvent);
 
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
+      ).to.be.true;
     });
 
     it('should do stuff if key was SPACE_BAR', () => {
@@ -119,8 +125,14 @@ describe('KeyboardControl', () => {
       rootContainer.node.dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED)).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
+      ).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(
+          UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+        ),
+      ).to.be.true;
       expect(engine.togglePlayback.called).to.be.true;
 
       engine.togglePlayback.restore();
@@ -132,8 +144,14 @@ describe('KeyboardControl', () => {
       rootContainer.node.dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED)).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
+      ).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(
+          UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
+        ),
+      ).to.be.true;
       expect(engine.goBackward.calledWith(AMOUNT_TO_SKIP_SECONDS)).to.be.true;
 
       engine.goBackward.restore();
@@ -145,8 +163,14 @@ describe('KeyboardControl', () => {
       rootContainer.node.dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED)).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
+      ).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(
+          UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
+        ),
+      ).to.be.true;
       expect(engine.goForward.calledWith(AMOUNT_TO_SKIP_SECONDS)).to.be.true;
 
       engine.goForward.restore();
@@ -158,9 +182,16 @@ describe('KeyboardControl', () => {
       rootContainer.node.dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED)).to.be.true;
-      expect(engine.increaseVolume.calledWith(AMOUNT_TO_CHANGE_VOLUME)).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
+      ).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(
+          UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+        ),
+      ).to.be.true;
+      expect(engine.increaseVolume.calledWith(AMOUNT_TO_CHANGE_VOLUME)).to.be
+        .true;
 
       engine.increaseVolume.restore();
     });
@@ -171,9 +202,16 @@ describe('KeyboardControl', () => {
       rootContainer.node.dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED)).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED)).to.be.true;
-      expect(engine.decreaseVolume.calledWith(AMOUNT_TO_CHANGE_VOLUME)).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
+      ).to.be.true;
+      expect(
+        eventEmitter.emit.calledWith(
+          UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+        ),
+      ).to.be.true;
+      expect(engine.decreaseVolume.calledWith(AMOUNT_TO_CHANGE_VOLUME)).to.be
+        .true;
 
       engine.decreaseVolume.restore();
     });
@@ -189,6 +227,6 @@ describe('KeyboardControl', () => {
 
       expect(eventEmitter.emit.called).to.be.false;
       eventEmitter.emit.restore();
-    })
+    });
   });
 });

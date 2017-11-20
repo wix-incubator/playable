@@ -1,6 +1,5 @@
 import DEFAULT_TEXTS from './default-texts';
 
-
 export default class TextMap {
   static dependencies = ['config'];
 

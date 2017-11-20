@@ -9,7 +9,6 @@ import MouseInterceptor from './mouse-interceptor';
 
 import { UI_EVENTS } from '../../constants/index';
 
-
 describe('MouseInterceptor', () => {
   let eventEmitter;
   let rootContainer;
@@ -25,25 +24,28 @@ describe('MouseInterceptor', () => {
     rootContainer = new RootContainer({
       eventEmitter,
       config,
-      engine
+      engine,
     });
 
     interceptor = new MouseInterceptor({
       eventEmitter,
-      rootContainer
+      rootContainer,
     });
   });
 
   it('should intercept and broadcast mouse events', () => {
     const emitSpy = sinon.spy(eventEmitter, 'emit');
     rootContainer.node.dispatchEvent(mouseEnterEvent);
-    expect(emitSpy.calledWithExactly(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED)).to.be.true;
+    expect(emitSpy.calledWithExactly(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED))
+      .to.be.true;
 
     rootContainer.node.dispatchEvent(mouseMoveEvent);
-    expect(emitSpy.calledWithExactly(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED)).to.be.true;
+    expect(emitSpy.calledWithExactly(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED))
+      .to.be.true;
 
     rootContainer.node.dispatchEvent(mouseLeaveEvent);
-    expect(emitSpy.calledWithExactly(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED)).to.be.true;
+    expect(emitSpy.calledWithExactly(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED))
+      .to.be.true;
   });
 
   it('should clear everything on destroy', () => {
@@ -53,5 +55,5 @@ describe('MouseInterceptor', () => {
     rootContainer.node.dispatchEvent(mouseMoveEvent);
     rootContainer.node.dispatchEvent(mouseLeaveEvent);
     expect(emitSpy.called).to.be.false;
-  })
+  });
 });

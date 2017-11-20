@@ -12,12 +12,12 @@ describe('DesktopFullScreen', () => {
   let element;
   let fullScreen;
   const fullScreenFn = {
-    'requestFullscreen': 'requestFullscreen',
-    'exitFullscreen': 'exitFullscreen',
-    'fullscreenElement': 'fullscreenElement',
-    'fullscreenEnabled': 'fullscreenEnabled',
-    'fullscreenchange': 'fullscreenchange',
-    'fullscreenerror': 'fullscreenerror'
+    requestFullscreen: 'requestFullscreen',
+    exitFullscreen: 'exitFullscreen',
+    fullscreenElement: 'fullscreenElement',
+    fullscreenEnabled: 'fullscreenEnabled',
+    fullscreenchange: 'fullscreenchange',
+    fullscreenerror: 'fullscreenerror',
   };
 
   beforeEach(() => {
@@ -65,13 +65,16 @@ describe('DesktopFullScreen', () => {
             element[fullScreenFn.requestFullscreen] = sinon.spy();
 
             Reflect.defineProperty(navigator, 'userAgent', {
-              ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
-              get: function () {
-                return this.____navigator
+              ...Reflect.getOwnPropertyDescriptor(
+                navigator.constructor.prototype,
+                'userAgent',
+              ),
+              get: function() {
+                return this.____navigator;
               },
-              set: function (v) {
+              set: function(v) {
                 this.____navigator = v;
-              }
+              },
             });
 
             navigator.userAgent = '5.1 Safari';
@@ -83,8 +86,9 @@ describe('DesktopFullScreen', () => {
 
           it('should call it without arguments', () => {
             fullScreen.request();
-            expect(element[fullScreenFn.requestFullscreen].calledWithExactly()).to.be.true;
-          })
+            expect(element[fullScreenFn.requestFullscreen].calledWithExactly())
+              .to.be.true;
+          });
         });
         describe('on not Safari 5.1', () => {
           beforeEach(() => {
@@ -94,13 +98,17 @@ describe('DesktopFullScreen', () => {
           it('should call it with true if ALLOW_KEYBOARD_INPUT is true', () => {
             Element['ALLOW_KEYBOARD_INPUT'] = true;
             fullScreen.request();
-            expect(element[fullScreenFn.requestFullscreen].calledWithExactly(true)).to.be.true;
+            expect(
+              element[fullScreenFn.requestFullscreen].calledWithExactly(true),
+            ).to.be.true;
           });
 
           it('should call it with false if ALLOW_KEYBOARD_INPUT is false', () => {
             Element['ALLOW_KEYBOARD_INPUT'] = false;
             fullScreen.request();
-            expect(element[fullScreenFn.requestFullscreen].calledWithExactly(false)).to.be.true;
+            expect(
+              element[fullScreenFn.requestFullscreen].calledWithExactly(false),
+            ).to.be.true;
           });
         });
       });

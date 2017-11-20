@@ -5,7 +5,6 @@ import IOSFullScreen from './ios';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants/index';
 
-
 const DEFAULT_CONFIG = {
   exitOnEnd: true,
   exitOnPause: false,
@@ -45,17 +44,36 @@ export default class FullScreenManager {
     if (!this._helper.isInFullScreen && this._config.pauseOnExit) {
       this._engine.pause();
     }
-    this._eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._helper.isInFullScreen);
+    this._eventEmitter.emit(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this._helper.isInFullScreen,
+    );
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine, this);
-    this._eventEmitter.on(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested, this);
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._processNextStateFromEngine,
+      this,
+    );
+    this._eventEmitter.on(
+      VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
+      this._enterOnPlayRequested,
+      this,
+    );
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine, this);
-    this._eventEmitter.off(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested, this);
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._processNextStateFromEngine,
+      this,
+    );
+    this._eventEmitter.off(
+      VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
+      this._enterOnPlayRequested,
+      this,
+    );
   }
 
   _exitOnEnd() {
@@ -88,7 +106,8 @@ export default class FullScreenManager {
       }
 
       /* ignore coverage */
-      default: break;
+      default:
+        break;
     }
   }
 

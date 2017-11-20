@@ -27,7 +27,8 @@
 import engageInteractionTypeObserver from './interaction-type';
 
 // preferring focusin/out because they are synchronous in IE10+11
-const supportsFocusIn = typeof document !== 'undefined' && 'onfocusin' in document;
+const supportsFocusIn =
+  typeof document !== 'undefined' && 'onfocusin' in document;
 const focusEventName = supportsFocusIn ? 'focusin' : 'focus';
 const blurEventName = supportsFocusIn ? 'focusout' : 'blur';
 
@@ -49,9 +50,10 @@ function handleFocusEvent(event) {
   let source = '';
   if (event.type === focusEventName) {
     const interactionType = interactionTypeHandler.get();
-    source = lock ||
-      interactionType.pointer && 'pointer' ||
-      interactionType.key && 'key' ||
+    source =
+      lock ||
+      (interactionType.pointer && 'pointer') ||
+      (interactionType.key && 'key') ||
       'script';
   } else if (event.type === 'initial') {
     source = 'initial';
@@ -60,7 +62,6 @@ function handleFocusEvent(event) {
   document.documentElement.setAttribute('data-focus-source', source);
 
   if (event.type !== blurEventName) {
-
     used[source] = true;
     current = source;
   }
@@ -86,19 +87,35 @@ function disengage() {
   // clear dom state
   handleFocusEvent({ type: blurEventName });
   current = lock = null;
-  Object.keys(used).forEach(function (key) {
+  Object.keys(used).forEach(function(key) {
     used[key] = false;
   });
   // kill interaction type identification listener
   engageInteractionTypeObserver.disengage();
-  document.documentElement.removeEventListener(focusEventName, handleFocusEvent, true);
-  document.documentElement.removeEventListener(blurEventName, handleFocusEvent, true);
+  document.documentElement.removeEventListener(
+    focusEventName,
+    handleFocusEvent,
+    true,
+  );
+  document.documentElement.removeEventListener(
+    blurEventName,
+    handleFocusEvent,
+    true,
+  );
   document.documentElement.removeAttribute('data-focus-source');
 }
 
 function engage() {
-  document.documentElement.addEventListener(focusEventName, handleFocusEvent, true);
-  document.documentElement.addEventListener(blurEventName, handleFocusEvent, true);
+  document.documentElement.addEventListener(
+    focusEventName,
+    handleFocusEvent,
+    true,
+  );
+  document.documentElement.addEventListener(
+    blurEventName,
+    handleFocusEvent,
+    true,
+  );
   // enable the interaction type identification observer
   interactionTypeHandler = engageInteractionTypeObserver.engage();
   // set up initial dom state

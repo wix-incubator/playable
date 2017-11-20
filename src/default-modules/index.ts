@@ -18,7 +18,6 @@ import LoadingCover from './ui/loading-cover/loading-cover.controler';
 import ControlsBlock from './ui/controls/controls.controler';
 import ManipulationIndicator from './ui/manipulation-indicator/manipulation-indicator.controler';
 
-
 const { asClass } = DependencyContainer;
 
 export default {

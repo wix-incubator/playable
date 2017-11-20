@@ -8,9 +8,16 @@ declare const navigator: any;
 describe('Utils device detection method', () => {
   beforeEach(() => {
     Reflect.defineProperty(navigator, 'userAgent', {
-      ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
-      get: function() { return this.____navigator },
-      set: function(v) { this.____navigator = v; }
+      ...Reflect.getOwnPropertyDescriptor(
+        navigator.constructor.prototype,
+        'userAgent',
+      ),
+      get: function() {
+        return this.____navigator;
+      },
+      set: function(v) {
+        this.____navigator = v;
+      },
     });
   });
 

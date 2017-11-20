@@ -6,7 +6,6 @@ import View from '../../core/view';
 
 import * as styles from './progress.scss';
 
-
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'progress-control';
 const DATA_HOOK_INPUT_VALUE = 'seek-input';
@@ -14,7 +13,6 @@ const DATA_HOOK_INPUT_VALUE = 'seek-input';
 const DATA_PLAYED = 'data-played-percent';
 
 class ProgressView extends View {
-
   private _callbacks;
   private _texts;
 
@@ -37,15 +35,21 @@ class ProgressView extends View {
     });
 
     this.$progressPlayed = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-played']}`,
+      class: `${this.styleNames['progress-bar']} ${
+        this.styleNames['progress-played']
+      }`,
     });
 
     this.$progressBuffered = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-buffered']}`,
+      class: `${this.styleNames['progress-bar']} ${
+        this.styleNames['progress-buffered']
+      }`,
     });
 
     this.$progressBackground = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${this.styleNames['progress-background']}`,
+      class: `${this.styleNames['progress-bar']} ${
+        this.styleNames['progress-background']
+      }`,
     });
 
     this.$input = $('<input>', {
@@ -112,13 +116,19 @@ class ProgressView extends View {
     this.$input[0].removeEventListener('input', this._onInputValueChange);
     this.$input[0].removeEventListener('change', this._onInputValueChange);
 
-    this.$node[0].removeEventListener('mousedown', this._onMouseInteractionStart);
+    this.$node[0].removeEventListener(
+      'mousedown',
+      this._onMouseInteractionStart,
+    );
     this.$node[0].removeEventListener('mouseup', this._onMouseInteractionEnd);
   }
 
   _updateDOMAttributes(percent) {
     this.$input.attr('value', percent);
-    this.$input.attr('aria-valuetext', this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }));
+    this.$input.attr(
+      'aria-valuetext',
+      this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
+    );
     this.$input.attr('aria-valuenow', percent);
 
     this.$node.attr(DATA_PLAYED, percent);
@@ -134,9 +144,9 @@ class ProgressView extends View {
     this.$progressBuffered.attr('style', `width:${percent}%;`);
   }
 
-  setState({ played, buffered }: { played?: number, buffered?: number }) {
-    (played !== undefined) && this._updatePlayed(played);
-    (buffered !== undefined) && this._updateBuffered(buffered);
+  setState({ played, buffered }: { played?: number; buffered?: number }) {
+    played !== undefined && this._updatePlayed(played);
+    buffered !== undefined && this._updateBuffered(buffered);
   }
 
   hide() {

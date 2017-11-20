@@ -115,13 +115,29 @@ function getInteractionType() {
 function disengage() {
   _activePointers = _activeKeys = 0;
   window.removeEventListener('blur', handleWindowBlurEvent, false);
-  document.documentElement.removeEventListener('keydown', handleKeyStartEvent, true);
-  document.documentElement.removeEventListener('keyup', handleKeyEndEvent, true);
+  document.documentElement.removeEventListener(
+    'keydown',
+    handleKeyStartEvent,
+    true,
+  );
+  document.documentElement.removeEventListener(
+    'keyup',
+    handleKeyEndEvent,
+    true,
+  );
   pointerStartEvents.forEach(event => {
-    document.documentElement.removeEventListener(event, handlePointerStartEvent, true);
+    document.documentElement.removeEventListener(
+      event,
+      handlePointerStartEvent,
+      true,
+    );
   });
   pointerEndEvents.forEach(event => {
-    document.documentElement.removeEventListener(event, handlePointerEndEvent, true);
+    document.documentElement.removeEventListener(
+      event,
+      handlePointerEndEvent,
+      true,
+    );
   });
 }
 
@@ -129,13 +145,25 @@ function engage() {
   // window blur must be in bubble phase so it won't capture regular blurs
   window.addEventListener('blur', handleWindowBlurEvent, false);
   // handlers to identify the method of focus change
-  document.documentElement.addEventListener('keydown', handleKeyStartEvent, true);
+  document.documentElement.addEventListener(
+    'keydown',
+    handleKeyStartEvent,
+    true,
+  );
   document.documentElement.addEventListener('keyup', handleKeyEndEvent, true);
   pointerStartEvents.forEach(event => {
-    document.documentElement.addEventListener(event, handlePointerStartEvent, true);
+    document.documentElement.addEventListener(
+      event,
+      handlePointerStartEvent,
+      true,
+    );
   });
   pointerEndEvents.forEach(event => {
-    document.documentElement.addEventListener(event, handlePointerEndEvent, true);
+    document.documentElement.addEventListener(
+      event,
+      handlePointerEndEvent,
+      true,
+    );
   });
 
   return {

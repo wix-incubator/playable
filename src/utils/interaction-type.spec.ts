@@ -199,7 +199,6 @@ describe('engageInteractionTypeObserver', () => {
         delete pointerdownEvent.isPrimary;
       });
 
-
       it('should return true after MSPointerDowntEvent', () => {
         document.documentElement.dispatchEvent(MSPointerDowntEvent);
 
@@ -213,7 +212,6 @@ describe('engageInteractionTypeObserver', () => {
         expect(get().pointer).to.be.equal(false);
         delete MSPointerDowntEvent.isPrimary;
       });
-
 
       it('should return true after mousedownEvent', () => {
         document.documentElement.dispatchEvent(mousedownEvent);
@@ -492,7 +490,7 @@ describe('engageInteractionTypeObserver', () => {
       setTimeout(() => {
         expect(get()).to.be.deep.equal({
           key: false,
-          pointer: false
+          pointer: false,
         });
         done();
       }, 2);

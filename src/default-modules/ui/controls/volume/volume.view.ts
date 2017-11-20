@@ -6,7 +6,6 @@ import View from '../../core/view';
 
 import * as styles from './volume.scss';
 
-
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'volume-control';
 const DATA_HOOK_BUTTON_VALUE = 'mute-button';
@@ -45,7 +44,9 @@ class VolumeView extends View {
     });
 
     this.$muteControl = $('<button>', {
-      class: `${this.styleNames['mute-button']} ${this.styleNames['control-button']}`,
+      class: `${this.styleNames['mute-button']} ${
+        this.styleNames['control-button']
+      }`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
       'aria-label': this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
       type: 'button',
@@ -55,7 +56,7 @@ class VolumeView extends View {
     this.$container = $('<div>', {
       class: this.styleNames.container,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_CONTAINER,
-  });
+    });
 
     const $content = $('<div>', {
       class: this.styleNames.content,
@@ -85,16 +86,12 @@ class VolumeView extends View {
       value: 0,
     });
 
-    $inputWrapper
-      .append(this.$filledProgress)
-      .append(this.$input);
+    $inputWrapper.append(this.$filledProgress).append(this.$input);
 
     $content.append($inputWrapper);
     this.$container.append($content);
 
-    this.$node
-      .append(this.$muteControl)
-      .append(this.$container);
+    this.$node.append(this.$muteControl).append(this.$container);
 
     this._bindEvents();
   }
@@ -122,20 +119,15 @@ class VolumeView extends View {
     this._onWheel = this._onWheel.bind(this);
     this._onButtonClick = this._onButtonClick.bind(this);
 
-    this.$node[0]
-      .addEventListener('wheel', this._onWheel);
+    this.$node[0].addEventListener('wheel', this._onWheel);
 
-    this.$container[0]
-      .addEventListener('click', this._preventClickPropagation);
+    this.$container[0].addEventListener('click', this._preventClickPropagation);
 
-    this.$input[0]
-      .addEventListener('change', this._onInputChange);
+    this.$input[0].addEventListener('change', this._onInputChange);
 
-    this.$input[0]
-      .addEventListener('input', this._onInputChange);
+    this.$input[0].addEventListener('input', this._onInputChange);
 
-    this.$muteControl[0]
-      .addEventListener('click', this._onButtonClick);
+    this.$muteControl[0].addEventListener('click', this._onButtonClick);
   }
 
   _onButtonClick() {
@@ -144,31 +136,32 @@ class VolumeView extends View {
   }
 
   _unbindEvents() {
-    this.$node[0]
-      .removeEventListener('wheel', this._onWheel);
+    this.$node[0].removeEventListener('wheel', this._onWheel);
 
-    this.$container[0]
-      .removeEventListener('click', this._preventClickPropagation);
+    this.$container[0].removeEventListener(
+      'click',
+      this._preventClickPropagation,
+    );
 
-    this.$input[0]
-      .removeEventListener('change', this._onInputChange);
+    this.$input[0].removeEventListener('change', this._onInputChange);
 
-    this.$input[0]
-      .removeEventListener('input', this._onInputChange);
+    this.$input[0].removeEventListener('input', this._onInputChange);
 
-    this.$muteControl[0]
-      .removeEventListener('click', this._onButtonClick);
+    this.$muteControl[0].removeEventListener('click', this._onButtonClick);
   }
 
   setState({ volume, isMuted }) {
-    (volume !== undefined) && this._setVolumeLevel(volume);
-    (isMuted !== undefined) && this._setMuteStatus(isMuted);
+    volume !== undefined && this._setVolumeLevel(volume);
+    isMuted !== undefined && this._setMuteStatus(isMuted);
   }
 
   _setVolumeLevel(volume) {
     this.$input.val(volume);
     this.$input.attr('value', volume);
-    this.$input.attr('aria-valuetext', this._texts.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { volume }));
+    this.$input.attr(
+      'aria-valuetext',
+      this._texts.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { volume }),
+    );
     this.$input.attr('aria-valuenow', volume);
 
     this.$filledProgress.attr('style', `height:${volume}%;`);
@@ -185,10 +178,11 @@ class VolumeView extends View {
   _setMuteStatus(isMuted) {
     this.$muteControl.toggleClass(this.styleNames.muted, isMuted);
     this.$node.attr(DATA_IS_MUTED, isMuted);
-    this.$muteControl.attr('aria-label',
-      isMuted ?
-        this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL) :
-        this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
+    this.$muteControl.attr(
+      'aria-label',
+      isMuted
+        ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
+        : this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
     );
   }
 

@@ -1,9 +1,13 @@
 import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
 
-import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, VIDEO_EVENTS } from '../../../constants/index';
+import {
+  ERRORS,
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_TYPE,
+  VIDEO_EVENTS,
+} from '../../../constants/index';
 import { getNearestBufferSegmentInfo } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
-
 
 const INITIAL_BITRATE = 5000;
 
@@ -64,7 +68,10 @@ export default class DashAdapter {
 
     const overallBufferLength = this.dashPlayer.getBufferLength('video');
     const currentTrack = this.dashPlayer.getCurrentTrackFor('video');
-    const nearestBufferSegInfo = getNearestBufferSegmentInfo(this.dashPlayer.getVideoElement().buffered, currentTime);
+    const nearestBufferSegInfo = getNearestBufferSegmentInfo(
+      this.dashPlayer.getVideoElement().buffered,
+      currentTime,
+    );
 
     return {
       ...this.mediaStream,
@@ -85,20 +92,21 @@ export default class DashAdapter {
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {
-      throw new Error(`Can only handle a single DASH stream. Received ${mediaStreams.length} streams.`);
+      throw new Error(
+        `Can only handle a single DASH stream. Received ${
+          mediaStreams.length
+        } streams.`,
+      );
     }
   }
 
   logError(error, errorEvent) {
-    this.eventEmitter.emit(
-      VIDEO_EVENTS.ERROR,
-      {
-        errorType: error,
-        streamType: MEDIA_STREAM_TYPES.DASH,
-        streamProvider: 'dash.js',
-        errorInstance: errorEvent,
-      },
-    );
+    this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
+      errorType: error,
+      streamType: MEDIA_STREAM_TYPES.DASH,
+      streamProvider: 'dash.js',
+      errorInstance: errorEvent,
+    });
   }
 
   broadcastError(errorEvent) {
@@ -160,15 +168,27 @@ export default class DashAdapter {
   }
 
   startDelayedInitPlayer() {
-    this.eventEmitter.on(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this.delayedInitPlayer, this);
+    this.eventEmitter.on(
+      VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
+      this.delayedInitPlayer,
+      this,
+    );
   }
 
   stopDelayedInitPlayer() {
-    this.eventEmitter.off(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this.delayedInitPlayer, this);
+    this.eventEmitter.off(
+      VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
+      this.delayedInitPlayer,
+      this,
+    );
   }
 
   initPlayer(forceAutoplay?) {
-    this.dashPlayer.initialize(this.videoElement, this.mediaStream.url, forceAutoplay || this.videoElement.autoplay);
+    this.dashPlayer.initialize(
+      this.videoElement,
+      this.mediaStream.url,
+      forceAutoplay || this.videoElement.autoplay,
+    );
     this.dashPlayer.setInitialBitrateFor('video', INITIAL_BITRATE);
   }
 

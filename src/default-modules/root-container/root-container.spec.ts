@@ -8,7 +8,6 @@ import { EventEmitter } from 'eventemitter3';
 import RootContainer from './root-container.controler';
 import Engine from '../playback-engine/playback-engine';
 
-
 (global as any).requestAnimationFrame = () => {};
 
 describe('RootContainer', () => {
@@ -19,12 +18,12 @@ describe('RootContainer', () => {
 
   beforeEach(() => {
     config = {
-      ui: {}
+      ui: {},
     };
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
 
     ui = new RootContainer({
@@ -42,13 +41,9 @@ describe('RootContainer', () => {
 
     it('should init custom UI', () => {
       config.ui.customUI = {
-        'ui': sinon.spy(
-          () => (
-            {
-              getNode: () => {}
-            }
-          )
-        )
+        ui: sinon.spy(() => ({
+          getNode: () => {},
+        })),
       };
       ui = new RootContainer({
         engine,
@@ -57,11 +52,13 @@ describe('RootContainer', () => {
       });
 
       expect(config.ui.customUI['ui'].calledWithNew()).to.be.true;
-      expect(config.ui.customUI['ui'].calledWith({
-        engine,
-        eventEmitter,
-        ui
-      })).to.be.true;
+      expect(
+        config.ui.customUI['ui'].calledWith({
+          engine,
+          eventEmitter,
+          ui,
+        }),
+      ).to.be.true;
     });
   });
 
@@ -70,7 +67,7 @@ describe('RootContainer', () => {
       ui = new RootContainer({
         engine,
         eventEmitter,
-        config
+        config,
       });
     });
 
@@ -81,9 +78,11 @@ describe('RootContainer', () => {
       expect(cssSpy.called).to.be.false;
 
       ui.setWidth(10);
-      expect(cssSpy.calledWith({
-        width: '10px'
-      })).to.be.true;
+      expect(
+        cssSpy.calledWith({
+          width: '10px',
+        }),
+      ).to.be.true;
     });
 
     it('should have method for setting height', () => {
@@ -93,9 +92,11 @@ describe('RootContainer', () => {
       expect(cssSpy.called).to.be.false;
 
       ui.setHeight(10);
-      expect(cssSpy.calledWith({
-        height: '10px'
-      })).to.be.true;
+      expect(
+        cssSpy.calledWith({
+          height: '10px',
+        }),
+      ).to.be.true;
     });
 
     it('should have method for getting width', () => {
@@ -116,7 +117,7 @@ describe('RootContainer', () => {
     });
 
     it('should have method for setting setFillAllSpace', () => {
-      sinon.spy(ui.view,'setFillAllSpaceFlag');
+      sinon.spy(ui.view, 'setFillAllSpaceFlag');
       ui.setFillAllSpace(true);
       expect(ui.view.setFillAllSpaceFlag.calledWith(true)).to.be.true;
     });
@@ -139,7 +140,7 @@ describe('RootContainer', () => {
       ui._disengageFocusWithin = () => {};
       ui.attachToElement(node);
       ui.destroy();
-    })
+    });
   });
 
   describe('View', () => {

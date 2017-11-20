@@ -4,7 +4,6 @@ import View from '../core/view';
 
 import * as styles from './controls.scss';
 
-
 class ControlsView extends View {
   private _callbacks;
   private $node;
@@ -30,8 +29,7 @@ class ControlsView extends View {
       'data-hook': 'controls-container',
     });
 
-    this.$wrapper
-      .append(this.$controlsContainer);
+    this.$wrapper.append(this.$controlsContainer);
 
     this.$node.append(this.$wrapper);
 
@@ -43,15 +41,33 @@ class ControlsView extends View {
   }
 
   _bindEvents() {
-    this.$controlsContainer[0].addEventListener('click', this._preventClickPropagation);
-    this.$controlsContainer[0].addEventListener('mousemove', this._callbacks.onControlsBlockMouseMove);
-    this.$controlsContainer[0].addEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
+    this.$controlsContainer[0].addEventListener(
+      'click',
+      this._preventClickPropagation,
+    );
+    this.$controlsContainer[0].addEventListener(
+      'mousemove',
+      this._callbacks.onControlsBlockMouseMove,
+    );
+    this.$controlsContainer[0].addEventListener(
+      'mouseleave',
+      this._callbacks.onControlsBlockMouseOut,
+    );
   }
 
   _unbindEvents() {
-    this.$controlsContainer[0].removeEventListener('click', this._preventClickPropagation);
-    this.$controlsContainer[0].removeEventListener('mousemove', this._callbacks.onControlsBlockMouseMove);
-    this.$controlsContainer[0].removeEventListener('mouseleave', this._callbacks.onControlsBlockMouseOut);
+    this.$controlsContainer[0].removeEventListener(
+      'click',
+      this._preventClickPropagation,
+    );
+    this.$controlsContainer[0].removeEventListener(
+      'mousemove',
+      this._callbacks.onControlsBlockMouseMove,
+    );
+    this.$controlsContainer[0].removeEventListener(
+      'mouseleave',
+      this._callbacks.onControlsBlockMouseOut,
+    );
   }
 
   show() {

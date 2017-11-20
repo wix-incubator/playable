@@ -9,7 +9,6 @@ import TextMap from '../../../text-map/text-map';
 
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
-
 describe('ProgressControl', () => {
   let control;
   let engine;
@@ -21,17 +20,17 @@ describe('ProgressControl', () => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
 
     textMap = new TextMap({
-      config
+      config,
     });
 
     control = new ProgressControl({
       engine,
       eventEmitter,
-      textMap
+      textMap,
     });
   });
 
@@ -71,7 +70,6 @@ describe('ProgressControl', () => {
       expect(control.isHidden).to.be.true;
     });
 
-
     it('should have method for destroying', () => {
       const spy = sinon.spy(control, '_unbindEvents');
       expect(control.destroy).to.exist;
@@ -94,7 +92,9 @@ describe('ProgressControl', () => {
       const spyPlayed = sinon.spy(control, '_updatePlayedIndicator');
       const spyBuffered = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: STATES.SEEK_IN_PROGRESS});
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        nextState: STATES.SEEK_IN_PROGRESS,
+      });
       expect(spyPlayed.called).to.be.true;
       expect(spyBuffered.called).to.be.true;
     });
@@ -109,9 +109,12 @@ describe('ProgressControl', () => {
 
   describe('internal methods', () => {
     it('should toggle playback on manipulation change', () => {
-      const startSpy = sinon.spy(control, '_pauseVideoOnProgressManipulationStart');
+      const startSpy = sinon.spy(
+        control,
+        '_pauseVideoOnProgressManipulationStart',
+      );
       const stopSpy = sinon.spy(control, '_playVideoOnProgressManipulationEnd');
-     //const timeoutSpy = sinon.spy(global, 'setTimeout');
+      //const timeoutSpy = sinon.spy(global, 'setTimeout');
       control._onUserInteractionStarts();
       expect(startSpy.called).to.be.true;
       control._onUserInteractionEnds();
@@ -165,12 +168,12 @@ describe('ProgressControl', () => {
       control._updateControlOnInterval();
       expect(playedSpy.called).to.be.true;
       expect(bufferSpy.called).to.be.true;
-    })
+    });
   });
 
   describe('View', () => {
     it('should react on volume range input change event when not muted', () => {
-      const callback = sinon.spy(control.view, "_onInputValueChange");
+      const callback = sinon.spy(control.view, '_onInputValueChange');
       control.view._bindEvents();
 
       control.view.$input.trigger('change');
@@ -178,7 +181,7 @@ describe('ProgressControl', () => {
     });
 
     it('should react on volume range input input event', () => {
-      const callback = sinon.spy(control.view, "_onInputValueChange");
+      const callback = sinon.spy(control.view, '_onInputValueChange');
       control.view._bindEvents();
 
       control.view.$input.trigger('input');
@@ -186,7 +189,7 @@ describe('ProgressControl', () => {
     });
 
     it('should react on volume range wheel input event', () => {
-      const callback = sinon.spy(control.view, "_onMouseInteractionStart");
+      const callback = sinon.spy(control.view, '_onMouseInteractionStart');
       control.view._bindEvents();
 
       control.view.$input.trigger('mousedown');
@@ -194,7 +197,7 @@ describe('ProgressControl', () => {
     });
 
     it('should react on mute button click', () => {
-      const callback = sinon.spy(control.view, "_onMouseInteractionEnd");
+      const callback = sinon.spy(control.view, '_onMouseInteractionEnd');
       control.view._bindEvents();
 
       control.view.$input.trigger('mouseup');
@@ -203,7 +206,10 @@ describe('ProgressControl', () => {
 
     it('should call callbacks', () => {
       const changeSpy = sinon.spy(control, '_changePlayedProgress');
-      const interactionStartSpy = sinon.spy(control, '_onUserInteractionStarts');
+      const interactionStartSpy = sinon.spy(
+        control,
+        '_onUserInteractionStarts',
+      );
       const interactionStopSpy = sinon.spy(control, '_onUserInteractionEnds');
 
       control._bindCallbacks();
@@ -212,20 +218,20 @@ describe('ProgressControl', () => {
       control.view._onInputValueChange();
       expect(changeSpy.called).to.be.true;
       control.view._onMouseInteractionStart({
-        button: 2
+        button: 2,
       });
       expect(interactionStartSpy.called).to.be.false;
       control.view._onMouseInteractionStart({
-        button: 1
+        button: 1,
       });
       expect(interactionStartSpy.called).to.be.true;
 
       control.view._onMouseInteractionEnd({
-        button: 2
+        button: 2,
       });
       expect(interactionStopSpy.called).to.be.false;
       control.view._onMouseInteractionEnd({
-        button: 1
+        button: 1,
       });
       expect(interactionStopSpy.called).to.be.true;
     });

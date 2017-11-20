@@ -4,13 +4,16 @@ import StateEngine from './state-engine';
 import NativeEventsBroadcaster from './native-events-broadcaster';
 import AdapterStrategy from './adapters-strategy';
 
-import { isIPhone, isIPod, isIPad, isAndroid } from '../../utils/device-detection';
+import {
+  isIPhone,
+  isIPod,
+  isIPad,
+  isAndroid,
+} from '../../utils/device-detection';
 
 import { VIDEO_EVENTS, STATES } from '../../constants/index';
 
-export {
-  STATES,
-};
+export { STATES };
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 export default class Engine {
@@ -33,8 +36,15 @@ export default class Engine {
     this._createVideoTag();
 
     this._stateEngine = new StateEngine(eventEmitter, this._video);
-    this._nativeEventsBroadcaster = new NativeEventsBroadcaster(eventEmitter, this._video);
-    this._adapterStrategy = new AdapterStrategy(this._eventEmitter, this._video, availablePlaybackAdapters);
+    this._nativeEventsBroadcaster = new NativeEventsBroadcaster(
+      eventEmitter,
+      this._video,
+    );
+    this._adapterStrategy = new AdapterStrategy(
+      this._eventEmitter,
+      this._video,
+      availablePlaybackAdapters,
+    );
 
     this._applyConfig(config.engine);
   }
@@ -214,7 +224,9 @@ export default class Engine {
   @playerAPI()
   setVolume(volume) {
     const parsedVolume = Number(volume);
-    this._video.volume = isNaN(parsedVolume) ? 1 : Math.max(0, Math.min(Number(volume) / 100, 1));
+    this._video.volume = isNaN(parsedVolume)
+      ? 1
+      : Math.max(0, Math.min(Number(volume) / 100, 1));
   }
 
   @playerAPI()
@@ -317,10 +329,7 @@ export default class Engine {
   togglePlayback() {
     const state = this.getCurrentState();
 
-    if (
-      state === STATES.PLAY_REQUESTED ||
-      state === STATES.PLAYING
-    ) {
+    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
       this.pause();
     } else {
       this.play();

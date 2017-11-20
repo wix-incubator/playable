@@ -25,17 +25,15 @@ describe('ControlsBlock', () => {
 
   beforeEach(() => {
     config = {
-      ui: {}
+      ui: {},
     };
     ui = {
-      setFullScreenStatus() {
-
-      },
+      setFullScreenStatus() {},
       get node() {
         return document.createElement('video');
       },
       exitFullScreen() {},
-      enterFullScreen() {}
+      enterFullScreen() {},
     };
     screen = {
       showBottomShadow() {},
@@ -45,28 +43,29 @@ describe('ControlsBlock', () => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
     scope = container.createScope();
     scope.registerValue({
       config,
-      availablePlaybackAdapters: []
+      availablePlaybackAdapters: [],
     });
     rootContainer = new RootContainer({
       eventEmitter,
       engine,
-      config
+      config,
     });
-    controls = new ControlsBlock({
+    controls = new ControlsBlock(
+      {
         // TODO: do we need `ui` here?
         // ui,
         engine,
         eventEmitter,
         config,
         rootContainer,
-        screen
+        screen,
       },
-      scope
+      scope,
     );
   });
   describe('constructor', () => {
@@ -87,7 +86,7 @@ describe('ControlsBlock', () => {
       expect(controls._removeFocusState).to.exist;
       controls._setFocusState();
       controls._removeFocusState({
-        stopPropagation: () => {}
+        stopPropagation: () => {},
       });
       expect(controls._isControlsFocused).to.be.false;
     });

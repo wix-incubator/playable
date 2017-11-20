@@ -5,7 +5,6 @@ import ERRORS from './errors';
 import TEXT_LABELS from './text-labels';
 import STATES from './engine-states';
 
-
 export {
   MEDIA_STREAM_TYPES,
   MEDIA_STREAM_DELIVERY_TYPE,

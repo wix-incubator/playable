@@ -10,7 +10,6 @@ import Engine from '../../../playback-engine/playback-engine';
 import { formatTime } from './time.view';
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
-
 describe('TimeControl', () => {
   let control;
   let engine;
@@ -21,11 +20,11 @@ describe('TimeControl', () => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
     control = new TimeControl({
       engine,
-      eventEmitter
+      eventEmitter,
     });
   });
 
@@ -96,7 +95,9 @@ describe('TimeControl', () => {
     it('should call callback on seek', () => {
       const spy = sinon.spy(control, '_updateCurrentTime');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: STATES.SEEK_IN_PROGRESS});
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        nextState: STATES.SEEK_IN_PROGRESS,
+      });
       expect(spy.called).to.be.true;
     });
 
@@ -129,7 +130,7 @@ describe('TimeControl', () => {
       expect(stopSpy.called).to.be.true;
 
       spy.restore();
-    })
+    });
   });
 
   describe('View', () => {

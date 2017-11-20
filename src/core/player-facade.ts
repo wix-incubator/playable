@@ -1,7 +1,6 @@
 import mapParamsToConfig from './config-mapper';
 import { PLAYER_API_PROPERTY } from '../utils/player-api-decorator';
 
-
 export default class Player {
   private _config;
   private _defaultModules;
@@ -26,25 +25,31 @@ export default class Player {
   */
 
   _resolveDefaultModules(scope, modules) {
-    this._defaultModules = Object.keys(modules).reduce((modules, moduleName) => {
-      const resolvedModule = scope.resolve(moduleName);
+    this._defaultModules = Object.keys(modules).reduce(
+      (modules, moduleName) => {
+        const resolvedModule = scope.resolve(moduleName);
 
-      this._addPlayerAPIFromModule(resolvedModule, moduleName);
+        this._addPlayerAPIFromModule(resolvedModule, moduleName);
 
-      modules[moduleName] = resolvedModule;
-      return modules;
-    }, {});
+        modules[moduleName] = resolvedModule;
+        return modules;
+      },
+      {},
+    );
   }
 
   _resolveAdditionalModules(scope, modules) {
-    this._additionalModules = Object.keys(modules).reduce((modules, moduleName) => {
-      const resolvedModule = scope.resolve(moduleName);
+    this._additionalModules = Object.keys(modules).reduce(
+      (modules, moduleName) => {
+        const resolvedModule = scope.resolve(moduleName);
 
-      this._addPlayerAPIFromModule(resolvedModule, moduleName);
+        this._addPlayerAPIFromModule(resolvedModule, moduleName);
 
-      modules[moduleName] = resolvedModule;
-      return modules;
-    }, {});
+        modules[moduleName] = resolvedModule;
+        return modules;
+      },
+      {},
+    );
   }
 
   _getWrappedCallToModuleFunction(module, moduleName, fn) {
@@ -66,15 +71,27 @@ export default class Player {
     const { get, set, value } = descriptor;
 
     if (get) {
-      playerMethodDescriptor.get = this._getWrappedCallToModuleFunction(module, moduleName, get);
+      playerMethodDescriptor.get = this._getWrappedCallToModuleFunction(
+        module,
+        moduleName,
+        get,
+      );
     }
 
     if (set) {
-      playerMethodDescriptor.set = this._getWrappedCallToModuleFunction(module, moduleName, set);
+      playerMethodDescriptor.set = this._getWrappedCallToModuleFunction(
+        module,
+        moduleName,
+        set,
+      );
     }
 
     if (value) {
-      playerMethodDescriptor.value = this._getWrappedCallToModuleFunction(module, moduleName, value);
+      playerMethodDescriptor.value = this._getWrappedCallToModuleFunction(
+        module,
+        moduleName,
+        value,
+      );
     }
 
     return playerMethodDescriptor;
@@ -84,13 +101,19 @@ export default class Player {
     if (module[PLAYER_API_PROPERTY]) {
       Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
         if (this[apiKey]) {
-          throw new Error(`API method ${apiKey} is already defined in Player facade`);
+          throw new Error(
+            `API method ${apiKey} is already defined in Player facade`,
+          );
         }
 
         Object.defineProperty(
           this,
           apiKey,
-          this._getPlayerAPIMethodDescriptor(module, moduleName, module[PLAYER_API_PROPERTY][apiKey]),
+          this._getPlayerAPIMethodDescriptor(
+            module,
+            moduleName,
+            module[PLAYER_API_PROPERTY][apiKey],
+          ),
         );
       });
     }

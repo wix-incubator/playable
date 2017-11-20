@@ -1,6 +1,5 @@
 import { UI_EVENTS } from '../../constants/index';
 
-
 export default class MouseInterceptor {
   static dependencies = ['eventEmitter', 'rootContainer'];
 

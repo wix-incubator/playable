@@ -3,7 +3,6 @@ import * as get from 'lodash/get';
 import { VIDEO_EVENTS, STATES } from '../../constants/index';
 //import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
-
 export const REPORT_REASONS = {
   LONG_INITIAL_VIDEO_PARTS_LOADING: 'long-initial-video-parts-loading',
   LONG_METADATA_LOADING: 'long-metadata-loading',
@@ -13,7 +12,10 @@ export const REPORT_REASONS = {
 };
 
 export const DELAYED_REPORT_TYPES = {
-  INITIAL_VIDEO_PARTS_LOADING: { id: '_initialVideoPartsLoading', timeoutTime: 5000 },
+  INITIAL_VIDEO_PARTS_LOADING: {
+    id: '_initialVideoPartsLoading',
+    timeoutTime: 5000,
+  },
   METADATA_LOADING: { id: '_metadataLoading', timeoutTime: 5000 },
   RUNTIME_LOADING: { id: '_runtimeLoading', timeoutTime: 5000 },
 };
@@ -27,7 +29,7 @@ export default class AnomalyBloodhound {
   private _timeoutContainer;
 
   constructor({ engine, eventEmitter, config }) {
-      this._config = {
+    this._config = {
       ...get(config, 'anomalyBloodhound'),
     };
     this._engine = engine;
@@ -39,17 +41,30 @@ export default class AnomalyBloodhound {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._processStateChange,
+      this,
+    );
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._processStateChange,
+      this,
+    );
   }
 
-  _processStateChange({ prevState, nextState }: { prevState?, nextState?} = {}) {
+  _processStateChange(
+    { prevState, nextState }: { prevState?; nextState? } = {},
+  ) {
     switch (nextState) {
       case STATES.LOAD_STARTED:
-        if (this._engine.isAutoPlayAvailable || this._engine.isPreloadAvailable) {
+        if (
+          this._engine.isAutoPlayAvailable ||
+          this._engine.isPreloadAvailable
+        ) {
           this.startDelayedReport(
             DELAYED_REPORT_TYPES.METADATA_LOADING,
             REPORT_REASONS.LONG_METADATA_LOADING,
@@ -71,8 +86,14 @@ export default class AnomalyBloodhound {
         break;
 
       case STATES.READY_TO_PLAY:
-        if (this.isDelayedReportExist(DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING)) {
-          this.stopDelayedReport(DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING);
+        if (
+          this.isDelayedReportExist(
+            DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING,
+          )
+        ) {
+          this.stopDelayedReport(
+            DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING,
+          );
         }
         if (this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)) {
           this.stopDelayedReport(DELAYED_REPORT_TYPES.RUNTIME_LOADING);
@@ -105,16 +126,18 @@ export default class AnomalyBloodhound {
             if (nearestBufferSegment && nearestBufferSegment.end > this._engine.getCurrentTime()) {
               this._engine.setCurrentTime(nearestBufferSegment.end);
             } else { */
-              this.reportDebugInfo({
-                reason: REPORT_REASONS.BUFFER_EMPTY_FOR_CURRENT_SEGMENT,
-              });
+            this.reportDebugInfo({
+              reason: REPORT_REASONS.BUFFER_EMPTY_FOR_CURRENT_SEGMENT,
+            });
             //*}
 
             break;
           }
 
           case STATES.PLAY_REQUESTED:
-            if (!this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)) {
+            if (
+              !this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)
+            ) {
               this.startDelayedReport(
                 DELAYED_REPORT_TYPES.RUNTIME_LOADING,
                 REPORT_REASONS.LONG_PLAY_REQUESTED_PROCESSING,
@@ -123,7 +146,8 @@ export default class AnomalyBloodhound {
             break;
 
           /* ignore coverage */
-          default: break;
+          default:
+            break;
         }
         break;
 
@@ -132,7 +156,8 @@ export default class AnomalyBloodhound {
           this.stopDelayedReport(DELAYED_REPORT_TYPES.RUNTIME_LOADING);
         }
         break;
-      default: break;
+      default:
+        break;
     }
   }
 
@@ -146,18 +171,15 @@ export default class AnomalyBloodhound {
     }
 
     const startTS = Date.now();
-    this._timeoutContainer[type.id] = setTimeout(
-      () => {
-        const endTS = Date.now();
-        this._timeoutContainer[type.id] = null;
-        this.reportDebugInfo({
-          reason,
-          startTS,
-          endTS,
-        });
-      },
-      type.timeoutTime,
-    );
+    this._timeoutContainer[type.id] = setTimeout(() => {
+      const endTS = Date.now();
+      this._timeoutContainer[type.id] = null;
+      this.reportDebugInfo({
+        reason,
+        startTS,
+        endTS,
+      });
+    }, type.timeoutTime);
   }
 
   stopDelayedReport(type) {
@@ -172,7 +194,7 @@ export default class AnomalyBloodhound {
     });
   }
 
-  reportDebugInfo({ reason, startTS, endTS }: { reason, startTS?, endTS?}) {
+  reportDebugInfo({ reason, startTS, endTS }: { reason; startTS?; endTS? }) {
     if (typeof this._config.callback === 'function') {
       this._config.callback({
         reason,

@@ -1,9 +1,10 @@
 import { UI_EVENTS } from '../../../../constants/index';
 
-import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
+import KeyboardInterceptor, {
+  KEYCODES,
+} from '../../../../utils/keyboard-interceptor';
 
 import View from './full-screen.view';
-
 
 export default class FullScreenControl {
   static View = View;
@@ -50,7 +51,11 @@ export default class FullScreenControl {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus, this);
+    this._eventEmitter.on(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.setControlStatus,
+      this,
+    );
   }
 
   _initUI() {
@@ -116,7 +121,11 @@ export default class FullScreenControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus, this);
+    this._eventEmitter.off(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.setControlStatus,
+      this,
+    );
   }
 
   destroy() {

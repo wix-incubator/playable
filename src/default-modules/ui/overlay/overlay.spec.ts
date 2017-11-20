@@ -10,7 +10,6 @@ import Engine from '../../playback-engine/playback-engine';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
-
 describe('Overlay', () => {
   let overlay: any = {};
   let engine: any = {};
@@ -21,18 +20,18 @@ describe('Overlay', () => {
 
   beforeEach(() => {
     config = {
-      ui: {}
+      ui: {},
     };
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
     rootContainer = new RootContainer({
       eventEmitter,
       engine,
-      config
-    })
+      config,
+    });
   });
 
   describe('constructor', () => {
@@ -41,7 +40,7 @@ describe('Overlay', () => {
         engine,
         eventEmitter,
         rootContainer,
-        config
+        config,
       });
     });
 
@@ -56,16 +55,16 @@ describe('Overlay', () => {
           return {
             getNode: () => {},
             hide: () => {},
-            show: () => {}
-          }
-        })
+            show: () => {},
+          };
+        }),
       };
 
       overlay = new Overlay({
         engine,
         config,
         rootContainer,
-        eventEmitter
+        eventEmitter,
       });
 
       expect(config.ui.overlay.view.calledWithNew()).to.be.true;
@@ -79,10 +78,10 @@ describe('Overlay', () => {
         eventEmitter,
         rootContainer,
         config: {
-          ui:{
-            poster: 'test'
-          }
-        }
+          ui: {
+            poster: 'test',
+          },
+        },
       });
 
       eventEmitterSpy = sinon.spy(overlay._eventEmitter, 'emit');
@@ -98,7 +97,8 @@ describe('Overlay', () => {
       overlay._playVideo();
 
       expect(callback.called).to.be.true;
-      expect(eventEmitterSpy.calledWith(UI_EVENTS.PLAY_OVERLAY_TRIGGERED)).to.be.true;
+      expect(eventEmitterSpy.calledWith(UI_EVENTS.PLAY_OVERLAY_TRIGGERED)).to.be
+        .true;
 
       overlay._engine.play.restore();
     });
@@ -110,32 +110,35 @@ describe('Overlay', () => {
         engine,
         eventEmitter,
         rootContainer,
-        config
+        config,
       });
     });
 
     it('should react on video playback status changed on play', () => {
-      const callback = sinon.spy(overlay, "_updatePlayingStatus");
-      const hideSpy = sinon.spy(overlay, "_hideContent");
+      const callback = sinon.spy(overlay, '_updatePlayingStatus');
+      const hideSpy = sinon.spy(overlay, '_hideContent');
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: STATES.PLAY_REQUESTED });
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        nextState: STATES.PLAY_REQUESTED,
+      });
 
       expect(callback.called).to.be.true;
       expect(hideSpy.called).to.be.true;
     });
 
     it('should react on video playback status changed on end', () => {
-      const callback = sinon.spy(overlay, "_updatePlayingStatus");
-      const showSpy = sinon.spy(overlay, "_showContent");
+      const callback = sinon.spy(overlay, '_updatePlayingStatus');
+      const showSpy = sinon.spy(overlay, '_showContent');
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, { nextState: STATES.ENDED });
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        nextState: STATES.ENDED,
+      });
 
       expect(callback.called).to.be.true;
       expect(showSpy.called).to.be.true;
     });
-
 
     it('should set hide content state on method call', () => {
       expect(overlay.isContentHidden).to.be.false;
@@ -143,7 +146,7 @@ describe('Overlay', () => {
       expect(overlay.isContentHidden).to.be.true;
       overlay._showContent();
       expect(overlay.isContentHidden).to.be.false;
-    })
+    });
   });
 
   describe('API', () => {
@@ -152,7 +155,7 @@ describe('Overlay', () => {
         engine,
         eventEmitter,
         rootContainer,
-        config
+        config,
       });
     });
 
@@ -169,6 +172,5 @@ describe('Overlay', () => {
       overlay.node;
       expect(getNodeSpy.called).to.be.true;
     });
-
   });
 });

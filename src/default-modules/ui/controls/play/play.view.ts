@@ -6,7 +6,6 @@ import View from '../../core/view';
 
 import * as styles from './play.scss';
 
-
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'playback-control';
 const DATA_HOOK_BUTTON_VALUE = 'toggle-playback-button';
@@ -34,15 +33,16 @@ class PlayView extends View {
     });
 
     this.$playbackControl = $('<button>', {
-      class: `${this.styleNames['playback-toggle']} ${this.styleNames['control-button']}`,
+      class: `${this.styleNames['playback-toggle']} ${
+        this.styleNames['control-button']
+      }`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
       'aria-label': this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
       type: 'button',
       tabIndex: 0,
     });
 
-    this.$node
-      .append(this.$playbackControl);
+    this.$node.append(this.$playbackControl);
 
     this._bindEvents();
   }
@@ -65,10 +65,11 @@ class PlayView extends View {
   setState({ isPlaying }) {
     this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
     this.$node.attr(DATA_IS_PLAYING, isPlaying);
-    this.$playbackControl.attr('aria-label',
-      isPlaying ?
-      this._texts.get(TEXT_LABELS.PAUSE_CONTROL_LABEL) :
-      this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
+    this.$playbackControl.attr(
+      'aria-label',
+      isPlaying
+        ? this._texts.get(TEXT_LABELS.PAUSE_CONTROL_LABEL)
+        : this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
     );
   }
 

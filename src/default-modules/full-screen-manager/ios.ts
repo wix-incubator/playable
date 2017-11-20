@@ -36,11 +36,17 @@ export default class IOSFullScreen {
     this._elem.removeEventListener('webkitbeginfullscreen', this._callback);
     this._elem.removeEventListener('webkitendfullscreen', this._callback);
 
-    this._elem.removeEventListener('loadedmetadata', this._enterWhenHasMetaData);
+    this._elem.removeEventListener(
+      'loadedmetadata',
+      this._enterWhenHasMetaData,
+    );
   }
 
   _enterWhenHasMetaData() {
-    this._elem.removeEventListener('loadedmetadata', this._enterWhenHasMetaData);
+    this._elem.removeEventListener(
+      'loadedmetadata',
+      this._enterWhenHasMetaData,
+    );
 
     isFullScreenRequested = false;
 
@@ -59,7 +65,10 @@ export default class IOSFullScreen {
         if (isFullScreenRequested) {
           return;
         }
-        this._elem.addEventListener('loadedmetadata', this._enterWhenHasMetaData);
+        this._elem.addEventListener(
+          'loadedmetadata',
+          this._enterWhenHasMetaData,
+        );
         isFullScreenRequested = true;
       }
     }

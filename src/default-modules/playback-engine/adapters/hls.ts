@@ -1,9 +1,16 @@
 import * as HlsJs from 'hls.js/dist/hls.light';
 
-import { ERRORS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, VIDEO_EVENTS } from '../../../constants/index';
-import { geOverallBufferLength, getNearestBufferSegmentInfo } from '../../../utils/video-data';
+import {
+  ERRORS,
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_TYPE,
+  VIDEO_EVENTS,
+} from '../../../constants/index';
+import {
+  geOverallBufferLength,
+  getNearestBufferSegmentInfo,
+} from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
-
 
 const DEFAULT_HLS_CONFIG = {
   abrEwmaDefaultEstimate: 5000 * 1000,
@@ -81,8 +88,13 @@ export default class HlsAdapter {
     if (this.hls.streamController) {
       currentTime = this.hls.streamController.lastCurrentTime;
       if (this.hls.streamController.mediaBuffer) {
-        overallBufferLength = geOverallBufferLength(this.hls.streamController.mediaBuffer.buffered);
-        nearestBufferSegInfo = getNearestBufferSegmentInfo(this.hls.streamController.mediaBuffer.buffered, currentTime);
+        overallBufferLength = geOverallBufferLength(
+          this.hls.streamController.mediaBuffer.buffered,
+        );
+        nearestBufferSegInfo = getNearestBufferSegmentInfo(
+          this.hls.streamController.mediaBuffer.buffered,
+          currentTime,
+        );
       }
     }
 
@@ -104,20 +116,21 @@ export default class HlsAdapter {
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {
-      throw new Error(`Can only handle a single DASH stream. Received ${mediaStreams.length} streams.`);
+      throw new Error(
+        `Can only handle a single DASH stream. Received ${
+          mediaStreams.length
+        } streams.`,
+      );
     }
   }
 
   logError(error, errorEvent) {
-    this.eventEmitter.emit(
-      VIDEO_EVENTS.ERROR,
-      {
-        errorType: error,
-        streamType: MEDIA_STREAM_TYPES.HLS,
-        streamProvider: 'hls.js',
-        errorInstance: errorEvent,
-      },
-    );
+    this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
+      errorType: error,
+      streamType: MEDIA_STREAM_TYPES.HLS,
+      streamProvider: 'hls.js',
+      errorInstance: errorEvent,
+    });
   }
 
   broadcastError(error, data) {

@@ -3,10 +3,9 @@ import { expect } from 'chai';
 import { EventEmitter } from 'eventemitter3';
 import { PLAYER_API_PROPERTY } from '../../utils/player-api-decorator';
 
-
 import EventEmitterModule from './event-emitter';
 
-describe('EventEmitterModule' , () => {
+describe('EventEmitterModule', () => {
   let eventEmitter;
 
   beforeEach(() => {
@@ -17,7 +16,7 @@ describe('EventEmitterModule' , () => {
     expect(eventEmitter instanceof EventEmitter).to.be.true;
   });
 
-  describe('returned instance\'s destroy', () => {
+  describe("returned instance's destroy", () => {
     beforeEach(() => {
       eventEmitter.on('EVENT', () => {});
       eventEmitter.on('EVENT2', () => {});

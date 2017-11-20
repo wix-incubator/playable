@@ -17,10 +17,12 @@ export function detectStreamType(url) {
   }
 
   throw new Error(
-    `Vidi: cannot auto-detect url '${url}'. Please specify type manually using the MediaStream interface.`,
+    `Vidi: cannot auto-detect url '${
+      url
+    }'. Please specify type manually using the MediaStream interface.`,
   );
 }
 
 export function getExtFromPath(path) {
-    return path.split('.').pop();
+  return path.split('.').pop();
 }

@@ -1,13 +1,14 @@
 import { expect } from 'chai';
 import { resolveAdapters } from './playback-resolution';
-import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from '../../constants';
+import {
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_TYPE,
+} from '../../constants';
 
 describe('Picking proper playback stream', () => {
   class AdaptiveCanBePlayedStreamA {
     canPlay = () => true;
-    constructor() {
-
-    }
+    constructor() {}
 
     get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
@@ -19,9 +20,7 @@ describe('Picking proper playback stream', () => {
   }
   class AdaptiveCanBePlayedStreamB {
     canPlay = () => true;
-    constructor() {
-
-    }
+    constructor() {}
 
     get mediaStreamDeliveryType() {
       return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
@@ -59,8 +58,8 @@ describe('Picking proper playback stream', () => {
   const mediaStreams = [
     {
       url: '',
-      type: MEDIA_STREAM_TYPES.HLS
-    }
+      type: MEDIA_STREAM_TYPES.HLS,
+    },
   ];
 
   it('should use priority based on indexes in array of playableStreamCreators if same delivery type', () => {
@@ -95,4 +94,3 @@ describe('Picking proper playback stream', () => {
     expect(resolvedStream[0] instanceof NativeCanBePlayedStreamA).to.be.true;
   });
 });
-

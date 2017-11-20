@@ -3,7 +3,6 @@ import * as classnames from 'classnames';
 
 import View from './view';
 
-
 describe('View', () => {
   let view;
 
@@ -21,7 +20,7 @@ describe('View', () => {
 
   it('should have method for extending styles', () => {
     const styleNames = {
-      name: 'value'
+      name: 'value',
     };
     View.extendStyleNames(styleNames);
     expect(view.styleNames).to.be.deep.equal(styleNames);
@@ -29,17 +28,17 @@ describe('View', () => {
 
   it('method for extending styles should merge styleNames for same style', () => {
     const styleNames1 = {
-      name: 'value1'
+      name: 'value1',
     };
 
     const styleNames2 = {
-      name: 'value2'
+      name: 'value2',
     };
 
     View.extendStyleNames(styleNames1);
     View.extendStyleNames(styleNames2);
     expect(view.styleNames).to.be.deep.equal({
-      name: classnames(styleNames1.name, styleNames2.name)
+      name: classnames(styleNames1.name, styleNames2.name),
     });
-  })
+  });
 });

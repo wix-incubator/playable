@@ -1,8 +1,18 @@
-import create, { registerModule, registerPlaybackAdapter } from './core/player-fabric';
+import create, {
+  registerModule,
+  registerPlaybackAdapter,
+} from './core/player-fabric';
 
 import playerAPIDecorator from './utils/player-api-decorator';
 
-import { UI_EVENTS, VIDEO_EVENTS, TEXT_LABELS, MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE, STATES as ENGINE_STATES } from './constants';
+import {
+  UI_EVENTS,
+  VIDEO_EVENTS,
+  TEXT_LABELS,
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_TYPE,
+  STATES as ENGINE_STATES,
+} from './constants';
 
 import DefaultControls from './default-modules/ui/controls/default-controls';
 

@@ -9,7 +9,6 @@ import RootContainer from '../../root-container/root-container.controler';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
-
 describe('LoadingCover', () => {
   let loadingCover;
   let engine;
@@ -21,23 +20,23 @@ describe('LoadingCover', () => {
 
   beforeEach(() => {
     config = {
-      ui: {}
+      ui: {},
     };
 
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
-      config
+      config,
     });
 
     controls = {
-      _hideContent: sinon.spy()
+      _hideContent: sinon.spy(),
     };
 
     rootContainer = new RootContainer({
       eventEmitter,
       engine,
-      config
+      config,
     });
 
     loadingCover = new LoadingCover({
@@ -45,7 +44,7 @@ describe('LoadingCover', () => {
       config,
       eventEmitter,
       rootContainer,
-      controls
+      controls,
     });
 
     emitSpy = sinon.spy(eventEmitter, 'emit');
@@ -80,7 +79,8 @@ describe('LoadingCover', () => {
       it('should have method for showing loader', () => {
         const showSpy = sinon.spy(loadingCover.view, 'show');
         loadingCover.show();
-        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED)).to.be.true;
+        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED)).to.be
+          .true;
         expect(showSpy.called).to.be.true;
         expect(loadingCover.isHidden).to.be.false;
       });
@@ -89,7 +89,8 @@ describe('LoadingCover', () => {
         loadingCover.show();
         const hideSpy = sinon.spy(loadingCover.view, 'hide');
         loadingCover.hide();
-        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_HIDE_TRIGGERED)).to.be.true;
+        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_HIDE_TRIGGERED)).to.be
+          .true;
         expect(hideSpy.called).to.be.true;
         expect(loadingCover.isHidden).to.be.true;
       });
@@ -108,7 +109,7 @@ describe('LoadingCover', () => {
 
         beforeEach(() => {
           showSpy = sinon.spy(loadingCover, 'show');
-          hideSpy  = sinon.spy(loadingCover, 'hide');
+          hideSpy = sinon.spy(loadingCover, 'hide');
         });
 
         afterEach(() => {
@@ -119,14 +120,14 @@ describe('LoadingCover', () => {
         it('should be proper if next state is STATES.LOAD_STARTED', () => {
           engine.setPreload('none');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.LOAD_STARTED
+            nextState: STATES.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.false;
 
           engine.setPreload('auto');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.LOAD_STARTED
+            nextState: STATES.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.true;
@@ -135,7 +136,7 @@ describe('LoadingCover', () => {
         it('should be proper if next state is STATES.WAITING', () => {
           engine._stateEngine._isMetadataLoaded = true;
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.WAITING
+            nextState: STATES.WAITING,
           });
 
           expect(showSpy.called).to.be.false;
@@ -143,7 +144,7 @@ describe('LoadingCover', () => {
           engine._stateEngine._isMetadataLoaded = false;
           engine.setPreload('auto');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.WAITING
+            nextState: STATES.WAITING,
           });
 
           expect(showSpy.called).to.be.true;
@@ -151,7 +152,7 @@ describe('LoadingCover', () => {
 
         it('should be proper if next state is STATES.READY_TO_PLAY', () => {
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.READY_TO_PLAY
+            nextState: STATES.READY_TO_PLAY,
           });
 
           expect(hideSpy.called).to.be.true;

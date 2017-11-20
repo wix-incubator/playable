@@ -1,7 +1,6 @@
 import { resolveAdapters } from './playback-resolution';
 import { detectStreamType } from './detect-stream-type';
 
-
 export default class AdaptersStrategy {
   private _eventEmitter;
   private _video;
@@ -42,7 +41,10 @@ export default class AdaptersStrategy {
 
     const mediaSources = [].concat(src);
     const mediaStreams = this._autoDetectSourceTypes(mediaSources);
-    this._playableAdapters = resolveAdapters(mediaStreams, this._availableAdapters);
+    this._playableAdapters = resolveAdapters(
+      mediaStreams,
+      this._availableAdapters,
+    );
   }
 
   _connectAdapterToVideo() {

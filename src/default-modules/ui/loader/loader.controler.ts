@@ -2,9 +2,7 @@ import * as get from 'lodash/get';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
-
 import View from './loader.view';
-
 
 export const DELAYED_SHOW_TIMEOUT = 100;
 
@@ -46,7 +44,11 @@ export default class Loader {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState, this);
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._checkForWaitingState,
+      this,
+    );
     this._eventEmitter.on(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
@@ -77,7 +79,8 @@ export default class Loader {
         break;
 
       /* ignore coverage */
-      default: break;
+      default:
+        break;
     }
   }
 
@@ -124,7 +127,11 @@ export default class Loader {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState, this);
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._checkForWaitingState,
+      this,
+    );
     this._eventEmitter.off(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 

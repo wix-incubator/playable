@@ -1,8 +1,14 @@
 import { VIDEO_EVENTS } from '../../constants/index';
 
-
 export const NATIVE_VIDEO_TO_BROADCAST = [
-  'progress', 'error', 'stalled', 'suspend', 'durationchange', 'timeupdate', 'volumechange', 'seeking',
+  'progress',
+  'error',
+  'stalled',
+  'suspend',
+  'durationchange',
+  'timeupdate',
+  'volumechange',
+  'seeking',
 ];
 
 export default class NativeEventsBroadcaster {
@@ -22,11 +28,15 @@ export default class NativeEventsBroadcaster {
   }
 
   _bindEvents() {
-    NATIVE_VIDEO_TO_BROADCAST.forEach(event => this._video.addEventListener(event, this._processEventFromVideo));
+    NATIVE_VIDEO_TO_BROADCAST.forEach(event =>
+      this._video.addEventListener(event, this._processEventFromVideo),
+    );
   }
 
   _unbindEvents() {
-    NATIVE_VIDEO_TO_BROADCAST.forEach(event => this._video.removeEventListener(event, this._processEventFromVideo));
+    NATIVE_VIDEO_TO_BROADCAST.forEach(event =>
+      this._video.removeEventListener(event, this._processEventFromVideo),
+    );
   }
 
   _processEventFromVideo(event: any = {}) {
@@ -46,15 +56,24 @@ export default class NativeEventsBroadcaster {
         break;
       }
       case 'seeking': {
-        this._eventEmitter.emit(VIDEO_EVENTS.SEEK_IN_PROGRESS, videoEl.currentTime);
+        this._eventEmitter.emit(
+          VIDEO_EVENTS.SEEK_IN_PROGRESS,
+          videoEl.currentTime,
+        );
         break;
       }
       case 'durationchange': {
-        this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, videoEl.duration);
+        this._eventEmitter.emit(
+          VIDEO_EVENTS.DURATION_UPDATED,
+          videoEl.duration,
+        );
         break;
       }
       case 'timeupdate': {
-        this._eventEmitter.emit(VIDEO_EVENTS.CURRENT_TIME_UPDATED, videoEl.currentTime);
+        this._eventEmitter.emit(
+          VIDEO_EVENTS.CURRENT_TIME_UPDATED,
+          videoEl.currentTime,
+        );
         break;
       }
       case 'volumechange': {

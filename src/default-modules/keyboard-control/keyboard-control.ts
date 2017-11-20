@@ -2,8 +2,9 @@ import * as get from 'lodash/get';
 
 import { UI_EVENTS } from '../../constants/index';
 
-import KeyboardInterceptor, { KEYCODES } from '../../utils/keyboard-interceptor';
-
+import KeyboardInterceptor, {
+  KEYCODES,
+} from '../../utils/keyboard-interceptor';
 
 export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
@@ -13,7 +14,13 @@ const DEFAULT_CONFIG = {
 };
 
 export default class KeyboardControl {
-  static dependencies = ['engine', 'eventEmitter', 'rootContainer', 'config', 'debugPanel'];
+  static dependencies = [
+    'engine',
+    'eventEmitter',
+    'rootContainer',
+    'config',
+    'debugPanel',
+  ];
 
   private config;
   private _eventEmitter;
@@ -52,14 +59,18 @@ export default class KeyboardControl {
           [KEYCODES.SPACE_BAR]: e => {
             e.preventDefault();
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-            this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
+            this._eventEmitter.emit(
+              UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+            );
             this._engine.togglePlayback();
           },
           [KEYCODES.LEFT_ARROW]: e => {
             if (this._engine.isSeekAvailable) {
               e.preventDefault();
               this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-              this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
+              this._eventEmitter.emit(
+                UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
+              );
               this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
             }
           },
@@ -67,20 +78,26 @@ export default class KeyboardControl {
             if (this._engine.isSeekAvailable) {
               e.preventDefault();
               this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-              this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
+              this._eventEmitter.emit(
+                UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
+              );
               this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
             }
           },
           [KEYCODES.UP_ARROW]: e => {
             e.preventDefault();
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-            this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
+            this._eventEmitter.emit(
+              UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+            );
             this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
           },
           [KEYCODES.DOWN_ARROW]: e => {
             e.preventDefault();
             this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-            this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED);
+            this._eventEmitter.emit(
+              UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+            );
             this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
           },
         },

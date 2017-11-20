@@ -18,14 +18,19 @@ const UI_EVENTS = {
   LOADER_HIDE_TRIGGERED: 'ui-loader-hide-triggered',
   LOADING_COVER_SHOW_TRIGGERED: 'ui-loading-cover-show-triggered',
   LOADING_COVER_HIDE_TRIGGERED: 'ui-loading-cover-hide-triggered',
-  TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED: 'ui-toggle-playback-with-keyboard-triggered',
+  TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED:
+    'ui-toggle-playback-with-keyboard-triggered',
   GO_BACKWARD_WITH_KEYBOARD_TRIGGERED: 'ui-go-backward-with-keyboard-triggered',
   GO_FORWARD_WITH_KEYBOARD_TRIGGERED: 'ui-go-forward-with-keyboard-triggered',
-  INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-increase-volume-with-keyboard-triggered',
-  DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-decrease-volume-with-keyboard-triggered',
+  INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED:
+    'ui-increase-volume-with-keyboard-triggered',
+  DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED:
+    'ui-decrease-volume-with-keyboard-triggered',
   MUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-mute-sound-with-keyboard-triggered',
-  UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-unmute-sound-with-keyboard-triggered',
-  HIDE_MANIPULATION_INDICATOR_TRIGGERED: 'ui-hide-manipulation-indicator-triggered',
+  UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED:
+    'ui-unmute-sound-with-keyboard-triggered',
+  HIDE_MANIPULATION_INDICATOR_TRIGGERED:
+    'ui-hide-manipulation-indicator-triggered',
   PLAYER_WIDTH_CHANGE_TRIGGERED: 'ui-player-width-change-triggered',
   PLAYER_HEIGHT_CHANGE_TRIGGERED: 'ui-player-height-change-triggered',
   PLAY_WITH_SCREEN_CLICK_TRIGGERED: 'ui-play-with-screen-click-triggered',

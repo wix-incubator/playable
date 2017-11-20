@@ -4,7 +4,6 @@ import View from '../core/view';
 
 import * as styles from './loader.scss';
 
-
 class LoaderView extends View {
   $node;
 

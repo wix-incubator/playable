@@ -19,19 +19,20 @@ export function resolveAdapters(mediaStreams, availableAdapters) {
 
   playableAdapters.sort(
     (firstAdapter, secondAdapter) =>
-      secondAdapter.mediaStreamDeliveryType - firstAdapter.mediaStreamDeliveryType,
+      secondAdapter.mediaStreamDeliveryType -
+      firstAdapter.mediaStreamDeliveryType,
   );
 
   return playableAdapters;
 }
 
 function groupStreamsByMediaType(mediaStreams) {
-    const typeMap = {};
-    mediaStreams.forEach(mediaStream => {
-        if (!Array.isArray(typeMap[mediaStream.type])) {
-            typeMap[mediaStream.type] = [];
-        }
-        typeMap[mediaStream.type].push(mediaStream);
-    });
-    return typeMap;
+  const typeMap = {};
+  mediaStreams.forEach(mediaStream => {
+    if (!Array.isArray(typeMap[mediaStream.type])) {
+      typeMap[mediaStream.type] = [];
+    }
+    typeMap[mediaStream.type].push(mediaStream);
+  });
+  return typeMap;
 }

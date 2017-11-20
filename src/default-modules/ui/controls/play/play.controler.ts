@@ -1,9 +1,10 @@
 import View from './play.view';
 
-import KeyboardInterceptor, { KEYCODES } from '../../../../utils/keyboard-interceptor';
+import KeyboardInterceptor, {
+  KEYCODES,
+} from '../../../../utils/keyboard-interceptor';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
-
 
 export default class PlayControl {
   static View = View;
@@ -44,11 +45,15 @@ export default class PlayControl {
       callbacks: {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
-          this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
+          this._eventEmitter.emit(
+            UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+          );
         },
         [KEYCODES.ENTER]: e => {
           e.stopPropagation();
-          this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
+          this._eventEmitter.emit(
+            UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+          );
         },
       },
     });
@@ -63,7 +68,11 @@ export default class PlayControl {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._updatePlayingStatus,
+      this,
+    );
   }
 
   _togglePlayback() {
@@ -117,7 +126,11 @@ export default class PlayControl {
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._updatePlayingStatus,
+      this,
+    );
   }
 
   reset() {

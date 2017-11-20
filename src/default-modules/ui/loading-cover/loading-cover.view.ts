@@ -4,7 +4,6 @@ import View from '../core/view';
 
 import * as styles from './loading-cover.scss';
 
-
 class LoadingCoverView extends View {
   $node;
   $image;

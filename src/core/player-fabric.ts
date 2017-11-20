@@ -4,7 +4,6 @@ import PlayerFacade from './player-facade';
 import defaultModules from '../default-modules';
 import defaultPlaybackAdapters from '../default-modules/playback-engine/adapters/default-set';
 
-
 let additionalModules = {};
 let playbackAdapters = [...defaultPlaybackAdapters];
 
@@ -33,7 +32,9 @@ export default function create(params = {}) {
   const additionalModuleNames = Object.keys(additionalModules);
 
   if (additionalModuleNames.length) {
-    additionalModuleNames.forEach(moduleName => scope.registerClass(moduleName, additionalModules[moduleName]));
+    additionalModuleNames.forEach(moduleName =>
+      scope.registerClass(moduleName, additionalModules[moduleName]),
+    );
   }
 
   scope.registerValue('availablePlaybackAdapters', playbackAdapters);

@@ -27,10 +27,10 @@ const mockedFullscreenHelper = {
     this.request.reset();
     this.exit.reset();
     this.destroy.reset();
-  }
+  },
 };
 
-describe('FullScreenManager' , () => {
+describe('FullScreenManager', () => {
   let fullScreenManager;
   let eventEmitter;
   let engine;
@@ -42,18 +42,18 @@ describe('FullScreenManager' , () => {
     eventEmitter = new EventEmitter();
     engine = new Engine({
       config,
-      eventEmitter
+      eventEmitter,
     });
     rootContainer = new RootContainer({
       config,
       engine,
-      eventEmitter
+      eventEmitter,
     });
     fullScreenManager = new FullScreenManager({
       eventEmitter,
       engine,
       rootContainer,
-      config
+      config,
     });
 
     fullScreenManager._helper = mockedFullscreenHelper;
@@ -66,9 +66,16 @@ describe('FullScreenManager' , () => {
   describe('chosen helper', () => {
     beforeEach(() => {
       Reflect.defineProperty(navigator, 'userAgent', {
-        ...Reflect.getOwnPropertyDescriptor(navigator.constructor.prototype, 'userAgent'),
-        get: function() { return this.____navigator },
-        set: function(v) { this.____navigator = v; }
+        ...Reflect.getOwnPropertyDescriptor(
+          navigator.constructor.prototype,
+          'userAgent',
+        ),
+        get: function() {
+          return this.____navigator;
+        },
+        set: function(v) {
+          this.____navigator = v;
+        },
       });
     });
 
@@ -83,7 +90,7 @@ describe('FullScreenManager' , () => {
         eventEmitter,
         engine,
         rootContainer,
-        config
+        config,
       });
 
       expect(fullScreenManager._helper instanceof DesktopFullScreen).to.be.true;
@@ -96,7 +103,7 @@ describe('FullScreenManager' , () => {
         eventEmitter,
         engine,
         rootContainer,
-        config
+        config,
       });
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
@@ -109,7 +116,7 @@ describe('FullScreenManager' , () => {
         eventEmitter,
         engine,
         rootContainer,
-        config
+        config,
       });
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
@@ -122,7 +129,7 @@ describe('FullScreenManager' , () => {
         eventEmitter,
         engine,
         rootContainer,
-        config
+        config,
       });
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
@@ -140,7 +147,7 @@ describe('FullScreenManager' , () => {
       mockedFullscreenHelper.isEnabled = true;
       fullScreenManager._config.disabled = true;
       expect(fullScreenManager.isEnabled).to.be.false;
-    })
+    });
   });
 
   describe('full screen status', () => {
@@ -157,7 +164,7 @@ describe('FullScreenManager' , () => {
   });
 
   describe('method for entering full screen', () => {
-    it('should call helper\'s method for request full screen', () => {
+    it("should call helper's method for request full screen", () => {
       fullScreenManager.enterFullScreen();
       expect(mockedFullscreenHelper.request.called).to.be.true;
     });
@@ -170,7 +177,7 @@ describe('FullScreenManager' , () => {
   });
 
   describe('method for exiting full screen', () => {
-    it('should call helper\'s method for request full screen', () => {
+    it("should call helper's method for request full screen", () => {
       fullScreenManager.exitFullScreen();
       expect(mockedFullscreenHelper.exit.called).to.be.true;
     });
@@ -188,7 +195,12 @@ describe('FullScreenManager' , () => {
 
       mockedFullscreenHelper.isInFullScreen = true;
       fullScreenManager._onChange();
-      expect(spy.calledWith(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, mockedFullscreenHelper.isInFullScreen)).to.be.true;
+      expect(
+        spy.calledWith(
+          UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+          mockedFullscreenHelper.isInFullScreen,
+        ),
+      ).to.be.true;
 
       eventEmitter.emit.restore();
     });
@@ -226,14 +238,14 @@ describe('FullScreenManager' , () => {
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.ENDED
+          nextState: STATES.ENDED,
         });
 
         fullScreenManager._config.exitOnEnd = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.ENDED
+          nextState: STATES.ENDED,
         });
         expect(spy.calledOnce).to.be.true;
 
@@ -246,14 +258,14 @@ describe('FullScreenManager' , () => {
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PAUSED
+          nextState: STATES.PAUSED,
         });
 
         fullScreenManager._config.exitOnPause = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PAUSED
+          nextState: STATES.PAUSED,
         });
         expect(spy.calledOnce).to.be.true;
 

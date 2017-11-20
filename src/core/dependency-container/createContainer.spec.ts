@@ -3,11 +3,7 @@ import * as sinon from 'sinon';
 
 import createContainer from './createContainer';
 
-import {
-  asClass,
-  asValue,
-  asFunction,
-} from './registrations';
+import { asClass, asValue, asFunction } from './registrations';
 
 describe('container created by createContainer', () => {
   let container;
@@ -34,7 +30,6 @@ describe('container created by createContainer', () => {
     sinon.spy(funcRegistration, 'resolve');
     container.resolve('func');
     expect((funcRegistration.resolve as any).called).to.be.equal(true);
-
   });
 
   it('resolve should react on transient lifetime', () => {
@@ -66,7 +61,9 @@ describe('container created by createContainer', () => {
     expect(scopedFuncRegistration.resolve.calledOnce).to.be.true;
     expect(() => container.resolve('func4')).to.throw();
 
-    const unknownFuncRegistration = asFunction(() => obj).setLifetime('testtest');
+    const unknownFuncRegistration = asFunction(() => obj).setLifetime(
+      'testtest',
+    );
     container.register('func5', unknownFuncRegistration);
     expect(() => container.resolve('func5')).to.throw();
   });
@@ -100,20 +97,30 @@ describe('container created by createContainer', () => {
   it('resolve should react on unknown lifetime', () => {
     const obj = {};
 
-    const unknownFuncRegistration = asFunction(() => obj).setLifetime('testtest');
+    const unknownFuncRegistration = asFunction(() => obj).setLifetime(
+      'testtest',
+    );
     container.register('func5', unknownFuncRegistration);
     expect(() => container.resolve('func5')).to.throw();
   });
 
   it('should throw error on duplication of id', () => {
-    container.registerClass('name', class A { static dependencies = ['name2']});
-    container.registerClass('name2', class B { static dependencies = ['name']});
-    expect(() => container.resolve('name')).to
-      .throw();
+    container.registerClass(
+      'name',
+      class A {
+        static dependencies = ['name2'];
+      },
+    );
+    container.registerClass(
+      'name2',
+      class B {
+        static dependencies = ['name'];
+      },
+    );
+    expect(() => container.resolve('name')).to.throw();
   });
 
   it('should throw error if trying to resolve not registered module', () => {
-    expect(() => container.resolve('name')).to
-      .throw();
-  })
+    expect(() => container.resolve('name')).to.throw();
+  });
 });

@@ -1,4 +1,8 @@
-export function getOverallBufferedPercent(buffered, currentTime = 0, duration = 0) {
+export function getOverallBufferedPercent(
+  buffered,
+  currentTime = 0,
+  duration = 0,
+) {
   if (!buffered || !buffered.length || !duration) {
     return 0;
   }
@@ -25,7 +29,6 @@ export function geOverallBufferLength(buffered) {
 
   for (let i = 0; i < buffered.length; i += 1) {
     size += buffered.end(i) - buffered.start(i);
-
   }
 
   return size;
@@ -38,7 +41,10 @@ export function getNearestBufferSegmentInfo(buffered, currentTime?) {
     return null;
   }
 
-  while (i < buffered.length - 1 && !(buffered.start(i) <= currentTime && currentTime <= buffered.end(i))) {
+  while (
+    i < buffered.length - 1 &&
+    !(buffered.start(i) <= currentTime && currentTime <= buffered.end(i))
+  ) {
     i += 1;
   }
 

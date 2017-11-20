@@ -14,11 +14,16 @@ import FullScreenControl from './full-screen/full-screen.controler';
 import Logo from './logo/logo';
 import DependencyContainer from '../../../core/dependency-container/index';
 
-
 const { asClass } = DependencyContainer;
 
 const DEFAULT_CONFIG = {
-  list: [PlayControl, TimeControl, ProgressControl, VolumeControl, FullScreenControl],
+  list: [
+    PlayControl,
+    TimeControl,
+    ProgressControl,
+    VolumeControl,
+    FullScreenControl,
+  ],
   shouldAlwaysShow: false,
   view: null,
 };
@@ -27,7 +32,13 @@ const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 
 export default class ControlBlock {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer', 'screen'];
+  static dependencies = [
+    'engine',
+    'eventEmitter',
+    'config',
+    'rootContainer',
+    'screen',
+  ];
 
   private _eventEmitter;
   private _engine;
@@ -105,8 +116,6 @@ export default class ControlBlock {
       this._controls.push(control);
       this.view.appendControlNode(control.node || control.getNode());
     });
-
-
   }
 
   _initLogo() {
@@ -130,19 +139,51 @@ export default class ControlBlock {
   }
 
   _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.on(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent);
-    this._eventEmitter.on(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideControlsTimeout);
-    this._eventEmitter.on(UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.on(
+      UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
+      this._startHideControlsTimeout,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED,
+      this._tryHideContent,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED,
+      this._startHideControlsTimeout,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.LOADER_HIDE_TRIGGERED,
+      this._startHideControlsTimeout,
+    );
+    this._eventEmitter.on(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._updatePlayingStatus,
+      this,
+    );
   }
 
   _unbindEvents() {
-    this._eventEmitter.off(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.off(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent);
-    this._eventEmitter.off(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideControlsTimeout);
-    this._eventEmitter.off(UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideControlsTimeout);
-    this._eventEmitter.off(VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+    this._eventEmitter.off(
+      UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
+      this._startHideControlsTimeout,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED,
+      this._tryHideContent,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED,
+      this._startHideControlsTimeout,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.LOADER_HIDE_TRIGGERED,
+      this._startHideControlsTimeout,
+    );
+    this._eventEmitter.off(
+      VIDEO_EVENTS.STATE_CHANGED,
+      this._updatePlayingStatus,
+      this,
+    );
   }
 
   _startHideControlsTimeout() {
@@ -151,7 +192,10 @@ export default class ControlBlock {
     this._tryShowContent();
 
     if (!this._isControlsFocused) {
-      this._hideControlsTimeout = setTimeout(this._tryHideContent, HIDE_CONTROLS_BLOCK_TIMEOUT);
+      this._hideControlsTimeout = setTimeout(
+        this._tryHideContent,
+        HIDE_CONTROLS_BLOCK_TIMEOUT,
+      );
     }
   }
 
@@ -230,7 +274,8 @@ export default class ControlBlock {
         this._tryShowContent();
         break;
       }
-      default: break;
+      default:
+        break;
     }
   }
 
@@ -299,7 +344,7 @@ export default class ControlBlock {
     this.view.destroy();
     delete this.view;
 
-    this._controls.forEach(control => (control.destroy()));
+    this._controls.forEach(control => control.destroy());
     delete this._controls;
 
     this._logo.destroy();

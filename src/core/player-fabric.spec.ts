@@ -3,8 +3,10 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import create, { registerModule, clearAdditionalModules } from './player-fabric';
-
+import create, {
+  registerModule,
+  clearAdditionalModules,
+} from './player-fabric';
 
 describe('registerModule', () => {
   it('should add additional module', () => {
@@ -42,9 +44,13 @@ describe('Player', () => {
     it('should create separate instances', () => {
       const player2: any = create();
 
-      expect(player._defaultModules.engine).to.not.be.equal(player2._defaultModules.engine);
+      expect(player._defaultModules.engine).to.not.be.equal(
+        player2._defaultModules.engine,
+      );
       expect(player.node).to.not.be.equal(player2.node);
-      expect(player._defaultModules.eventEmitter).to.not.be.equal(player2._defaultModules.eventEmitter);
+      expect(player._defaultModules.eventEmitter).to.not.be.equal(
+        player2._defaultModules.eventEmitter,
+      );
     });
   });
 

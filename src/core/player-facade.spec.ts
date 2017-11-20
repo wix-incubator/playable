@@ -7,8 +7,7 @@ import Player from './player-facade';
 import DependencyContainer from './dependency-container';
 import playerAPI from '../utils/player-api-decorator';
 
-
-describe('Player\'s instance', () => {
+describe("Player's instance", () => {
   let container;
   let player;
   let defaultModules;
@@ -27,8 +26,8 @@ describe('Player\'s instance', () => {
 
       expect(
         registerValueSpy.calledWith({
-          config: mapParamsToConfig(params)
-        })
+          config: mapParamsToConfig(params),
+        }),
       ).to.be.true;
     });
 
@@ -37,9 +36,7 @@ describe('Player\'s instance', () => {
 
       player = new Player({}, container, {});
 
-      expect(resolveSpy.args).to.deep.equal(
-        [['config']]
-      );
+      expect(resolveSpy.args).to.deep.equal([['config']]);
     });
   });
 
@@ -49,7 +46,7 @@ describe('Player\'s instance', () => {
       const resolveSpy = sinon.spy(container, 'resolve');
 
       defaultModules = {
-        ClassA
+        ClassA,
       };
 
       container.registerClass('ClassA', ClassA);
@@ -68,7 +65,7 @@ describe('Player\'s instance', () => {
       }
 
       defaultModules = {
-        ClassA
+        ClassA,
       };
 
       container.registerClass('ClassA', ClassA);
@@ -77,7 +74,7 @@ describe('Player\'s instance', () => {
       player.destroy();
 
       expect(destroySpy.called).to.be.true;
-    })
+    });
   });
 
   describe('additional modules', () => {
@@ -121,7 +118,6 @@ describe('Player\'s instance', () => {
       methodBSpy = sinon.spy();
 
       class A {
-
         @playerAPI()
         methodA() {
           methodASpy();
@@ -161,7 +157,7 @@ describe('Player\'s instance', () => {
     it('should be constructed from default modules', () => {
       container.registerClass('ClassA', ClassA);
       defaultModules = {
-        ClassA
+        ClassA,
       };
       player = new Player({}, container, defaultModules);
 
@@ -172,7 +168,7 @@ describe('Player\'s instance', () => {
       container.registerClass('ClassB', ClassB);
       defaultModules = {
         ClassA,
-        ClassB
+        ClassB,
       };
 
       player = new Player({}, container, defaultModules);
@@ -184,7 +180,7 @@ describe('Player\'s instance', () => {
     it('should be constructed from additional modules', () => {
       container.registerClass('ClassA', ClassA);
       additionalModules = {
-        ClassA
+        ClassA,
       };
       player = new Player({}, container, {}, additionalModules);
 
@@ -194,14 +190,13 @@ describe('Player\'s instance', () => {
 
     it('methods should call proper methods from modules', () => {
       defaultModules = {
-        ClassA
+        ClassA,
       };
       additionalModules = {
-        ClassB
+        ClassB,
       };
       container.registerClass('ClassA', ClassA);
       container.registerClass('ClassB', ClassB);
-
 
       player = new Player({}, container, defaultModules, additionalModules);
       player.methodA();
@@ -214,7 +209,7 @@ describe('Player\'s instance', () => {
     it('should throw error on duplicate method in API', () => {
       defaultModules = {
         ClassA,
-        ClassC
+        ClassC,
       };
       container.registerClass('ClassA', ClassA);
       container.registerClass('ClassC', ClassC);
@@ -223,13 +218,15 @@ describe('Player\'s instance', () => {
         return new Player({}, container, defaultModules);
       };
 
-      expect(getDuplicateAPIMethodPlayer).to.throw('API method methodA is already defined in Player facade');
+      expect(getDuplicateAPIMethodPlayer).to.throw(
+        'API method methodA is already defined in Player facade',
+      );
     });
 
     describe('when instance destroyed', () => {
       it('should clear instance', () => {
         defaultModules = {
-          ClassA
+          ClassA,
         };
         container.registerClass('ClassA', ClassA);
 
@@ -241,7 +238,7 @@ describe('Player\'s instance', () => {
 
       it('should not broadcast call methods of module', () => {
         defaultModules = {
-          ClassA
+          ClassA,
         };
         container.registerClass('ClassA', ClassA);
 
