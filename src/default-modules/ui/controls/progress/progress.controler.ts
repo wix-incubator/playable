@@ -42,8 +42,8 @@ export default class ProgressControl {
     this._initUI();
     this._bindEvents();
     this.view.setState({
-      played: 0,
-      buffered: 0,
+      played: 0.0,
+      buffered: 0.0,
     });
 
     this._initInterceptor();
@@ -174,7 +174,6 @@ export default class ProgressControl {
   _onUserInteractionEnds() {
     if (this._isUserInteracting) {
       this._isUserInteracting = false;
-      this._updatePlayedIndicator();
       this._playVideoOnProgressManipulationEnd();
     }
   }

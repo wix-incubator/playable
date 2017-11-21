@@ -93,7 +93,8 @@ class ProgressView extends View {
   }
 
   _onInputValueChange() {
-    const value = this.$input.val();
+    const value = String(this.$input.val());
+
     this._updateDOMAttributes(value);
     this._callbacks.onChangePlayedProgress(value);
   }
@@ -136,8 +137,9 @@ class ProgressView extends View {
   }
 
   _updatePlayed(percent) {
-    this.$input.val(percent);
-    this._updateDOMAttributes(percent);
+    const value = String(percent);
+
+    this.$input.val(value);
   }
 
   _updateBuffered(percent) {
