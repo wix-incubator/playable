@@ -151,7 +151,7 @@ class VolumeView extends View {
   }
 
   setState({ volume, isMuted }) {
-    volume !== undefined && this._setVolumeLevel(String(volume));
+    volume !== undefined && this._setVolumeLevel(volume);
     isMuted !== undefined && this._setMuteStatus(isMuted);
   }
 
