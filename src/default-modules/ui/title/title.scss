@@ -2,7 +2,7 @@
 
 .wrapper {
   position: absolute;
-  z-index: 100;
+  z-index: 50;
 
   overflow: hidden;
 
@@ -26,6 +26,8 @@
 .title {
   font-size: 16px;
   line-height: 17px;
+  transition: opacity .2s, visibility .2s;
+  opacity: 0;
 
   @include max-width-550() {
     font-size: 14px;
@@ -42,5 +44,9 @@
 
   &.link {
     cursor: pointer;
+  }
+
+  &.fade-in {
+    opacity: 1;
   }
 }
