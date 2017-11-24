@@ -40,12 +40,14 @@
     "no-use-before-declare": [true, "nofunc"],
     "no-var-keyword": true,
     "object-literal-shorthand": [true, "always"],
-    "prefer-const": true
+    "prefer-const": true,
+    "player-api": true // use `[true, "require-jsdoc"]` to enforce JSDoc before `playerAPI` method
   },
   "linterOptions": {
     "exclude": [
       "src/**/*.spec.ts",
       "src/e2e/playback-test.ts"
     ]
-  }
+  },
+  "rulesDirectory": "tslint-rules"
 }
