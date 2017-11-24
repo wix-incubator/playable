@@ -15,22 +15,28 @@
   ],
   "scripts": {
     "start": "PORT=5000 yoshi start --entry-point=./dev-env/start-dev-env.js",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "prettier": "prettier --config .prettierrc --write",
-    "prettier:all": "npm run prettier -- 'src/**/*.ts'",
-    "csscomb": "csscomb src/.",
-    "csscomb:lint": "csscomb -lv src/.",
-    "test:unit": "yoshi test --mocha",
-    "test:playback": "node ./dev-env/boot-devserver-and-test.js",
-    "test": "npm run test:unit && npm run test:playback",
+    "lint": "npm run tslint:all",
     "build": "yoshi build",
+    "test": "npm run test:unit && npm run test:playback",
     "deploy": "yoshi build && gh-pages -d dist/statics",
     "release": "yoshi release",
-    "precommit": "lint-staged && npm run lint && npm run csscomb:lint && npm run build && npm test"
+    "tslint": "tslint -c tslint.json",
+    "tslint:all": "npm run tslint -- 'src/**/*.ts'",
+    "prettier": "prettier --config .prettierrc --write",
+    "prettier:all": "npm run prettier -- 'src/**/*.ts'",
+    "csscomb:all": "csscomb src/.",
+    "test:playback": "node ./dev-env/boot-devserver-and-test.js",
+    "test:unit": "yoshi test --mocha",
+    "precommit": "lint-staged && npm run build && npm test"
   },
   "lint-staged": {
     "*.ts": [
       "prettier",
+      "tslint",
+      "git add"
+    ],
+    "*.scss": [
+      "csscomb -tty-mode --",
       "git add"
     ]
   },
