@@ -27,6 +27,7 @@ function createApiMethod(playerApiMethod) {
     playerApiMethod.key = t.identifier(methodNameFromPlayerApiDecorator);
   }
 
+  // NOTE: if JSDoc not provided, add empty JSDoc to force `documentation.js` to add this method to documentation
   playerApiMethod.leadingComments = [
     playerApiJSDoc || createJSDocCommentBlock(''),
   ];

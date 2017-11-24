@@ -4,13 +4,19 @@ import * as _ from 'lodash';
 import glob from '../utils/glob';
 import parseFile from '../utils/parseFile';
 import getPlayerApiMethods from './getPlayerApiMethods';
+import { createJSDocCommentBlock } from '../utils/ast';
 
 function buildPlayerClassDeclaration(playerApiMethods) {
-  return t.classDeclaration(
+  const playerClassDeclaration = t.classDeclaration(
     t.identifier('Player'),
     null,
     t.classBody(playerApiMethods),
   );
+
+  // NOTE: add empty JSDoc to force `documentation.js` to add this class to documentation
+  playerClassDeclaration.leadingComments = [createJSDocCommentBlock('')];
+
+  return playerClassDeclaration;
 }
 
 function buildPlayerClass(pattern) {
