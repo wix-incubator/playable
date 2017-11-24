@@ -117,6 +117,26 @@ export default class Engine {
     return this._adapterStrategy.attachedAdapter;
   }
 
+  /**
+   * Return object with internal debug info
+   *
+   * @example
+   * {
+   *   type, // Name of current attached stream (HLS, DASH, MP4, WEBM)
+   *   viewDimensions: {
+   *     width,
+   *     height
+   *   }, // Current size of view port provided by engine (right now - actual size of video tag)
+   *   url, // Url of current source
+   *   currentTime, // Current time of playback
+   *   duration, // Duration of current video
+   *   loadingStateTimestamps, // Object with time spend for different initial phases
+   *   bitrates, // List of all available bitrates. Internal structure different for different type of streams
+   *   currentBitrate, // Current bitrate. Internal structure different for different type of streams
+   *   overallBufferLength, // Overall length of buffer
+   *   nearestBufferSegInfo // Object with start and end for current buffer segment
+   * }
+   */
   @playerAPI()
   getDebugInfo() {
     const { duration, currentTime } = this._video;
@@ -191,46 +211,71 @@ export default class Engine {
     this.setVolume(this.getVolume() + value);
   }
 
+  /**
+   * Set autoPlay flag
+   */
   @playerAPI()
-  setAutoPlay(isAutoPlay) {
+  setAutoPlay(isAutoPlay: boolean) {
     this._video.autoplay = Boolean(isAutoPlay);
   }
 
+  /**
+   * Get autoPlay flag
+   */
   @playerAPI()
-  getAutoPlay() {
+  getAutoPlay(): boolean {
     return this._video.autoplay;
   }
 
+  /**
+   * Set loop flag
+   */
   @playerAPI()
-  setLoop(isLoop) {
+  setLoop(isLoop: boolean) {
     this._video.loop = Boolean(isLoop);
   }
 
+  /**
+   * Get loop flag
+   */
   @playerAPI()
-  getLoop() {
+  getLoop(): boolean {
     return this._video.loop;
   }
 
+  /**
+   * Set mute flag
+   */
   @playerAPI()
-  setMute(isMuted) {
+  setMute(isMuted: boolean) {
     this._video.muted = Boolean(isMuted);
   }
 
+  /**
+   * Get mute flag
+   */
   @playerAPI()
-  getMute() {
+  getMute(): boolean {
     return this._video.muted;
   }
 
+  /**
+   * Set volume
+   * @param volume - Volume value `0..100`
+   */
   @playerAPI()
-  setVolume(volume) {
+  setVolume(volume: number) {
     const parsedVolume = Number(volume);
     this._video.volume = isNaN(parsedVolume)
       ? 1
       : Math.max(0, Math.min(Number(volume) / 100, 1));
   }
 
+  /**
+   * Get volume
+   */
   @playerAPI()
-  getVolume() {
+  getVolume(): number {
     return this._video.volume * 100;
   }
 
@@ -244,13 +289,19 @@ export default class Engine {
     return this._video.playbackRate;
   }
 
+  /**
+   * Set preload type
+   */
   @playerAPI()
-  setPreload(preload) {
+  setPreload(preload: 'auto' | 'metadata' | 'none') {
     this._video.preload = preload || 'auto';
   }
 
+  /**
+   * Get preload type
+   */
   @playerAPI()
-  getPreload() {
+  getPreload(): string {
     return this._video.preload;
   }
 
@@ -273,18 +324,27 @@ export default class Engine {
     return this._video.buffered;
   }
 
+  /**
+   * Set playInline flag
+   */
   @playerAPI()
-  setPlayInline(isPlayInline) {
+  setPlayInline(isPlayInline: boolean) {
     if (isPlayInline) {
       this._video.setAttribute('playsInline', isPlayInline);
     }
   }
 
+  /**
+   * Get playInline flag
+   */
   @playerAPI()
-  getPlayInline() {
+  getPlayInline(): boolean {
     return this._video.getAttribute('playsInline');
   }
 
+  /**
+   * Return current state of playback
+   */
   @playerAPI('getCurrentPlaybackState')
   getCurrentState() {
     return this._stateEngine.getState();

@@ -111,6 +111,9 @@ export default class FullScreenManager {
     }
   }
 
+  /**
+   * Manual enter full screen
+   */
   @playerAPI()
   enterFullScreen() {
     if (!this.isEnabled) {
@@ -120,6 +123,9 @@ export default class FullScreenManager {
     this._helper.request();
   }
 
+  /**
+   * Manual exit full screen
+   */
   @playerAPI()
   exitFullScreen() {
     if (!this.isEnabled) {
@@ -129,8 +135,11 @@ export default class FullScreenManager {
     this._helper.exit();
   }
 
+  /**
+   * Return true if player is in full screen
+   */
   @playerAPI()
-  get isInFullScreen() {
+  get isInFullScreen(): boolean {
     if (!this.isEnabled) {
       return false;
     }

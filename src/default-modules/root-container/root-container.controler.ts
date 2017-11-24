@@ -43,8 +43,12 @@ class RootContainer {
     this._bindEvents();
   }
 
+  /**
+   * Getter for DOM node with player UI element
+   * (use it only for debug, if you need attach player to your document use `attachToElement` method)
+   */
   @playerAPI()
-  get node() {
+  get node(): Node {
     return this.view.getNode();
   }
 
@@ -117,45 +121,74 @@ class RootContainer {
     }
   }
 
+  /**
+   * Method for attaching player node to your container
+   *
+   * @example
+   * document.addEventListener('DOMContentLoaded', function() {
+   *   const config = { src: 'http://my-url/video.mp4' }
+   *   const player = VideoPlayer.create(config);
+   *
+   *   player.attachToElement(document.getElementById('content'));
+   * });
+   */
   @playerAPI()
-  attachToElement(node) {
+  attachToElement(node: Node) {
     this._enableFocusInterceptors();
 
     node.appendChild(this.node);
     ElementQueries.init();
   }
 
+  /**
+   * Hide whole ui
+   */
   @playerAPI()
   hide() {
     this.isHidden = true;
     this.view.hide();
   }
 
+  /**
+   * Show whole ui
+   */
   @playerAPI()
   show() {
     this.isHidden = false;
     this.view.show();
   }
 
+  /**
+   * Set width of player
+   */
   @playerAPI()
-  setWidth(width) {
+  setWidth(width: number) {
     this.view.setWidth(width);
     this._eventEmitter.emit(UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED, width);
   }
 
+  /**
+   * Set height of player
+   */
   @playerAPI()
-  setHeight(height) {
+  setHeight(height: number) {
     this.view.setHeight(height);
     this._eventEmitter.emit(UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED, height);
   }
 
+  /**
+   * Get width of player
+   */
   @playerAPI()
-  getWidth() {
+  getWidth(): number {
     return this.view.getWidth();
   }
 
+  /**
+   * Get height of player
+   */
   @playerAPI()
-  getHeight() {
+  getHeight(): number {
     return this.view.getHeight();
   }
 
