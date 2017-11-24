@@ -19,6 +19,7 @@
     "build": "yoshi build",
     "test": "npm run test:unit && npm run test:playback",
     "documentation": "ts-node ./scripts/documentation > ./API.md",
+    "documentation:gitadd": "npm run documentation && git add ./API.md",
     "deploy": "yoshi build && gh-pages -d dist/statics",
     "release": "yoshi release",
     "tslint": "tslint -c tslint.json",
@@ -28,7 +29,7 @@
     "csscomb:all": "csscomb src/.",
     "test:playback": "node ./dev-env/boot-devserver-and-test.js",
     "test:unit": "yoshi test --mocha",
-    "precommit": "lint-staged && npm run build && npm test"
+    "precommit": "lint-staged && npm run build && npm test && npm run documentation:gitadd"
   },
   "lint-staged": {
     "*.ts": [
