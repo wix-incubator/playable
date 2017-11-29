@@ -22,13 +22,20 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `docs`,
+        path: `${__dirname}/../docs/`,
+      },
+    },
+    {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
           'gatsby-remark-autolink-headers',
           'gatsby-remark-prismjs',
-          'gatsby-plugin-catch-links',
           'gatsby-remark-external-links',
+          'gatsby-plugin-catch-links',
         ],
       },
     },

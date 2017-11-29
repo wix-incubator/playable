@@ -1,20 +1,12 @@
 import React from 'react';
-import Link from 'gatsby-link';
-import find from 'lodash/find';
+import Slugger from 'github-slugger';
 
 import typography from '../utils/typography';
 const { rhythm } = typography;
 
-const docPagePaths = [
-  "docs/",
-  "docs/getting-started/",
-  "docs/how-to-run/",
-  "docs/some-react-code/",
-  "docs/the-next-step/",
-  "docs/conclusion/",
-];
+function DocsMenu({ headings }) {
+  const slugger = new Slugger();
 
-function DocsMenu({ pages }) {
   return (
     <ul
       style={{
@@ -23,24 +15,21 @@ function DocsMenu({ pages }) {
         marginTop: rhythm(1 / 2),
       }}
     >
-      {pages.map(page => (
+      {headings.map(heading => (
         <li
-          key={page.path}
+          key={heading.value}
           style={{
             marginBottom: rhythm(1 / 2),
           }}
         >
-          <Link
-            to={page.path}
+          <a
+            href={`#${slugger.slug(heading.value)}`}
             style={{
               textDecoration: 'none',
             }}
-            activeStyle={{
-              color: 'red'
-            }}
           >
-            {page.title}
-          </Link>
+            {heading.value}
+          </a>
         </li>
       ))}
     </ul>
@@ -48,22 +37,7 @@ function DocsMenu({ pages }) {
 }
 
 
-function DocsTemplate({ data: { page, docFiles } }) {
-  console.log(arguments);
-
-  const pages = docPagePaths
-    .map(pagePath => {
-      const edge = find(docFiles.edges, edge => edge.node.relativePath.startsWith(pagePath));
-
-      if (edge) {
-        return {
-          title: edge.node.page.frontmatter.title,
-          path: pagePath
-        }
-      }
-    })
-    .filter(page => !!page);
-
+function DocsTemplate({ data: { page } }) {
   return (
     <div>
       <div
@@ -75,7 +49,7 @@ function DocsTemplate({ data: { page, docFiles } }) {
           borderRight: '1px solid lightgrey',
         }}
       >
-        <DocsMenu pages={pages}/>
+        <DocsMenu headings={page.headings}/>
       </div>
       <div
         style={{
@@ -83,9 +57,13 @@ function DocsTemplate({ data: { page, docFiles } }) {
           paddingLeft: `calc(${rhythm(8)} + ${rhythm(1)})`,
         }}
       >
-        <h1>
-          {page.frontmatter.title}
-        </h1>
+        {
+          page.frontmatter &&
+          page.frontmatter.title &&
+          <h1>
+            {page.frontmatter.title}
+          </h1>
+        }
         <div dangerouslySetInnerHTML={{ __html: page.html }} />
       </div>
     </div>
@@ -95,22 +73,14 @@ function DocsTemplate({ data: { page, docFiles } }) {
 export const query = graphql`
   query DocsMarkdownPage($slug: String!) {
     page: markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
       frontmatter {
         title
       }
-    }
-    docFiles: allFile(filter: { relativePath: { glob: "docs/**/*.md" }}) {
-      edges {
-        node {
-          relativePath
-          page: childMarkdownRemark {
-            frontmatter {
-              title
-            }
-          }
-        }
+      headings {
+        value
       }
+      html
+      
     }
   }
 `;

@@ -28,7 +28,7 @@ const Header = () => (
             textDecoration: 'none',
           }}
         >
-          Gatsby
+          Video Player
         </Link>
       </h1>
     </div>
