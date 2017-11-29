@@ -45,6 +45,14 @@ export default class CardsContainer {
     this.node.classList.remove(styles.hidden);
   }
 
+  setPreviewMode(isPreviewMode) {
+    if (isPreviewMode) {
+      this.node.classList.add('preview-mode');
+    } else {
+      this.node.classList.remove('preview-mode');
+    }
+  }
+
   onControlsShowed() {
     this.node.classList.add(styles['controls-showed']);
   }

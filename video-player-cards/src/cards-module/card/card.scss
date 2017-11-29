@@ -40,3 +40,16 @@
     }
   }
 }
+
+:global .preview-mode {
+  :local {
+    .close-button {
+      opacity: 0.6;
+      cursor: default;
+
+      &:hover {
+        opacity: 0.6
+      }
+    }
+  }
+}

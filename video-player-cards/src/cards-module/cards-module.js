@@ -39,7 +39,7 @@ export default class CardsModule {
 
   initContainer() {
     this.cardsContainer = new CardsContainer({ engine: this.engine });
-
+    this.cardsContainer.setPreviewMode(!this.isCardsClosable);
     this.rootContainer.appendComponentNode(this.cardsContainer.node);
   }
 
@@ -192,6 +192,9 @@ export default class CardsModule {
   @playerAPI()
   setCardsClosable(isClosable) {
     this.isCardsClosable = isClosable;
+    if (this.initialized) {
+      this.cardsContainer.setPreviewMode(!isClosable);
+    }
   }
 
   @playerAPI()
