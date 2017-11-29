@@ -20,7 +20,7 @@
     "test": "npm run test:unit && npm run test:playback",
     "documentation": "ts-node ./scripts/documentation > ./API.md",
     "documentation:gitadd": "npm run documentation && git add ./API.md",
-    "deploy": "haste build && gh-pages -d dist/statics",
+    "deploy": "./scripts/site.sh --deploy",
     "release": "haste release",
     "tslint": "ts-node node_modules/.bin/tslint -c tslint.json",
     "tslint:all": "npm run tslint -- 'src/**/*.ts'",
