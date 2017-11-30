@@ -73,12 +73,12 @@ export default class TitleControl {
   }
 
   @playerAPI()
-  setTitle(url) {
-    this.view.setTitle(url);
+  setTitle(title?: string) {
+    this.view.setTitle(title);
   }
 
   @playerAPI()
-  setTitleClickCallback(callback) {
+  setTitleClickCallback(callback?: Function) {
     this._callback = callback;
     this.view.setDisplayAsLink(Boolean(this._callback));
   }
@@ -90,11 +90,13 @@ export default class TitleControl {
   }
 
   _fadeIn() {
+    // TODO: do we need to change `this.isHidden` here?
     this._screen.showTopShadow();
     this.view.fadeIn();
   }
 
   _fadeOut() {
+    // TODO: do we need to change `this.isHidden` here?
     this._screen.hideTopShadow();
     this.view.fadeOut();
   }

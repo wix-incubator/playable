@@ -43,11 +43,13 @@ class TitleView extends View {
     this.$title[0].removeEventListener('click', this._callbacks.onClick);
   }
 
-  setDisplayAsLink(flag) {
+  setDisplayAsLink(flag: boolean) {
     this.$title.toggleClass(this.styleNames.link, flag);
   }
 
-  setTitle(title?) {
+  setTitle(title?: string) {
+    // TODO: mb move this logic to controller? title.isHidden is out of control of this method
+    // TODO: what if we call with empty value `.setTitle('')` and then call `.show()` method? Mb clear value anyway?
     if (title) {
       this.show();
       this.$title.html(title);
