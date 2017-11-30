@@ -14,21 +14,21 @@
     "video-player-cards"
   ],
   "scripts": {
-    "start": "PORT=5000 yoshi start --entry-point=./dev-env/start-dev-env.js",
+    "start": "PORT=5000 haste start --entry-point=./dev-env/start-dev-env.js",
     "lint": "npm run tslint:all",
-    "build": "yoshi build",
+    "build": "haste build",
     "test": "npm run test:unit && npm run test:playback",
     "documentation": "ts-node ./scripts/documentation > ./API.md",
     "documentation:gitadd": "npm run documentation && git add ./API.md",
-    "deploy": "yoshi build && gh-pages -d dist/statics",
-    "release": "yoshi release",
+    "deploy": "haste build && gh-pages -d dist/statics",
+    "release": "haste release",
     "tslint": "ts-node node_modules/.bin/tslint -c tslint.json",
     "tslint:all": "npm run tslint -- 'src/**/*.ts'",
     "prettier": "prettier --config .prettierrc --write",
     "prettier:all": "npm run prettier -- '{src,scripts,tslint-rules}/**/*.ts'",
     "csscomb:all": "csscomb src/.",
     "test:playback": "node ./dev-env/boot-devserver-and-test.js",
-    "test:unit": "yoshi test --mocha",
+    "test:unit": "haste test --mocha",
     "precommit": "lint-staged && npm run build && npm test && npm run documentation:gitadd"
   },
   "lint-staged": {
@@ -67,6 +67,8 @@
     "express": "^4.14.0",
     "gh-pages": "^0.12.0",
     "glob": "^7.1.2",
+    "haste-cli": "~0.1.16",
+    "haste-preset-yoshi": "0.0.10",
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "lint-staged": "^5.0.0",
@@ -74,8 +76,10 @@
     "sinon": "^2.3.8",
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
-    "typescript": "^2.6.1",
-    "yoshi": "^1.1.98"
+    "typescript": "^2.6.1"
+  },
+  "haste": {
+    "preset": "yoshi"
   },
   "yoshi": {
     "separateCss": false,
