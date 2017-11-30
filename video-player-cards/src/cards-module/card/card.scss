@@ -22,9 +22,10 @@
   right: 12px;
   cursor: pointer;
   background: url('./close.svg');
+  opacity: 0.6;
 
   &:hover {
-    opacity: 0.6
+    opacity: 0.8
   }
 }
 

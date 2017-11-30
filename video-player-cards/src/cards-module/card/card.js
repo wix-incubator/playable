@@ -28,7 +28,7 @@ export default class Card {
 
   initContainer() {
     this.node = document.createElement('div');
-    this.node.className = classnames(styles.container, styles.animated);
+    this.node.className = classnames(styles.container, styles.animated, 'action-card');
 
     const closeButton = document.createElement('div');
     closeButton.className = styles['close-button'];
@@ -73,7 +73,7 @@ export default class Card {
   }
 
   setAnimationEnabled(isEnabled) {
-    this.node.className = classnames(styles.container, { [styles.animated]: isEnabled });
+    this.node.className = classnames(styles.container, { [styles.animated]: isEnabled }, 'action-card');
   }
 
   getFlowDimension(flowType) {
