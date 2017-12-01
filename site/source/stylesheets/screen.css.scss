@@ -265,6 +265,8 @@ body {
   opacity: .7;
   color: #000;
   span {
+    $side-pad: $main-padding / 2 - 8px;
+
     display: block;
 
     padding: $side-pad $side-pad $side-pad;
@@ -274,8 +276,6 @@ body {
 
     border-radius: 0 0 0 5px;
     background-color: rgba($main-bg, .7);
-
-    $side-pad: $main-padding / 2 - 8px;
   }
   img {
     height: 16px;
