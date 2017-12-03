@@ -15,28 +15,27 @@ You can play with demo playground here: [https://wix-private.github.io/video-pla
 
 ## Installation
 
-```
-$ npm install video-player --save
-```
-
 To install the stable version use [npm](https://www.npmjs.com/).
 
-```js
-// using ES6 modules
-import VideoPlayer from 'video-player';
-```
-```js
-// using CommonJS modules
-var VideoPlayer = require('video-player');
-```
+`$ npm install video-player --save`
 
-Or use old school way, add a `<script>` element for video-player
+Using ES6 modules:
+
+`import VideoPlayer from 'video-player';`
+
+Using CommonJS modules:
+
+`var VideoPlayer = require('video-player');`
 
 ```html
 <!-- NOTE: minified version - path/to/video-player/dist/statics/video-player.bundle.min.js -->
 <script src="path/to/video-player/dist/statics/video-player.bundle.js"></script>
 <!-- Now you can find the library on `window.VideoPlayer -->
 ```
+
+Or use old school way, add a `<script>` element for video-player:
+
+`<script src="path/to/video-player/dist/statics/video-player.bundle.js"></script>`
 
 ## How to use
 
@@ -55,6 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
   player.attachToElement(document.getElementById('content'));
 });
 ```
+
+`const player = VideoPlayer.create(config);`
+
+`player.attachToElement(document.getElementById('content'));`
 
 ## API
 
