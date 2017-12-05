@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 import create, {
   registerModule,
   clearAdditionalModules,
-} from './player-fabric';
+} from './player-factory';
 
 describe('registerModule', () => {
   it('should add additional module', () => {

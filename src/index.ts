@@ -1,7 +1,7 @@
 import create, {
   registerModule,
   registerPlaybackAdapter,
-} from './core/player-fabric';
+} from './core/player-factory';
 
 import playerAPIDecorator from './utils/player-api-decorator';
 

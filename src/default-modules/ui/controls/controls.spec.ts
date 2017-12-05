@@ -7,7 +7,7 @@ import ControlsBlock from './controls.controler';
 
 import RootContainer from '../../root-container/root-container.controler';
 import Engine from '../../playback-engine/playback-engine';
-import { container } from '../../../core/player-fabric';
+import { container } from '../../../core/player-factory';
 
 import { VIDEO_EVENTS, STATES } from '../../../constants/index';
 
