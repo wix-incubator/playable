@@ -327,7 +327,7 @@ export default class ControlBlock {
     this._logo.node.parentNode.removeChild(this._logo.node);
   }
 
-  @playerAPI()
+  @playerAPI('setControlsShouldAlwaysShow')
   setShouldAlwaysShow(flag) {
     this.config.shouldAlwaysShow = flag;
 

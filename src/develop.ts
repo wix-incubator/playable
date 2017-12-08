@@ -63,6 +63,10 @@ const player: any = VideoPlayer.create({
   overlay: false,
 });
 
+Reflect.defineProperty(window, 'player', {
+  value: player,
+});
+
 function getStreamStatus() {
   const oReq = new XMLHttpRequest();
   oReq.addEventListener('load', reqListener);
