@@ -53,6 +53,8 @@ export default class VolumeControl {
   _initUI() {
     const config = {
       callbacks: {
+        onDragStart: this._broadcastDragStart,
+        onDragEnd: this._broadcastDragEnd,
         onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
         onToggleMuteClick: this._toggleMuteStatus,
@@ -65,7 +67,7 @@ export default class VolumeControl {
 
   _initInterceptor() {
     this._buttonInterceptor = new KeyboardInterceptor({
-      node: this.view.$muteControl[0],
+      node: this.view.getButtonNode(),
       callbacks: {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
@@ -91,7 +93,7 @@ export default class VolumeControl {
     });
 
     this._inputInterceptor = new KeyboardInterceptor({
-      node: this.view.$input[0],
+      node: this.view.getInputNode(),
       callbacks: {
         [KEYCODES.RIGHT_ARROW]: e => {
           e.stopPropagation();
@@ -136,6 +138,16 @@ export default class VolumeControl {
     this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
     this._toggleMuteStatus = this._toggleMuteStatus.bind(this);
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
+    this._broadcastDragStart = this._broadcastDragStart.bind(this);
+    this._broadcastDragEnd = this._broadcastDragEnd.bind(this);
+  }
+
+  _broadcastDragStart() {
+    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
+  }
+
+  _broadcastDragEnd() {
+    this._eventEmitter.emit(UI_EVENTS.CONTORL_DRAG_END);
   }
 
   _changeVolumeLevel(level) {
