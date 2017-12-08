@@ -52,7 +52,7 @@ export function getDemoCards() {
 
   const card3 = {
     contentNode: createCard('Card 3', 'Watch Next ->'),
-    from: 10000,
+    from: 2000,
     to: 60000,
     order: 3,
     clientId: 3
@@ -60,7 +60,7 @@ export function getDemoCards() {
 
   const card4 = {
     contentNode: createCard('Card 4', 'Watch Next ->'),
-    from: 10000,
+    from: 2000,
     to: 60000,
     order: 4,
     clientId: 4
@@ -68,7 +68,7 @@ export function getDemoCards() {
 
   const card5 = {
     contentNode: createCard('Card 5', 'Watch More ->'),
-    from: 10000,
+    from: 2000,
     to: 60000,
     order: 5,
     clientId: 5

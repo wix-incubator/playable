@@ -83,6 +83,7 @@ export default class CardsManager {
   }
 
   async handleSeekPositionChange() {
+    this._cancelDeferredUpdates();
     await this._disableAnimation();
     await this.updateCardsState();
     this._enableAnimation();
@@ -344,9 +345,13 @@ export default class CardsManager {
     this.timeouts.push(setTimeout(callback, timeoutValue));
   }
 
+  _cancelDeferredUpdates() {
+    this.timeouts.forEach(timeout => clearTimeout(timeout));
+  }
+
   destroy() {
     this.stopSlider();
-    this.timeouts.forEach(timeout => clearTimeout(timeout));
+    this._cancelDeferredUpdates();
     delete this.cardsContainer;
   }
 }
