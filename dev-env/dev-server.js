@@ -6,7 +6,7 @@ module.exports = function start(port = 5000, onListen = () => {}) {
   const app = express();
 
   app.get('/', (req, res) => {
-    res.send(render('./dev-env/index.ejs'));
+    res.send(render('./src/index.ejs'));
   });
 
   return app.listen(port, () => {

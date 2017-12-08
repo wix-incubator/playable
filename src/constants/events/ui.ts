@@ -35,6 +35,8 @@ const UI_EVENTS = {
   PLAYER_HEIGHT_CHANGE_TRIGGERED: 'ui-player-height-change-triggered',
   PLAY_WITH_SCREEN_CLICK_TRIGGERED: 'ui-play-with-screen-click-triggered',
   PAUSE_WITH_SCREEN_CLICK_TRIGGERED: 'ui-pause-with-screen-click-triggered',
+  CONTROL_DRAG_START: 'ui-control-drag-start',
+  CONTORL_DRAG_END: 'ui-control-drag-end',
 };
 
 export default UI_EVENTS;

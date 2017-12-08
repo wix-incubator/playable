@@ -44,11 +44,13 @@ const convertUIConfigForIOS = config => ({
     disableClickProcessing: true,
     nativeControls: true,
   },
+  title: false,
   loader: false,
   controls: false,
 });
 const convertUIConfigForAndroid = config => ({
   ...config,
+  title: false,
   screen: {
     ...config.screen,
     disableClickProcessing: true,
@@ -59,6 +61,7 @@ const getUIConfig = params => {
   const config = {
     ...params.size,
     ...pick(params, [
+      'title',
       'overlay',
       'screen',
       'customUI',
