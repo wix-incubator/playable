@@ -17,13 +17,6 @@ import DependencyContainer from '../../../core/dependency-container/index';
 const { asClass } = DependencyContainer;
 
 const DEFAULT_CONFIG = {
-  list: [
-    PlayControl,
-    TimeControl,
-    ProgressControl,
-    VolumeControl,
-    FullScreenControl,
-  ],
   shouldAlwaysShow: false,
   view: null,
 };
@@ -47,15 +40,14 @@ export default class ControlBlock {
 
   private _controls;
   private _logo;
-  private _delayedToggleVideoPlaybackTimeout;
   private _hideControlsTimeout;
 
   private _isContentShowingEnabled: boolean;
   private _isControlsFocused: boolean;
   private _shouldShowContent: boolean;
-  private _controlContentHidden: boolean;
-  private shouldLogoAlwaysShow: boolean;
   private config;
+
+  private _isDragging: boolean;
 
   view: View;
   isHidden: boolean;
@@ -72,7 +64,6 @@ export default class ControlBlock {
     this.isHidden = false;
     this._isContentShowingEnabled = true;
     this._shouldShowContent = true;
-    this._delayedToggleVideoPlaybackTimeout = null;
     this._hideControlsTimeout = null;
     this._isControlsFocused = false;
     this._controls = [];
@@ -82,6 +73,7 @@ export default class ControlBlock {
     this._initControls();
     this._initLogo();
     this._bindEvents();
+
     if (get(config, 'ui.controls') !== false) {
       rootContainer.appendComponentNode(this.node);
     }
@@ -99,6 +91,7 @@ export default class ControlBlock {
         onControlsBlockMouseOut: this._removeFocusState,
       },
     };
+
     if (view) {
       this.view = new view(config);
     } else {
@@ -107,15 +100,21 @@ export default class ControlBlock {
   }
 
   _initControls() {
-    const { list } = this.config;
+    this.view.appendProgressBarNode(this._initControl(ProgressControl).node);
+    this.view.appendControlNodeLeft(this._initControl(PlayControl).node);
+    this.view.appendControlNodeLeft(this._initControl(VolumeControl).node);
+    this.view.appendControlNodeLeft(this._initControl(TimeControl).node);
+    this.view.appendControlNodeRight(this._initControl(FullScreenControl).node);
+  }
 
-    list.forEach(Control => {
-      const controlName = Control.name;
-      this._scope.register(controlName, asClass(Control));
-      const control = this._scope.resolve(controlName);
-      this._controls.push(control);
-      this.view.appendControlNode(control.node || control.getNode());
-    });
+  _initControl(Control) {
+    const controlName = Control.name;
+
+    this._scope.register(controlName, asClass(Control));
+    const control = this._scope.resolve(controlName);
+    this._controls.push(control);
+
+    return control;
   }
 
   _initLogo() {
@@ -125,7 +124,6 @@ export default class ControlBlock {
     this._logo = this._scope.resolve('logo');
 
     if (logo) {
-      this.view.appendComponentNode(this._logo.node);
       this.setLogoAlwaysShowFlag(logo.showAlways);
     }
   }
@@ -160,6 +158,16 @@ export default class ControlBlock {
       this._updatePlayingStatus,
       this,
     );
+    this._eventEmitter.on(
+      UI_EVENTS.CONTROL_DRAG_START,
+      this._onControlDragStart,
+      this,
+    );
+    this._eventEmitter.on(
+      UI_EVENTS.CONTORL_DRAG_END,
+      this._onControlDragEnd,
+      this,
+    );
   }
 
   _unbindEvents() {
@@ -182,6 +190,16 @@ export default class ControlBlock {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._updatePlayingStatus,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.CONTROL_DRAG_START,
+      this._onControlDragStart,
+      this,
+    );
+    this._eventEmitter.off(
+      UI_EVENTS.CONTORL_DRAG_END,
+      this._onControlDragEnd,
       this,
     );
   }
@@ -220,36 +238,36 @@ export default class ControlBlock {
   }
 
   _showContent() {
-    if (!this._isContentShowingEnabled) {
-      return;
-    }
-
     this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
     this._screen.showBottomShadow();
-    // TODO: check `UI_EVENTS.SHOW_BOTTOM_SHADOW_TRIGGERED` event
+
     this._eventEmitter.emit((UI_EVENTS as any).SHOW_BOTTOM_SHADOW_TRIGGERED);
+    this._controls[0].show();
 
     this.view.showControlsBlock();
-    this._controlContentHidden = false;
-
-    this._logo.show();
   }
 
   _tryHideContent() {
-    if (!this._shouldShowContent && !this.config.shouldAlwaysShow) {
+    if (!this._isDragging && !this._shouldShowContent && !this.config.shouldAlwaysShow) {
       this._hideContent();
+      this._eventEmitter.emit((UI_EVENTS as any).CONTROL_BLOCK_HIDE_TRIGGERED);
+      this._screen.hideBottomShadow();
     }
   }
 
   _hideContent() {
-    this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED);
+    this._eventEmitter.emit((UI_EVENTS as any).CONTROL_BLOCK_HIDE_TRIGGERED);
     this._screen.hideBottomShadow();
-
     this.view.hideControlsBlock();
-    this._controlContentHidden = true;
-    if (!this.shouldLogoAlwaysShow) {
-      this._logo.hide();
-    }
+  }
+
+  _onControlDragStart() {
+    this._isDragging = true;
+  }
+
+  _onControlDragEnd() {
+    this._isDragging = false;
+    this._tryHideContent();
   }
 
   _updatePlayingStatus({ nextState }) {
@@ -308,12 +326,10 @@ export default class ControlBlock {
 
   @playerAPI()
   setLogoAlwaysShowFlag(isShowAlways) {
-    this.shouldLogoAlwaysShow = isShowAlways;
-
-    if (this.shouldLogoAlwaysShow) {
-      this._logo.show();
-    } else if (this._controlContentHidden) {
-      this._logo.hide();
+    if (isShowAlways) {
+      this.view.appendLogoNode(this._logo.node);
+    } else {
+      this.view.appendControlNodeRight(this._logo.node);
     }
   }
 
@@ -360,6 +376,5 @@ export default class ControlBlock {
     this._shouldShowContent = null;
     this._hideControlsTimeout = null;
     this._isControlsFocused = null;
-    this._delayedToggleVideoPlaybackTimeout = null;
   }
 }
