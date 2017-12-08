@@ -6,7 +6,7 @@ import playerAPI from '../../../utils/player-api-decorator';
 
 export default class TitleControl {
   static View = View;
-  static dependencies = ['rootContainer', 'screen', 'eventEmitter'];
+  static dependencies = ['rootContainer', 'screen', 'eventEmitter', 'config'];
 
   private _callback;
   private _screen;
@@ -15,13 +15,14 @@ export default class TitleControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ rootContainer, screen, eventEmitter }) {
+  constructor({ rootContainer, screen, eventEmitter, config }) {
     this._screen = screen;
     this._eventEmitter = eventEmitter;
 
     this._bindCallbacks();
     this._initUI();
     this._bindEvents();
+    this.setTitle(config.ui.title);
 
     rootContainer.appendComponentNode(this.node);
   }

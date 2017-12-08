@@ -6,16 +6,12 @@
   display: flex;
 
   box-sizing: border-box;
-  width: 25px;
-  height: 25px;
-  margin-right: 11px;
-  margin-left: 11px;
+  margin-right: 9px;
+  margin-left: 13px;
 
   align-items: center;
   justify-content: flex-start;
   @include in-full-screen() {
-    width: 35px;
-    height: 35px;
     margin-right: 20px;
     margin-left: 20px;
   }
@@ -25,10 +21,10 @@
 }
 
 .playback-toggle {
-  width: 25px;
-  min-width: 25px;
-  height: 25px;
-  min-height: 25px;
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  min-height: 26px;
 
   background-image: url('../../../../assets/pause.svg');
   background-repeat: no-repeat;
@@ -44,17 +40,11 @@
     background-size: 15px 21px;
 
     &.paused {
-      width: 35px;
-      min-width: 35px;
-
       background-size: 16px 21px;
     }
   }
 
   &.paused {
-    width: 25px;
-    min-width: 25px;
-
     background-image: url('../../../../assets/play.svg');
     background-size: 11px 14px;
   }

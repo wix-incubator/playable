@@ -48,6 +48,7 @@ describe('Title', () => {
     });
 
     title = new Title({
+      config: {},
       rootContainer: rootContainer,
       screen: screen,
       eventEmitter: eventEmitter,

@@ -13,8 +13,9 @@
 
   display: flex;
 
-  margin-right: 18px;
+  margin-right: 20px;
 
+  cursor: pointer;
   transition: opacity .2s, visibility .2s;
   transition-duration: .2s;
 
@@ -75,6 +76,8 @@
   height: 14px;
   min-height: 14px;
 
+  transition: transform .2s;
+
   background-image: url('../../../../assets/view-on-site.svg');
   background-size: 14px 14px;
 
@@ -103,7 +106,7 @@
   line-height: 20px;
 
   position: absolute;
-  top: -30px;
+  top: -40px;
   right: -12px;
 
   visibility: hidden;

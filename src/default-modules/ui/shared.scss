@@ -1,10 +1,6 @@
 @import 'media-query-mixins';
 
 
-$color-main: white !default;
-$color-hover: #4eb7f5 !default;
-$video-progress-bg: transparentize(#fff, .75) !default;
-
 .control-button {
   cursor: pointer;
   transition-duration: .2s;
@@ -12,6 +8,7 @@ $video-progress-bg: transparentize(#fff, .75) !default;
 
   opacity: 1;
   border: 0;
+  border-radius: 0;
   outline: none;
   background-color: transparent;
 
