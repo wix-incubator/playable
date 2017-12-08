@@ -95,6 +95,9 @@ export default class CardsModule {
 
   @playerAPI()
   clearCards() {
+    if (!this.isInitialized) {
+      return;
+    }
     this.cardsManager.clearCards();
   }
 
