@@ -20,6 +20,7 @@ export default class CardsManager {
     this.activeCards = [];
     this.isAnimationEnabled = true;
     this.timeouts = [];
+    this.isPlaying = false;
 
     this.updateCardsState = this.updateCardsState.bind(this);
     this.updateCardsOnTimeChange = this.updateCardsOnTimeChange.bind(this);
@@ -29,21 +30,18 @@ export default class CardsManager {
 
   async addCard(cardData) {
     this._createCard(cardData);
-    await this._disableAnimation();
     await this.updateCardsState();
-    this._enableAnimation();
   }
 
   async addCards(cardsData) {
     cardsData.forEach(card => this._createCard(card));
-    await this._disableAnimation();
     await this.updateCardsState();
-    this._enableAnimation();
   }
 
   clearCards() {
     this.cardsContainer.removeCardNodes(this.availableCards);
     this.availableCards = [];
+    this.activeCards = [];
   }
 
   _createCard(cardData) {
@@ -68,14 +66,18 @@ export default class CardsManager {
   }
 
   handleVideoPlayStart() {
+    this.isPlaying = true;
     clearInterval(this.trackingInterval);
     this.trackingInterval = setInterval(this.updateCardsOnTimeChange, CARDS_UPDATE_INTERVAL);
     this.startSlider();
+    this._enableAnimation();
   }
 
   handleVideoPlayPause() {
+    this.isPlaying = false;
     clearInterval(this.trackingInterval);
     this.stopSlider();
+    this._defer(() => this._disableAnimation(), CARD_ANIMATION_TIME);
   }
 
   updateCardsOnTimeChange() {
@@ -102,6 +104,7 @@ export default class CardsManager {
     this.resetSliderInterval();
     this._hideNotFittingCards();
     await this._checkIfMoreCardsCanBeShown();
+    await this._updateCardsPositions();
 
     this._enableAnimation();
   }
@@ -326,16 +329,15 @@ export default class CardsManager {
       return;
     }
 
-    await this._disableAnimation();
-
     while (!selectedCard.isVisible) {
       await this._showNextCard();
     }
-
-    this._enableAnimation();
   }
 
   async _enableAnimation() {
+    if (!this.isPlaying) {
+      return;
+    }
     this.isAnimationEnabled = true;
     await this.cardsContainer.enableAnimation();
   }

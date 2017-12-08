@@ -103,13 +103,18 @@ export default class CardsModule {
 
   @playerAPI()
   setAnchorPoint(anchorPoint) {
-    this.cardsConfig.anchorPoint = anchorPoint;
+    if (this.cardsConfig.anchorPoint === anchorPoint) {
+      return;
+    }
     this.cardsConfig.setAnchorPoint(anchorPoint);
     this.handleConfigChange();
   }
 
   @playerAPI()
   setOrientation(orientation) {
+    if (this.cardsConfig.orientation === orientation) {
+      return;
+    }
     this.cardsConfig.setOrientation(orientation);
     this.handleConfigChange();
   }
@@ -121,7 +126,13 @@ export default class CardsModule {
 
   @playerAPI()
   setCardsClosable(isClosable) {
-    this.cardsConfig.isPreviewMode = !isClosable;
+    const isPreviewMode = !isClosable;
+
+    if (this.cardsConfig.isPreviewMode === isPreviewMode) {
+      return;
+    }
+
+    this.cardsConfig.isPreviewMode = isPreviewMode;
     this.handleConfigChange();
   }
 
