@@ -4,86 +4,100 @@
   position: relative;
 
   display: block;
-  flex: 1;
 
-  margin: 0 8px;
+  width: 100%;
+  height: 8px;
 
-  cursor: pointer;
   transition: opacity .2s, visibility .2s;
 
-  @include in-full-screen() {
-    margin-right: 20px;
+  touch-action: none;
+
+  &:hover,
+  &.is-dragging {
+    .progress-bars-wrapper {
+      transform: scaleY(1);
+      .progress-bar {
+        transform: scaleY(1);
+      }
+      .seek-to {
+        opacity: 1;
+      }
+      .played:after {
+        transform: scale(1);
+      }
+    }
   }
-  @include max-width-400() {
-    @include hidden();
-  }
+}
+
+.progress-bars-wrapper {
+  height: 8px;
+
+  transition: transform .1s cubic-bezier(.0,.0,.2,1);
+  transform: scaleY(.25);
 }
 
 .progress-bar {
   position: absolute;
-  top: 50%;
-  left: 0;
 
-  height: 2px;
-  margin: -1px 0 0;
+  height: 8px;
   padding: 0;
 
-  vertical-align: top;
-
-  border: none;
+  transition: transform .1s cubic-bezier(.0,.0,.2,1);
+  //transform: scaleY(.25);
 }
 
-.progress-played {
-  background-color: $color-main;
+.played {
+  background-color: #ea492e;
 
-  &:before {
+  &:after {
     position: absolute;
     top: -4px;
-    right: -5px;
+    right: -8px;
 
-    width: 10px;
-    height: 10px;
+    width: 16px;
+    height: 16px;
 
     content: '';
     transition: transform .1s cubic-bezier(.0,.0,.2,1);
+    transform: scale(0);
 
     border-radius: 50%;
     background-color: #fff;
   }
 }
 
-.progress-buffered {
+.buffered {
   transition: width .2s ease;
 
-  background-color: $video-progress-bg;
+  background-color: transparentize(#fff, .75);
 }
 
-.progress-background {
+.background {
   width: 100%;
 
-  background-color: $video-progress-bg;
+  background-color: transparentize(#fff, .75);
 }
 
+.seek-to {
+  transition: opacity .2s;
 
-.seek-control {
+  opacity: 0;
+  background-color: rgba(234,73,46, .5);
+}
+
+.hitbox {
   position: relative;
-  z-index: 2;
+  z-index: 5;
+  top: -12px;
 
   display: block;
 
   width: 100%;
-  height: 15px;
-  margin: 0;
-  padding: 0;
+  height: 16px;
 
   cursor: pointer;
-  vertical-align: middle;
 
   opacity: 0;
-  border: none;
-  background: transparent;
-
-  appearance: none;
 }
 
 :global {

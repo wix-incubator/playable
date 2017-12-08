@@ -75,8 +75,8 @@ export default class ProgressControl {
     const config = {
       callbacks: {
         onChangePlayedProgress: this._changePlayedProgress,
-        onUserInteractionStart: this._onUserInteractionStarts,
-        onUserInteractionEnd: this._onUserInteractionEnds,
+        onDragStart: this._onUserInteractionStarts,
+        onDragEnd: this._onUserInteractionEnds,
       },
       texts: this._textMap,
     };
@@ -86,7 +86,7 @@ export default class ProgressControl {
 
   _initInterceptor() {
     this._interceptor = new KeyboardInterceptor({
-      node: this.view.$input[0],
+      node: this.view.getNode(),
       callbacks: {
         [KEYCODES.UP_ARROW]: e => {
           e.stopPropagation();
@@ -169,6 +169,8 @@ export default class ProgressControl {
       this._isUserInteracting = true;
       this._pauseVideoOnProgressManipulationStart();
     }
+
+    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
   }
 
   _onUserInteractionEnds() {
@@ -176,6 +178,8 @@ export default class ProgressControl {
       this._isUserInteracting = false;
       this._playVideoOnProgressManipulationEnd();
     }
+
+    this._eventEmitter.emit(UI_EVENTS.CONTORL_DRAG_END);
   }
 
   _updateControlOnInterval() {

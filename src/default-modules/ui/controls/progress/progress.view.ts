@@ -1,5 +1,5 @@
 import * as $ from 'jbone';
-
+import * as classnames from 'classnames';
 import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
@@ -8,19 +8,34 @@ import * as styles from './progress.scss';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'progress-control';
-const DATA_HOOK_INPUT_VALUE = 'seek-input';
 
 const DATA_PLAYED = 'data-played-percent';
+
+const getPercentBasedOnXPosition = (event: MouseEvent, element: HTMLElement) => {
+  const boundingRect = element.getBoundingClientRect();
+  const positionX = event.clientX;
+
+  if (positionX < boundingRect.left) {
+    return 0;
+  }
+
+  if (positionX > boundingRect.left + boundingRect.width) {
+    return 100;
+  }
+
+  return (event.clientX - boundingRect.left) / boundingRect.width * 100;
+};
 
 class ProgressView extends View {
   private _callbacks;
   private _texts;
+  private _isDragging: boolean;
 
-  $node;
-  $progressPlayed;
-  $progressBuffered;
-  $progressBackground;
-  $input;
+  private _$node;
+  private _$hitbox;
+  private _$played;
+  private _$buffered;
+  private _$seekTo;
 
   constructor(config) {
     super(config);
@@ -28,149 +43,193 @@ class ProgressView extends View {
 
     this._callbacks = callbacks;
     this._texts = texts;
-    this.$node = $('<div>', {
-      class: this.styleNames['seek-block'],
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
-      [DATA_PLAYED]: 0,
-    });
 
-    this.$progressPlayed = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${
-        this.styleNames['progress-played']
-      }`,
-    });
-
-    this.$progressBuffered = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${
-        this.styleNames['progress-buffered']
-      }`,
-    });
-
-    this.$progressBackground = $('<div>', {
-      class: `${this.styleNames['progress-bar']} ${
-        this.styleNames['progress-background']
-      }`,
-    });
-
-    this.$input = $('<input>', {
-      class: this.styleNames['seek-control'],
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_VALUE,
-      'aria-label': this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_LABEL),
-      'aria-valuemin': 0,
-      'aria-valuenow': 0,
-      'aria-valuemax': 100,
-      type: 'range',
-      min: 0,
-      max: 100,
-      step: 0.1,
-      value: 0,
-    });
-
-    this.$node
-      .append(this.$input)
-      .append(this.$progressPlayed)
-      .append(this.$progressBuffered)
-      .append(this.$progressBackground);
-
+    this._createDOM();
     this._bindCallbacks();
     this._bindEvents();
+    this._setDOMAttributes(0);
   }
 
-  _onMouseInteractionStart(e) {
-    if (e.button > 1) {
-      return;
-    }
+  _createDOM() {
+    this._$node = $('<div>', {
+      class: this.styleNames['seek-block'],
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
+      tabIndex: 0,
+    });
 
-    this._callbacks.onUserInteractionStart();
-  }
+    this._$hitbox = $('<div>', {
+      class: this.styleNames.hitbox,
+    });
 
-  _onMouseInteractionEnd(e) {
-    if (e.button > 1) {
-      return;
-    }
+    this._$played = $('<div>', {
+      class: classnames(
+        this.styleNames['progress-bar'],
+        this.styleNames.played,
+      ),
+    });
 
-    this._callbacks.onUserInteractionEnd();
-  }
+    this._$buffered = $('<div>', {
+      class: classnames(
+        this.styleNames['progress-bar'],
+        this.styleNames.buffered,
+      ),
+    });
 
-  _onInputValueChange() {
-    const value = String(this.$input.val());
+    this._$seekTo = $('<div>', {
+      class: classnames(
+        this.styleNames['progress-bar'],
+        this.styleNames['seek-to'],
+      ),
+    });
 
-    this._updateDOMAttributes(value);
-    this._callbacks.onChangePlayedProgress(value);
+    const wrapper = $('<div>', {
+      class: this.styleNames['progress-bars-wrapper'],
+    });
+
+    const background = $('<div>', {
+      class: classnames(
+        this.styleNames['progress-bar'],
+        this.styleNames.background,
+      ),
+    });
+
+    wrapper
+      .append(background)
+      .append(this._$buffered)
+      .append(this._$seekTo)
+      .append(this._$played);
+
+    this._$node
+      .append(wrapper)
+      .append(this._$hitbox);
   }
 
   _bindCallbacks() {
-    this._onMouseInteractionStart = this._onMouseInteractionStart.bind(this);
-    this._onMouseInteractionEnd = this._onMouseInteractionEnd.bind(this);
-    this._onInputValueChange = this._onInputValueChange.bind(this);
+    this._setPlayedByDrag = this._setPlayedByDrag.bind(this);
+    this._startDragOnMouseDown = this._startDragOnMouseDown.bind(this);
+    this._stopDragOnMouseUp = this._stopDragOnMouseUp.bind(this);
+    this._setSeekToByMouse = this._setSeekToByMouse.bind(this);
+    this._resetSeek = this._resetSeek.bind(this);
+    this._setPlayedByClick = this._setPlayedByClick.bind(this);
   }
 
   _bindEvents() {
-    this.$input[0].addEventListener('input', this._onInputValueChange);
-    this.$input[0].addEventListener('change', this._onInputValueChange);
-
-    this.$node[0].addEventListener('mousedown', this._onMouseInteractionStart);
-    this.$node[0].addEventListener('mouseup', this._onMouseInteractionEnd);
+    this._$hitbox[0].addEventListener('mousedown', this._startDragOnMouseDown);
+    this._$hitbox[0].addEventListener('mousemove', this._setSeekToByMouse);
+    window.addEventListener('mousemove', this._setPlayedByDrag);
+    window.addEventListener('mouseup', this._stopDragOnMouseUp);
+    this._$hitbox[0].addEventListener('mouseout', this._resetSeek);
+    this._$hitbox[0].addEventListener('click', this._setPlayedByClick);
   }
 
   _unbindEvents() {
-    this.$input[0].removeEventListener('input', this._onInputValueChange);
-    this.$input[0].removeEventListener('change', this._onInputValueChange);
-
-    this.$node[0].removeEventListener(
-      'mousedown',
-      this._onMouseInteractionStart,
-    );
-    this.$node[0].removeEventListener('mouseup', this._onMouseInteractionEnd);
+    this._$hitbox[0].removeEventListener('mousedown', this._startDragOnMouseDown);
+    this._$hitbox[0].removeEventListener('mousemove', this._setSeekToByMouse);
+    window.removeEventListener('mousemove', this._setPlayedByDrag);
+    window.removeEventListener('mouseup', this._stopDragOnMouseUp);
+    this._$hitbox[0].removeEventListener('mouseout', this._resetSeek);
+    this._$hitbox[0].removeEventListener('click', this._setPlayedByClick);
   }
 
-  _updateDOMAttributes(percent) {
-    this.$input.attr('value', percent);
-    this.$input.attr(
+  _startDragOnMouseDown(event: MouseEvent) {
+    if (event.button > 1) {
+      return;
+    }
+
+    this._startDrag();
+  }
+
+  _stopDragOnMouseUp(event: MouseEvent) {
+    if (event.button > 1) {
+      return;
+    }
+
+    this._stopDrag();
+  }
+
+  _resetSeek() {
+    this._setSeekTo(0);
+  }
+
+  _setSeekToByMouse(event: MouseEvent) {
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+
+    this._setSeekTo(percent);
+  }
+
+  _setPlayedByClick(event: MouseEvent) {
+    this._$node[0].focus();
+    this._setPlayed(getPercentBasedOnXPosition(event, this._$hitbox[0]));
+  }
+
+  _setPlayedByDrag(event: MouseEvent) {
+    this._isDragging && this._setPlayed(getPercentBasedOnXPosition(event, this._$hitbox[0]));
+  }
+
+  _startDrag() {
+    this._isDragging = true;
+    this._callbacks.onDragStart();
+    this._$node.addClass(this.styleNames['is-dragging']);
+  }
+
+  _stopDrag() {
+    if (this._isDragging) {
+      this._isDragging = false;
+      this._callbacks.onDragEnd();
+      this._$node.removeClass(this.styleNames['is-dragging']);
+    }
+  }
+
+  _setPlayed(percent: number) {
+    this._setDOMAttributes(percent);
+    this._callbacks.onChangePlayedProgress(percent);
+  }
+
+  _setSeekTo(percent: number) {
+    this._$seekTo.attr('style', `width:${percent}%;`);
+  }
+
+  _setDOMAttributes(percent: number) {
+    this._$node.attr('value', percent);
+    this._$node.attr(
       'aria-valuetext',
       this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
     );
-    this.$input.attr('aria-valuenow', percent);
-
-    this.$node.attr(DATA_PLAYED, percent);
-    this.$progressPlayed.attr('style', `width:${percent}%;`);
+    this._$node.attr('aria-valuenow', percent);
+    this._$node.attr(DATA_PLAYED, percent);
+    this._$played.attr('style', `width:${percent}%;`);
   }
 
-  _updatePlayed(percent) {
-    this.$input.val(percent);
-    this._updateDOMAttributes(percent);
-  }
-
-  _updateBuffered(percent) {
-    this.$progressBuffered.attr('style', `width:${percent}%;`);
+  _setBuffered(percent: number) {
+    this._$buffered.attr('style', `width:${percent}%;`);
   }
 
   setState({ played, buffered }: { played?: number; buffered?: number }) {
-    played !== undefined && this._updatePlayed(played);
-    buffered !== undefined && this._updateBuffered(buffered);
+    played !== undefined && this._setDOMAttributes(played);
+    buffered !== undefined && this._setBuffered(buffered);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.toggleClass(this.styleNames.hidden, true);
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.toggleClass(this.styleNames.hidden, false);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node[0];
   }
 
   destroy() {
     this._unbindEvents();
-    this.$node.remove();
+    this._$node.remove();
 
-    delete this.$input;
-    delete this.$progressPlayed;
-    delete this.$progressBuffered;
-    delete this.$progressBackground;
-    delete this.$node;
+    delete this._$node;
+    delete this._$buffered;
+    delete this._$hitbox;
+    delete this._$played;
+    delete this._$seekTo;
 
     delete this._texts;
   }
