@@ -326,9 +326,13 @@ export default class CardsManager {
       return;
     }
 
+    await this._disableAnimation();
+
     while (!selectedCard.isVisible) {
       await this._showNextCard();
     }
+
+    this._enableAnimation();
   }
 
   async _enableAnimation() {

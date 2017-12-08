@@ -16,7 +16,7 @@ const positionProperties = {
 };
 
 export default class Card {
-  constructor({ eventEmitter, cardsConfig, contentNode, from, to, order, clientId }) {
+  constructor({ eventEmitter, cardsConfig, contentNode, from, to, order, id }) {
     this.eventEmitter = eventEmitter;
     this.cardsConfig = cardsConfig;
     this.contentNode = contentNode;
@@ -26,9 +26,7 @@ export default class Card {
     this.from = from / 1000;
     this.to = to / 1000;
     this.order = order;
-
-    //TODO change to 'id'
-    this.id = clientId;
+    this.id = id;
     this.initContainer();
   }
 
