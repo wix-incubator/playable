@@ -96,6 +96,7 @@ export default class CardsManager {
   }
 
   async handlePlayerSizeChange() {
+    this._cancelDeferredUpdates();
     await this._disableAnimation();
 
     this.resetSliderInterval();
