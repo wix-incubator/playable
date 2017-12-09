@@ -296,7 +296,7 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### removeLogo
 
-### setShouldAlwaysShow
+### setControlsShouldAlwaysShow
 
 **Parameters**
 
