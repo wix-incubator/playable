@@ -3,6 +3,7 @@ import findLastIndex from 'lodash/findLastIndex';
 import filter from 'lodash/filter';
 import Card from '../card/card';
 import { waitForDomUpdate } from '../utils/dom-update-delay';
+import { EVENTS } from '../constants';
 
 const CARDS_UPDATE_INTERVAL = 100;
 const SLIDER_INTERVAL = 6000;
@@ -26,6 +27,8 @@ export default class CardsManager {
     this.updateCardsOnTimeChange = this.updateCardsOnTimeChange.bind(this);
     this.slideNextCard = this.slideNextCard.bind(this);
     this.handleCardSizeChange = this.handleCardSizeChange.bind(this);
+
+    this.cardsConfig.on(EVENTS.CONFIG_CHANGED, this.handleConfigChange, this);
   }
 
   async addCard(cardData) {

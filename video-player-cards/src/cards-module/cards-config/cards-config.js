@@ -1,4 +1,5 @@
-import { DIRECTIONS, ORIENTATIONS, ANCHOR_POINTS } from '../constants';
+import { EventEmitter } from 'eventemitter3';
+import { DIRECTIONS, ORIENTATIONS, ANCHOR_POINTS, EVENTS } from '../constants';
 
 const directionsMap = {
   [ORIENTATIONS.HORIZONTAL]: {
@@ -15,26 +16,43 @@ const directionsMap = {
   }
 };
 
-export default class CardsConfig {
+export default class CardsConfig extends EventEmitter {
   constructor() {
-    this.direction = DIRECTIONS.STANDARD;
-    this.orientation = ORIENTATIONS.HORIZONTAL;
-    this.anchorPoint = ANCHOR_POINTS.BOTTOM_LEFT;
-    this.isPreviewMode = false;
+    super();
+    this._orientation = ORIENTATIONS.HORIZONTAL;
+    this._anchorPoint = ANCHOR_POINTS.BOTTOM_LEFT;
+    this._isPreviewMode = false;
   }
 
-  setOrientation(orientation) {
-    this.orientation = orientation;
-    this.updateDirection();
+  get orientation() {
+    return this._orientation;
   }
 
-  setAnchorPoint(anchorPoint) {
-    this.anchorPoint = anchorPoint;
-    this.updateDirection();
+  set orientation(value) {
+    this._orientation = value;
+    this.emit(EVENTS.CONFIG_CHANGED);
   }
 
-  updateDirection() {
+  get anchorPoint() {
+    return this._anchorPoint;
+  }
+
+  set anchorPoint(value) {
+    this._anchorPoint = value;
+    this.emit(EVENTS.CONFIG_CHANGED);
+  }
+
+  get isPreviewMode() {
+    return this._isPreviewMode;
+  }
+
+  set isPreviewMode(value) {
+    this._isPreviewMode = value;
+    this.emit(EVENTS.CONFIG_CHANGED);
+  }
+
+  get direction() {
     const { anchorPoint, orientation } = this;
-    this.direction = directionsMap[orientation][anchorPoint];
+    return directionsMap[orientation][anchorPoint];
   }
 }

@@ -1,7 +1,6 @@
 import classnames from 'classnames';
 import { ResizeSensor } from 'css-element-queries';
-import { ORIENTATIONS, DIRECTIONS } from '../constants';
-import { CARD_CLOSED } from '../constants/events';
+import { ORIENTATIONS, DIRECTIONS, EVENTS } from '../constants';
 import styles from './card.scss';
 
 const positionProperties = {
@@ -16,7 +15,7 @@ const positionProperties = {
 };
 
 export default class Card {
-  constructor({ eventEmitter, cardsConfig, contentNode, from, to, order, id }) {
+  constructor({ eventEmitter, cardsConfig, contentNode, from, to, order, id, hasDynamicContent = false }) {
     this.eventEmitter = eventEmitter;
     this.cardsConfig = cardsConfig;
     this.contentNode = contentNode;
@@ -27,6 +26,10 @@ export default class Card {
     this.to = to / 1000;
     this.order = order;
     this.id = id;
+
+    // for cards that can be resized after load and need ResizeSensor
+    this.hasDynamicContent = hasDynamicContent;
+
     this.initContainer();
   }
 
@@ -57,7 +60,7 @@ export default class Card {
 
   close() {
     this.isClosed = true;
-    this.eventEmitter.emit(CARD_CLOSED, this);
+    this.eventEmitter.emit(EVENTS.CARD_CLOSED, this);
   }
 
   shouldBeActiveAt(time) {
@@ -72,7 +75,8 @@ export default class Card {
   setInitialPosition(offset = 0) {
     this.node.style.left = 'auto';
     this.node.style.right = 'auto';
-    this.updatePosition(-(this.getSize() + offset));
+    // set negative position to a card for animate its appearance from screen border
+    this.updatePosition(-1 * (this.getSize() + offset));
   }
 
   updatePosition(offset) {
@@ -82,7 +86,7 @@ export default class Card {
   }
 
   addResizeHandler(handler) {
-    if (!this.resizeSensor) {
+    if (!this.resizeSensor && this.hasDynamicContent) {
       this.resizeSensor = new ResizeSensor(this.node, handler);
     }
   }

@@ -7,7 +7,7 @@ import { waitForDomUpdate } from './utils/dom-update-delay';
 import CardsContainer from './cards-container/cards-container';
 import CardsManager from './cards-manager/cards-manager';
 import CardsConfig from './cards-config/cards-config';
-import { CARD_CLOSED } from './constants/events';
+import { EVENTS } from './constants';
 
 export default class CardsModule {
   static dependencies = ['eventEmitter', 'rootContainer', 'engine'];
@@ -78,7 +78,7 @@ export default class CardsModule {
     waitForDomUpdate()
       .then(() => (this.resizeSensor = ResizeSensor(playerContainerNode, this.handlePlayerSizeChange)));
 
-    this.eventEmitter.on(CARD_CLOSED, this.cardsManager.handleCardClose, this.cardsManager);
+    this.eventEmitter.on(EVENTS.CARD_CLOSED, this.cardsManager.handleCardClose, this.cardsManager);
   }
 
   @playerAPI()
@@ -106,8 +106,7 @@ export default class CardsModule {
     if (this.cardsConfig.anchorPoint === anchorPoint) {
       return;
     }
-    this.cardsConfig.setAnchorPoint(anchorPoint);
-    this.handleConfigChange();
+    this.cardsConfig.anchorPoint = anchorPoint;
   }
 
   @playerAPI()
@@ -115,13 +114,12 @@ export default class CardsModule {
     if (this.cardsConfig.orientation === orientation) {
       return;
     }
-    this.cardsConfig.setOrientation(orientation);
-    this.handleConfigChange();
+    this.cardsConfig.orientation = orientation;
   }
 
   @playerAPI()
   onCardClose(callback) {
-    this.eventEmitter.on(CARD_CLOSED, callback);
+    this.eventEmitter.on(EVENTS.CARD_CLOSED, callback);
   }
 
   @playerAPI()
@@ -133,7 +131,6 @@ export default class CardsModule {
     }
 
     this.cardsConfig.isPreviewMode = isPreviewMode;
-    this.handleConfigChange();
   }
 
   @playerAPI()
@@ -145,15 +142,6 @@ export default class CardsModule {
 
   handlePlayerSizeChange() {
     this.cardsManager.handlePlayerSizeChange();
-  }
-
-  handleConfigChange() {
-    if (!this.isInitialized) {
-      return;
-    }
-
-    this.cardsManager.handleConfigChange();
-    this.cardsContainer.handleConfigChange();
   }
 
   handlePlayerStateChange({ nextState }) {
@@ -186,7 +174,7 @@ export default class CardsModule {
       this.cardsContainer
     );
 
-    this.eventEmitter.off(CARD_CLOSED);
+    this.eventEmitter.off(EVENTS.CARD_CLOSED);
   }
 
   destroy() {

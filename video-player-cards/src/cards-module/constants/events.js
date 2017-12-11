@@ -1,1 +1,4 @@
-export const CARD_CLOSED = 'cards-card-closed';
+export default {
+  CARD_CLOSED: 'card-closed',
+  CONFIG_CHANGED: 'config-changed'
+};
