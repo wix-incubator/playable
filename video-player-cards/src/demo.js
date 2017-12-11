@@ -1,4 +1,4 @@
-import VideoPlayer from 'video-player';
+import VideoPlayer from '@wix/video-player';
 import CardsModule from './cards-module/cards-module';
 import { getDemoCards } from './demo/demo-cards';
 

@@ -1,7 +1,7 @@
 import { ResizeSensor } from 'css-element-queries';
 import throttle from 'lodash/throttle';
 import find from 'lodash/find';
-import { STATES } from 'video-player/dist/src/constants';
+import { STATES } from '@wix/video-player/dist/src/constants';
 import styles from './cards-container.scss';
 import { DIRECTIONS, FLOW_TYPES, ANCHOR_POINTS } from '../constants';
 

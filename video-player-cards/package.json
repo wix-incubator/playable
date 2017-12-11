@@ -25,8 +25,8 @@
     "release": "yoshi release"
   },
   "dependencies": {
-    "gh-pages": "^1.0.0",
-    "video-player": "^1.0.403"
+    "@wix/video-player": "^1.0.403",
+    "gh-pages": "^1.0.0"
   },
   "babel-eslint": "^8.0.0",
   "devDependencies": {
@@ -50,7 +50,7 @@
     },
     "externalUnprocessedModules": [
       "ally.js",
-      "video-player"
+      "@wix/video-player"
     ]
   },
   "babel": {

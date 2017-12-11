@@ -1,6 +1,6 @@
 import { ResizeSensor } from 'css-element-queries';
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from 'video-player/dist/src/constants';
-import playerAPI from 'video-player/dist/src/utils/player-api-decorator';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '@wix/video-player/dist/src/constants';
+import playerAPI from '@wix/video-player/dist/src/utils/player-api-decorator';
 import noop from 'lodash/noop';
 
 import Card from './card/card';
