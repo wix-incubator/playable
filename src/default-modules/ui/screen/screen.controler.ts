@@ -145,7 +145,7 @@ export default class Screen {
     this._showPlaybackChangeIndicator();
 
     if (
-      !this._fullScreenManager.isActive ||
+      !this._fullScreenManager.isEnabled ||
       this._fullScreenManager._config.enterOnPlay
     ) {
       this._toggleVideoPlayback();
@@ -156,7 +156,7 @@ export default class Screen {
 
   _processNodeDblClick() {
     if (
-      this._fullScreenManager.isActive ||
+      this._fullScreenManager.isEnabled ||
       !this._fullScreenManager._config.enterOnPlay
     ) {
       if (this._isDelayedPlaybackToggleExist) {

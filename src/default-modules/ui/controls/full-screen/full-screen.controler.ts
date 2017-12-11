@@ -35,7 +35,7 @@ export default class FullScreenControl {
 
     this.setControlStatus(false);
 
-    if (!this._fullScreenManager.isActive) {
+    if (!this._fullScreenManager.isEnabled) {
       this.hide();
     }
 

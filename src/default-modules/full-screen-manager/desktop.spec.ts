@@ -33,12 +33,12 @@ describe('DesktopFullScreen', () => {
   describe('enable status', () => {
     it('should return true in native status is true', () => {
       document[fullScreenFn.fullscreenEnabled] = true;
-      expect(fullScreen.isActive).to.be.true;
+      expect(fullScreen.isEnabled).to.be.true;
     });
 
     it('should return false in native status is false', () => {
       document[fullScreenFn.fullscreenEnabled] = false;
-      expect(fullScreen.isActive).to.be.false;
+      expect(fullScreen.isEnabled).to.be.false;
     });
   });
 

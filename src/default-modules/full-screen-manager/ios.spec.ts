@@ -21,12 +21,12 @@ describe('IOSFullScreen', () => {
   describe('enable status', () => {
     it('should return true in native status is true', () => {
       element.webkitSupportsFullscreen = true;
-      expect(fullScreen.isActive).to.be.true;
+      expect(fullScreen.isEnabled).to.be.true;
     });
 
     it('should return false in native status is false', () => {
       element.webkitSupportsFullscreen = false;
-      expect(fullScreen.isActive).to.be.false;
+      expect(fullScreen.isEnabled).to.be.false;
     });
   });
 

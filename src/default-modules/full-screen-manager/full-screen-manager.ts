@@ -116,7 +116,7 @@ export default class FullScreenManager {
    */
   @playerAPI()
   enterFullScreen() {
-    if (!this.isActive) {
+    if (!this.isEnabled) {
       return;
     }
 
@@ -128,7 +128,7 @@ export default class FullScreenManager {
    */
   @playerAPI()
   exitFullScreen() {
-    if (!this.isActive) {
+    if (!this.isEnabled) {
       return;
     }
 
@@ -140,7 +140,7 @@ export default class FullScreenManager {
    */
   @playerAPI()
   get isInFullScreen(): boolean {
-    if (!this.isActive) {
+    if (!this.isEnabled) {
       return false;
     }
 
@@ -148,7 +148,7 @@ export default class FullScreenManager {
   }
 
   get isEnabled() {
-    return this._helper.isActive && !this._config.disabled;
+    return this._helper.isEnabled && !this._config.disabled;
   }
 
   destroy() {
