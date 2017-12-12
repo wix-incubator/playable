@@ -138,8 +138,6 @@ export default class CardsManager {
       return Promise.resolve();
     }
 
-    cards.forEach(card => this._hideCard(card));
-
     this._removeCardsFromActive(cards);
 
     this._defer(() => this.cardsContainer.removeCardNodes(cards), CARD_ANIMATION_TIME);
@@ -170,6 +168,7 @@ export default class CardsManager {
 
   _removeCardsFromActive(cards) {
     cards.forEach(card => {
+      this._hideCard(card);
       card.isActive = false;
       this.activeCards.splice(this.activeCards.indexOf(card), 1);
     });
@@ -245,7 +244,6 @@ export default class CardsManager {
   }
 
   _closeCard(card) {
-    this._hideCard(card);
     this._removeCardsFromActive([card]);
 
     this._defer(() => this.cardsContainer.removeCardNode(card), CARD_ANIMATION_TIME);
