@@ -173,7 +173,7 @@ export default class AnomalyBloodhound {
     const startTS = Date.now();
     this._timeoutContainer[type.id] = setTimeout(() => {
       const endTS = Date.now();
-      this._timeoutContainer[type.id] = null;
+      delete this._timeoutContainer;
       this.reportDebugInfo({
         reason,
         startTS,
@@ -184,13 +184,13 @@ export default class AnomalyBloodhound {
 
   stopDelayedReport(type) {
     clearTimeout(this._timeoutContainer[type.id]);
-    this._timeoutContainer[type.id] = null;
+    delete this._timeoutContainer[type.id];
   }
 
   stopAllDelayedReports() {
     Object.keys(this._timeoutContainer).forEach(key => {
       clearTimeout(this._timeoutContainer[key]);
-      this._timeoutContainer[key] = null;
+      delete this._timeoutContainer[key];
     });
   }
 

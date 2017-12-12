@@ -160,7 +160,7 @@ export default class ProgressControl {
 
   private _stopIntervalUpdates() {
     clearInterval(this._updateControlInterval);
-    this._updateControlInterval = null;
+    this._updateControlInterval = false;
   }
 
   private _onUserInteractionStarts() {
@@ -321,9 +321,5 @@ export default class ProgressControl {
 
     delete this._eventEmitter;
     delete this._engine;
-
-    this._isUserInteracting = null;
-    this._currentProgress = null;
-    this.isHidden = null;
   }
 }

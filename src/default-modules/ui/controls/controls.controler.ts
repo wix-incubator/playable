@@ -18,7 +18,6 @@ const { asClass } = DependencyContainer;
 
 const DEFAULT_CONFIG = {
   shouldAlwaysShow: false,
-  view: null,
 };
 
 const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
@@ -290,7 +289,7 @@ export default class ControlBlock {
     this._tryHideContent();
   }
 
-  private _updatePlayingStatus({ nextState }) {
+  _updatePlayingStatus({ nextState }) {
     switch (nextState) {
       case STATES.PLAY_REQUESTED: {
         this._shouldShowContent = false;
@@ -374,11 +373,5 @@ export default class ControlBlock {
     delete this._engine;
     delete this._screen;
     delete this.config;
-
-    this.isHidden = null;
-    this._isContentShowingEnabled = null;
-    this._shouldShowContent = null;
-    this._hideControlsTimeout = null;
-    this._isControlsFocused = null;
   }
 }

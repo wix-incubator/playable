@@ -230,9 +230,5 @@ export default class VolumeControl {
     delete this._eventEmitter;
     delete this._engine;
     delete this._textMap;
-
-    this.isHidden = null;
-    this._isMuted = null;
-    this._volume = null;
   }
 }
