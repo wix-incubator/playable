@@ -48,7 +48,7 @@ export default class VolumeControl {
     return this.view.getNode();
   }
 
-  _initUI() {
+  private _initUI() {
     const config = {
       callbacks: {
         onDragStart: this._broadcastDragStart,
@@ -63,7 +63,7 @@ export default class VolumeControl {
     this.view = new VolumeControl.View(config);
   }
 
-  _initInterceptor() {
+  private _initInterceptor() {
     this._buttonInterceptor = new KeyboardInterceptor({
       node: this.view.getButtonNode(),
       callbacks: {
@@ -119,12 +119,12 @@ export default class VolumeControl {
     });
   }
 
-  _destroyInterceptor() {
+  private _destroyInterceptor() {
     this._buttonInterceptor.destroy();
     this._inputInterceptor.destroy();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.VOLUME_STATUS_CHANGED,
       this._updateVolumeStatus,
@@ -132,7 +132,7 @@ export default class VolumeControl {
     );
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
     this._toggleMuteStatus = this._toggleMuteStatus.bind(this);
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
@@ -140,43 +140,43 @@ export default class VolumeControl {
     this._broadcastDragEnd = this._broadcastDragEnd.bind(this);
   }
 
-  _broadcastDragStart() {
+  private _broadcastDragStart() {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
   }
 
-  _broadcastDragEnd() {
+  private _broadcastDragEnd() {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
   }
 
-  _changeVolumeLevel(level) {
+  private _changeVolumeLevel(level) {
     this._engine.setVolume(level);
     this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
   }
 
-  _toggleMuteStatus() {
+  private _toggleMuteStatus() {
     this._engine.setMute(!this._isMuted);
     this._eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, !this._isMuted);
   }
 
-  _getVolumeLevelFromWheel(delta) {
+  private _getVolumeLevelFromWheel(delta) {
     const adjustedVolume = this._volume + delta / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
 
     this._changeVolumeStatus(validatedVolume);
   }
 
-  _getVolumeLevelFromInput(level) {
+  private _getVolumeLevelFromInput(level) {
     this._changeVolumeStatus(level);
   }
 
-  _changeVolumeStatus(level) {
+  private _changeVolumeStatus(level) {
     this._changeVolumeLevel(level);
     if (this._isMuted) {
       this._toggleMuteStatus();
     }
   }
 
-  _updateVolumeStatus() {
+  private _updateVolumeStatus() {
     this.setVolumeLevel(this._engine.getVolume());
     this.setMuteStatus(this._engine.getMute());
   }
@@ -213,7 +213,7 @@ export default class VolumeControl {
     this.view.show();
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.VOLUME_STATUS_CHANGED,
       this._updateVolumeStatus,

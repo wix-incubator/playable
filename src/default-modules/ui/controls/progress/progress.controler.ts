@@ -52,7 +52,7 @@ export default class ProgressControl {
     return this.view.getNode();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._processStateChange,
@@ -70,7 +70,7 @@ export default class ProgressControl {
     );
   }
 
-  _initUI() {
+  private _initUI() {
     const config = {
       callbacks: {
         onChangePlayedProgress: this._changePlayedProgress,
@@ -83,7 +83,7 @@ export default class ProgressControl {
     this.view = new ProgressControl.View(config);
   }
 
-  _initInterceptor() {
+  private _initInterceptor() {
     this._interceptor = new KeyboardInterceptor({
       node: this.view.getNode(),
       callbacks: {
@@ -123,11 +123,11 @@ export default class ProgressControl {
     });
   }
 
-  _destroyInterceptor() {
+  private _destroyInterceptor() {
     this._interceptor.destroy();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._updateControlOnInterval = this._updateControlOnInterval.bind(this);
     this._changePlayedProgress = this._changePlayedProgress.bind(this);
     this._onUserInteractionStarts = this._onUserInteractionStarts.bind(this);
@@ -138,7 +138,7 @@ export default class ProgressControl {
     );
   }
 
-  _changePlayedProgress(value) {
+  private _changePlayedProgress(value) {
     if (this._currentProgress === value) {
       return;
     }
@@ -147,7 +147,7 @@ export default class ProgressControl {
     this._changeCurrentTimeOfVideo(this._currentProgress / 100);
   }
 
-  _startIntervalUpdates() {
+  private _startIntervalUpdates() {
     if (this._updateControlInterval) {
       this._stopIntervalUpdates();
     }
@@ -158,12 +158,12 @@ export default class ProgressControl {
     );
   }
 
-  _stopIntervalUpdates() {
+  private _stopIntervalUpdates() {
     clearInterval(this._updateControlInterval);
     this._updateControlInterval = null;
   }
 
-  _onUserInteractionStarts() {
+  private _onUserInteractionStarts() {
     if (!this._isUserInteracting) {
       this._isUserInteracting = true;
       this._pauseVideoOnProgressManipulationStart();
@@ -172,7 +172,7 @@ export default class ProgressControl {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
   }
 
-  _onUserInteractionEnds() {
+  private _onUserInteractionEnds() {
     if (this._isUserInteracting) {
       this._isUserInteracting = false;
       this._playVideoOnProgressManipulationEnd();
@@ -181,12 +181,12 @@ export default class ProgressControl {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
   }
 
-  _updateControlOnInterval() {
+  private _updateControlOnInterval() {
     this._updatePlayedIndicator();
     this._updateBufferIndicator();
   }
 
-  _processStateChange({ nextState }) {
+  private _processStateChange({ nextState }) {
     switch (nextState) {
       case STATES.SRC_SET:
         this.reset();
@@ -211,7 +211,7 @@ export default class ProgressControl {
     }
   }
 
-  _changeCurrentTimeOfVideo(percent) {
+  private _changeCurrentTimeOfVideo(percent) {
     const duration = this._engine.getDurationTime();
 
     this._engine.setCurrentTime(duration * percent);
@@ -219,7 +219,7 @@ export default class ProgressControl {
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
   }
 
-  _pauseVideoOnProgressManipulationStart() {
+  private _pauseVideoOnProgressManipulationStart() {
     const currentState = this._engine.getCurrentState();
 
     if (
@@ -232,7 +232,7 @@ export default class ProgressControl {
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
   }
 
-  _playVideoOnProgressManipulationEnd() {
+  private _playVideoOnProgressManipulationEnd() {
     if (this._shouldPlayAfterManipulationEnd) {
       this._engine.play();
 
@@ -242,7 +242,7 @@ export default class ProgressControl {
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
   }
 
-  _updateBufferIndicator() {
+  private _updateBufferIndicator() {
     const currentTime = this._engine.getCurrentTime();
     const buffered = this._engine.getBuffered();
     const duration = this._engine.getDurationTime();
@@ -252,14 +252,14 @@ export default class ProgressControl {
     );
   }
 
-  _updatePlayedIndicator() {
+  private _updatePlayedIndicator() {
     const currentTime = this._engine.getCurrentTime();
     const duration = this._engine.getDurationTime();
 
     this.updatePlayed(getOverallPlayedPercent(currentTime, duration));
   }
 
-  _updateAllIndicators() {
+  private _updateAllIndicators() {
     const currentTime = this._engine.getCurrentTime();
     const buffered = this._engine.getBuffered();
     const duration = this._engine.getDurationTime();
@@ -289,7 +289,7 @@ export default class ProgressControl {
     this.view.show();
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.DURATION_UPDATED,
       this._updateAllIndicators,

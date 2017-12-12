@@ -50,18 +50,16 @@ class ControlsView extends View {
       .append(this.$controlsContainerRight)
       .append(this.$logoContainer);
 
-    this.$node
-      .append(this.$progressBarContainer)
-      .append(container);
+    this.$node.append(this.$progressBarContainer).append(container);
 
     this._bindEvents();
   }
 
-  _preventClickPropagation(e) {
+  private _preventClickPropagation(e) {
     e.stopPropagation();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this.$node[0].addEventListener('click', this._preventClickPropagation);
     this.$node[0].addEventListener(
       'mousemove',
@@ -73,11 +71,8 @@ class ControlsView extends View {
     );
   }
 
-  _unbindEvents() {
-    this.$node[0].removeEventListener(
-      'click',
-      this._preventClickPropagation,
-    );
+  private _unbindEvents() {
+    this.$node[0].removeEventListener('click', this._preventClickPropagation);
     this.$node[0].removeEventListener(
       'mousemove',
       this._callbacks.onControlsBlockMouseMove,

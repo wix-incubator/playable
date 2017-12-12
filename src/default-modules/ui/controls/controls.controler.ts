@@ -115,7 +115,7 @@ export default class ControlBlock {
     return this.view.getNode();
   }
 
-  _initUI() {
+  private _initUI() {
     const { view } = this.config;
     const config = {
       callbacks: {
@@ -131,7 +131,7 @@ export default class ControlBlock {
     }
   }
 
-  _initControls() {
+  private _initControls() {
     this.view.appendProgressBarNode(this._progressControl.node);
     this.view.appendControlNodeLeft(this._playControl.node);
     this.view.appendControlNodeLeft(this._volumeControl.node);
@@ -139,7 +139,7 @@ export default class ControlBlock {
     this.view.appendControlNodeRight(this._fullScreenControl.node);
   }
 
-  _initLogo() {
+  private _initLogo() {
     const { logo } = this.config;
 
     if (logo) {
@@ -147,7 +147,7 @@ export default class ControlBlock {
     }
   }
 
-  _bindViewCallbacks() {
+  private _bindViewCallbacks() {
     this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
     this._setFocusState = this._setFocusState.bind(this);
     this._removeFocusState = this._removeFocusState.bind(this);
@@ -155,7 +155,7 @@ export default class ControlBlock {
     this._tryHideContent = this._tryHideContent.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
       this._startHideControlsTimeout,
@@ -189,7 +189,7 @@ export default class ControlBlock {
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
       this._startHideControlsTimeout,
@@ -223,7 +223,7 @@ export default class ControlBlock {
     );
   }
 
-  _startHideControlsTimeout() {
+  private _startHideControlsTimeout() {
     this._stopHideControlsTimeout();
 
     this._tryShowContent();
@@ -236,34 +236,34 @@ export default class ControlBlock {
     }
   }
 
-  _stopHideControlsTimeout() {
+  private _stopHideControlsTimeout() {
     if (this._hideControlsTimeout) {
       clearTimeout(this._hideControlsTimeout);
     }
   }
 
-  _setFocusState() {
+  private _setFocusState() {
     this._isControlsFocused = true;
   }
 
-  _removeFocusState() {
+  private _removeFocusState() {
     this._isControlsFocused = false;
   }
 
-  _tryShowContent() {
+  private _tryShowContent() {
     if (this._isContentShowingEnabled) {
       this._showContent();
     }
   }
 
-  _showContent() {
+  private _showContent() {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
     this._screen.showBottomShadow();
 
     this.view.showControlsBlock();
   }
 
-  _tryHideContent() {
+  private _tryHideContent() {
     if (
       !this._isDragging &&
       !this._shouldShowContent &&
@@ -275,22 +275,22 @@ export default class ControlBlock {
     }
   }
 
-  _hideContent() {
+  private _hideContent() {
     this._eventEmitter.emit((UI_EVENTS as any).CONTROL_BLOCK_HIDE_TRIGGERED);
     this._screen.hideBottomShadow();
     this.view.hideControlsBlock();
   }
 
-  _onControlDragStart() {
+  private _onControlDragStart() {
     this._isDragging = true;
   }
 
-  _onControlDragEnd() {
+  private _onControlDragEnd() {
     this._isDragging = false;
     this._tryHideContent();
   }
 
-  _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }) {
     switch (nextState) {
       case STATES.PLAY_REQUESTED: {
         this._shouldShowContent = false;

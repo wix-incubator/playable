@@ -55,7 +55,7 @@ class ProgressView extends View {
     this._setBufferedDOMAttributes(0);
   }
 
-  _initDOM() {
+  private _initDOM() {
     this._$node = $('<div>', {
       class: this.styleNames['seek-block'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
@@ -107,7 +107,7 @@ class ProgressView extends View {
     this._$node.append(wrapper).append(this._$hitbox);
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._setPlayedByDrag = this._setPlayedByDrag.bind(this);
     this._startDragOnMouseDown = this._startDragOnMouseDown.bind(this);
     this._stopDragOnMouseUp = this._stopDragOnMouseUp.bind(this);
@@ -115,7 +115,7 @@ class ProgressView extends View {
     this._resetSeek = this._resetSeek.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._$hitbox[0].addEventListener('mousedown', this._startDragOnMouseDown);
     this._$hitbox[0].addEventListener('mousemove', this._setSeekToByMouse);
     this._$hitbox[0].addEventListener('mouseout', this._resetSeek);
@@ -124,7 +124,7 @@ class ProgressView extends View {
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._$hitbox[0].removeEventListener(
       'mousedown',
       this._startDragOnMouseDown,
@@ -136,7 +136,7 @@ class ProgressView extends View {
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
   }
 
-  _startDragOnMouseDown(event: MouseEvent) {
+  private _startDragOnMouseDown(event: MouseEvent) {
     if (event.button > 1) {
       return;
     }
@@ -149,7 +149,7 @@ class ProgressView extends View {
     this._startDrag();
   }
 
-  _stopDragOnMouseUp(event: MouseEvent) {
+  private _stopDragOnMouseUp(event: MouseEvent) {
     if (event.button > 1) {
       return;
     }
@@ -157,17 +157,17 @@ class ProgressView extends View {
     this._stopDrag();
   }
 
-  _resetSeek() {
+  private _resetSeek() {
     this._setSeekToDOMAttributes(0);
   }
 
-  _setSeekToByMouse(event: MouseEvent) {
+  private _setSeekToByMouse(event: MouseEvent) {
     const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
 
     this._setSeekToDOMAttributes(percent);
   }
 
-  _setPlayedByDrag(event: MouseEvent) {
+  private _setPlayedByDrag(event: MouseEvent) {
     if (this._isDragging) {
       const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
       this._setPlayedDOMAttributes(percent);
@@ -175,13 +175,13 @@ class ProgressView extends View {
     }
   }
 
-  _startDrag() {
+  private _startDrag() {
     this._isDragging = true;
     this._callbacks.onDragStart();
     this._$node.addClass(this.styleNames['is-dragging']);
   }
 
-  _stopDrag() {
+  private _stopDrag() {
     if (this._isDragging) {
       this._isDragging = false;
       this._callbacks.onDragEnd();
@@ -189,11 +189,11 @@ class ProgressView extends View {
     }
   }
 
-  _setSeekToDOMAttributes(percent: number) {
+  private _setSeekToDOMAttributes(percent: number) {
     this._$seekTo.attr('style', `width:${percent}%;`);
   }
 
-  _setPlayedDOMAttributes(percent: number) {
+  private _setPlayedDOMAttributes(percent: number) {
     this._$node.attr(
       'aria-valuetext',
       this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
@@ -203,7 +203,7 @@ class ProgressView extends View {
     this._$played.attr('style', `width:${percent}%;`);
   }
 
-  _setBufferedDOMAttributes(percent: number) {
+  private _setBufferedDOMAttributes(percent: number) {
     this._$buffered.attr('style', `width:${percent}%;`);
   }
 

@@ -60,7 +60,7 @@ class VolumeView extends View {
     this._bindEvents();
   }
 
-  _initDOM() {
+  private _initDOM() {
     this._$node = $('<div>', {
       class: this.styleNames['volume-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
@@ -115,7 +115,7 @@ class VolumeView extends View {
     this._$node.append(this._$muteButton).append(this._$volumeNode);
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._onButtonClick = this._onButtonClick.bind(this);
 
     this._startDragOnMouseDown = this._startDragOnMouseDown.bind(this);
@@ -125,7 +125,7 @@ class VolumeView extends View {
     this._setVolumeByDrag = this._setVolumeByDrag.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._$hitbox[0].addEventListener('wheel', this._setVolumeByWheel);
     this._$hitbox[0].addEventListener('mousedown', this._startDragOnMouseDown);
     window.addEventListener('mousemove', this._setVolumeByDrag);
@@ -134,7 +134,7 @@ class VolumeView extends View {
     this._$muteButton[0].addEventListener('click', this._onButtonClick);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._$hitbox[0].removeEventListener('wheel', this._setVolumeByWheel);
     this._$hitbox[0].removeEventListener(
       'mousedown',
@@ -146,7 +146,7 @@ class VolumeView extends View {
     this._$muteButton[0].removeEventListener('click', this._onButtonClick);
   }
 
-  _startDragOnMouseDown(event: MouseEvent) {
+  private _startDragOnMouseDown(event: MouseEvent) {
     if (event.button > 1) {
       return;
     }
@@ -154,7 +154,7 @@ class VolumeView extends View {
     this._startDrag();
   }
 
-  _stopDragOnMouseUp(event: MouseEvent) {
+  private _stopDragOnMouseUp(event: MouseEvent) {
     if (event.button > 1) {
       return;
     }
@@ -162,20 +162,20 @@ class VolumeView extends View {
     this._stopDrag();
   }
 
-  _setVolumeByClick(event: MouseEvent) {
+  private _setVolumeByClick(event: MouseEvent) {
     this._$volumeNode[0].focus();
     const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
     this._callbacks.onVolumeLevelChangeFromInput(percent);
   }
 
-  _setVolumeByDrag(event: MouseEvent) {
+  private _setVolumeByDrag(event: MouseEvent) {
     const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
     if (this._isDragging) {
       this._callbacks.onVolumeLevelChangeFromInput(percent);
     }
   }
 
-  _setVolumeByWheel(e: WheelEvent) {
+  private _setVolumeByWheel(e: WheelEvent) {
     e.preventDefault();
 
     if (!e.deltaX) {
@@ -185,13 +185,13 @@ class VolumeView extends View {
     this._callbacks.onVolumeLevelChangeFromWheel(e.deltaX);
   }
 
-  _startDrag() {
+  private _startDrag() {
     this._isDragging = true;
     this._$node.addClass(this.styleNames['is-dragging']);
     this._callbacks.onDragStart();
   }
 
-  _stopDrag() {
+  private _stopDrag() {
     if (this._isDragging) {
       this._isDragging = false;
       this._$node.removeClass(this.styleNames['is-dragging']);
@@ -199,7 +199,7 @@ class VolumeView extends View {
     }
   }
 
-  _setVolumeDOMAttributes(percent: number) {
+  private _setVolumeDOMAttributes(percent: number) {
     this._$volumeNode.attr('value', percent);
     this._$volumeNode.attr(
       'aria-valuetext',
@@ -219,7 +219,7 @@ class VolumeView extends View {
     }
   }
 
-  _onButtonClick() {
+  private _onButtonClick() {
     this._$muteButton[0].focus();
     this._callbacks.onToggleMuteClick();
   }
@@ -232,7 +232,7 @@ class VolumeView extends View {
     this._setMuteDOMAttributes(isMuted);
   }
 
-  _setMuteDOMAttributes(isMuted) {
+  private _setMuteDOMAttributes(isMuted) {
     this._$muteButton.toggleClass(this.styleNames.muted, isMuted);
     this._$node.attr(DATA_IS_MUTED, isMuted);
     this._$muteButton.attr(
