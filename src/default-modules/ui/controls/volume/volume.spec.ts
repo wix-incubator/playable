@@ -1,41 +1,24 @@
 import 'jsdom-global/register';
-
-import { EventEmitter } from 'eventemitter3';
-
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
+import getContainer from '../../../../testkit';
+
 import VolumeControl from './volume.controler';
-import Engine from '../../../playback-engine/playback-engine';
-import TextMap from '../../../text-map/text-map';
 
 import { VIDEO_EVENTS } from '../../../../constants/index';
 
 describe('VolumeControl', () => {
   let control;
-  let engine;
+  let container;
   let eventEmitter;
-  let config = {};
-  let textMap;
 
   beforeEach(() => {
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
+    container = getContainer();
 
-    textMap = new TextMap({
-      config,
-    });
-
-    control = new VolumeControl({
-      engine,
-      eventEmitter,
-      textMap,
-      // TODO: check if config required here
-      // config
-    });
+    container.register('volumeControl', VolumeControl);
+    control = container.get('volumeControl');
+    eventEmitter = container.get('eventEmitter');
   });
 
   describe('constructor', () => {
@@ -47,7 +30,7 @@ describe('VolumeControl', () => {
 
   describe('API', () => {
     it('should have method for setting current volume', () => {
-      const spy = sinon.spy(control.view, 'setState');
+      const spy = sinon.spy(control.view, 'setVolume');
       expect(control.setVolumeLevel).to.exist;
       control.setVolumeLevel(100);
       expect(spy.called).to.be.false;
@@ -55,8 +38,8 @@ describe('VolumeControl', () => {
       expect(spy.called).to.be.true;
     });
 
-    it('should have method for setting duration time', () => {
-      const spy = sinon.spy(control.view, 'setState');
+    it('should have method for setting mute status', () => {
+      const spy = sinon.spy(control.view, 'setMute');
       expect(control.setMuteStatus).to.exist;
       control.setMuteStatus();
       expect(spy.called).to.be.true;
@@ -116,77 +99,6 @@ describe('VolumeControl', () => {
       control._isMuted = true;
       control._changeVolumeStatus(90);
       expect(muteSpy.called).to.be.true;
-    });
-  });
-
-  describe('View', () => {
-    it('should react on volume range input change event when not muted', () => {
-      const callback = sinon.spy(control.view, '_onInputChange');
-      control.view._bindEvents();
-
-      control.view.$input.trigger('change');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should react on volume range input input event', () => {
-      const callback = sinon.spy(control.view, '_onInputChange');
-      control.view._bindEvents();
-
-      control.view.$input.trigger('input');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should react on volume range wheel input event', () => {
-      const callback = sinon.spy(control.view, '_onWheel');
-      control.view._bindEvents();
-
-      control.view.$node.trigger('wheel');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should react on mute button click', () => {
-      const callback = sinon.spy(control, '_toggleMuteStatus');
-      control._bindCallbacks();
-      control._initUI();
-
-      control.view.$muteControl.trigger('click');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should call callbacks', () => {
-      const inputSpy = sinon.spy(control, '_getVolumeLevelFromInput');
-      const wheelSpy = sinon.spy(control, '_getVolumeLevelFromWheel');
-
-      control._bindCallbacks();
-      control._initUI();
-
-      control.view._onInputChange();
-      expect(inputSpy.called).to.be.true;
-      control.view._onWheel({
-        preventDefault: () => {},
-        deltaY: 10,
-      });
-      expect(wheelSpy.called).to.be.true;
-    });
-
-    it('should have method for setting current state', () => {
-      expect(control.view.setState).to.exist;
-    });
-
-    it('should have method for showing itself', () => {
-      expect(control.view.show).to.exist;
-    });
-
-    it('should have method for hidding itself', () => {
-      expect(control.view.hide).to.exist;
-    });
-
-    it('should have method gettind root node', () => {
-      expect(control.view.getNode).to.exist;
-    });
-
-    it('should have method for destroying', () => {
-      expect(control.view.destroy).to.exist;
     });
   });
 });

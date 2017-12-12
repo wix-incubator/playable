@@ -126,11 +126,13 @@ $color: white !default;
   [data-focus-source='script'] [data-hook='volume-control'] {
     margin-right: 20px;
 
-    [data-hook='volume-input-block'].focus-within {
-      width: 50px;
+    .focus-within {
+      &:local.volume-input-block {
+        width: 50px;
 
-      opacity: 1;
-      box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
+        opacity: 1;
+        box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
+      }
     }
   }
 }

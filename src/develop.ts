@@ -23,7 +23,7 @@ const player: any = VideoPlayer.create({
   },
   src: DEFAULT_URL,
   controls: {
-    shouldAlwaysShow: true,
+    shouldAlwaysShow: false,
     logo: {
       showAlways: false,
       src:

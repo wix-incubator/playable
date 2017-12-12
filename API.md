@@ -47,9 +47,9 @@ You can check all events inside <code>VideoPlayer.UI_EVENTS</code> and <code>Vid
 
 # off
 
--   `event` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
--   `fn` **ListenerFn**
--   `context`
+-   `event` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `fn` **ListenerFn** 
+-   `context`  
 
 // ... Now callback will be called when some one will pause the video ...
 player.on(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
@@ -61,10 +61,10 @@ player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
 player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED);
 ```
 
--   `event` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
--   `fn` **ListenerFn**
--   `context`
--   `once` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+-   `event` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `fn` **ListenerFn** 
+-   `context`  
+-   `once` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 <div class="method-list">
   <table>
@@ -115,7 +115,7 @@ Manual exit full screen
 
 Return true if player is in full screen
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # getDebugInfo
 
@@ -157,7 +157,7 @@ player.getDebugInfo();
 
 **Parameters**
 
--   `src`
+-   `src`  
 
 ### getSrc
 
@@ -167,25 +167,25 @@ player.getDebugInfo();
 
 **Parameters**
 
--   `sec`
+-   `sec`  
 
 ### goBackward
 
 **Parameters**
 
--   `sec`
+-   `sec`  
 
 ### decreaseVolume
 
 **Parameters**
 
--   `value`
+-   `value`  
 
 ### increaseVolume
 
 **Parameters**
 
--   `value`
+-   `value`  
 
 <div class="method-list">
   <table>
@@ -374,13 +374,13 @@ Set autoPlay flag
 
 **Parameters**
 
--   `isAutoPlay` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+-   `isAutoPlay` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ### getAutoPlay
 
 Get autoPlay flag
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # setLoop
 
@@ -388,13 +388,13 @@ Set loop flag
 
 **Parameters**
 
--   `isLoop` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+-   `isLoop` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ### getLoop
 
 Get loop flag
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # setMute
 
@@ -402,13 +402,13 @@ Set mute flag
 
 **Parameters**
 
--   `isMuted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+-   `isMuted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 ### getMute
 
 Get mute flag
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # setVolume
 
@@ -439,7 +439,7 @@ Set volume
 
 Get volume
 
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 # setPlaybackRate
 
@@ -462,14 +462,14 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
   </table>
 </div>
 
--   `rate`
+-   `rate`  
 
 # getPlaybackRate
 
 
 # setPreload
 
--   `preload` **(`"auto"` \| `"metadata"` \| `"none"`)**
+-   `preload` **(`"auto"` \| `"metadata"` \| `"none"`)** 
 
 <div class="method-list">
   <table>
@@ -495,14 +495,14 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 Get preload type
 
-Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
+Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 # getCurrentTime
 
 
 # goTo
 
--   `time`
+-   `time`  
 
 
 # getDurationTime
@@ -510,7 +510,7 @@ Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 # setPlayInline
 
--   `isPlayInline` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+-   `isPlayInline` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 <div class="method-list">
   <table>
@@ -536,7 +536,7 @@ Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 Get playInline flag
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # getCurrentPlaybackState
 
@@ -549,7 +549,7 @@ Return current state of playback
 # pause
 
 
-Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)**
+Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)** 
 
 
 # node
@@ -557,7 +557,7 @@ Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibli
 Getter for DOM node with player UI element
 (use it only for debug, if you need attach player to your document use <code>attachToElement</code> method)
 
--   `node` **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)**
+-   `node` **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)** 
 
 # attachToElement
 
@@ -604,7 +604,7 @@ Show whole ui
 
 # setWidth
 
--   `width` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
+-   `width` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 <div class="method-list">
   <table>
@@ -632,25 +632,25 @@ Set height of player
 
 **Parameters**
 
--   `height` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
+-   `height` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 ### getWidth
 
 Get width of player
 
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 # getHeight
 
 Get height of player
 
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 ### setFillAllSpace
 
 **Parameters**
 
--   `flag`
+-   `flag`  
 
 ### setLogoAlwaysShowFlag
 
@@ -791,7 +791,7 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 # setTitle
 
--   `isShowAlways`
+-   `isShowAlways`  
 
 ### removeLogo
 
@@ -799,31 +799,31 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 **Parameters**
 
--   `flag`
+-   `flag`  
 
 ### setLogo
 
 **Parameters**
 
--   `url`
+-   `url`  
 
 ### setLogoClickCallback
 
 **Parameters**
 
--   `callback`
+-   `callback`  
 
 ### setLoadingCover
 
 **Parameters**
 
--   `url`
+-   `url`  
 
 ### setTitle
 
 **Parameters**
 
--   `title` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
+-   `title` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ### setTitleClickCallback
 
@@ -872,4 +872,4 @@ Display title text over the video. If you want to have clickable title, use <cod
   </table>
 </div>
 
--   `callback` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)**
+-   `callback` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 

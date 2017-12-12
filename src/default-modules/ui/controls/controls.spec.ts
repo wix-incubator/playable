@@ -12,61 +12,26 @@ import { container } from '../../../core/player-factory';
 import { VIDEO_EVENTS, STATES } from '../../../constants/index';
 
 import { EventEmitter } from 'eventemitter3';
+import ControlBlock from './controls.controler';
 
 describe('ControlsBlock', () => {
   let controls;
-  let ui;
-  let engine;
-  let eventEmitter;
   let config = {};
   let scope;
-  let rootContainer;
-  let screen;
+  let eventEmitter;
 
   beforeEach(() => {
     config = {
       ui: {},
     };
-    ui = {
-      setFullScreenStatus() {},
-      get node() {
-        return document.createElement('video');
-      },
-      exitFullScreen() {},
-      enterFullScreen() {},
-    };
-    screen = {
-      showBottomShadow() {},
-      hideBottomShadow() {},
-    };
 
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
     scope = container.createScope();
-    scope.registerValue({
-      config,
-      availablePlaybackAdapters: [],
-    });
-    rootContainer = new RootContainer({
-      eventEmitter,
-      engine,
-      config,
-    });
-    controls = new ControlsBlock(
-      {
-        // TODO: do we need `ui` here?
-        // ui,
-        engine,
-        eventEmitter,
-        config,
-        rootContainer,
-        screen,
-      },
-      scope,
-    );
+    scope.registerValue('config', config);
+    scope.registerValue('availablePlaybackAdapters', []);
+    scope.registerClass('_testControl', ControlsBlock);
+
+    eventEmitter = scope.resolve('eventEmitter');
+    controls = scope.resolve('_testControl');
   });
   describe('constructor', () => {
     it('should create instance ', () => {
@@ -161,7 +126,11 @@ describe('ControlsBlock', () => {
 
   describe('View', () => {
     it('should have method for adding node with control', () => {
-      expect(controls.view.appendControlNode).to.exist;
+      expect(controls.view.appendControlNodeLeft).to.exist;
+    });
+
+    it('should have method for adding node with control', () => {
+      expect(controls.view.appendControlNodeRight).to.exist;
     });
 
     it('should have method for showing block with controls', () => {

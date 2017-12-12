@@ -31,6 +31,12 @@ export default class ControlBlock {
     'config',
     'rootContainer',
     'screen',
+    'playControl',
+    'progressControl',
+    'timeControl',
+    'volumeControl',
+    'fullScreenControl',
+    'logo',
   ];
 
   private _eventEmitter;
@@ -38,7 +44,11 @@ export default class ControlBlock {
   private _screen;
   private _scope;
 
-  private _controls;
+  private _playControl;
+  private _progressControl;
+  private _timeControl;
+  private _volumeControl;
+  private _fullScreenControl;
   private _logo;
   private _hideControlsTimeout;
 
@@ -52,10 +62,33 @@ export default class ControlBlock {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, config, rootContainer, screen }, scope) {
+  constructor(
+    {
+      engine,
+      eventEmitter,
+      config,
+      rootContainer,
+      screen,
+      playControl,
+      progressControl,
+      timeControl,
+      volumeControl,
+      fullScreenControl,
+      logo,
+    },
+    scope,
+  ) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._screen = screen;
+
+    this._playControl = playControl;
+    this._progressControl = progressControl;
+    this._timeControl = timeControl;
+    this._volumeControl = volumeControl;
+    this._fullScreenControl = fullScreenControl;
+    this._logo = logo;
+
     this.config = {
       ...DEFAULT_CONFIG,
       ...get(config, 'ui.controls'),
@@ -66,7 +99,6 @@ export default class ControlBlock {
     this._shouldShowContent = true;
     this._hideControlsTimeout = null;
     this._isControlsFocused = false;
-    this._controls = [];
 
     this._bindViewCallbacks();
     this._initUI();
@@ -100,28 +132,15 @@ export default class ControlBlock {
   }
 
   _initControls() {
-    this.view.appendProgressBarNode(this._initControl(ProgressControl).node);
-    this.view.appendControlNodeLeft(this._initControl(PlayControl).node);
-    this.view.appendControlNodeLeft(this._initControl(VolumeControl).node);
-    this.view.appendControlNodeLeft(this._initControl(TimeControl).node);
-    this.view.appendControlNodeRight(this._initControl(FullScreenControl).node);
-  }
-
-  _initControl(Control) {
-    const controlName = Control.name;
-
-    this._scope.register(controlName, asClass(Control));
-    const control = this._scope.resolve(controlName);
-    this._controls.push(control);
-
-    return control;
+    this.view.appendProgressBarNode(this._progressControl.node);
+    this.view.appendControlNodeLeft(this._playControl.node);
+    this.view.appendControlNodeLeft(this._volumeControl.node);
+    this.view.appendControlNodeLeft(this._timeControl.node);
+    this.view.appendControlNodeRight(this._fullScreenControl.node);
   }
 
   _initLogo() {
     const { logo } = this.config;
-
-    this._scope.register('logo', asClass(Logo));
-    this._logo = this._scope.resolve('logo');
 
     if (logo) {
       this.setLogoAlwaysShowFlag(logo.showAlways);
@@ -241,14 +260,15 @@ export default class ControlBlock {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
     this._screen.showBottomShadow();
 
-    this._eventEmitter.emit((UI_EVENTS as any).SHOW_BOTTOM_SHADOW_TRIGGERED);
-    this._controls[0].show();
-
     this.view.showControlsBlock();
   }
 
   _tryHideContent() {
-    if (!this._isDragging && !this._shouldShowContent && !this.config.shouldAlwaysShow) {
+    if (
+      !this._isDragging &&
+      !this._shouldShowContent &&
+      !this.config.shouldAlwaysShow
+    ) {
       this._hideContent();
       this._eventEmitter.emit((UI_EVENTS as any).CONTROL_BLOCK_HIDE_TRIGGERED);
       this._screen.hideBottomShadow();
@@ -320,22 +340,12 @@ export default class ControlBlock {
   }
 
   @playerAPI()
-  setLogo(logo) {
-    this._logo.setLogo(logo);
-  }
-
-  @playerAPI()
   setLogoAlwaysShowFlag(isShowAlways) {
     if (isShowAlways) {
       this.view.appendLogoNode(this._logo.node);
     } else {
       this.view.appendControlNodeRight(this._logo.node);
     }
-  }
-
-  @playerAPI()
-  setLogoClickCallback(callback) {
-    this._logo.setLogoClickCallback(callback);
   }
 
   @playerAPI()
@@ -359,12 +369,6 @@ export default class ControlBlock {
     this._unbindEvents();
     this.view.destroy();
     delete this.view;
-
-    this._controls.forEach(control => control.destroy());
-    delete this._controls;
-
-    this._logo.destroy();
-    delete this._logo;
 
     delete this._eventEmitter;
     delete this._engine;

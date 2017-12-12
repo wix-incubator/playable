@@ -1,37 +1,26 @@
 import 'jsdom-global/register';
-import { EventEmitter } from 'eventemitter3';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
+import getContainer from '../../../../testkit';
+
 import ProgressControl from './progress.controler';
-import Engine from '../../../playback-engine/playback-engine';
-import TextMap from '../../../text-map/text-map';
 
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 describe('ProgressControl', () => {
+  let container;
   let control;
   let engine;
   let eventEmitter;
-  let config = {};
-  let textMap;
 
   beforeEach(() => {
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
+    container = getContainer();
 
-    textMap = new TextMap({
-      config,
-    });
-
-    control = new ProgressControl({
-      engine,
-      eventEmitter,
-      textMap,
-    });
+    container.register('volumeControl', ProgressControl);
+    control = container.get('volumeControl');
+    eventEmitter = container.get('eventEmitter');
+    engine = container.get('engine');
   });
 
   describe('constructor', () => {
@@ -44,18 +33,18 @@ describe('ProgressControl', () => {
   describe('API', () => {
     it('should have method for setting value for played', () => {
       const played = '10';
-      const spy = sinon.spy(control.view, 'setState');
+      const spy = sinon.spy(control.view, 'setPlayed');
       expect(control.updatePlayed).to.exist;
       control.updatePlayed(played);
-      expect(spy.calledWith({ played })).to.be.true;
+      expect(spy.calledWith(played)).to.be.true;
     });
 
     it('should have method for setting value for buffered', () => {
       const buffered = '30';
-      const spy = sinon.spy(control.view, 'setState');
+      const spy = sinon.spy(control.view, 'setBuffered');
       expect(control.updateBuffered).to.exist;
       control.updateBuffered(buffered);
-      expect(spy.calledWith({ buffered })).to.be.true;
+      expect(spy.calledWith(buffered)).to.be.true;
     });
 
     it('should have method for showing whole view', () => {
@@ -168,92 +157,6 @@ describe('ProgressControl', () => {
       control._updateControlOnInterval();
       expect(playedSpy.called).to.be.true;
       expect(bufferSpy.called).to.be.true;
-    });
-  });
-
-  describe('View', () => {
-    it('should react on volume range input change event when not muted', () => {
-      const callback = sinon.spy(control.view, '_onInputValueChange');
-      control.view._bindEvents();
-
-      control.view.$input.trigger('change');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should react on volume range input input event', () => {
-      const callback = sinon.spy(control.view, '_onInputValueChange');
-      control.view._bindEvents();
-
-      control.view.$input.trigger('input');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should react on volume range wheel input event', () => {
-      const callback = sinon.spy(control.view, '_onMouseInteractionStart');
-      control.view._bindEvents();
-
-      control.view.$input.trigger('mousedown');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should react on mute button click', () => {
-      const callback = sinon.spy(control.view, '_onMouseInteractionEnd');
-      control.view._bindEvents();
-
-      control.view.$input.trigger('mouseup');
-      expect(callback.called).to.be.true;
-    });
-
-    it('should call callbacks', () => {
-      const changeSpy = sinon.spy(control, '_changePlayedProgress');
-      const interactionStartSpy = sinon.spy(
-        control,
-        '_onUserInteractionStarts',
-      );
-      const interactionStopSpy = sinon.spy(control, '_onUserInteractionEnds');
-
-      control._bindCallbacks();
-      control._initUI();
-
-      control.view._onInputValueChange();
-      expect(changeSpy.called).to.be.true;
-      control.view._onMouseInteractionStart({
-        button: 2,
-      });
-      expect(interactionStartSpy.called).to.be.false;
-      control.view._onMouseInteractionStart({
-        button: 1,
-      });
-      expect(interactionStartSpy.called).to.be.true;
-
-      control.view._onMouseInteractionEnd({
-        button: 2,
-      });
-      expect(interactionStopSpy.called).to.be.false;
-      control.view._onMouseInteractionEnd({
-        button: 1,
-      });
-      expect(interactionStopSpy.called).to.be.true;
-    });
-
-    it('should have method for setting state', () => {
-      expect(control.view.setState).to.exist;
-    });
-
-    it('should have method for showing itself', () => {
-      expect(control.view.show).to.exist;
-    });
-
-    it('should have method for hidding itself', () => {
-      expect(control.view.hide).to.exist;
-    });
-
-    it('should have method gettind root node', () => {
-      expect(control.view.getNode).to.exist;
-    });
-
-    it('should have method for destroying', () => {
-      expect(control.view.destroy).to.exist;
     });
   });
 });

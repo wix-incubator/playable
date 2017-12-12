@@ -16,7 +16,7 @@ export default class VolumeControl {
   private _textMap;
 
   private _isMuted: boolean;
-  private _volumeLevel: number;
+  private _volume: number;
 
   private _buttonInterceptor;
   private _inputInterceptor;
@@ -30,7 +30,7 @@ export default class VolumeControl {
     this._textMap = textMap;
 
     this._isMuted = this._engine.getMute();
-    this._volumeLevel = this._engine.getVolume();
+    this._volume = this._engine.getVolume();
 
     this._bindCallbacks();
 
@@ -38,10 +38,8 @@ export default class VolumeControl {
 
     this._bindEvents();
 
-    this.view.setState({
-      volume: this._volumeLevel,
-      isMuted: this._isMuted,
-    });
+    this.view.setVolume(this._volume);
+    this.view.setMute(this._isMuted);
 
     this._initInterceptor();
   }
@@ -161,7 +159,7 @@ export default class VolumeControl {
   }
 
   _getVolumeLevelFromWheel(delta) {
-    const adjustedVolume = this._volumeLevel + delta / 10;
+    const adjustedVolume = this._volume + delta / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
 
     this._changeVolumeStatus(validatedVolume);
@@ -184,16 +182,14 @@ export default class VolumeControl {
   }
 
   setVolumeLevel(level) {
-    if (level === this._volumeLevel) {
+    if (level === this._volume) {
       return;
     }
 
-    this._volumeLevel = level;
+    this._volume = level;
 
-    this.view.setState({
-      volume: this._volumeLevel,
-      isMuted: !this._volumeLevel,
-    });
+    this.view.setVolume(this._volume);
+    this.view.setMute(Boolean(!this._volume));
   }
 
   setMuteStatus(isMuted) {
@@ -203,10 +199,8 @@ export default class VolumeControl {
 
     this._isMuted = isMuted;
 
-    this.view.setState({
-      volume: this._isMuted ? 0 : this._volumeLevel,
-      isMuted: this._isMuted || !this._volumeLevel,
-    });
+    this.view.setVolume(this._isMuted ? 0 : this._volume);
+    this.view.setMute(this._isMuted || Boolean(!this._volume));
   }
 
   hide() {
@@ -239,6 +233,6 @@ export default class VolumeControl {
 
     this.isHidden = null;
     this._isMuted = null;
-    this._volumeLevel = null;
+    this._volume = null;
   }
 }

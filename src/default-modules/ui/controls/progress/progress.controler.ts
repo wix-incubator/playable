@@ -41,10 +41,9 @@ export default class ProgressControl {
     this._bindCallbacks();
     this._initUI();
     this._bindEvents();
-    this.view.setState({
-      played: 0.0,
-      buffered: 0.0,
-    });
+
+    this.view.setPlayed(0);
+    this.view.setBuffered(0);
 
     this._initInterceptor();
   }
@@ -179,7 +178,7 @@ export default class ProgressControl {
       this._playVideoOnProgressManipulationEnd();
     }
 
-    this._eventEmitter.emit(UI_EVENTS.CONTORL_DRAG_END);
+    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
   }
 
   _updateControlOnInterval() {
@@ -273,11 +272,11 @@ export default class ProgressControl {
 
   updatePlayed(percent) {
     this._currentProgress = percent;
-    this.view.setState({ played: this._currentProgress });
+    this.view.setPlayed(this._currentProgress);
   }
 
   updateBuffered(percent) {
-    this.view.setState({ buffered: percent });
+    this.view.setBuffered(percent);
   }
 
   hide() {

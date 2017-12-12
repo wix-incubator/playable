@@ -18,6 +18,13 @@ import LoadingCover from './ui/loading-cover/loading-cover.controler';
 import ControlsBlock from './ui/controls/controls.controler';
 import ManipulationIndicator from './ui/manipulation-indicator/manipulation-indicator.controler';
 
+import ProgressControl from './ui/controls/progress/progress.controler';
+import PlayControl from './ui/controls/play/play.controler';
+import TimeControl from './ui/controls/time/time.controler';
+import VolumeControl from './ui/controls/volume/volume.controler';
+import FullScreenControl from './ui/controls/full-screen/full-screen.controler';
+import Logo from './ui/controls/logo/logo';
+
 const { asClass } = DependencyContainer;
 
 export default {
@@ -30,6 +37,7 @@ export default {
   mouseInterceptor: asClass(MouseInterceptor).scoped(),
   anomalyBloodhound: asClass(AnomalyBloodhound).scoped(),
   debugPanel: asClass(DebugPanel).scoped(),
+
   manipulationIndicator: asClass(ManipulationIndicator).scoped(),
   screen: asClass(Screen).scoped(),
   overlay: asClass(Overlay).scoped(),
@@ -37,4 +45,12 @@ export default {
   loadingCover: asClass(LoadingCover).scoped(),
   controls: asClass(ControlsBlock).scoped(),
   title: asClass(Title).scoped(),
+
+  progressControl: asClass(ProgressControl).scoped(),
+  playControl: asClass(PlayControl).scoped(),
+  timeControl: asClass(TimeControl).scoped(),
+  volumeControl: asClass(VolumeControl).scoped(),
+  fullScreenControl: asClass(FullScreenControl).scoped(),
+
+  logo: asClass(Logo).scoped(),
 };

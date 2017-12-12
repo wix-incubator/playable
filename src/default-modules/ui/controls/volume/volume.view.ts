@@ -18,7 +18,10 @@ const DATA_VOLUME = 'data-volume-percent';
 
 const MAX_VOLUME_ICON_RANGE = 50;
 
-const getPercentBasedOnXPosition = (event: MouseEvent, element: HTMLElement) => {
+const getPercentBasedOnXPosition = (
+  event: MouseEvent,
+  element: HTMLElement,
+) => {
   const boundingRect = element.getBoundingClientRect();
   const positionX = event.clientX;
 
@@ -38,7 +41,7 @@ class VolumeView extends View {
   private _texts;
 
   _$node;
-  _$muteControl;
+  _$muteButton;
   _$volumeNode;
   _$volume;
   _$hitbox;
@@ -58,11 +61,11 @@ class VolumeView extends View {
     this._texts = texts;
 
     this._bindCallbacks();
-    this._createDOM();
+    this._initDOM();
     this._bindEvents();
   }
 
-  _createDOM() {
+  _initDOM() {
     this._$node = $('<div>', {
       class: this.styleNames['volume-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
@@ -70,7 +73,7 @@ class VolumeView extends View {
       [DATA_IS_MUTED]: false,
     });
 
-    this._$muteControl = $('<button>', {
+    this._$muteButton = $('<button>', {
       class: `${this.styleNames['mute-button']} ${
         this.styleNames['control-button']
       }`,
@@ -114,9 +117,7 @@ class VolumeView extends View {
       .append(this._$volume)
       .append(this._$hitbox);
 
-    this._$node
-      .append(this._$muteControl)
-      .append(this._$volumeNode);
+    this._$node.append(this._$muteButton).append(this._$volumeNode);
   }
 
   _bindCallbacks() {
@@ -135,16 +136,19 @@ class VolumeView extends View {
     window.addEventListener('mousemove', this._setVolumeByDrag);
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
 
-    this._$muteControl[0].addEventListener('click', this._onButtonClick);
+    this._$muteButton[0].addEventListener('click', this._onButtonClick);
   }
 
   _unbindEvents() {
     this._$hitbox[0].removeEventListener('wheel', this._setVolumeByWheel);
-    this._$hitbox[0].removeEventListener('mousedown', this._startDragOnMouseDown);
+    this._$hitbox[0].removeEventListener(
+      'mousedown',
+      this._startDragOnMouseDown,
+    );
     window.removeEventListener('mousemove', this._setVolumeByDrag);
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
 
-    this._$muteControl[0].removeEventListener('click', this._onButtonClick);
+    this._$muteButton[0].removeEventListener('click', this._onButtonClick);
   }
 
   _startDragOnMouseDown(event: MouseEvent) {
@@ -165,11 +169,15 @@ class VolumeView extends View {
 
   _setVolumeByClick(event: MouseEvent) {
     this._$volumeNode[0].focus();
-    this._setVolume(getPercentBasedOnXPosition(event, this._$hitbox[0]));
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+    this._callbacks.onVolumeLevelChangeFromInput(percent);
   }
 
   _setVolumeByDrag(event: MouseEvent) {
-    this._isDragging && this._setVolume(getPercentBasedOnXPosition(event, this._$hitbox[0]));
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+    if (this._isDragging) {
+      this._callbacks.onVolumeLevelChangeFromInput(percent);
+    }
   }
 
   _setVolumeByWheel(e: WheelEvent) {
@@ -196,12 +204,7 @@ class VolumeView extends View {
     }
   }
 
-  _setVolume(percent: number) {
-    this._setDOMAttributes(percent);
-    this._callbacks.onVolumeLevelChangeFromInput(percent);
-  }
-
-  _setDOMAttributes(percent: number) {
+  _setVolumeDOMAttributes(percent: number) {
     this._$volumeNode.attr('value', percent);
     this._$volumeNode.attr(
       'aria-valuetext',
@@ -215,26 +218,29 @@ class VolumeView extends View {
     this._$node.attr(DATA_VOLUME, percent);
 
     if (percent >= MAX_VOLUME_ICON_RANGE) {
-      this._$muteControl.toggleClass(this.styleNames['half-volume'], false);
+      this._$muteButton.toggleClass(this.styleNames['half-volume'], false);
     } else {
-      this._$muteControl.toggleClass(this.styleNames['half-volume'], true);
+      this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
     }
   }
 
   _onButtonClick() {
-    this._$muteControl[0].focus();
+    this._$muteButton[0].focus();
     this._callbacks.onToggleMuteClick();
   }
 
-  setState({ volume, isMuted }) {
-    volume !== undefined && this._setDOMAttributes(volume);
-    isMuted !== undefined && this._setMuteStatus(isMuted);
+  setVolume(volume: number) {
+    this._setVolumeDOMAttributes(volume);
   }
 
-  _setMuteStatus(isMuted) {
-    this._$muteControl.toggleClass(this.styleNames.muted, isMuted);
+  setMute(isMuted: boolean) {
+    this._setMuteDOMAttributes(isMuted);
+  }
+
+  _setMuteDOMAttributes(isMuted) {
+    this._$muteButton.toggleClass(this.styleNames.muted, isMuted);
     this._$node.attr(DATA_IS_MUTED, isMuted);
-    this._$muteControl.attr(
+    this._$muteButton.attr(
       'aria-label',
       isMuted
         ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
@@ -255,7 +261,7 @@ class VolumeView extends View {
   }
 
   getButtonNode() {
-    return this._$muteControl[0];
+    return this._$muteButton[0];
   }
 
   getInputNode() {
@@ -266,7 +272,7 @@ class VolumeView extends View {
     this._unbindEvents();
     this._$node.remove();
 
-    delete this._$muteControl;
+    delete this._$muteButton;
     delete this._$node;
 
     delete this._texts;
