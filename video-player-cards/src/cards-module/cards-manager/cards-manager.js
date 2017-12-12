@@ -22,7 +22,7 @@ export default class CardsManager {
     this.timeouts = [];
     this.isPlaying = false;
 
-    this.updateCardsState = this.updateCardsState.bind(this);
+    this._updateCardsState = this._updateCardsState.bind(this);
     this.updateCardsOnTimeChange = this.updateCardsOnTimeChange.bind(this);
     this.slideNextCard = this.slideNextCard.bind(this);
     this.handleCardSizeChange = this.handleCardSizeChange.bind(this);
@@ -32,12 +32,12 @@ export default class CardsManager {
 
   async addCard(cardData) {
     this._createCard(cardData);
-    await this.updateCardsState();
+    await this._updateCardsState();
   }
 
   async addCards(cardsData) {
     cardsData.forEach(card => this._createCard(card));
-    await this.updateCardsState();
+    await this._updateCardsState();
   }
 
   clearCards() {
@@ -83,13 +83,13 @@ export default class CardsManager {
   }
 
   updateCardsOnTimeChange() {
-    this.updateCardsState();
+    this._updateCardsState();
   }
 
   async handleSeekPositionChange() {
     this._cancelDeferredUpdates();
     await this._disableAnimation();
-    await this.updateCardsState();
+    await this._updateCardsState();
     this._enableAnimation();
   }
 
@@ -117,13 +117,13 @@ export default class CardsManager {
   }
 
   handleConfigChange() {
-    this._removeCardsFromActive(this.activeCards);
-    this.updateCardsState();
+    this._clearActiveCards();
+    this._updateCardsState();
   }
 
   // Cards update on time change
 
-  async updateCardsState() {
+  async _updateCardsState() {
     const currentTime = this.engine.getCurrentTime();
 
     const cardsToDisable = this.availableCards.filter(card => card.isActive && !card.shouldBeActiveAt(currentTime));
@@ -173,6 +173,10 @@ export default class CardsManager {
       card.isActive = false;
       this.activeCards.splice(this.activeCards.indexOf(card), 1);
     });
+  }
+
+  _clearActiveCards() {
+    this._removeCardsFromActive([...this.activeCards]);
   }
 
   // Sliding cards if they don't fit player size
