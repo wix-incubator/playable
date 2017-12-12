@@ -47,10 +47,9 @@ You can check all events inside <code>VideoPlayer.UI_EVENTS</code> and <code>Vid
 
 # off
 
-```javascript
-const callback = function() {
-  // Code to handle some kind of event
-};
+-   `event` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
+-   `fn` **ListenerFn**
+-   `context`
 
 // ... Now callback will be called when some one will pause the video ...
 player.on(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
@@ -62,7 +61,10 @@ player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
 player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED);
 ```
 
-Method for removing listeners of events inside player.
+-   `event` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
+-   `fn` **ListenerFn**
+-   `context`
+-   `once` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 <div class="method-list">
   <table>
@@ -113,6 +115,7 @@ Manual exit full screen
 
 Return true if player is in full screen
 
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 # getDebugInfo
 
@@ -150,7 +153,39 @@ player.getDebugInfo();
 }
 ```
 
-Return object with internal debug info
+### setSrc
+
+**Parameters**
+
+-   `src`
+
+### getSrc
+
+### goLive
+
+### goForward
+
+**Parameters**
+
+-   `sec`
+
+### goBackward
+
+**Parameters**
+
+-   `sec`
+
+### decreaseVolume
+
+**Parameters**
+
+-   `value`
+
+### increaseVolume
+
+**Parameters**
+
+-   `value`
 
 <div class="method-list">
   <table>
@@ -337,88 +372,43 @@ Return object with internal debug info
 
 Set autoPlay flag
 
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>isAutoPlay</code><span class="type">boolean</span class="type">
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+**Parameters**
 
+-   `isAutoPlay` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
-# getAutoPlay
+### getAutoPlay
 
 Get autoPlay flag
 
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 # setLoop
 
 Set loop flag
 
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>isLoop</code><span class="type">boolean</span class="type">
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+**Parameters**
 
+-   `isLoop` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
-# getLoop
+### getLoop
 
 Get loop flag
 
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 # setMute
 
 Set mute flag
 
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>isMuted</code><span class="type">boolean</span class="type">
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+**Parameters**
 
+-   `isMuted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
-# getMute
+### getMute
 
 Get mute flag
 
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 # setVolume
 
@@ -449,6 +439,7 @@ Set volume
 
 Get volume
 
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
 # setPlaybackRate
 
@@ -471,13 +462,14 @@ Get volume
   </table>
 </div>
 
+-   `rate`
 
 # getPlaybackRate
 
 
 # setPreload
 
-Set preload type
+-   `preload` **(`"auto"` \| `"metadata"` \| `"none"`)**
 
 <div class="method-list">
   <table>
@@ -503,30 +495,14 @@ Set preload type
 
 Get preload type
 
+Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 # getCurrentTime
 
 
 # goTo
 
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>time</code>
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+-   `time`
 
 
 # getDurationTime
@@ -534,7 +510,7 @@ Get preload type
 
 # setPlayInline
 
-Set playInline flag
+-   `isPlayInline` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 <div class="method-list">
   <table>
@@ -560,6 +536,7 @@ Set playInline flag
 
 Get playInline flag
 
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 # getCurrentPlaybackState
 
@@ -572,7 +549,7 @@ Return current state of playback
 # pause
 
 
-# togglePlayback
+Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)**
 
 
 # node
@@ -580,6 +557,7 @@ Return current state of playback
 Getter for DOM node with player UI element
 (use it only for debug, if you need attach player to your document use <code>attachToElement</code> method)
 
+-   `node` **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)**
 
 # attachToElement
 
@@ -626,7 +604,7 @@ Show whole ui
 
 # setWidth
 
-Set width of player
+-   `width` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
 <div class="method-list">
   <table>
@@ -652,35 +630,29 @@ Set width of player
 
 Set height of player
 
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>height</code><span class="type">number</span class="type">
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+**Parameters**
 
+-   `height` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
-# getWidth
+### getWidth
 
 Get width of player
 
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
 # getHeight
 
 Get height of player
 
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
+
+### setFillAllSpace
+
+**Parameters**
+
+-   `flag`
+
+### setLogoAlwaysShowFlag
 
 # setFillAllSpace
 
@@ -819,9 +791,41 @@ Get height of player
 
 # setTitle
 
-```javascript
-player.setTitle('Your awesome video title here');
-```
+-   `isShowAlways`
+
+### removeLogo
+
+### setControlsShouldAlwaysShow
+
+**Parameters**
+
+-   `flag`
+
+### setLogo
+
+**Parameters**
+
+-   `url`
+
+### setLogoClickCallback
+
+**Parameters**
+
+-   `callback`
+
+### setLoadingCover
+
+**Parameters**
+
+-   `url`
+
+### setTitle
+
+**Parameters**
+
+-   `title` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
+
+### setTitleClickCallback
 
 > [Live Demo](https://jsfiddle.net/kupriyanenko/ao0rg48s/2/)
 
@@ -868,3 +872,4 @@ Display title text over the video. If you want to have clickable title, use <cod
   </table>
 </div>
 
+-   `callback` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)**

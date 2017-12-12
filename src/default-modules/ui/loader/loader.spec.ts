@@ -2,78 +2,67 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import Engine from '../../playback-engine/playback-engine';
-import EventEmitter from '../../event-emitter/event-emitter';
-import RootContainer from '../../root-container/root-container.controler';
-import Loader, { DELAYED_SHOW_TIMEOUT } from './loader.controler';
+import getContainer from '../../../testkit';
+
+import { DELAYED_SHOW_TIMEOUT } from './loader.controler';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 describe('Loader', () => {
   let loader;
+  let scope;
   let engine;
   let eventEmitter;
-  let rootContainer;
-  let config;
   let emitSpy;
 
-  beforeEach(() => {
-    config = {
-      ui: {},
-    };
-
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
-    rootContainer = new RootContainer({
-      eventEmitter,
-      engine,
-      config,
-    });
-
-    loader = new Loader({
-      engine,
-      rootContainer,
-      config,
-      eventEmitter,
-    });
-    emitSpy = sinon.spy(eventEmitter, 'emit');
-  });
-
-  afterEach(() => {
-    eventEmitter.emit.restore();
-  });
-
   describe('constructor', () => {
+    beforeEach(() => {
+      scope = getContainer();
+    });
+
     it('should create instance ', () => {
+      loader = scope.get('loader');
+
       expect(loader).to.exist;
       expect(loader.view).to.exist;
     });
 
     it('should create instance with custom view if passed', () => {
-      config.ui.loader = {
-        view: sinon.spy(() => {
-          return {
-            getNode: () => {},
-            hide: () => {},
-            show: () => {},
-          };
-        }),
+      const config = {
+        ui: {
+          loader: {
+            view: sinon.spy(() => {
+              return {
+                getNode: () => {},
+                hide: () => {},
+                show: () => {},
+              };
+            }),
+          },
+        },
       };
+      scope.config = config;
 
-      loader = new Loader({
-        engine,
-        config,
-        rootContainer,
-        eventEmitter,
-      });
+      loader = scope.get('loader');
 
       expect(config.ui.loader.view.calledWithNew()).to.be.true;
     });
   });
 
   describe('instance', () => {
+    beforeEach(() => {
+      scope = getContainer();
+      loader = scope.get('loader');
+
+      engine = scope.get('engine');
+      eventEmitter = scope.get('eventEmitter');
+
+      emitSpy = sinon.spy(eventEmitter, 'emit');
+    });
+
+    afterEach(() => {
+      eventEmitter.emit.restore();
+    });
+
     describe('public API', () => {
       it('should have method for showing loader', () => {
         const showSpy = sinon.spy(loader.view, 'show');
