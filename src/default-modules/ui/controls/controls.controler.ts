@@ -183,7 +183,7 @@ export default class ControlBlock {
       this,
     );
     this._eventEmitter.on(
-      UI_EVENTS.CONTORL_DRAG_END,
+      UI_EVENTS.CONTROL_DRAG_END,
       this._onControlDragEnd,
       this,
     );
@@ -217,7 +217,7 @@ export default class ControlBlock {
       this,
     );
     this._eventEmitter.off(
-      UI_EVENTS.CONTORL_DRAG_END,
+      UI_EVENTS.CONTROL_DRAG_END,
       this._onControlDragEnd,
       this,
     );

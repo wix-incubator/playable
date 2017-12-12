@@ -45,11 +45,6 @@ class VolumeView extends View {
   _$volumeNode;
   _$volume;
   _$hitbox;
-  $container;
-  $content;
-  $inputWrapper;
-  $filledProgress;
-  $input;
 
   private _isDragging;
 

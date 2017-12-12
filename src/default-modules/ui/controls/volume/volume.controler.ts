@@ -145,7 +145,7 @@ export default class VolumeControl {
   }
 
   _broadcastDragEnd() {
-    this._eventEmitter.emit(UI_EVENTS.CONTORL_DRAG_END);
+    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
   }
 
   _changeVolumeLevel(level) {

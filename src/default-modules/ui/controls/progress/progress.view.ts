@@ -194,7 +194,6 @@ class ProgressView extends View {
   }
 
   _setPlayedDOMAttributes(percent: number) {
-    this._$node.attr('value', percent);
     this._$node.attr(
       'aria-valuetext',
       this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
