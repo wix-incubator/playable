@@ -9,11 +9,13 @@ import {
 import { getNearestBufferSegmentInfo } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
 
+import { IPlaybackAdapter } from './types';
+
 const INITIAL_BITRATE = 5000;
 
 const DashEvents = MediaPlayer.events;
 
-export default class DashAdapter {
+export default class DashAdapter implements IPlaybackAdapter {
   static isSupported() {
     return NativeEnvironmentSupport.MSE;
   }
@@ -43,6 +45,11 @@ export default class DashAdapter {
 
   get currentUrl() {
     return this.mediaStream.url;
+  }
+
+  get syncWithLiveTime() {
+    // TODO: implement syncWithLiveTime for `dash`
+    return undefined;
   }
 
   get isDynamicContent() {

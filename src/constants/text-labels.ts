@@ -1,6 +1,9 @@
 export default {
   LOGO_LABEL: 'logo-label',
   LOGO_TOOLTIP: 'logo-tooltip',
+  LIVE_INDICATOR_TEXT: 'live-indicator-text',
+  LIVE_INDICATOR_LABEL: 'live-indicator-label',
+  LIVE_INDICATOR_TOOLTIP: 'live-indicator-tooltip',
   ENTER_FULL_SCREEN_LABEL: 'enter-full-screen-label',
   ENTER_FULL_SCREEN_TOOLTIP: 'enter-full-screen-tooltip',
   EXIT_FULL_SCREEN_LABEL: 'exit-full-screen-label',

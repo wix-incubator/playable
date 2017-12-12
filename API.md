@@ -161,7 +161,7 @@ player.getDebugInfo();
 
 ### getSrc
 
-### goLive
+### syncWithLive
 
 ### goForward
 

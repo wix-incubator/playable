@@ -11,13 +11,14 @@ import {
   getNearestBufferSegmentInfo,
 } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
+import { IPlaybackAdapter } from './types';
 
 const DEFAULT_HLS_CONFIG = {
   abrEwmaDefaultEstimate: 5000 * 1000,
   liveSyncDuration: 4,
 };
 
-export default class HlsAdapter {
+export default class HlsAdapter implements IPlaybackAdapter {
   static isSupported() {
     return NativeEnvironmentSupport.MSE && HlsJs.isSupported();
   }
@@ -45,7 +46,7 @@ export default class HlsAdapter {
     return this.mediaStream.url;
   }
 
-  get livePosition() {
+  get syncWithLiveTime() {
     return this.hls.liveSyncPosition;
   }
 

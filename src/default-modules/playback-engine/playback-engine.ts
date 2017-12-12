@@ -138,6 +138,15 @@ export default class Engine {
     return this.getAutoPlay();
   }
 
+  get isSyncWithLive(): boolean {
+    // NOTE: allow difference in 1 second with `liveSyncTime`
+    return (
+      this.attachedAdapter &&
+      this.attachedAdapter.isDynamicContent &&
+      this.getCurrentTime() > this.getSyncWithLiveTime() - 1
+    );
+  }
+
   get attachedAdapter() {
     return this._adapterStrategy.attachedAdapter;
   }
@@ -216,8 +225,8 @@ export default class Engine {
   }
 
   @playerAPI()
-  goLive() {
-    this.setCurrentTime(this.attachedAdapter.livePosition);
+  syncWithLive() {
+    this.setCurrentTime(this.getSyncWithLiveTime());
 
     this.play();
   }
@@ -359,6 +368,17 @@ export default class Engine {
   @playerAPI()
   getDurationTime() {
     return this._video.duration || 0;
+  }
+
+  getSyncWithLiveTime() {
+    if (!this.attachedAdapter || !this.attachedAdapter.isDynamicContent) {
+      return;
+    }
+
+    // NOTE: if adapter don't provide `syncWithLiveTime`, calc it using duration
+    return (
+      this.attachedAdapter.syncWithLiveTime || this.getDurationTime() * 0.9
+    );
   }
 
   getBuffered() {
