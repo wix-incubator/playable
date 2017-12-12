@@ -1,5 +1,5 @@
 import styles from './cards-container.scss';
-import { ORIENTATIONS, EVENTS } from '../constants';
+import { ORIENTATIONS } from '../constants';
 import { waitForDomUpdate } from '../utils/dom-update-delay';
 
 export default class CardsContainer {
@@ -8,7 +8,7 @@ export default class CardsContainer {
     this.cardsConfig = cardsConfig;
     this.initUI();
     this.handleConfigChange();
-    this.cardsConfig.on(EVENTS.CONFIG_CHANGED, this.handleConfigChange, this);
+    this.cardsConfig.onChange(this.handleConfigChange, this);
   }
 
   initUI() {

@@ -55,4 +55,14 @@ export default class CardsConfig extends EventEmitter {
     const { anchorPoint, orientation } = this;
     return directionsMap[orientation][anchorPoint];
   }
+
+  onChange(callback, context) {
+    this.on(EVENTS.CONFIG_CHANGED, callback, context);
+  }
+
+  destroy() {
+    this.eventNames().forEach(eventName => {
+      this.removeAllListeners(eventName);
+    });
+  }
 }
