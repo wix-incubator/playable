@@ -20,7 +20,7 @@ export default class CardsManager {
     this.activeCards = [];
     this.isAnimationEnabled = true;
     this.timeouts = [];
-    this.isPlaying = false;
+    this.disableAnimationRequestsCount = 0;
 
     this._updateCardsState = this._updateCardsState.bind(this);
     this.updateCardsOnTimeChange = this.updateCardsOnTimeChange.bind(this);
@@ -31,13 +31,17 @@ export default class CardsManager {
   }
 
   async addCard(cardData) {
+    await this._disableAnimation();
     this._createCard(cardData);
     await this._updateCardsState();
+    this._enableAnimation();
   }
 
   async addCards(cardsData) {
+    await this._disableAnimation();
     cardsData.forEach(card => this._createCard(card));
     await this._updateCardsState();
+    this._enableAnimation();
   }
 
   clearCards() {
@@ -68,18 +72,14 @@ export default class CardsManager {
   }
 
   handleVideoPlayStart() {
-    this.isPlaying = true;
     clearInterval(this.trackingInterval);
     this.trackingInterval = setInterval(this.updateCardsOnTimeChange, CARDS_UPDATE_INTERVAL);
     this.startSlider();
-    this._enableAnimation();
   }
 
   handleVideoPlayPause() {
-    this.isPlaying = false;
     clearInterval(this.trackingInterval);
     this.stopSlider();
-    this._defer(() => this._disableAnimation(), CARD_ANIMATION_TIME);
   }
 
   updateCardsOnTimeChange() {
@@ -116,9 +116,11 @@ export default class CardsManager {
     this._updateCardsPositions();
   }
 
-  handleConfigChange() {
+  async handleConfigChange() {
+    await this._disableAnimation();
     this._clearActiveCards();
-    this._updateCardsState();
+    await this._updateCardsState();
+    this._enableAnimation();
   }
 
   // Cards update on time change
@@ -217,6 +219,7 @@ export default class CardsManager {
     await this._prepareCardsToShow(cardsToShow);
     cardsToShow.forEach(card => this._showCard(card));
     await this._updateCardsPositions();
+    await waitForDomUpdate();
   }
 
   _showCard(card) {
@@ -328,25 +331,30 @@ export default class CardsManager {
 
   // Force card to be visible on screen
   async showSelectedCard(id) {
+    await this._disableAnimation();
     const selectedCard = find(this.activeCards, { id });
     if (!selectedCard || selectedCard.isVisible) {
+      this._enableAnimation();
       return;
     }
 
     while (!selectedCard.isVisible) {
       await this._showNextCard();
     }
+
+    this._enableAnimation();
   }
 
   async _enableAnimation() {
-    if (!this.isPlaying) {
-      return;
+    this.disableAnimationRequestsCount -= 1;
+    if (this.disableAnimationRequestsCount === 0) {
+      this.isAnimationEnabled = true;
+      await this.cardsContainer.enableAnimation();
     }
-    this.isAnimationEnabled = true;
-    await this.cardsContainer.enableAnimation();
   }
 
   async _disableAnimation() {
+    this.disableAnimationRequestsCount += 1;
     this.isAnimationEnabled = false;
     await this.cardsContainer.disableAnimation();
   }
