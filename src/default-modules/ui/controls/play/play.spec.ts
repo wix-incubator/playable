@@ -1,36 +1,20 @@
 import 'jsdom-global/register';
-import { EventEmitter } from 'eventemitter3';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import PlayControl from './play.controler';
-import Engine from '../../../playback-engine/playback-engine';
-import TextMap from '../../../text-map/text-map';
+import createPlayerTestkit from '../../../../testkit';
+
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 describe('PlayControl', () => {
+  let testkit;
   let control;
-  let engine;
   let eventEmitter;
-  let config = {};
-  let textMap;
 
   beforeEach(() => {
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
-    textMap = new TextMap({
-      config,
-    });
-    control = new PlayControl({
-      engine,
-      eventEmitter,
-      textMap,
-      // TODO: check if config required here
-      // config
-    });
+    testkit = createPlayerTestkit();
+    eventEmitter = testkit.getModule('eventEmitter');
+    control = testkit.getModule('playControl');
   });
 
   describe('constructor', () => {

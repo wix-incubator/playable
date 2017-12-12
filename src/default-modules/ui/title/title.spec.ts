@@ -3,7 +3,7 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import getContainer from '../../../testkit';
+import createPlayerTestkit from '../../../testkit';
 
 import Title from './title';
 
@@ -11,14 +11,14 @@ import { UI_EVENTS } from '../../../constants';
 import { describe } from 'selenium-webdriver/testing';
 
 describe('Title', () => {
-  let scope;
+  let testkit;
   let eventEmitter;
   let title: Title;
 
   beforeEach(() => {
-    scope = getContainer();
-    title = scope.get('title');
-    eventEmitter = scope.get('eventEmitter');
+    testkit = createPlayerTestkit();
+    title = testkit.getModule('title');
+    eventEmitter = testkit.getModule('eventEmitter');
   });
 
   describe('constructor', () => {

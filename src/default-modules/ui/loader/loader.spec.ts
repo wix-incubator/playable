@@ -2,25 +2,25 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import getContainer from '../../../testkit';
+import createPlayerTestkit from '../../../testkit';
 
 import { DELAYED_SHOW_TIMEOUT } from './loader.controler';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 describe('Loader', () => {
   let loader;
-  let scope;
+  let testkit;
   let engine;
   let eventEmitter;
   let emitSpy;
 
   describe('constructor', () => {
     beforeEach(() => {
-      scope = getContainer();
+      testkit = createPlayerTestkit();
     });
 
     it('should create instance ', () => {
-      loader = scope.get('loader');
+      loader = testkit.getModule('loader');
 
       expect(loader).to.exist;
       expect(loader.view).to.exist;
@@ -40,9 +40,9 @@ describe('Loader', () => {
           },
         },
       };
-      scope.config = config;
+      testkit.setConfig(config);
 
-      loader = scope.get('loader');
+      loader = testkit.getModule('loader');
 
       expect(config.ui.loader.view.calledWithNew()).to.be.true;
     });
@@ -50,11 +50,11 @@ describe('Loader', () => {
 
   describe('instance', () => {
     beforeEach(() => {
-      scope = getContainer();
-      loader = scope.get('loader');
+      testkit = createPlayerTestkit();
+      loader = testkit.getModule('loader');
 
-      engine = scope.get('engine');
-      eventEmitter = scope.get('eventEmitter');
+      engine = testkit.getModule('engine');
+      eventEmitter = testkit.getModule('eventEmitter');
 
       emitSpy = sinon.spy(eventEmitter, 'emit');
     });

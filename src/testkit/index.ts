@@ -1,34 +1,34 @@
+import * as merge from 'lodash/merge';
 import { container } from '../core/player-factory';
 import mapParamsToConfig from '../core/config-mapper';
+import DependencyContainer from '../core/dependency-container';
 
-export default function getContainer(config = {}, adapters = []) {
-  const _config = {
-    ...mapParamsToConfig({}),
-    ...config,
-  };
+const { asClass } = DependencyContainer;
+
+export default function createPlayerTestkit(config = {}, adapters = []) {
+  const _config = merge(mapParamsToConfig({}), config);
 
   const scope = container.createScope();
 
   scope.registerValue('config', _config);
   scope.registerValue('availablePlaybackAdapters', [...adapters]);
 
-  const register = (name: string, fn: Function) => {
-    scope.registerClass(name, fn);
-  };
-
   return {
-    get: name => {
+    getModule(name) {
       return scope.resolve(name);
     },
-    register: (name: string, fn: Function) => {
-      scope.registerClass(name, fn);
+    registerModule(name: string, fn: Function) {
+      scope.register(name, asClass(fn));
     },
-    set config(config: object) {
+    registerModuleAsSingleton(name: string, fn: Function) {
+      scope.register(name, asClass(fn).scoped());
+    },
+    setConfig(config: object) {
       scope.registerValue('config', {
-        ...config,
+        ...merge(mapParamsToConfig({}), config),
       });
     },
-    set playbackAdapters(adapters) {
+    setPlaybackAdapters(adapters) {
       scope.registerValue('availablePlaybackAdapters', [...adapters]);
     },
   };

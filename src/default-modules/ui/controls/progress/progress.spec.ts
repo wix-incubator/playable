@@ -2,25 +2,25 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import getContainer from '../../../../testkit';
+import createPlayerTestkit from '../../../../testkit';
 
 import ProgressControl from './progress.controler';
 
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 describe('ProgressControl', () => {
-  let container;
+  let testkit;
   let control;
   let engine;
   let eventEmitter;
 
   beforeEach(() => {
-    container = getContainer();
+    testkit = createPlayerTestkit();
 
-    container.register('volumeControl', ProgressControl);
-    control = container.get('volumeControl');
-    eventEmitter = container.get('eventEmitter');
-    engine = container.get('engine');
+    testkit.registerModule('volumeControl', ProgressControl);
+    control = testkit.getModule('volumeControl');
+    eventEmitter = testkit.getModule('eventEmitter');
+    engine = testkit.getModule('engine');
   });
 
   describe('constructor', () => {
@@ -103,15 +103,11 @@ describe('ProgressControl', () => {
         '_pauseVideoOnProgressManipulationStart',
       );
       const stopSpy = sinon.spy(control, '_playVideoOnProgressManipulationEnd');
-      //const timeoutSpy = sinon.spy(global, 'setTimeout');
       control._onUserInteractionStarts();
       expect(startSpy.called).to.be.true;
       control._onUserInteractionEnds();
-      //expect(timeoutSpy.calledWith(stopSpy)).to.be.true;
-
       control._playVideoOnProgressManipulationEnd.restore();
       control._pauseVideoOnProgressManipulationStart.restore();
-      //global.setTimeout.restore();
     });
 
     it('should toggle interval updates', () => {

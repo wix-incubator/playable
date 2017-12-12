@@ -1,37 +1,21 @@
 import 'jsdom-global/register';
-
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import ControlsBlock from './controls.controler';
-
-import RootContainer from '../../root-container/root-container.controler';
-import Engine from '../../playback-engine/playback-engine';
-import { container } from '../../../core/player-factory';
+import createPlayerTestkit from '../../../testkit';
 
 import { VIDEO_EVENTS, STATES } from '../../../constants/index';
 
-import { EventEmitter } from 'eventemitter3';
-import ControlBlock from './controls.controler';
-
 describe('ControlsBlock', () => {
+  let testkit;
   let controls;
-  let config = {};
-  let scope;
   let eventEmitter;
 
   beforeEach(() => {
-    config = {
-      ui: {},
-    };
+    testkit = createPlayerTestkit();
 
-    scope = container.createScope();
-    scope.registerValue('config', config);
-    scope.registerValue('availablePlaybackAdapters', []);
-    scope.registerClass('_testControl', ControlsBlock);
-
-    eventEmitter = scope.resolve('eventEmitter');
-    controls = scope.resolve('_testControl');
+    eventEmitter = testkit.getModule('eventEmitter');
+    controls = testkit.getModule('controls');
   });
   describe('constructor', () => {
     it('should create instance ', () => {

@@ -2,50 +2,23 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import Engine from '../../playback-engine/playback-engine';
-import EventEmitter from '../../event-emitter/event-emitter';
-import LoadingCover from './loading-cover.controler';
-import RootContainer from '../../root-container/root-container.controler';
+import createPlayerTestkit from '../../../testkit';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 describe('LoadingCover', () => {
+  let testkit;
   let loadingCover;
   let engine;
   let eventEmitter;
-  let config;
   let emitSpy;
-  let controls;
-  let rootContainer;
 
   beforeEach(() => {
-    config = {
-      ui: {},
-    };
+    testkit = createPlayerTestkit();
 
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
-
-    controls = {
-      _hideContent: sinon.spy(),
-    };
-
-    rootContainer = new RootContainer({
-      eventEmitter,
-      engine,
-      config,
-    });
-
-    loadingCover = new LoadingCover({
-      engine,
-      config,
-      eventEmitter,
-      rootContainer,
-      controls,
-    });
+    engine = testkit.getModule('engine');
+    eventEmitter = testkit.getModule('eventEmitter');
+    loadingCover = testkit.getModule('loadingCover');
 
     emitSpy = sinon.spy(eventEmitter, 'emit');
   });

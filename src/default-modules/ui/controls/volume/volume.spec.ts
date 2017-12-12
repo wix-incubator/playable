@@ -2,23 +2,23 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import getContainer from '../../../../testkit';
+import createPlayerTestkit from '../../../../testkit';
 
 import VolumeControl from './volume.controler';
 
 import { VIDEO_EVENTS } from '../../../../constants/index';
 
 describe('VolumeControl', () => {
+  let testkit;
   let control;
-  let container;
   let eventEmitter;
 
   beforeEach(() => {
-    container = getContainer();
+    testkit = createPlayerTestkit();
 
-    container.register('volumeControl', VolumeControl);
-    control = container.get('volumeControl');
-    eventEmitter = container.get('eventEmitter');
+    testkit.registerModule('volumeControl', VolumeControl);
+    control = testkit.getModule('volumeControl');
+    eventEmitter = testkit.getModule('eventEmitter');
   });
 
   describe('constructor', () => {
