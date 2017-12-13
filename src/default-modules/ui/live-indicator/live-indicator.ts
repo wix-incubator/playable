@@ -63,7 +63,6 @@ export default class LiveIndicator {
   }
 
   private _bindCallbacks() {
-    this._processStateChange = this._processStateChange.bind(this);
     this._syncWithLive = this._syncWithLive.bind(this);
   }
 

@@ -24,7 +24,7 @@ class LiveIndicatorView extends View {
     this._bindEvents();
   }
 
-  _initDOM() {
+  private _initDOM() {
     this.$liveIndicator = $('<span>', {
       class: this.styleNames['live-indicator'],
       'aria-label': this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_LABEL),
@@ -42,11 +42,11 @@ class LiveIndicatorView extends View {
       .append(this.$tooltip);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this.$liveIndicator[0].addEventListener('click', this._callbacks.onClick);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this.$liveIndicator[0].removeEventListener(
       'click',
       this._callbacks.onClick,
