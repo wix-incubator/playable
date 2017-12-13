@@ -84,13 +84,23 @@ export default class CardsModule {
   @playerAPI()
   addCard(cardData) {
     this.initialize();
-    this.cardsManager.addCard(cardData);
+    return this.cardsManager.addCard(cardData);
   }
 
   @playerAPI()
   addCards(cardsData) {
     this.initialize();
-    this.cardsManager.addCards(cardsData);
+    return this.cardsManager.addCards(cardsData);
+  }
+
+  @playerAPI()
+  removeCard(id) {
+    this.cardsManager.removeCard(id);
+  }
+
+  @playerAPI()
+  updateCards(cardData) {
+    return this.cardsManager.updateCards(cardData);
   }
 
   @playerAPI()

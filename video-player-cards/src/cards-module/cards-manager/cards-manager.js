@@ -1,7 +1,7 @@
 import find from 'lodash/find';
 import findLastIndex from 'lodash/findLastIndex';
 import filter from 'lodash/filter';
-import debounce from 'lodash/debounce';
+import merge from 'lodash/merge';
 import Card from '../card/card';
 import { waitForDomUpdate } from '../utils/dom-update-delay';
 
@@ -22,13 +22,12 @@ export default class CardsManager {
     this.isAnimationEnabled = true;
     this.timeouts = [];
     this.disableAnimationRequestsCount = 0;
+    this.previousSeekPosition = 0;
 
     this._updateCardsState = this._updateCardsState.bind(this);
     this.updateCardsOnTimeChange = this.updateCardsOnTimeChange.bind(this);
     this.slideNextCard = this.slideNextCard.bind(this);
     this.handleCardSizeChange = this.handleCardSizeChange.bind(this);
-    this.handleSeekPositionChange = debounce(this.handleSeekPositionChange, 50);
-    this.showSelectedCard = debounce(this.showSelectedCard, 100);
 
     this.cardsConfig.onChange(this.handleConfigChange, this);
   }
@@ -36,6 +35,7 @@ export default class CardsManager {
   async addCard(cardData) {
     await this._disableAnimation();
     this._createCard(cardData);
+    this._clearActiveCards();
     await this._updateCardsState();
     this._enableAnimation();
   }
@@ -43,6 +43,38 @@ export default class CardsManager {
   async addCards(cardsData) {
     await this._disableAnimation();
     cardsData.forEach(card => this._createCard(card));
+    this._clearActiveCards();
+    await this._updateCardsState();
+    this._enableAnimation();
+  }
+
+  async removeCard(id) {
+    await this._disableAnimation();
+    const cardToRemove = find(this.availableCards, { id });
+
+    if (!cardToRemove) {
+      this._enableAnimation();
+      return;
+    }
+
+    await this._disableCards([cardToRemove]);
+    this.availableCards.splice(this.availableCards.indexOf(cardToRemove), 1);
+
+    this._enableAnimation();
+  }
+
+  async updateCards(cards) {
+    await this._disableAnimation();
+
+    cards.forEach(card => {
+      const { id, from, to, order } = card;
+      const cardToUpdate = find(this.availableCards, { id });
+      merge(cardToUpdate, { from: from / 1000, to: to / 1000, order });
+    });
+
+    this._sortCards();
+
+    await this._clearActiveCards();
     await this._updateCardsState();
     this._enableAnimation();
   }
@@ -90,6 +122,14 @@ export default class CardsManager {
   }
 
   async handleSeekPositionChange() {
+    const currentTime = this.engine.getCurrentTime();
+
+    if (currentTime === this.previousSeekPosition) {
+      return;
+    }
+
+    this.previousSeekPosition = currentTime;
+
     this._cancelDeferredUpdates();
     await this._disableAnimation();
     await this._updateCardsState();
