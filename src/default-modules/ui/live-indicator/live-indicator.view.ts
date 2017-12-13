@@ -25,25 +25,19 @@ class LiveIndicatorView extends View {
   }
 
   _initDOM() {
-    const styles = this.styleNames;
-    const texts = {
-      text: this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT),
-      label: this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_LABEL),
-      tooltip: this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TOOLTIP),
-    };
+    this.$liveIndicator = $('<span>', {
+      class: this.styleNames['live-indicator'],
+      'aria-label': this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_LABEL),
+    }).html(this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT));
 
-    this.$liveIndicator = $('<span>')
-      .addClass(styles['live-indicator'])
-      .attr('aria-label', texts.label)
-      .html(texts.text);
-
-    this.$tooltip = $('<div>')
-      .addClass(styles.tooltip)
-      .html(texts.tooltip);
+    this.$tooltip = $('<div>', {
+      class: this.styleNames.tooltip,
+    }).html(this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TOOLTIP));
 
     // NOTE: LIVE indicator is hidden by default
-    this.$node = $('<div>')
-      .addClass(classNames(styles.wrapper, styles.hidden))
+    this.$node = $('<div>', {
+      class: classNames(this.styleNames.wrapper, this.styleNames.hidden),
+    })
       .append(this.$liveIndicator)
       .append(this.$tooltip);
   }
