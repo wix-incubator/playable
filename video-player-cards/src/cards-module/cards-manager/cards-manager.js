@@ -1,6 +1,7 @@
 import find from 'lodash/find';
 import findLastIndex from 'lodash/findLastIndex';
 import filter from 'lodash/filter';
+import debounce from 'lodash/debounce';
 import Card from '../card/card';
 import { waitForDomUpdate } from '../utils/dom-update-delay';
 
@@ -26,6 +27,8 @@ export default class CardsManager {
     this.updateCardsOnTimeChange = this.updateCardsOnTimeChange.bind(this);
     this.slideNextCard = this.slideNextCard.bind(this);
     this.handleCardSizeChange = this.handleCardSizeChange.bind(this);
+    this.handleSeekPositionChange = debounce(this.handleSeekPositionChange, 50);
+    this.showSelectedCard = debounce(this.showSelectedCard, 100);
 
     this.cardsConfig.onChange(this.handleConfigChange, this);
   }
