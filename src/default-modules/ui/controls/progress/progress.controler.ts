@@ -268,10 +268,8 @@ export default class ProgressControl {
   }
 
   updatePlayed(percent) {
-    if (!this._isUserInteracting) {
-      this._currentProgress = percent;
-      this.view.setState({ played: this._currentProgress });
-    }
+    this._currentProgress = percent;
+    this.view.setState({ played: this._currentProgress });
   }
 
   updateBuffered(percent) {
