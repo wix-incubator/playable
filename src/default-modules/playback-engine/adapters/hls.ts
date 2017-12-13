@@ -13,9 +13,11 @@ import {
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
 import { IPlaybackAdapter } from './types';
 
+const LIVE_SYNC_DURATION = 4;
+const LIVE_SYNC_DURATION_DELTA = 1;
 const DEFAULT_HLS_CONFIG = {
   abrEwmaDefaultEstimate: 5000 * 1000,
-  liveSyncDuration: 4,
+  liveSyncDuration: LIVE_SYNC_DURATION,
 };
 
 export default class HlsAdapter implements IPlaybackAdapter {
@@ -46,8 +48,15 @@ export default class HlsAdapter implements IPlaybackAdapter {
     return this.mediaStream.url;
   }
 
-  get syncWithLiveTime() {
-    return this.hls.liveSyncPosition;
+  get syncWithLiveTime(): number {
+    if (!this.isDynamicContent) {
+      return;
+    }
+
+    return (
+      this.hls.liveSyncPosition ||
+      this.videoElement.duration - LIVE_SYNC_DURATION
+    );
   }
 
   get isDynamicContent() {
@@ -57,6 +66,17 @@ export default class HlsAdapter implements IPlaybackAdapter {
     const { details } = this.hls.levels[this.hls.firstLevel];
 
     return details.live;
+  }
+
+  get isSyncWithLive(): boolean {
+    if (!this.isDynamicContent) {
+      return false;
+    }
+
+    return (
+      this.videoElement.currentTime >
+      this.syncWithLiveTime - LIVE_SYNC_DURATION_DELTA
+    );
   }
 
   get isSeekAvailable() {

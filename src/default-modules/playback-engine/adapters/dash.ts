@@ -56,6 +56,10 @@ export default class DashAdapter implements IPlaybackAdapter {
     return false;
   }
 
+  get isSyncWithLive() {
+    return false;
+  }
+
   get isSeekAvailable() {
     return true;
   }

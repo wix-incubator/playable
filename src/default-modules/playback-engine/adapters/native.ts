@@ -46,6 +46,11 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
       return Number.isFinite(this.videoElement.duration);
     }
 
+    get isSyncWithLive() {
+      // TODO: implement isSyncWithLive for `native`
+      return false;
+    }
+
     get isSeekAvailable() {
       return true;
       //Need to find better solution
