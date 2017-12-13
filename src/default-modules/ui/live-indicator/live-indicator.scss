@@ -33,6 +33,7 @@ $inactive-color: #959595;
     margin-top: 12px;
     margin-right: 10px;
     margin-left: 12px;
+    padding: 2px 3px;
   }
 
   &:hover {
@@ -51,9 +52,14 @@ $inactive-color: #959595;
 
 .live-indicator {
   font-size: 12px;
-  line-height: 13px;
+  line-height: 14px;
 
   text-transform: uppercase;
+
+  @include max-width-280() {
+    font-size: 10px;
+    line-height: 12px;
+  }
 }
 
 .tooltip {
@@ -62,7 +68,7 @@ $inactive-color: #959595;
 
   position: absolute;
   top: 30px;
-  right: -50%;
+  right: -18px;
 
   visibility: hidden;
 
@@ -77,5 +83,17 @@ $inactive-color: #959595;
 
   @include in-full-screen() {
     top: -25px;
+  }
+  @include max-width-550() {
+    right: -22px;
+  }
+  @include max-width-280() {
+    font-size: 10px;
+    line-height: 12px;
+
+    top: 20px;
+    right: -25px;
+
+    padding: 2px 4px;
   }
 }
