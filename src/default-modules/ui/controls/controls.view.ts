@@ -7,52 +7,86 @@ import * as styles from './controls.scss';
 class ControlsView extends View {
   private _callbacks;
   $node;
-  private $wrapper;
-  private $controlsContainerLeft;
-  private $controlsContainerRight;
-  private $logoContainer;
-  private $progressBarContainer;
 
   constructor(config) {
     super(config);
-    const { callbacks } = config;
+    const { callbacks, controls } = config;
 
     this._callbacks = callbacks;
+
+    this._initDOM(controls);
+    this._bindEvents();
+  }
+
+  private _initDOM(controls) {
     this.$node = $('<div>', {
       class: this.styleNames['controls-block'],
       'data-hook': 'controls-block',
     });
 
-    const container = $('<div>', {
+    const $container = $('<div>', {
       class: this.styleNames['container-wrapper'],
     });
 
-    this.$controlsContainerLeft = $('<div>', {
+    const $playContainer = $('<div>', {
+      class: this.styleNames['play-container'],
+    });
+
+    $playContainer.append(controls.play);
+
+    const $volumeContainer = $('<div>', {
+      class: this.styleNames['volume-container'],
+    });
+
+    $volumeContainer.append(controls.volume);
+
+    const $timeContainer = $('<div>', {
+      class: this.styleNames['time-container'],
+    });
+
+    $timeContainer.append(controls.time);
+
+    const $fullScreenContainer = $('<div>', {
+      class: this.styleNames['full-screen-container'],
+    });
+
+    $fullScreenContainer.append(controls.fullScreen);
+
+    const $controlsContainerLeft = $('<div>', {
       class: this.styleNames['controls-container-left'],
       'data-hook': 'controls-container-left',
     });
 
-    this.$controlsContainerRight = $('<div>', {
+    const $controlsContainerRight = $('<div>', {
       class: this.styleNames['controls-container-right'],
       'data-hook': 'controls-container-right',
     });
 
-    this.$logoContainer = $('<div>', {
+    const $logoContainer = $('<div>', {
       class: this.styleNames['logo-container'],
     });
 
-    this.$progressBarContainer = $('<div>', {
+    $logoContainer.append(controls.logo);
+
+    const $progressBarContainer = $('<div>', {
       class: this.styleNames['progress-bar-container'],
     });
 
-    container
-      .append(this.$controlsContainerLeft)
-      .append(this.$controlsContainerRight)
-      .append(this.$logoContainer);
+    $progressBarContainer.append(controls.progress);
 
-    this.$node.append(this.$progressBarContainer).append(container);
+    $controlsContainerLeft
+      .append($playContainer)
+      .append($volumeContainer)
+      .append($timeContainer);
 
-    this._bindEvents();
+    $controlsContainerRight.append($fullScreenContainer);
+
+    $container
+      .append($controlsContainerLeft)
+      .append($controlsContainerRight)
+      .append($logoContainer);
+
+    this.$node.append($progressBarContainer).append($container);
   }
 
   private _preventClickPropagation(e) {
@@ -83,6 +117,15 @@ class ControlsView extends View {
     );
   }
 
+  setShouldLogoShowAlwaysFlag(isShowAlways: boolean) {
+    this.$node.toggleClass(this.styleNames['show-logo-always'], isShowAlways);
+    this.$node.removeClass(this.styleNames['logo-hidden']);
+  }
+
+  hideLogo() {
+    this.$node.addClass(this.styleNames['logo-hidden']);
+  }
+
   show() {
     this.$node.toggleClass(this.styleNames.hidden, false);
   }
@@ -95,38 +138,18 @@ class ControlsView extends View {
     return this.$node[0];
   }
 
-  appendProgressBarNode(node) {
-    this.$progressBarContainer.append(node);
-  }
-
-  appendControlNodeLeft(node) {
-    this.$controlsContainerLeft.append(node);
-  }
-
-  appendControlNodeRight(node) {
-    this.$controlsContainerRight.append(node);
-  }
-
-  appendLogoNode(node) {
-    this.$logoContainer.append(node);
-  }
-
   showControlsBlock() {
-    this.$node.toggleClass(this.styleNames.activated, true);
+    this.$node.addClass(this.styleNames.activated);
   }
 
   hideControlsBlock() {
-    this.$node.toggleClass(this.styleNames.activated, false);
+    this.$node.removeClass(this.styleNames.activated);
   }
 
   destroy() {
     this._unbindEvents();
     this.$node.remove();
 
-    delete this.$progressBarContainer;
-    delete this.$logoContainer;
-    delete this.$controlsContainerLeft;
-    delete this.$controlsContainerRight;
     delete this.$node;
   }
 }

@@ -8,24 +8,26 @@ $color: white !default;
 
   display: flex;
 
-  margin-right: 15px;
-
   transition: width .2s;
 
   justify-content: flex-start;
   align-items: center;
   @include in-full-screen() {
     height: 35px;
-    margin-right: 20px;
   }
 
   &:hover,
   &.is-dragging {
-    margin-right: 20px;
     .volume-input-block {
       width: 50px;
+      margin-right: 5px;
 
       opacity: 1;
+
+      @include in-full-screen() {
+        width: 90px;
+        margin-right: 10px;
+      }
     }
   }
 }
@@ -71,6 +73,10 @@ $color: white !default;
   transition: opacity .2s, width .2s;
 
   opacity: 0;
+
+  @include in-full-screen() {
+    margin-left: 5px;
+  }
 }
 
 
@@ -98,6 +104,14 @@ $color: white !default;
 
     border-radius: 50%;
     background-color: #fff;
+
+    @include in-full-screen() {
+      top: -4px;
+      right: -5px;
+
+      width: 10px;
+      height: 10px;
+    }
   }
 }
 
@@ -124,14 +138,18 @@ $color: white !default;
 :global {
   [data-focus-source='key'] [data-hook='volume-control'],
   [data-focus-source='script'] [data-hook='volume-control'] {
-    margin-right: 20px;
-
     .focus-within {
       &:local.volume-input-block {
         width: 50px;
+        margin-right: 5px;
 
         opacity: 1;
         box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
+
+        @include in-full-screen() {
+          width: 90px;
+          margin-right: 10px;
+        }
       }
     }
   }

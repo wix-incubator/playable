@@ -10,19 +10,29 @@
   display: flex;
   flex-direction: column;
 
-  height: 50px;
-
   &::-moz-focus-inner {
     border: 0;
   }
 
   &.activated,
-  &.video-paused,
   &.focus-within {
     .progress-bar-container,
     .controls-container-left,
-    .controls-container-right {
+    .controls-container-right,
+    .logo-container {
       opacity: 1;
+    }
+  }
+
+  &.show-logo-always {
+    .logo-container {
+      opacity: 1;
+    }
+  }
+
+  &.logo-hidden {
+    .logo-container {
+      display: none;
     }
   }
 }
@@ -37,14 +47,27 @@
 
 .progress-bar-container {
   position: relative;
-  top: 3px;
+  top: 2px;
 
   padding: 0 20px;
+
+  @include in-full-screen() {
+    top: 3px;
+
+    padding: 0 30px;
+  }
+  @include max-width-550() {
+    padding: 0 15px;
+  }
+  @include max-width-280() {
+    padding: 0 12px;
+  }
 }
 
 .progress-bar-container,
 .controls-container-left,
-.controls-container-right {
+.controls-container-right,
+.logo-container {
   transition: opacity .2s, visibility .2s;
 
   opacity: 0;
@@ -53,10 +76,6 @@
 .controls-container-right,
 .controls-container-left {
   position: relative;
-  z-index: 3;
-  right: 0;
-  bottom: 0;
-  left: 0;
 
   display: flex;
   flex: 1;
@@ -71,6 +90,84 @@
   justify-content: flex-end;
 }
 
+.controls-container-right,
+.controls-container-left,
+.logo-container {
+  height: 54px;
+
+  @include in-full-screen() {
+    height: 80px;
+  }
+  @include max-width-550() {
+    height: 42px;
+  }
+  @include max-width-350() {
+    height: 36px;
+  }
+}
+
+.play-container {
+  margin-right: 9px;
+  margin-left: 13px;
+
+  @include in-full-screen() {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  @include max-width-550() {
+    margin-left: 7px;
+  }
+  @include max-width-280() {
+    margin-left: 4px;
+  }
+}
+
+.volume-container {
+  margin-right: 15px;
+
+  @include in-full-screen() {
+    margin-right: 20px;
+  }
+}
+
+.time-container {
+  margin-right: 18px;
+
+  @include in-full-screen() {
+    margin-right: 30px;
+  }
+  @include max-width-400() {
+    display: none;
+  }
+}
+
+.full-screen-container {
+  margin-right: 14px;
+  margin-left: 5px;
+
+  @include max-width-550() {
+    margin-right: 7px;
+  }
+  @include in-full-screen() {
+    margin-right: 25px;
+    margin-left: 0;
+  }
+}
+
 .logo-container {
   display: flex;
+
+  margin-right: 20px;
+
+  @include max-width-550() {
+    margin-right: 15px;
+    margin-left: 1px;
+  }
+  @include in-full-screen() {
+    margin-right: 30px;
+    margin-left: 0;
+  }
+  @include max-width-280() {
+    margin-right: 12px;
+  }
 }

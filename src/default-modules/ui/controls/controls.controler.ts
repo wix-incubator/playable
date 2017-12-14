@@ -100,8 +100,14 @@ export default class ControlBlock {
     this._isControlsFocused = false;
 
     this._bindViewCallbacks();
-    this._initUI();
-    this._initControls();
+    this._initUI(
+      playControl,
+      progressControl,
+      timeControl,
+      volumeControl,
+      fullScreenControl,
+      logo,
+    );
     this._initLogo();
     this._bindEvents();
 
@@ -114,9 +120,24 @@ export default class ControlBlock {
     return this.view.getNode();
   }
 
-  private _initUI() {
+  private _initUI(
+    playControl,
+    progressControl,
+    timeControl,
+    volumeControl,
+    fullScreenControl,
+    logo,
+  ) {
     const { view } = this.config;
     const config = {
+      controls: {
+        play: playControl.node,
+        progress: progressControl.node,
+        time: timeControl.node,
+        volume: volumeControl.node,
+        fullScreen: fullScreenControl.node,
+        logo: logo.node,
+      },
       callbacks: {
         onControlsBlockMouseMove: this._setFocusState,
         onControlsBlockMouseOut: this._removeFocusState,
@@ -128,14 +149,6 @@ export default class ControlBlock {
     } else {
       this.view = new ControlBlock.View(config);
     }
-  }
-
-  private _initControls() {
-    this.view.appendProgressBarNode(this._progressControl.node);
-    this.view.appendControlNodeLeft(this._playControl.node);
-    this.view.appendControlNodeLeft(this._volumeControl.node);
-    this.view.appendControlNodeLeft(this._timeControl.node);
-    this.view.appendControlNodeRight(this._fullScreenControl.node);
   }
 
   private _initLogo() {
@@ -340,16 +353,12 @@ export default class ControlBlock {
 
   @playerAPI()
   setLogoAlwaysShowFlag(isShowAlways) {
-    if (isShowAlways) {
-      this.view.appendLogoNode(this._logo.node);
-    } else {
-      this.view.appendControlNodeRight(this._logo.node);
-    }
+    this.view.setShouldLogoShowAlwaysFlag(isShowAlways);
   }
 
   @playerAPI()
   removeLogo() {
-    this._logo.node.parentNode.removeChild(this._logo.node);
+    this.view.hideLogo();
   }
 
   @playerAPI('setControlsShouldAlwaysShow')

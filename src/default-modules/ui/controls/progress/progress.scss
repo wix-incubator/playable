@@ -10,12 +10,19 @@
 
   transition: opacity .2s, visibility .2s;
 
+  @include in-full-screen() {
+    height: 8px;
+  }
   touch-action: none;
 
   &:hover,
   &.is-dragging {
     .progress-bars-wrapper {
       transform: scaleY(1);
+
+      @include in-full-screen() {
+        transform: scaleY(1);
+      }
       .seek-to {
         opacity: 1;
       }
@@ -31,6 +38,12 @@
 
   transition: transform .1s cubic-bezier(.0,.0,.2,1);
   transform: scaleY(.33);
+
+  @include in-full-screen() {
+    height: 8px;
+
+    transform: scaleY(.25);
+  }
 }
 
 .progress-bar {
@@ -38,6 +51,10 @@
 
   height: 6px;
   padding: 0;
+
+  @include in-full-screen() {
+    height: 8px;
+  }
 }
 
 .played {
@@ -57,6 +74,14 @@
 
     border-radius: 50%;
     background-color: #fff;
+
+    @include in-full-screen() {
+      top: -4px;
+      right: -8px;
+
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 

@@ -13,8 +13,6 @@
 
   display: flex;
 
-  margin-right: 20px;
-
   cursor: pointer;
   transition: opacity .2s, visibility .2s;
   transition-duration: .2s;
@@ -23,14 +21,6 @@
 
   justify-content: center;
   align-items: center;
-  @include max-width-550() {
-    margin-right: 12px;
-    margin-left: 6px;
-  }
-  @include in-full-screen() {
-    margin-right: 30px;
-    margin-left: 0;
-  }
 
   &:hover {
     .default-logo,

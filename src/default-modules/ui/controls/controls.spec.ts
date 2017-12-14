@@ -109,14 +109,6 @@ describe('ControlsBlock', () => {
   });
 
   describe('View', () => {
-    it('should have method for adding node with control', () => {
-      expect(controls.view.appendControlNodeLeft).to.exist;
-    });
-
-    it('should have method for adding node with control', () => {
-      expect(controls.view.appendControlNodeRight).to.exist;
-    });
-
     it('should have method for showing block with controls', () => {
       expect(controls.view.showControlsBlock).to.exist;
     });

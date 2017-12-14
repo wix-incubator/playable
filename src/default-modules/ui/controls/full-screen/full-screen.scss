@@ -5,18 +5,8 @@
 
   display: flex;
 
-  margin-right: 14px;
-  margin-left: 5px;
-
   align-items: center;
   justify-content: center;
-  @include max-width-550() {
-    margin-right: 7px;
-  }
-  @include in-full-screen() {
-    margin-right: 25px;
-    margin-left: 0;
-  }
 }
 
 
