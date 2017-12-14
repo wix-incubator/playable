@@ -90,16 +90,20 @@ export default class LiveIndicator {
         break;
 
       case STATES.METADATA_LOADED:
-        this._toggle(this._engine.isDynamicContent);
-        break;
-
-      case STATES.PLAYING:
-        this._toggleActive(this._engine.isSyncWithLive);
+        if (this._engine.isDynamicContent) {
+          this._toggle(true);
+        }
         break;
 
       default:
-        this._toggleActive(false);
         break;
+    }
+
+    if (!this.isHidden) {
+      // update active state for dynamic content
+      this._toggleActive(
+        nextState === STATES.PLAYING && this._engine.isSyncWithLive,
+      );
     }
   }
 
