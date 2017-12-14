@@ -12,6 +12,7 @@ import {
 } from '../../utils/device-detection';
 
 import { VIDEO_EVENTS, STATES } from '../../constants/index';
+import { IPlaybackAdapter } from './adapters/types';
 
 export { STATES };
 
@@ -146,7 +147,7 @@ export default class Engine {
     return this.attachedAdapter.isSyncWithLive;
   }
 
-  get attachedAdapter() {
+  get attachedAdapter(): IPlaybackAdapter {
     return this._adapterStrategy.attachedAdapter;
   }
 

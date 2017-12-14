@@ -27,7 +27,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
   private eventEmitter;
   private hls;
-  private videoElement;
+  private videoElement: HTMLVideoElement;
   private mediaStream;
 
   constructor(eventEmitter) {
@@ -59,7 +59,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     );
   }
 
-  get isDynamicContent() {
+  get isDynamicContent(): boolean {
     if (!this.hls) {
       return false;
     }
@@ -79,7 +79,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     );
   }
 
-  get isSeekAvailable() {
+  get isSeekAvailable(): boolean {
     if (this.isDynamicContent) {
       const { details } = this.hls.levels[this.hls.firstLevel];
 

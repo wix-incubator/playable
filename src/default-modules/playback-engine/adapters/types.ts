@@ -3,6 +3,8 @@ interface IPlaybackAdapter {
   isDynamicContent: boolean;
   isSyncWithLive: boolean;
 
+  isSeekAvailable: boolean;
+
   // TODO: describe adapter interface
 }
 
