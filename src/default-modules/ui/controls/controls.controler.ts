@@ -43,12 +43,6 @@ export default class ControlBlock {
   private _screen;
   private _scope;
 
-  private _playControl;
-  private _progressControl;
-  private _timeControl;
-  private _volumeControl;
-  private _fullScreenControl;
-  private _logo;
   private _hideControlsTimeout;
 
   private _isContentShowingEnabled: boolean;
@@ -61,38 +55,22 @@ export default class ControlBlock {
   view: View;
   isHidden: boolean;
 
-  constructor(
-    {
-      engine,
-      eventEmitter,
+  constructor(dependencies) {
+    const {
       config,
       rootContainer,
+      eventEmitter,
+      engine,
       screen,
-      playControl,
-      progressControl,
-      timeControl,
-      volumeControl,
-      fullScreenControl,
-      logo,
-    },
-    scope,
-  ) {
+    } = dependencies;
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._screen = screen;
-
-    this._playControl = playControl;
-    this._progressControl = progressControl;
-    this._timeControl = timeControl;
-    this._volumeControl = volumeControl;
-    this._fullScreenControl = fullScreenControl;
-    this._logo = logo;
 
     this.config = {
       ...DEFAULT_CONFIG,
       ...get(config, 'ui.controls'),
     };
-    this._scope = scope;
     this.isHidden = false;
     this._isContentShowingEnabled = true;
     this._shouldShowContent = true;
@@ -100,44 +78,45 @@ export default class ControlBlock {
     this._isControlsFocused = false;
 
     this._bindViewCallbacks();
-    this._initUI(
+    this._initUI(this._getControlNodes(dependencies));
+    this._initLogo();
+    this._bindEvents();
+
+    rootContainer.appendComponentNode(this.node);
+
+    if (get(config, 'ui.controls') === false) {
+      this.hide();
+    }
+  }
+
+  private _getControlNodes(dependencies) {
+    const {
       playControl,
       progressControl,
       timeControl,
       volumeControl,
       fullScreenControl,
       logo,
-    );
-    this._initLogo();
-    this._bindEvents();
+    } = dependencies;
 
-    if (get(config, 'ui.controls') !== false) {
-      rootContainer.appendComponentNode(this.node);
-    }
+    return {
+      play: playControl.node,
+      progress: progressControl.node,
+      time: timeControl.node,
+      volume: volumeControl.node,
+      fullScreen: fullScreenControl.node,
+      logo: logo.node,
+    };
   }
 
   get node() {
     return this.view.getNode();
   }
 
-  private _initUI(
-    playControl,
-    progressControl,
-    timeControl,
-    volumeControl,
-    fullScreenControl,
-    logo,
-  ) {
+  private _initUI(controlNodes) {
     const { view } = this.config;
     const config = {
-      controls: {
-        play: playControl.node,
-        progress: progressControl.node,
-        time: timeControl.node,
-        volume: volumeControl.node,
-        fullScreen: fullScreenControl.node,
-        logo: logo.node,
-      },
+      controls: controlNodes,
       callbacks: {
         onControlsBlockMouseMove: this._setFocusState,
         onControlsBlockMouseOut: this._removeFocusState,

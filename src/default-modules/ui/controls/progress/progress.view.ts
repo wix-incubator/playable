@@ -140,7 +140,6 @@ class ProgressView extends View {
     if (event.button > 1) {
       return;
     }
-    this._$node[0].focus();
 
     const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
     this._setPlayedDOMAttributes(percent);
