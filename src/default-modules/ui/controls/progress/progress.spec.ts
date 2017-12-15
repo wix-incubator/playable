@@ -67,6 +67,161 @@ describe('ProgressControl', () => {
       expect(control._eventEmitter).to.not.exist;
       expect(spy.called).to.be.true;
     });
+
+    describe('for time indicators', () => {
+      const VIDEO_DURATION_TIME = 1000;
+      let engineGetDurationTimeStub;
+
+      beforeEach(() => {
+        engineGetDurationTimeStub = sinon.stub(
+          control._engine,
+          'getDurationTime',
+          () => VIDEO_DURATION_TIME,
+        );
+      });
+
+      afterEach(() => {
+        engineGetDurationTimeStub.restore();
+      });
+
+      it('should have methods for adding/deleting indicators', () => {
+        expect(control.addTimeIndicator, 'addTimeIndicator').to.exist;
+        expect(control.addTimeIndicators, 'addTimeIndicators').to.exist;
+        expect(control.clearTimeIndicators, 'clearTimeIndicators').to.exist;
+      });
+
+      describe('before `METADATA_LOADED`', () => {
+        it('should add one indicator', () => {
+          const timeIndicatorsNode = control.view._$timeIndicators[0];
+
+          control.addTimeIndicator(100);
+
+          expect(
+            control._engine.isMetadataLoaded,
+            '`isMetadataLoaded` before add',
+          ).to.equal(false);
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicator added before `METADATA_LOADED`',
+          ).to.equal(0);
+
+          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+            nextState: STATES.METADATA_LOADED,
+          });
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicator added after `METADATA_LOADED`',
+          ).to.equal(1);
+        });
+
+        it('should add multiple indicators', () => {
+          const timeIndicatorsNode = control.view._$timeIndicators[0];
+
+          control.addTimeIndicators([100, 200, 300]);
+
+          expect(
+            control._engine.isMetadataLoaded,
+            '`isMetadataLoaded` before add',
+          ).to.equal(false);
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicator added before `METADATA_LOADED`',
+          ).to.equal(0);
+
+          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+            nextState: STATES.METADATA_LOADED,
+          });
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicators added after `METADATA_LOADED`',
+          ).to.equal(3);
+        });
+      });
+
+      describe('after `METADATA_LOADED`', () => {
+        beforeEach(() => {
+          Reflect.defineProperty(control._engine, 'isMetadataLoaded', {
+            ...Reflect.getOwnPropertyDescriptor(
+              engine.constructor.prototype,
+              'isMetadataLoaded',
+            ),
+            get: () => true,
+          });
+        });
+
+        afterEach(() => {
+          Reflect.deleteProperty(engine, 'isMetadataLoaded');
+        });
+
+        it('should add one indicator', () => {
+          const timeIndicatorsNode = control.view._$timeIndicators[0];
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'empty before add',
+          ).to.equal(0);
+
+          control.addTimeIndicator(100);
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicators added',
+          ).to.equal(1);
+        });
+
+        it('should add multiple indicator', () => {
+          const timeIndicatorsNode = control.view._$timeIndicators[0];
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'empty before add',
+          ).to.equal(0);
+
+          control.addTimeIndicators([100, 200, 300]);
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicators added',
+          ).to.equal(3);
+        });
+
+        it('should ignore time more then video duration time', () => {
+          const timeIndicatorsNode = control.view._$timeIndicators[0];
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'empty before add',
+          ).to.equal(0);
+
+          control.addTimeIndicator(VIDEO_DURATION_TIME + 1);
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicators added',
+          ).to.equal(0);
+        });
+
+        it('should delete all added indicators', () => {
+          const timeIndicatorsNode = control.view._$timeIndicators[0];
+
+          control.addTimeIndicators([100, 200, 300]);
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicators added',
+          ).to.equal(3);
+
+          control.clearTimeIndicators();
+
+          expect(
+            timeIndicatorsNode.childNodes.length,
+            'indicators after clear',
+          ).to.equal(0);
+        });
+      });
+    });
   });
 
   describe('video events listeners', () => {
