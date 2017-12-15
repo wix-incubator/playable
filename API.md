@@ -813,6 +813,26 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 -   `callback`  
 
+### addTimeIndicator
+
+Add time indicator to progress bar
+
+**Parameters**
+
+-   `time` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+
+### addTimeIndicators
+
+Add time indicators to progress bar
+
+**Parameters**
+
+-   `times` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
+
+### clearTimeIndicators
+
+Delete all time indicators from progress bar
+
 ### setLoadingCover
 
 **Parameters**

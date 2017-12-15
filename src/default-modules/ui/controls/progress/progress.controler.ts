@@ -1,6 +1,7 @@
 import View from './progress.view';
 
 import {
+  getTimePercent,
   getOverallBufferedPercent,
   getOverallPlayedPercent,
 } from '../../../../utils/video-data';
@@ -11,6 +12,7 @@ import { AMOUNT_TO_SKIP_SECONDS } from '../../../keyboard-control/keyboard-contr
 import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
+import playerAPI from '../../../../utils/player-api-decorator';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -27,6 +29,7 @@ export default class ProgressControl {
   private _currentProgress: number;
   private _interceptor;
   private _updateControlInterval;
+  private _timeIndicatorsToAdd: number[];
 
   view: View;
   isHidden: boolean;
@@ -37,6 +40,8 @@ export default class ProgressControl {
     this._textMap = textMap;
     this._isUserInteracting = false;
     this._currentProgress = 0;
+
+    this._timeIndicatorsToAdd = [];
 
     this._bindCallbacks();
     this._initUI();
@@ -192,6 +197,8 @@ export default class ProgressControl {
         this.reset();
         break;
       case STATES.METADATA_LOADED:
+        this._initTimeIndicators();
+
         if (this._engine.isSeekAvailable) {
           this.show();
         } else {
@@ -270,6 +277,56 @@ export default class ProgressControl {
     );
   }
 
+  private _initTimeIndicators() {
+    this._timeIndicatorsToAdd.forEach(time => {
+      this._addTimeIndicator(time);
+    });
+    this._timeIndicatorsToAdd = [];
+  }
+
+  private _addTimeIndicator(time) {
+    const durationTime = this._engine.getDurationTime();
+
+    if (time > durationTime) {
+      // TODO: log error for developers
+      return;
+    }
+
+    this.view.addTimeIndicator(getTimePercent(time, durationTime));
+  }
+
+  /**
+   * Add time indicator to progress bar
+   */
+  @playerAPI()
+  addTimeIndicator(time: number) {
+    this.addTimeIndicators([time]);
+  }
+
+  /**
+   * Add time indicators to progress bar
+   */
+  @playerAPI()
+  addTimeIndicators(times: number[]) {
+    if (!this._engine.isMetadataLoaded) {
+      // NOTE: Add indicator after metadata loaded
+      this._timeIndicatorsToAdd.push(...times);
+      return;
+    }
+
+    times.forEach(time => {
+      this._addTimeIndicator(time);
+    });
+  }
+
+  /**
+   * Delete all time indicators from progress bar
+   */
+  @playerAPI()
+  clearTimeIndicators() {
+    this.view.clearTimeIndicators();
+  }
+
   updatePlayed(percent) {
     this._currentProgress = percent;
     this.view.setPlayed(this._currentProgress);
@@ -310,6 +367,7 @@ export default class ProgressControl {
   reset() {
     this.updatePlayed(0);
     this.updateBuffered(0);
+    this.clearTimeIndicators();
   }
 
   destroy() {
@@ -321,5 +379,6 @@ export default class ProgressControl {
 
     delete this._eventEmitter;
     delete this._engine;
+    delete this._timeIndicatorsToAdd;
   }
 }

@@ -39,6 +39,7 @@ class ProgressView extends View {
   private _$played;
   private _$buffered;
   private _$seekTo;
+  private _$timeIndicators;
 
   constructor(config) {
     super(config);
@@ -87,6 +88,10 @@ class ProgressView extends View {
       ),
     });
 
+    this._$timeIndicators = $('<div>', {
+      class: this.styleNames['time-indicators'],
+    });
+
     const wrapper = $('<div>', {
       class: this.styleNames['progress-bars-wrapper'],
     });
@@ -102,7 +107,8 @@ class ProgressView extends View {
       .append(background)
       .append(this._$buffered)
       .append(this._$seekTo)
-      .append(this._$played);
+      .append(this._$played)
+      .append(this._$timeIndicators);
 
     this._$node.append(wrapper).append(this._$hitbox);
   }
@@ -214,6 +220,19 @@ class ProgressView extends View {
     this._setBufferedDOMAttributes(percent);
   }
 
+  addTimeIndicator(percent: number) {
+    const $timeIndicator = $('<div>', {
+      class: this.styleNames['time-indicator'],
+      style: `left: ${percent}%;`,
+    });
+
+    this._$timeIndicators.append($timeIndicator);
+  }
+
+  clearTimeIndicators() {
+    this._$timeIndicators.empty();
+  }
+
   hide() {
     this._$node.toggleClass(this.styleNames.hidden, true);
   }
@@ -235,6 +254,7 @@ class ProgressView extends View {
     delete this._$hitbox;
     delete this._$played;
     delete this._$seekTo;
+    delete this._$timeIndicators;
 
     delete this._texts;
   }

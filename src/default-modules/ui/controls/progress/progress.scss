@@ -1,17 +1,20 @@
 @import '../../shared';
 
+$progress-bar-height: 6px;
+$progress-bar-height-full-screen: 8px;
+
 .seek-block {
   position: relative;
 
   display: block;
 
   width: 100%;
-  height: 6px;
+  height: $progress-bar-height;
 
   transition: opacity .2s, visibility .2s;
 
   @include in-full-screen() {
-    height: 8px;
+    height: $progress-bar-height-full-screen;
   }
   touch-action: none;
 
@@ -29,18 +32,21 @@
       .played:after {
         transform: scale(1);
       }
+      .time-indicator:after {
+        transform: scale(1);
+      }
     }
   }
 }
 
 .progress-bars-wrapper {
-  height: 6px;
+  height: $progress-bar-height;
 
   transition: transform .1s cubic-bezier(.0,.0,.2,1);
   transform: scaleY(.33);
 
   @include in-full-screen() {
-    height: 8px;
+    height: $progress-bar-height-full-screen;
 
     transform: scaleY(.25);
   }
@@ -49,11 +55,11 @@
 .progress-bar {
   position: absolute;
 
-  height: 6px;
+  height: $progress-bar-height;
   padding: 0;
 
   @include in-full-screen() {
-    height: 8px;
+    height: $progress-bar-height-full-screen;
   }
 }
 
@@ -62,11 +68,11 @@
 
   &:after {
     position: absolute;
-    top: -3px;
-    right: -6px;
+    top: -$progress-bar-height / 2;
+    right: -$progress-bar-height;
 
-    width: 12px;
-    height: 12px;
+    width: $progress-bar-height * 2;
+    height: $progress-bar-height * 2;
 
     content: '';
     transition: transform .1s cubic-bezier(.0,.0,.2,1);
@@ -76,11 +82,11 @@
     background-color: #fff;
 
     @include in-full-screen() {
-      top: -4px;
-      right: -8px;
+      top: -$progress-bar-height-full-screen / 2;
+      right: -$progress-bar-height-full-screen;
 
-      width: 16px;
-      height: 16px;
+      width: $progress-bar-height-full-screen * 2;
+      height: $progress-bar-height-full-screen * 2;
     }
   }
 }
@@ -102,6 +108,46 @@
 
   opacity: 0;
   background-color: rgba(234,73,46, .5);
+}
+
+.time-indicators {
+  position: absolute;
+
+  overflow-x: hidden;
+
+  width: 100%;
+  height: 100%;
+}
+
+.time-indicator {
+  position: absolute;
+
+  &:after {
+    position: absolute;
+    right: -$progress-bar-height / 2;
+
+    width: $progress-bar-height;
+    height: $progress-bar-height;
+
+    content: '';
+    transition: transform .1s cubic-bezier(.0, .0, .2, 1);
+    transform: scale(0);
+
+    opacity: .6;
+    border-radius: 50%;
+    background-color: #fff;
+
+    @include in-full-screen() {
+      right: -$progress-bar-height-full-screen / 2;
+
+      width: $progress-bar-height-full-screen;
+      height: $progress-bar-height-full-screen;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .hitbox {

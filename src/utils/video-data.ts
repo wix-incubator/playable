@@ -1,3 +1,11 @@
+export function getTimePercent(time: number, durationTime: number): number {
+  if (!durationTime) {
+    return 0;
+  }
+
+  return parseFloat((time / durationTime * 100).toFixed(1));
+}
+
 export function getOverallBufferedPercent(
   buffered,
   currentTime = 0,
@@ -9,15 +17,11 @@ export function getOverallBufferedPercent(
 
   const info = getNearestBufferSegmentInfo(buffered, currentTime);
 
-  return (info.end / duration * 100).toFixed(1);
+  return getTimePercent(info.end, duration);
 }
 
 export function getOverallPlayedPercent(currentTime = 0, duration = 0) {
-  if (!duration) {
-    return 0;
-  }
-
-  return (currentTime / duration * 100).toFixed(1);
+  return getTimePercent(currentTime, duration);
 }
 
 export function geOverallBufferLength(buffered) {
