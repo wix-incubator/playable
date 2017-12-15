@@ -17,8 +17,8 @@ describe('ProgressControl', () => {
   beforeEach(() => {
     testkit = createPlayerTestkit();
 
-    testkit.registerModule('volumeControl', ProgressControl);
-    control = testkit.getModule('volumeControl');
+    testkit.registerModule('progressControl', ProgressControl);
+    control = testkit.getModule('progressControl');
     eventEmitter = testkit.getModule('eventEmitter');
     engine = testkit.getModule('engine');
   });
