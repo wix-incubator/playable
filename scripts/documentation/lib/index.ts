@@ -8,7 +8,7 @@ const PLAYER_MODULES_PATH_PATTERN = 'src/default-modules/**/*.ts';
 
 function buildDocumentation(
   pattern = PLAYER_MODULES_PATH_PATTERN,
-  format = 'md',
+  format = 'json',
 ) {
   const source = generate(buildPlayerClass(pattern)).code;
 
