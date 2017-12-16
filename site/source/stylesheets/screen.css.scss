@@ -53,8 +53,7 @@ body {
 }
 
 .toc-wrapper {
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 14px;
 
   position: fixed;
   z-index: 30;
@@ -69,6 +68,7 @@ body {
 
   transition: left .3s ease-in-out;
 
+  border-right: 1px solid #f0f4f7;
   background-color: $nav-bg;
 
   // language selector for mobile devices
@@ -160,7 +160,7 @@ body {
   // styling of an unordered list because it is ugly.
   ul,
   li {
-    line-height: 28px;
+    line-height: 32px;
 
     margin: 0;
     padding: 0;
@@ -179,7 +179,6 @@ body {
   // This is the currently selected ToC entry
   .toc-link.active {
     color: $nav-active-text;
-    background-color: $nav-active-bg;
   }
 
   // this is parent links of the currently selected ToC entry
@@ -242,7 +241,7 @@ body {
   text-decoration: none;
   text-overflow: ellipsis;
 
-  color: #fff;
+  color: $nav-text;
 }
 
 // button to show navigation on mobile devices
@@ -422,17 +421,18 @@ body {
     clear: both;
   }
 
+  a {
+    color: #3899ec;
+  }
+
   h1 {
     font-size: 25px;
+    font-weight: normal;
 
-    margin-top: 2em;
+    margin-top: 3em;
     margin-bottom: $h1-margin-bottom;
     padding-top: .5em;
     padding-bottom: .5em;
-
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    background-color: #fdfdfd;
 
     @extend %header-font;
   }
@@ -498,7 +498,7 @@ body {
     margin-bottom: 1em;
     th,
     td {
-      line-height: 1.6;
+      line-height: $line-height;
 
       text-align: left;
       vertical-align: top;
@@ -508,27 +508,22 @@ body {
     }
 
     th {
-      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: normal;
+
+      padding: 5px 0;
 
       vertical-align: bottom;
 
-      border-bottom: 1px solid #ccc;
+      color: #939da3;
     }
 
     td {
       padding: 10px;
     }
 
-    tr:last-child {
-      border-bottom: 1px solid #ccc;
-    }
-
-    tr:nth-child(odd) > td {
-      background-color: lighten($main-bg,4.2%);
-    }
-
-    tr:nth-child(even) > td {
-      background-color: lighten($main-bg,2.4%);
+    tr {
+      border-bottom: 1px solid #f0f4f7;
     }
   }
 
@@ -544,7 +539,7 @@ body {
   li,
   dt,
   dd {
-    line-height: 1.6;
+    line-height: $line-height;
 
     margin-top: 0;
   }
@@ -557,9 +552,8 @@ body {
     padding: 3px;
 
     border-radius: 3px;
-    background-color: rgba(0,0,0,.05);
+    background-color: rgba(254, 240, 186, .5);
 
-    @extend %break-words;
     @extend %code-font;
   }
 
@@ -570,7 +564,7 @@ body {
   }
 
   aside {
-    line-height: 1.6;
+    line-height: $line-height;
 
     margin-top: 1.5em;
     margin-bottom: 1.5em;
@@ -615,6 +609,35 @@ body {
     border: 1px solid #f7e633;
     border-radius: 4px;
     background: linear-gradient(to top left, #f7e633 0%, #f1d32f 100%);
+  }
+
+  .method-list {
+    clear: none;
+
+    margin-right: 50%;
+    padding: 0 $main-padding;
+
+    table {
+      display: table;
+
+      width: 100%;
+    }
+
+    .param {
+      width: 140px;
+
+      text-align: right;
+    }
+
+    .type {
+      display: block;
+
+      padding: 3px;
+
+      color: #939da3;
+
+      @extend %code-font;
+    }
   }
 }
 
