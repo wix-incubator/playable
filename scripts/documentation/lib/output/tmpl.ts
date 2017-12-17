@@ -11,5 +11,14 @@ export function render(templateName, options) {
     },
   );
 
-  return ejs.render(template, options);
+  return (
+    ejs
+      .render(template, options)
+      // trip line break at the beginning
+      .replace(/^\n+/g, '')
+      // make sure that you have only one line break at the end
+      .replace(/\n+$/g, '\n')
+      // replace more then 2 line break for 2
+      .replace(/[\n]{2,}/g, '\n\n')
+  );
 }

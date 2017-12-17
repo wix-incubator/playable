@@ -115,6 +115,12 @@ Return true if player is in full screen
 # getDebugInfo
 
 ```javascript
+player.getDebugInfo();
+```
+
+> The above command returns JSON structured like this:
+
+```javascript
 {
   "type": "HLS",
   "viewDimensions": {
@@ -413,6 +419,7 @@ Get mute flag
 
 
 # setVolume
+
 
 Set volume
 
