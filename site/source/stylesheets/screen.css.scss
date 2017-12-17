@@ -399,6 +399,7 @@ body {
   & > ul,
   & > ol,
   & > aside,
+  & > .method-list,
   & > dl {
     display: block;
 
@@ -614,9 +615,6 @@ body {
   .method-list {
     clear: none;
 
-    margin-right: 50%;
-    padding: 0 $main-padding;
-
     table {
       display: table;
 
@@ -745,6 +743,10 @@ body {
 
   %right-col + %left-col {
     margin-top: $main-padding;
+  }
+
+  .method-list {
+    overflow: auto;
   }
 }
 
