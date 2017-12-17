@@ -146,6 +146,12 @@ export default class Engine {
    * Return object with internal debug info
    *
    * @example
+   * player.getDebugInfo();
+   *
+   * @note
+   * The above command returns JSON structured like this:
+   *
+   * @example
    * {
    *   "type": "HLS",
    *   "viewDimensions": {
