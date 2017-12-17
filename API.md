@@ -663,11 +663,6 @@ Set height of player
 </div>
 
 
-# getWidth
-
-Get width of player
-
-
 # getHeight
 
 Get height of player
