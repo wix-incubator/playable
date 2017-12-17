@@ -17,7 +17,7 @@ export function buildMarkdown(json) {
       };
       const example = {
         templateName: 'example',
-        data: _.get(method, 'examples[0].description'),
+        data: method.tags,
       };
       const description = {
         templateName: 'description',
@@ -34,7 +34,7 @@ export function buildMarkdown(json) {
 
       return [name, example, description, params, returns].reduce(
         (result, element) => {
-          if (!element.data) {
+          if (_.isEmpty(element.data)) {
             return result;
           }
 

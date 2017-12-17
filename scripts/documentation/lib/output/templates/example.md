@@ -1,3 +1,9 @@
+<% data.forEach(example => { %>
+<% if (example.title === 'example') { %>
 ```javascript
-<%- data %>
+<%- example.description %>
 ```
+<% } else if (example.title === 'note') { %>
+> <%- example.description %>
+<% } %>
+<% }) %>
