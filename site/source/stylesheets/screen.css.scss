@@ -115,8 +115,14 @@ body {
     }
   }
 
+  .logo-wrapper {
+    box-sizing: border-box;
+    height: 85px;
+    padding: 20px 15px;
+  }
+
   .logo {
-    margin-bottom: $logo-margin;
+    width: 100%;
   }
 
   .search-results {
