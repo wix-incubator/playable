@@ -1,9 +1,15 @@
 import { render } from './tmpl';
 import * as _ from 'lodash';
-import { renderDescription, renderParams } from './ast';
+import { renderDescription, renderParams, renderReturns } from './ast';
 
 export function buildMarkdown(json) {
-  return json[0].members.instance
+  const playerClass = _.find(
+    json,
+    ({ name, kind }) => name === 'Player' && kind === 'class',
+  );
+  const interfaces = _.filter(json, ({ kind }) => kind === 'interface');
+
+  return playerClass.members.instance
     .map(method => {
       const name = {
         templateName: 'name',
@@ -21,16 +27,23 @@ export function buildMarkdown(json) {
         templateName: 'params',
         data: renderParams(method.params),
       };
+      const returns = {
+        templateName: 'returns',
+        data: renderReturns(method.returns, interfaces),
+      };
 
-      return [name, example, description, params].reduce((result, element) => {
-        if (!element.data) {
-          return result;
-        }
+      return [name, example, description, params, returns].reduce(
+        (result, element) => {
+          if (!element.data) {
+            return result;
+          }
 
-        const output = render(element.templateName, { data: element.data });
+          const output = render(element.templateName, { data: element.data });
 
-        return `${result}${output}\n`;
-      }, '');
+          return `${result}${output}\n`;
+        },
+        '',
+      );
     })
     .join('\n');
 }

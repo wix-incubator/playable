@@ -116,23 +116,97 @@ Return true if player is in full screen
 
 ```javascript
 {
-  type, // Name of current attached stream (HLS, DASH, MP4, WEBM)
-  viewDimensions: {
-    width,
-    height
-  }, // Current size of view port provided by engine (right now - actual size of video tag)
-  url, // Url of current source
-  currentTime, // Current time of playback
-  duration, // Duration of current video
-  loadingStateTimestamps, // Object with time spend for different initial phases
-  bitrates, // List of all available bitrates. Internal structure different for different type of streams
-  currentBitrate, // Current bitrate. Internal structure different for different type of streams
-  overallBufferLength, // Overall length of buffer
-  nearestBufferSegInfo // Object with start and end for current buffer segment
+  "type": "HLS",
+  "viewDimensions": {
+    "width": 700,
+    "height": 394
+  }
+  "url": "https://example.com/video.m3u8",
+  "currentTime": 22.092514,
+  "duration": 60.139683,
+  "loadingStateTimestamps": {
+    "metadata-loaded": 76,
+    "ready-to-play": 67
+  },
+  "bitrates": [
+    // Different for different type of streams
+    { ... },
+    { ... }
+  ],
+  "currentBitrate": { ... },
+  "overallBufferLength": 60.139683,
+  "nearestBufferSegInfo": {
+    "start": 0,
+    "end": 60.139683
+  }
 }
 ```
 
 Return object with internal debug info
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>type</code><span class="type">string</span class="type">
+        </td>
+        <td>Name of current attached stream (HLS, DASH, MP4, WEBM)</td>
+      </tr><tr>
+        <td class="param">
+          <code>viewDimensions</code><span class="type">Object</span class="type">
+        </td>
+        <td>Current size of view port provided by engine (right now - actual size of video tag)</td>
+      </tr><tr>
+        <td class="param">
+          <code>url</code><span class="type">string</span class="type">
+        </td>
+        <td>Url of current source</td>
+      </tr><tr>
+        <td class="param">
+          <code>currentTime</code><span class="type">number</span class="type">
+        </td>
+        <td>Current time of playback</td>
+      </tr><tr>
+        <td class="param">
+          <code>duration</code><span class="type">number</span class="type">
+        </td>
+        <td>Duration of current video</td>
+      </tr><tr>
+        <td class="param">
+          <code>loadingStateTimestamps</code><span class="type">Object</span class="type">
+        </td>
+        <td>Object with time spend for different initial phases</td>
+      </tr><tr>
+        <td class="param">
+          <code>bitrates</code>
+        </td>
+        <td>List of all available bitrates. Internal structure different for different type of streams</td>
+      </tr><tr>
+        <td class="param">
+          <code>currentBitrate</code><span class="type">Object</span class="type">
+        </td>
+        <td>Current bitrate. Internal structure different for different type of streams</td>
+      </tr><tr>
+        <td class="param">
+          <code>overallBufferLength</code><span class="type">number</span class="type">
+        </td>
+        <td>Overall length of buffer</td>
+      </tr><tr>
+        <td class="param">
+          <code>nearestBufferSegInfo</code><span class="type">Object</span class="type">
+        </td>
+        <td>Object with start and end for current buffer segment</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 
 # setSrc

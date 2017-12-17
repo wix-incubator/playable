@@ -1,6 +1,10 @@
 import * as _ from 'lodash';
 
 export function renderDescription(node) {
+  if (_.isString(node)) {
+    return node;
+  }
+
   if (_.isEmpty(node)) {
     return '';
   }
@@ -42,4 +46,31 @@ export function renderParams(params) {
         renderDescription(param.description) + renderPossibleValues(param),
     };
   });
+}
+
+export function renderReturns(returns, interfaces) {
+  if (_.isEmpty(returns)) {
+    return null;
+  }
+
+  const returnName = returns[0].type.name;
+  const localInterface = _.find(interfaces, ({ name }) => name === returnName);
+
+  if (!localInterface) {
+    return;
+  }
+
+  const properties = _.map(localInterface.properties, property => {
+    const tag = _.find(
+      localInterface.tags,
+      ({ name }) => name === property.name,
+    );
+
+    return {
+      ...property,
+      description: _.get(tag, 'description'),
+    };
+  });
+
+  return renderParams(properties);
 }
