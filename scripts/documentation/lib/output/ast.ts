@@ -30,7 +30,7 @@ export function renderPossibleValues(param) {
     element => `<code>${element.value}</code>`,
   ).join(', ');
 
-  return `Possible values are ${possibleValues}.`;
+  return ` Possible values are ${possibleValues}.`;
 }
 
 export function renderParams(params) {
