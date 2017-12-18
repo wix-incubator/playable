@@ -1,13 +1,12 @@
-import * as $ from 'jbone';
-import * as classnames from 'classnames';
 import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
 
-import * as styles from './progress.scss';
+import { Progress, ProgressTimeIndicator } from './templates';
 
-const DATA_HOOK_ATTRIBUTE = 'data-hook';
-const DATA_HOOK_CONTROL_VALUE = 'progress-control';
+import htmlToElement from '../../core/htmlToElement';
+
+import * as styles from './progress.scss';
 
 const DATA_PLAYED = 'data-played-percent';
 
@@ -34,13 +33,12 @@ class ProgressView extends View {
   private _texts;
   private _isDragging: boolean;
 
-  private _$node;
-  private _$hitbox;
-  private _$played;
-  private _$buffered;
-  private _$seekTo;
-  private _$timeIndicators;
-  private _$syncButton;
+  private _$node: HTMLElement;
+  private _$hitbox: HTMLElement;
+  private _$played: HTMLElement;
+  private _$buffered: HTMLElement;
+  private _$seekTo: HTMLElement;
+  private _$timeIndicators: HTMLElement;
 
   constructor(config) {
     super();
@@ -58,69 +56,18 @@ class ProgressView extends View {
   }
 
   private _initDOM() {
-    this._$node = $('<div>', {
-      class: this.styleNames['seek-block'],
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
-      tabIndex: 0,
-    });
+    this._$node = htmlToElement(Progress({ styles: this.styleNames }));
 
-    this._$hitbox = $('<div>', {
-      class: this.styleNames.hitbox,
-    });
+    this._$played = this._$node.querySelector('[data-hook="progress-played"]');
+    this._$buffered = this._$node.querySelector(
+      '[data-hook="progress-buffered"]',
+    );
+    this._$seekTo = this._$node.querySelector('[data-hook="progress-seek-to"]');
+    this._$timeIndicators = this._$node.querySelector(
+      '[data-hook="progress-time-indicators"]',
+    );
 
-    this._$played = $('<div>', {
-      class: classnames(
-        this.styleNames['progress-bar'],
-        this.styleNames.played,
-      ),
-    });
-
-    this._$buffered = $('<div>', {
-      class: classnames(
-        this.styleNames['progress-bar'],
-        this.styleNames.buffered,
-      ),
-    });
-
-    this._$seekTo = $('<div>', {
-      class: classnames(
-        this.styleNames['progress-bar'],
-        this.styleNames['seek-to'],
-      ),
-    });
-
-    this._$timeIndicators = $('<div>', {
-      class: this.styleNames['time-indicators'],
-    });
-
-    const wrapper = $('<div>', {
-      class: this.styleNames['progress-bars-wrapper'],
-    });
-
-    this._$syncButton = $('<div>', {
-      class: this.styleNames['sync-button'],
-    });
-
-    const background = $('<div>', {
-      class: classnames(
-        this.styleNames['progress-bar'],
-        this.styleNames.background,
-      ),
-    });
-
-    wrapper
-      .append(background)
-      .append(this._$buffered)
-      .append(this._$seekTo)
-      .append(this._$played)
-      .append(this._$timeIndicators);
-
-    this._$node
-      .append(wrapper)
-      .append(this._$hitbox)
-      .append(this._$syncButton);
-
-    this.setUsualMode();
+    this._$hitbox = this._$node.querySelector('[data-hook="progress-hitbox"]');
   }
 
   private _bindCallbacks() {
@@ -133,9 +80,9 @@ class ProgressView extends View {
   }
 
   private _bindEvents() {
-    this._$hitbox[0].addEventListener('mousedown', this._startDragOnMouseDown);
-    this._$hitbox[0].addEventListener('mousemove', this._setSeekToByMouse);
-    this._$hitbox[0].addEventListener('mouseout', this._resetSeek);
+    this._$hitbox.addEventListener('mousedown', this._startDragOnMouseDown);
+    this._$hitbox.addEventListener('mousemove', this._setSeekToByMouse);
+    this._$hitbox.addEventListener('mouseout', this._resetSeek);
 
     window.addEventListener('mousemove', this._setPlayedByDrag);
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
@@ -144,12 +91,9 @@ class ProgressView extends View {
   }
 
   private _unbindEvents() {
-    this._$hitbox[0].removeEventListener(
-      'mousedown',
-      this._startDragOnMouseDown,
-    );
-    this._$hitbox[0].removeEventListener('mousemove', this._setSeekToByMouse);
-    this._$hitbox[0].removeEventListener('mouseout', this._resetSeek);
+    this._$hitbox.removeEventListener('mousedown', this._startDragOnMouseDown);
+    this._$hitbox.removeEventListener('mousemove', this._setSeekToByMouse);
+    this._$hitbox.removeEventListener('mouseout', this._resetSeek);
 
     window.removeEventListener('mousemove', this._setPlayedByDrag);
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
@@ -162,7 +106,7 @@ class ProgressView extends View {
       return;
     }
 
-    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox);
     this._setPlayedDOMAttributes(percent);
     this._callbacks.onChangePlayedProgress(percent);
 
@@ -182,14 +126,14 @@ class ProgressView extends View {
   }
 
   private _setSeekToByMouse(event: MouseEvent) {
-    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox);
 
     this._setSeekToDOMAttributes(percent);
   }
 
   private _setPlayedByDrag(event: MouseEvent) {
     if (this._isDragging) {
-      const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+      const percent = getPercentBasedOnXPosition(event, this._$hitbox);
       this._setPlayedDOMAttributes(percent);
       this._callbacks.onChangePlayedProgress(percent);
     }
@@ -198,33 +142,33 @@ class ProgressView extends View {
   private _startDrag() {
     this._isDragging = true;
     this._callbacks.onDragStart();
-    this._$node.addClass(this.styleNames['is-dragging']);
+    this._$node.classList.add(this.styleNames['is-dragging']);
   }
 
   private _stopDrag() {
     if (this._isDragging) {
       this._isDragging = false;
       this._callbacks.onDragEnd();
-      this._$node.removeClass(this.styleNames['is-dragging']);
+      this._$node.classList.remove(this.styleNames['is-dragging']);
     }
   }
 
   private _setSeekToDOMAttributes(percent: number) {
-    this._$seekTo.attr('style', `width:${percent}%;`);
+    this._$seekTo.setAttribute('style', `width:${percent}%;`);
   }
 
   private _setPlayedDOMAttributes(percent: number) {
-    this._$node.attr(
+    this._$node.setAttribute(
       'aria-valuetext',
       this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
     );
-    this._$node.attr('aria-valuenow', percent);
-    this._$node.attr(DATA_PLAYED, percent);
-    this._$played.attr('style', `width:${percent}%;`);
+    this._$node.setAttribute('aria-valuenow', String(percent));
+    this._$node.setAttribute(DATA_PLAYED, String(percent));
+    this._$played.setAttribute('style', `width:${percent}%;`);
   }
 
   private _setBufferedDOMAttributes(percent: number) {
-    this._$buffered.attr('style', `width:${percent}%;`);
+    this._$buffered.setAttribute('style', `width:${percent}%;`);
   }
 
   private _syncWithLive() {
@@ -260,33 +204,38 @@ class ProgressView extends View {
   }
 
   addTimeIndicator(percent: number) {
-    const $timeIndicator = $('<div>', {
-      class: this.styleNames['time-indicator'],
-      style: `left: ${percent}%;`,
-    });
-
-    this._$timeIndicators.append($timeIndicator);
+    this._$timeIndicators.appendChild(
+      htmlToElement(
+        ProgressTimeIndicator({
+          percent,
+          styles: this.styleNames,
+        }),
+      ),
+    );
   }
 
   clearTimeIndicators() {
-    this._$timeIndicators.empty();
+    this._$timeIndicators.innerHTML = '';
   }
 
   hide() {
-    this._$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this._$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node[0];
+    return this._$node;
   }
 
   destroy() {
     this._unbindEvents();
-    this._$node.remove();
+
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
 
     delete this._$node;
     delete this._$buffered;

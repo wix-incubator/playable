@@ -1,0 +1,1 @@
+<div class="{{=it.styles['time-indicator']}}" style="left: {{=it.percent}}%"></div>
