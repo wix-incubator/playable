@@ -29,8 +29,6 @@
 
   transition: opacity .2s, visibility .2s;
 
-  opacity: 0;
-
   @include max-width-550() {
     font-size: 14px;
     line-height: 15px;
@@ -50,5 +48,9 @@
 
   &.fade-in {
     opacity: 1;
+  }
+
+  &.fade-out {
+    opacity: 0;
   }
 }

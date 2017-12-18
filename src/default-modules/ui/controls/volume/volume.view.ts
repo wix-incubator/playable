@@ -177,12 +177,13 @@ class VolumeView extends View {
 
   private _setVolumeByWheel(e: WheelEvent) {
     e.preventDefault();
+    const value = e.deltaX || e.deltaY * -1;
 
-    if (!e.deltaX) {
+    if (!value) {
       return;
     }
 
-    this._callbacks.onVolumeLevelChangeFromWheel(e.deltaX);
+    this._callbacks.onVolumeLevelChangeFromWheel(value);
   }
 
   private _startDrag() {

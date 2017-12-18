@@ -1,7 +1,7 @@
 import DependencyContainer from '../core/dependency-container';
 
 import Engine from './playback-engine/playback-engine';
-import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
+//import AnomalyBloodhound from './anomaly-bloodhound/anomaly-bloodhound';
 import FullScreenManager from './full-screen-manager/full-screen-manager';
 import EventEmitter from './event-emitter/event-emitter';
 import TextMap from './text-map/text-map';
@@ -36,7 +36,7 @@ export default {
   fullScreenManager: asClass(FullScreenManager).scoped(),
   keyboardInterceptor: asClass(KeyboardInterceptor).scoped(),
   mouseInterceptor: asClass(MouseInterceptor).scoped(),
-  anomalyBloodhound: asClass(AnomalyBloodhound).scoped(),
+  //anomalyBloodhound: asClass(AnomalyBloodhound).scoped(),
   debugPanel: asClass(DebugPanel).scoped(),
 
   manipulationIndicator: asClass(ManipulationIndicator).scoped(),

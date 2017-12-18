@@ -33,7 +33,7 @@ const player: any = VideoPlayer.create({
   overlay: false,
 });
 
-Reflect.defineProperty(window, 'player', {
+Object.defineProperty(window, 'player', {
   value: player,
 });
 

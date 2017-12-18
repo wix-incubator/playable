@@ -68,7 +68,7 @@
     "gh-pages": "^0.12.0",
     "glob": "^7.1.2",
     "haste-cli": "~0.1.16",
-    "haste-preset-yoshi": "^1.0.4",
+    "haste-preset-yoshi": "^1.0.15",
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "lint-staged": "^5.0.0",

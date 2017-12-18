@@ -24,7 +24,7 @@ class TitleView extends View {
       class: this.styleNames.wrapper,
     });
 
-    this.$title = $('<span>', {
+    this.$title = $('<div>', {
       class: this.styleNames.title,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
     });
@@ -60,9 +60,11 @@ class TitleView extends View {
 
   fadeIn() {
     this.$title.addClass(this.styleNames['fade-in']);
+    this.$title.removeClass(this.styleNames['fade-out']);
   }
 
   fadeOut() {
+    this.$title.addClass(this.styleNames['fade-out']);
     this.$title.removeClass(this.styleNames['fade-in']);
   }
 

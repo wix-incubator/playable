@@ -2,6 +2,10 @@
 
 $progress-bar-height: 6px;
 $progress-bar-height-full-screen: 8px;
+$color-played: #fff;
+$color-seek-to: rgba(255, 255, 255, .5);
+$color-played-live: #ea492e;
+$color-seek-to-live: rgba(234,73,46, .5);
 
 .seek-block {
   position: relative;
@@ -43,7 +47,7 @@ $progress-bar-height-full-screen: 8px;
   height: $progress-bar-height;
 
   transition: transform .1s cubic-bezier(.0,.0,.2,1);
-  transform: scaleY(.33);
+  transform: scaleY(.34);
 
   @include in-full-screen() {
     height: $progress-bar-height-full-screen;
@@ -64,7 +68,7 @@ $progress-bar-height-full-screen: 8px;
 }
 
 .played {
-  background-color: #ea492e;
+  background-color: $color-played;
 
   &:after {
     position: absolute;
@@ -105,9 +109,9 @@ $progress-bar-height-full-screen: 8px;
 
 .seek-to {
   transition: opacity .2s;
+  //opacity: 0;
 
-  opacity: 0;
-  background-color: rgba(234,73,46, .5);
+  background-color: $color-seek-to;
 }
 
 .time-indicators {
@@ -117,6 +121,8 @@ $progress-bar-height-full-screen: 8px;
 
   width: 100%;
   height: 100%;
+
+  background-color: transparent;
 }
 
 .time-indicator {
