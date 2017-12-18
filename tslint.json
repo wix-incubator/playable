@@ -42,7 +42,7 @@
     "object-literal-shorthand": [true, "always"],
     "prefer-const": true,
     "jsdoc-format": [true, "check-multiline-start"],
-    "no-redundant-jsdoc": true,
+    "no-redundant-jsdoc": false,
     "player-api": true // use `[true, "require-jsdoc"]` to enforce JSDoc before `playerAPI` method
   },
   "linterOptions": {

@@ -15,6 +15,31 @@ import { VIDEO_EVENTS, STATES } from '../../constants/index';
 
 export { STATES };
 
+/**
+ * @property type - Name of current attached stream.
+ * @property viewDimensions - Current size of view port provided by engine (right now - actual size of video tag)
+ * @property url - Url of current source
+ * @property currentTime - Current time of playback
+ * @property duration - Duration of current video
+ * @property loadingStateTimestamps - Object with time spend for different initial phases
+ * @property bitrates - List of all available bitrates. Internal structure different for different type of streams
+ * @property currentBitrate - Current bitrate. Internal structure different for different type of streams
+ * @property overallBufferLength - Overall length of buffer
+ * @property nearestBufferSegInfo - Object with start and end for current buffer segment
+ */
+interface DebugInfo {
+  type: 'HLS' | 'DASH' | 'MP4' | 'WEBM';
+  viewDimensions: Object;
+  url: string;
+  currentTime: number;
+  duration: number;
+  loadingStateTimestamps: Object;
+  bitrates: Array<Object>;
+  currentBitrate: Object;
+  overallBufferLength: number;
+  nearestBufferSegInfo: Object;
+}
+
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 export default class Engine {
   static dependencies = ['eventEmitter', 'config', 'availablePlaybackAdapters'];
@@ -121,24 +146,40 @@ export default class Engine {
    * Return object with internal debug info
    *
    * @example
+   * player.getDebugInfo();
+   *
+   * @note
+   * The above command returns JSON structured like this:
+   *
+   * @example
    * {
-   *   type, // Name of current attached stream (HLS, DASH, MP4, WEBM)
-   *   viewDimensions: {
-   *     width,
-   *     height
-   *   }, // Current size of view port provided by engine (right now - actual size of video tag)
-   *   url, // Url of current source
-   *   currentTime, // Current time of playback
-   *   duration, // Duration of current video
-   *   loadingStateTimestamps, // Object with time spend for different initial phases
-   *   bitrates, // List of all available bitrates. Internal structure different for different type of streams
-   *   currentBitrate, // Current bitrate. Internal structure different for different type of streams
-   *   overallBufferLength, // Overall length of buffer
-   *   nearestBufferSegInfo // Object with start and end for current buffer segment
+   *   "type": "HLS",
+   *   "viewDimensions": {
+   *     "width": 700,
+   *     "height": 394
+   *   }
+   *   "url": "https://example.com/video.m3u8",
+   *   "currentTime": 22.092514,
+   *   "duration": 60.139683,
+   *   "loadingStateTimestamps": {
+   *     "metadata-loaded": 76,
+   *     "ready-to-play": 67
+   *   },
+   *   "bitrates": [
+   *     // Different for different type of streams
+   *     { ... },
+   *     { ... }
+   *   ],
+   *   "currentBitrate": { ... },
+   *   "overallBufferLength": 60.139683,
+   *   "nearestBufferSegInfo": {
+   *     "start": 0,
+   *     "end": 60.139683
+   *   }
    * }
    */
   @playerAPI()
-  getDebugInfo() {
+  getDebugInfo(): DebugInfo {
     const { duration, currentTime } = this._video;
     let data;
 
