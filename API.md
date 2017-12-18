@@ -161,9 +161,9 @@ Return object with internal debug info
     <tbody>
       <tr>
         <td class="param">
-          <code>type</code><span class="type">string</span class="type">
+          <code>type</code>
         </td>
-        <td>Name of current attached stream (HLS, DASH, MP4, WEBM)</td>
+        <td>Name of current attached stream. Possible values are <code>HLS</code>, <code>DASH</code>, <code>MP4</code>, <code>WEBM</code>.</td>
       </tr><tr>
         <td class="param">
           <code>viewDimensions</code><span class="type">Object</span class="type">
@@ -490,7 +490,7 @@ Set preload type
         <td class="param">
           <code>preload</code>
         </td>
-        <td>Possible values are <code>auto</code>, <code>metadata</code>, <code>none</code>.</td>
+        <td> Possible values are <code>auto</code>, <code>metadata</code>, <code>none</code>.</td>
       </tr>
     </tbody>
   </table>
@@ -670,6 +670,11 @@ Set height of player
 </div>
 
 
+# getWidth
+
+Get width of player
+
+
 # getHeight
 
 Get height of player
@@ -812,6 +817,14 @@ Get height of player
 
 # setTitle
 
+```javascript
+player.setTitle('Your awesome video title here');
+```
+
+> [Live Demo](https://jsfiddle.net/kupriyanenko/ao0rg48s/)
+
+Display title text over the video. If you want to have clickable title, use <code>setTitleClickCallback</code>
+
 <div class="method-list">
   <table>
     <thead>
@@ -825,7 +838,7 @@ Get height of player
         <td class="param">
           <code>title</code><span class="type">string</span class="type">
         </td>
-        <td></td>
+        <td>Text for the video title</td>
       </tr>
     </tbody>
   </table>

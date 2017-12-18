@@ -72,6 +72,17 @@ export default class TitleControl {
     this.view.setTitle();
   }
 
+  /**
+   * Display title text over the video. If you want to have clickable title, use `setTitleClickCallback`
+   *
+   * @param title - Text for the video title
+   *
+   * @example
+   * player.setTitle('Your awesome video title here');
+   *
+   * @note
+   * [Live Demo](https://jsfiddle.net/kupriyanenko/ao0rg48s/)
+   */
   @playerAPI()
   setTitle(title?: string) {
     this.view.setTitle(title);
