@@ -16,7 +16,7 @@ import { VIDEO_EVENTS, STATES } from '../../constants/index';
 export { STATES };
 
 /**
- * @property type - Name of current attached stream (HLS, DASH, MP4, WEBM)
+ * @property type - Name of current attached stream.
  * @property viewDimensions - Current size of view port provided by engine (right now - actual size of video tag)
  * @property url - Url of current source
  * @property currentTime - Current time of playback
@@ -28,7 +28,7 @@ export { STATES };
  * @property nearestBufferSegInfo - Object with start and end for current buffer segment
  */
 interface DebugInfo {
-  type: string;
+  type: 'HLS' | 'DASH' | 'MP4' | 'WEBM';
   viewDimensions: Object;
   url: string;
   currentTime: number;
