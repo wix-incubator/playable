@@ -823,7 +823,7 @@ Get height of player
 player.setTitle('Your awesome video title here');
 ```
 
-> [Live Demo](https://jsfiddle.net/kupriyanenko/ao0rg48s/)
+> [Live Demo](https://jsfiddle.net/kupriyanenko/ao0rg48s/2/)
 
 Display title text over the video. If you want to have clickable title, use <code>setTitleClickCallback</code>
 

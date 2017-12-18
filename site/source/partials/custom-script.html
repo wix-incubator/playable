@@ -1,0 +1,64 @@
+<!-- TODO: Rewrite it, this file was created fro POC purpose -->
+
+<script id="popup-template" type="text/x-template">
+  <div class="overlay">
+    <div class="popup">
+      <iframe width="815" height="515" src="${link}" allowpaymentrequest allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+    </div>
+  </div>
+</script>
+
+<script>
+(function() {
+  var tmpl = function(name, data) {
+    return document.getElementById(name).innerHTML.replace(/\${([a-zA-Z\-]+)}/, function(matched, name) {
+      return data[name];
+    });
+  };
+
+  var openPopup = function(link) {
+    var html = tmpl('popup-template', {
+      link: link
+    });
+
+    document.body.appendChild($(html)[0]);
+  };
+
+  var closePopup = function() {
+    $('.overlay').remove();
+  };
+
+  var handlePopupClicks = function() {
+    $('body').on('click', '.overlay', function() {
+      closePopup();
+    });
+
+    document.addEventListener('keyup', function(e) {
+      // ESC button
+      if (e.keyCode === 27) {
+        closePopup();
+      }
+    });
+  };
+
+  var handleDemoClicks = function() {
+    $('body').on('click', 'a', function(e) {
+      var href = e.target.getAttribute('href');
+
+      if (e.shiftKey || e.ctrlKey || e.metaKey) {
+        return;
+      }
+
+      if (href.includes('jsfiddle')) {
+        e.preventDefault();
+        openPopup(href + 'embedded/result,js/dark/');
+      }
+    });
+  };
+
+  $(function() {
+    handleDemoClicks();
+    handlePopupClicks();
+  });
+})();
+</script>
