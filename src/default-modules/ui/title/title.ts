@@ -6,55 +6,21 @@ import playerAPI from '../../../utils/player-api-decorator';
 
 export default class TitleControl {
   static View = View;
-  static dependencies = ['rootContainer', 'screen', 'eventEmitter', 'config'];
+  static dependencies = ['config'];
 
   private _callback;
-  private _screen;
-  private _eventEmitter;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ rootContainer, screen, eventEmitter, config }) {
-    this._screen = screen;
-    this._eventEmitter = eventEmitter;
-
+  constructor({ config }) {
     this._bindCallbacks();
     this._initUI();
-    this._bindEvents();
     this.setTitle(config.ui.title);
-
-    rootContainer.appendComponentNode(this.node);
   }
 
   get node() {
     return this.view.getNode();
-  }
-
-  _bindEvents() {
-    this._eventEmitter.on(
-      UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
-      this._fadeOut,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
-      this._fadeIn,
-      this,
-    );
-  }
-
-  _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
-      this._fadeOut,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
-      this._fadeIn,
-      this,
-    );
   }
 
   _bindCallbacks() {
@@ -101,37 +67,19 @@ export default class TitleControl {
     }
   }
 
-  _fadeIn() {
-    // TODO: do we need to change `this.isHidden` here?
-    this._screen.showTopShadow();
-    this.view.fadeIn();
-  }
-
-  _fadeOut() {
-    // TODO: do we need to change `this.isHidden` here?
-    this._screen.hideTopShadow();
-    this.view.fadeOut();
-  }
-
   hide() {
     this.isHidden = true;
-    this._screen.hideTopShadow();
     this.view.hide();
   }
 
   show() {
     this.isHidden = false;
-    this._screen.showTopShadow();
     this.view.show();
   }
 
   destroy() {
-    this._unbindEvents();
     this.view.destroy();
     delete this.view;
-
-    delete this._screen;
-    delete this._eventEmitter;
 
     delete this.isHidden;
   }

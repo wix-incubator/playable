@@ -3,13 +3,7 @@ import { STATES, VIDEO_EVENTS } from '../../../constants';
 
 export default class LiveIndicator {
   static View = LiveIndicatorView;
-  static dependencies = [
-    'engine',
-    'screen',
-    'eventEmitter',
-    'textMap',
-    'rootContainer',
-  ];
+  static dependencies = ['engine', 'screen', 'eventEmitter', 'textMap'];
 
   private _engine;
   private _screen;
@@ -20,7 +14,7 @@ export default class LiveIndicator {
 
   view: LiveIndicatorView;
 
-  constructor({ engine, screen, eventEmitter, textMap, rootContainer }) {
+  constructor({ engine, screen, eventEmitter, textMap }) {
     this._engine = engine;
     this._screen = screen;
     this._eventEmitter = eventEmitter;
@@ -29,8 +23,6 @@ export default class LiveIndicator {
     this._bindCallbacks();
     this._initUI();
     this._bindEvents();
-
-    rootContainer.appendComponentNode(this.node);
   }
 
   get node() {

@@ -6,7 +6,7 @@ import createPlayerTestkit from '../../../testkit';
 
 import { VIDEO_EVENTS, STATES } from '../../../constants/index';
 
-describe('ControlsBlock', () => {
+describe('BottomBlock', () => {
   let testkit;
   let controls;
   let eventEmitter;
@@ -15,7 +15,7 @@ describe('ControlsBlock', () => {
     testkit = createPlayerTestkit();
 
     eventEmitter = testkit.getModule('eventEmitter');
-    controls = testkit.getModule('controls');
+    controls = testkit.getModule('bottomBlock');
   });
   describe('constructor', () => {
     it('should create instance ', () => {
@@ -28,7 +28,7 @@ describe('ControlsBlock', () => {
     it('should have method for setting controls focused state', () => {
       expect(controls._setFocusState).to.exist;
       controls._setFocusState();
-      expect(controls._isControlsFocused).to.be.true;
+      expect(controls._isBlockFocused).to.be.true;
     });
 
     it('should have method for removing controls focused state', () => {
@@ -37,13 +37,13 @@ describe('ControlsBlock', () => {
       controls._removeFocusState({
         stopPropagation: () => {},
       });
-      expect(controls._isControlsFocused).to.be.false;
+      expect(controls._isBlockFocused).to.be.false;
     });
 
     it('should have method for setting playback status', () => {
       expect(controls._updatePlayingStatus).to.exist;
 
-      const startTimeout = sinon.spy(controls, '_startHideControlsTimeout');
+      const startTimeout = sinon.spy(controls, '_startHideBlockTimeout');
       const hideTimeout = sinon.spy(controls, '_hideContent');
       const showTimeout = sinon.spy(controls, '_showContent');
 
@@ -62,9 +62,9 @@ describe('ControlsBlock', () => {
     it('should have method for hiding controls on timeout', () => {
       const timeoutSpy = sinon.spy(global, 'setTimeout');
       const clearSpy = sinon.spy(global, 'clearTimeout');
-      controls._startHideControlsTimeout();
+      controls._startHideBlockTimeout();
       expect(timeoutSpy.calledWith(controls._tryHideContent)).to.be.true;
-      controls._startHideControlsTimeout();
+      controls._startHideBlockTimeout();
       expect(clearSpy.called).to.be.true;
 
       timeoutSpy.restore();
@@ -110,11 +110,11 @@ describe('ControlsBlock', () => {
 
   describe('View', () => {
     it('should have method for showing block with controls', () => {
-      expect(controls.view.showControlsBlock).to.exist;
+      expect(controls.view.showContent).to.exist;
     });
 
     it('should have method for hidding block with controls', () => {
-      expect(controls.view.hideControlsBlock).to.exist;
+      expect(controls.view.hideContent).to.exist;
     });
 
     it('should have method for showing itself', () => {

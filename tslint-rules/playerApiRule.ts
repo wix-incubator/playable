@@ -22,12 +22,8 @@ const OPTION_REQUIRE_JSDOC = 'require-jsdoc';
  * "player-api": [true, "require-jsdoc"]
  */
 export class Rule extends Lint.Rules.AbstractRule {
-  public static DECORATOR_MAME_FAILURE_STRING = `"${
-    PLAYER_API_DECORATOR_NAME
-  }" decorator argument should be string literal or undefined`;
-  public static REQUIRE_JSDOC_FAILURE_STRING = `"${
-    PLAYER_API_DECORATOR_NAME
-  }" method should have valid JSDoc comment`;
+  public static DECORATOR_MAME_FAILURE_STRING = `"${PLAYER_API_DECORATOR_NAME}" decorator argument should be string literal or undefined`;
+  public static REQUIRE_JSDOC_FAILURE_STRING = `"${PLAYER_API_DECORATOR_NAME}" method should have valid JSDoc comment`;
 
   public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
     return this.applyWithWalker(

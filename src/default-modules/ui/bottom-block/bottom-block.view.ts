@@ -2,26 +2,26 @@ import * as $ from 'jbone';
 
 import View from '../core/view';
 
-import * as styles from './controls.scss';
+import * as styles from './bottom-block.scss';
 
-class ControlsView extends View {
+class BottomBlockView extends View {
   private _callbacks;
   $node;
 
   constructor(config) {
     super(config);
-    const { callbacks, controls } = config;
+    const { callbacks, elements } = config;
 
     this._callbacks = callbacks;
 
-    this._initDOM(controls);
+    this._initDOM(elements);
     this._bindEvents();
   }
 
-  private _initDOM(controls) {
+  private _initDOM(elements) {
     this.$node = $('<div>', {
-      class: this.styleNames['controls-block'],
-      'data-hook': 'controls-block',
+      class: this.styleNames['bottom-block'],
+      'data-hook': 'bottom-block',
     });
 
     const $container = $('<div>', {
@@ -32,32 +32,32 @@ class ControlsView extends View {
       class: this.styleNames['play-container'],
     });
 
-    $playContainer.append(controls.play);
+    $playContainer.append(elements.play);
 
     const $volumeContainer = $('<div>', {
       class: this.styleNames['volume-container'],
     });
 
-    $volumeContainer.append(controls.volume);
+    $volumeContainer.append(elements.volume);
 
     const $timeContainer = $('<div>', {
       class: this.styleNames['time-container'],
     });
 
-    $timeContainer.append(controls.time);
+    $timeContainer.append(elements.time);
 
     const $fullScreenContainer = $('<div>', {
       class: this.styleNames['full-screen-container'],
     });
 
-    $fullScreenContainer.append(controls.fullScreen);
+    $fullScreenContainer.append(elements.fullScreen);
 
-    const $controlsContainerLeft = $('<div>', {
+    const $containerLeft = $('<div>', {
       class: this.styleNames['controls-container-left'],
       'data-hook': 'controls-container-left',
     });
 
-    const $controlsContainerRight = $('<div>', {
+    const $containerRight = $('<div>', {
       class: this.styleNames['controls-container-right'],
       'data-hook': 'controls-container-right',
     });
@@ -66,24 +66,24 @@ class ControlsView extends View {
       class: this.styleNames['logo-container'],
     });
 
-    $logoContainer.append(controls.logo);
+    $logoContainer.append(elements.logo);
 
     const $progressBarContainer = $('<div>', {
       class: this.styleNames['progress-bar-container'],
     });
 
-    $progressBarContainer.append(controls.progress);
+    $progressBarContainer.append(elements.progress);
 
-    $controlsContainerLeft
+    $containerLeft
       .append($playContainer)
       .append($volumeContainer)
       .append($timeContainer);
 
-    $controlsContainerRight.append($fullScreenContainer);
+    $containerRight.append($fullScreenContainer);
 
     $container
-      .append($controlsContainerLeft)
-      .append($controlsContainerRight)
+      .append($containerLeft)
+      .append($containerRight)
       .append($logoContainer);
 
     this.$node.append($progressBarContainer).append($container);
@@ -97,11 +97,11 @@ class ControlsView extends View {
     this.$node[0].addEventListener('click', this._preventClickPropagation);
     this.$node[0].addEventListener(
       'mousemove',
-      this._callbacks.onControlsBlockMouseMove,
+      this._callbacks.onBlockMouseMove,
     );
     this.$node[0].addEventListener(
       'mouseleave',
-      this._callbacks.onControlsBlockMouseOut,
+      this._callbacks.onBlockMouseOut,
     );
   }
 
@@ -109,11 +109,11 @@ class ControlsView extends View {
     this.$node[0].removeEventListener('click', this._preventClickPropagation);
     this.$node[0].removeEventListener(
       'mousemove',
-      this._callbacks.onControlsBlockMouseMove,
+      this._callbacks.onBlockMouseMove,
     );
     this.$node[0].removeEventListener(
       'mouseleave',
-      this._callbacks.onControlsBlockMouseOut,
+      this._callbacks.onBlockMouseOut,
     );
   }
 
@@ -138,11 +138,11 @@ class ControlsView extends View {
     return this.$node[0];
   }
 
-  showControlsBlock() {
+  showContent() {
     this.$node.addClass(this.styleNames.activated);
   }
 
-  hideControlsBlock() {
+  hideContent() {
     this.$node.removeClass(this.styleNames.activated);
   }
 
@@ -154,6 +154,6 @@ class ControlsView extends View {
   }
 }
 
-ControlsView.extendStyleNames(styles);
+BottomBlockView.extendStyleNames(styles);
 
-export default ControlsView;
+export default BottomBlockView;

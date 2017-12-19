@@ -28,7 +28,6 @@ export default class Logo {
     this._config = {
       ...get(config, 'ui.controls.logo'),
     };
-
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._textMap = textMap;

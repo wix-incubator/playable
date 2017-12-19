@@ -29,6 +29,7 @@ describe('Title', () => {
   });
 
   describe('instance', () => {
+    /*
     it('should react on video control block show event', () => {
       const fadeInSpy = sinon.spy(title, '_fadeIn');
       title._bindEvents();
@@ -50,6 +51,7 @@ describe('Title', () => {
 
       fadeOutSpy.restore();
     });
+    */
 
     it('should have method for showing title', () => {
       const viewShowSpy = sinon.spy(title.view, 'show');

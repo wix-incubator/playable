@@ -267,14 +267,8 @@ export default class ProgressControl {
   }
 
   private _updateAllIndicators() {
-    const currentTime = this._engine.getCurrentTime();
-    const buffered = this._engine.getBuffered();
-    const duration = this._engine.getDurationTime();
-
-    this.updatePlayed(getOverallPlayedPercent(currentTime, duration));
-    this.updateBuffered(
-      getOverallBufferedPercent(buffered, currentTime, duration),
-    );
+    this._updatePlayedIndicator();
+    this._updateBufferIndicator();
   }
 
   private _initTimeIndicators() {

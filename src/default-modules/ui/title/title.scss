@@ -1,33 +1,17 @@
 @import '../shared';
 
 .wrapper {
-  position: absolute;
-  z-index: 60;
-
   overflow: hidden;
 
-  margin-top: 18px;
-  margin-left: 20px;
-
-  transition: opacity .2s, visibility .2s;
   white-space: nowrap;
   text-overflow: ellipsis;
 
   color: white;
-
-  @include max-width-550() {
-    margin: 12px 12px auto 12px;
-  }
-  @include in-full-screen {
-    margin: 30px 12px auto 30px;
-  }
 }
 
 .title {
   font-size: 16px;
   line-height: 17px;
-
-  transition: opacity .2s, visibility .2s;
 
   @include max-width-550() {
     font-size: 14px;
@@ -44,13 +28,5 @@
 
   &.link {
     cursor: pointer;
-  }
-
-  &.fade-in {
-    opacity: 1;
-  }
-
-  &.fade-out {
-    opacity: 0;
   }
 }

@@ -47,9 +47,10 @@ You can check all events inside <code>VideoPlayer.UI_EVENTS</code> and <code>Vid
 
 # off
 
--   `event` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `fn` **ListenerFn** 
--   `context`  
+```javascript
+const callback = function() {
+  // Code to handle some kind of event
+};
 
 // ... Now callback will be called when some one will pause the video ...
 player.on(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
@@ -61,10 +62,7 @@ player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
 player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED);
 ```
 
--   `event` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `fn` **ListenerFn** 
--   `context`  
--   `once` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+Method for removing listeners of events inside player.
 
 <div class="method-list">
   <table>
@@ -115,7 +113,6 @@ Manual exit full screen
 
 Return true if player is in full screen
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # getDebugInfo
 
@@ -153,39 +150,7 @@ player.getDebugInfo();
 }
 ```
 
-### setSrc
-
-**Parameters**
-
--   `src`  
-
-### getSrc
-
-### syncWithLive
-
-### goForward
-
-**Parameters**
-
--   `sec`  
-
-### goBackward
-
-**Parameters**
-
--   `sec`  
-
-### decreaseVolume
-
-**Parameters**
-
--   `value`  
-
-### increaseVolume
-
-**Parameters**
-
--   `value`  
+Return object with internal debug info
 
 <div class="method-list">
   <table>
@@ -277,7 +242,7 @@ player.getDebugInfo();
 # getSrc
 
 
-# goLive
+# syncWithLive
 
 
 # goForward
@@ -372,43 +337,88 @@ player.getDebugInfo();
 
 Set autoPlay flag
 
-**Parameters**
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>isAutoPlay</code><span class="type">boolean</span class="type">
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
--   `isAutoPlay` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
-### getAutoPlay
+# getAutoPlay
 
 Get autoPlay flag
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # setLoop
 
 Set loop flag
 
-**Parameters**
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>isLoop</code><span class="type">boolean</span class="type">
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
--   `isLoop` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
-### getLoop
+# getLoop
 
 Get loop flag
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # setMute
 
 Set mute flag
 
-**Parameters**
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>isMuted</code><span class="type">boolean</span class="type">
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
--   `isMuted` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
-### getMute
+# getMute
 
 Get mute flag
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # setVolume
 
@@ -439,7 +449,6 @@ Set volume
 
 Get volume
 
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 # setPlaybackRate
 
@@ -462,14 +471,13 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
   </table>
 </div>
 
--   `rate`  
 
 # getPlaybackRate
 
 
 # setPreload
 
--   `preload` **(`"auto"` \| `"metadata"` \| `"none"`)** 
+Set preload type
 
 <div class="method-list">
   <table>
@@ -495,14 +503,30 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 Get preload type
 
-Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 # getCurrentTime
 
 
 # goTo
 
--   `time`  
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>time</code>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 
 # getDurationTime
@@ -510,7 +534,7 @@ Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 # setPlayInline
 
--   `isPlayInline` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+Set playInline flag
 
 <div class="method-list">
   <table>
@@ -536,7 +560,6 @@ Returns **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 Get playInline flag
 
-Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
 
 # getCurrentPlaybackState
 
@@ -549,7 +572,7 @@ Return current state of playback
 # pause
 
 
-Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)** 
+# togglePlayback
 
 
 # node
@@ -557,7 +580,6 @@ Returns **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibli
 Getter for DOM node with player UI element
 (use it only for debug, if you need attach player to your document use <code>attachToElement</code> method)
 
--   `node` **[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling)** 
 
 # attachToElement
 
@@ -604,7 +626,7 @@ Show whole ui
 
 # setWidth
 
--   `width` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+Set width of player
 
 <div class="method-list">
   <table>
@@ -630,31 +652,84 @@ Show whole ui
 
 Set height of player
 
-**Parameters**
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>height</code><span class="type">number</span class="type">
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
--   `height` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
-### getWidth
+# getWidth
 
 Get width of player
 
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 # getHeight
 
 Get height of player
 
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### setFillAllSpace
-
-**Parameters**
-
--   `flag`  
-
-### setLogoAlwaysShowFlag
 
 # setFillAllSpace
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>flag</code>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+# setLogoAlwaysShowFlag
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>isShowAlways</code>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+# removeLogo
+
+
+# setControlsShouldAlwaysShow
 
 <div class="method-list">
   <table>
@@ -689,29 +764,7 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
     <tbody>
       <tr>
         <td class="param">
-          <code>logo</code>
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-# setLogoAlwaysShowFlag
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>isShowAlways</code>
+          <code>url</code>
         </td>
         <td></td>
       </tr>
@@ -742,10 +795,9 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 </div>
 
 
-# removeLogo
+# addTimeIndicator
 
-
-# setControlsShouldAlwaysShow
+Add time indicator to progress bar
 
 <div class="method-list">
   <table>
@@ -758,13 +810,42 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
     <tbody>
       <tr>
         <td class="param">
-          <code>flag</code>
+          <code>time</code><span class="type">number</span class="type">
         </td>
         <td></td>
       </tr>
     </tbody>
   </table>
 </div>
+
+
+# addTimeIndicators
+
+Add time indicators to progress bar
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>times</code>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+# clearTimeIndicators
+
+Delete all time indicators from progress bar
 
 
 # setLoadingCover
@@ -791,61 +872,9 @@ Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 # setTitle
 
--   `isShowAlways`  
-
-### removeLogo
-
-### setControlsShouldAlwaysShow
-
-**Parameters**
-
--   `flag`  
-
-### setLogo
-
-**Parameters**
-
--   `url`  
-
-### setLogoClickCallback
-
-**Parameters**
-
--   `callback`  
-
-### addTimeIndicator
-
-Add time indicator to progress bar
-
-**Parameters**
-
--   `time` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-### addTimeIndicators
-
-Add time indicators to progress bar
-
-**Parameters**
-
--   `times` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)>** 
-
-### clearTimeIndicators
-
-Delete all time indicators from progress bar
-
-### setLoadingCover
-
-**Parameters**
-
--   `url`  
-
-### setTitle
-
-**Parameters**
-
--   `title` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### setTitleClickCallback
+```javascript
+player.setTitle('Your awesome video title here');
+```
 
 > [Live Demo](https://jsfiddle.net/kupriyanenko/ao0rg48s/2/)
 
@@ -892,4 +921,3 @@ Display title text over the video. If you want to have clickable title, use <cod
   </table>
 </div>
 
--   `callback` **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 

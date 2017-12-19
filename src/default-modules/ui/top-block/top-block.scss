@@ -1,0 +1,48 @@
+@import '../shared';
+
+.top-block {
+  position: absolute;
+  z-index: 60;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &.activated,
+  &.focus-within {
+    .title-container {
+      opacity: 1;
+    }
+  }
+}
+
+.elements-container {
+  display: flex;
+  flex-direction: row;
+
+  margin-top: 20px;
+  margin-left: 20px;
+
+  align-items: center;
+  @include in-full-screen() {
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+  @include max-width-550() {
+    margin-top: 15px;
+    margin-left: 15px;
+  }
+  @include max-width-280() {
+    margin-top: 12px;
+    margin-left: 12px;
+  }
+}
+
+.title-container {
+  transition: opacity .2s, visibility .2s;
+
+  opacity: 0;
+}

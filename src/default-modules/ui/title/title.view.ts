@@ -32,7 +32,6 @@ class TitleView extends View {
     this.$node.append(this.$title);
 
     this._bindEvents();
-    this.fadeIn();
   }
 
   _bindEvents() {
@@ -56,16 +55,6 @@ class TitleView extends View {
     } else {
       this.hide();
     }
-  }
-
-  fadeIn() {
-    this.$title.addClass(this.styleNames['fade-in']);
-    this.$title.removeClass(this.styleNames['fade-out']);
-  }
-
-  fadeOut() {
-    this.$title.addClass(this.styleNames['fade-out']);
-    this.$title.removeClass(this.styleNames['fade-in']);
   }
 
   show() {

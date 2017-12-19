@@ -80,6 +80,11 @@ export default class TimeControl {
       case STATES.SRC_SET:
         this.reset();
         break;
+      case STATES.METADATA_LOADED:
+        if (!this._engine.attachedAdapter.isSeekAvailable) {
+          this.hide();
+        }
+        break;
       case STATES.PLAYING:
         this._startIntervalUpdates();
         break;
@@ -121,6 +126,7 @@ export default class TimeControl {
   reset() {
     this.setDurationTime(0);
     this.setCurrentTime(0);
+    this.show();
   }
 
   _unbindEvents() {

@@ -12,23 +12,23 @@ export default class LoadingCover {
     'engine',
     'eventEmitter',
     'config',
-    'controls',
+    'bottomBlock',
     'rootContainer',
   ];
 
   private _eventEmitter;
   private _engine;
-  private _controls;
+  private _bottomBlock;
   private _url;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ config, eventEmitter, engine, controls, rootContainer }) {
+  constructor({ config, eventEmitter, engine, bottomBlock, rootContainer }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
-    this._controls = controls;
+    this._bottomBlock = bottomBlock;
     this._url = get(config, 'ui.loadingCover');
 
     this.show = this.show.bind(this);
@@ -94,7 +94,7 @@ export default class LoadingCover {
 
   show() {
     if (this.isHidden) {
-      this._controls._hideContent();
+      this._bottomBlock._hideContent();
       this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED);
       this.view.show();
       this.isHidden = false;
@@ -122,7 +122,7 @@ export default class LoadingCover {
 
     delete this.view;
 
-    delete this._controls;
+    delete this._bottomBlock;
     delete this._eventEmitter;
     delete this._engine;
   }

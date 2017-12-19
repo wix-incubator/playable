@@ -19,7 +19,8 @@ import DefaultControls from './default-modules/ui/controls/default-controls';
 import Overlay from './default-modules/ui/overlay/overlay.controler';
 import Loader from './default-modules/ui/loader/loader.controler';
 import Screen from './default-modules/ui/screen/screen.controler';
-import ControlBlock from './default-modules/ui/controls/controls.controler';
+import BottomBlock from './default-modules/ui/bottom-block/bottom-block';
+import TopBlock from './default-modules/ui/top-block/top-block';
 
 import AnomalyBloodhound from './default-modules/anomaly-bloodhound/anomaly-bloodhound';
 import RootContainer from './default-modules/root-container/root-container.controler';
@@ -30,7 +31,8 @@ import PlayerFacade from './core/player-facade';
 const DefaultUIComponents = {
   Screen,
   Overlay,
-  ControlBlock,
+  TopBlock,
+  BottomBlock,
   Loader,
 };
 

@@ -1,28 +1,26 @@
 import * as get from 'lodash/get';
+import * as isEmpty from 'lodash/isEmpty';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import playerAPI from '../../../utils/player-api-decorator';
 
-import View from './controls.view';
+import View from './bottom-block.view';
 
-import ProgressControl from './progress/progress.controler';
-import PlayControl from './play/play.controler';
-import TimeControl from './time/time.controler';
-import VolumeControl from './volume/volume.controler';
-import FullScreenControl from './full-screen/full-screen.controler';
-import Logo from './logo/logo';
-import DependencyContainer from '../../../core/dependency-container/index';
-
-const { asClass } = DependencyContainer;
+import ProgressControl from '../controls/progress/progress.controler';
+import PlayControl from '../controls/play/play.controler';
+import TimeControl from '../controls/time/time.controler';
+import VolumeControl from '../controls/volume/volume.controler';
+import FullScreenControl from '../controls/full-screen/full-screen.controler';
+import Logo from '../controls/logo/logo';
 
 const DEFAULT_CONFIG = {
   shouldAlwaysShow: false,
 };
 
-const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
+const HIDE_BLOCK_TIMEOUT = 2000;
 
-export default class ControlBlock {
+export default class BottomBlock {
   static View = View;
   static dependencies = [
     'engine',
@@ -43,10 +41,10 @@ export default class ControlBlock {
   private _screen;
   private _scope;
 
-  private _hideControlsTimeout;
+  private _hideTimeout;
 
   private _isContentShowingEnabled: boolean;
-  private _isControlsFocused: boolean;
+  private _isBlockFocused: boolean;
   private _shouldShowContent: boolean;
   private config;
 
@@ -74,11 +72,11 @@ export default class ControlBlock {
     this.isHidden = false;
     this._isContentShowingEnabled = true;
     this._shouldShowContent = true;
-    this._hideControlsTimeout = null;
-    this._isControlsFocused = false;
+    this._hideTimeout = null;
+    this._isBlockFocused = false;
 
     this._bindViewCallbacks();
-    this._initUI(this._getControlNodes(dependencies));
+    this._initUI(this._getElementNodes(dependencies));
     this._initLogo();
     this._bindEvents();
 
@@ -89,7 +87,7 @@ export default class ControlBlock {
     }
   }
 
-  private _getControlNodes(dependencies) {
+  private _getElementNodes(dependencies) {
     const {
       playControl,
       progressControl,
@@ -113,33 +111,35 @@ export default class ControlBlock {
     return this.view.getNode();
   }
 
-  private _initUI(controlNodes) {
+  private _initUI(elementNodes) {
     const { view } = this.config;
     const config = {
-      controls: controlNodes,
+      elements: elementNodes,
       callbacks: {
-        onControlsBlockMouseMove: this._setFocusState,
-        onControlsBlockMouseOut: this._removeFocusState,
+        onBlockMouseMove: this._setFocusState,
+        onBlockMouseOut: this._removeFocusState,
       },
     };
 
     if (view) {
       this.view = new view(config);
     } else {
-      this.view = new ControlBlock.View(config);
+      this.view = new BottomBlock.View(config);
     }
   }
 
   private _initLogo() {
     const { logo } = this.config;
 
-    if (logo) {
+    if (!isEmpty(logo)) {
       this.setLogoAlwaysShowFlag(logo.showAlways);
+    } else {
+      this.removeLogo();
     }
   }
 
   private _bindViewCallbacks() {
-    this._startHideControlsTimeout = this._startHideControlsTimeout.bind(this);
+    this._startHideBlockTimeout = this._startHideBlockTimeout.bind(this);
     this._setFocusState = this._setFocusState.bind(this);
     this._removeFocusState = this._removeFocusState.bind(this);
     this._tryShowContent = this._tryShowContent.bind(this);
@@ -149,7 +149,7 @@ export default class ControlBlock {
   private _bindEvents() {
     this._eventEmitter.on(
       UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
-      this._startHideControlsTimeout,
+      this._startHideBlockTimeout,
     );
     this._eventEmitter.on(
       UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED,
@@ -157,11 +157,11 @@ export default class ControlBlock {
     );
     this._eventEmitter.on(
       UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED,
-      this._startHideControlsTimeout,
+      this._startHideBlockTimeout,
     );
     this._eventEmitter.on(
       UI_EVENTS.LOADER_HIDE_TRIGGERED,
-      this._startHideControlsTimeout,
+      this._startHideBlockTimeout,
     );
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
@@ -183,7 +183,7 @@ export default class ControlBlock {
   private _unbindEvents() {
     this._eventEmitter.off(
       UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
-      this._startHideControlsTimeout,
+      this._startHideBlockTimeout,
     );
     this._eventEmitter.off(
       UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED,
@@ -191,11 +191,11 @@ export default class ControlBlock {
     );
     this._eventEmitter.off(
       UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED,
-      this._startHideControlsTimeout,
+      this._startHideBlockTimeout,
     );
     this._eventEmitter.off(
       UI_EVENTS.LOADER_HIDE_TRIGGERED,
-      this._startHideControlsTimeout,
+      this._startHideBlockTimeout,
     );
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
@@ -214,31 +214,28 @@ export default class ControlBlock {
     );
   }
 
-  private _startHideControlsTimeout() {
-    this._stopHideControlsTimeout();
+  private _startHideBlockTimeout() {
+    this._stopHideBlockTimeout();
 
     this._tryShowContent();
 
-    if (!this._isControlsFocused) {
-      this._hideControlsTimeout = setTimeout(
-        this._tryHideContent,
-        HIDE_CONTROLS_BLOCK_TIMEOUT,
-      );
+    if (!this._isBlockFocused) {
+      this._hideTimeout = setTimeout(this._tryHideContent, HIDE_BLOCK_TIMEOUT);
     }
   }
 
-  private _stopHideControlsTimeout() {
-    if (this._hideControlsTimeout) {
-      clearTimeout(this._hideControlsTimeout);
+  private _stopHideBlockTimeout() {
+    if (this._hideTimeout) {
+      clearTimeout(this._hideTimeout);
     }
   }
 
   private _setFocusState() {
-    this._isControlsFocused = true;
+    this._isBlockFocused = true;
   }
 
   private _removeFocusState() {
-    this._isControlsFocused = false;
+    this._isBlockFocused = false;
   }
 
   private _tryShowContent() {
@@ -251,7 +248,7 @@ export default class ControlBlock {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
     this._screen.showBottomShadow();
 
-    this.view.showControlsBlock();
+    this.view.showContent();
   }
 
   private _tryHideContent() {
@@ -261,15 +258,13 @@ export default class ControlBlock {
       !this.config.shouldAlwaysShow
     ) {
       this._hideContent();
-      this._eventEmitter.emit((UI_EVENTS as any).CONTROL_BLOCK_HIDE_TRIGGERED);
-      this._screen.hideBottomShadow();
     }
   }
 
   private _hideContent() {
     this._eventEmitter.emit((UI_EVENTS as any).CONTROL_BLOCK_HIDE_TRIGGERED);
     this._screen.hideBottomShadow();
-    this.view.hideControlsBlock();
+    this.view.hideContent();
   }
 
   private _onControlDragStart() {
@@ -285,7 +280,7 @@ export default class ControlBlock {
     switch (nextState) {
       case STATES.PLAY_REQUESTED: {
         this._shouldShowContent = false;
-        this._startHideControlsTimeout();
+        this._startHideBlockTimeout();
         break;
       }
       case STATES.ENDED: {
@@ -347,12 +342,12 @@ export default class ControlBlock {
     if (this.config.shouldAlwaysShow) {
       this._tryShowContent();
     } else {
-      this._startHideControlsTimeout();
+      this._startHideBlockTimeout();
     }
   }
 
   destroy() {
-    this._stopHideControlsTimeout();
+    this._stopHideBlockTimeout();
     this._unbindEvents();
     this.view.destroy();
     delete this.view;
