@@ -15,7 +15,8 @@ const player: any = VideoPlayer.create({
   loop: false,
   preload: 'metadata',
   volume: 100,
-  title: 'I hate this video',
+  title:
+    'I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video!',
   fillAllSpace: false,
   size: {
     width: 760,

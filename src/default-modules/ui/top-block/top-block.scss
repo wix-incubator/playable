@@ -19,6 +19,10 @@
   }
 }
 
+.live-indicator-container {
+  flex-grow: 0;
+}
+
 .elements-container {
   display: flex;
   flex-direction: row;
@@ -42,7 +46,11 @@
 }
 
 .title-container {
+  max-width: calc(100% - 200px);
+
   transition: opacity .2s, visibility .2s;
 
   opacity: 0;
+
+  flex-grow: 1;
 }

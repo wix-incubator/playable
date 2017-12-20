@@ -20,9 +20,7 @@ class TitleView extends View {
 
     this._callbacks = callbacks;
 
-    this.$node = $('<div>', {
-      class: this.styleNames.wrapper,
-    });
+    this.$node = $('<div>');
 
     this.$title = $('<div>', {
       class: this.styleNames.title,

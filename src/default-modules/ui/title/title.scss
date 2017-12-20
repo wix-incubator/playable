@@ -1,17 +1,15 @@
 @import '../shared';
 
-.wrapper {
+.title {
+  font-size: 16px;
+  line-height: 17px;
+
   overflow: hidden;
 
   white-space: nowrap;
   text-overflow: ellipsis;
 
   color: white;
-}
-
-.title {
-  font-size: 16px;
-  line-height: 17px;
 
   @include max-width-550() {
     font-size: 14px;
