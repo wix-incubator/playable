@@ -37,6 +37,10 @@ Reflect.defineProperty(window, 'player', {
   value: player,
 });
 
+Reflect.defineProperty(window, 'VideoPlayer', {
+  value: VideoPlayer,
+});
+
 /* ignore coverage */
 document.addEventListener('DOMContentLoaded', () => {
   player.attachToElement(document.getElementById('player-wrapper'));
