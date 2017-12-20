@@ -44,7 +44,6 @@ describe('BottomBlock', () => {
       expect(controls._updatePlayingStatus).to.exist;
 
       const startTimeout = sinon.spy(controls, '_startHideBlockTimeout');
-      const hideTimeout = sinon.spy(controls, '_hideContent');
       const showTimeout = sinon.spy(controls, '_showContent');
 
       controls._updatePlayingStatus({ nextState: STATES.PLAY_REQUESTED });

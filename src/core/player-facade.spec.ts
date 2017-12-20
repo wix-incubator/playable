@@ -128,7 +128,7 @@ describe("Player's instance", () => {
           return;
         }
 
-        set methodC(a) {}
+        set methodC(_) {}
 
         destroy() {}
       }

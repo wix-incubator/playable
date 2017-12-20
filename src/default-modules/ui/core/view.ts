@@ -25,7 +25,7 @@ export default class View {
   }
 
   // tslint:disable-next-line
-  constructor(config?) {}
+  constructor(_?) {}
 
   get styleNames() {
     return (this.constructor as any)._styles || {};

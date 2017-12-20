@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 
-import DependencyContainer from '../../core/dependency-container';
 import TextMap from './text-map';
 
 import createPlayerTestkit from '../../testkit';

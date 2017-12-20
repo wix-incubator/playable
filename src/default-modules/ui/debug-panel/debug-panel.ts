@@ -5,9 +5,8 @@ const UPDATE_TIME = 1000;
 
 export default class DebugPanel {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'rootContainer'];
+  static dependencies = ['engine', 'rootContainer'];
 
-  private _eventEmitter;
   private _engine;
 
   private _interval;
@@ -15,8 +14,7 @@ export default class DebugPanel {
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, engine, rootContainer }) {
-    this._eventEmitter = eventEmitter;
+  constructor({ engine, rootContainer }) {
     this._engine = engine;
 
     this._bindCallbacks();

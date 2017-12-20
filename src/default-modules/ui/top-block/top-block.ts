@@ -1,17 +1,8 @@
 import * as get from 'lodash/get';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
-
-import playerAPI from '../../../utils/player-api-decorator';
-import { container } from '../../../core/player-factory';
+import { UI_EVENTS } from '../../../constants/index';
 
 import View from './top-block.view';
-
-const DEFAULT_CONFIG = {
-  shouldAlwaysShow: false,
-};
-
-const HIDE_CONTROLS_BLOCK_TIMEOUT = 2000;
 
 export default class TopBlock {
   static View = View;
@@ -25,8 +16,6 @@ export default class TopBlock {
   ];
 
   private _eventEmitter;
-  private _title;
-  private _liveIndicator;
   private _screen;
 
   isHidden: boolean;

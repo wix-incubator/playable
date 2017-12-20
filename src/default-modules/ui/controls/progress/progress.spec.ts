@@ -73,11 +73,9 @@ describe('ProgressControl', () => {
       let engineGetDurationTimeStub;
 
       beforeEach(() => {
-        engineGetDurationTimeStub = sinon.stub(
-          control._engine,
-          'getDurationTime',
-          () => VIDEO_DURATION_TIME,
-        );
+        engineGetDurationTimeStub = sinon
+          .stub(control._engine, 'getDurationTime')
+          .callsFake(() => VIDEO_DURATION_TIME);
       });
 
       afterEach(() => {
@@ -261,8 +259,10 @@ describe('ProgressControl', () => {
       control._onUserInteractionStarts();
       expect(startSpy.called).to.be.true;
       control._onUserInteractionEnds();
-      control._playVideoOnProgressManipulationEnd.restore();
-      control._pauseVideoOnProgressManipulationStart.restore();
+      expect(stopSpy.called).to.be.true;
+
+      startSpy.restore();
+      stopSpy.restore();
     });
 
     it('should toggle interval updates', () => {

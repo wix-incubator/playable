@@ -7,13 +7,6 @@ import playerAPI from '../../../utils/player-api-decorator';
 
 import View from './bottom-block.view';
 
-import ProgressControl from '../controls/progress/progress.controler';
-import PlayControl from '../controls/play/play.controler';
-import TimeControl from '../controls/time/time.controler';
-import VolumeControl from '../controls/volume/volume.controler';
-import FullScreenControl from '../controls/full-screen/full-screen.controler';
-import Logo from '../controls/logo/logo';
-
 const DEFAULT_CONFIG = {
   shouldAlwaysShow: false,
 };
@@ -39,7 +32,6 @@ export default class BottomBlock {
   private _eventEmitter;
   private _engine;
   private _screen;
-  private _scope;
 
   private _hideTimeout;
 

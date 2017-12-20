@@ -7,18 +7,17 @@ import createPlayerTestkit from '../../../testkit';
 
 import Title from './title';
 
-import { UI_EVENTS } from '../../../constants';
 import { describe } from 'selenium-webdriver/testing';
 
 describe('Title', () => {
   let testkit;
-  let eventEmitter;
+  // let eventEmitter;
   let title: Title;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
     title = testkit.getModule('title');
-    eventEmitter = testkit.getModule('eventEmitter');
+    // eventEmitter = testkit.getModule('eventEmitter');
   });
 
   describe('constructor', () => {

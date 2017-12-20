@@ -1,7 +1,5 @@
 import View from './title.view';
 
-import { UI_EVENTS } from '../../../constants/index';
-
 import playerAPI from '../../../utils/player-api-decorator';
 
 export default class TitleControl {

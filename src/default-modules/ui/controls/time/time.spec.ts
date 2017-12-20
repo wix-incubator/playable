@@ -4,8 +4,6 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import TimeControl from './time.controler';
-
 import { formatTime } from './time.view';
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 

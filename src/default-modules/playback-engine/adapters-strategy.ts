@@ -2,7 +2,6 @@ import { resolveAdapters } from './playback-resolution';
 import { detectStreamType } from './detect-stream-type';
 
 export default class AdaptersStrategy {
-  private _eventEmitter;
   private _video;
   private _playableAdapters;
   private _availableAdapters;
@@ -10,7 +9,6 @@ export default class AdaptersStrategy {
 
   constructor(eventEmitter, video, playbackAdapters = []) {
     this._video = video;
-    this._eventEmitter = eventEmitter;
 
     this._playableAdapters = [];
     this._availableAdapters = [];

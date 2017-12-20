@@ -75,7 +75,7 @@ export default class Engine {
     this._applyConfig(config.engine);
   }
 
-  _createVideoTag(engine?) {
+  _createVideoTag() {
     this._video = document.createElement('video');
   }
 

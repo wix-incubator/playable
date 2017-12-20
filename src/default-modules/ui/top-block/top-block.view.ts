@@ -5,14 +5,11 @@ import View from '../core/view';
 import * as styles from './top-block.scss';
 
 class TopBlockView extends View {
-  private _callbacks;
   $node;
 
   constructor(config) {
     super(config);
-    const { callbacks, elements } = config;
-
-    this._callbacks = callbacks;
+    const { elements } = config;
 
     this._initDOM(elements);
     this._bindEvents();

@@ -154,7 +154,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
     });
   }
 
-  broadcastError(error, data) {
+  broadcastError(_error, data) {
+    // TODO: `_error` argument is unused
     if (!data.fatal) {
       return;
     }
