@@ -3,7 +3,7 @@
 <script id="popup-template" type="text/x-template">
   <div class="overlay">
     <div class="popup">
-      <iframe width="815" height="515" src="${link}" allowpaymentrequest allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+      <iframe width="815" height="515" src="${link}embedded/result,js/dark/" allowpaymentrequest allowfullscreen="allowfullscreen" frameborder="0"></iframe>
     </div>
   </div>
 </script>
@@ -51,7 +51,7 @@
 
       if (href.includes('jsfiddle')) {
         e.preventDefault();
-        openPopup(href + 'embedded/result,js/dark/');
+        openPopup(href);
       }
     });
   };
