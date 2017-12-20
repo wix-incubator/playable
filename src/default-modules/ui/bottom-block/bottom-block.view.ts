@@ -9,7 +9,7 @@ class BottomBlockView extends View {
   $node;
 
   constructor(config) {
-    super(config);
+    super();
     const { callbacks, elements } = config;
 
     this._callbacks = callbacks;

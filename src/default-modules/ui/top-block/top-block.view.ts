@@ -8,7 +8,7 @@ class TopBlockView extends View {
   $node;
 
   constructor(config) {
-    super(config);
+    super();
     const { elements } = config;
 
     this._initDOM(elements);

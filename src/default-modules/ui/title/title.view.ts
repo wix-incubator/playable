@@ -14,7 +14,7 @@ class TitleView extends View {
   $title;
 
   constructor(config) {
-    super(config);
+    super();
 
     const { callbacks } = config;
 

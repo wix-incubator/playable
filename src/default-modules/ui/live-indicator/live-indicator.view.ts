@@ -15,7 +15,7 @@ class LiveIndicatorView extends View {
   $tooltip;
 
   constructor(config) {
-    super(config);
+    super();
 
     this._callbacks = config.callbacks;
     this._textMap = config.textMap;

@@ -13,7 +13,7 @@ class ScreenView extends View {
   $bottomBackground;
 
   constructor(config) {
-    super(config);
+    super();
     const { callbacks, nativeControls, playbackViewNode } = config;
 
     this._nativeControls = nativeControls;

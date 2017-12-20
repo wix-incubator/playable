@@ -11,7 +11,7 @@ class RootContainerView extends View {
   $node;
 
   constructor(config) {
-    super(config);
+    super();
     const { width, height, fillAllSpace } = config;
 
     this.$node = $('<div>', {

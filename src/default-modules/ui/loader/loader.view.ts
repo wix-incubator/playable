@@ -7,8 +7,8 @@ import * as styles from './loader.scss';
 class LoaderView extends View {
   $node;
 
-  constructor(config?) {
-    super(config);
+  constructor() {
+    super();
 
     this.$node = $('<div>', {
       class: this.styleNames.loader,

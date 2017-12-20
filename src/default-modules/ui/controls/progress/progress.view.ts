@@ -42,7 +42,7 @@ class ProgressView extends View {
   private _$timeIndicators;
 
   constructor(config) {
-    super(config);
+    super();
     const { callbacks, texts } = config;
 
     this._callbacks = callbacks;
