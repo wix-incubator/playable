@@ -39,6 +39,7 @@ under the License.
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title><%= current_page.data.title || "API Documentation" %></title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <style>
       <%= Rouge::Themes::MonokaiSublime.render(:scope => '.highlight') %>
     </style>
@@ -59,9 +60,6 @@ under the License.
       </span>
     </a>
     <div class="toc-wrapper">
-      <div class="logo-wrapper">
-        <%= image_tag "logo.png", class: 'logo' %>
-      </div>
       <% if language_tabs.any? %>
         <div class="lang-selector">
           <% language_tabs.each do |lang| %>
@@ -72,12 +70,6 @@ under the License.
             <% end %>
           <% end %>
         </div>
-      <% end %>
-      <% if current_page.data.search %>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
       <% end %>
       <div id="toc" class="toc-list-h1">
         <% toc_data(page_content).each do |h1| %>
@@ -122,6 +114,25 @@ under the License.
         <% end %>
       </div>
     </div>
+    <div class="header">
+      <% if current_page.data.search %>
+        <div class="logo-wrapper">
+          <%= image_tag "logo.png", class: 'logo' %>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search-custom" placeholder="Search">
+        </div>
+      <% end %>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script type="text/javascript">
+    docsearch({
+      apiKey: '8b7e07f448cec6e39fa301bf82ac83d6',
+      indexName: 'wix',
+      inputSelector: '#input-search-custom',
+      debug: false // Set debug to true if you want to inspect the dropdown
+    });
+    </script>
   </body>
   <%= partial('partials/custom-script.html')%>
 </html>
