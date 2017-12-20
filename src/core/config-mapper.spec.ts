@@ -176,6 +176,7 @@ describe('convertUIConfigForIOS function', () => {
       additionalParameter: 'additionalParameter',
       loader: false,
       controls: false,
+      title: false,
       screen: {
         someParameter: 'someParameter',
         indicateScreenClick: false,
@@ -201,6 +202,7 @@ describe('convertUIConfigForAndroid function', () => {
       additionalParameter: 'additionalParameter',
       loader: true,
       controls: true,
+      title: false,
       screen: {
         someParameter: 'someParameter',
         disableClickProcessing: true,
@@ -260,6 +262,7 @@ describe('getUIConfig function', () => {
       height: 20,
       loader: false,
       controls: false,
+      title: false,
       screen: {
         indicateScreenClick: false,
         disableClickProcessing: true,
@@ -285,6 +288,7 @@ describe('getUIConfig function', () => {
       height: 20,
       loader: false,
       controls: false,
+      title: false,
       screen: {
         indicateScreenClick: false,
         disableClickProcessing: true,
@@ -309,6 +313,7 @@ describe('getUIConfig function', () => {
       height: 20,
       loader: false,
       controls: false,
+      title: false,
       screen: {
         indicateScreenClick: false,
         disableClickProcessing: true,
@@ -333,6 +338,7 @@ describe('getUIConfig function', () => {
     expect(getUIConfig(params)).to.be.deep.equal({
       width: 10,
       height: 20,
+      title: false,
       screen: {
         disableClickProcessing: true,
       },
