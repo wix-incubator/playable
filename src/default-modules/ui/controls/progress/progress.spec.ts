@@ -90,7 +90,7 @@ describe('ProgressControl', () => {
 
       describe('before `METADATA_LOADED`', () => {
         it('should add one indicator', () => {
-          const timeIndicatorsNode = control.view._$timeIndicators[0];
+          const timeIndicatorsNode = control.view._$timeIndicators;
 
           control.addTimeIndicator(100);
 
@@ -114,7 +114,7 @@ describe('ProgressControl', () => {
         });
 
         it('should add multiple indicators', () => {
-          const timeIndicatorsNode = control.view._$timeIndicators[0];
+          const timeIndicatorsNode = control.view._$timeIndicators;
 
           control.addTimeIndicators([100, 200, 300]);
 
@@ -154,7 +154,7 @@ describe('ProgressControl', () => {
         });
 
         it('should add one indicator', () => {
-          const timeIndicatorsNode = control.view._$timeIndicators[0];
+          const timeIndicatorsNode = control.view._$timeIndicators;
 
           expect(
             timeIndicatorsNode.childNodes.length,
@@ -170,7 +170,7 @@ describe('ProgressControl', () => {
         });
 
         it('should add multiple indicator', () => {
-          const timeIndicatorsNode = control.view._$timeIndicators[0];
+          const timeIndicatorsNode = control.view._$timeIndicators;
 
           expect(
             timeIndicatorsNode.childNodes.length,
@@ -186,7 +186,7 @@ describe('ProgressControl', () => {
         });
 
         it('should ignore time more then video duration time', () => {
-          const timeIndicatorsNode = control.view._$timeIndicators[0];
+          const timeIndicatorsNode = control.view._$timeIndicators;
 
           expect(
             timeIndicatorsNode.childNodes.length,
@@ -202,7 +202,7 @@ describe('ProgressControl', () => {
         });
 
         it('should delete all added indicators', () => {
-          const timeIndicatorsNode = control.view._$timeIndicators[0];
+          const timeIndicatorsNode = control.view._$timeIndicators;
 
           control.addTimeIndicators([100, 200, 300]);
 
