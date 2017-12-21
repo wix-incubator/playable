@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
+import DocSearch from './DocSearch';
 
 import logoImage from './logo.png';
 
@@ -11,14 +12,7 @@ function Header() {
           <img src={logoImage} alt="logo" className="logo" />
         </Link>
       </div>
-      <div className="search">
-        <input
-          type="text"
-          className="search"
-          id="input-search-custom"
-          placeholder="Search"
-        />
-      </div>
+      <DocSearch />
     </div>
   );
 }
