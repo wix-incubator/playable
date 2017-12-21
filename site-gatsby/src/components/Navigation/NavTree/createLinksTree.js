@@ -1,27 +1,23 @@
 import Slugger from 'github-slugger';
 
-const slugger = new Slugger();
+function createLinksTree(location, headings) {
+  const slugger = new Slugger();
 
-function createLinksTree(headings) {
-  return headings.reduce(
-    (acc, heading) => {
-      const link = {
-        ...heading,
-        to: `#${slugger.slug(heading.value)}`,
-        children: [],
-      };
+  return headings.reduce((tree, heading) => {
+    const link = {
+      ...heading,
+      to: `${location.pathname}#${slugger.slug(heading.value)}`,
+      children: [],
+    };
 
-      if (link.depth === 1) {
-        acc.last = link;
-        acc.tree.push(link);
-      } else {
-        acc.last.children.push(link);
-      }
+    if (link.depth === 1) {
+      tree.push(link);
+    } else {
+      tree[tree.length - 1].children.push(link);
+    }
 
-      return acc;
-    },
-    { tree: [], last: null }
-  ).tree;
+    return tree;
+  }, []);
 }
 
 export default createLinksTree;

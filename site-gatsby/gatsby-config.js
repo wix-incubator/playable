@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Default Starter',
+    title: 'video-player.js',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -29,8 +29,7 @@ module.exports = {
         plugins: [
           'gatsby-remark-autolink-headers',
           'gatsby-remark-prismjs',
-          'gatsby-remark-external-links',
-          'gatsby-plugin-catch-links',
+          'gatsby-remark-external-links'
         ],
       },
     },

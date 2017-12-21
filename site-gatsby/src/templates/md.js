@@ -1,16 +1,25 @@
 import React, { Fragment } from 'react';
 import Navigation from '../components/Navigation/Navigation';
 
-function Template({ data: { page } }) {
+function Template({ location, data: { page } }) {
+  let headings = page.headings;
+  let html = page.html;
+
+  const includes = page.frontmatter && page.frontmatter.include;
+
+  if (includes) {
+    includes.forEach(({ childMarkdownRemark }) => {
+      headings = headings.concat(childMarkdownRemark.headings);
+      html += childMarkdownRemark.html;
+    });
+  }
+
   return (
     <Fragment>
-      <Navigation headings={page.headings}/>
+      <Navigation location={location} headings={headings} />
       <div className="page-wrapper">
         <div className="dark-box" />
-        <div
-          className="content"
-          dangerouslySetInnerHTML={{ __html: page.html }}
-        />
+        <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
         <div className="dark-box" />
       </div>
     </Fragment>
@@ -22,6 +31,15 @@ export const query = graphql`
     page: markdownRemark(fields: { slug: { eq: $slug } }) {
       frontmatter {
         title
+        include {
+          childMarkdownRemark {
+            headings {
+              value
+              depth
+            }
+            html
+          }
+        }
       }
       headings {
         depth

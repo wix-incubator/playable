@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
@@ -8,11 +8,11 @@ import Header from '../components/Header';
 import '../assets/stylesheets/screen.scss';
 import '../assets/stylesheets/prism.scss';
 
-function TemplateWrapper({ children }) {
+function TemplateWrapper({ children, data }) {
   return (
-    <div>
+    <Fragment>
       <Helmet
-        title="Gatsby Default Starter"
+        title={data.site.siteMetadata.title}
         meta={[
           { name: 'description', content: 'Sample' },
           { name: 'keywords', content: 'sample, something' },
@@ -20,12 +20,22 @@ function TemplateWrapper({ children }) {
       />
       <Header />
       {children()}
-    </div>
+    </Fragment>
   );
 }
 
 TemplateWrapper.propTypes = {
   children: PropTypes.func,
 };
+
+export const query = graphql`
+  query LayoutQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`;
 
 export default TemplateWrapper;

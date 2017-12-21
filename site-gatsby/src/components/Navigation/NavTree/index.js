@@ -1,1 +1,1 @@
-export {default} from './NavTree';
+export { default } from './NavTree';

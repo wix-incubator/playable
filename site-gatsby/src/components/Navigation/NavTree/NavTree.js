@@ -4,8 +4,8 @@ import Link from 'gatsby-link';
 
 import createLinksTree from './createLinksTree';
 
-function NavTree({ headings, isOpen }) {
-  const navTree = createLinksTree(headings);
+function NavTree({ location, headings, isOpen }) {
+  const navTree = createLinksTree(location, headings);
 
   return (
     <div className={classNames('toc-wrapper', { open: isOpen })}>
@@ -16,20 +16,26 @@ function NavTree({ headings, isOpen }) {
               {link.value}
             </Link>
             {link.children &&
-            link.children.length > 0 && (
-              <ul className="toc-list-h2">
-                {link.children.map(childLink => (
-                  <li key={childLink.to}>
-                    <Link to={childLink.to} className={classNames('toc-link', 'toc-h2')}>
-                      {childLink.value}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+              link.children.length > 0 && (
+                <ul className="toc-list-h2">
+                  {link.children.map(childLink => (
+                    <li key={childLink.to}>
+                      <Link
+                        to={childLink.to}
+                        className={classNames('toc-link', 'toc-h2')}
+                      >
+                        {childLink.value}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
           </li>
         ))}
       </div>
+      <ul className="toc-footer">
+        <li><Link to="docs/api">API reference</Link></li>
+      </ul>
     </div>
   );
 }

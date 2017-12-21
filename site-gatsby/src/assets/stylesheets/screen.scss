@@ -277,7 +277,7 @@ body {
   z-index: 10;
 
   min-height: 100%;
-  margin-top: 30px;
+  margin-top: 60px;
   margin-left: $nav-width;
   padding-bottom: 1px; // prevent margin overflow
 
@@ -410,7 +410,7 @@ body {
 
     margin-top: 0;
     margin-bottom: $h1-margin-bottom;
-    padding-top: 3em;
+    padding-top: 2.5em;
     padding-bottom: .5em;
 
     @extend %header-font;

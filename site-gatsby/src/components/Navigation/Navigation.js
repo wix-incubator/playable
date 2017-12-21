@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import Link from 'gatsby-link';
 
 import NavButton from './NavButton';
 import NavTree from './NavTree';
@@ -13,7 +14,7 @@ class Navigation extends Component {
   }
 
   render() {
-    const { headings } = this.props;
+    const { location, headings } = this.props;
     const { isOpen } = this.state;
 
     return (
@@ -26,7 +27,7 @@ class Navigation extends Component {
             }));
           }}
         />
-        <NavTree headings={headings} isOpen={isOpen}/>
+        <NavTree location={location} headings={headings} isOpen={isOpen} />
       </Fragment>
     );
   }

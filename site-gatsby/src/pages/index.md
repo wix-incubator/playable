@@ -51,9 +51,3 @@ document.addEventListener('DOMContentLoaded', function() {
 `const player = VideoPlayer.create(config);`
 
 `player.attachToElement(document.getElementById('content'));`
-
-
-## Player public methods
-
-You can find all public methods here:
-[docs/player-public-methods](docs/player-public-methods)
