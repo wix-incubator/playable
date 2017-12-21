@@ -70,6 +70,8 @@ body {
 
     padding: 0 15px 0 35px;
 
+    transition: .3s background;
+
     color: #fff;
     border: 0;
     border-radius: 40px;
@@ -281,7 +283,7 @@ body {
   z-index: 10;
 
   min-height: 100%;
-  margin-top: $header-height;
+  margin-top: 30px;
   margin-left: $nav-width;
   padding-bottom: 1px; // prevent margin overflow
 
@@ -359,8 +361,6 @@ body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
-
-  padding-top: $content-top-padding;
   // fixes webkit rendering bug for some: see #538
 
   -webkit-transform: translateZ(0);
@@ -414,9 +414,9 @@ body {
     font-size: 25px;
     font-weight: normal;
 
-    margin-top: 3em;
+    margin-top: 0;
     margin-bottom: $h1-margin-bottom;
-    padding-top: .5em;
+    padding-top: 3em;
     padding-bottom: .5em;
 
     @extend %header-font;
