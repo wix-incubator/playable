@@ -4,7 +4,7 @@ title: API Reference
 toc_footers:
   - <a href='api.html'>API reference</a>
 
-search: true
+search: false
 ---
 
 # video-player.js

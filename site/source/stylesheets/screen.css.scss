@@ -233,8 +233,8 @@ body {
   line-height: 16px;
 
   position: fixed;
-  z-index: 100;
-  top: 0;
+  z-index: 300;
+  top: $header-height;
   left: 0;
 
   display: none;
@@ -713,6 +713,24 @@ body {
   .toc-link {
     padding-top: .3em;
     padding-bottom: .3em;
+  }
+
+  .content .method-list {
+    tr {
+      display: block;
+    }
+
+    td {
+      display: block;
+
+      padding: 10px 0;
+    }
+
+    .param {
+      width: auto;
+
+      text-align: left;
+    }
   }
 }
 

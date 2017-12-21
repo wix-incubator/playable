@@ -4,7 +4,7 @@ title: API Reference
 includes:
   - API
 
-search: true
+search: false
 ---
 
 # config
