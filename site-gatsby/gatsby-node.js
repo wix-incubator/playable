@@ -23,7 +23,6 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
 exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
 
-
   return graphql(`
       {
         allFile {
@@ -48,8 +47,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       data.allFile.edges.forEach(({ node }) => {
         if (node.childMarkdownRemark) {
           const markdown = node.childMarkdownRemark;
-          const isDocs = node.sourceInstanceName === 'docs';
-          const templatePath = `./src/templates/${isDocs ? 'docs-md' : 'md'}.js`;
+          // const isDocs = node.sourceInstanceName === 'docs';
+          // const templatePath = `./src/templates/${isDocs ? 'docs-md' : 'md'}.js`;
+          const templatePath = './src/templates/md.js';
 
           createPage({
             path: markdown.fields.slug,

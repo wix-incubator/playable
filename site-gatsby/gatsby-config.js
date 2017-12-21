@@ -5,12 +5,7 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-catch-links',
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography.js`,
-      },
-    },
+    'gatsby-plugin-sass',
     // NOTE: You can have multiple instances of this plugin
     // to read source nodes from different locations on your
     // filesystem.
