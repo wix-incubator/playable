@@ -34,7 +34,9 @@ function NavTree({ location, headings, isOpen }) {
         ))}
       </div>
       <ul className="toc-footer">
-        <li><Link to="docs/api">API reference</Link></li>
+        <li>
+          <Link to="docs/api">API reference</Link>
+        </li>
       </ul>
     </div>
   );
