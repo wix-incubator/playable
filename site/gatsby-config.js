@@ -1,4 +1,6 @@
 module.exports = {
+  // NOTE: https://www.gatsbyjs.org/docs/path-prefix/
+  pathPrefix: `/video-player.js`,
   siteMetadata: {
     title: 'video-player.js',
   },

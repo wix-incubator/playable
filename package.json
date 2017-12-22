@@ -20,6 +20,7 @@
     "test": "npm run test:unit && npm run test:playback",
     "documentation": "ts-node ./scripts/documentation > ./docs/player-public-methods.md",
     "documentation:gitadd": "npm run documentation && git add ./docs/player-public-methods.md",
+    "deploy": "cd site && npm run deploy",
     "release": "haste release",
     "tslint": "ts-node node_modules/.bin/tslint -p . -c tslint.json",
     "tslint:all": "npm run tslint -- '{src,scripts}/**/*.ts'",

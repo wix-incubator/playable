@@ -14,7 +14,7 @@ class Navigation extends Component {
   }
 
   render() {
-    const { location, headings } = this.props;
+    const { headings } = this.props;
     const { isOpen } = this.state;
 
     return (
@@ -27,7 +27,7 @@ class Navigation extends Component {
             }));
           }}
         />
-        <NavTree location={location} headings={headings} isOpen={isOpen} />
+        <NavTree headings={headings} isOpen={isOpen} />
       </Fragment>
     );
   }

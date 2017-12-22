@@ -1,12 +1,12 @@
 import Slugger from 'github-slugger';
 
-function createLinksTree(location, headings) {
+function createLinksTree(headings) {
   const slugger = new Slugger();
 
   return headings.reduce((tree, heading) => {
     const link = {
       ...heading,
-      to: `${location.pathname}#${slugger.slug(heading.value)}`,
+      to: `#${slugger.slug(heading.value)}`,
       children: [],
     };
 

@@ -45,7 +45,7 @@ const handleDemoClicks = function() {
       return;
     }
 
-    if (href.includes('jsfiddle')) {
+    if (href && href.includes('jsfiddle')) {
       e.preventDefault();
       openPopup(href);
     }
