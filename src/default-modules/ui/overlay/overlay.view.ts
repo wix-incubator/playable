@@ -12,7 +12,7 @@ class OverlayView extends View {
   $playButton;
 
   constructor(config) {
-    super(config);
+    super();
     const { callbacks, src } = config;
 
     this._callbacks = callbacks;

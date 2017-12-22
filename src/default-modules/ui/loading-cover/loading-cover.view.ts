@@ -9,7 +9,7 @@ class LoadingCoverView extends View {
   $image;
 
   constructor(config) {
-    super(config);
+    super();
 
     this.$node = $('<div>', {
       class: this.styleNames['loading-cover'],

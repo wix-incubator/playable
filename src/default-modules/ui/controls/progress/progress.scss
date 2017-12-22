@@ -1,89 +1,243 @@
 @import '../../shared';
 
+$progress-bar-height: 6px;
+$progress-bar-height-full-screen: 8px;
+
+$seek-pointer-height: 12px;
+$seek-pointer-width: 12px;
+
+$seek-pointer-height-full-screen: 16px;
+$seek-pointer-width-full-screen: 16px;
+
+$sync-pointer-height: 6px;
+$sync-pointer-width: 6px;
+$sync-pointer-hover-height: 8px;
+$sync-pointer-hover-width: 8px;
+$sync-pointer-border: 2px;
+$sync-pointer-hover-border: 3px;
+
+$sync-pointer-height-full-screen: 8px;
+$sync-pointer-width-full-screen: 8px;
+$sync-pointer-hover--height-full-screen: 10px;
+$sync-pointer-hover--width-full-screen: 10px;
+
+$color-played: #fff;
+$color-seek-to: rgba(255, 255, 255, .5);
+$color-played-live: #ea492e;
+$color-seek-to-live: rgba(234,73,46, .5);
+
 .seek-block {
   position: relative;
 
   display: block;
-  flex: 1;
 
-  margin: 0 8px;
+  width: 100%;
+  height: $progress-bar-height;
 
-  cursor: pointer;
   transition: opacity .2s, visibility .2s;
 
   @include in-full-screen() {
-    margin-right: 20px;
+    height: $progress-bar-height-full-screen;
   }
-  @include max-width-400() {
-    @include hidden();
+  touch-action: none;
+
+  &.in-live {
+    .played {
+      background-color: $color-played-live;
+    }
+    .seek-to {
+      background-color: $color-seek-to-live;
+    }
+  }
+
+  &:hover,
+  &.is-dragging {
+    .progress-bars-wrapper {
+      transform: scaleY(1);
+
+      @include in-full-screen() {
+        transform: scaleY(1);
+      }
+      .seek-to {
+        opacity: 1;
+      }
+      .played:after {
+        transform: scale(1);
+      }
+      .time-indicator:after {
+        transform: scale(1);
+      }
+    }
+
+    .sync-button {
+      top: -($sync-pointer-hover-height + 2 * $sync-pointer-hover-border - $progress-bar-height) / 2;
+      right: -($sync-pointer-hover-width + 2 * $sync-pointer-hover-border) / 2;
+
+      width: $sync-pointer-hover-width;
+      height: $sync-pointer-hover-height;
+
+      opacity: 1;
+      border: $sync-pointer-hover-border solid white;
+    }
+  }
+}
+
+.sync-button {
+  position: absolute;
+  z-index: 6;
+  top: -($sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height) / 2;
+  right: -($sync-pointer-width + 2 * $sync-pointer-border) / 2;
+
+  width: $sync-pointer-width;
+  height: $sync-pointer-height;
+
+  cursor: pointer;
+  transition: opacity .2s;
+
+  opacity: .6;
+  border: $sync-pointer-border solid white;
+  border-radius: 50%;
+  background-color: red;
+
+  @include in-full-screen() {
+    top: -$progress-bar-height-full-screen / 2;
+    right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-border) / 2;
+
+    width: $sync-pointer-width-full-screen;
+    height: $sync-pointer-height-full-screen;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.progress-bars-wrapper {
+  height: $progress-bar-height;
+
+  transition: transform .1s cubic-bezier(.0,.0,.2,1);
+  transform: scaleY(.34);
+
+  @include in-full-screen() {
+    height: $progress-bar-height-full-screen;
+
+    transform: scaleY(.25);
   }
 }
 
 .progress-bar {
   position: absolute;
-  top: 50%;
-  left: 0;
 
-  height: 2px;
-  margin: -1px 0 0;
+  height: $progress-bar-height;
   padding: 0;
 
-  vertical-align: top;
-
-  border: none;
-}
-
-.progress-played {
-  background-color: $color-main;
-
-  &:before {
-    position: absolute;
-    top: -4px;
-    right: -5px;
-
-    width: 10px;
-    height: 10px;
-
-    content: '';
-    transition: transform .1s cubic-bezier(.0,.0,.2,1);
-
-    border-radius: 50%;
-    background-color: #fff;
+  @include in-full-screen() {
+    height: $progress-bar-height-full-screen;
   }
 }
 
-.progress-buffered {
+.played {
+  background-color: $color-played;
+
+  &:after {
+    position: absolute;
+    top: -$seek-pointer-height / 4;
+    right: -$seek-pointer-width / 2;
+
+    width: $seek-pointer-width;
+    height: $seek-pointer-height;
+
+    content: '';
+    transition: transform .1s cubic-bezier(.0,.0,.2,1);
+    transform: scale(0);
+
+    border-radius: 50%;
+    background-color: #fff;
+
+    @include in-full-screen() {
+      top: -$progress-bar-height-full-screen / 2;
+      right: -$seek-pointer-width-full-screen / 2;
+
+      width: $seek-pointer-width-full-screen;
+      height: $seek-pointer-height-full-screen;
+    }
+  }
+}
+
+.buffered {
   transition: width .2s ease;
 
-  background-color: $video-progress-bg;
+  background-color: transparentize(#fff, .75);
 }
 
-.progress-background {
+.background {
   width: 100%;
 
-  background-color: $video-progress-bg;
+  background-color: transparentize(#fff, .75);
 }
 
+.seek-to {
+  transition: opacity .2s;
+  //opacity: 0;
 
-.seek-control {
+  background-color: $color-seek-to;
+}
+
+.time-indicators {
+  position: absolute;
+
+  overflow-x: hidden;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: transparent;
+}
+
+.time-indicator {
+  position: absolute;
+
+  &:after {
+    position: absolute;
+    right: -$progress-bar-height / 2;
+
+    width: $progress-bar-height;
+    height: $progress-bar-height;
+
+    content: '';
+    transition: transform .1s cubic-bezier(.0, .0, .2, 1);
+    transform: scale(0);
+
+    opacity: .6;
+    border-radius: 50%;
+    background-color: #fff;
+
+    @include in-full-screen() {
+      right: -$progress-bar-height-full-screen / 2;
+
+      width: $progress-bar-height-full-screen;
+      height: $progress-bar-height-full-screen;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.hitbox {
   position: relative;
-  z-index: 2;
+  z-index: 5;
+  top: -11px;
 
   display: block;
 
   width: 100%;
-  height: 15px;
-  margin: 0;
-  padding: 0;
+  height: 16px;
 
   cursor: pointer;
-  vertical-align: middle;
 
   opacity: 0;
-  border: none;
-  background: transparent;
-
-  appearance: none;
 }
 
 :global {

@@ -12,7 +12,6 @@ describe('container created by createContainer', () => {
   });
 
   it('should have method for registering and resolving modules', () => {
-    const value = 10;
     const valueRegistration = asValue(10);
     container.register('value', valueRegistration);
     sinon.spy(valueRegistration, 'resolve');

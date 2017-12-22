@@ -79,16 +79,16 @@ describe('getOverallBufferedPercent', () => {
 
     expect(
       getOverallBufferedPercent(buffer, currentTime1, duration1),
-    ).to.be.equal('20.0');
+    ).to.be.equal(20);
     expect(
       getOverallBufferedPercent(buffer, currentTime1, duration2),
-    ).to.be.equal('14.3');
+    ).to.be.equal(14.3);
     expect(
       getOverallBufferedPercent(buffer, currentTime2, duration1),
-    ).to.be.equal('100.0');
+    ).to.be.equal(100);
     expect(
       getOverallBufferedPercent(buffer, currentTime2, duration2),
-    ).to.be.equal('71.4');
+    ).to.be.equal(71.4);
   });
 });
 
@@ -108,11 +108,7 @@ describe('getOverallPlayedPercent', () => {
     const duration1 = 20;
     const duration2 = 90;
 
-    expect(getOverallPlayedPercent(currentTime1, duration1)).to.be.equal(
-      '50.0',
-    );
-    expect(getOverallPlayedPercent(currentTime2, duration2)).to.be.equal(
-      '100.0',
-    );
+    expect(getOverallPlayedPercent(currentTime1, duration1)).to.be.equal(50);
+    expect(getOverallPlayedPercent(currentTime2, duration2)).to.be.equal(100);
   });
 });

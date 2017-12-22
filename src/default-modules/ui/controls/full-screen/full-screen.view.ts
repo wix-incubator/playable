@@ -20,7 +20,7 @@ class FullScreenView extends View {
   $toggleFullScreenControl;
 
   constructor(config) {
-    super(config);
+    super();
     const { callbacks, texts } = config;
 
     this._callbacks = callbacks;

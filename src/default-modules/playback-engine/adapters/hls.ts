@@ -11,20 +11,23 @@ import {
   getNearestBufferSegmentInfo,
 } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
+import { IPlaybackAdapter } from './types';
 
+const LIVE_SYNC_DURATION = 4;
+const LIVE_SYNC_DURATION_DELTA = 1;
 const DEFAULT_HLS_CONFIG = {
   abrEwmaDefaultEstimate: 5000 * 1000,
-  liveSyncDuration: 4,
+  liveSyncDuration: LIVE_SYNC_DURATION,
 };
 
-export default class HlsAdapter {
+export default class HlsAdapter implements IPlaybackAdapter {
   static isSupported() {
     return NativeEnvironmentSupport.MSE && HlsJs.isSupported();
   }
 
   private eventEmitter;
   private hls;
-  private videoElement;
+  private videoElement: HTMLVideoElement;
   private mediaStream;
 
   constructor(eventEmitter) {
@@ -45,11 +48,18 @@ export default class HlsAdapter {
     return this.mediaStream.url;
   }
 
-  get livePosition() {
-    return this.hls.liveSyncPosition;
+  get syncWithLiveTime(): number {
+    if (!this.isDynamicContent) {
+      return;
+    }
+
+    return (
+      this.hls.liveSyncPosition ||
+      this.videoElement.duration - LIVE_SYNC_DURATION
+    );
   }
 
-  get isDynamicContent() {
+  get isDynamicContent(): boolean {
     if (!this.hls) {
       return false;
     }
@@ -58,7 +68,18 @@ export default class HlsAdapter {
     return details.live;
   }
 
-  get isSeekAvailable() {
+  get isSyncWithLive(): boolean {
+    if (!this.isDynamicContent) {
+      return false;
+    }
+
+    return (
+      this.videoElement.currentTime >
+      this.syncWithLiveTime - LIVE_SYNC_DURATION_DELTA
+    );
+  }
+
+  get isSeekAvailable(): boolean {
     if (this.isDynamicContent) {
       const { details } = this.hls.levels[this.hls.firstLevel];
 
@@ -133,7 +154,8 @@ export default class HlsAdapter {
     });
   }
 
-  broadcastError(error, data) {
+  broadcastError(_error, data) {
+    // TODO: `_error` argument is unused
     if (!data.fatal) {
       return;
     }

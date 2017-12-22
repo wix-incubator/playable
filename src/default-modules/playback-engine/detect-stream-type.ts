@@ -17,9 +17,7 @@ export function detectStreamType(url) {
   }
 
   throw new Error(
-    `Vidi: cannot auto-detect url '${
-      url
-    }'. Please specify type manually using the MediaStream interface.`,
+    `Vidi: cannot auto-detect url '${url}'. Please specify type manually using the MediaStream interface.`,
   );
 }
 

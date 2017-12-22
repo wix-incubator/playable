@@ -20,7 +20,7 @@ describe('registerModule', () => {
 
     registerModule('ClassA', ClassA);
 
-    const player = create();
+    /*const player = */ create();
     expect(spy.called).to.be.true;
     clearAdditionalModules();
   });

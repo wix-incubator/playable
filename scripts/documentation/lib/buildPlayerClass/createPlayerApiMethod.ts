@@ -1,10 +1,6 @@
 import * as t from '@babel/types';
 
-import {
-  getDecoratorArguments,
-  isJSDocComment,
-  createJSDocCommentBlock,
-} from '../utils/ast';
+import { isJSDocComment, createJSDocCommentBlock } from '../utils/ast';
 
 import {
   isPlayerApiDecorator,

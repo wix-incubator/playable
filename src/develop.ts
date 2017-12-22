@@ -15,7 +15,8 @@ const player: any = VideoPlayer.create({
   loop: false,
   preload: 'metadata',
   volume: 100,
-  title: 'I hate this video',
+  title:
+    'I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video!',
   fillAllSpace: false,
   size: {
     width: 760,
@@ -23,7 +24,7 @@ const player: any = VideoPlayer.create({
   },
   src: DEFAULT_URL,
   controls: {
-    shouldAlwaysShow: true,
+    shouldAlwaysShow: false,
     logo: {
       showAlways: false,
       src:
@@ -33,11 +34,11 @@ const player: any = VideoPlayer.create({
   overlay: false,
 });
 
-Reflect.defineProperty(window, 'player', {
+Object.defineProperty(window, 'player', {
   value: player,
 });
 
-Reflect.defineProperty(window, 'VideoPlayer', {
+Object.defineProperty(window, 'VideoPlayer', {
   value: VideoPlayer,
 });
 

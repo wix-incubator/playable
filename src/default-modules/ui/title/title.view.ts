@@ -14,17 +14,15 @@ class TitleView extends View {
   $title;
 
   constructor(config) {
-    super(config);
+    super();
 
     const { callbacks } = config;
 
     this._callbacks = callbacks;
 
-    this.$node = $('<div>', {
-      class: this.styleNames.wrapper,
-    });
+    this.$node = $('<div>');
 
-    this.$title = $('<span>', {
+    this.$title = $('<div>', {
       class: this.styleNames.title,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
     });
@@ -32,7 +30,6 @@ class TitleView extends View {
     this.$node.append(this.$title);
 
     this._bindEvents();
-    this.fadeIn();
   }
 
   _bindEvents() {
@@ -56,14 +53,6 @@ class TitleView extends View {
     } else {
       this.hide();
     }
-  }
-
-  fadeIn() {
-    this.$title.addClass(this.styleNames['fade-in']);
-  }
-
-  fadeOut() {
-    this.$title.removeClass(this.styleNames['fade-in']);
   }
 
   show() {

@@ -1,5 +1,7 @@
 import * as get from 'lodash/get';
 
+import playerAPI from '../../../../utils/player-api-decorator';
+
 import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
@@ -26,7 +28,6 @@ export default class Logo {
     this._config = {
       ...get(config, 'ui.controls.logo'),
     };
-
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._textMap = textMap;
@@ -87,10 +88,12 @@ export default class Logo {
     }
   }
 
+  @playerAPI()
   setLogo(url) {
     this.view.setLogo(url);
   }
 
+  @playerAPI()
   setLogoClickCallback(callback) {
     this._callback = callback;
     this.view.setDisplayAsLink(Boolean(this._callback));

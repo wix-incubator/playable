@@ -12,6 +12,7 @@ import {
 } from '../../utils/device-detection';
 
 import { VIDEO_EVENTS, STATES } from '../../constants/index';
+import { IPlaybackAdapter } from './adapters/types';
 
 export { STATES };
 
@@ -74,7 +75,7 @@ export default class Engine {
     this._applyConfig(config.engine);
   }
 
-  _createVideoTag(engine?) {
+  _createVideoTag() {
     this._video = document.createElement('video');
   }
 
@@ -138,7 +139,15 @@ export default class Engine {
     return this.getAutoPlay();
   }
 
-  get attachedAdapter() {
+  get isSyncWithLive(): boolean {
+    if (!this.attachedAdapter) {
+      return false;
+    }
+
+    return this.attachedAdapter.isSyncWithLive;
+  }
+
+  get attachedAdapter(): IPlaybackAdapter {
     return this._adapterStrategy.attachedAdapter;
   }
 
@@ -216,10 +225,16 @@ export default class Engine {
   }
 
   @playerAPI()
-  goLive() {
-    this.setCurrentTime(this.attachedAdapter.livePosition);
+  syncWithLive() {
+    if (
+      this.attachedAdapter &&
+      this.attachedAdapter.isDynamicContent &&
+      !this.isSyncWithLive
+    ) {
+      this.setCurrentTime(this.attachedAdapter.syncWithLiveTime);
 
-    this.play();
+      this.play();
+    }
   }
 
   @playerAPI()

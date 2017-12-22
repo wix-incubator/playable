@@ -3,24 +3,17 @@
 .time-wrapper {
   display: flex;
   flex: 0 0 auto;
-  //height: 15px;
 
-  margin-right: 18px;
+  height: 25px;
 
   align-items: center;
-  @include in-full-screen() {
-    margin-right: 30px;
-  }
-  @include max-width-300() {
-    @include hidden();
-  }
 }
 
 .time {
   font-size: 12px;
-  //line-height: 12px;
+  line-height: 25px;
 
-  color: $color-main;
+  color: white;
 
   @include in-full-screen() {
     font-size: 14px;

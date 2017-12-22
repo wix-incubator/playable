@@ -22,8 +22,8 @@ class TimeView extends View {
   $divider;
   $durationTime;
 
-  constructor(config?) {
-    super(config);
+  constructor() {
+    super();
 
     this.$node = $('<div>', {
       class: this.styleNames['time-wrapper'],

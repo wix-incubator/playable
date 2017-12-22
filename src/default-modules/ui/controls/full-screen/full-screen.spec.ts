@@ -1,35 +1,32 @@
 import 'jsdom-global/register';
-import { EventEmitter } from 'eventemitter3';
-
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import TextMap from '../../../text-map/text-map';
+import createPlayerTestkit from '../../../../testkit';
 
-import FullScreenControl from './full-screen.controler';
 import { UI_EVENTS } from '../../../../constants/index';
+class FullScreenManagerMock {
+  enterFullScreen = function() {};
+  exitFullScreen = function() {};
+  isEnabled = true;
+  _config: Object = {};
+}
 
 describe('FullScreenControl', () => {
+  let testkit;
   let control: any = {};
   let eventEmitter: any = {};
   let fullScreenManager: any = {};
-  let textMap: any;
-  let config: any = {};
 
   beforeEach(() => {
-    eventEmitter = new EventEmitter();
-    fullScreenManager = {
-      enterFullScreen: sinon.spy(),
-      exitFullScreen: sinon.spy(),
-    };
-    textMap = new TextMap({
-      config,
-    });
-    control = new FullScreenControl({
-      eventEmitter,
-      fullScreenManager,
-      textMap,
-    });
+    testkit = createPlayerTestkit();
+    testkit.registerModuleAsSingleton(
+      'fullScreenManager',
+      FullScreenManagerMock,
+    );
+    fullScreenManager = testkit.getModule('fullScreenManager');
+    eventEmitter = testkit.getModule('eventEmitter');
+    control = testkit.getModule('fullScreenControl');
   });
 
   describe('constructor', () => {
@@ -80,12 +77,16 @@ describe('FullScreenControl', () => {
 
   describe('internal methods', () => {
     it('should call callbacks from uiView', () => {
-      const emit = sinon.spy(eventEmitter, 'emit');
+      const enterSpy = sinon.spy(fullScreenManager, 'enterFullScreen');
+      const exitSpy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
       control._enterFullScreen();
-      expect(fullScreenManager.enterFullScreen.called).to.be.true;
+      expect(enterSpy.called).to.be.true;
       control._exitFullScreen();
-      expect(fullScreenManager.exitFullScreen.called).to.be.true;
+      expect(exitSpy.called).to.be.true;
+
+      fullScreenManager.enterFullScreen.restore();
+      fullScreenManager.exitFullScreen.restore();
     });
   });
 

@@ -38,7 +38,7 @@ class DebugPanelView extends View {
   $close;
 
   constructor(config) {
-    super(config);
+    super();
     this.config = config;
 
     this.$node = $('<div>', {

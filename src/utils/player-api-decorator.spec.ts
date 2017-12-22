@@ -49,7 +49,7 @@ describe('Decorator playerAPI', () => {
         return;
       }
 
-      set a(a) {}
+      set a(_) {}
     }
 
     expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({

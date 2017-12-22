@@ -16,7 +16,7 @@ class LogoView extends View {
   $tooltip;
 
   constructor(config) {
-    super(config);
+    super();
     const { callbacks, texts } = config;
 
     this._callbacks = callbacks;

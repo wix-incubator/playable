@@ -16,7 +16,7 @@ export default class VolumeControl {
   private _textMap;
 
   private _isMuted: boolean;
-  private _volumeLevel: number;
+  private _volume: number;
 
   private _buttonInterceptor;
   private _inputInterceptor;
@@ -30,7 +30,7 @@ export default class VolumeControl {
     this._textMap = textMap;
 
     this._isMuted = this._engine.getMute();
-    this._volumeLevel = this._engine.getVolume();
+    this._volume = this._engine.getVolume();
 
     this._bindCallbacks();
 
@@ -38,10 +38,8 @@ export default class VolumeControl {
 
     this._bindEvents();
 
-    this.view.setState({
-      volume: this._volumeLevel,
-      isMuted: this._isMuted,
-    });
+    this.view.setVolume(this._volume);
+    this.view.setMute(this._isMuted);
 
     this._initInterceptor();
   }
@@ -50,9 +48,11 @@ export default class VolumeControl {
     return this.view.getNode();
   }
 
-  _initUI() {
+  private _initUI() {
     const config = {
       callbacks: {
+        onDragStart: this._broadcastDragStart,
+        onDragEnd: this._broadcastDragEnd,
         onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
         onToggleMuteClick: this._toggleMuteStatus,
@@ -63,9 +63,9 @@ export default class VolumeControl {
     this.view = new VolumeControl.View(config);
   }
 
-  _initInterceptor() {
+  private _initInterceptor() {
     this._buttonInterceptor = new KeyboardInterceptor({
-      node: this.view.$muteControl[0],
+      node: this.view.getButtonNode(),
       callbacks: {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
@@ -91,7 +91,7 @@ export default class VolumeControl {
     });
 
     this._inputInterceptor = new KeyboardInterceptor({
-      node: this.view.$input[0],
+      node: this.view.getInputNode(),
       callbacks: {
         [KEYCODES.RIGHT_ARROW]: e => {
           e.stopPropagation();
@@ -119,12 +119,12 @@ export default class VolumeControl {
     });
   }
 
-  _destroyInterceptor() {
+  private _destroyInterceptor() {
     this._buttonInterceptor.destroy();
     this._inputInterceptor.destroy();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.VOLUME_STATUS_CHANGED,
       this._updateVolumeStatus,
@@ -132,56 +132,64 @@ export default class VolumeControl {
     );
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
     this._toggleMuteStatus = this._toggleMuteStatus.bind(this);
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
+    this._broadcastDragStart = this._broadcastDragStart.bind(this);
+    this._broadcastDragEnd = this._broadcastDragEnd.bind(this);
   }
 
-  _changeVolumeLevel(level) {
+  private _broadcastDragStart() {
+    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
+  }
+
+  private _broadcastDragEnd() {
+    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
+  }
+
+  private _changeVolumeLevel(level) {
     this._engine.setVolume(level);
     this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
   }
 
-  _toggleMuteStatus() {
+  private _toggleMuteStatus() {
     this._engine.setMute(!this._isMuted);
     this._eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, !this._isMuted);
   }
 
-  _getVolumeLevelFromWheel(delta) {
-    const adjustedVolume = this._volumeLevel + delta / 10;
+  private _getVolumeLevelFromWheel(delta) {
+    const adjustedVolume = this._volume + delta / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
 
     this._changeVolumeStatus(validatedVolume);
   }
 
-  _getVolumeLevelFromInput(level) {
+  private _getVolumeLevelFromInput(level) {
     this._changeVolumeStatus(level);
   }
 
-  _changeVolumeStatus(level) {
+  private _changeVolumeStatus(level) {
     this._changeVolumeLevel(level);
     if (this._isMuted) {
       this._toggleMuteStatus();
     }
   }
 
-  _updateVolumeStatus() {
+  private _updateVolumeStatus() {
     this.setVolumeLevel(this._engine.getVolume());
     this.setMuteStatus(this._engine.getMute());
   }
 
   setVolumeLevel(level) {
-    if (level === this._volumeLevel) {
+    if (level === this._volume) {
       return;
     }
 
-    this._volumeLevel = level;
+    this._volume = level;
 
-    this.view.setState({
-      volume: this._volumeLevel,
-      isMuted: !this._volumeLevel,
-    });
+    this.view.setVolume(this._volume);
+    this.view.setMute(Boolean(!this._volume));
   }
 
   setMuteStatus(isMuted) {
@@ -191,10 +199,8 @@ export default class VolumeControl {
 
     this._isMuted = isMuted;
 
-    this.view.setState({
-      volume: this._isMuted ? 0 : this._volumeLevel,
-      isMuted: this._isMuted || !this._volumeLevel,
-    });
+    this.view.setVolume(this._isMuted ? 0 : this._volume);
+    this.view.setMute(this._isMuted || Boolean(!this._volume));
   }
 
   hide() {
@@ -207,7 +213,7 @@ export default class VolumeControl {
     this.view.show();
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.VOLUME_STATUS_CHANGED,
       this._updateVolumeStatus,
@@ -224,9 +230,5 @@ export default class VolumeControl {
     delete this._eventEmitter;
     delete this._engine;
     delete this._textMap;
-
-    this.isHidden = null;
-    this._isMuted = null;
-    this._volumeLevel = null;
   }
 }

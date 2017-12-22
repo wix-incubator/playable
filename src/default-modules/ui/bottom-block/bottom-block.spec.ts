@@ -1,72 +1,21 @@
 import 'jsdom-global/register';
-
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import ControlsBlock from './controls.controler';
-
-import RootContainer from '../../root-container/root-container.controler';
-import Engine from '../../playback-engine/playback-engine';
-import { container } from '../../../core/player-factory';
+import createPlayerTestkit from '../../../testkit';
 
 import { VIDEO_EVENTS, STATES } from '../../../constants/index';
 
-import { EventEmitter } from 'eventemitter3';
-
-describe('ControlsBlock', () => {
+describe('BottomBlock', () => {
+  let testkit;
   let controls;
-  let ui;
-  let engine;
   let eventEmitter;
-  let config = {};
-  let scope;
-  let rootContainer;
-  let screen;
 
   beforeEach(() => {
-    config = {
-      ui: {},
-    };
-    ui = {
-      setFullScreenStatus() {},
-      get node() {
-        return document.createElement('video');
-      },
-      exitFullScreen() {},
-      enterFullScreen() {},
-    };
-    screen = {
-      showBottomShadow() {},
-      hideBottomShadow() {},
-    };
+    testkit = createPlayerTestkit();
 
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
-    scope = container.createScope();
-    scope.registerValue({
-      config,
-      availablePlaybackAdapters: [],
-    });
-    rootContainer = new RootContainer({
-      eventEmitter,
-      engine,
-      config,
-    });
-    controls = new ControlsBlock(
-      {
-        // TODO: do we need `ui` here?
-        // ui,
-        engine,
-        eventEmitter,
-        config,
-        rootContainer,
-        screen,
-      },
-      scope,
-    );
+    eventEmitter = testkit.getModule('eventEmitter');
+    controls = testkit.getModule('bottomBlock');
   });
   describe('constructor', () => {
     it('should create instance ', () => {
@@ -79,7 +28,7 @@ describe('ControlsBlock', () => {
     it('should have method for setting controls focused state', () => {
       expect(controls._setFocusState).to.exist;
       controls._setFocusState();
-      expect(controls._isControlsFocused).to.be.true;
+      expect(controls._isBlockFocused).to.be.true;
     });
 
     it('should have method for removing controls focused state', () => {
@@ -88,14 +37,13 @@ describe('ControlsBlock', () => {
       controls._removeFocusState({
         stopPropagation: () => {},
       });
-      expect(controls._isControlsFocused).to.be.false;
+      expect(controls._isBlockFocused).to.be.false;
     });
 
     it('should have method for setting playback status', () => {
       expect(controls._updatePlayingStatus).to.exist;
 
-      const startTimeout = sinon.spy(controls, '_startHideControlsTimeout');
-      const hideTimeout = sinon.spy(controls, '_hideContent');
+      const startTimeout = sinon.spy(controls, '_startHideBlockTimeout');
       const showTimeout = sinon.spy(controls, '_showContent');
 
       controls._updatePlayingStatus({ nextState: STATES.PLAY_REQUESTED });
@@ -113,9 +61,9 @@ describe('ControlsBlock', () => {
     it('should have method for hiding controls on timeout', () => {
       const timeoutSpy = sinon.spy(global, 'setTimeout');
       const clearSpy = sinon.spy(global, 'clearTimeout');
-      controls._startHideControlsTimeout();
+      controls._startHideBlockTimeout();
       expect(timeoutSpy.calledWith(controls._tryHideContent)).to.be.true;
-      controls._startHideControlsTimeout();
+      controls._startHideBlockTimeout();
       expect(clearSpy.called).to.be.true;
 
       timeoutSpy.restore();
@@ -160,16 +108,12 @@ describe('ControlsBlock', () => {
   });
 
   describe('View', () => {
-    it('should have method for adding node with control', () => {
-      expect(controls.view.appendControlNode).to.exist;
-    });
-
     it('should have method for showing block with controls', () => {
-      expect(controls.view.showControlsBlock).to.exist;
+      expect(controls.view.showContent).to.exist;
     });
 
     it('should have method for hidding block with controls', () => {
-      expect(controls.view.hideControlsBlock).to.exist;
+      expect(controls.view.hideContent).to.exist;
     });
 
     it('should have method for showing itself', () => {

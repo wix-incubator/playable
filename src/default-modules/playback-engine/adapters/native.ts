@@ -5,6 +5,7 @@ import {
   getNearestBufferSegmentInfo,
 } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
+import { IPlaybackAdapter } from './types';
 
 const NATIVE_ERROR_CODES = {
   ABORTED: 1,
@@ -14,7 +15,7 @@ const NATIVE_ERROR_CODES = {
 };
 
 export default function getNativeAdapterCreator(streamType, deliveryType) {
-  class NativeAdapter {
+  class NativeAdapter implements IPlaybackAdapter {
     static isSupported() {
       return NativeEnvironmentSupport[streamType];
     }
@@ -36,8 +37,18 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
       return this.mediaStreams[this.currentLevel].url;
     }
 
+    get syncWithLiveTime() {
+      // TODO: implement syncWithLiveTime for `native`
+      return undefined;
+    }
+
     get isDynamicContent() {
-      return Number.isFinite(this.videoElement.duration);
+      return !Number.isFinite(this.videoElement.duration);
+    }
+
+    get isSyncWithLive() {
+      // TODO: implement isSyncWithLive for `native`
+      return false;
     }
 
     get isSeekAvailable() {

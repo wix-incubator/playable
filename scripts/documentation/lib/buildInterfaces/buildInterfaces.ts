@@ -1,4 +1,3 @@
-import * as t from '@babel/types';
 import * as _ from 'lodash';
 
 import glob from '../utils/glob';

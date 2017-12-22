@@ -5,17 +5,15 @@ import View from '../ui/core/view';
 import * as styles from './root-container.scss';
 
 class RootContainerView extends View {
-  private _callbacks;
   private _width: number;
   private _height: number;
 
   $node;
 
   constructor(config) {
-    super(config);
-    const { width, height, callbacks, fillAllSpace } = config;
+    super();
+    const { width, height, fillAllSpace } = config;
 
-    this._callbacks = callbacks;
     this.$node = $('<div>', {
       'data-hook': 'player-container',
       tabIndex: 0,

@@ -1,4 +1,5 @@
 import * as $ from 'jbone';
+import * as classnames from 'classnames';
 
 import { TEXT_LABELS } from '../../../../constants/index';
 
@@ -10,40 +11,64 @@ const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'volume-control';
 const DATA_HOOK_BUTTON_VALUE = 'mute-button';
 const DATA_HOOK_INPUT_VALUE = 'volume-input';
-const DATA_HOOK_INPUT_CONTAINER = 'volume-input-container';
+const DATA_HOOK_VOLUME_INPUT_BLOCK_VALUE = 'volume-input-block';
 
 const DATA_IS_MUTED = 'data-is-muted';
 const DATA_VOLUME = 'data-volume-percent';
 
-const MAX_VOLUME_ICON_RANGE = 30;
+const MAX_VOLUME_ICON_RANGE = 50;
+
+const getPercentBasedOnXPosition = (
+  event: MouseEvent,
+  element: HTMLElement,
+) => {
+  const boundingRect = element.getBoundingClientRect();
+  const positionX = event.clientX;
+
+  if (positionX < boundingRect.left) {
+    return 0;
+  }
+
+  if (positionX > boundingRect.left + boundingRect.width) {
+    return 100;
+  }
+
+  return (event.clientX - boundingRect.left) / boundingRect.width * 100;
+};
 
 class VolumeView extends View {
   private _callbacks;
   private _texts;
 
-  $node;
-  $muteControl;
-  $container;
-  $content;
-  $inputWrapper;
-  $filledProgress;
-  $input;
+  _$node;
+  _$muteButton;
+  _$volumeNode;
+  _$volume;
+  _$hitbox;
+
+  private _isDragging;
 
   constructor(config) {
-    super(config);
+    super();
     const { callbacks, texts } = config;
 
     this._callbacks = callbacks;
     this._texts = texts;
 
-    this.$node = $('<div>', {
+    this._bindCallbacks();
+    this._initDOM();
+    this._bindEvents();
+  }
+
+  private _initDOM() {
+    this._$node = $('<div>', {
       class: this.styleNames['volume-control'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
       [DATA_VOLUME]: 100,
       [DATA_IS_MUTED]: false,
     });
 
-    this.$muteControl = $('<button>', {
+    this._$muteButton = $('<button>', {
       class: `${this.styleNames['mute-button']} ${
         this.styleNames['control-button']
       }`,
@@ -53,132 +78,165 @@ class VolumeView extends View {
       tabIndex: 0,
     });
 
-    this.$container = $('<div>', {
-      class: this.styleNames.container,
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_CONTAINER,
-    });
-
-    const $content = $('<div>', {
-      class: this.styleNames.content,
-    });
-
-    const $inputWrapper = $('<div>', {
-      class: this.styleNames['input-wrapper'],
-    });
-
-    this.$filledProgress = $('<div>', {
-      class: this.styleNames['filled-progress'],
-    });
-
-    this.$input = $('<input>', {
-      class: `${this.styleNames['volume-input']}`,
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_VALUE,
+    this._$volumeNode = $('<div>', {
+      class: this.styleNames['volume-input-block'],
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VOLUME_INPUT_BLOCK_VALUE,
       'aria-label': this._texts.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
       'aria-valuemin': 0,
       'aria-valuenow': 0,
       'aria-valuemax': 100,
       tabIndex: 0,
-      orient: 'vertical',
-      type: 'range',
-      min: 0,
-      max: 100,
-      step: 1,
-      value: 0,
     });
 
-    $inputWrapper.append(this.$filledProgress).append(this.$input);
+    this._$hitbox = $('<div>', {
+      class: this.styleNames.hitbox,
+    });
 
-    $content.append($inputWrapper);
-    this.$container.append($content);
+    this._$volume = $('<div>', {
+      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_VALUE,
+      class: classnames(
+        this.styleNames['progress-bar'],
+        this.styleNames.volume,
+      ),
+    });
 
-    this.$node.append(this.$muteControl).append(this.$container);
+    const background = $('<div>', {
+      class: classnames(
+        this.styleNames['progress-bar'],
+        this.styleNames.background,
+      ),
+    });
 
-    this._bindEvents();
+    this._$volumeNode
+      .append(background)
+      .append(this._$volume)
+      .append(this._$hitbox);
+
+    this._$node.append(this._$muteButton).append(this._$volumeNode);
   }
 
-  _onInputChange() {
-    this._callbacks.onVolumeLevelChangeFromInput(this.$input.val());
+  private _bindCallbacks() {
+    this._onButtonClick = this._onButtonClick.bind(this);
+
+    this._startDragOnMouseDown = this._startDragOnMouseDown.bind(this);
+    this._stopDragOnMouseUp = this._stopDragOnMouseUp.bind(this);
+    this._setVolumeByWheel = this._setVolumeByWheel.bind(this);
+    this._setVolumeByClick = this._setVolumeByClick.bind(this);
+    this._setVolumeByDrag = this._setVolumeByDrag.bind(this);
   }
 
-  _onWheel(e) {
-    e.preventDefault();
+  private _bindEvents() {
+    this._$hitbox[0].addEventListener('wheel', this._setVolumeByWheel);
+    this._$hitbox[0].addEventListener('mousedown', this._startDragOnMouseDown);
+    window.addEventListener('mousemove', this._setVolumeByDrag);
+    window.addEventListener('mouseup', this._stopDragOnMouseUp);
 
-    if (!e.deltaY) {
+    this._$muteButton[0].addEventListener('click', this._onButtonClick);
+  }
+
+  private _unbindEvents() {
+    this._$hitbox[0].removeEventListener('wheel', this._setVolumeByWheel);
+    this._$hitbox[0].removeEventListener(
+      'mousedown',
+      this._startDragOnMouseDown,
+    );
+    window.removeEventListener('mousemove', this._setVolumeByDrag);
+    window.removeEventListener('mouseup', this._stopDragOnMouseUp);
+
+    this._$muteButton[0].removeEventListener('click', this._onButtonClick);
+  }
+
+  private _startDragOnMouseDown(event: MouseEvent) {
+    if (event.button > 1) {
+      return;
+    }
+    this._setVolumeByClick(event);
+    this._startDrag();
+  }
+
+  private _stopDragOnMouseUp(event: MouseEvent) {
+    if (event.button > 1) {
       return;
     }
 
-    this._callbacks.onVolumeLevelChangeFromWheel(e.deltaY);
+    this._stopDrag();
   }
 
-  _preventClickPropagation(event) {
-    event.stopPropagation();
+  private _setVolumeByClick(event: MouseEvent) {
+    this._$volumeNode[0].focus();
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+    this._callbacks.onVolumeLevelChangeFromInput(percent);
   }
 
-  _bindEvents() {
-    this._onInputChange = this._onInputChange.bind(this);
-    this._onWheel = this._onWheel.bind(this);
-    this._onButtonClick = this._onButtonClick.bind(this);
-
-    this.$node[0].addEventListener('wheel', this._onWheel);
-
-    this.$container[0].addEventListener('click', this._preventClickPropagation);
-
-    this.$input[0].addEventListener('change', this._onInputChange);
-
-    this.$input[0].addEventListener('input', this._onInputChange);
-
-    this.$muteControl[0].addEventListener('click', this._onButtonClick);
-  }
-
-  _onButtonClick() {
-    this.$muteControl[0].focus();
-    this._callbacks.onToggleMuteClick();
-  }
-
-  _unbindEvents() {
-    this.$node[0].removeEventListener('wheel', this._onWheel);
-
-    this.$container[0].removeEventListener(
-      'click',
-      this._preventClickPropagation,
-    );
-
-    this.$input[0].removeEventListener('change', this._onInputChange);
-
-    this.$input[0].removeEventListener('input', this._onInputChange);
-
-    this.$muteControl[0].removeEventListener('click', this._onButtonClick);
-  }
-
-  setState({ volume, isMuted }) {
-    volume !== undefined && this._setVolumeLevel(volume);
-    isMuted !== undefined && this._setMuteStatus(isMuted);
-  }
-
-  _setVolumeLevel(volume) {
-    this.$input.val(volume);
-    this.$input.attr('value', volume);
-    this.$input.attr(
-      'aria-valuetext',
-      this._texts.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { volume }),
-    );
-    this.$input.attr('aria-valuenow', volume);
-
-    this.$filledProgress.attr('style', `height:${volume}%;`);
-
-    this.$node.attr(DATA_VOLUME, volume);
-
-    if (volume >= MAX_VOLUME_ICON_RANGE) {
-      this.$muteControl.toggleClass(this.styleNames['half-volume'], false);
-    } else {
-      this.$muteControl.toggleClass(this.styleNames['half-volume'], true);
+  private _setVolumeByDrag(event: MouseEvent) {
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+    if (this._isDragging) {
+      this._callbacks.onVolumeLevelChangeFromInput(percent);
     }
   }
 
-  _setMuteStatus(isMuted) {
-    this.$muteControl.toggleClass(this.styleNames.muted, isMuted);
-    this.$node.attr(DATA_IS_MUTED, isMuted);
-    this.$muteControl.attr(
+  private _setVolumeByWheel(e: WheelEvent) {
+    e.preventDefault();
+    const value = e.deltaX || e.deltaY * -1;
+
+    if (!value) {
+      return;
+    }
+
+    this._callbacks.onVolumeLevelChangeFromWheel(value);
+  }
+
+  private _startDrag() {
+    this._isDragging = true;
+    this._$node.addClass(this.styleNames['is-dragging']);
+    this._callbacks.onDragStart();
+  }
+
+  private _stopDrag() {
+    if (this._isDragging) {
+      this._isDragging = false;
+      this._$node.removeClass(this.styleNames['is-dragging']);
+      this._callbacks.onDragEnd();
+    }
+  }
+
+  private _setVolumeDOMAttributes(percent: number) {
+    this._$volumeNode.attr('value', percent);
+    this._$volumeNode.attr(
+      'aria-valuetext',
+      this._texts.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { percent }),
+    );
+    this._$volumeNode.attr('aria-valuenow', percent);
+    this._$volumeNode.attr(DATA_VOLUME, percent);
+
+    this._$volume.attr('style', `width:${percent}%;`);
+
+    this._$node.attr(DATA_VOLUME, percent);
+
+    if (percent >= MAX_VOLUME_ICON_RANGE) {
+      this._$muteButton.toggleClass(this.styleNames['half-volume'], false);
+    } else {
+      this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
+    }
+  }
+
+  private _onButtonClick() {
+    this._$muteButton[0].focus();
+    this._callbacks.onToggleMuteClick();
+  }
+
+  setVolume(volume: number) {
+    this._setVolumeDOMAttributes(volume);
+  }
+
+  setMute(isMuted: boolean) {
+    this._setMuteDOMAttributes(isMuted);
+  }
+
+  private _setMuteDOMAttributes(isMuted) {
+    this._$muteButton.toggleClass(this.styleNames.muted, isMuted);
+    this._$node.attr(DATA_IS_MUTED, isMuted);
+    this._$muteButton.attr(
       'aria-label',
       isMuted
         ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
@@ -187,26 +245,31 @@ class VolumeView extends View {
   }
 
   show() {
-    this.$node.toggleClass(styles.hidden, false);
+    this._$node.toggleClass(styles.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass(styles.hidden, true);
+    this._$node.toggleClass(styles.hidden, true);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node[0];
+  }
+
+  getButtonNode() {
+    return this._$muteButton[0];
+  }
+
+  getInputNode() {
+    return this._$volumeNode[0];
   }
 
   destroy() {
     this._unbindEvents();
-    this.$node.remove();
+    this._$node.remove();
 
-    delete this.$input;
-    delete this.$muteControl;
-    delete this.$filledProgress;
-    delete this.$container;
-    delete this.$node;
+    delete this._$muteButton;
+    delete this._$node;
 
     delete this._texts;
   }

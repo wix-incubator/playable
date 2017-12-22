@@ -1,31 +1,22 @@
 import 'jsdom-global/register';
-
-import { EventEmitter } from 'eventemitter3';
-
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import TimeControl from './time.controler';
-import Engine from '../../../playback-engine/playback-engine';
+import createPlayerTestkit from '../../../../testkit';
+
 import { formatTime } from './time.view';
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 describe('TimeControl', () => {
+  let testkit;
   let control;
-  let engine;
   let eventEmitter;
-  let config = {};
 
   beforeEach(() => {
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
-    control = new TimeControl({
-      engine,
-      eventEmitter,
-    });
+    testkit = createPlayerTestkit();
+
+    eventEmitter = testkit.getModule('eventEmitter');
+    control = testkit.getModule('timeControl');
   });
 
   describe('constructor', () => {

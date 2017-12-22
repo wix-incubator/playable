@@ -242,7 +242,7 @@ Return object with internal debug info
 # getSrc
 
 
-# goLive
+# syncWithLive
 
 
 # goForward
@@ -704,28 +704,6 @@ Get height of player
 </div>
 
 
-# setLogo
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>logo</code>
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
 # setLogoAlwaysShowFlag
 
 <div class="method-list">
@@ -740,28 +718,6 @@ Get height of player
       <tr>
         <td class="param">
           <code>isShowAlways</code>
-        </td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-# setLogoClickCallback
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>callback</code>
         </td>
         <td></td>
       </tr>
@@ -793,6 +749,103 @@ Get height of player
     </tbody>
   </table>
 </div>
+
+
+# setLogo
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>url</code>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+# setLogoClickCallback
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>callback</code>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+# addTimeIndicator
+
+Add time indicator to progress bar
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>time</code><span class="type">number</span class="type">
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+# addTimeIndicators
+
+Add time indicators to progress bar
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>times</code>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+# clearTimeIndicators
+
+Delete all time indicators from progress bar
 
 
 # setLoadingCover

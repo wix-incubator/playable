@@ -52,7 +52,8 @@ export default class Player {
     );
   }
 
-  _getWrappedCallToModuleFunction(module, moduleName, fn) {
+  _getWrappedCallToModuleFunction(module, _moduleName, fn) {
+    // TODO: do we need `_moduleName` as second parameter?
     return (...args) => {
       if (this._destroyed) {
         throw new Error('Player instance is destroyed');

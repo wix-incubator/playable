@@ -3,7 +3,6 @@ import * as documentation from 'documentation';
 
 import buildPlayerClass from './buildPlayerClass';
 import buildInterfaces from './buildInterfaces';
-import buildPlayerObject from './buildPlayerObject';
 
 const PLAYER_MODULES_PATH_PATTERN = 'src/default-modules/**/*.ts';
 
@@ -22,4 +21,4 @@ function buildDocumentation(
     .then(documentation.formats[format]);
 }
 
-export { buildPlayerClass, buildPlayerObject, buildDocumentation };
+export { buildPlayerClass, buildDocumentation };
