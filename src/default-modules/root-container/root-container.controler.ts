@@ -159,7 +159,9 @@ class RootContainer {
   }
 
   /**
-   * Set width of player
+   * Method for setting width of player
+   *
+   * @param width - Desired width of player in pixels
    */
   @playerAPI()
   setWidth(width: number) {
@@ -168,7 +170,9 @@ class RootContainer {
   }
 
   /**
-   * Set height of player
+   * Method for setting width of player
+   *
+   * @param height - Desired height of player in pixels
    */
   @playerAPI()
   setHeight(height: number) {
@@ -177,7 +181,7 @@ class RootContainer {
   }
 
   /**
-   * Get width of player
+   * Return current width of player in pixels
    */
   @playerAPI()
   getWidth(): number {
@@ -185,15 +189,20 @@ class RootContainer {
   }
 
   /**
-   * Get height of player
+   * Return current height of player in pixels
    */
   @playerAPI()
   getHeight(): number {
     return this.view.getHeight();
   }
 
+  /**
+   * Method for allowing player fill all available space
+   *
+   * @param flag - True for allowing
+   */
   @playerAPI()
-  setFillAllSpace(flag) {
+  setFillAllSpace(flag: boolean) {
     this.view.setFillAllSpaceFlag(flag);
   }
 

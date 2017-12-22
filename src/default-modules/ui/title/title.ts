@@ -53,6 +53,18 @@ export default class TitleControl {
     this.view.setTitle(title);
   }
 
+  /**
+   * Method for attaching callback for click on title
+   *
+   * @param callback - Your function
+   *
+   * @example
+   * const callback = () => {
+   *   console.log('Click on title);
+   * }
+   * player.setTitleClickCallback(callback);
+   *
+   */
   @playerAPI()
   setTitleClickCallback(callback?: Function) {
     this._callback = callback;

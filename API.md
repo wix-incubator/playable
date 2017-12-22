@@ -101,12 +101,13 @@ Method for removing listeners of events inside player.
 
 # enterFullScreen
 
-Manual enter full screen
+Player would try to enter fullscreen mode.
+Behavior of fullscreen mode on different platforms may differ.
 
 
 # exitFullScreen
 
-Manual exit full screen
+Player would try to exit fullscreen mode.
 
 
 # isInFullScreen
@@ -219,6 +220,8 @@ Return object with internal debug info
 
 # setSrc
 
+Method for setting source of video to player.
+
 <div class="method-list">
   <table>
     <thead>
@@ -241,11 +244,18 @@ Return object with internal debug info
 
 # getSrc
 
+Return current source of video
+
 
 # syncWithLive
 
+Method for synchronize current playback with live point. Available only if you playing live source.
+
 
 # goForward
+
+
+Method for going forward in playback by your value
 
 <div class="method-list">
   <table>
@@ -258,7 +268,7 @@ Return object with internal debug info
     <tbody>
       <tr>
         <td class="param">
-          <code>sec</code>
+          <code>sec</code><span class="type">number</span class="type">
         </td>
         <td></td>
       </tr>
@@ -269,6 +279,9 @@ Return object with internal debug info
 
 # goBackward
 
+
+Method for going backward in playback by your value
+
 <div class="method-list">
   <table>
     <thead>
@@ -280,7 +293,7 @@ Return object with internal debug info
     <tbody>
       <tr>
         <td class="param">
-          <code>sec</code>
+          <code>sec</code><span class="type">number</span class="type">
         </td>
         <td></td>
       </tr>
@@ -291,6 +304,9 @@ Return object with internal debug info
 
 # decreaseVolume
 
+
+Method for decreasing current volume by value
+
 <div class="method-list">
   <table>
     <thead>
@@ -302,7 +318,7 @@ Return object with internal debug info
     <tbody>
       <tr>
         <td class="param">
-          <code>value</code>
+          <code>value</code><span class="type">number</span class="type">
         </td>
         <td></td>
       </tr>
@@ -313,6 +329,9 @@ Return object with internal debug info
 
 # increaseVolume
 
+
+Method for increasing current volume by value
+
 <div class="method-list">
   <table>
     <thead>
@@ -324,7 +343,7 @@ Return object with internal debug info
     <tbody>
       <tr>
         <td class="param">
-          <code>value</code>
+          <code>value</code><span class="type">number</span class="type">
         </td>
         <td></td>
       </tr>
@@ -452,6 +471,8 @@ Get volume
 
 # setPlaybackRate
 
+Method for setting playback rate
+
 <div class="method-list">
   <table>
     <thead>
@@ -463,7 +484,7 @@ Get volume
     <tbody>
       <tr>
         <td class="param">
-          <code>rate</code>
+          <code>rate</code><span class="type">number</span class="type">
         </td>
         <td></td>
       </tr>
@@ -473,6 +494,8 @@ Get volume
 
 
 # getPlaybackRate
+
+Return current playback rate
 
 
 # setPreload
@@ -501,13 +524,17 @@ Set preload type
 
 # getPreload
 
-Get preload type
+Return preload type
 
 
 # getCurrentTime
 
+Return current time of video playback
+
 
 # goTo
+
+Method for seeking to time in video
 
 <div class="method-list">
   <table>
@@ -520,7 +547,7 @@ Get preload type
     <tbody>
       <tr>
         <td class="param">
-          <code>time</code>
+          <code>time</code><span class="type">number</span class="type">
         </td>
         <td></td>
       </tr>
@@ -530,6 +557,8 @@ Get preload type
 
 
 # getDurationTime
+
+Return duration of video
 
 
 # setPlayInline
@@ -568,11 +597,17 @@ Return current state of playback
 
 # play
 
+Method for starting playback of video
+
 
 # pause
 
+Method for pausing playback of video
+
 
 # togglePlayback
+
+Method for toggling(play\pause) playback of video
 
 
 # node
@@ -626,7 +661,8 @@ Show whole ui
 
 # setWidth
 
-Set width of player
+
+Method for setting width of player
 
 <div class="method-list">
   <table>
@@ -641,7 +677,7 @@ Set width of player
         <td class="param">
           <code>width</code><span class="type">number</span class="type">
         </td>
-        <td></td>
+        <td>Desired width of player in pixels</td>
       </tr>
     </tbody>
   </table>
@@ -650,7 +686,8 @@ Set width of player
 
 # setHeight
 
-Set height of player
+
+Method for setting width of player
 
 <div class="method-list">
   <table>
@@ -665,7 +702,7 @@ Set height of player
         <td class="param">
           <code>height</code><span class="type">number</span class="type">
         </td>
-        <td></td>
+        <td>Desired height of player in pixels</td>
       </tr>
     </tbody>
   </table>
@@ -674,15 +711,18 @@ Set height of player
 
 # getWidth
 
-Get width of player
+Return current width of player in pixels
 
 
 # getHeight
 
-Get height of player
+Return current height of player in pixels
 
 
 # setFillAllSpace
+
+
+Method for allowing player fill all available space
 
 <div class="method-list">
   <table>
@@ -695,9 +735,9 @@ Get height of player
     <tbody>
       <tr>
         <td class="param">
-          <code>flag</code>
+          <code>flag</code><span class="type">boolean</span class="type">
         </td>
-        <td></td>
+        <td>True for allowing</td>
       </tr>
     </tbody>
   </table>
@@ -706,6 +746,9 @@ Get height of player
 
 # setLogoAlwaysShowFlag
 
+
+Method for allowing logo to be always shown in bottom block
+
 <div class="method-list">
   <table>
     <thead>
@@ -717,9 +760,9 @@ Get height of player
     <tbody>
       <tr>
         <td class="param">
-          <code>isShowAlways</code>
+          <code>flag</code><span class="type">boolean</span class="type">
         </td>
-        <td></td>
+        <td>: True for showing always</td>
       </tr>
     </tbody>
   </table>
@@ -728,8 +771,13 @@ Get height of player
 
 # removeLogo
 
+Method for hidding logo. If you use <code>setLogoAlwaysShowFlag</code> or <code>setControlsShouldAlwaysShow</code>, logo would automaticaly appear.
+
 
 # setControlsShouldAlwaysShow
+
+
+Method for allowing bottom block to be always shown.
 
 <div class="method-list">
   <table>
@@ -742,9 +790,9 @@ Get height of player
     <tbody>
       <tr>
         <td class="param">
-          <code>flag</code>
+          <code>flag</code><span class="type">boolean</span class="type">
         </td>
-        <td></td>
+        <td>: True for showing always</td>
       </tr>
     </tbody>
   </table>
@@ -753,6 +801,13 @@ Get height of player
 
 # setLogo
 
+```javascript
+const src = 'link.to.your.image.with.logo'
+player.setLogo(src);
+```
+
+Method for setting source of image, that would be used as logo
+
 <div class="method-list">
   <table>
     <thead>
@@ -764,9 +819,9 @@ Get height of player
     <tbody>
       <tr>
         <td class="param">
-          <code>url</code>
+          <code>src</code><span class="type">string</span class="type">
         </td>
-        <td></td>
+        <td>: Source of logo</td>
       </tr>
     </tbody>
   </table>
@@ -775,6 +830,15 @@ Get height of player
 
 # setLogoClickCallback
 
+```javascript
+const callback = () => {
+  console.log('Click on title);
+}
+player.setLogoClickCallback(callback);
+```
+
+Method for attaching callback for click on logo
+
 <div class="method-list">
   <table>
     <thead>
@@ -786,9 +850,9 @@ Get height of player
     <tbody>
       <tr>
         <td class="param">
-          <code>callback</code>
+          <code>callback</code><span class="type">Function</span class="type">
         </td>
-        <td></td>
+        <td>Your function</td>
       </tr>
     </tbody>
   </table>
@@ -850,6 +914,13 @@ Delete all time indicators from progress bar
 
 # setLoadingCover
 
+```javascript
+const src = 'link.to.your.image'
+player.setLoadingCover(src);
+```
+
+Method for setting source of image, that would be used as loading cover instead of loader.
+
 <div class="method-list">
   <table>
     <thead>
@@ -861,9 +932,9 @@ Delete all time indicators from progress bar
     <tbody>
       <tr>
         <td class="param">
-          <code>url</code>
+          <code>src</code><span class="type">string</span class="type">
         </td>
-        <td></td>
+        <td>Link to your image</td>
       </tr>
     </tbody>
   </table>
@@ -902,6 +973,15 @@ Display title text over the video. If you want to have clickable title, use <cod
 
 # setTitleClickCallback
 
+```javascript
+const callback = () => {
+  console.log('Click on title);
+}
+player.setTitleClickCallback(callback);
+```
+
+Method for attaching callback for click on title
+
 <div class="method-list">
   <table>
     <thead>
@@ -915,7 +995,7 @@ Display title text over the video. If you want to have clickable title, use <cod
         <td class="param">
           <code>callback</code><span class="type">Function</span class="type">
         </td>
-        <td></td>
+        <td>Your function</td>
       </tr>
     </tbody>
   </table>

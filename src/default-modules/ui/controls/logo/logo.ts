@@ -88,13 +88,35 @@ export default class Logo {
     }
   }
 
+  /**
+   * Method for setting source of image, that would be used as logo
+   *
+   * @param src: Source of logo
+   *
+   * @example
+   * const src = 'link.to.your.image.with.logo'
+   * player.setLogo(src);
+   *
+   */
   @playerAPI()
-  setLogo(url) {
-    this.view.setLogo(url);
+  setLogo(src: string) {
+    this.view.setLogo(src);
   }
 
+  /**
+   * Method for attaching callback for click on logo
+   *
+   * @param callback - Your function
+   *
+   * @example
+   * const callback = () => {
+   *   console.log('Click on title);
+   * }
+   * player.setLogoClickCallback(callback);
+   *
+   */
   @playerAPI()
-  setLogoClickCallback(callback) {
+  setLogoClickCallback(callback?: Function) {
     this._callback = callback;
     this.view.setDisplayAsLink(Boolean(this._callback));
   }

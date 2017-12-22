@@ -110,9 +110,19 @@ export default class LoadingCover {
     this._eventEmitter.off(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
+  /**
+   * Method for setting source of image, that would be used as loading cover instead of loader.
+   *
+   * @param src - Link to your image
+   *
+   * @example
+   * const src = 'link.to.your.image'
+   * player.setLoadingCover(src);
+   *
+   */
   @playerAPI()
-  setLoadingCover(url) {
-    this.view.setCover(url);
+  setLoadingCover(src: string) {
+    this.view.setCover(src);
   }
 
   destroy() {

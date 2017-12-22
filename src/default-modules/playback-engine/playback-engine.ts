@@ -205,6 +205,9 @@ export default class Engine {
     };
   }
 
+  /**
+   * Method for setting source of video to player.
+   */
   @playerAPI()
   setSrc(src) {
     if (src === this._currentSrc) {
@@ -219,11 +222,17 @@ export default class Engine {
     this._stateEngine.setState(STATES.SRC_SET);
   }
 
+  /**
+   * Return current source of video
+   */
   @playerAPI()
   getSrc() {
     return this._currentSrc;
   }
 
+  /**
+   * Method for synchronize current playback with live point. Available only if you playing live source.
+   */
   @playerAPI()
   syncWithLive() {
     if (
@@ -237,8 +246,13 @@ export default class Engine {
     }
   }
 
+  /**
+   * Method for going forward in playback by your value
+   *
+   * @param sec
+   */
   @playerAPI()
-  goForward(sec) {
+  goForward(sec: number) {
     const duration = this.getDurationTime();
 
     if (duration) {
@@ -247,8 +261,13 @@ export default class Engine {
     }
   }
 
+  /**
+   * Method for going backward in playback by your value
+   *
+   * @param sec
+   */
   @playerAPI()
-  goBackward(sec) {
+  goBackward(sec: number) {
     const duration = this.getDurationTime();
 
     if (duration) {
@@ -257,13 +276,23 @@ export default class Engine {
     }
   }
 
+  /**
+   * Method for decreasing current volume by value
+   *
+   * @param value
+   */
   @playerAPI()
-  decreaseVolume(value) {
+  decreaseVolume(value: number) {
     this.setVolume(this.getVolume() - value);
   }
 
+  /**
+   * Method for increasing current volume by value
+   *
+   * @param value
+   */
   @playerAPI()
-  increaseVolume(value) {
+  increaseVolume(value: number) {
     this.setVolume(this.getVolume() + value);
   }
 
@@ -335,11 +364,17 @@ export default class Engine {
     return this._video.volume * 100;
   }
 
+  /**
+   * Method for setting playback rate
+   */
   @playerAPI()
-  setPlaybackRate(rate) {
+  setPlaybackRate(rate: number) {
     this._video.playbackRate = rate;
   }
 
+  /**
+   * Return current playback rate
+   */
   @playerAPI()
   getPlaybackRate() {
     return this._video.playbackRate;
@@ -354,23 +389,32 @@ export default class Engine {
   }
 
   /**
-   * Get preload type
+   * Return preload type
    */
   @playerAPI()
   getPreload(): string {
     return this._video.preload;
   }
 
+  /**
+   * Return current time of video playback
+   */
   @playerAPI()
   getCurrentTime() {
     return this._video.currentTime;
   }
 
+  /**
+   * Method for seeking to time in video
+   */
   @playerAPI('goTo')
-  setCurrentTime(time) {
+  setCurrentTime(time: number) {
     this._video.currentTime = time;
   }
 
+  /**
+   * Return duration of video
+   */
   @playerAPI()
   getDurationTime() {
     return this._video.duration || 0;
@@ -406,6 +450,9 @@ export default class Engine {
     return this._stateEngine.getState();
   }
 
+  /**
+   * Method for starting playback of video
+   */
   @playerAPI()
   play() {
     //Workaround for triggering functionality that requires user event pipe
@@ -431,6 +478,9 @@ export default class Engine {
     }
   }
 
+  /**
+   * Method for pausing playback of video
+   */
   @playerAPI()
   pause() {
     if (this._playPromise) {
@@ -441,6 +491,9 @@ export default class Engine {
     }
   }
 
+  /**
+   * Method for toggling(play\pause) playback of video
+   */
   @playerAPI()
   togglePlayback() {
     const state = this.getCurrentState();

@@ -112,7 +112,8 @@ export default class FullScreenManager {
   }
 
   /**
-   * Manual enter full screen
+   * Player would try to enter fullscreen mode.
+   * Behavior of fullscreen mode on different platforms may differ.
    */
   @playerAPI()
   enterFullScreen() {
@@ -124,7 +125,7 @@ export default class FullScreenManager {
   }
 
   /**
-   * Manual exit full screen
+   * Player would try to exit fullscreen mode.
    */
   @playerAPI()
   exitFullScreen() {

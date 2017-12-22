@@ -317,18 +317,33 @@ export default class BottomBlock {
     }
   }
 
+  /**
+   * Method for allowing logo to be always shown in bottom block
+   *
+   * @param flag: True for showing always
+   *
+   */
   @playerAPI()
-  setLogoAlwaysShowFlag(isShowAlways) {
-    this.view.setShouldLogoShowAlwaysFlag(isShowAlways);
+  setLogoAlwaysShowFlag(flag: boolean) {
+    this.view.setShouldLogoShowAlwaysFlag(flag);
   }
 
+  /**
+   * Method for hidding logo. If you use `setLogoAlwaysShowFlag` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
+   */
   @playerAPI()
   removeLogo() {
     this.view.hideLogo();
   }
 
+  /**
+   * Method for allowing bottom block to be always shown.
+   *
+   * @param flag: True for showing always
+   *
+   */
   @playerAPI('setControlsShouldAlwaysShow')
-  setShouldAlwaysShow(flag) {
+  setShouldAlwaysShow(flag: boolean) {
     this.config.shouldAlwaysShow = flag;
 
     if (this.config.shouldAlwaysShow) {
