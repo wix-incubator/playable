@@ -226,7 +226,11 @@ export default class Engine {
 
   @playerAPI()
   syncWithLive() {
-    if (this.attachedAdapter && this.attachedAdapter.isDynamicContent) {
+    if (
+      this.attachedAdapter &&
+      this.attachedAdapter.isDynamicContent &&
+      !this.isSyncWithLive
+    ) {
       this.setCurrentTime(this.attachedAdapter.syncWithLiveTime);
 
       this.play();

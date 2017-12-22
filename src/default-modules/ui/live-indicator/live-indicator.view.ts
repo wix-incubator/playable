@@ -43,14 +43,11 @@ class LiveIndicatorView extends View {
   }
 
   private _bindEvents() {
-    this.$liveIndicator[0].addEventListener('click', this._callbacks.onClick);
+    this.$node[0].addEventListener('click', this._callbacks.onClick);
   }
 
   private _unbindEvents() {
-    this.$liveIndicator[0].removeEventListener(
-      'click',
-      this._callbacks.onClick,
-    );
+    this.$node[0].removeEventListener('click', this._callbacks.onClick);
   }
 
   toggleActive(shouldActivate: boolean) {

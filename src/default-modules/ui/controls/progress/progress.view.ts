@@ -40,6 +40,7 @@ class ProgressView extends View {
   private _$buffered;
   private _$seekTo;
   private _$timeIndicators;
+  private _$syncButton;
 
   constructor(config) {
     super();
@@ -96,6 +97,10 @@ class ProgressView extends View {
       class: this.styleNames['progress-bars-wrapper'],
     });
 
+    this._$syncButton = $('<div>', {
+      class: this.styleNames['sync-button'],
+    });
+
     const background = $('<div>', {
       class: classnames(
         this.styleNames['progress-bar'],
@@ -110,7 +115,12 @@ class ProgressView extends View {
       .append(this._$played)
       .append(this._$timeIndicators);
 
-    this._$node.append(wrapper).append(this._$hitbox);
+    this._$node
+      .append(wrapper)
+      .append(this._$hitbox)
+      .append(this._$syncButton);
+
+    this.setUsualMode();
   }
 
   private _bindCallbacks() {
@@ -119,6 +129,7 @@ class ProgressView extends View {
     this._stopDragOnMouseUp = this._stopDragOnMouseUp.bind(this);
     this._setSeekToByMouse = this._setSeekToByMouse.bind(this);
     this._resetSeek = this._resetSeek.bind(this);
+    this._syncWithLive = this._syncWithLive.bind(this);
   }
 
   private _bindEvents() {
@@ -128,6 +139,8 @@ class ProgressView extends View {
 
     window.addEventListener('mousemove', this._setPlayedByDrag);
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
+
+    this._$syncButton[0].addEventListener('click', this._syncWithLive);
   }
 
   private _unbindEvents() {
@@ -140,6 +153,8 @@ class ProgressView extends View {
 
     window.removeEventListener('mousemove', this._setPlayedByDrag);
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
+
+    this._$syncButton[0].removeEventListener('click', this._syncWithLive);
   }
 
   private _startDragOnMouseDown(event: MouseEvent) {
@@ -210,6 +225,30 @@ class ProgressView extends View {
 
   private _setBufferedDOMAttributes(percent: number) {
     this._$buffered.attr('style', `width:${percent}%;`);
+  }
+
+  private _syncWithLive() {
+    this._callbacks.onSyncWithLiveClick();
+  }
+
+  private _showSyncWithLive() {
+    this._$syncButton.removeClass(this.styleNames.hidden);
+  }
+
+  private _hideSyncWithLive() {
+    this._$syncButton.addClass(this.styleNames.hidden);
+  }
+
+  setLiveMode() {
+    this._$node.addClass(this.styleNames['in-live']);
+
+    this._showSyncWithLive();
+  }
+
+  setUsualMode() {
+    this._$node.removeClass(this.styleNames['in-live']);
+
+    this._hideSyncWithLive();
   }
 
   setPlayed(percent: number) {

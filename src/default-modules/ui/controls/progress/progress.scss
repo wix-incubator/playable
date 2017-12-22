@@ -2,6 +2,25 @@
 
 $progress-bar-height: 6px;
 $progress-bar-height-full-screen: 8px;
+
+$seek-pointer-height: 12px;
+$seek-pointer-width: 12px;
+
+$seek-pointer-height-full-screen: 16px;
+$seek-pointer-width-full-screen: 16px;
+
+$sync-pointer-height: 6px;
+$sync-pointer-width: 6px;
+$sync-pointer-hover-height: 8px;
+$sync-pointer-hover-width: 8px;
+$sync-pointer-border: 2px;
+$sync-pointer-hover-border: 3px;
+
+$sync-pointer-height-full-screen: 8px;
+$sync-pointer-width-full-screen: 8px;
+$sync-pointer-hover--height-full-screen: 10px;
+$sync-pointer-hover--width-full-screen: 10px;
+
 $color-played: #fff;
 $color-seek-to: rgba(255, 255, 255, .5);
 $color-played-live: #ea492e;
@@ -22,6 +41,15 @@ $color-seek-to-live: rgba(234,73,46, .5);
   }
   touch-action: none;
 
+  &.in-live {
+    .played {
+      background-color: $color-played-live;
+    }
+    .seek-to {
+      background-color: $color-seek-to-live;
+    }
+  }
+
   &:hover,
   &.is-dragging {
     .progress-bars-wrapper {
@@ -40,6 +68,47 @@ $color-seek-to-live: rgba(234,73,46, .5);
         transform: scale(1);
       }
     }
+
+    .sync-button {
+      top: -($sync-pointer-hover-height + 2 * $sync-pointer-hover-border - $progress-bar-height) / 2;
+      right: -($sync-pointer-hover-width + 2 * $sync-pointer-hover-border) / 2;
+
+      width: $sync-pointer-hover-width;
+      height: $sync-pointer-hover-height;
+
+      opacity: 1;
+      border: $sync-pointer-hover-border solid white;
+    }
+  }
+}
+
+.sync-button {
+  position: absolute;
+  z-index: 6;
+  top: -($sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height) / 2;
+  right: -($sync-pointer-width + 2 * $sync-pointer-border) / 2;
+
+  width: $sync-pointer-width;
+  height: $sync-pointer-height;
+
+  cursor: pointer;
+  transition: opacity .2s;
+
+  opacity: .6;
+  border: $sync-pointer-border solid white;
+  border-radius: 50%;
+  background-color: red;
+
+  @include in-full-screen() {
+    top: -$progress-bar-height-full-screen / 2;
+    right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-border) / 2;
+
+    width: $sync-pointer-width-full-screen;
+    height: $sync-pointer-height-full-screen;
+  }
+
+  &.hidden {
+    display: none;
   }
 }
 
@@ -72,11 +141,11 @@ $color-seek-to-live: rgba(234,73,46, .5);
 
   &:after {
     position: absolute;
-    top: -$progress-bar-height / 2;
-    right: -$progress-bar-height;
+    top: -$seek-pointer-height / 4;
+    right: -$seek-pointer-width / 2;
 
-    width: $progress-bar-height * 2;
-    height: $progress-bar-height * 2;
+    width: $seek-pointer-width;
+    height: $seek-pointer-height;
 
     content: '';
     transition: transform .1s cubic-bezier(.0,.0,.2,1);
@@ -87,10 +156,10 @@ $color-seek-to-live: rgba(234,73,46, .5);
 
     @include in-full-screen() {
       top: -$progress-bar-height-full-screen / 2;
-      right: -$progress-bar-height-full-screen;
+      right: -$seek-pointer-width-full-screen / 2;
 
-      width: $progress-bar-height-full-screen * 2;
-      height: $progress-bar-height-full-screen * 2;
+      width: $seek-pointer-width-full-screen;
+      height: $seek-pointer-height-full-screen;
     }
   }
 }

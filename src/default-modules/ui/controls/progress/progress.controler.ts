@@ -78,6 +78,7 @@ export default class ProgressControl {
   private _initUI() {
     const config = {
       callbacks: {
+        onSyncWithLiveClick: this._syncWithLive,
         onChangePlayedProgress: this._changePlayedProgress,
         onDragStart: this._onUserInteractionStarts,
         onDragEnd: this._onUserInteractionEnds,
@@ -133,6 +134,7 @@ export default class ProgressControl {
   }
 
   private _bindCallbacks() {
+    this._syncWithLive = this._syncWithLive.bind(this);
     this._updateControlOnInterval = this._updateControlOnInterval.bind(this);
     this._changePlayedProgress = this._changePlayedProgress.bind(this);
     this._onUserInteractionStarts = this._onUserInteractionStarts.bind(this);
@@ -201,12 +203,22 @@ export default class ProgressControl {
 
         if (this._engine.isSeekAvailable) {
           this.show();
+          if (this._engine.isDynamicContent) {
+            this.view.setLiveMode();
+          } else {
+            this.view.setUsualMode();
+          }
         } else {
           this.hide();
         }
+
         break;
       case STATES.PLAYING:
-        this._startIntervalUpdates();
+        if (this._engine.isSyncWithLive) {
+          this.view.setPlayed(100);
+        } else {
+          this._startIntervalUpdates();
+        }
         break;
       case STATES.SEEK_IN_PROGRESS:
         this._updatePlayedIndicator();
@@ -260,6 +272,11 @@ export default class ProgressControl {
   }
 
   private _updatePlayedIndicator() {
+    if (this._engine.isSyncWithLive) {
+      this.view.setPlayed(100);
+      return;
+    }
+
     const currentTime = this._engine.getCurrentTime();
     const duration = this._engine.getDurationTime();
 
@@ -287,6 +304,10 @@ export default class ProgressControl {
     }
 
     this.view.addTimeIndicator(getTimePercent(time, durationTime));
+  }
+
+  private _syncWithLive() {
+    this._engine.syncWithLive();
   }
 
   /**
