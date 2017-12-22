@@ -1,6 +1,8 @@
 <!-- Generated automatically. Update this documentation by updating the source code. -->
 
-# on
+# Player public methods
+
+## on
 
 ```javascript
 player.on(VideoPlayer.UI_EVENTS.PLAY_TRIGGERED, () => {
@@ -45,7 +47,7 @@ You can check all events inside <code>VideoPlayer.UI_EVENTS</code> and <code>Vid
 </div>
 
 
-# off
+## off
 
 ```javascript
 const callback = function() {
@@ -99,23 +101,23 @@ Method for removing listeners of events inside player.
 </div>
 
 
-# enterFullScreen
+## enterFullScreen
 
 Player would try to enter fullscreen mode.
 Behavior of fullscreen mode on different platforms may differ.
 
 
-# exitFullScreen
+## exitFullScreen
 
 Player would try to exit fullscreen mode.
 
 
-# isInFullScreen
+## isInFullScreen
 
 Return true if player is in full screen
 
 
-# getDebugInfo
+## getDebugInfo
 
 ```javascript
 player.getDebugInfo();
@@ -218,7 +220,7 @@ Return object with internal debug info
 </div>
 
 
-# setSrc
+## setSrc
 
 Method for setting source of video to player.
 
@@ -242,17 +244,17 @@ Method for setting source of video to player.
 </div>
 
 
-# getSrc
+## getSrc
 
 Return current source of video
 
 
-# syncWithLive
+## syncWithLive
 
 Method for synchronize current playback with live point. Available only if you playing live source.
 
 
-# goForward
+## goForward
 
 
 Method for going forward in playback by your value
@@ -277,7 +279,7 @@ Method for going forward in playback by your value
 </div>
 
 
-# goBackward
+## goBackward
 
 
 Method for going backward in playback by your value
@@ -302,7 +304,7 @@ Method for going backward in playback by your value
 </div>
 
 
-# decreaseVolume
+## decreaseVolume
 
 
 Method for decreasing current volume by value
@@ -327,7 +329,7 @@ Method for decreasing current volume by value
 </div>
 
 
-# increaseVolume
+## increaseVolume
 
 
 Method for increasing current volume by value
@@ -352,7 +354,7 @@ Method for increasing current volume by value
 </div>
 
 
-# setAutoPlay
+## setAutoPlay
 
 Set autoPlay flag
 
@@ -376,12 +378,12 @@ Set autoPlay flag
 </div>
 
 
-# getAutoPlay
+## getAutoPlay
 
 Get autoPlay flag
 
 
-# setLoop
+## setLoop
 
 Set loop flag
 
@@ -405,12 +407,12 @@ Set loop flag
 </div>
 
 
-# getLoop
+## getLoop
 
 Get loop flag
 
 
-# setMute
+## setMute
 
 Set mute flag
 
@@ -434,12 +436,12 @@ Set mute flag
 </div>
 
 
-# getMute
+## getMute
 
 Get mute flag
 
 
-# setVolume
+## setVolume
 
 
 Set volume
@@ -464,12 +466,12 @@ Set volume
 </div>
 
 
-# getVolume
+## getVolume
 
 Get volume
 
 
-# setPlaybackRate
+## setPlaybackRate
 
 Method for setting playback rate
 
@@ -493,12 +495,12 @@ Method for setting playback rate
 </div>
 
 
-# getPlaybackRate
+## getPlaybackRate
 
 Return current playback rate
 
 
-# setPreload
+## setPreload
 
 Set preload type
 
@@ -522,17 +524,17 @@ Set preload type
 </div>
 
 
-# getPreload
+## getPreload
 
 Return preload type
 
 
-# getCurrentTime
+## getCurrentTime
 
 Return current time of video playback
 
 
-# goTo
+## goTo
 
 Method for seeking to time in video
 
@@ -556,12 +558,12 @@ Method for seeking to time in video
 </div>
 
 
-# getDurationTime
+## getDurationTime
 
 Return duration of video
 
 
-# setPlayInline
+## setPlayInline
 
 Set playInline flag
 
@@ -585,38 +587,38 @@ Set playInline flag
 </div>
 
 
-# getPlayInline
+## getPlayInline
 
 Get playInline flag
 
 
-# getCurrentPlaybackState
+## getCurrentPlaybackState
 
 Return current state of playback
 
 
-# play
+## play
 
 Method for starting playback of video
 
 
-# pause
+## pause
 
 Method for pausing playback of video
 
 
-# togglePlayback
+## togglePlayback
 
 Method for toggling(play\pause) playback of video
 
 
-# node
+## node
 
 Getter for DOM node with player UI element
 (use it only for debug, if you need attach player to your document use <code>attachToElement</code> method)
 
 
-# attachToElement
+## attachToElement
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
@@ -649,17 +651,17 @@ Method for attaching player node to your container
 </div>
 
 
-# hide
+## hide
 
 Hide whole ui
 
 
-# show
+## show
 
 Show whole ui
 
 
-# setWidth
+## setWidth
 
 
 Method for setting width of player
@@ -684,7 +686,7 @@ Method for setting width of player
 </div>
 
 
-# setHeight
+## setHeight
 
 
 Method for setting width of player
@@ -709,17 +711,17 @@ Method for setting width of player
 </div>
 
 
-# getWidth
+## getWidth
 
 Return current width of player in pixels
 
 
-# getHeight
+## getHeight
 
 Return current height of player in pixels
 
 
-# setFillAllSpace
+## setFillAllSpace
 
 
 Method for allowing player fill all available space
@@ -744,7 +746,7 @@ Method for allowing player fill all available space
 </div>
 
 
-# setLogoAlwaysShowFlag
+## setLogoAlwaysShowFlag
 
 
 Method for allowing logo to be always shown in bottom block
@@ -769,12 +771,12 @@ Method for allowing logo to be always shown in bottom block
 </div>
 
 
-# removeLogo
+## removeLogo
 
 Method for hidding logo. If you use <code>setLogoAlwaysShowFlag</code> or <code>setControlsShouldAlwaysShow</code>, logo would automaticaly appear.
 
 
-# setControlsShouldAlwaysShow
+## setControlsShouldAlwaysShow
 
 
 Method for allowing bottom block to be always shown.
@@ -799,7 +801,7 @@ Method for allowing bottom block to be always shown.
 </div>
 
 
-# setLogo
+## setLogo
 
 ```javascript
 const src = 'link.to.your.image.with.logo'
@@ -828,7 +830,7 @@ Method for setting source of image, that would be used as logo
 </div>
 
 
-# setLogoClickCallback
+## setLogoClickCallback
 
 ```javascript
 const callback = () => {
@@ -859,7 +861,7 @@ Method for attaching callback for click on logo
 </div>
 
 
-# addTimeIndicator
+## addTimeIndicator
 
 Add time indicator to progress bar
 
@@ -883,7 +885,7 @@ Add time indicator to progress bar
 </div>
 
 
-# addTimeIndicators
+## addTimeIndicators
 
 Add time indicators to progress bar
 
@@ -907,12 +909,12 @@ Add time indicators to progress bar
 </div>
 
 
-# clearTimeIndicators
+## clearTimeIndicators
 
 Delete all time indicators from progress bar
 
 
-# setLoadingCover
+## setLoadingCover
 
 ```javascript
 const src = 'link.to.your.image'
@@ -941,7 +943,7 @@ Method for setting source of image, that would be used as loading cover instead 
 </div>
 
 
-# setTitle
+## setTitle
 
 ```javascript
 player.setTitle('Your awesome video title here');
@@ -971,7 +973,7 @@ Display title text over the video. If you want to have clickable title, use <cod
 </div>
 
 
-# setTitleClickCallback
+## setTitleClickCallback
 
 ```javascript
 const callback = () => {
