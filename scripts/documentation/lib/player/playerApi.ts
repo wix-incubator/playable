@@ -1,6 +1,6 @@
 import * as t from '@babel/types';
 
-import { getDecoratorArguments } from './ast';
+import { getDecoratorArguments } from '../utils/ast';
 
 function isPlayerApiDecorator(node) {
   return t.isDecorator(node) && node.expression.callee.name === 'playerAPI';

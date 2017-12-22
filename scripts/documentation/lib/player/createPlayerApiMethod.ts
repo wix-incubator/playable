@@ -5,7 +5,7 @@ import { isJSDocComment, createJSDocCommentBlock } from '../utils/ast';
 import {
   isPlayerApiDecorator,
   getNameFromPlayerApiDecorator,
-} from '../utils/playerApiDecorator';
+} from './playerApi';
 
 function createApiMethod(playerApiMethod) {
   const playerApiDecorator = playerApiMethod.decorators.find(
