@@ -190,17 +190,6 @@ body {
 
       color: $nav-text;
     }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    li {
-      font-size: .8em;
-      line-height: 1.7;
-
-      text-decoration: none;
-    }
   }
 }
 
@@ -395,8 +384,7 @@ body {
 
   // the div is the tocify hidden div for placeholding stuff
   & > h1,
-  & > h2,
-  & > div {
+  & > h2 {
     clear: both;
   }
 
@@ -410,7 +398,7 @@ body {
 
     margin-top: 0;
     margin-bottom: $h1-margin-bottom;
-    padding-top: 2.5em;
+    padding-top: 40px;
     padding-bottom: .5em;
 
     @extend %header-font;
@@ -426,12 +414,11 @@ body {
   h2 {
     font-size: 19px;
 
-    margin-top: 4em;
+    margin-top: 2em;
     margin-bottom: 0;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
 
-    border-top: 1px solid #ccc;
     background-image: linear-gradient(to bottom, rgba(#fff, .2), rgba(#fff, 0));
 
     @extend %header-font;
@@ -697,6 +684,10 @@ body {
     padding-bottom: .3em;
   }
 
+  pre[class*='language-'] {
+    margin-bottom: 2em;
+  }
+
   .content .method-list {
     tr {
       display: block;
@@ -712,6 +703,12 @@ body {
       width: auto;
 
       text-align: left;
+    }
+
+    .type {
+      display: inline;
+
+      padding-left: 10px;
     }
   }
 }
