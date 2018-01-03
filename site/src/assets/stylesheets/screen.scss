@@ -166,16 +166,16 @@ body {
     background-color: $nav-active-parent-bg;
   }
 
-  .toc-list-h2 {
-    font-weight: 500;
+  .toc-h1 {
+    font-weight: 600;
+  }
 
-    //background-color: $nav-subitem-bg;
+  .toc-list-h2 {
+    margin-bottom: 15px;
   }
 
   .toc-h2 {
-    font-size: 12px;
-
-    padding-left: $nav-padding + $nav-indent;
+    padding-left: $nav-padding;
   }
 
   .toc-footer {
@@ -346,6 +346,8 @@ body {
   z-index: 30;
   // fixes webkit rendering bug for some: see #538
 
+  overflow: hidden;
+
   -webkit-transform: translateZ(0);
 
   &:after {
@@ -396,41 +398,19 @@ body {
     font-size: 25px;
     font-weight: normal;
 
-    margin-top: 0;
+    margin-top: 40px;
     margin-bottom: $h1-margin-bottom;
-    padding-top: 40px;
-    padding-bottom: .5em;
 
     @extend %header-font;
-  }
-
-  h1:first-child,
-  div:first-child + h1 {
-    margin-top: 0;
-
-    border-top-width: 0;
   }
 
   h2 {
     font-size: 19px;
 
-    margin-top: 2em;
-    margin-bottom: 0;
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
-
-    background-image: linear-gradient(to bottom, rgba(#fff, .2), rgba(#fff, 0));
+    margin-top: 3.2em;
+    margin-bottom: 1.2em;
 
     @extend %header-font;
-  }
-
-  // h2s right after h1s should bump right up
-  // against the h1s.
-  h1 + h2,
-  h1 + div + h2 {
-    margin-top: $h1-margin-bottom * -1;
-
-    border-top: none;
   }
 
   h3,
@@ -501,13 +481,16 @@ body {
     margin-left: 15px;
   }
 
-  p,
   li,
   dt,
   dd {
     line-height: $line-height;
 
     margin-top: 0;
+  }
+
+  p {
+    line-height: $line-height;
   }
 
   img {
@@ -648,7 +631,7 @@ body {
 
   blockquote {
     & > p {
-      padding: $code-annotation-padding 2em;
+      padding: $code-annotation-padding $main-padding;
 
       color: #eee;
       background-color: $code-annotation-bg;
@@ -682,10 +665,6 @@ body {
   .toc-link {
     padding-top: .3em;
     padding-bottom: .3em;
-  }
-
-  pre[class*='language-'] {
-    margin-bottom: 2em;
   }
 
   .content .method-list {
