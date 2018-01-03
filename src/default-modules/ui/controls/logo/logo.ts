@@ -17,11 +17,18 @@ export interface ILogoConfig {
 
 export default class Logo {
   static View = View;
-  static dependencies = ['engine', 'config', 'eventEmitter', 'textMap'];
+  static dependencies = [
+    'engine',
+    'config',
+    'eventEmitter',
+    'textMap',
+    'createTooltip',
+  ];
 
   private _eventEmitter;
   private _engine;
   private _textMap;
+  private _createTooltip;
 
   private _interceptor;
   private _callback;
@@ -29,10 +36,11 @@ export default class Logo {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, config, textMap }) {
+  constructor({ engine, eventEmitter, config, textMap, createTooltip }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._textMap = textMap;
+    this._createTooltip = createTooltip;
 
     this._bindCallbacks();
 
@@ -53,6 +61,7 @@ export default class Logo {
 
   _initUI() {
     const config = {
+      createTooltip: this._createTooltip,
       callbacks: {
         onLogoClick: this._triggerCallback,
       },

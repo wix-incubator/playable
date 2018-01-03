@@ -1,0 +1,30 @@
+.tooltip {
+  padding: 4px 7px;
+
+  background: rgba(0,0,0,.5);
+
+  &[x-placement^='top'] {
+    margin-bottom: 9px;
+  }
+
+  &[x-placement^='bottom'] {
+    margin-top: 9px;
+  }
+
+  &[x-placement^='right'] {
+    margin-left: 9px;
+  }
+
+  &[x-placement^='left'] {
+    margin-right: 9px;
+  }
+}
+
+.tooltip-inner {
+  font-size: 11px;
+  line-height: 12px;
+
+  white-space: nowrap;
+
+  color: white;
+}

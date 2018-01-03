@@ -90,23 +90,3 @@
     }
   }
 }
-
-.tooltip {
-  font-size: 12px;
-  line-height: 20px;
-
-  position: absolute;
-  top: -40px;
-  right: -12px;
-
-  visibility: hidden;
-
-  padding: 3px 10px;
-
-  transition: opacity .2s, visibility .2s;
-  white-space: nowrap;
-
-  opacity: 0;
-  color: white;
-  background: rgba(0,0,0,.5);
-}

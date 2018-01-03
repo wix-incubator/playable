@@ -2,22 +2,30 @@ import * as $ from 'jbone';
 
 import { TEXT_LABELS } from '../../../../constants/index';
 
+import { ITooltipFactory, Tooltip } from '../../core/tooltip';
 import View from '../../core/view';
 
 import * as styles from './logo.scss';
 import * as viewOnSiteIcon from '../../../../assets/view-on-site.svg';
 
+type ILogoViewConfig = {
+  createTooltip: ITooltipFactory;
+  callbacks: any;
+  texts: any;
+  logo?: string;
+};
+
 class LogoView extends View {
+  private _tooltip: Tooltip;
   private _callbacks;
   private _texts;
 
   $node;
   $logo;
-  $tooltip;
 
-  constructor(config) {
+  constructor(config: ILogoViewConfig) {
     super();
-    const { callbacks, texts } = config;
+    const { callbacks, texts, createTooltip } = config;
 
     this._callbacks = callbacks;
     this._texts = texts;
@@ -33,11 +41,9 @@ class LogoView extends View {
       tabIndex: 0,
     });
 
-    this.$tooltip = $('<div>', {
-      class: `${this.styleNames.tooltip}`,
+    this._tooltip = createTooltip(this.$logo[0], {
+      title: this._texts.get(TEXT_LABELS.LOGO_TOOLTIP),
     });
-    this.$tooltip.html(this._texts.get(TEXT_LABELS.LOGO_TOOLTIP));
-    this.$node.append(this.$tooltip);
 
     this.$node.append(this.$logo);
 
@@ -94,10 +100,12 @@ class LogoView extends View {
 
   destroy() {
     this._unbindEvents();
+    this._tooltip.destroy();
     this.$node.remove();
 
     delete this.$node;
 
+    delete this._tooltip;
     delete this._texts;
   }
 }
