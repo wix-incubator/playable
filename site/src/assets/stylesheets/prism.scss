@@ -1,30 +1,11 @@
-/*
- based on prismjs/themes/prism-solarizedlight.css
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
 
- Solarized Color Schemes originally by Ethan Schoonover
- http://ethanschoonover.com/solarized
+@import 'variables';
 
- Ported for PrismJS by Hector Matos
- Website: https://krakendev.io
- Twitter Handle: https://twitter.com/allonsykraken)
-*/
-
-$ase03: #002b36;
-$base02: #073642;
-$base01: #586e75;
-$base00: #657b83;
-$base0: #839496;
-$base1: #93a1a1;
-$base2: #eee8d5;
-$base3: #1e2224;
-$yellow: #b58900;
-$orange: #cb4b16;
-$red: #dc322f;
-$magenta: #d33682;
-$violet: #6c71c4;
-$blue: #268bd2;
-$cyan: #2aa198;
-$green: #859900;
 
 code[class*='language-'],
 pre[class*='language-'] {
@@ -36,41 +17,37 @@ pre[class*='language-'] {
   word-spacing: normal;
   word-wrap: normal;
   word-break: normal;
-  tab-size: 4;
-  hyphens: none;
+  -moz-tab-size: 4;
+    -o-tab-size: 4;
+       tab-size: 4;
+  -webkit-hyphens: none;
+     -moz-hyphens: none;
+          hyphens: none;
 
-  color: $base00;
-}
+  color: #f8f8f2;
+  background: none;
+  text-shadow: 0 1px rgba(0, 0, 0, .3);
 
-pre[class*='language-']::-moz-selection,
-pre[class*='language-'] ::-moz-selection,
-code[class*='language-']::-moz-selection,
-code[class*='language-'] ::-moz-selection {
-  background: $base02;
-}
-
-pre[class*='language-']::selection,
-pre[class*='language-'] ::selection,
-code[class*='language-']::selection,
-code[class*='language-'] ::selection {
-  background: $base02;
+      -ms-hyphens: none;
 }
 
 /* Code blocks */
 pre[class*='language-'] {
   overflow: auto;
 
-  padding: 1em;
+  padding: $main-padding;
 }
 
 :not(pre) > code[class*='language-'],
 pre[class*='language-'] {
-  background-color: $base3;
+  background: #272b2d;
 }
 
 /* Inline code */
 :not(pre) > code[class*='language-'] {
   padding: .1em;
+
+  white-space: normal;
 
   border-radius: .3em;
 }
@@ -79,11 +56,11 @@ pre[class*='language-'] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: $base1;
+  color: slategray;
 }
 
 .token.punctuation {
-  color: $base01;
+  color: #f8f8f2;
 }
 
 .namespace {
@@ -92,12 +69,15 @@ pre[class*='language-'] {
 
 .token.property,
 .token.tag,
-.token.boolean,
-.token.number,
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: $blue;
+  color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+  color: #ae81ff;
 }
 
 .token.selector,
@@ -105,30 +85,32 @@ pre[class*='language-'] {
 .token.string,
 .token.char,
 .token.builtin,
-.token.url,
 .token.inserted {
-  color: $cyan;
+  color: #a6e22e;
 }
 
-.token.entity {
-  color: $base00;
-  background: $base2;
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: #f8f8f2;
 }
 
 .token.atrule,
 .token.attr-value,
-.token.keyword {
-  color: $green;
+.token.function {
+  color: #e6db74;
 }
 
-.token.function {
-  color: $yellow;
+.token.keyword {
+  color: #66d9ef;
 }
 
 .token.regex,
-.token.important,
-.token.variable {
-  color: $orange;
+.token.important {
+  color: #fd971f;
 }
 
 .token.important,
