@@ -5,6 +5,9 @@
 ## on
 
 ```javascript
+const VideoPlayer = require('video-player.js');
+const player = VideoPlayer.create();
+
 player.on(VideoPlayer.UI_EVENTS.PLAY_TRIGGERED, () => {
   // Will be executed after you will click on play button
 });
@@ -50,6 +53,9 @@ You can check all events inside <code>VideoPlayer.UI_EVENTS</code> and <code>Vid
 ## off
 
 ```javascript
+const VideoPlayer = require('video-player.js');
+const player = VideoPlayer.create();
+
 const callback = function() {
   // Code to handle some kind of event
 };
@@ -630,6 +636,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 
 Method for attaching player node to your container
+It's important to call this methods after <code>DOMContentLoaded</code> event!
 
 <div class="method-list">
   <table>
@@ -771,34 +778,9 @@ Method for allowing logo to be always shown in bottom block
 </div>
 
 
-## removeLogo
+## hideLogo
 
 Method for hidding logo. If you use <code>setLogoAlwaysShowFlag</code> or <code>setControlsShouldAlwaysShow</code>, logo would automaticaly appear.
-
-
-## setControlsShouldAlwaysShow
-
-
-Method for allowing bottom block to be always shown.
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>flag</code><span class="type">boolean</span class="type">
-        </td>
-        <td>: True for showing always</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
 
 ## setLogo
@@ -914,14 +896,10 @@ Add time indicators to progress bar
 Delete all time indicators from progress bar
 
 
-## setLoadingCover
+## setControlsShouldAlwaysShow
 
-```javascript
-const src = 'link.to.your.image'
-player.setLoadingCover(src);
-```
 
-Method for setting source of image, that would be used as loading cover instead of loader.
+Method for allowing bottom block to be always shown.
 
 <div class="method-list">
   <table>
@@ -934,9 +912,9 @@ Method for setting source of image, that would be used as loading cover instead 
     <tbody>
       <tr>
         <td class="param">
-          <code>src</code><span class="type">string</span class="type">
+          <code>flag</code><span class="type">boolean</span class="type">
         </td>
-        <td>Link to your image</td>
+        <td>: True for showing always</td>
       </tr>
     </tbody>
   </table>

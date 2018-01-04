@@ -47,7 +47,11 @@ document.addEventListener('DOMContentLoaded', function() {
   player.attachToElement(document.getElementById('content'));
 });
 ```
+Check page with info about [config object](/docs/player-config)
 
-`const player = VideoPlayer.create(config);`
+After that just choose what you want to configurate, create object with proper fields and pass it to `VideoPlayer.create`.
+It will return instance of player, you can check it API [here](/docs/player-public-methods).
 
-`player.attachToElement(document.getElementById('content'));`
+To place it somewhere in your structure, just call [`attachToElement`](/docs/player-public-methods#attachtoelement)
+
+It's really important to call `attachToElement` after `DOMContentLoaded` event due to [css-element-query](https://github.com/marcj/css-element-queries)

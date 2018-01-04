@@ -35,7 +35,22 @@ function NavTree({ headings, isOpen }) {
       </div>
       <ul className="toc-footer">
         <li>
+          <Link to="/docs/player-config">Configuration object</Link>
+        </li>
+        <li>
+          <Link to="/docs/video-source">Video source</Link>
+        </li>
+        <li>
           <Link to="/docs/api">API reference</Link>
+        </li>
+        <li>
+          <Link to="/docs/modules">Modules</Link>
+        </li>
+        <li>
+          <Link to="/docs/events">Player events</Link>
+        </li>
+        <li>
+          <Link to="/docs/events">Playback adapters</Link>
         </li>
       </ul>
     </div>
