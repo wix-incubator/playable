@@ -2,12 +2,12 @@ import { asClass, asFunction, asValue } from './registrations';
 import ResolutionError from './errors/ResolutionError';
 import nameValueToObject from './utils/nameValueToObject';
 import Lifetime from './constants/Lifetime';
-import * as last from 'lodash/last';
+import assign from './utils/assign';
 
 const FAMILY_TREE = '__familyTree__';
 
 export default function createContainer(options?, __parentContainer?) {
-  options = Object.assign({}, options);
+  options = assign({}, options);
 
   // The resolution stack is used to keep track
   // of what modules are being resolved, so when
@@ -22,7 +22,7 @@ export default function createContainer(options?, __parentContainer?) {
   const container: any = {
     options,
     get registrations() {
-      return Object.assign(
+      return assign(
         {},
         __parentContainer && __parentContainer.registrations,
         registrations,
@@ -56,12 +56,12 @@ export default function createContainer(options?, __parentContainer?) {
         let valueToRegister = obj[key];
 
         // If we have options, copy them over.
-        opts = Object.assign({}, opts);
+        opts = assign({}, opts);
 
         /* ignore coverage */
         if (!verbatimValue && Array.isArray(valueToRegister)) {
           // The ('name', [value, opts]) style
-          opts = Object.assign({}, opts, valueToRegister[1]);
+          opts = assign({}, opts, valueToRegister[1]);
           valueToRegister = valueToRegister[0];
         }
 
@@ -78,7 +78,7 @@ export default function createContainer(options?, __parentContainer?) {
   container.resolve = name => {
     // We need a reference to the root container,
     // so we can retrieve and store singletons.
-    const root = last(familyTree);
+    const root = familyTree[familyTree.length - 1];
 
     try {
       // Grab the registration by name.
