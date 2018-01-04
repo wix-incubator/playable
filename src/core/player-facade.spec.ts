@@ -2,7 +2,7 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import mapParamsToConfig from './config-mapper';
+import convertToDeviceRelatedConfig from './config';
 import Player from './player-facade';
 import DependencyContainer from './dependency-container';
 import playerAPI from '../utils/player-api-decorator';
@@ -26,7 +26,7 @@ describe("Player's instance", () => {
 
       expect(
         registerValueSpy.calledWith({
-          config: mapParamsToConfig(params),
+          config: convertToDeviceRelatedConfig(params),
         }),
       ).to.be.true;
     });

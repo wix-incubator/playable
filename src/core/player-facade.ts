@@ -1,4 +1,4 @@
-import mapParamsToConfig from './config-mapper';
+import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
 import { PLAYER_API_PROPERTY } from '../utils/player-api-decorator';
 
 export default class Player {
@@ -7,9 +7,14 @@ export default class Player {
   private _additionalModules;
   private _destroyed: boolean;
 
-  constructor(params, scope, defaultModules, additionalModules = {}) {
+  constructor(
+    params: IPlayerConfig,
+    scope,
+    defaultModules,
+    additionalModules = {},
+  ) {
     scope.registerValue({
-      config: mapParamsToConfig(params),
+      config: convertToDeviceRelatedConfig(params),
     });
 
     this._config = scope.resolve('config');
