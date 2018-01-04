@@ -57,8 +57,8 @@ export default class CardsManager {
       return;
     }
 
-    await this._disableCards([cardToRemove]);
     this.availableCards.splice(this.availableCards.indexOf(cardToRemove), 1);
+    await this._disableCards([cardToRemove]);
 
     this._enableAnimation();
   }
