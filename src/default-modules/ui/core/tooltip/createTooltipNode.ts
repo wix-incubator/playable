@@ -1,16 +1,31 @@
 import htmlToElement from '../htmlToElement';
-import * as styles from './tooltip.scss';
 
-function createTooltipTemplate(title: string): string {
+type ITooltipStyles = {
+  tooltip: string;
+  tooltipHidden: string;
+  tooltipInner: string;
+};
+
+type ITooltipTemplateProps = {
+  title: string;
+  styles: ITooltipStyles;
+};
+
+function createTooltipTemplate({
+  title,
+  styles,
+}: ITooltipTemplateProps): string {
   return `
     <div class="${styles.tooltip}" role="tooltip">
-      <div class="${styles['tooltip-inner']}">${title}</div>
+      <div class="${styles.tooltipInner}">${title}</div>
     </div>
   `;
 }
 
-function createTooltipNode(title: string): HTMLElement {
-  return htmlToElement(createTooltipTemplate(title));
+function createTooltipNode(props: ITooltipTemplateProps): HTMLElement {
+  return htmlToElement(createTooltipTemplate(props));
 }
+
+export { ITooltipStyles };
 
 export default createTooltipNode;

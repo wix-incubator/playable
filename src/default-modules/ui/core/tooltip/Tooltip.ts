@@ -1,8 +1,11 @@
 import Popper from 'popper.js';
-import createTooltipNode from './createTooltipNode';
+import createTooltipNode, { ITooltipStyles } from './createTooltipNode';
+import Stylable from '../stylable';
+
+import * as styles from './tooltip.scss';
 
 type ITooltipOptions = {
-  title: string;
+  title?: string;
   placement?: Popper.Placement;
   popperOptions?: Popper.PopperOptions;
   container?: boolean | string | HTMLElement;
@@ -11,10 +14,16 @@ type ITooltipOptions = {
   delay?: number | any;
 };
 
+interface ITooltip {
+  show();
+  hide();
+  destroy();
+}
+
 const SHOW_EVENTS = ['mouseenter', 'focus'];
 const HIDE_EVENTS = ['mouseleave', 'blur'];
 
-class Tooltip {
+class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
   private _reference: HTMLElement;
   private _tooltipNode: HTMLElement;
 
@@ -29,11 +38,13 @@ class Tooltip {
   popperInstance: Popper;
 
   constructor(reference: HTMLElement, options?: ITooltipOptions) {
+    super();
+
     this._reference = reference;
     this._options = {
       placement: 'top',
       eventsEnabled: false,
-      ...options
+      ...options,
     };
 
     this._eventListeners = [];
@@ -144,7 +155,7 @@ class Tooltip {
       return;
     }
 
-    this._tooltipNode.style.display = '';
+    this._tooltipNode.classList.remove(this.styleNames.tooltipHidden);
     this._tooltipNode.setAttribute('aria-hidden', 'false');
     this.popperInstance.update();
   }
@@ -155,7 +166,7 @@ class Tooltip {
     }
 
     this._isOpen = false;
-    this._tooltipNode.style.display = 'none';
+    this._tooltipNode.classList.add(this.styleNames.tooltipHidden);
     this._tooltipNode.setAttribute('aria-hidden', 'true');
   }
 
@@ -188,10 +199,12 @@ class Tooltip {
   private _initTooltip() {
     const reference = this._reference;
     const options = this._options;
-    const title = reference.getAttribute('title') || options.title;
 
     const tooltipContainer = this._getTooltipContainer();
-    const tooltipNode = createTooltipNode(title);
+    const tooltipNode = createTooltipNode({
+      title: options.title,
+      styles: this.styleNames,
+    });
 
     // add accessibility attributes
     tooltipNode.id = this._createTooltipId();
@@ -208,7 +221,7 @@ class Tooltip {
     const popperOptions = {
       ...options.popperOptions,
       placement: options.placement,
-      eventsEnabled: options.eventsEnabled
+      eventsEnabled: options.eventsEnabled,
     };
 
     popperOptions.modifiers = popperOptions.modifiers || {};
@@ -249,6 +262,8 @@ class Tooltip {
   }
 }
 
-export { ITooltipOptions };
+Tooltip.extendStyleNames(styles);
+
+export { ITooltip, ITooltipOptions, ITooltipStyles };
 
 export default Tooltip;

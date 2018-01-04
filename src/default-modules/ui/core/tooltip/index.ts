@@ -1,6 +1,7 @@
-export { default as Tooltip, ITooltipOptions } from './Tooltip';
-
 export {
-  default as createTooltipFactory,
-  ITooltipFactory,
-} from './createTooltipFactory';
+  default as Tooltip,
+  ITooltip,
+  ITooltipOptions,
+  ITooltipStyles,
+} from './Tooltip';
+export { default as TooltipService, ITooltipService } from './TooltipService';

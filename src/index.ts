@@ -16,6 +16,8 @@ import {
 
 import DefaultControls from './default-modules/ui/controls/default-controls';
 
+import { Tooltip } from './default-modules/ui/core/tooltip';
+
 import Overlay from './default-modules/ui/overlay/overlay.controler';
 import Loader from './default-modules/ui/loader/loader.controler';
 import Screen from './default-modules/ui/screen/screen.controler';
@@ -34,6 +36,7 @@ const DefaultUIComponents = {
   TopBlock,
   BottomBlock,
   Loader,
+  Tooltip,
 };
 
 /* ignore coverage */

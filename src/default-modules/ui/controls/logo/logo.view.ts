@@ -2,21 +2,21 @@ import * as $ from 'jbone';
 
 import { TEXT_LABELS } from '../../../../constants/index';
 
-import { ITooltipFactory, Tooltip } from '../../core/tooltip';
+import { ITooltipService, ITooltip } from '../../core/tooltip';
 import View from '../../core/view';
 
 import * as styles from './logo.scss';
 import * as viewOnSiteIcon from '../../../../assets/view-on-site.svg';
 
 type ILogoViewConfig = {
-  createTooltip: ITooltipFactory;
-  callbacks: any;
+  tooltipService: ITooltipService;
+  callbacks: { onLogoClick: Function };
   texts: any;
   logo?: string;
 };
 
 class LogoView extends View {
-  private _tooltip: Tooltip;
+  private _tooltip: ITooltip;
   private _callbacks;
   private _texts;
 
@@ -25,7 +25,7 @@ class LogoView extends View {
 
   constructor(config: ILogoViewConfig) {
     super();
-    const { callbacks, texts, createTooltip } = config;
+    const { callbacks, texts, tooltipService } = config;
 
     this._callbacks = callbacks;
     this._texts = texts;
@@ -41,7 +41,7 @@ class LogoView extends View {
       tabIndex: 0,
     });
 
-    this._tooltip = createTooltip(this.$logo[0], {
+    this._tooltip = tooltipService.create(this.$logo[0], {
       title: this._texts.get(TEXT_LABELS.LOGO_TOOLTIP),
     });
 

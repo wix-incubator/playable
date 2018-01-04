@@ -7,6 +7,7 @@ import KeyboardInterceptor, {
 } from '../../../../utils/keyboard-interceptor';
 
 import { UI_EVENTS } from '../../../../constants/index';
+import { ITooltipService } from '../../core/tooltip';
 import View from './logo.view';
 
 export interface ILogoConfig {
@@ -22,13 +23,13 @@ export default class Logo {
     'config',
     'eventEmitter',
     'textMap',
-    'createTooltip',
+    'tooltipService',
   ];
 
   private _eventEmitter;
   private _engine;
   private _textMap;
-  private _createTooltip;
+  private _tooltipService: ITooltipService;
 
   private _interceptor;
   private _callback;
@@ -36,11 +37,11 @@ export default class Logo {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, config, textMap, createTooltip }) {
+  constructor({ engine, eventEmitter, config, textMap, tooltipService }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._textMap = textMap;
-    this._createTooltip = createTooltip;
+    this._tooltipService = tooltipService;
 
     this._bindCallbacks();
 
@@ -61,7 +62,7 @@ export default class Logo {
 
   _initUI() {
     const config = {
-      createTooltip: this._createTooltip,
+      tooltipService: this._tooltipService,
       callbacks: {
         onLogoClick: this._triggerCallback,
       },
