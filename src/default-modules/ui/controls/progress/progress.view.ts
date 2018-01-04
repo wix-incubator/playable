@@ -39,6 +39,7 @@ class ProgressView extends View {
   private _$buffered: HTMLElement;
   private _$seekTo: HTMLElement;
   private _$timeIndicators: HTMLElement;
+  private _$syncButton: HTMLElement;
 
   constructor(config) {
     super();
@@ -66,6 +67,7 @@ class ProgressView extends View {
     this._$timeIndicators = this._$node.querySelector(
       '[data-hook="progress-time-indicators"]',
     );
+    this._$syncButton = this._$node.querySelector('[data-hook="progress-sync-button"]');
 
     this._$hitbox = this._$node.querySelector('[data-hook="progress-hitbox"]');
   }
@@ -87,18 +89,17 @@ class ProgressView extends View {
     window.addEventListener('mousemove', this._setPlayedByDrag);
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
 
-    this._$syncButton[0].addEventListener('click', this._syncWithLive);
+    this._$syncButton.addEventListener('click', this._syncWithLive);
   }
 
   private _unbindEvents() {
     this._$hitbox.removeEventListener('mousedown', this._startDragOnMouseDown);
     this._$hitbox.removeEventListener('mousemove', this._setSeekToByMouse);
     this._$hitbox.removeEventListener('mouseout', this._resetSeek);
+    this._$syncButton.removeEventListener('click', this._syncWithLive);
 
     window.removeEventListener('mousemove', this._setPlayedByDrag);
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
-
-    this._$syncButton[0].removeEventListener('click', this._syncWithLive);
   }
 
   private _startDragOnMouseDown(event: MouseEvent) {
@@ -176,21 +177,21 @@ class ProgressView extends View {
   }
 
   private _showSyncWithLive() {
-    this._$syncButton.removeClass(this.styleNames.hidden);
+    this._$syncButton.classList.remove(this.styleNames.hidden);
   }
 
   private _hideSyncWithLive() {
-    this._$syncButton.addClass(this.styleNames.hidden);
+    this._$syncButton.classList.add(this.styleNames.hidden);
   }
 
   setLiveMode() {
-    this._$node.addClass(this.styleNames['in-live']);
+    this._$node.classList.add(this.styleNames['in-live']);
 
     this._showSyncWithLive();
   }
 
   setUsualMode() {
-    this._$node.removeClass(this.styleNames['in-live']);
+    this._$node.classList.remove(this.styleNames['in-live']);
 
     this._hideSyncWithLive();
   }

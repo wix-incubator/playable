@@ -27,4 +27,8 @@
     data-hook="progress-hitbox"
     class="${props.styles['hitbox']}">
   </div>
+  <div
+    data-hook="progress-sync-button"
+    class="${props.styles['sync-button']}">
+  </div>
 </div>
