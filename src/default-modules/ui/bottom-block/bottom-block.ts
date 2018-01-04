@@ -1,25 +1,14 @@
 import * as get from 'lodash/get';
-import * as isEmpty from 'lodash/isEmpty';
-
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import playerAPI from '../../../utils/player-api-decorator';
 
 import View from './bottom-block.view';
 
-const DEFAULT_CONFIG = {
-  shouldAlwaysShow: false,
-};
-
-const HIDE_BLOCK_TIMEOUT = 2000;
 
 export default class BottomBlock {
   static View = View;
   static dependencies = [
-    'engine',
-    'eventEmitter',
     'config',
-    'rootContainer',
     'screen',
     'playControl',
     'progressControl',
@@ -29,57 +18,27 @@ export default class BottomBlock {
     'logo',
   ];
 
-  private _eventEmitter;
-  private _engine;
   private _screen;
 
-  private _hideTimeout;
 
-  private _isContentShowingEnabled: boolean;
-  private _isBlockFocused: boolean;
-  private _shouldShowContent: boolean;
-  private config;
-
-  private _isDragging: boolean;
+  private _isBlockFocused: boolean = false;
 
   view: View;
-  isHidden: boolean;
+  isHidden: boolean = false;
 
   constructor(dependencies) {
     const {
       config,
-      rootContainer,
-      eventEmitter,
-      engine,
       screen,
     } = dependencies;
-    this._eventEmitter = eventEmitter;
-    this._engine = engine;
     this._screen = screen;
 
-    this.config = {
-      ...DEFAULT_CONFIG,
-      ...get(config, 'ui.controls'),
-    };
-    this.isHidden = false;
-    this._isContentShowingEnabled = true;
-    this._shouldShowContent = true;
-    this._hideTimeout = null;
-    this._isBlockFocused = false;
-
     this._bindViewCallbacks();
-    this._initUI(this._getElementNodes(dependencies));
-    this._initLogo();
-    this._bindEvents();
-
-    rootContainer.appendComponentNode(this.node);
-
-    if (get(config, 'ui.controls') === false) {
-      this.hide();
-    }
+    this._initUI(this._getElementsNodes(dependencies), get(config.controls, 'view'));
+    this._initLogo(config.logo);
   }
 
-  private _getElementNodes(dependencies) {
+  private _getElementsNodes(dependencies) {
     const {
       playControl,
       progressControl,
@@ -103,8 +62,7 @@ export default class BottomBlock {
     return this.view.getNode();
   }
 
-  private _initUI(elementNodes) {
-    const { view } = this.config;
+  private _initUI(elementNodes, customView) {
     const config = {
       elements: elementNodes,
       callbacks: {
@@ -113,113 +71,26 @@ export default class BottomBlock {
       },
     };
 
-    if (view) {
-      this.view = new view(config);
+    if (customView) {
+      this.view = new customView(config);
     } else {
       this.view = new BottomBlock.View(config);
     }
   }
 
-  private _initLogo() {
-    const { logo } = this.config;
-
-    if (!isEmpty(logo)) {
-      this.setLogoAlwaysShowFlag(logo.showAlways);
+  private _initLogo(logoConfig) {
+    if (logoConfig !== false) {
+      if (typeof logoConfig === 'object') {
+        this.setLogoAlwaysShowFlag(logoConfig.showAlways);
+      }
     } else {
-      this.removeLogo();
+      this.hideLogo();
     }
   }
 
   private _bindViewCallbacks() {
-    this._startHideBlockTimeout = this._startHideBlockTimeout.bind(this);
     this._setFocusState = this._setFocusState.bind(this);
     this._removeFocusState = this._removeFocusState.bind(this);
-    this._tryShowContent = this._tryShowContent.bind(this);
-    this._tryHideContent = this._tryHideContent.bind(this);
-  }
-
-  private _bindEvents() {
-    this._eventEmitter.on(
-      UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED,
-      this._tryHideContent,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.LOADER_HIDE_TRIGGERED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._updatePlayingStatus,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.CONTROL_DRAG_START,
-      this._onControlDragStart,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.CONTROL_DRAG_END,
-      this._onControlDragEnd,
-      this,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED,
-      this._tryHideContent,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.LOADER_HIDE_TRIGGERED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._updatePlayingStatus,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.CONTROL_DRAG_START,
-      this._onControlDragStart,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.CONTROL_DRAG_END,
-      this._onControlDragEnd,
-      this,
-    );
-  }
-
-  private _startHideBlockTimeout() {
-    this._stopHideBlockTimeout();
-
-    this._tryShowContent();
-
-    if (!this._isBlockFocused) {
-      this._hideTimeout = setTimeout(this._tryHideContent, HIDE_BLOCK_TIMEOUT);
-    }
-  }
-
-  private _stopHideBlockTimeout() {
-    if (this._hideTimeout) {
-      clearTimeout(this._hideTimeout);
-    }
   }
 
   private _setFocusState() {
@@ -230,69 +101,20 @@ export default class BottomBlock {
     this._isBlockFocused = false;
   }
 
-  private _tryShowContent() {
-    if (this._isContentShowingEnabled) {
-      this._showContent();
-    }
+  get isFocused() {
+    return this._isBlockFocused;
   }
 
-  private _showContent() {
-    this._eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
-    this._screen.showBottomShadow();
 
+  showContent() {
+    this._screen.showBottomShadow();
     this.view.showContent();
   }
 
-  private _tryHideContent() {
-    if (
-      !this._isDragging &&
-      !this._shouldShowContent &&
-      !this.config.shouldAlwaysShow
-    ) {
-      this._hideContent();
-    }
-  }
 
-  private _hideContent() {
-    this._eventEmitter.emit((UI_EVENTS as any).CONTROL_BLOCK_HIDE_TRIGGERED);
+  hideContent() {
     this._screen.hideBottomShadow();
     this.view.hideContent();
-  }
-
-  private _onControlDragStart() {
-    this._isDragging = true;
-  }
-
-  private _onControlDragEnd() {
-    this._isDragging = false;
-    this._tryHideContent();
-  }
-
-  _updatePlayingStatus({ nextState }) {
-    switch (nextState) {
-      case STATES.PLAY_REQUESTED: {
-        this._shouldShowContent = false;
-        this._startHideBlockTimeout();
-        break;
-      }
-      case STATES.ENDED: {
-        this._shouldShowContent = true;
-        this._tryShowContent();
-        break;
-      }
-      case STATES.PAUSED: {
-        this._shouldShowContent = true;
-        this._tryShowContent();
-        break;
-      }
-      case STATES.SRC_SET: {
-        this._shouldShowContent = true;
-        this._tryShowContent();
-        break;
-      }
-      default:
-        break;
-    }
   }
 
   hide() {
@@ -303,18 +125,6 @@ export default class BottomBlock {
   show() {
     this.isHidden = false;
     this.view.show();
-  }
-
-  disableShowingContent() {
-    this._isContentShowingEnabled = false;
-    this._hideContent();
-  }
-
-  enableShowingContent() {
-    this._isContentShowingEnabled = true;
-    if (this._shouldShowContent) {
-      this._showContent();
-    }
   }
 
   /**
@@ -332,36 +142,14 @@ export default class BottomBlock {
    * Method for hidding logo. If you use `setLogoAlwaysShowFlag` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
    */
   @playerAPI()
-  removeLogo() {
+  hideLogo() {
     this.view.hideLogo();
   }
 
-  /**
-   * Method for allowing bottom block to be always shown.
-   *
-   * @param flag: True for showing always
-   *
-   */
-  @playerAPI('setControlsShouldAlwaysShow')
-  setShouldAlwaysShow(flag: boolean) {
-    this.config.shouldAlwaysShow = flag;
-
-    if (this.config.shouldAlwaysShow) {
-      this._tryShowContent();
-    } else {
-      this._startHideBlockTimeout();
-    }
-  }
-
   destroy() {
-    this._stopHideBlockTimeout();
-    this._unbindEvents();
     this.view.destroy();
     delete this.view;
 
-    delete this._eventEmitter;
-    delete this._engine;
     delete this._screen;
-    delete this.config;
   }
 }

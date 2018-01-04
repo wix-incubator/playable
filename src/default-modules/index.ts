@@ -9,12 +9,13 @@ import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
 import RootContainer from './root-container/root-container.controler';
 import DebugPanel from './ui/debug-panel/debug-panel';
 
+import MainUIBlock from './ui/main-ui-block/main-ui-block';
+
 import Title from './ui/title/title';
 import LiveIndicator from './ui/live-indicator/live-indicator';
 import Screen from './ui/screen/screen.controler';
 import Overlay from './ui/overlay/overlay.controler';
 import Loader from './ui/loader/loader.controler';
-import LoadingCover from './ui/loading-cover/loading-cover.controler';
 import TopBlock from './ui/top-block/top-block';
 import BottomBlock from './ui/bottom-block/bottom-block';
 import ManipulationIndicator from './ui/manipulation-indicator/manipulation-indicator.controler';
@@ -43,7 +44,8 @@ export default {
 
   overlay: asClass(Overlay).scoped(),
   loader: asClass(Loader).scoped(),
-  loadingCover: asClass(LoadingCover).scoped(),
+
+  mainUIBlock: asClass(MainUIBlock).scoped(),
 
   topBlock: asClass(TopBlock).scoped(),
   liveIndicator: asClass(LiveIndicator).scoped(),
