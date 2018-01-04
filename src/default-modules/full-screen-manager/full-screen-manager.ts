@@ -1,3 +1,5 @@
+import * as get from 'lodash/get';
+
 import { isIPhone, isIPod, isIPad } from '../../utils/device-detection';
 import playerAPI from '../../utils/player-api-decorator';
 import DesktopFullScreen from './desktop';
@@ -5,29 +7,39 @@ import IOSFullScreen from './ios';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants/index';
 
-const DEFAULT_CONFIG = {
-  exitOnEnd: true,
-  exitOnPause: false,
-  enterOnPlay: false,
-  pauseOnExit: false,
-  disabled: false,
-};
+
+export interface IFullScreenConfig {
+  exitFullScreenOnEnd?: boolean,
+  enterFullScreenOnPlay?: boolean,
+  exitFullScreenOnPause?: boolean,
+  pauseVideoOnFullScreenExit?: boolean,
+}
 
 export default class FullScreenManager {
   static dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
 
   private _eventEmitter;
   private _engine;
-  private _config;
   private _helper;
+
+  private _exitFullScreenOnEnd: boolean = true;
+  private _enterFullScreenOnPlay: boolean = false;
+  private _exitFullScreenOnPause: boolean = false;
+  private _pauseVideoOnFullScreenExit: boolean = false;
+
+  private _isEnabled: boolean;
 
   constructor({ eventEmitter, engine, rootContainer, config }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
-    this._config = {
-      ...DEFAULT_CONFIG,
-      ...config.fullScreenManager,
-    };
+
+    const _config: boolean | IFullScreenConfig = config.fullScreen;
+    this._isEnabled = _config !== false;
+
+    this._exitFullScreenOnEnd = get(_config, 'exitFullScreenOnEnd', this._exitFullScreenOnEnd);
+    this._enterFullScreenOnPlay = get(_config, 'enterFullScreenOnPlay', this._enterFullScreenOnPlay);
+    this._exitFullScreenOnPause = get(_config, 'exitFullScreenOnPause', this._exitFullScreenOnPause);
+    this._pauseVideoOnFullScreenExit = get(_config, 'pauseVideoOnFullScreenExit', this._pauseVideoOnFullScreenExit);
 
     this._onChange = this._onChange.bind(this);
 
@@ -41,7 +53,7 @@ export default class FullScreenManager {
   }
 
   _onChange() {
-    if (!this._helper.isInFullScreen && this._config.pauseOnExit) {
+    if (!this._helper.isInFullScreen && this._pauseVideoOnFullScreenExit) {
       this._engine.pause();
     }
     this._eventEmitter.emit(
@@ -77,19 +89,19 @@ export default class FullScreenManager {
   }
 
   _exitOnEnd() {
-    if (this._config.exitOnEnd && this.isInFullScreen) {
+    if (this._exitFullScreenOnEnd && this.isInFullScreen) {
       this.exitFullScreen();
     }
   }
 
   _enterOnPlayRequested() {
-    if (this._config.enterOnPlay && !this.isInFullScreen) {
+    if (this._enterFullScreenOnPlay && !this.isInFullScreen) {
       this.enterFullScreen();
     }
   }
 
   _exitOnPauseRequested() {
-    if (this._config.exitOnPause && this.isInFullScreen) {
+    if (this._exitFullScreenOnPause && this.isInFullScreen) {
       this.exitFullScreen();
     }
   }
@@ -149,7 +161,7 @@ export default class FullScreenManager {
   }
 
   get isEnabled() {
-    return this._helper.isEnabled && !this._config.disabled;
+    return this._helper.isEnabled && this._isEnabled;
   }
 
   destroy() {

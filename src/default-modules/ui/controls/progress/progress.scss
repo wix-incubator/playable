@@ -27,6 +27,8 @@ $color-played-live: #ea492e;
 $color-seek-to-live: rgba(234,73,46, .5);
 
 .seek-block {
+  user-select: none;
+
   position: relative;
 
   display: block;

@@ -4,6 +4,8 @@
 $color: white !default;
 
 .volume-control {
+  user-select: none;
+
   position: relative;
 
   display: flex;

@@ -1,5 +1,9 @@
 import DEFAULT_TEXTS from './default-texts';
 
+export interface ITextMapConfig {
+  [index: string]: string | Function;
+}
+
 export default class TextMap {
   static dependencies = ['config'];
 
@@ -8,7 +12,7 @@ export default class TextMap {
   constructor({ config }) {
     this._textMap = {
       ...DEFAULT_TEXTS,
-      ...config.textMap,
+      ...config.texts,
     };
   }
 

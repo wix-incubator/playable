@@ -1,5 +1,3 @@
-import * as get from 'lodash/get';
-
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import playerAPI from '../../../utils/player-api-decorator';
@@ -29,7 +27,7 @@ export default class LoadingCover {
     this.isHidden = false;
     this._engine = engine;
     this._bottomBlock = bottomBlock;
-    this._url = get(config, 'ui.loadingCover');
+    this._url = config.loadingCover;
 
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
@@ -38,7 +36,7 @@ export default class LoadingCover {
     this.hide();
     this._bindEvents();
 
-    if (get(config, 'ui.loadingCover') !== false) {
+    if (this._url !== false) {
       rootContainer.appendComponentNode(this.node);
     }
   }
@@ -94,7 +92,7 @@ export default class LoadingCover {
 
   show() {
     if (this.isHidden) {
-      this._bottomBlock._hideContent();
+      this._bottomBlock.hideContent();
       this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED);
       this.view.show();
       this.isHidden = false;

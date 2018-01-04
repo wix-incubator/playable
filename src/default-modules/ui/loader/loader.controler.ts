@@ -10,7 +10,6 @@ export default class Loader {
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
-  private config;
   private _eventEmitter;
   private _engine;
 
@@ -23,24 +22,27 @@ export default class Loader {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
-    this.config = {
-      ...get(config, 'ui.loader'),
-    };
 
-    this.show = this.show.bind(this);
-    this.hide = this.hide.bind(this);
+    this._bindCallbacks();
 
-    this._initUI();
+    this._initUI(get(config.loader, 'view'));
     this._bindEvents();
-    this.hide();
+    this._hideContent();
 
-    if (get(config, 'ui.loader') !== false) {
-      rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentNode(this.node);
+
+    if (config.loader === false) {
+      this.hide();
     }
   }
 
   get node() {
     return this.view.getNode();
+  }
+
+  _bindCallbacks() {
+    this._showContent = this._showContent.bind(this);
+    this._hideContent = this._hideContent.bind(this);
   }
 
   _bindEvents() {
@@ -62,20 +64,20 @@ export default class Loader {
         break;
       case STATES.LOAD_STARTED:
         if (this._engine.isPreloadAvailable) {
-          this.show();
+          this._showContent();
         }
         break;
       case STATES.READY_TO_PLAY:
         this.stopDelayedShow();
-        this.hide();
+        this._hideContent();
         break;
       case STATES.PLAYING:
         this.stopDelayedShow();
-        this.hide();
+        this._hideContent();
         break;
       case STATES.PAUSED:
         this.stopDelayedShow();
-        this.hide();
+        this._hideContent();
         break;
 
       /* ignore coverage */
@@ -84,37 +86,43 @@ export default class Loader {
     }
   }
 
-  _initUI() {
-    const { view } = this.config;
-
-    if (view) {
-      this.view = new view();
+  _initUI(customView) {
+    if (customView) {
+      this.view = new customView();
     } else {
       this.view = new Loader.View();
     }
   }
 
-  hide() {
+  private _showContent() {
+    if (this.isHidden) {
+      this._eventEmitter.emit(UI_EVENTS.LOADER_SHOW_TRIGGERED);
+      this.view.showContent();
+      this.isHidden = false;
+    }
+  }
+
+  private _hideContent() {
     if (!this.isHidden) {
       this._eventEmitter.emit(UI_EVENTS.LOADER_HIDE_TRIGGERED);
-      this.view.hide();
+      this.view.hideContent();
       this.isHidden = true;
     }
   }
 
+  hide() {
+    this.view.hide();
+  }
+
   show() {
-    if (this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADER_SHOW_TRIGGERED);
-      this.view.show();
-      this.isHidden = false;
-    }
+    this.view.show();
   }
 
   startDelayedShow() {
     if (this.isDelayedShowScheduled) {
       this.stopDelayedShow();
     }
-    this._delayedShowTimeout = setTimeout(this.show, DELAYED_SHOW_TIMEOUT);
+    this._delayedShowTimeout = setTimeout(this._showContent, DELAYED_SHOW_TIMEOUT);
   }
 
   stopDelayedShow() {

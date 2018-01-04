@@ -12,7 +12,7 @@ class FullScreenManagerMock {
   enterFullScreen = _ => _;
   exitFullScreen = _ => _;
   isEnabled = true;
-  _config: Object = {};
+  _config = {};
 }
 
 describe('Loader', () => {
@@ -55,9 +55,6 @@ describe('Loader', () => {
       const toggleFullScreenSpy = sinon.spy(screen, '_toggleFullScreen');
       const id = setTimeout(() => {}, 0);
       screen._delayedToggleVideoPlaybackTimeout = id;
-      screen.fullscreen = {
-        request: () => {},
-      };
 
       screen._processNodeClick();
       expect(timeoutClearSpy.calledWith(id)).to.be.true;
@@ -69,10 +66,8 @@ describe('Loader', () => {
 
     it('should add native controls if config passed', () => {
       testkit.setConfig({
-        ui: {
-          screen: {
-            nativeControls: true,
-          },
+        screen: {
+          nativeControls: true,
         },
       });
 

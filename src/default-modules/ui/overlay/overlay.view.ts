@@ -1,5 +1,5 @@
 import * as $ from 'jbone';
-
+import * as classnames from 'classnames';
 import View from '../core/view';
 
 import * as styles from './overlay.scss';
@@ -18,7 +18,7 @@ class OverlayView extends View {
     this._callbacks = callbacks;
 
     this.$node = $('<div>', {
-      class: this.styleNames.overlay,
+      class: classnames(this.styleNames.active, this.styleNames.overlay),
       'data-hook': 'overlay',
     });
 
@@ -26,7 +26,7 @@ class OverlayView extends View {
       class: this.styleNames.poster,
     });
 
-    this.setBackgroundSrc(src);
+    this.setPoster(src);
 
     this.$playButton = $('<div>', {
       class: this.styleNames.icon,
@@ -45,15 +45,23 @@ class OverlayView extends View {
     return this.$node[0];
   }
 
+  hideContent() {
+    this.$node.removeClass(this.styleNames.active);
+  }
+
+  showContent() {
+    this.$node.addClass(this.styleNames.active);
+  }
+
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this.$node.addClass(this.styleNames.hidden);
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this.$node.removeClass(this.styleNames.hidden);
   }
 
-  setBackgroundSrc(src) {
+  setPoster(src) {
     if (src) {
       this.$content.css('background-image', `url('${src}')`);
     }

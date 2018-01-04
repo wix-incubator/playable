@@ -16,6 +16,24 @@ import { IPlaybackAdapter } from './adapters/types';
 
 export { STATES };
 
+
+export enum PreloadTypes {
+  NONE = 'none',
+  METADATA = 'metadata',
+  AUTO = 'auto',
+}
+
+interface IMediaSource {
+  url: string;
+  type: string;
+}
+
+interface ISourceArray {
+  [index: number]: string | IMediaSource,
+}
+
+export type MediaSource = string | IMediaSource | ISourceArray;
+
 /**
  * @property type - Name of current attached stream.
  * @property viewDimensions - Current size of view port provided by engine (right now - actual size of video tag)
@@ -72,7 +90,7 @@ export default class Engine {
       availablePlaybackAdapters,
     );
 
-    this._applyConfig(config.engine);
+    this._applyConfig(config);
   }
 
   _createVideoTag() {

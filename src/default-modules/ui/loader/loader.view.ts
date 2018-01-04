@@ -1,4 +1,5 @@
 import * as $ from 'jbone';
+import * as classnames from 'classnames';
 
 import View from '../core/view';
 
@@ -11,7 +12,7 @@ class LoaderView extends View {
     super();
 
     this.$node = $('<div>', {
-      class: this.styleNames.loader,
+      class: classnames(this.styleNames.loader, this.styleNames.active),
       'data-hook': 'loader',
     });
   }
@@ -20,12 +21,20 @@ class LoaderView extends View {
     return this.$node[0];
   }
 
+  showContent() {
+    this.$node.addClass(this.styleNames.active);
+  }
+
+  hideContent() {
+    this.$node.removeClass(this.styleNames.active);
+  }
+
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this.$node.addClass(this.styleNames.hidden);
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this.$node.removeClass(this.styleNames.hidden);
   }
 
   destroy() {

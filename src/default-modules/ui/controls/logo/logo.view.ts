@@ -23,7 +23,7 @@ class LogoView extends View {
     this._texts = texts;
 
     this.$node = $('<div>', {
-      class: `${this.styleNames.wrapper}`,
+      class: this.styleNames.wrapper,
     });
 
     this.$logo = $('<img>', {

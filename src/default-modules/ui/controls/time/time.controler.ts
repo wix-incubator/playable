@@ -2,7 +2,7 @@ import View from './time.view';
 
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
-const UPDATE_INTERVAL_DELAY = 500;
+const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
 export default class TimeControl {
   static View = View;
@@ -41,12 +41,6 @@ export default class TimeControl {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._toggleIntervalUpdates,
-      this,
-    );
-    // TODO: review `VIDEO_EVENTS.SEEK_FINISHED`
-    this._eventEmitter.on(
-      (VIDEO_EVENTS as any).SEEK_FINISHED,
-      this._updateCurrentTime,
       this,
     );
     this._eventEmitter.on(
@@ -133,12 +127,6 @@ export default class TimeControl {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._toggleIntervalUpdates,
-      this,
-    );
-    // TODO: review `VIDEO_EVENTS.SEEK_FINISHED`
-    this._eventEmitter.off(
-      (VIDEO_EVENTS as any).SEEK_FINISHED,
-      this._updateCurrentTime,
       this,
     );
     this._eventEmitter.off(

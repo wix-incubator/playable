@@ -28,23 +28,23 @@ describe('Loader', () => {
 
     it('should create instance with custom view if passed', () => {
       const config = {
-        ui: {
-          loader: {
-            view: sinon.spy(() => {
-              return {
-                getNode: () => {},
-                hide: () => {},
-                show: () => {},
-              };
-            }),
-          },
+        loader: {
+          view: sinon.spy(() => {
+            return {
+              getNode: () => {},
+              hide: () => {},
+              show: () => {},
+              hideContent: () => {},
+              showContent: () => {},
+            };
+          }),
         },
       };
       testkit.setConfig(config);
 
       loader = testkit.getModule('loader');
 
-      expect(config.ui.loader.view.calledWithNew()).to.be.true;
+      expect(config.loader.view.calledWithNew()).to.be.true;
     });
   });
 
@@ -65,17 +65,17 @@ describe('Loader', () => {
 
     describe('public API', () => {
       it('should have method for showing loader', () => {
-        const showSpy = sinon.spy(loader.view, 'show');
-        loader.show();
+        const showSpy = sinon.spy(loader.view, 'showContent');
+        loader._showContent();
         expect(emitSpy.calledWith(UI_EVENTS.LOADER_SHOW_TRIGGERED)).to.be.true;
         expect(showSpy.called).to.be.true;
         expect(loader.isHidden).to.be.false;
       });
 
       it('should have method for hidding loader', () => {
-        loader.show();
-        const hideSpy = sinon.spy(loader.view, 'hide');
-        loader.hide();
+        loader._showContent();
+        const hideSpy = sinon.spy(loader.view, 'hideContent');
+        loader._hideContent();
         expect(emitSpy.calledWith(UI_EVENTS.LOADER_HIDE_TRIGGERED)).to.be.true;
         expect(hideSpy.called).to.be.true;
         expect(loader.isHidden).to.be.true;
@@ -85,8 +85,9 @@ describe('Loader', () => {
         const setTimeoutSpy = sinon.spy(global, 'setTimeout');
 
         loader.startDelayedShow();
-        expect(setTimeoutSpy.calledWith(loader.show, DELAYED_SHOW_TIMEOUT)).to
-          .be.true;
+        expect(
+          setTimeoutSpy.calledWith(loader._showContent, DELAYED_SHOW_TIMEOUT),
+        ).to.be.true;
         expect(loader.isDelayedShowScheduled).to.be.true;
 
         setTimeoutSpy.restore();
@@ -149,7 +150,7 @@ describe('Loader', () => {
         });
 
         it('should be proper if next state is STATES.LOAD_STARTED', () => {
-          const showSpy = sinon.spy(loader, 'show');
+          const showSpy = sinon.spy(loader, '_showContent');
           engine.setPreload('none');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: STATES.LOAD_STARTED,
@@ -166,7 +167,8 @@ describe('Loader', () => {
         });
 
         it('should be proper if next state is STATES.READY_TO_PLAY', () => {
-          const hideSpy = sinon.spy(loader, 'hide');
+          const hideSpy = sinon.spy(loader, '_hideContent');
+          loader._showContent();
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: STATES.READY_TO_PLAY,
           });
@@ -176,7 +178,7 @@ describe('Loader', () => {
         });
 
         it('should be proper if next state is STATES.PLAYING', () => {
-          const hideSpy = sinon.spy(loader, 'hide');
+          const hideSpy = sinon.spy(loader, '_hideContent');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: STATES.PLAYING,
           });
@@ -186,7 +188,7 @@ describe('Loader', () => {
         });
 
         it('should be proper if next state is STATES.PAUSED', () => {
-          const hideSpy = sinon.spy(loader, 'hide');
+          const hideSpy = sinon.spy(loader, '_hideContent');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: STATES.PAUSED,
           });

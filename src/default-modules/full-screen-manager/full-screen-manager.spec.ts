@@ -145,7 +145,7 @@ describe('FullScreenManager', () => {
 
     it('should return false in disabled flag passed in config', () => {
       mockedFullscreenHelper.isEnabled = true;
-      fullScreenManager._config.disabled = true;
+      fullScreenManager._isEnabled = false;
       expect(fullScreenManager.isEnabled).to.be.false;
     });
   });
@@ -208,7 +208,7 @@ describe('FullScreenManager', () => {
     it('should pause video on exit from full screen if proper config passed', () => {
       const spy = sinon.spy(engine, 'pause');
 
-      fullScreenManager._config.pauseOnExit = true;
+      fullScreenManager._pauseVideoOnFullScreenExit = true;
       mockedFullscreenHelper.isInFullScreen = false;
       fullScreenManager._onChange();
       expect(spy.called).to.be.true;
@@ -223,7 +223,7 @@ describe('FullScreenManager', () => {
 
       eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
 
-      fullScreenManager._config.enterOnPlay = true;
+      fullScreenManager._enterFullScreenOnPlay = true;
       mockedFullscreenHelper.isInFullScreen = false;
       eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
       expect(spy.calledOnce).to.be.true;
@@ -241,7 +241,7 @@ describe('FullScreenManager', () => {
           nextState: STATES.ENDED,
         });
 
-        fullScreenManager._config.exitOnEnd = true;
+        fullScreenManager._exitFullScreenOnEnd = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
@@ -261,7 +261,7 @@ describe('FullScreenManager', () => {
           nextState: STATES.PAUSED,
         });
 
-        fullScreenManager._config.exitOnPause = true;
+        fullScreenManager._exitFullScreenOnPause = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {

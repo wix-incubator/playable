@@ -1,15 +1,22 @@
 import * as get from 'lodash/get';
-
 import { UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './screen.view';
 
+
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
 const DEFAULT_CONFIG = {
+  disableClickProcessing: false,
   indicateScreenClick: true,
   nativeControls: false,
 };
+
+export interface IScreenConfig {
+  disableClickProcessing?: boolean,
+  indicateScreenClick?: boolean,
+  nativeControls?: boolean,
+}
 
 export default class Screen {
   static View = View;
@@ -22,13 +29,15 @@ export default class Screen {
     'rootContainer',
   ];
 
-  private config;
   private _eventEmitter;
   private _engine;
   private _fullScreenManager;
   private _manipulationIndicator;
 
   private _delayedToggleVideoPlaybackTimeout;
+
+  private _indicateScreenClick: boolean;
+  private _disableClickProcessing: boolean;
   private _isInFullScreen: boolean;
 
   view: View;
@@ -51,16 +60,14 @@ export default class Screen {
     this.isHidden = false;
 
     this._delayedToggleVideoPlaybackTimeout = null;
-    this.config = {
-      ...DEFAULT_CONFIG,
-      ...get(config, 'ui.screen'),
-    };
+    this._indicateScreenClick = get(config.screen, 'indicateScreenClick', DEFAULT_CONFIG.indicateScreenClick);
+    this._disableClickProcessing = get(config.screen, 'disableClickProcessing', DEFAULT_CONFIG.disableClickProcessing);
 
     this._bindCallbacks();
-    this._initUI();
+    this._initUI(get(config.screen, 'nativeControls', DEFAULT_CONFIG.nativeControls));
     this._bindEvents();
 
-    if (this.config.indicateScreenClick) {
+    if (this._indicateScreenClick) {
       this.view.appendComponentNode(this._manipulationIndicator.node);
     }
 
@@ -77,9 +84,9 @@ export default class Screen {
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
   }
 
-  _initUI() {
+  _initUI(isNativeControls) {
     const config = {
-      nativeControls: this.config.nativeControls,
+      nativeControls: isNativeControls,
       callbacks: {
         onWrapperMouseClick: undefined,
         onWrapperMouseDblClick: undefined,
@@ -87,7 +94,7 @@ export default class Screen {
       playbackViewNode: this._engine.getNode(),
     };
 
-    if (!this.config.disableClickProcessing) {
+    if (!this._disableClickProcessing) {
       config.callbacks.onWrapperMouseClick = this._processNodeClick;
       config.callbacks.onWrapperMouseDblClick = this._processNodeDblClick;
     }
@@ -146,7 +153,7 @@ export default class Screen {
 
     if (
       !this._fullScreenManager.isEnabled ||
-      this._fullScreenManager._config.enterOnPlay
+      this._fullScreenManager._enterFullScreenOnPlay
     ) {
       this._toggleVideoPlayback();
     } else {
@@ -157,7 +164,7 @@ export default class Screen {
   _processNodeDblClick() {
     if (
       this._fullScreenManager.isEnabled ||
-      !this._fullScreenManager._config.enterOnPlay
+      !this._fullScreenManager._enterFullScreenOnPlay
     ) {
       if (this._isDelayedPlaybackToggleExist) {
         this._clearDelayedPlaybackToggle();
@@ -169,7 +176,7 @@ export default class Screen {
   }
 
   _showPlaybackChangeIndicator() {
-    if (this.config.indicateScreenClick) {
+    if (this._indicateScreenClick) {
       const state = this._engine.getCurrentState();
 
       if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
@@ -183,7 +190,7 @@ export default class Screen {
   }
 
   _hideDelayedPlaybackChangeIndicator() {
-    if (this.config.indicateScreenClick) {
+    if (this._indicateScreenClick) {
       this._eventEmitter.emit(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED);
     }
   }
