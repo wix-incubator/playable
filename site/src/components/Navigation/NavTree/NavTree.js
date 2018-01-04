@@ -50,7 +50,7 @@ function NavTree({ headings, isOpen }) {
           <Link to="/docs/events">Player events</Link>
         </li>
         <li>
-          <Link to="/docs/events">Playback adapters</Link>
+          <Link to="/docs/adapters">Playback adapters</Link>
         </li>
       </ul>
     </div>
