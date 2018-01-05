@@ -11,6 +11,7 @@ type ITooltipTemplateProps = {
   styles: ITooltipStyles;
 };
 
+// TODO: replace template with `dotjs` template
 function createTooltipTemplate({
   title,
   styles,
