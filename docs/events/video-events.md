@@ -1,4 +1,4 @@
-## Video Events
+### Video Events
 
 `VIDEO_EVENTS.ERROR` - Error occured. You can check all errors [below](#errors).
 

@@ -1,4 +1,4 @@
-## UI Events
+### UI Events
 
 `UI_EVENTS.PLAY_TRIGGERED` - User triggered play via play control.
 

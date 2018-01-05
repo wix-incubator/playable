@@ -1,4 +1,4 @@
-## Playback States
+### Playback States
 
 `STATES.SRC_SET` - Source of video setted in player.
 

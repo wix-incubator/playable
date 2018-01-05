@@ -348,6 +348,8 @@ body {
 
   overflow: hidden;
 
+  padding-bottom: 100px;
+
   -webkit-transform: translateZ(0);
 
   &:after {
@@ -515,12 +517,13 @@ body {
   aside {
     line-height: $line-height;
 
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
+    margin: 1.5em calc(#{$main-padding} + #{$examples-width}) 1.5em $main-padding;
     padding-top: 1em;
     padding-bottom: 1em;
 
-    background: $aside-notice-bg;
+    border-left: 3px solid #3181b3;
+    border-radius: 2px;
+    background-color: #eaf7ff;
 
     &.warning {
       background-color: $aside-warning-bg;

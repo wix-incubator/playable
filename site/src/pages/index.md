@@ -4,53 +4,58 @@ title: video-player.js
 
 # video-player.js
 
-You can play with demo playground here: [https://wix-private.github.io/video-player-playground/](https://wix-private.github.io/video-player-playground/)
+```javascript
+$ npm install video-player --save
 
-## Installation
+var VideoPlayer = require('video-player');
+```
+
+> Or add a `<script>` element
+
+```html
+<script src="https://unpkg.parastorage.com/video-player@2.0.5/dist/statics/video-player.bundle.min.js"></script>
+
+<script>
+  var VideoPlayer = window.VideoPlayer;
+</script>
+```
+
+<aside class="notice">
+Integrate a video player into the product you’re working on – no hassle, no fuss, just nice and easy code for you to incorporate in your project.
+</aside>
+
+The video player supports the following video formats: `MP4`, `WebM`, `HLS`, `DASH` manifest. Read more about [Video Source](/docs/video-source).
 
 To install the stable version use [npm](https://www.npmjs.com/).
 
-`$ npm install video-player --save`
-
-Using ES6 modules:
-
-`import VideoPlayer from 'video-player';`
-
-Using CommonJS modules:
-
-`var VideoPlayer = require('video-player');`
-
-```html
-<!-- NOTE: minified version - path/to/video-player/dist/statics/video-player.bundle.min.js -->
-<script src="path/to/video-player/dist/statics/video-player.bundle.js"></script>
-<!-- Now you can find the library on `window.VideoPlayer -->
-```
-
-Or use old school way, add a `<script>` element for video-player:
-
-`<script src="path/to/video-player/dist/statics/video-player.bundle.js"></script>`
-
 ## How to use
 
-```javascript
+```jsx
+<div id="content"></div>
+
+// javascript
+
+import VideoPlayer from 'video-player';
+
 document.addEventListener('DOMContentLoaded', function() {
-  const config = {
-   size: {
-     width: 700,
-     height: 394
-   },
-   src: 'http://my-url/video.mp4',
-   preload: 'metadata'
-  };
-  const player = VideoPlayer.create(config);
+  const player = VideoPlayer.create({
+    size: {
+      width: 700,
+      height: 394
+    },
+    src: 'http://my-url/video.mp4',
+    preload: 'metadata'
+  });
 
   player.attachToElement(document.getElementById('content'));
 });
 ```
+
 Check page with info about [config object](/docs/player-config)
 
-After that just choose what you want to configurate, create object with proper fields and pass it to `VideoPlayer.create`.
-It will return instance of player, you can check it API [here](/docs/player-public-methods).
+After that just choose what you want to configure, create object with proper fields and pass it to `VideoPlayer.create`.
+
+It will return instance of player. You can later modify the instance (for example, as a reaction to user input) with the  [public methods](/docs/player-public-methods).
 
 To place it somewhere in your structure, just call [`attachToElement`](/docs/player-public-methods#attachtoelement)
 
