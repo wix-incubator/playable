@@ -1,5 +1,4 @@
-
-# Config
+# Configuration
 
 ```javascript
 const config = {

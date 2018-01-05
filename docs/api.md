@@ -1,6 +1,5 @@
 ---
 title: "API reference"
-include: 
-  - ./player-config.md
+include:
   - ./player-public-methods.md
 ---

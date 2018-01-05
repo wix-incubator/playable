@@ -6,3 +6,5 @@ include:
   - ./events/errors.md
   - ./events/playback-states.md
 ---
+
+# Player Events
