@@ -50,8 +50,7 @@
     "eventemitter3": "^2.0.3",
     "hls.js": "latest",
     "jbone": "^1.2.0",
-    "lodash": "^4.17.4",
-    "popper.js": "^1.12.9"
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "@babel/generator": "^7.0.0-beta.34",
