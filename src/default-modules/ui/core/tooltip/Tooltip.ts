@@ -1,4 +1,4 @@
-import Popper from 'popper.js';
+import * as Popper from '@bodia_uz/popper.js/dist/umd/popper-lite';
 import createTooltipNode, { ITooltipStyles } from './createTooltipNode';
 import Stylable from '../stylable';
 
@@ -6,8 +6,8 @@ import * as styles from './tooltip.scss';
 
 type ITooltipOptions = {
   title?: string;
-  placement?: Popper.Placement;
-  popperOptions?: Popper.PopperOptions;
+  placement?: string;
+  popperOptions?: any;
   container?: boolean | string | HTMLElement;
   boundariesElement?: HTMLElement;
   eventsEnabled?: boolean;
