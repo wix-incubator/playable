@@ -1,11 +1,10 @@
-import * as merge from 'lodash/merge';
 import { container } from '../core/player-factory';
 import DependencyContainer from '../core/dependency-container';
 
 const { asClass } = DependencyContainer;
 
 export default function createPlayerTestkit(config = {}, adapters = []) {
-  const _config = merge(config);
+  const _config = config;
 
   const scope = container.createScope();
 
@@ -24,7 +23,7 @@ export default function createPlayerTestkit(config = {}, adapters = []) {
     },
     setConfig(config: object) {
       scope.registerValue('config', {
-        ...merge(config),
+        ...config,
       });
     },
     setPlaybackAdapters(adapters) {

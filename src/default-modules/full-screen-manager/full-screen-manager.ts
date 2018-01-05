@@ -7,13 +7,19 @@ import IOSFullScreen from './ios';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants/index';
 
-
 export interface IFullScreenConfig {
-  exitFullScreenOnEnd?: boolean,
-  enterFullScreenOnPlay?: boolean,
-  exitFullScreenOnPause?: boolean,
-  pauseVideoOnFullScreenExit?: boolean,
+  exitFullScreenOnEnd?: boolean;
+  enterFullScreenOnPlay?: boolean;
+  exitFullScreenOnPause?: boolean;
+  pauseVideoOnFullScreenExit?: boolean;
 }
+
+const DEFAULT_CONFIG: IFullScreenConfig = {
+  exitFullScreenOnEnd: true,
+  enterFullScreenOnPlay: false,
+  exitFullScreenOnPause: false,
+  pauseVideoOnFullScreenExit: false,
+};
 
 export default class FullScreenManager {
   static dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
@@ -22,10 +28,10 @@ export default class FullScreenManager {
   private _engine;
   private _helper;
 
-  private _exitFullScreenOnEnd: boolean = true;
-  private _enterFullScreenOnPlay: boolean = false;
-  private _exitFullScreenOnPause: boolean = false;
-  private _pauseVideoOnFullScreenExit: boolean = false;
+  private _exitFullScreenOnEnd: boolean;
+  private _enterFullScreenOnPlay: boolean;
+  private _exitFullScreenOnPause: boolean;
+  private _pauseVideoOnFullScreenExit: boolean;
 
   private _isEnabled: boolean;
 
@@ -36,10 +42,26 @@ export default class FullScreenManager {
     const _config: boolean | IFullScreenConfig = config.fullScreen;
     this._isEnabled = _config !== false;
 
-    this._exitFullScreenOnEnd = get(_config, 'exitFullScreenOnEnd', this._exitFullScreenOnEnd);
-    this._enterFullScreenOnPlay = get(_config, 'enterFullScreenOnPlay', this._enterFullScreenOnPlay);
-    this._exitFullScreenOnPause = get(_config, 'exitFullScreenOnPause', this._exitFullScreenOnPause);
-    this._pauseVideoOnFullScreenExit = get(_config, 'pauseVideoOnFullScreenExit', this._pauseVideoOnFullScreenExit);
+    this._exitFullScreenOnEnd = get(
+      _config,
+      'exitFullScreenOnEnd',
+      DEFAULT_CONFIG.exitFullScreenOnEnd,
+    );
+    this._enterFullScreenOnPlay = get(
+      _config,
+      'enterFullScreenOnPlay',
+      DEFAULT_CONFIG.enterFullScreenOnPlay,
+    );
+    this._exitFullScreenOnPause = get(
+      _config,
+      'exitFullScreenOnPause',
+      DEFAULT_CONFIG.exitFullScreenOnPause,
+    );
+    this._pauseVideoOnFullScreenExit = get(
+      _config,
+      'pauseVideoOnFullScreenExit',
+      DEFAULT_CONFIG.pauseVideoOnFullScreenExit,
+    );
 
     this._onChange = this._onChange.bind(this);
 
