@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import Navigation from '../components/Navigation/Navigation';
+import Navigation from '../components/Navigation';
+import CatchDemoLinks from '../components/CatchDemoLinks';
 
 function Template({ location, data: { page } }) {
   let headings = page.headings;
@@ -19,7 +20,9 @@ function Template({ location, data: { page } }) {
       <Navigation location={location} headings={headings} />
       <div className="page-wrapper">
         <div className="dark-box" />
-        <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
+        <CatchDemoLinks>
+          <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
+        </CatchDemoLinks>
         <div className="dark-box" />
       </div>
     </Fragment>

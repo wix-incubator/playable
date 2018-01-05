@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import Link from 'gatsby-link';
 
 import NavButton from './NavButton';
 import NavTree from './NavTree';
