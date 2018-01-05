@@ -38,28 +38,6 @@ describe('RootContainer', () => {
       expect(ui).to.exist;
       expect(ui.view).to.exist;
     });
-
-    it('should init custom UI', () => {
-      config.ui.customUI = {
-        ui: sinon.spy(() => ({
-          getNode: () => {},
-        })),
-      };
-      ui = new RootContainer({
-        engine,
-        eventEmitter,
-        config,
-      });
-
-      expect(config.ui.customUI['ui'].calledWithNew()).to.be.true;
-      expect(
-        config.ui.customUI['ui'].calledWith({
-          engine,
-          eventEmitter,
-          ui,
-        }),
-      ).to.be.true;
-    });
   });
 
   describe('API', () => {

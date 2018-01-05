@@ -1,3 +1,5 @@
+import * as get from 'lodash/get';
+
 import { ElementQueries } from 'css-element-queries';
 import focusSource from '../../utils/focus-source';
 import focusWithin from '../../utils/focus-within';
@@ -8,12 +10,14 @@ import { UI_EVENTS } from '../../constants/index';
 
 import View from './root-container.view';
 
-export const DEFAULT_CONFIG = {
+const DEFAULT_CONFIG = {
   fillAllSpace: false,
-  overlay: false,
-  loadingCover: false,
-  customUI: {},
 };
+
+export interface IPlayerSize {
+  width: number;
+  height: number;
+}
 
 class RootContainer {
   static dependencies = ['eventEmitter', 'config', 'engine'];
@@ -22,7 +26,6 @@ class RootContainer {
   private _engine;
   private _disengageFocusWithin;
   private _disengageFocusSource;
-  private config;
 
   // TODO: check if props should be `private`
   view: View;
@@ -31,14 +34,9 @@ class RootContainer {
   constructor({ eventEmitter, config, engine }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
-    this.config = {
-      ...DEFAULT_CONFIG,
-      ...config.ui,
-    };
     this.isHidden = false;
 
-    this._initUI();
-    this._initCustomUI();
+    this._initUI(config);
 
     this._bindEvents();
   }
@@ -68,29 +66,11 @@ class RootContainer {
     );
   }
 
-  _initUI() {
-    const { width, height, fillAllSpace } = this.config;
-
-    const config = {
-      width,
-      height,
-      fillAllSpace,
-    };
-
-    this.view = new View(config);
-  }
-
-  _initCustomUI() {
-    const keys = Object.keys(this.config.customUI);
-
-    keys.forEach(key => {
-      const component = new this.config.customUI[key]({
-        engine: this._engine,
-        eventEmitter: this._eventEmitter,
-        ui: this,
-      });
-
-      this.appendComponentNode(component.getNode());
+  _initUI(config) {
+    this.view = new View({
+      width: get(config, 'size.width', null),
+      height: get(config, 'size.height', null),
+      fillAllSpace: get(config, 'fillAllSpace', DEFAULT_CONFIG.fillAllSpace),
     });
   }
 
@@ -123,6 +103,7 @@ class RootContainer {
 
   /**
    * Method for attaching player node to your container
+   * It's important to call this methods after `DOMContentLoaded` event!
    *
    * @example
    * document.addEventListener('DOMContentLoaded', function() {
@@ -215,7 +196,6 @@ class RootContainer {
 
     delete this._engine;
     delete this._eventEmitter;
-    delete this.config;
   }
 }
 

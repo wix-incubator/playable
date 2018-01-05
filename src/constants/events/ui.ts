@@ -37,6 +37,8 @@ const UI_EVENTS = {
   PAUSE_WITH_SCREEN_CLICK_TRIGGERED: 'ui-pause-with-screen-click-triggered',
   CONTROL_DRAG_START: 'ui-control-drag-start',
   CONTROL_DRAG_END: 'ui-control-drag-end',
+  MAIN_BLOCK_HIDE_TRIGGERED: 'ui-main-block-hide-triggered',
+  MAIN_BLOCK_SHOW_TRIGGERED: 'ui-main-block-show-triggered',
 };
 
 export default UI_EVENTS;

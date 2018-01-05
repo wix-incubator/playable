@@ -2,6 +2,7 @@ import VideoPlayer from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import HLSAdapter from '../default-modules/playback-engine/adapters/hls';
 import DASHAdapter from '../default-modules/playback-engine/adapters/dash';
+import { PreloadTypes } from '../default-modules/playback-engine/playback-engine';
 
 /* ignore coverage */
 describe('Playback e2e test', function() {
@@ -71,7 +72,7 @@ describe('Playback e2e test', function() {
         formatToTest.type
       } when preload = none`, function(done) {
         const player: any = VideoPlayer.create({
-          preload: 'none',
+          preload: PreloadTypes.NONE,
         });
         player.attachToElement(node);
         player.on(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {

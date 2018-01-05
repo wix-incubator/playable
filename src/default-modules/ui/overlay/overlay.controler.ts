@@ -4,38 +4,31 @@ import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './overlay.view';
 
-const DEFAULT_CONFIG = {
-  poster: false,
-};
+export interface IOverlayConfig {
+  poster?: string;
+}
 
 export default class Overlay {
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
-  private config;
   private _eventEmitter;
   private _engine;
 
   view: View;
-  isHidden: boolean;
-  isContentHidden: boolean;
+  isHidden: boolean = false;
 
   constructor({ config, eventEmitter, engine, rootContainer }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
 
-    this.isHidden = false;
-    this.isContentHidden = false;
-    this.config = {
-      ...DEFAULT_CONFIG,
-      ...get(config, 'ui.overlay'),
-    };
-
     this._bindEvents();
-    this._initUI(this.config.poster);
+    this._initUI(config.overlay);
 
-    if (get(config, 'ui.overlay') !== false) {
-      rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentNode(this.node);
+
+    if (config.overlay === false) {
+      this.hide();
     }
   }
 
@@ -43,19 +36,20 @@ export default class Overlay {
     return this.view.getNode();
   }
 
-  _initUI(src) {
-    const { view } = this.config;
-    const config = {
+  _initUI(config) {
+    const params = {
       callbacks: {
         onPlayClick: this._playVideo,
       },
-      src,
+      src: get(config, 'poster'),
     };
 
-    if (view) {
-      this.view = new view(config);
+    const customView = get(config, 'view');
+
+    if (customView) {
+      this.view = new customView(params);
     } else {
-      this.view = new Overlay.View(config);
+      this.view = new Overlay.View(params);
     }
   }
 
@@ -79,23 +73,30 @@ export default class Overlay {
 
   _playVideo() {
     this._engine.play();
-    this._hideContent();
 
     this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
   }
 
-  _hideContent() {
-    this.isContentHidden = true;
+  private _hideContent() {
+    this.view.hideContent();
+  }
+
+  private _showContent() {
+    this.view.showContent();
+  }
+
+  hide() {
+    this.isHidden = true;
     this.view.hide();
   }
 
-  _showContent() {
-    this.isContentHidden = false;
+  show() {
+    this.isHidden = false;
     this.view.show();
   }
 
-  setBackgroundSrc(src) {
-    this.view.setBackgroundSrc(src);
+  setPoster(src) {
+    this.view.setPoster(src);
   }
 
   _unbindEvents() {

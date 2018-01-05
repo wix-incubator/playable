@@ -1,20 +1,15 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
-import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
-
-import { VIDEO_EVENTS, STATES } from '../../../constants/index';
 
 describe('BottomBlock', () => {
   let testkit;
   let controls;
-  let eventEmitter;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
 
-    eventEmitter = testkit.getModule('eventEmitter');
     controls = testkit.getModule('bottomBlock');
   });
   describe('constructor', () => {
@@ -39,45 +34,6 @@ describe('BottomBlock', () => {
       });
       expect(controls._isBlockFocused).to.be.false;
     });
-
-    it('should have method for setting playback status', () => {
-      expect(controls._updatePlayingStatus).to.exist;
-
-      const startTimeout = sinon.spy(controls, '_startHideBlockTimeout');
-      const showTimeout = sinon.spy(controls, '_showContent');
-
-      controls._updatePlayingStatus({ nextState: STATES.PLAY_REQUESTED });
-      expect(startTimeout.called).to.be.true;
-      controls._updatePlayingStatus({ nextState: STATES.PAUSED });
-      expect(showTimeout.called).to.be.true;
-      showTimeout.reset();
-      controls._updatePlayingStatus({ nextState: STATES.ENDED });
-      expect(showTimeout.called).to.be.true;
-      showTimeout.reset();
-      controls._updatePlayingStatus({ nextState: STATES.SRC_SET });
-      expect(showTimeout.called).to.be.true;
-    });
-
-    it('should have method for hiding controls on timeout', () => {
-      const timeoutSpy = sinon.spy(global, 'setTimeout');
-      const clearSpy = sinon.spy(global, 'clearTimeout');
-      controls._startHideBlockTimeout();
-      expect(timeoutSpy.calledWith(controls._tryHideContent)).to.be.true;
-      controls._startHideBlockTimeout();
-      expect(clearSpy.called).to.be.true;
-
-      timeoutSpy.restore();
-      clearSpy.restore();
-    });
-  });
-
-  describe('video events listeners', () => {
-    it('should call callback on playback status change', () => {
-      const spy = sinon.spy(controls, '_updatePlayingStatus');
-      controls._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
-      expect(spy.called).to.be.true;
-    });
   });
 
   describe('API', () => {
@@ -94,7 +50,6 @@ describe('BottomBlock', () => {
     });
 
     it('should have method for destroying', () => {
-      const spy = sinon.spy(controls, '_unbindEvents');
       expect(controls.destroy).to.exist;
       controls.destroy();
       expect(controls.view).to.not.exist;
@@ -103,7 +58,6 @@ describe('BottomBlock', () => {
       expect(controls.progressControl).to.not.exist;
       expect(controls.timeControl).to.not.exist;
       expect(controls.volumeControl).to.not.exist;
-      expect(spy.called).to.be.true;
     });
   });
 

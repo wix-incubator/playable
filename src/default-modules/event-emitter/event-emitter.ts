@@ -12,6 +12,9 @@ export default class EventEmitterModule extends EventEmitter {
    * @param context - Value to use as `this` (i.e the reference Object) when executing callback.
    *
    * @example
+   * const VideoPlayer = require('video-player.js');
+   * const player = VideoPlayer.create();
+   *
    * player.on(VideoPlayer.UI_EVENTS.PLAY_TRIGGERED, () => {
    *   // Will be executed after you will click on play button
    * });
@@ -34,6 +37,9 @@ export default class EventEmitterModule extends EventEmitter {
    * @param once - Only remove one-time listeners.
    *
    * @example
+   * const VideoPlayer = require('video-player.js');
+   * const player = VideoPlayer.create();
+   *
    * const callback = function() {
    *   // Code to handle some kind of event
    * };

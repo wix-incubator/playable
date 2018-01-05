@@ -4,6 +4,8 @@ import PlayerFacade from './player-facade';
 import defaultModules from '../default-modules';
 import defaultPlaybackAdapters from '../default-modules/playback-engine/adapters/default-set';
 
+import { IPlayerConfig } from './config';
+
 let additionalModules = {};
 let playbackAdapters = [...defaultPlaybackAdapters];
 
@@ -26,7 +28,7 @@ export function clearPlaybackAdapters() {
   playbackAdapters = [...defaultPlaybackAdapters];
 }
 
-export default function create(params = {}) {
+export default function create(params: IPlayerConfig = {}) {
   const scope = container.createScope();
 
   const additionalModuleNames = Object.keys(additionalModules);

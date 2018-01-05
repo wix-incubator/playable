@@ -207,7 +207,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
       this.hls.recoverMediaError();
     } else {
-      this.logError(VIDEO_EVENTS.UNKNOWN, data);
+      this.logError(ERRORS.UNKNOWN, data);
     }
   }
 

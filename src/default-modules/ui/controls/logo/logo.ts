@@ -9,11 +9,17 @@ import KeyboardInterceptor, {
 import { UI_EVENTS } from '../../../../constants/index';
 import View from './logo.view';
 
+
+export interface ILogoConfig {
+  callback?: Function,
+  src?: string,
+  showAlways?: boolean,
+}
+
 export default class Logo {
   static View = View;
   static dependencies = ['engine', 'config', 'eventEmitter', 'textMap'];
 
-  private _config;
   private _eventEmitter;
   private _engine;
   private _textMap;
@@ -25,9 +31,6 @@ export default class Logo {
   isHidden: boolean;
 
   constructor({ engine, eventEmitter, config, textMap }) {
-    this._config = {
-      ...get(config, 'ui.controls.logo'),
-    };
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._textMap = textMap;
@@ -37,8 +40,8 @@ export default class Logo {
     this._initUI();
     this._initInterceptor();
 
-    this.setLogo(this._config.src);
-    this.setLogoClickCallback(this._config.callback);
+    this.setLogo(get(config.logo, 'src'));
+    this.setLogoClickCallback(get(config.logo, 'callback'));
   }
 
   get node() {

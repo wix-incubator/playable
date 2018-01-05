@@ -1,6 +1,5 @@
-import * as get from 'lodash/get';
-
 import { UI_EVENTS } from '../../constants/index';
+import { isIPhone, isIPod, isIPad, isAndroid } from '../../utils/device-detection';
 
 import KeyboardInterceptor, {
   KEYCODES,
@@ -8,10 +7,6 @@ import KeyboardInterceptor, {
 
 export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
-
-const DEFAULT_CONFIG = {
-  disabled: false,
-};
 
 export default class KeyboardControl {
   static dependencies = [
@@ -22,7 +17,7 @@ export default class KeyboardControl {
     'debugPanel',
   ];
 
-  private config;
+  private _isEnabled;
   private _eventEmitter;
   private _engine;
   private _debugPanel;
@@ -35,16 +30,17 @@ export default class KeyboardControl {
     this._debugPanel = debugPanel;
     this._rootNode = rootContainer.node;
 
-    this.config = {
-      ...DEFAULT_CONFIG,
-      ...get(config, 'ui.keyboardInterceptor'),
-    };
+    if (isIPhone() || isIPod() || isIPad() || isAndroid()) {
+      this._isEnabled = false;
+    } else {
+      this._isEnabled = config.disableControlWithKeyboard !== false;
+    }
 
     this.initInterceptor();
   }
 
   initInterceptor() {
-    if (!this.config.disabled) {
+    if (this._isEnabled) {
       this._keyboardInterceptor = new KeyboardInterceptor({
         node: this._rootNode,
         callbacks: {
@@ -113,8 +109,6 @@ export default class KeyboardControl {
 
   destroy() {
     this.destroyInterceptor();
-
-    delete this.config;
 
     delete this._rootNode;
     delete this._eventEmitter;

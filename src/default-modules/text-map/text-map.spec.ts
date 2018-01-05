@@ -14,7 +14,7 @@ describe('TextMap module', () => {
 
   it('should have ability to get text from it', () => {
     testkit.setConfig({
-      textMap: {
+      texts: {
         testID: 'testText',
       },
     });
@@ -25,7 +25,7 @@ describe('TextMap module', () => {
 
   it('should pass arguments to translate function', () => {
     testkit.setConfig({
-      textMap: {
+      texts: {
         testID: ({ arg }) => `Test:${arg}`,
       },
     });
@@ -36,7 +36,7 @@ describe('TextMap module', () => {
 
   it('should return undefined if destroyed', () => {
     testkit.setConfig({
-      textMap: {
+      texts: {
         testID: 'testText',
       },
     });

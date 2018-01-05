@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
+import LoadingCover from './loading-cover.controler';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
@@ -18,6 +19,7 @@ describe('LoadingCover', () => {
 
     engine = testkit.getModule('engine');
     eventEmitter = testkit.getModule('eventEmitter');
+    testkit.registerModule('loadingCover', LoadingCover);
     loadingCover = testkit.getModule('loadingCover');
 
     emitSpy = sinon.spy(eventEmitter, 'emit');

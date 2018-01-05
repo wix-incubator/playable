@@ -1,6 +1,13 @@
+import * as get from 'lodash/get';
+
 import View from './title.view';
 
 import playerAPI from '../../../utils/player-api-decorator';
+
+export interface ITitleConfig {
+  text?: string;
+  callback?: Function;
+}
 
 export default class TitleControl {
   static View = View;
@@ -14,7 +21,13 @@ export default class TitleControl {
   constructor({ config }) {
     this._bindCallbacks();
     this._initUI();
-    this.setTitle(config.ui.title);
+
+    this.setTitleClickCallback(get(config, 'title.callback', null));
+    this.setTitle(get(config, 'title.text'));
+
+    if (config.title === false) {
+      this.hide();
+    }
   }
 
   get node() {

@@ -50,7 +50,7 @@ describe('Overlay', () => {
     });
 
     it('should create instance with custom view if passed', () => {
-      config.ui.overlay = {
+      config.overlay = {
         view: sinon.spy(() => {
           return {
             getNode: () => {},
@@ -67,7 +67,7 @@ describe('Overlay', () => {
         eventEmitter,
       });
 
-      expect(config.ui.overlay.view.calledWithNew()).to.be.true;
+      expect(config.overlay.view.calledWithNew()).to.be.true;
     });
   });
 
@@ -139,14 +139,6 @@ describe('Overlay', () => {
       expect(callback.called).to.be.true;
       expect(showSpy.called).to.be.true;
     });
-
-    it('should set hide content state on method call', () => {
-      expect(overlay.isContentHidden).to.be.false;
-      overlay._hideContent();
-      expect(overlay.isContentHidden).to.be.true;
-      overlay._showContent();
-      expect(overlay.isContentHidden).to.be.false;
-    });
   });
 
   describe('API', () => {
@@ -161,9 +153,9 @@ describe('Overlay', () => {
 
     it('should have method for setting src of background image', () => {
       const src = 'test';
-      expect(overlay.setBackgroundSrc).to.exist;
+      expect(overlay.setPoster).to.exist;
       const cssSpy = sinon.spy(overlay.view.$content, 'css');
-      overlay.setBackgroundSrc(src);
+      overlay.setPoster(src);
       expect(cssSpy.calledWith('background-image', `url('${src}')`)).to.be.true;
     });
 

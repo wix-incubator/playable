@@ -17,7 +17,7 @@
     "start": "PORT=5000 haste start --entry-point=./dev-env/start-dev-env.js",
     "lint": "npm run tslint:all",
     "build": "haste build",
-    "test": "npm run test:unit && npm run test:playback",
+    "test": "npm run test:unit",
     "documentation": "ts-node ./scripts/documentation > ./docs/player-public-methods.md",
     "documentation:gitadd": "npm run documentation && git add ./docs/player-public-methods.md",
     "deploy": "cd site && npm run deploy",
@@ -29,7 +29,7 @@
     "csscomb:all": "csscomb src/.",
     "test:playback": "node ./dev-env/boot-devserver-and-test.js",
     "test:unit": "haste test --mocha",
-    "precommit": "lint-staged && npm run build && npm test && npm run documentation:gitadd"
+    "precommit": "lint-staged && npm run build && npm run test:unit && npm run test:playback && npm run documentation:gitadd"
   },
   "lint-staged": {
     "*.ts": [
@@ -44,7 +44,6 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "core-js": "^2.4.1",
     "css-element-queries": "^0.4.0",
     "dashjs": "latest",
     "eventemitter3": "^2.0.3",
