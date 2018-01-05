@@ -6,6 +6,7 @@ import View from '../../core/view';
 
 import * as styles from './full-screen.scss';
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
+import {enterFullScreen, exitFullScreen} from '../../../../assets';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
@@ -22,17 +23,21 @@ type IFullScreenViewConfig = {
 class FullScreenView extends View {
   private _callbacks;
   private _textMap;
+  private _svgStyle;
   private _tooltipReference: ITooltipReference;
 
   $node;
   $toggleFullScreenControl;
 
-  constructor(config: IFullScreenViewConfig) {
+  constructor(config: IFullScreenViewConfig, theme) {
     super();
     const { callbacks, textMap, tooltipService } = config;
+    const { svgStyle } = theme;
 
     this._callbacks = callbacks;
     this._textMap = textMap;
+
+    this._svgStyle = svgStyle;
 
     this.$node = $('<div>', {
       class: this.styleNames['full-screen-control'],
@@ -56,6 +61,7 @@ class FullScreenView extends View {
         text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       },
     );
+    this.$toggleFullScreenControl.append(enterFullScreen(svgStyle));
 
     this.$node.append(this.$toggleFullScreenControl);
 
@@ -89,6 +95,15 @@ class FullScreenView extends View {
       this.styleNames['in-full-screen'],
       isInFullScreen,
     );
+
+    this.$toggleFullScreenControl[0].removeChild(this.$toggleFullScreenControl[0].firstElementChild);
+
+    this.$toggleFullScreenControl.append(
+      isInFullScreen
+        ? exitFullScreen(this._svgStyle)
+        : enterFullScreen(this._svgStyle),
+    );
+
     this.$toggleFullScreenControl.attr(
       'aria-label',
       isInFullScreen

@@ -1,26 +1,27 @@
 import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
 import { PLAYER_API_PROPERTY } from '../utils/player-api-decorator';
+import {createStyleSheet, ThemeConfig} from '../theme';
 
 export default class Player {
   private _config;
+  private _theme;
   private _defaultModules;
   private _additionalModules;
   private _destroyed: boolean;
 
-  constructor(
-    params: IPlayerConfig,
-    scope,
-    defaultModules,
-    additionalModules = {},
-  ) {
+  constructor(params: IPlayerConfig, scope, defaultModules, themeConfig?, additionalModules = {}) {
     scope.registerValue({
       config: convertToDeviceRelatedConfig(params),
+      theme: createStyleSheet(themeConfig),
     });
 
     this._config = scope.resolve('config');
+    this._theme = scope.resolve('theme');
 
     this._resolveDefaultModules(scope, defaultModules);
     this._resolveAdditionalModules(scope, additionalModules);
+
+    this._theme.attach();
   }
 
   /*
@@ -131,6 +132,11 @@ export default class Player {
         delete this[apiKey];
       });
     }
+  }
+
+  updateTheme(themeConfig: ThemeConfig) {
+    this._theme.update(themeConfig);
+    debugger
   }
 
   destroy() {
