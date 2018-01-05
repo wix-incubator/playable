@@ -5,6 +5,7 @@ module.exports = {
     title: 'video-player.js',
   },
   plugins: [
+    'gatsby-plugin-react-next',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-catch-links',
     'gatsby-plugin-sass',
