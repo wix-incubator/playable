@@ -12,7 +12,7 @@ function createLinksTree(headings) {
 
     if (link.depth === 1) {
       tree.push(link);
-    } else {
+    } else if (tree[tree.length - 1]) {
       tree[tree.length - 1].children.push(link);
     }
 
