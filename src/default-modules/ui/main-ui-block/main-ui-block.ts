@@ -3,7 +3,6 @@ import * as get from 'lodash/get';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 import playerAPI from '../../../utils/player-api-decorator';
 
-
 const HIDE_BLOCK_TIMEOUT = 2000;
 
 export interface IControlsConfig {
@@ -11,7 +10,7 @@ export interface IControlsConfig {
 }
 
 const DEFAULT_CONFIG: IControlsConfig = {
-  shouldAlwaysShow: false
+  shouldAlwaysShow: false,
 };
 
 export default class MainUIBlock {
@@ -37,7 +36,13 @@ export default class MainUIBlock {
   isHidden: boolean;
 
   constructor(dependencies) {
-    const { config, eventEmitter, rootContainer, topBlock, bottomBlock } = dependencies;
+    const {
+      config,
+      eventEmitter,
+      rootContainer,
+      topBlock,
+      bottomBlock,
+    } = dependencies;
 
     this._eventEmitter = eventEmitter;
     this._topBlock = topBlock;
@@ -45,7 +50,11 @@ export default class MainUIBlock {
 
     this.isHidden = false;
 
-    this._shouldAlwaysShow = get(config.controls, 'shouldAlwaysShow', DEFAULT_CONFIG.shouldAlwaysShow);
+    this._shouldAlwaysShow = get(
+      config.controls,
+      'shouldAlwaysShow',
+      DEFAULT_CONFIG.shouldAlwaysShow,
+    );
 
     this._bindViewCallbacks();
     this._bindEvents();
@@ -193,6 +202,10 @@ export default class MainUIBlock {
   }
 
   private _showContent() {
+    if (this.isHidden) {
+      return;
+    }
+
     this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_SHOW_TRIGGERED);
     this._bottomBlock.showContent();
     this._topBlock.showContent();
@@ -210,6 +223,10 @@ export default class MainUIBlock {
   }
 
   private _hideContent() {
+    if (this.isHidden) {
+      return;
+    }
+
     this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE_TRIGGERED);
     this._bottomBlock.hideContent();
     this._topBlock.hideContent();
