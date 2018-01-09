@@ -1,28 +1,25 @@
-import jss from 'jss';
-import preset from 'jss-preset-default';
 import * as merge from 'lodash/merge';
-
-jss.setup(preset());
+import { StyleSheet } from './style-sheet';
 
 export const defaultThemeConfig = {
-  svgFill: '#FFF',
+  svgFill: '#F00',
   svgFillRule: 'evenodd',
 };
 
 export interface ThemeConfig {
-  svgFill?: string,
-  svgFillRule?: string
+  svgFill?: string;
+  svgFillRule?: string;
 }
 
 export function createStyleSheet(config: ThemeConfig = {}) {
-  const styleSheet = (jss as any).createStyleSheet({
+  const styleSheet = new StyleSheet({
     svgStyle: {
       fill: data => data.svgFill,
-      fillRule: data => data.svgFillRule,
+      'fill-rule': data => data.svgFillRule,
     },
-  }, { link: true });
+  });
 
   styleSheet.update(merge(defaultThemeConfig, config));
 
-  return styleSheet
+  return styleSheet;
 }

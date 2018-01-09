@@ -49,8 +49,6 @@
     "eventemitter3": "^2.0.3",
     "hls.js": "latest",
     "jbone": "^1.2.0",
-    "jss": "^9.5.0",
-    "jss-preset-default": "^4.0.1",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
