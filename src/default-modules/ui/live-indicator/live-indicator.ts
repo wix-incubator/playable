@@ -1,24 +1,33 @@
+import { ITooltipService } from '../core/tooltip';
 import LiveIndicatorView from './live-indicator.view';
 import { STATES, VIDEO_EVENTS } from '../../../constants';
 
 export default class LiveIndicator {
   static View = LiveIndicatorView;
-  static dependencies = ['engine', 'screen', 'eventEmitter', 'textMap'];
+  static dependencies = [
+    'engine',
+    'screen',
+    'eventEmitter',
+    'textMap',
+    'tooltipService',
+  ];
 
   private _engine;
   private _screen;
   private _eventEmitter;
   private _textMap;
+  private _tooltipService: ITooltipService;
   private _isHidden: boolean = true;
   private _isActive: boolean = false;
 
   view: LiveIndicatorView;
 
-  constructor({ engine, screen, eventEmitter, textMap }) {
+  constructor({ engine, screen, eventEmitter, textMap, tooltipService }) {
     this._engine = engine;
     this._screen = screen;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
+    this._tooltipService = tooltipService;
 
     this._bindCallbacks();
     this._initUI();
@@ -51,6 +60,7 @@ export default class LiveIndicator {
         onClick: this._syncWithLive,
       },
       textMap: this._textMap,
+      tooltipService: this._tooltipService,
     });
   }
 

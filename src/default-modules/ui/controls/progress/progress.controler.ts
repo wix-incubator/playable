@@ -14,16 +14,18 @@ import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 import playerAPI from '../../../../utils/player-api-decorator';
+import { ITooltipService } from '../../core/tooltip';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
 export default class ProgressControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'textMap'];
+  static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];
 
   private _engine;
   private _eventEmitter;
   private _textMap;
+  private _tooltipService: ITooltipService;
 
   private _isUserInteracting: boolean;
   private _shouldPlayAfterManipulationEnd: boolean;
@@ -35,10 +37,11 @@ export default class ProgressControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, textMap }) {
+  constructor({ engine, eventEmitter, textMap, tooltipService }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
+    this._tooltipService = tooltipService;
     this._isUserInteracting = false;
     this._currentProgress = 0;
 
@@ -85,6 +88,7 @@ export default class ProgressControl {
         onDragEnd: this._onUserInteractionEnds,
       },
       texts: this._textMap,
+      tooltipService: this._tooltipService,
     };
 
     this.view = new ProgressControl.View(config);

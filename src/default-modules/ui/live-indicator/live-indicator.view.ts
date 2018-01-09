@@ -1,24 +1,34 @@
 import * as $ from 'jbone';
 import * as classNames from 'classnames';
 
+import { ITooltip, ITooltipService } from '../core/tooltip';
 import View from '../core/view';
 
 import * as styles from './live-indicator.scss';
 import { TEXT_LABELS } from '../../../constants';
 
+type ILiveIndicatorViewConfig = {
+  callbacks: { onClick: Function };
+  textMap: any;
+  tooltipService: ITooltipService;
+};
+
 class LiveIndicatorView extends View {
   private _callbacks;
   private _textMap;
+  private _tooltipService: ITooltipService;
+  private _tooltip: ITooltip;
 
   $node;
   $liveIndicator;
   $tooltip;
 
-  constructor(config) {
+  constructor(config: ILiveIndicatorViewConfig) {
     super();
 
     this._callbacks = config.callbacks;
     this._textMap = config.textMap;
+    this._tooltipService = config.tooltipService;
 
     this._initDOM();
     this._bindEvents();
@@ -27,19 +37,17 @@ class LiveIndicatorView extends View {
   private _initDOM() {
     this.$liveIndicator = $('<span>', {
       class: this.styleNames['live-indicator'],
-      'aria-label': this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_LABEL),
+      'aria-label': this._textMap.get(TEXT_LABELS.LIVE_SYNC_LABEL),
     }).html(this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT));
-
-    this.$tooltip = $('<div>', {
-      class: this.styleNames.tooltip,
-    }).html(this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TOOLTIP));
 
     // NOTE: LIVE indicator is hidden by default
     this.$node = $('<div>', {
       class: classNames(this.styleNames.wrapper, this.styleNames.hidden),
-    })
-      .append(this.$liveIndicator)
-      .append(this.$tooltip);
+    }).append(this.$liveIndicator);
+
+    this._tooltip = this._tooltipService.create(this.$node[0], {
+      title: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+    });
   }
 
   private _bindEvents() {
@@ -72,6 +80,7 @@ class LiveIndicatorView extends View {
 
   destroy() {
     this._unbindEvents();
+    this._tooltip.destroy();
     this.$node.remove();
 
     delete this.$node;

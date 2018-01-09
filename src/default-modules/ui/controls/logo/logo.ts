@@ -62,11 +62,11 @@ export default class Logo {
 
   _initUI() {
     const config = {
-      tooltipService: this._tooltipService,
       callbacks: {
         onLogoClick: this._triggerCallback,
       },
       texts: this._textMap,
+      tooltipService: this._tooltipService,
     };
 
     this.view = new Logo.View(config);

@@ -5,6 +5,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 import View from '../../core/view';
 
 import * as styles from './full-screen.scss';
+import { ITooltip, ITooltipService } from '../../core/tooltip';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
@@ -12,16 +13,23 @@ const DATA_HOOK_BUTTON_VALUE = 'full-screen-button';
 
 const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 
+type IFullScreenViewConfig = {
+  callbacks: any;
+  texts: any;
+  tooltipService: ITooltipService;
+};
+
 class FullScreenView extends View {
   private _callbacks;
   private _texts;
+  private _tooltip: ITooltip;
 
   $node;
   $toggleFullScreenControl;
 
-  constructor(config) {
+  constructor(config: IFullScreenViewConfig) {
     super();
-    const { callbacks, texts } = config;
+    const { callbacks, texts, tooltipService } = config;
 
     this._callbacks = callbacks;
     this._texts = texts;
@@ -40,6 +48,10 @@ class FullScreenView extends View {
       'aria-label': this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
       type: 'button',
       tabIndex: 0,
+    });
+
+    this._tooltip = tooltipService.create(this.$toggleFullScreenControl[0], {
+      title: this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
     });
 
     this.$node.append(this.$toggleFullScreenControl);
@@ -80,6 +92,11 @@ class FullScreenView extends View {
         ? this._texts.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL)
         : this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
     );
+    this._tooltip.setTitle(
+      isInFullScreen
+        ? this._texts.get(TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP)
+        : this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
+    );
     this.$node.attr(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
   }
 
@@ -97,6 +114,7 @@ class FullScreenView extends View {
 
   destroy() {
     this._unbindEvents();
+    this._tooltip.destroy();
     this.$node.remove();
 
     delete this.$toggleFullScreenControl;

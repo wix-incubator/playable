@@ -3,6 +3,7 @@ import * as classnames from 'classnames';
 
 import { TEXT_LABELS } from '../../../../constants/index';
 
+import { ITooltip, ITooltipService } from '../../core/tooltip';
 import View from '../../core/view';
 
 import * as styles from './volume.scss';
@@ -36,9 +37,17 @@ const getPercentBasedOnXPosition = (
   return (event.clientX - boundingRect.left) / boundingRect.width * 100;
 };
 
+type IVolumeViewConfig = {
+  callbacks: any;
+  texts: any;
+  tooltipService: ITooltipService;
+};
+
 class VolumeView extends View {
   private _callbacks;
   private _texts;
+  private _tooltipService: ITooltipService;
+  private _muteButtonTooltip: ITooltip;
 
   _$node;
   _$muteButton;
@@ -48,12 +57,13 @@ class VolumeView extends View {
 
   private _isDragging;
 
-  constructor(config) {
+  constructor(config: IVolumeViewConfig) {
     super();
-    const { callbacks, texts } = config;
+    const { callbacks, texts, tooltipService } = config;
 
     this._callbacks = callbacks;
     this._texts = texts;
+    this._tooltipService = tooltipService;
 
     this._bindCallbacks();
     this._initDOM();
@@ -77,6 +87,13 @@ class VolumeView extends View {
       type: 'button',
       tabIndex: 0,
     });
+
+    this._muteButtonTooltip = this._tooltipService.create(
+      this._$muteButton[0],
+      {
+        title: this._texts.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
+      },
+    );
 
     this._$volumeNode = $('<div>', {
       class: this.styleNames['volume-input-block'],
@@ -242,6 +259,11 @@ class VolumeView extends View {
         ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
         : this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
     );
+    this._muteButtonTooltip.setTitle(
+      isMuted
+        ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_TOOLTIP)
+        : this._texts.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
+    );
   }
 
   show() {
@@ -266,6 +288,7 @@ class VolumeView extends View {
 
   destroy() {
     this._unbindEvents();
+    this._muteButtonTooltip.destroy();
     this._$node.remove();
 
     delete this._$muteButton;

@@ -1,3 +1,5 @@
+import { ITooltipService } from '../../core/tooltip';
+
 type IProgressViewStyles = {
   seekBlock: string;
   progressBarsWrapper: string;
@@ -25,6 +27,7 @@ type IProgressViewCallbacks = {
 type IProgressViewOptions = {
   callbacks: IProgressViewCallbacks;
   texts: any;
+  tooltipService: ITooltipService;
 };
 
 export { IProgressViewStyles, IProgressViewCallbacks, IProgressViewOptions };

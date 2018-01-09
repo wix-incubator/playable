@@ -4,26 +4,34 @@ import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 
+import { ITooltipService } from '../../core/tooltip';
 import View from './full-screen.view';
 
 export default class FullScreenControl {
   static View = View;
-  static dependencies = ['eventEmitter', 'fullScreenManager', 'textMap'];
+  static dependencies = [
+    'eventEmitter',
+    'fullScreenManager',
+    'textMap',
+    'tooltipService',
+  ];
 
   private _eventEmitter;
   private _fullScreenManager;
   private _textMap;
   private _interceptor;
+  private _tooltipService: ITooltipService;
 
   private _isInFullScreen: boolean;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, fullScreenManager, textMap }) {
+  constructor({ eventEmitter, fullScreenManager, textMap, tooltipService }) {
     this._eventEmitter = eventEmitter;
     this._fullScreenManager = fullScreenManager;
     this._textMap = textMap;
+    this._tooltipService = tooltipService;
 
     this._isInFullScreen = null;
 
@@ -64,6 +72,7 @@ export default class FullScreenControl {
         onToggleFullScreenButtonClick: this._toggleFullScreen,
       },
       texts: this._textMap,
+      tooltipService: this._tooltipService,
     };
 
     this.view = new FullScreenControl.View(config);

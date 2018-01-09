@@ -9,9 +9,9 @@ import * as styles from './logo.scss';
 import * as viewOnSiteIcon from '../../../../assets/view-on-site.svg';
 
 type ILogoViewConfig = {
-  tooltipService: ITooltipService;
   callbacks: { onLogoClick: Function };
   texts: any;
+  tooltipService: ITooltipService;
   logo?: string;
 };
 

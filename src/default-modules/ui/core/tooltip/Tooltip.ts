@@ -19,10 +19,10 @@ type ITooltipOptions = {
 };
 
 interface ITooltip {
-  show();
-  hide();
-  setTitle(title: string);
-  destroy();
+  show(): void;
+  hide(): void;
+  setTitle(title: string): void;
+  destroy(): void;
 }
 
 const SHOW_EVENTS = ['mouseenter', 'focus'];
