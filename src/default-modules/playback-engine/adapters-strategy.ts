@@ -1,15 +1,18 @@
+import { VIDEO_EVENTS, ERRORS } from '../../constants';
+
 import { resolveAdapters } from './playback-resolution';
-import { detectStreamType } from './detect-stream-type';
+import { getStreamType } from './detect-stream-type';
 
 export default class AdaptersStrategy {
   private _video;
+  private _eventEmitter;
   private _playableAdapters;
   private _availableAdapters;
   private _attachedAdapter;
 
   constructor(eventEmitter, video, playbackAdapters = []) {
     this._video = video;
-
+    this._eventEmitter = eventEmitter;
     this._playableAdapters = [];
     this._availableAdapters = [];
     this._attachedAdapter = null;
@@ -24,7 +27,14 @@ export default class AdaptersStrategy {
   _autoDetectSourceTypes(mediaSources) {
     return mediaSources.map(mediaSource => {
       if (typeof mediaSource === 'string') {
-        return { url: mediaSource, type: detectStreamType(mediaSource) };
+        const type = getStreamType(mediaSource);
+        if (!type) {
+          this._eventEmitter.emit(VIDEO_EVENTS.ERROR, {
+            errorType: ERRORS.SRC_PARSE,
+            streamSrc: mediaSource,
+          });
+        }
+        return { url: mediaSource, type: getStreamType(mediaSource) };
       }
 
       return mediaSource;

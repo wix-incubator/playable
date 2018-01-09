@@ -29,10 +29,15 @@ export function resolveAdapters(mediaStreams, availableAdapters) {
 function groupStreamsByMediaType(mediaStreams) {
   const typeMap = {};
   mediaStreams.forEach(mediaStream => {
+    if (!mediaStream.type) {
+      return;
+    }
+
     if (!Array.isArray(typeMap[mediaStream.type])) {
       typeMap[mediaStream.type] = [];
     }
     typeMap[mediaStream.type].push(mediaStream);
   });
+
   return typeMap;
 }

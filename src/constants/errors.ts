@@ -1,4 +1,5 @@
 const Errors = {
+  SRC_PARSE: 'error-src-parse',
   MANIFEST_LOAD: 'error-manifest-load',
   MANIFEST_PARSE: 'error-manifest-parse',
   MANIFEST_INCOMPATIBLE: 'error-manifest-incompatible',

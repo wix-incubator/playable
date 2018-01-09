@@ -20,6 +20,11 @@ const player: any = VideoPlayer.create({
     height: 428,
   },
   src: DEFAULT_URL,
+  playInline: true,
+  fullScreen: {
+    pauseVideoOnFullScreenExit: false,
+    exitFullScreenOnPause: true,
+  },
   logo: {
     showAlways: true,
     src: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png',

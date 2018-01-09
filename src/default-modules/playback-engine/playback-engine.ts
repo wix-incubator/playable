@@ -16,7 +16,6 @@ import { IPlaybackAdapter } from './adapters/types';
 
 export { STATES };
 
-
 export enum PreloadTypes {
   NONE = 'none',
   METADATA = 'metadata',
@@ -29,7 +28,7 @@ interface IMediaSource {
 }
 
 interface ISourceArray {
-  [index: number]: string | IMediaSource,
+  [index: number]: string | IMediaSource;
 }
 
 export type MediaSource = string | IMediaSource | ISourceArray;
@@ -436,6 +435,22 @@ export default class Engine {
   @playerAPI()
   getDurationTime() {
     return this._video.duration || 0;
+  }
+
+  /**
+   * Return real width of video from metadata
+   */
+  @playerAPI('getVideoRealWidth')
+  getVideoWidth() {
+    return this._video.videoWidth;
+  }
+
+  /**
+   * Return real height of video from metadata
+   */
+  @playerAPI('getVideoRealHeight')
+  getVideoHeight() {
+    return this._video.videoHeight;
   }
 
   getBuffered() {

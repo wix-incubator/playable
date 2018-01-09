@@ -569,6 +569,16 @@ Method for seeking to time in video
 Return duration of video
 
 
+## getVideoRealWidth
+
+Return real width of video from metadata
+
+
+## getVideoRealHeight
+
+Return real height of video from metadata
+
+
 ## setPlayInline
 
 Set playInline flag
