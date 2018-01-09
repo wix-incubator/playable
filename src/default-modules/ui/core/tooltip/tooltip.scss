@@ -1,3 +1,5 @@
+@import '../../shared';
+
 .tooltip {
   visibility: visible;
 
@@ -7,6 +9,10 @@
 
   opacity: 1;
   background: rgba(0,0,0,.5);
+
+  @include max-width-280() {
+    padding: 2px 4px;
+  }
 
   &.tooltipHidden {
     visibility: hidden;
@@ -38,4 +44,9 @@
   white-space: nowrap;
 
   color: white;
+
+  @include max-width-280() {
+    font-size: 10px;
+    line-height: 11px;
+  }
 }

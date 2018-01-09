@@ -1,6 +1,10 @@
 import * as Popper from '@bodia_uz/popper.js/dist/umd/popper-lite';
-import createTooltipNode, { ITooltipStyles } from './createTooltipNode';
+import createTooltipNode, {
+  ITooltipStyles,
+  TOOLTIP_INNER_HOOK,
+} from './createTooltipNode';
 import Stylable from '../stylable';
+import getElementByHook from '../getElementByHook';
 
 import * as styles from './tooltip.scss';
 
@@ -17,6 +21,7 @@ type ITooltipOptions = {
 interface ITooltip {
   show();
   hide();
+  setTitle(title: string);
   destroy();
 }
 
@@ -26,6 +31,7 @@ const HIDE_EVENTS = ['mouseleave', 'blur'];
 class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
   private _reference: HTMLElement;
   private _tooltipNode: HTMLElement;
+  private _tooltipInnerNode: HTMLElement;
 
   private _options: ITooltipOptions;
 
@@ -60,6 +66,15 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
 
   hide() {
     this._hide();
+  }
+
+  setTitle(title: string) {
+    this._options.title = title;
+
+    if (this._tooltipNode) {
+      this._tooltipInnerNode.textContent = title;
+      this.popperInstance.update();
+    }
   }
 
   destroy() {
@@ -214,6 +229,7 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
     tooltipContainer.appendChild(tooltipNode);
 
     this._tooltipNode = tooltipNode;
+    this._tooltipInnerNode = getElementByHook(tooltipNode, TOOLTIP_INNER_HOOK);
   }
 
   private _initPopper() {
