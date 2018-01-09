@@ -2,6 +2,7 @@ import Tooltip, { ITooltip, ITooltipOptions } from './Tooltip';
 
 interface ITooltipService {
   create(reference: HTMLElement, options: ITooltipOptions): ITooltip;
+  destroy(): void;
 }
 
 class TooltipService implements ITooltipService {
@@ -17,6 +18,10 @@ class TooltipService implements ITooltipService {
       ...options,
       boundariesElement: this._rootContainer.node,
     });
+  }
+
+  destroy() {
+    this._rootContainer = null;
   }
 }
 
