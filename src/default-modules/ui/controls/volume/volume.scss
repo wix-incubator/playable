@@ -47,14 +47,6 @@ $color: white !default;
 
     background-size: 25px 21px;
   }
-
-  &.half-volume {
-    //    background-image: url('../../../../assets/volume-50.svg');
-  }
-
-  &.muted {
-    //    background-image: url('../../../../assets/volume-0.svg');
-  }
 }
 
 .volume-input-block {
@@ -85,8 +77,6 @@ $color: white !default;
 }
 
 .volume {
-  background-color: white;
-
   &:after {
     position: absolute;
     top: -3px;
@@ -99,7 +89,7 @@ $color: white !default;
     transition: opacity .2s;
 
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #0f0;
 
     @include in-full-screen() {
       top: -4px;
@@ -113,8 +103,6 @@ $color: white !default;
 
 .background {
   width: 100%;
-
-  background-color: transparentize(#fff, .75);
 }
 
 .hitbox {

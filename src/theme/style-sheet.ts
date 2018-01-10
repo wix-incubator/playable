@@ -1,7 +1,7 @@
 type RuleFunction = (data: any) => string;
 
 export interface CSSRule {
-  [cssPropName: string]: string | RuleFunction;
+  [cssPropName: string]: string | RuleFunction | CSSRule;
 }
 
 export interface CSSRules {
@@ -51,7 +51,31 @@ export class StyleSheet {
       return '';
     }
 
-    const rules = Object.keys(rule)
+    const complexRuleNames = Object.keys(rule)
+      .filter(ruleName => typeof rule[ruleName] === 'object')
+      .map(ruleName => (ruleName.includes('&') ? ruleName : `& ${ruleName}`));
+
+    const complexRules = complexRuleNames
+      .map(ruleName => {
+        const selector = ruleName.replace(
+          /&/g,
+          `.${this.classes[classImportName]}`,
+        );
+        //don't want to allow deep nesting now, maybe later
+        return `${selector} {${this.processSimpleRule(rule[ruleName])}}`;
+      })
+      .join(' ');
+
+    return `.${this.classes[classImportName]} {${this.processSimpleRule(
+      rule,
+    )}} ${complexRules}`;
+  };
+
+  private processSimpleRule(rule) {
+    const simpleRuleNames = Object.keys(rule).filter(
+      ruleName => typeof rule[ruleName] !== 'object',
+    );
+    return simpleRuleNames
       .map(
         ruleName =>
           `${camelToKebab(ruleName)}: ${
@@ -61,9 +85,7 @@ export class StyleSheet {
           }`,
       )
       .join('; ');
-
-    return `.${this.classes[classImportName]} {${rules}}`;
-  };
+  }
 }
 
 function camelToKebab(string: string): string {
