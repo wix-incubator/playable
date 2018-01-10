@@ -7,6 +7,7 @@ import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import View from '../../core/view';
 
 import * as styles from './volume.scss';
+import { volume0, volume50, volume100 } from '../../../../assets';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'volume-control';
@@ -46,6 +47,7 @@ type IVolumeViewConfig = {
 class VolumeView extends View {
   private _callbacks;
   private _textMap;
+  private _svgStyle;
   private _tooltipService: ITooltipService;
   private _muteButtonTooltipReference: ITooltipReference;
 
@@ -57,13 +59,15 @@ class VolumeView extends View {
 
   private _isDragging;
 
-  constructor(config: IVolumeViewConfig) {
+  constructor(config: IVolumeViewConfig, classes) {
     super();
     const { callbacks, textMap, tooltipService } = config;
 
     this._callbacks = callbacks;
+
     this._textMap = textMap;
     this._tooltipService = tooltipService;
+    this._svgStyle = classes.svgStyle;
 
     this._bindCallbacks();
     this._initDOM();
@@ -94,6 +98,7 @@ class VolumeView extends View {
         text: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
       },
     );
+    this._$muteButton.append(volume100(this._svgStyle));
 
     this._$volumeNode = $('<div>', {
       class: this.styleNames['volume-input-block'],
@@ -232,6 +237,12 @@ class VolumeView extends View {
 
     if (percent >= MAX_VOLUME_ICON_RANGE) {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], false);
+      this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
+      this._$muteButton.append(volume100(this._svgStyle));
+    } else if (percent > 0) {
+      this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
+      this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
+      this._$muteButton.append(volume50(this._svgStyle));
     } else {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
     }
@@ -251,6 +262,10 @@ class VolumeView extends View {
   }
 
   private _setMuteDOMAttributes(isMuted) {
+    if (isMuted) {
+      this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
+      this._$muteButton.append(volume0(this._svgStyle));
+    }
     this._$muteButton.toggleClass(this.styleNames.muted, isMuted);
     this._$node.attr(DATA_IS_MUTED, isMuted);
     this._$muteButton.attr(

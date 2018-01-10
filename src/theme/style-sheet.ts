@@ -20,7 +20,9 @@ export class StyleSheet {
     this.classes = Object.keys(rules).reduce(
       (acc, classImportName) => ({
         ...acc,
-        [classImportName]: camelToKebab(classImportName),
+        [classImportName]: `${camelToKebab(classImportName)}-${Date.now()
+          .toString()
+          .slice(-5)}`,
       }),
       {},
     );
@@ -60,7 +62,7 @@ export class StyleSheet {
       )
       .join('; ');
 
-    return `.${camelToKebab(classImportName)} {${rules}}`;
+    return `.${this.classes[classImportName]} {${rules}}`;
   };
 }
 

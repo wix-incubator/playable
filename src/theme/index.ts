@@ -2,20 +2,18 @@ import * as merge from 'lodash/merge';
 import { StyleSheet } from './style-sheet';
 
 export const defaultThemeConfig = {
-  svgFill: '#F00',
-  svgFillRule: 'evenodd',
+  color: '#F00',
 };
 
 export interface ThemeConfig {
-  svgFill?: string;
-  svgFillRule?: string;
+  color?: string;
 }
 
 export function createStyleSheet(config: ThemeConfig = {}) {
   const styleSheet = new StyleSheet({
     svgStyle: {
-      fill: data => data.svgFill,
-      'fill-rule': data => data.svgFillRule,
+      fill: data => data.color,
+      stroke: data => data.color,
     },
   });
 

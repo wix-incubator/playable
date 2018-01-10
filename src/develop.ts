@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!color) {
       return;
     }
-    player.updateTheme({
-      svgFill: color,
-    })
-  })
+
+    player.updateTheme({ color });
+  });
+
 });

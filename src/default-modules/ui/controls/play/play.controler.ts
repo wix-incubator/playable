@@ -8,21 +8,23 @@ import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
 
 export default class PlayControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'textMap'];
+  static dependencies = ['engine', 'eventEmitter', 'textMap', 'theme'];
 
   private _engine;
   private _eventEmitter;
   private _textMap;
+  private _classes;
 
   private _interceptor;
   private _isPlaying: boolean;
 
   view: View;
 
-  constructor({ engine, eventEmitter, textMap }) {
+  constructor({ engine, eventEmitter, textMap, theme }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
+    this._classes = theme.classes;
 
     this._isPlaying = null;
 
@@ -117,7 +119,7 @@ export default class PlayControl {
       textMap: this._textMap,
     };
 
-    this.view = new PlayControl.View(config);
+    this.view = new PlayControl.View(config, this._classes);
   }
 
   setControlStatus(isPlaying) {

@@ -22,7 +22,7 @@ export default class FullScreenControl {
   private _textMap;
   private _interceptor;
   private _tooltipService: ITooltipService;
-  private _theme;
+  private _classes;
 
   private _isInFullScreen: boolean;
 
@@ -33,9 +33,8 @@ export default class FullScreenControl {
     this._eventEmitter = eventEmitter;
     this._fullScreenManager = fullScreenManager;
     this._textMap = textMap;
-    this._theme = theme.classes;
+    this._classes = theme.classes;
     this._tooltipService = tooltipService;
-
 
     this._isInFullScreen = null;
 
@@ -79,7 +78,7 @@ export default class FullScreenControl {
       tooltipService: this._tooltipService,
     };
 
-    this.view = new FullScreenControl.View(config, this._theme);
+    this.view = new FullScreenControl.View(config, this._classes);
   }
 
   _initInterceptor() {

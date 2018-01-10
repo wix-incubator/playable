@@ -5,6 +5,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 import View from '../../core/view';
 
 import * as styles from './full-screen.scss';
+
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import {enterFullScreen, exitFullScreen} from '../../../../assets';
 
@@ -29,10 +30,10 @@ class FullScreenView extends View {
   $node;
   $toggleFullScreenControl;
 
-  constructor(config: IFullScreenViewConfig, theme) {
+  constructor(config: IFullScreenViewConfig, classes) {
     super();
     const { callbacks, textMap, tooltipService } = config;
-    const { svgStyle } = theme;
+    const { svgStyle } = classes;
 
     this._callbacks = callbacks;
     this._textMap = textMap;
@@ -96,7 +97,9 @@ class FullScreenView extends View {
       isInFullScreen,
     );
 
-    this.$toggleFullScreenControl[0].removeChild(this.$toggleFullScreenControl[0].firstElementChild);
+    this.$toggleFullScreenControl[0].removeChild(
+      this.$toggleFullScreenControl[0].firstElementChild,
+    );
 
     this.$toggleFullScreenControl.append(
       isInFullScreen

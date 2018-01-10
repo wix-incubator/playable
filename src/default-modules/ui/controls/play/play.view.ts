@@ -5,6 +5,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 import View from '../../core/view';
 
 import * as styles from './play.scss';
+import { play, pause } from '../../../../assets';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'playback-control';
@@ -20,16 +21,19 @@ type IPlayViewConfig = {
 class PlayView extends View {
   private _callbacks;
   private _textMap;
+  private _svgStyle;
 
   $node;
   $playbackControl;
 
-  constructor(config: IPlayViewConfig) {
+  constructor(config: IPlayViewConfig, classes) {
     super();
     const { callbacks, textMap } = config;
 
     this._callbacks = callbacks;
+
     this._textMap = textMap;
+    this._svgStyle = classes.svgStyle;
 
     this.$node = $('<div>', {
       class: this.styleNames['play-control'],
@@ -46,6 +50,8 @@ class PlayView extends View {
       type: 'button',
       tabIndex: 0,
     });
+
+    this.$playbackControl.append(pause(this._svgStyle));
 
     this.$node.append(this.$playbackControl);
 
@@ -69,6 +75,13 @@ class PlayView extends View {
 
   setState({ isPlaying }) {
     this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
+    this.$playbackControl[0].removeChild(
+      this.$playbackControl[0].firstElementChild,
+    );
+    this.$playbackControl.append(
+      isPlaying ? pause(this._svgStyle) : play(this._svgStyle),
+    );
+
     this.$node.attr(DATA_IS_PLAYING, isPlaying);
     this.$playbackControl.attr(
       'aria-label',

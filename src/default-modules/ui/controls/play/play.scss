@@ -17,11 +17,6 @@
   height: 26px;
   min-height: 26px;
 
-  background-image: url('../../../../assets/pause.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 10px 14px;
-
   @include in-full-screen() {
     width: 35px;
     min-width: 35px;
@@ -33,10 +28,5 @@
     &.paused {
       background-size: 16px 21px;
     }
-  }
-
-  &.paused {
-    background-image: url('../../../../assets/play.svg');
-    background-size: 11px 14px;
   }
 }
