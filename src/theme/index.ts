@@ -11,8 +11,10 @@ export interface ThemeConfig {
 
 export function createStyleSheet(config: ThemeConfig = {}) {
   const styleSheet = new StyleSheet({
-    svgStyle: {
+    svgFill: {
       fill: data => data.color,
+    },
+    svgStroke: {
       stroke: data => data.color,
     },
     volumeProgress: {
@@ -23,6 +25,9 @@ export function createStyleSheet(config: ThemeConfig = {}) {
     },
     volumeProgressBackground: {
       backgroundColor: data => transperentize(data.color, 0.75),
+    },
+    text: {
+      color: data => data.color,
     },
   });
 

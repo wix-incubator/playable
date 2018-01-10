@@ -21,7 +21,7 @@ type IPlayViewConfig = {
 class PlayView extends View {
   private _callbacks;
   private _textMap;
-  private _svgStyle;
+  private _classes;
 
   $node;
   $playbackControl;
@@ -33,7 +33,7 @@ class PlayView extends View {
     this._callbacks = callbacks;
 
     this._textMap = textMap;
-    this._svgStyle = classes.svgStyle;
+    this._classes = classes;
 
     this.$node = $('<div>', {
       class: this.styleNames['play-control'],
@@ -51,7 +51,7 @@ class PlayView extends View {
       tabIndex: 0,
     });
 
-    this.$playbackControl.append(pause(this._svgStyle));
+    this.$playbackControl.append(pause(this._classes.svgFill));
 
     this.$node.append(this.$playbackControl);
 
@@ -79,7 +79,7 @@ class PlayView extends View {
       this.$playbackControl[0].firstElementChild,
     );
     this.$playbackControl.append(
-      isPlaying ? pause(this._svgStyle) : play(this._svgStyle),
+      isPlaying ? pause(this._classes.svgFill) : play(this._classes.svgFill),
     );
 
     this.$node.attr(DATA_IS_PLAYING, isPlaying);

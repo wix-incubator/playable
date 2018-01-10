@@ -24,7 +24,7 @@ type IFullScreenViewConfig = {
 class FullScreenView extends View {
   private _callbacks;
   private _textMap;
-  private _svgStyle;
+  private _classes;
   private _tooltipReference: ITooltipReference;
 
   $node;
@@ -33,12 +33,11 @@ class FullScreenView extends View {
   constructor(config: IFullScreenViewConfig, classes) {
     super();
     const { callbacks, textMap, tooltipService } = config;
-    const { svgStyle } = classes;
 
     this._callbacks = callbacks;
     this._textMap = textMap;
 
-    this._svgStyle = svgStyle;
+    this._classes = classes;
 
     this.$node = $('<div>', {
       class: this.styleNames['full-screen-control'],
@@ -62,7 +61,7 @@ class FullScreenView extends View {
         text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       },
     );
-    this.$toggleFullScreenControl.append(enterFullScreen(svgStyle));
+    this.$toggleFullScreenControl.append(enterFullScreen(classes.svgFill));
 
     this.$node.append(this.$toggleFullScreenControl);
 
@@ -103,8 +102,8 @@ class FullScreenView extends View {
 
     this.$toggleFullScreenControl.append(
       isInFullScreen
-        ? exitFullScreen(this._svgStyle)
-        : enterFullScreen(this._svgStyle),
+        ? exitFullScreen(this._classes.svgFill)
+        : enterFullScreen(this._classes.svgFill),
     );
 
     this.$toggleFullScreenControl.attr(

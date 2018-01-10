@@ -9,6 +9,7 @@ import Overlay from './overlay.controler';
 import Engine from '../../playback-engine/playback-engine';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
+import { createStyleSheet } from '../../../theme';
 
 describe('Overlay', () => {
   let overlay: any = {};
@@ -17,11 +18,13 @@ describe('Overlay', () => {
   let rootContainer: any;
   let eventEmitterSpy: any = null;
   let config: any = {};
+  let theme: any = {};
 
   beforeEach(() => {
     config = {
       ui: {},
     };
+    theme = createStyleSheet();
     eventEmitter = new EventEmitter();
     engine = new Engine({
       eventEmitter,
@@ -41,6 +44,7 @@ describe('Overlay', () => {
         eventEmitter,
         rootContainer,
         config,
+        theme,
       });
     });
 
@@ -65,6 +69,7 @@ describe('Overlay', () => {
         config,
         rootContainer,
         eventEmitter,
+        theme,
       });
 
       expect(config.overlay.view.calledWithNew()).to.be.true;
@@ -82,6 +87,7 @@ describe('Overlay', () => {
             poster: 'test',
           },
         },
+        theme,
       });
 
       eventEmitterSpy = sinon.spy(overlay._eventEmitter, 'emit');
@@ -111,6 +117,7 @@ describe('Overlay', () => {
         eventEmitter,
         rootContainer,
         config,
+        theme,
       });
     });
 
@@ -148,6 +155,7 @@ describe('Overlay', () => {
         eventEmitter,
         rootContainer,
         config,
+        theme,
       });
     });
 

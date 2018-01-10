@@ -99,8 +99,7 @@ class VolumeView extends View {
         text: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
       },
     );
-    this._$muteButton.append(volume100(this._classes.svgStyle));
-
+    this._$muteButton.append(volume100(this._classes));
 
     this._$volumeNode = $('<div>', {
       class: this.styleNames['volume-input-block'],
@@ -242,11 +241,11 @@ class VolumeView extends View {
     if (percent >= MAX_VOLUME_ICON_RANGE) {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], false);
       this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(volume100(this._classes.svgStyle));
+      this._$muteButton.append(volume100(this._classes));
     } else if (percent > 0) {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
       this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(volume50(this._classes.svgStyle));
+      this._$muteButton.append(volume50(this._classes));
     } else {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
     }
@@ -268,7 +267,7 @@ class VolumeView extends View {
   private _setMuteDOMAttributes(isMuted) {
     if (isMuted) {
       this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(volume0(this._classes.svgStyle));
+      this._$muteButton.append(volume0(this._classes));
     }
     this._$muteButton.toggleClass(this.styleNames.muted, isMuted);
     this._$node.attr(DATA_IS_MUTED, isMuted);

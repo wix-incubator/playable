@@ -13,8 +13,6 @@
   font-size: 12px;
   line-height: 25px;
 
-  color: white;
-
   @include in-full-screen() {
     font-size: 14px;
   }

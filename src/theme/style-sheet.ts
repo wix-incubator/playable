@@ -20,7 +20,9 @@ export class StyleSheet {
     this.classes = Object.keys(rules).reduce(
       (acc, classImportName) => ({
         ...acc,
-        [classImportName]: `${camelToKebab(classImportName)}-${Date.now()
+        [classImportName]: `wix-vp--${camelToKebab(
+          classImportName,
+        )}-${Date.now()
           .toString()
           .slice(-5)}`,
       }),

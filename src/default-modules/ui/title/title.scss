@@ -9,8 +9,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  color: white;
-
   @include max-width-550() {
     font-size: 14px;
     line-height: 15px;

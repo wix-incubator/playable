@@ -13,7 +13,7 @@ class TitleView extends View {
   $node;
   $title;
 
-  constructor(config) {
+  constructor(config, classes) {
     super();
 
     const { callbacks } = config;
@@ -23,7 +23,7 @@ class TitleView extends View {
     this.$node = $('<div>');
 
     this.$title = $('<div>', {
-      class: this.styleNames.title,
+      class: `${this.styleNames.title} ${classes.text}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
     });
 

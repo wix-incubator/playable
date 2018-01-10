@@ -6,19 +6,21 @@ const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
 export default class TimeControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter'];
+  static dependencies = ['engine', 'eventEmitter', 'theme'];
 
   private _eventEmitter;
   private _engine;
+  private _theme;
 
   private _updateControlInterval;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, engine }) {
+  constructor({ eventEmitter, engine, theme }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
+    this._theme = theme;
 
     this._bindCallbacks();
     this._initUI();
@@ -51,7 +53,7 @@ export default class TimeControl {
   }
 
   _initUI() {
-    this.view = new TimeControl.View();
+    this.view = new TimeControl.View(this._theme.classes);
   }
 
   _startIntervalUpdates() {

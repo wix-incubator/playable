@@ -3,6 +3,7 @@ import * as classnames from 'classnames';
 import View from '../core/view';
 
 import * as styles from './overlay.scss';
+import { overlayPlay } from '../../../assets';
 
 class OverlayView extends View {
   private _callbacks;
@@ -11,7 +12,7 @@ class OverlayView extends View {
   $content;
   $playButton;
 
-  constructor(config) {
+  constructor(config, classes) {
     super();
     const { callbacks, src } = config;
 
@@ -31,6 +32,8 @@ class OverlayView extends View {
     this.$playButton = $('<div>', {
       class: this.styleNames.icon,
     });
+
+    this.$playButton.append(overlayPlay(classes));
 
     this.$node.append(this.$content).append(this.$playButton);
 
