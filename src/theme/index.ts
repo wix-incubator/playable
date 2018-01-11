@@ -2,7 +2,8 @@ import * as merge from 'lodash/merge';
 import { StyleSheet } from './style-sheet';
 
 export const defaultThemeConfig = {
-  color: '#F00',
+  color: '#f00',
+  liveColor: '#ea492e',
 };
 
 export interface ThemeConfig {
@@ -24,10 +25,25 @@ export function createStyleSheet(config: ThemeConfig = {}) {
       },
     },
     volumeProgressBackground: {
-      backgroundColor: data => transperentize(data.color, 0.75),
+      backgroundColor: data => transperentize(data.color, 0.25),
     },
     text: {
       color: data => data.color,
+    },
+    progressPlayed: {
+      backgroundColor: data => data.color,
+      '&:after': {
+        backgroundColor: data => data.color,
+      },
+    },
+    progressSeekTo: {
+      backgroundColor: data => transperentize(data.color, 0.5),
+    },
+    progressBackground: {
+      backgroundColor: data => transperentize(data.color, 0.25),
+    },
+    progressSyncBtn: {
+      borderColor: data => data.color,
     },
   });
 

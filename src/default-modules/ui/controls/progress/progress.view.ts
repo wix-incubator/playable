@@ -39,10 +39,12 @@ const getPercentBasedOnXPosition = (
 
 class ProgressView extends Stylable<IProgressViewStyles>
   implements IView<IProgressViewStyles> {
+  private _classes;
   private _callbacks: IProgressViewCallbacks;
   private _textMap;
   private _tooltipService: ITooltipService;
   private _syncButtonTooltipReference: ITooltipReference;
+
   private _isDragging: boolean;
 
   private _$node: HTMLElement;
@@ -53,13 +55,14 @@ class ProgressView extends Stylable<IProgressViewStyles>
   private _$timeIndicators: HTMLElement;
   private _$syncButton: HTMLElement;
 
-  constructor(config: IProgressViewOptions) {
+  constructor(config: IProgressViewOptions, classes) {
     super();
     const { callbacks, textMap, tooltipService } = config;
 
     this._callbacks = callbacks;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
+    this._classes = classes;
 
     this._initDOM();
     this._bindCallbacks();
