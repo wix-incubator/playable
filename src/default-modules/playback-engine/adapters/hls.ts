@@ -82,8 +82,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
   get isSeekAvailable(): boolean {
     if (this.isDynamicContent) {
       const { details } = this.hls.levels[this.hls.firstLevel];
-      const type = details.type.trim();
-      return type === 'EVENT';
+      const type = details.type || '';
+      return type.trim() === 'EVENT';
     }
 
     return true;
