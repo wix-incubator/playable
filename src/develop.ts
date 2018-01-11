@@ -25,6 +25,7 @@ const player: any = VideoPlayer.create({
     pauseVideoOnFullScreenExit: false,
     exitFullScreenOnPause: true,
   },
+  overlay: false,
   logo: {
     showAlways: true,
     src: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png',

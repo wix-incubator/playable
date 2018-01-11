@@ -4,7 +4,6 @@ import playerAPI from '../../../utils/player-api-decorator';
 
 import View from './bottom-block.view';
 
-
 export default class BottomBlock {
   static View = View;
   static dependencies = [
@@ -20,21 +19,20 @@ export default class BottomBlock {
 
   private _screen;
 
-
   private _isBlockFocused: boolean = false;
 
   view: View;
   isHidden: boolean = false;
 
   constructor(dependencies) {
-    const {
-      config,
-      screen,
-    } = dependencies;
+    const { config, screen } = dependencies;
     this._screen = screen;
 
     this._bindViewCallbacks();
-    this._initUI(this._getElementsNodes(dependencies), get(config.controls, 'view'));
+    this._initUI(
+      this._getElementsNodes(dependencies),
+      get(config.controls, 'view'),
+    );
     this._initLogo(config.logo);
   }
 
@@ -79,7 +77,7 @@ export default class BottomBlock {
   }
 
   private _initLogo(logoConfig) {
-    if (logoConfig !== false) {
+    if (logoConfig) {
       if (typeof logoConfig === 'object') {
         this.setLogoAlwaysShowFlag(logoConfig.showAlways);
       }
@@ -105,12 +103,10 @@ export default class BottomBlock {
     return this._isBlockFocused;
   }
 
-
   showContent() {
     this._screen.showBottomShadow();
     this.view.showContent();
   }
-
 
   hideContent() {
     this._screen.hideBottomShadow();
