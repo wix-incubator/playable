@@ -14,7 +14,7 @@ import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
 import { IPlaybackAdapter } from './types';
 
 const LIVE_SYNC_DURATION = 4;
-const LIVE_SYNC_DURATION_DELTA = 1;
+const LIVE_SYNC_DURATION_DELTA = 5;
 const DEFAULT_HLS_CONFIG = {
   abrEwmaDefaultEstimate: 5000 * 1000,
   liveSyncDuration: LIVE_SYNC_DURATION,

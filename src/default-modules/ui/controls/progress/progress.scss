@@ -18,17 +18,20 @@ $sync-pointer-hover-border: 3px;
 
 $sync-pointer-height-full-screen: 8px;
 $sync-pointer-width-full-screen: 8px;
-$sync-pointer-hover--height-full-screen: 10px;
-$sync-pointer-hover--width-full-screen: 10px;
+$sync-pointer-height-hover-full-screen: 10px;
+$sync-pointer-width-hover-full-screen: 10px;
 
 $color-played: #fff;
 $color-seek-to: rgba(255, 255, 255, .5);
 $color-played-live: #ea492e;
 $color-seek-to-live: rgba(234,73,46, .5);
 
-.seek-block {
-  user-select: none;
+$color-sync-pointer-background: #9e1110;
+$color-sync-pointer-border: #bababa;
+$color-sync-pointer-hover-background: #ea492e;
+$color-sync-pointer-hover-border: #fff;
 
+.seek-block {
   position: relative;
 
   display: block;
@@ -36,6 +39,7 @@ $color-seek-to-live: rgba(234,73,46, .5);
   width: 100%;
   height: $progress-bar-height;
 
+  user-select: none;
   transition: opacity .2s, visibility .2s;
 
   @include in-full-screen() {
@@ -78,8 +82,18 @@ $color-seek-to-live: rgba(234,73,46, .5);
       width: $sync-pointer-hover-width;
       height: $sync-pointer-hover-height;
 
-      opacity: 1;
-      border: $sync-pointer-hover-border solid white;
+      border-width: $sync-pointer-hover-border;
+      border-color: $color-played;
+      //opacity: 1;
+      background-color: red;
+
+      @include in-full-screen() {
+        top: -$progress-bar-height-full-screen / 2;
+        right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-hover-border) / 2 - 1;
+
+        width: $sync-pointer-width-hover-full-screen;
+        height: $sync-pointer-height-hover-full-screen;
+      }
     }
   }
 }
@@ -95,18 +109,22 @@ $color-seek-to-live: rgba(234,73,46, .5);
 
   cursor: pointer;
   transition: opacity .2s;
+  //opacity: .6;
 
-  opacity: .6;
-  border: $sync-pointer-border solid white;
+  border: $sync-pointer-border solid $color-sync-pointer-border;
   border-radius: 50%;
-  background-color: red;
+  background-color: $color-sync-pointer-background;
 
   @include in-full-screen() {
-    top: -$progress-bar-height-full-screen / 2;
+    top: -$progress-bar-height-full-screen / 4;
     right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-border) / 2;
 
     width: $sync-pointer-width-full-screen;
     height: $sync-pointer-height-full-screen;
+  }
+
+  &:hover {
+    background-color: $color-played;
   }
 
   &.hidden {

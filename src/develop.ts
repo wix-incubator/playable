@@ -21,10 +21,6 @@ const player: any = VideoPlayer.create({
   },
   src: DEFAULT_URL,
   playInline: true,
-  fullScreen: {
-    pauseVideoOnFullScreenExit: false,
-    exitFullScreenOnPause: true,
-  },
   overlay: false,
   logo: {
     showAlways: true,
