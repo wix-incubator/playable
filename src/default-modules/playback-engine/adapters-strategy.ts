@@ -34,7 +34,7 @@ export default class AdaptersStrategy {
             streamSrc: mediaSource,
           });
         }
-        return { url: mediaSource, type: getStreamType(mediaSource) };
+        return { url: mediaSource, type };
       }
 
       return mediaSource;
