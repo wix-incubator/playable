@@ -7,13 +7,21 @@ import { overlayPlay } from '../../../assets';
 
 class OverlayView extends View {
   private _callbacks;
+  protected static _moduleTheme = {
+    svgFill: {
+      fill: data => data.color,
+    },
+    svgStroke: {
+      stroke: data => data.color,
+    },
+  };
 
   $node;
   $content;
   $playButton;
 
-  constructor(config, classes) {
-    super();
+  constructor(config, theme) {
+    super(theme);
     const { callbacks, src } = config;
 
     this._callbacks = callbacks;
@@ -33,7 +41,7 @@ class OverlayView extends View {
       class: this.styleNames.icon,
     });
 
-    this.$playButton.append(overlayPlay(classes));
+    this.$playButton.append(overlayPlay(this._themeClasses));
 
     this.$node.append(this.$content).append(this.$playButton);
 

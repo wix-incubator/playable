@@ -13,7 +13,7 @@ export default class PlayControl {
   private _engine;
   private _eventEmitter;
   private _textMap;
-  private _classes;
+  private _theme;
 
   private _interceptor;
   private _isPlaying: boolean;
@@ -24,7 +24,7 @@ export default class PlayControl {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
-    this._classes = theme.classes;
+    this._theme = theme;
 
     this._isPlaying = null;
 
@@ -116,10 +116,11 @@ export default class PlayControl {
       callbacks: {
         onTogglePlaybackButtonClick: this._togglePlayback,
       },
+      theme: this._theme,
       textMap: this._textMap,
     };
 
-    this.view = new PlayControl.View(config, this._classes);
+    this.view = new PlayControl.View(config);
   }
 
   setControlStatus(isPlaying) {

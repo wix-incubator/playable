@@ -53,7 +53,7 @@ export default class TimeControl {
   }
 
   _initUI() {
-    this.view = new TimeControl.View(this._theme.classes);
+    this.view = new TimeControl.View(this._theme);
   }
 
   _startIntervalUpdates() {

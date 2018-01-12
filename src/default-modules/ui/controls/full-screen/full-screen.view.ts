@@ -7,7 +7,7 @@ import View from '../../core/view';
 import * as styles from './full-screen.scss';
 
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
-import {enterFullScreen, exitFullScreen} from '../../../../assets';
+import { enterFullScreen, exitFullScreen } from '../../../../assets';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
@@ -18,26 +18,30 @@ const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 type IFullScreenViewConfig = {
   callbacks: any;
   textMap: any;
+  theme: any;
   tooltipService: ITooltipService;
 };
 
 class FullScreenView extends View {
   private _callbacks;
   private _textMap;
-  private _classes;
   private _tooltipReference: ITooltipReference;
+  protected static _moduleTheme = {
+    svgFill: {
+      fill: data => data.color,
+    },
+  };
 
   $node;
   $toggleFullScreenControl;
 
-  constructor(config: IFullScreenViewConfig, classes) {
-    super();
-    const { callbacks, textMap, tooltipService } = config;
+  constructor(config: IFullScreenViewConfig) {
+    const { callbacks, textMap, tooltipService, theme } = config;
+
+    super(theme);
 
     this._callbacks = callbacks;
     this._textMap = textMap;
-
-    this._classes = classes;
 
     this.$node = $('<div>', {
       class: this.styleNames['full-screen-control'],
@@ -61,7 +65,7 @@ class FullScreenView extends View {
         text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       },
     );
-    this.$toggleFullScreenControl.append(enterFullScreen(classes.svgFill));
+    this.$toggleFullScreenControl.append(enterFullScreen(this._themeClasses));
 
     this.$node.append(this.$toggleFullScreenControl);
 
@@ -102,8 +106,8 @@ class FullScreenView extends View {
 
     this.$toggleFullScreenControl.append(
       isInFullScreen
-        ? exitFullScreen(this._classes.svgFill)
-        : enterFullScreen(this._classes.svgFill),
+        ? exitFullScreen(this._themeClasses)
+        : enterFullScreen(this._themeClasses),
     );
 
     this.$toggleFullScreenControl.attr(

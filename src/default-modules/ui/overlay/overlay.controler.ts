@@ -57,7 +57,7 @@ export default class Overlay {
     if (customView) {
       this.view = new customView(params);
     } else {
-      this.view = new Overlay.View(params, this._theme.classes);
+      this.view = new Overlay.View(params, this._theme);
     }
   }
 

@@ -16,24 +16,30 @@ const DATA_IS_PLAYING = 'data-is-playing';
 type IPlayViewConfig = {
   callbacks: any;
   textMap: any;
+  theme: any;
 };
 
 class PlayView extends View {
   private _callbacks;
   private _textMap;
-  private _classes;
+
+  protected static _moduleTheme = {
+    svgFill: {
+      fill: data => data.color,
+    },
+  };
 
   $node;
   $playbackControl;
 
-  constructor(config: IPlayViewConfig, classes) {
-    super();
-    const { callbacks, textMap } = config;
+  constructor(config: IPlayViewConfig) {
+    const { callbacks, textMap, theme } = config;
+
+    super(theme);
 
     this._callbacks = callbacks;
 
     this._textMap = textMap;
-    this._classes = classes;
 
     this.$node = $('<div>', {
       class: this.styleNames['play-control'],
@@ -51,7 +57,7 @@ class PlayView extends View {
       tabIndex: 0,
     });
 
-    this.$playbackControl.append(pause(this._classes.svgFill));
+    this.$playbackControl.append(pause(this._themeClasses.svgFill));
 
     this.$node.append(this.$playbackControl);
 
@@ -79,7 +85,9 @@ class PlayView extends View {
       this.$playbackControl[0].firstElementChild,
     );
     this.$playbackControl.append(
-      isPlaying ? pause(this._classes.svgFill) : play(this._classes.svgFill),
+      isPlaying
+        ? pause(this._themeClasses.svgFill)
+        : play(this._themeClasses.svgFill),
     );
 
     this.$node.attr(DATA_IS_PLAYING, isPlaying);

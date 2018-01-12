@@ -1,14 +1,17 @@
 import { container } from '../core/player-factory';
 import DependencyContainer from '../core/dependency-container';
+import { createStyleSheet } from '../theme';
 
 const { asClass } = DependencyContainer;
 
 export default function createPlayerTestkit(config = {}, adapters = []) {
   const _config = config;
+  const theme = createStyleSheet({});
 
   const scope = container.createScope();
 
   scope.registerValue('config', _config);
+  scope.registerValue('theme', theme);
   scope.registerValue('availablePlaybackAdapters', [...adapters]);
 
   return {

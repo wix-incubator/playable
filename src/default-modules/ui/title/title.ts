@@ -14,13 +14,13 @@ export default class TitleControl {
   static dependencies = ['config', 'theme'];
 
   private _callback;
-  private _classes;
+  private _theme;
 
   view: View;
   isHidden: boolean;
 
   constructor({ config, theme }) {
-    this._classes = theme.classes;
+    this._theme = theme;
 
     this._bindCallbacks();
     this._initUI();
@@ -43,12 +43,13 @@ export default class TitleControl {
 
   _initUI() {
     const config = {
+      theme: this._theme,
       callbacks: {
         onClick: this._triggerCallback,
       },
     };
 
-    this.view = new TitleControl.View(config, this._classes);
+    this.view = new TitleControl.View(config);
 
     this.view.setTitle();
   }

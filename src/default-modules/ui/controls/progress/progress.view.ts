@@ -1,6 +1,7 @@
 import { TEXT_LABELS } from '../../../../constants/index';
 
-import Stylable from '../../core/stylable';
+import View from '../../core/view';
+
 import { IView } from '../../core/types';
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import formatTime from '../../core/utils/formatTime';
@@ -16,6 +17,7 @@ import {
   IProgressViewOptions,
 } from './types';
 import * as styles from './progress.scss';
+import { transperentize } from '../../../../theme/style-sheet';
 
 const DATA_PLAYED = 'data-played-percent';
 
@@ -37,13 +39,30 @@ const getPercentBasedOnXPosition = (
   return (event.clientX - boundingRect.left) / boundingRect.width * 100;
 };
 
-class ProgressView extends Stylable<IProgressViewStyles>
+class ProgressView extends View<IProgressViewStyles>
   implements IView<IProgressViewStyles> {
-  private _classes;
   private _callbacks: IProgressViewCallbacks;
   private _textMap;
   private _tooltipService: ITooltipService;
   private _syncButtonTooltipReference: ITooltipReference;
+
+  protected static _moduleTheme = {
+    progressPlayed: {
+      backgroundColor: data => data.color,
+      '&:after': {
+        backgroundColor: data => data.color,
+      },
+    },
+    progressSeekTo: {
+      backgroundColor: data => transperentize(data.color, 0.5),
+    },
+    progressBackground: {
+      backgroundColor: data => transperentize(data.color, 0.25),
+    },
+    progressSyncBtn: {
+      borderColor: data => data.color,
+    },
+  };
 
   private _isDragging: boolean;
 
@@ -55,14 +74,14 @@ class ProgressView extends Stylable<IProgressViewStyles>
   private _$timeIndicators: HTMLElement;
   private _$syncButton: HTMLElement;
 
-  constructor(config: IProgressViewOptions, classes) {
-    super();
-    const { callbacks, textMap, tooltipService } = config;
+  constructor(config: IProgressViewOptions) {
+    const { callbacks, textMap, tooltipService, theme } = config;
+
+    super(theme);
 
     this._callbacks = callbacks;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
-    this._classes = classes;
 
     this._initDOM();
     this._bindCallbacks();
@@ -74,7 +93,9 @@ class ProgressView extends Stylable<IProgressViewStyles>
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(progressTemplate({ styles: this.styleNames }));
+    this._$node = htmlToElement(
+      progressTemplate({ styles: this.styleNames, theme: this._themeClasses }),
+    );
 
     this._$played = getElementByHook(this._$node, 'progress-played');
     this._$buffered = getElementByHook(this._$node, 'progress-buffered');

@@ -89,7 +89,6 @@ $color: white !default;
     transition: opacity .2s;
 
     border-radius: 50%;
-    background-color: #0f0;
 
     @include in-full-screen() {
       top: -4px;

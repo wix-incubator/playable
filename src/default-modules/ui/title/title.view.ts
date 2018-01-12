@@ -8,22 +8,27 @@ const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_VALUE = 'video-title';
 
 class TitleView extends View {
+  protected static _moduleTheme = {
+    text: {
+      color: data => data.color,
+    },
+  };
   private _callbacks;
 
   $node;
   $title;
 
-  constructor(config, classes) {
-    super();
+  constructor(config) {
+    const { callbacks, theme } = config;
 
-    const { callbacks } = config;
+    super(theme);
 
     this._callbacks = callbacks;
 
     this.$node = $('<div>');
 
     this.$title = $('<div>', {
-      class: `${this.styleNames.title} ${classes.text}`,
+      class: `${this.styleNames.title} ${this._themeClasses.text}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
     });
 
