@@ -89,6 +89,10 @@ describe('ProgressControl', () => {
       });
 
       describe('before `METADATA_LOADED`', () => {
+        beforeEach(() => {
+          control.clearTimeIndicators();
+        });
+
         it('should add one indicator', () => {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
@@ -140,6 +144,7 @@ describe('ProgressControl', () => {
 
       describe('after `METADATA_LOADED`', () => {
         beforeEach(() => {
+          control.clearTimeIndicators();
           Reflect.defineProperty(control._engine, 'isMetadataLoaded', {
             ...Reflect.getOwnPropertyDescriptor(
               engine.constructor.prototype,
