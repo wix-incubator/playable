@@ -62,12 +62,12 @@ export default class CardsModule {
     this.eventEmitter.on(VIDEO_EVENTS.STATE_CHANGED, this.handlePlayerStateChange, this);
 
     this.eventEmitter.on(
-      UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED,
+      UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
       this.cardsContainer.onControlsHidden,
       this.cardsContainer
     );
     this.eventEmitter.on(
-      UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED,
+      UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
       this.cardsContainer.onControlsShown,
       this.cardsContainer
     );
