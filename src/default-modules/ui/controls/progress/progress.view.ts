@@ -2,7 +2,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
 
-import { Progress, ProgressTimeIndicator } from './templates';
+import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
@@ -58,7 +58,7 @@ class ProgressView extends View {
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(Progress({ styles: this.styleNames }));
+    this._$node = htmlToElement(progressTemplate({ styles: this.styleNames }));
 
     this._$played = getElementByHook(this._$node, 'progress-played');
     this._$buffered = getElementByHook(this._$node, 'progress-buffered');
@@ -206,7 +206,7 @@ class ProgressView extends View {
   addTimeIndicator(percent: number) {
     this._$timeIndicators.appendChild(
       htmlToElement(
-        ProgressTimeIndicator({
+        progressTimeIndicatorTemplate({
           percent,
           styles: this.styleNames,
         }),

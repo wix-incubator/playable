@@ -1,2 +1,2 @@
-export { default as Progress } from './progress.dot';
-export { default as ProgressTimeIndicator } from './progressTimeIndicator.dot';
+export { default as progressTemplate } from './progress.dot';
+export { default as progressTimeIndicatorTemplate } from './progressTimeIndicator.dot';
