@@ -13,19 +13,19 @@
     "src"
   ],
   "scripts": {
-    "start": "yoshi start --entry-point=./server/start-fake-server.js",
-    "build": "yoshi build",
-    "lint": "yoshi lint",
+    "start": "haste start --entry-point=./server/start-fake-server.js",
+    "build": "haste build",
+    "lint": "haste lint",
     "csscomb": "csscomb src/.",
     "csscomb:lint": "csscomb -lv src/.",
-    "precommit": "yoshi lint && yarn csscomb:lint",
-    "pretest": "yoshi build",
-    "test": "yoshi test",
-    "posttest": "yoshi lint",
-    "release": "yoshi release"
+    "precommit": "haste lint && yarn csscomb:lint",
+    "pretest": "haste build",
+    "test": "haste test",
+    "posttest": "haste lint",
+    "release": "haste release"
   },
   "dependencies": {
-    "@wix/video-player": "^1.0.403",
+    "@wix/video-player": "^2.0.0",
     "gh-pages": "^1.0.0"
   },
   "babel-eslint": "^8.0.0",
@@ -39,7 +39,8 @@
     "chai": "^3.5.0",
     "csscomb": "^4.2.0",
     "husky": "^0.13.4",
-    "yoshi": "^1.1.267"
+    "haste-cli": "~0.1.16",
+    "haste-preset-yoshi": "latest"
   },
   "yoshi": {
     "separateCss": false,
@@ -68,5 +69,8 @@
   },
   "publishConfig": {
     "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local/"
+  },
+  "haste": {
+    "preset": "yoshi"
   }
 }
