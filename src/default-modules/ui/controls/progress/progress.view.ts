@@ -5,6 +5,7 @@ import View from '../../core/view';
 import { Progress, ProgressTimeIndicator } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
+import getElementByHook from '../../core/getElementByHook';
 
 import * as styles from './progress.scss';
 
@@ -59,17 +60,15 @@ class ProgressView extends View {
   private _initDOM() {
     this._$node = htmlToElement(Progress({ styles: this.styleNames }));
 
-    this._$played = this._$node.querySelector('[data-hook="progress-played"]');
-    this._$buffered = this._$node.querySelector(
-      '[data-hook="progress-buffered"]',
+    this._$played = getElementByHook(this._$node, 'progress-played');
+    this._$buffered = getElementByHook(this._$node, 'progress-buffered');
+    this._$seekTo = getElementByHook(this._$node, 'progress-seek-to');
+    this._$timeIndicators = getElementByHook(
+      this._$node,
+      'progress-time-indicators',
     );
-    this._$seekTo = this._$node.querySelector('[data-hook="progress-seek-to"]');
-    this._$timeIndicators = this._$node.querySelector(
-      '[data-hook="progress-time-indicators"]',
-    );
-    this._$syncButton = this._$node.querySelector('[data-hook="progress-sync-button"]');
-
-    this._$hitbox = this._$node.querySelector('[data-hook="progress-hitbox"]');
+    this._$syncButton = getElementByHook(this._$node, 'progress-sync-button');
+    this._$hitbox = getElementByHook(this._$node, 'progress-hitbox');
   }
 
   private _bindCallbacks() {
