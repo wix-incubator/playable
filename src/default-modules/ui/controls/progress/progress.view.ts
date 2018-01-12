@@ -1,12 +1,18 @@
 import { TEXT_LABELS } from '../../../../constants/index';
 
-import View from '../../core/view';
+import Stylable from '../../core/stylable';
+import { IView } from '../../core/types';
 
 import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
+import {
+  IProgressViewStyles,
+  IProgressViewCallbacks,
+  IProgressViewOptions,
+} from './types';
 import * as styles from './progress.scss';
 
 const DATA_PLAYED = 'data-played-percent';
@@ -29,8 +35,9 @@ const getPercentBasedOnXPosition = (
   return (event.clientX - boundingRect.left) / boundingRect.width * 100;
 };
 
-class ProgressView extends View {
-  private _callbacks;
+class ProgressView extends Stylable<IProgressViewStyles>
+  implements IView<IProgressViewStyles> {
+  private _callbacks: IProgressViewCallbacks;
   private _texts;
   private _isDragging: boolean;
 
@@ -42,7 +49,7 @@ class ProgressView extends View {
   private _$timeIndicators: HTMLElement;
   private _$syncButton: HTMLElement;
 
-  constructor(config) {
+  constructor(config: IProgressViewOptions) {
     super();
     const { callbacks, texts } = config;
 

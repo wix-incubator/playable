@@ -1,30 +1,7 @@
-import * as classnames from 'classnames';
+import Stylable from './stylable';
+import { IView, IStyles } from './types';
 
-export default class View {
-  private static _styles;
+class View<TStyles = IStyles> extends Stylable<TStyles>
+  implements IView<TStyles> {}
 
-  static extendStyleNames(styles) {
-    if (!this._styles) {
-      this._styles = {};
-    }
-
-    Object.keys(styles).forEach(styleName => {
-      if (this._styles[styleName]) {
-        this._styles[styleName] = classnames(
-          this._styles[styleName],
-          styles[styleName],
-        );
-      } else {
-        this._styles[styleName] = styles[styleName];
-      }
-    });
-  }
-
-  static resetStyles() {
-    this._styles = {};
-  }
-
-  get styleNames() {
-    return (this.constructor as any)._styles || {};
-  }
-}
+export default View;

@@ -1,3 +1,4 @@
+import { IProgressViewOptions } from './types';
 import View from './progress.view';
 
 import {
@@ -76,7 +77,7 @@ export default class ProgressControl {
   }
 
   private _initUI() {
-    const config = {
+    const config: IProgressViewOptions = {
       callbacks: {
         onSyncWithLiveClick: this._syncWithLive,
         onChangePlayedProgress: this._changePlayedProgress,

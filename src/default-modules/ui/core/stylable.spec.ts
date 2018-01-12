@@ -1,29 +1,29 @@
 import { expect } from 'chai';
 import * as classnames from 'classnames';
 
-import View from './view';
+import Stylable from './stylable';
 
-describe('View', () => {
-  let view;
+describe('Stylable', () => {
+  let stylable;
 
   beforeEach(() => {
-    view = new View();
+    stylable = new Stylable();
   });
 
   afterEach(() => {
-    View.resetStyles();
+    Stylable.resetStyles();
   });
 
   it('instance should have method for getting styles', () => {
-    expect(view.styleNames).to.be.deep.equal({});
+    expect(stylable.styleNames).to.be.deep.equal({});
   });
 
   it('should have method for extending styles', () => {
     const styleNames = {
       name: 'value',
     };
-    View.extendStyleNames(styleNames);
-    expect(view.styleNames).to.be.deep.equal(styleNames);
+    Stylable.extendStyleNames(styleNames);
+    expect(stylable.styleNames).to.be.deep.equal(styleNames);
   });
 
   it('method for extending styles should merge styleNames for same style', () => {
@@ -35,9 +35,9 @@ describe('View', () => {
       name: 'value2',
     };
 
-    View.extendStyleNames(styleNames1);
-    View.extendStyleNames(styleNames2);
-    expect(view.styleNames).to.be.deep.equal({
+    Stylable.extendStyleNames(styleNames1);
+    Stylable.extendStyleNames(styleNames2);
+    expect(stylable.styleNames).to.be.deep.equal({
       name: classnames(styleNames1.name, styleNames2.name),
     });
   });
