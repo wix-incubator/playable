@@ -39,7 +39,6 @@
     "chai": "^3.5.0",
     "csscomb": "^4.2.0",
     "husky": "^0.13.4",
-    "haste-cli": "~0.1.16",
     "haste-preset-yoshi": "latest"
   },
   "yoshi": {
