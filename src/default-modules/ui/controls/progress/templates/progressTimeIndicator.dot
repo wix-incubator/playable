@@ -1,1 +1,0 @@
-<div class="${props.styles['time-indicator']}" style="left: ${props.percent}%"></div>
