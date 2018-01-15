@@ -65,7 +65,7 @@
     "ejs": "^2.5.5",
     "express": "^4.14.0",
     "glob": "^7.1.2",
-    "haste-preset-yoshi": "git@github.com:wix-private/wix-haste-preset-yoshi-video-player.git#d4455d4",
+    "haste-preset-yoshi": "git@github.com:wix-private/wix-haste-preset-yoshi-video-player.git#6687fe3",
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "lint-staged": "^5.0.0",
