@@ -2,7 +2,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import Stylable from '../../core/stylable';
 import { IView } from '../../core/types';
-import { ITooltip, ITooltipService } from '../../core/tooltip';
+import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 
 import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
 
@@ -41,7 +41,7 @@ class ProgressView extends Stylable<IProgressViewStyles>
   private _callbacks: IProgressViewCallbacks;
   private _texts;
   private _tooltipService: ITooltipService;
-  private _syncButtonTooltip: ITooltip;
+  private _syncButtonTooltipReference: ITooltipReference;
   private _isDragging: boolean;
 
   private _$node: HTMLElement;
@@ -80,7 +80,7 @@ class ProgressView extends Stylable<IProgressViewStyles>
       'progress-time-indicators',
     );
     this._$syncButton = getElementByHook(this._$node, 'progress-sync-button');
-    this._syncButtonTooltip = this._tooltipService.create(
+    this._syncButtonTooltipReference = this._tooltipService.createReference(
       this._$syncButton,
       {
         title: this._texts.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
@@ -259,7 +259,7 @@ class ProgressView extends Stylable<IProgressViewStyles>
 
   destroy() {
     this._unbindEvents();
-    this._syncButtonTooltip.destroy();
+    this._syncButtonTooltipReference.destroy();
 
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);

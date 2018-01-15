@@ -3,7 +3,7 @@ import * as classnames from 'classnames';
 
 import { TEXT_LABELS } from '../../../../constants/index';
 
-import { ITooltip, ITooltipService } from '../../core/tooltip';
+import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import View from '../../core/view';
 
 import * as styles from './volume.scss';
@@ -47,7 +47,7 @@ class VolumeView extends View {
   private _callbacks;
   private _texts;
   private _tooltipService: ITooltipService;
-  private _muteButtonTooltip: ITooltip;
+  private _muteButtonTooltipReference: ITooltipReference;
 
   _$node;
   _$muteButton;
@@ -88,7 +88,7 @@ class VolumeView extends View {
       tabIndex: 0,
     });
 
-    this._muteButtonTooltip = this._tooltipService.create(
+    this._muteButtonTooltipReference = this._tooltipService.createReference(
       this._$muteButton[0],
       {
         title: this._texts.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
@@ -259,7 +259,7 @@ class VolumeView extends View {
         ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
         : this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
     );
-    this._muteButtonTooltip.setTitle(
+    this._muteButtonTooltipReference.setTitle(
       isMuted
         ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_TOOLTIP)
         : this._texts.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
@@ -288,7 +288,7 @@ class VolumeView extends View {
 
   destroy() {
     this._unbindEvents();
-    this._muteButtonTooltip.destroy();
+    this._muteButtonTooltipReference.destroy();
     this._$node.remove();
 
     delete this._$muteButton;

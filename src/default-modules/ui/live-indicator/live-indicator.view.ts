@@ -1,7 +1,7 @@
 import * as $ from 'jbone';
 import * as classNames from 'classnames';
 
-import { ITooltip, ITooltipService } from '../core/tooltip';
+import { ITooltipReference, ITooltipService } from '../core/tooltip';
 import View from '../core/view';
 
 import * as styles from './live-indicator.scss';
@@ -17,11 +17,10 @@ class LiveIndicatorView extends View {
   private _callbacks;
   private _textMap;
   private _tooltipService: ITooltipService;
-  private _tooltip: ITooltip;
+  private _tooltipReference: ITooltipReference;
 
   $node;
   $liveIndicator;
-  $tooltip;
 
   constructor(config: ILiveIndicatorViewConfig) {
     super();
@@ -45,9 +44,12 @@ class LiveIndicatorView extends View {
       class: classNames(this.styleNames.wrapper, this.styleNames.hidden),
     }).append(this.$liveIndicator);
 
-    this._tooltip = this._tooltipService.create(this.$node[0], {
-      title: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
-    });
+    this._tooltipReference = this._tooltipService.createReference(
+      this.$node[0],
+      {
+        title: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+      },
+    );
   }
 
   private _bindEvents() {
@@ -80,12 +82,11 @@ class LiveIndicatorView extends View {
 
   destroy() {
     this._unbindEvents();
-    this._tooltip.destroy();
+    this._tooltipReference.destroy();
     this.$node.remove();
 
     delete this.$node;
     delete this.$liveIndicator;
-    delete this.$tooltip;
     delete this._callbacks;
     delete this._textMap;
   }

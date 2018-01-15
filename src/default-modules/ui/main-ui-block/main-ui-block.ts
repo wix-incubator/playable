@@ -3,6 +3,8 @@ import * as get from 'lodash/get';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 import playerAPI from '../../../utils/player-api-decorator';
 
+import MainUIBlockView from './main-ui-block.view';
+
 const HIDE_BLOCK_TIMEOUT = 2000;
 
 export interface IControlsConfig {
@@ -14,9 +16,11 @@ const DEFAULT_CONFIG: IControlsConfig = {
 };
 
 export default class MainUIBlock {
+  static View = MainUIBlockView;
   static dependencies = [
     'config',
     'rootContainer',
+    'tooltipContainer',
     'eventEmitter',
     'topBlock',
     'bottomBlock',
@@ -33,6 +37,7 @@ export default class MainUIBlock {
   private _shouldAlwaysShow: boolean = false;
   private _isDragging: boolean = false;
 
+  view: MainUIBlockView;
   isHidden: boolean;
 
   constructor(dependencies) {
@@ -40,6 +45,7 @@ export default class MainUIBlock {
       config,
       eventEmitter,
       rootContainer,
+      tooltipContainer,
       topBlock,
       bottomBlock,
     } = dependencies;
@@ -56,15 +62,27 @@ export default class MainUIBlock {
       DEFAULT_CONFIG.shouldAlwaysShow,
     );
 
+    this._initUI({
+      tooltipContainer: tooltipContainer.node,
+      topBlock: topBlock.node,
+      bottomBlock: bottomBlock.node,
+    });
     this._bindViewCallbacks();
     this._bindEvents();
 
-    rootContainer.appendComponentNode(topBlock.node);
-    rootContainer.appendComponentNode(bottomBlock.node);
+    rootContainer.appendComponentNode(this.view.getNode());
 
     if (config.controls === false) {
       this.hide();
     }
+  }
+
+  get node() {
+    return this.view.getNode();
+  }
+
+  private _initUI(elements) {
+    this.view = new MainUIBlock.View({ elements });
   }
 
   private _bindViewCallbacks() {

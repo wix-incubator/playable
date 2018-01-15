@@ -2,8 +2,6 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import { ITooltip, ITooltipService } from '../../core/tooltip';
-
 import createPlayerTestkit from '../../../../testkit';
 
 import { UI_EVENTS } from '../../../../constants/index';
@@ -12,18 +10,6 @@ class FullScreenManagerMock {
   exitFullScreen = function() {};
   isEnabled = true;
   _config: Object = {};
-}
-
-class TooltipServiceMock implements ITooltipService {
-  create(): ITooltip {
-    return {
-      show() {},
-      hide() {},
-      setTitle() {},
-      destroy() {},
-    };
-  }
-  destroy() {}
 }
 
 describe('FullScreenControl', () => {
@@ -38,7 +24,6 @@ describe('FullScreenControl', () => {
       'fullScreenManager',
       FullScreenManagerMock,
     );
-    testkit.registerModuleAsSingleton('tooltipService', TooltipServiceMock);
     fullScreenManager = testkit.getModule('fullScreenManager');
     eventEmitter = testkit.getModule('eventEmitter');
     control = testkit.getModule('fullScreenControl');

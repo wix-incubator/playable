@@ -2,7 +2,7 @@ import * as $ from 'jbone';
 
 import { TEXT_LABELS } from '../../../../constants/index';
 
-import { ITooltipService, ITooltip } from '../../core/tooltip';
+import { ITooltipService, ITooltipReference } from '../../core/tooltip';
 import View from '../../core/view';
 
 import * as styles from './logo.scss';
@@ -16,7 +16,7 @@ type ILogoViewConfig = {
 };
 
 class LogoView extends View {
-  private _tooltip: ITooltip;
+  private _tooltipReference: ITooltipReference;
   private _callbacks;
   private _texts;
 
@@ -41,7 +41,7 @@ class LogoView extends View {
       tabIndex: 0,
     });
 
-    this._tooltip = tooltipService.create(this.$logo[0], {
+    this._tooltipReference = tooltipService.createReference(this.$logo[0], {
       title: this._texts.get(TEXT_LABELS.LOGO_TOOLTIP),
     });
 
@@ -100,12 +100,12 @@ class LogoView extends View {
 
   destroy() {
     this._unbindEvents();
-    this._tooltip.destroy();
+    this._tooltipReference.destroy();
     this.$node.remove();
 
     delete this.$node;
 
-    delete this._tooltip;
+    delete this._tooltipReference;
     delete this._texts;
   }
 }

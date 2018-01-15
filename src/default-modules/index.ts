@@ -27,7 +27,7 @@ import VolumeControl from './ui/controls/volume/volume.controler';
 import FullScreenControl from './ui/controls/full-screen/full-screen.controler';
 import Logo from './ui/controls/logo/logo';
 
-import { TooltipService } from './ui/core/tooltip';
+import { TooltipService, TooltipContainer } from './ui/core/tooltip';
 
 const { asClass } = DependencyContainer;
 
@@ -48,6 +48,7 @@ export default {
   overlay: asClass(Overlay).scoped(),
   loader: asClass(Loader).scoped(),
 
+  tooltipContainer: asClass(TooltipContainer).scoped(),
   mainUIBlock: asClass(MainUIBlock).scoped(),
 
   topBlock: asClass(TopBlock).scoped(),

@@ -1,7 +1,10 @@
+export { default as Tooltip, ITooltip, ITooltipStyles } from './tooltip';
 export {
-  default as Tooltip,
-  ITooltip,
-  ITooltipOptions,
-  ITooltipStyles,
-} from './Tooltip';
-export { default as TooltipService, ITooltipService } from './TooltipService';
+  ITooltipReference,
+  ITooltipReferenceOptions,
+} from './tooltip-reference';
+export {
+  default as TooltipContainer,
+  ITooltipContainer,
+} from './tooltip-container';
+export { default as TooltipService, ITooltipService } from './tooltip-service';
