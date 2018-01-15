@@ -1,4 +1,2 @@
-export { default as createTooltipTemplate } from './createTooltipTemplate';
-export {
-  default as createTooltipContainerTemplate,
-} from './createTooltipContainerTemplate';
+export { default as tooltipTemplate } from './tooltip.dot';
+export { default as tooltipContainerTemplate } from './tooltipContainer.dot';

@@ -1,4 +1,4 @@
-import { createTooltipContainerTemplate } from './templates';
+import { tooltipContainerTemplate } from './templates';
 import htmlToElement from '../htmlToElement';
 import Tooltip from './tooltip';
 import Stylable from '../stylable';
@@ -36,7 +36,7 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
 
   private _initDOM() {
     this._$node = htmlToElement(
-      createTooltipContainerTemplate({
+      tooltipContainerTemplate({
         styles: this.styleNames,
       }),
     );

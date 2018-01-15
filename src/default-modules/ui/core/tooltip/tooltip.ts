@@ -1,4 +1,4 @@
-import { createTooltipTemplate } from './templates';
+import { tooltipTemplate } from './templates';
 import htmlToElement from '../htmlToElement';
 import getElementByHook from '../getElementByHook';
 import Stylable from '../stylable';
@@ -35,7 +35,7 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
 
   private _initDOM() {
     this._$node = htmlToElement(
-      createTooltipTemplate({
+      tooltipTemplate({
         styles: this.styleNames,
       }),
     );

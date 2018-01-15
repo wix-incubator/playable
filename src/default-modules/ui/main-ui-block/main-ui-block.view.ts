@@ -1,6 +1,7 @@
-import * as $ from 'jbone';
 import View from '../core/view';
 
+import { mainUIBlockTemplate } from './templates';
+import htmlToElement from '../core/htmlToElement';
 import * as styles from './main-ui-block.scss';
 
 type IMainUIBlockViewConfig = {
@@ -21,27 +22,31 @@ class MainUIBlockView extends View {
   }
 
   private _initDOM(elements) {
-    this.$node = $('<div>', {
-      class: this.styleNames['main-ui-block'],
-    });
+    this.$node = htmlToElement(
+      mainUIBlockTemplate({
+        styles: this.styleNames,
+      }),
+    );
 
-    const $tooltipContainerWrapper = $('<div>', {
-      class: this.styleNames['tooltip-container-wrapper'],
-    });
+    const $tooltipContainerWrapper = document.createElement('div');
+    $tooltipContainerWrapper.classList.add(
+      this.styleNames['tooltip-container-wrapper'],
+    );
+    $tooltipContainerWrapper.appendChild(elements.tooltipContainer);
 
-    $tooltipContainerWrapper.append(elements.tooltipContainer);
-
-    this.$node.append(elements.topBlock);
-    this.$node.append($tooltipContainerWrapper);
-    this.$node.append(elements.bottomBlock);
+    this.$node.appendChild(elements.topBlock);
+    this.$node.appendChild($tooltipContainerWrapper);
+    this.$node.appendChild(elements.bottomBlock);
   }
 
   getNode() {
-    return this.$node[0];
+    return this.$node;
   }
 
   destroy() {
-    this.$node.remove();
+    if (this.$node.parentNode) {
+      this.$node.parentNode.removeChild(this.$node);
+    }
     delete this.$node;
   }
 }
