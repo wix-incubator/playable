@@ -3,8 +3,4 @@ export {
   ITooltipReference,
   ITooltipReferenceOptions,
 } from './tooltip-reference';
-export {
-  default as TooltipContainer,
-  ITooltipContainer,
-} from './tooltip-container';
 export { default as TooltipService, ITooltipService } from './tooltip-service';

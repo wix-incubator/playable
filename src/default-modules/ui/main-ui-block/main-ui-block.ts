@@ -20,7 +20,7 @@ export default class MainUIBlock {
   static dependencies = [
     'config',
     'rootContainer',
-    'tooltipContainer',
+    'tooltipService',
     'eventEmitter',
     'topBlock',
     'bottomBlock',
@@ -45,7 +45,7 @@ export default class MainUIBlock {
       config,
       eventEmitter,
       rootContainer,
-      tooltipContainer,
+      tooltipService,
       topBlock,
       bottomBlock,
     } = dependencies;
@@ -63,7 +63,7 @@ export default class MainUIBlock {
     );
 
     this._initUI({
-      tooltipContainer: tooltipContainer.node,
+      tooltipContainer: tooltipService.tooltipContainerNode,
       topBlock: topBlock.node,
       bottomBlock: bottomBlock.node,
     });

@@ -2,10 +2,14 @@ import TooltipReference, {
   ITooltipReference,
   ITooltipReferenceOptions,
 } from './tooltip-reference';
-import { ITooltipContainer } from './tooltip-container';
+import TooltipContainer from './tooltip-container';
 import { ITooltipShowOptions } from './types';
+import Tooltip from './tooltip';
 
 interface ITooltipService {
+  isHidden: boolean;
+  tooltipContainerNode: HTMLElement;
+  setText(text: string): void;
   show(options: ITooltipShowOptions): void;
   hide(): void;
   createReference(
@@ -16,28 +20,46 @@ interface ITooltipService {
 }
 
 class TooltipService implements ITooltipService {
-  static dependencies = ['tooltipContainer'];
+  private _tooltip: Tooltip;
+  private _tooltipContainer: TooltipContainer;
 
-  private _tooltipContainer: ITooltipContainer;
+  constructor() {
+    this._tooltip = new Tooltip();
+    this._tooltipContainer = new TooltipContainer(this._tooltip);
+  }
 
-  constructor({ tooltipContainer }) {
-    this._tooltipContainer = tooltipContainer;
+  get isHidden(): boolean {
+    return this._tooltip.isHidden;
+  }
+
+  get tooltipContainerNode(): HTMLElement {
+    return this._tooltipContainer.node;
+  }
+
+  /**
+   * Set new tooltip title
+   */
+  setText(text: string) {
+    this._tooltip.setText(text);
   }
 
   /**
    * Show tooltip with title
-   * @param options.title
-   * @param options.position
    */
   show(options: ITooltipShowOptions) {
-    this._tooltipContainer.show(options);
+    // NOTE: its important to set tooltip text before update tooltip position styles
+    this._tooltip.setText(options.text);
+    this._tooltip.setStyle(
+      this._tooltipContainer.getTooltipPositionStyles(options.position),
+    );
+    this._tooltip.show();
   }
 
   /**
    * Hide tooltip
    */
   hide() {
-    this._tooltipContainer.hide();
+    this._tooltip.hide();
   }
 
   /**
@@ -50,10 +72,13 @@ class TooltipService implements ITooltipService {
     reference: HTMLElement,
     options: ITooltipReferenceOptions,
   ): TooltipReference {
-    return new TooltipReference(reference, this._tooltipContainer, options);
+    return new TooltipReference(reference, this, options);
   }
 
   destroy() {
+    this._tooltip.destroy();
+    this._tooltipContainer.destroy();
+    this._tooltip = null;
     this._tooltipContainer = null;
   }
 }

@@ -83,7 +83,7 @@ class ProgressView extends Stylable<IProgressViewStyles>
     this._syncButtonTooltipReference = this._tooltipService.createReference(
       this._$syncButton,
       {
-        title: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+        text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
       },
     );
     this._$hitbox = getElementByHook(this._$node, 'progress-hitbox');

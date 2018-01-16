@@ -1,15 +1,15 @@
-import { ITooltipContainer } from './tooltip-container';
+import { ITooltipService } from './tooltip-service';
 import getTooltipPositionByReferenceNode from './utils/getTooltipPositionByReferenceNode';
 
 type ITooltipReferenceOptions = {
-  title: string;
+  text: string;
 };
 
 interface ITooltipReference {
   isHidden: boolean;
   show(): void;
   hide(): void;
-  setTitle(title: string): void;
+  setText(text: string): void;
   destroy(): void;
 }
 
@@ -18,19 +18,19 @@ const HIDE_EVENTS = ['mouseleave', 'blur'];
 
 class TooltipReference implements ITooltipReference {
   private _$reference: HTMLElement;
-  private _tooltipContainer: ITooltipContainer;
+  private _tooltipService: ITooltipService;
 
   private _options: ITooltipReferenceOptions;
   private _eventListeners: any[];
 
   constructor(
     reference: HTMLElement,
-    tooltipContainer,
+    tooltipService: ITooltipService,
     options: ITooltipReferenceOptions,
   ) {
     this._$reference = reference;
-    this._tooltipContainer = tooltipContainer;
     this._options = options;
+    this._tooltipService = tooltipService;
 
     this._eventListeners = [];
 
@@ -56,26 +56,26 @@ class TooltipReference implements ITooltipReference {
   }
 
   get isHidden(): boolean {
-    return this._tooltipContainer.isHidden;
+    return this._tooltipService.isHidden;
   }
 
   show() {
-    this._tooltipContainer.show({
-      title: this._options.title,
+    this._tooltipService.show({
+      text: this._options.text,
       position: getTooltipPositionByReferenceNode(
         this._$reference,
-        this._tooltipContainer.node,
+        this._tooltipService.tooltipContainerNode,
       ),
     });
   }
 
   hide() {
-    this._tooltipContainer.hide();
+    this._tooltipService.hide();
   }
 
-  setTitle(title: string) {
-    this._options.title = title;
-    this._tooltipContainer.setTitle(title);
+  setText(text: string) {
+    this._options.text = text;
+    this._tooltipService.setText(text);
   }
 
   destroy() {
@@ -84,7 +84,7 @@ class TooltipReference implements ITooltipReference {
     });
     this._eventListeners = null;
     this._$reference = null;
-    this._tooltipContainer = null;
+    this._tooltipService = null;
     this._options = null;
   }
 }

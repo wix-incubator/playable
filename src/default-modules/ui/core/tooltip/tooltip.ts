@@ -16,7 +16,7 @@ interface ITooltip {
   isHidden: boolean;
   show(): void;
   hide(): void;
-  setTitle(title: string): void;
+  setText(text: string): void;
   setStyle(style: { [key: string]: string | number }): void;
   destroy(): void;
 }
@@ -66,8 +66,8 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
     this._$node.classList.remove(this.styleNames.tooltipVisible);
   }
 
-  setTitle(title: string) {
-    this._$tooltipInner.innerText = title;
+  setText(text: string) {
+    this._$tooltipInner.innerText = text;
   }
 
   setStyle(style) {

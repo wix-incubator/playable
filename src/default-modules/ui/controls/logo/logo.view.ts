@@ -42,7 +42,7 @@ class LogoView extends View {
     });
 
     this._tooltipReference = tooltipService.createReference(this.$logo[0], {
-      title: this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
+      text: this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
     });
 
     this.$node.append(this.$logo);

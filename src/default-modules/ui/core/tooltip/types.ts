@@ -6,7 +6,7 @@ type ITooltipPosition = {
 };
 
 type ITooltipShowOptions = {
-  title: string;
+  text: string;
   position: ITooltipPosition;
 };
 

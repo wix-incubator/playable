@@ -53,7 +53,7 @@ class FullScreenView extends View {
     this._tooltipReference = tooltipService.createReference(
       this.$toggleFullScreenControl[0],
       {
-        title: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
+        text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       },
     );
 
@@ -95,7 +95,7 @@ class FullScreenView extends View {
         ? this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL)
         : this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
     );
-    this._tooltipReference.setTitle(
+    this._tooltipReference.setText(
       isInFullScreen
         ? this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP)
         : this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),

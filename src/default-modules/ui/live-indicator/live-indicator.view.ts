@@ -47,7 +47,7 @@ class LiveIndicatorView extends View {
     this._tooltipReference = this._tooltipService.createReference(
       this.$node[0],
       {
-        title: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+        text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
       },
     );
   }

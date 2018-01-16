@@ -91,7 +91,7 @@ class VolumeView extends View {
     this._muteButtonTooltipReference = this._tooltipService.createReference(
       this._$muteButton[0],
       {
-        title: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
+        text: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
       },
     );
 
@@ -259,7 +259,7 @@ class VolumeView extends View {
         ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
         : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
     );
-    this._muteButtonTooltipReference.setTitle(
+    this._muteButtonTooltipReference.setText(
       isMuted
         ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_TOOLTIP)
         : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
