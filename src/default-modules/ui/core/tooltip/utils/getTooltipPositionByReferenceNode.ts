@@ -1,17 +1,32 @@
 import { ITooltipPosition } from '../types';
 
+type ITooltipCenterXfn = (
+  tooltipReferenceOffsetX: number,
+  tooltipReferenceWidth: number,
+) => number;
+
+function calcTooltipCenterX(tooltipReferenceOffsetX, tooltipReferenceWidth) {
+  return tooltipReferenceOffsetX + tooltipReferenceWidth / 2;
+}
+
 function getTooltipPositionByReferenceNode(
   tooltipReferenceNode: HTMLElement,
   tooltipContainerNode: HTMLElement,
+  tooltipCenterXfn: ITooltipCenterXfn = calcTooltipCenterX,
 ): ITooltipPosition {
-  const referenceRect = tooltipReferenceNode.getBoundingClientRect();
-  const containerRect = tooltipContainerNode.getBoundingClientRect();
+  const tooltipReferenceRect = tooltipReferenceNode.getBoundingClientRect();
+  const tooltipContainerRect = tooltipContainerNode.getBoundingClientRect();
 
-  const placement = referenceRect.top > containerRect.top ? 'bottom' : 'top';
-  const tooltipCenterX =
-    referenceRect.left - containerRect.left + referenceRect.width / 2;
+  const tooltipPlacement =
+    tooltipReferenceRect.top > tooltipContainerRect.top ? 'bottom' : 'top';
+  const tooltipReferenceOffsetX =
+    tooltipReferenceRect.left - tooltipContainerRect.left;
+  const tooltipCenterX = tooltipCenterXfn(
+    tooltipReferenceOffsetX,
+    tooltipReferenceRect.width,
+  );
 
-  return { placement, x: tooltipCenterX };
+  return { placement: tooltipPlacement, x: tooltipCenterX };
 }
 
 export default getTooltipPositionByReferenceNode;

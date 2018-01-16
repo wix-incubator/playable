@@ -3,7 +3,7 @@ import htmlToElement from '../htmlToElement';
 import Tooltip from './tooltip';
 import Stylable from '../stylable';
 
-import { ITooltipPosition } from './types';
+import { ITooltipPosition, ITooltipPositionFunction } from './types';
 
 import * as styles from './tooltip-container.scss';
 
@@ -39,7 +39,13 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
     this._$node.appendChild(this._tooltip.node);
   }
 
-  getTooltipPositionStyles(position: ITooltipPosition) {
+  getTooltipPositionStyles(
+    position: ITooltipPosition | ITooltipPositionFunction,
+  ) {
+    if (typeof position === 'function') {
+      position = position(this._$node);
+    }
+
     return {
       left: `${this._getTooltipLeftX(position.x)}px`,
       'align-self': position.placement === 'top' ? 'flex-start' : 'flex-end',

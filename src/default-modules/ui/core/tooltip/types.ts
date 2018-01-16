@@ -5,9 +5,18 @@ type ITooltipPosition = {
   x: number;
 };
 
+type ITooltipPositionFunction = (
+  tooltipContainerNode: HTMLElement,
+) => ITooltipPosition;
+
 type ITooltipShowOptions = {
   text: string;
-  position: ITooltipPosition;
+  position: ITooltipPosition | ITooltipPositionFunction;
 };
 
-export { ITooltipPositionPlacement, ITooltipPosition, ITooltipShowOptions };
+export {
+  ITooltipPositionPlacement,
+  ITooltipPosition,
+  ITooltipPositionFunction,
+  ITooltipShowOptions,
+};

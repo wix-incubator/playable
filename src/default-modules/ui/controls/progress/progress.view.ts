@@ -3,7 +3,8 @@ import { TEXT_LABELS } from '../../../../constants/index';
 import Stylable from '../../core/stylable';
 import { IView } from '../../core/types';
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
-
+import formatTime from '../../core/utils/formatTime';
+import getProgressTimeTooltipPosition from './utils/getProgressTimeTooltipPosition';
 import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
@@ -93,15 +94,15 @@ class ProgressView extends Stylable<IProgressViewStyles>
     this._setPlayedByDrag = this._setPlayedByDrag.bind(this);
     this._startDragOnMouseDown = this._startDragOnMouseDown.bind(this);
     this._stopDragOnMouseUp = this._stopDragOnMouseUp.bind(this);
-    this._setSeekToByMouse = this._setSeekToByMouse.bind(this);
-    this._resetSeek = this._resetSeek.bind(this);
+    this._startSeekToByMouse = this._startSeekToByMouse.bind(this);
+    this._stopSeekToByMouse = this._stopSeekToByMouse.bind(this);
     this._syncWithLive = this._syncWithLive.bind(this);
   }
 
   private _bindEvents() {
     this._$hitbox.addEventListener('mousedown', this._startDragOnMouseDown);
-    this._$hitbox.addEventListener('mousemove', this._setSeekToByMouse);
-    this._$hitbox.addEventListener('mouseout', this._resetSeek);
+    this._$hitbox.addEventListener('mousemove', this._startSeekToByMouse);
+    this._$hitbox.addEventListener('mouseout', this._stopSeekToByMouse);
 
     window.addEventListener('mousemove', this._setPlayedByDrag);
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
@@ -111,8 +112,8 @@ class ProgressView extends Stylable<IProgressViewStyles>
 
   private _unbindEvents() {
     this._$hitbox.removeEventListener('mousedown', this._startDragOnMouseDown);
-    this._$hitbox.removeEventListener('mousemove', this._setSeekToByMouse);
-    this._$hitbox.removeEventListener('mouseout', this._resetSeek);
+    this._$hitbox.removeEventListener('mousemove', this._startSeekToByMouse);
+    this._$hitbox.removeEventListener('mouseout', this._stopSeekToByMouse);
     this._$syncButton.removeEventListener('click', this._syncWithLive);
 
     window.removeEventListener('mousemove', this._setPlayedByDrag);
@@ -139,14 +140,16 @@ class ProgressView extends Stylable<IProgressViewStyles>
     this._stopDrag();
   }
 
-  private _resetSeek() {
-    this._setSeekToDOMAttributes(0);
-  }
-
-  private _setSeekToByMouse(event: MouseEvent) {
+  private _startSeekToByMouse(event: MouseEvent) {
     const percent = getPercentBasedOnXPosition(event, this._$hitbox);
 
     this._setSeekToDOMAttributes(percent);
+    this._callbacks.onSeekToByMouseStart(percent);
+  }
+
+  private _stopSeekToByMouse() {
+    this._setSeekToDOMAttributes(0);
+    this._callbacks.onSeekToByMouseEnd();
   }
 
   private _setPlayedByDrag(event: MouseEvent) {
@@ -208,6 +211,22 @@ class ProgressView extends Stylable<IProgressViewStyles>
     } else {
       this._$syncButton.classList.remove(this.styleNames.liveSync);
     }
+  }
+
+  showProgressTimeTooltip({ time, percent }) {
+    this._tooltipService.show({
+      text: formatTime(time),
+      position: tooltipContainerNode =>
+        getProgressTimeTooltipPosition(
+          percent,
+          this._$hitbox,
+          tooltipContainerNode,
+        ),
+    });
+  }
+
+  hideProgressTimeTooltip() {
+    this._tooltipService.hide();
   }
 
   setLiveMode() {
