@@ -60,7 +60,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   get isDynamicContent(): boolean {
-    if (!this.hls) {
+    if (!this.hls || !this.hls.firstLevel) {
       return false;
     }
     const { details } = this.hls.levels[this.hls.firstLevel];

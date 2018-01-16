@@ -1,6 +1,6 @@
 @import '../../shared';
 
-.time-wrapper {
+.timeWrapper {
   display: flex;
   flex: 0 0 auto;
 
@@ -18,11 +18,24 @@
   @include in-full-screen() {
     font-size: 14px;
   }
+}
 
-  &.current {
-    margin-right: 5px;
+.duration {
+  margin-left: 5px;
+
+  &:before {
+    margin-right: 4px;
+
+    content: '/';
   }
-  &.duration {
-    margin-left: 5px;
+}
+
+.liveMode {
+  .separator {
+    display: none;
+  }
+
+  .duration {
+    display: none;
   }
 }

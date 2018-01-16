@@ -56,9 +56,10 @@ export default class AnomalyBloodhound {
     );
   }
 
-  _processStateChange(
-    { prevState, nextState }: { prevState?; nextState? } = {},
-  ) {
+  _processStateChange({
+    prevState,
+    nextState,
+  }: { prevState?; nextState? } = {}) {
     switch (nextState) {
       case STATES.LOAD_STARTED:
         if (

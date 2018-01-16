@@ -75,7 +75,11 @@ export default class TimeControl {
         this.reset();
         break;
       case STATES.METADATA_LOADED:
-        if (!this._engine.attachedAdapter.isSeekAvailable) {
+        if (this._engine.isSeekAvailable) {
+          if (this._engine.isDynamicContent) {
+            this.view.hideDuration();
+          }
+        } else {
           this.hide();
         }
         break;
@@ -96,15 +100,19 @@ export default class TimeControl {
   }
 
   _updateCurrentTime() {
+    if (this._engine.isDynamicContent) {
+      this.view.setCurrentTimeBackward(!this._engine.isSyncWithLive);
+    }
+
     this.setCurrentTime(this._engine.getCurrentTime());
   }
 
   setDurationTime(time) {
-    this.view.setState({ duration: time });
+    this.view.setDurationTime(time);
   }
 
   setCurrentTime(time) {
-    this.view.setState({ current: time });
+    this.view.setCurrentTime(time);
   }
 
   hide() {
@@ -120,6 +128,7 @@ export default class TimeControl {
   reset() {
     this.setDurationTime(0);
     this.setCurrentTime(0);
+    this.view.showDuration();
     this.show();
   }
 

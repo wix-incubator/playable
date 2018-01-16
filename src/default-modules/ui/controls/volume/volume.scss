@@ -4,12 +4,11 @@
 $color: white !default;
 
 .volume-control {
-  user-select: none;
-
   position: relative;
 
   display: flex;
 
+  user-select: none;
   transition: width .2s;
 
   justify-content: flex-start;
