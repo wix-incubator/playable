@@ -51,11 +51,17 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
   }
 
   show() {
+    if (!this._isHidden) {
+      return;
+    }
     this._isHidden = false;
     this._$node.classList.add(this.styleNames.tooltipVisible);
   }
 
   hide() {
+    if (this._isHidden) {
+      return;
+    }
     this._isHidden = true;
     this._$node.classList.remove(this.styleNames.tooltipVisible);
   }
