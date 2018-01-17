@@ -114,7 +114,7 @@ export default class PlayControl {
       callbacks: {
         onTogglePlaybackButtonClick: this._togglePlayback,
       },
-      texts: this._textMap,
+      textMap: this._textMap,
     };
 
     this.view = new PlayControl.View(config);

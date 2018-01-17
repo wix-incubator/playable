@@ -28,14 +28,6 @@ $inactive-color: #959595;
     padding: 2px 3px;
   }
 
-  &:hover {
-    .tooltip {
-      visibility: visible;
-
-      opacity: 1;
-    }
-  }
-
   &:hover,
   &.active {
     background-color: $active-color;
@@ -51,41 +43,5 @@ $inactive-color: #959595;
   @include max-width-280() {
     font-size: 10px;
     line-height: 12px;
-  }
-}
-
-.tooltip {
-  font-size: 11px;
-  line-height: 13px;
-
-  position: absolute;
-  top: 30px;
-  right: -18px;
-
-  visibility: hidden;
-
-  padding: 4px 7px;
-
-  transition: opacity .2s, visibility .2s;
-  white-space: nowrap;
-
-  opacity: 0;
-  color: white;
-  background: rgba(0,0,0,.5);
-
-  @include in-full-screen() {
-    top: -25px;
-  }
-  @include max-width-550() {
-    right: -22px;
-  }
-  @include max-width-280() {
-    font-size: 10px;
-    line-height: 12px;
-
-    top: 20px;
-    right: -25px;
-
-    padding: 2px 4px;
   }
 }

@@ -1,0 +1,28 @@
+@import '../../shared';
+
+.tooltip {
+  position: absolute;
+  z-index: 100;
+
+  padding: 4px 5px;
+
+  transition: opacity .2s, visibility .2s;
+
+  background: rgba(0,0,0,.5);
+
+  visibility: hidden;
+  opacity: 0;
+  &.tooltipVisible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.tooltipInner {
+  font-size: 11px;
+  line-height: 12px;
+
+  white-space: nowrap;
+
+  color: white;
+}

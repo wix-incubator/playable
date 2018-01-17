@@ -12,19 +12,24 @@ const DATA_HOOK_BUTTON_VALUE = 'toggle-playback-button';
 
 const DATA_IS_PLAYING = 'data-is-playing';
 
+type IPlayViewConfig = {
+  callbacks: any;
+  textMap: any;
+};
+
 class PlayView extends View {
   private _callbacks;
-  private _texts;
+  private _textMap;
 
   $node;
   $playbackControl;
 
-  constructor(config) {
+  constructor(config: IPlayViewConfig) {
     super();
-    const { callbacks, texts } = config;
+    const { callbacks, textMap } = config;
 
     this._callbacks = callbacks;
-    this._texts = texts;
+    this._textMap = textMap;
 
     this.$node = $('<div>', {
       class: this.styleNames['play-control'],
@@ -37,7 +42,7 @@ class PlayView extends View {
         this.styleNames['control-button']
       }`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
-      'aria-label': this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
+      'aria-label': this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
       type: 'button',
       tabIndex: 0,
     });
@@ -68,8 +73,8 @@ class PlayView extends View {
     this.$playbackControl.attr(
       'aria-label',
       isPlaying
-        ? this._texts.get(TEXT_LABELS.PAUSE_CONTROL_LABEL)
-        : this._texts.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
+        ? this._textMap.get(TEXT_LABELS.PAUSE_CONTROL_LABEL)
+        : this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
     );
   }
 
@@ -91,7 +96,7 @@ class PlayView extends View {
 
     delete this.$playbackControl;
     delete this.$node;
-    delete this._texts;
+    delete this._textMap;
   }
 }
 

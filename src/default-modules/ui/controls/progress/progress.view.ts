@@ -2,6 +2,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import Stylable from '../../core/stylable';
 import { IView } from '../../core/types';
+import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 
 import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
 
@@ -38,7 +39,9 @@ const getPercentBasedOnXPosition = (
 class ProgressView extends Stylable<IProgressViewStyles>
   implements IView<IProgressViewStyles> {
   private _callbacks: IProgressViewCallbacks;
-  private _texts;
+  private _textMap;
+  private _tooltipService: ITooltipService;
+  private _syncButtonTooltipReference: ITooltipReference;
   private _isDragging: boolean;
 
   private _$node: HTMLElement;
@@ -51,10 +54,11 @@ class ProgressView extends Stylable<IProgressViewStyles>
 
   constructor(config: IProgressViewOptions) {
     super();
-    const { callbacks, texts } = config;
+    const { callbacks, textMap, tooltipService } = config;
 
     this._callbacks = callbacks;
-    this._texts = texts;
+    this._textMap = textMap;
+    this._tooltipService = tooltipService;
 
     this._initDOM();
     this._bindCallbacks();
@@ -76,6 +80,12 @@ class ProgressView extends Stylable<IProgressViewStyles>
       'progress-time-indicators',
     );
     this._$syncButton = getElementByHook(this._$node, 'progress-sync-button');
+    this._syncButtonTooltipReference = this._tooltipService.createReference(
+      this._$syncButton,
+      {
+        text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+      },
+    );
     this._$hitbox = getElementByHook(this._$node, 'progress-hitbox');
   }
 
@@ -168,7 +178,7 @@ class ProgressView extends Stylable<IProgressViewStyles>
   private _setPlayedDOMAttributes(percent: number) {
     this._$node.setAttribute(
       'aria-valuetext',
-      this._texts.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
+      this._textMap.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
     );
     this._$node.setAttribute('aria-valuenow', String(percent));
     this._$node.setAttribute(DATA_PLAYED, String(percent));
@@ -249,6 +259,7 @@ class ProgressView extends Stylable<IProgressViewStyles>
 
   destroy() {
     this._unbindEvents();
+    this._syncButtonTooltipReference.destroy();
 
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
@@ -259,9 +270,10 @@ class ProgressView extends Stylable<IProgressViewStyles>
     delete this._$hitbox;
     delete this._$played;
     delete this._$seekTo;
+    delete this._$syncButton;
     delete this._$timeIndicators;
 
-    delete this._texts;
+    delete this._textMap;
   }
 }
 

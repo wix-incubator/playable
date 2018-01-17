@@ -1,3 +1,4 @@
+import { ITooltipService } from '../../core/tooltip';
 import View from './volume.view';
 
 import KeyboardInterceptor, {
@@ -9,11 +10,12 @@ import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
 
 export default class VolumeControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'textMap'];
+  static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];
 
   private _engine;
   private _eventEmitter;
   private _textMap;
+  private _tooltipService: ITooltipService;
 
   private _isMuted: boolean;
   private _volume: number;
@@ -24,10 +26,11 @@ export default class VolumeControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, textMap }) {
+  constructor({ engine, eventEmitter, textMap, tooltipService }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
+    this._tooltipService = tooltipService;
 
     this._isMuted = this._engine.getMute();
     this._volume = this._engine.getVolume();
@@ -57,7 +60,8 @@ export default class VolumeControl {
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
         onToggleMuteClick: this._toggleMuteStatus,
       },
-      texts: this._textMap,
+      textMap: this._textMap,
+      tooltipService: this._tooltipService,
     };
 
     this.view = new VolumeControl.View(config);

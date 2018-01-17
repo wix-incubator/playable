@@ -2,25 +2,33 @@ import * as $ from 'jbone';
 
 import { TEXT_LABELS } from '../../../../constants/index';
 
+import { ITooltipService, ITooltipReference } from '../../core/tooltip';
 import View from '../../core/view';
 
 import * as styles from './logo.scss';
 import * as viewOnSiteIcon from '../../../../assets/view-on-site.svg';
 
+type ILogoViewConfig = {
+  callbacks: { onLogoClick: Function };
+  textMap: any;
+  tooltipService: ITooltipService;
+  logo?: string;
+};
+
 class LogoView extends View {
+  private _tooltipReference: ITooltipReference;
   private _callbacks;
-  private _texts;
+  private _textMap;
 
   $node;
   $logo;
-  $tooltip;
 
-  constructor(config) {
+  constructor(config: ILogoViewConfig) {
     super();
-    const { callbacks, texts } = config;
+    const { callbacks, textMap, tooltipService } = config;
 
     this._callbacks = callbacks;
-    this._texts = texts;
+    this._textMap = textMap;
 
     this.$node = $('<div>', {
       class: this.styleNames.wrapper,
@@ -28,16 +36,14 @@ class LogoView extends View {
 
     this.$logo = $('<img>', {
       class: this.styleNames['default-logo'],
-      'aria-label': this._texts.get(TEXT_LABELS.LOGO_LABEL),
+      'aria-label': this._textMap.get(TEXT_LABELS.LOGO_LABEL),
       role: 'button',
       tabIndex: 0,
     });
 
-    this.$tooltip = $('<div>', {
-      class: `${this.styleNames.tooltip}`,
+    this._tooltipReference = tooltipService.createReference(this.$logo[0], {
+      text: this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
     });
-    this.$tooltip.html(this._texts.get(TEXT_LABELS.LOGO_TOOLTIP));
-    this.$node.append(this.$tooltip);
 
     this.$node.append(this.$logo);
 
@@ -94,11 +100,13 @@ class LogoView extends View {
 
   destroy() {
     this._unbindEvents();
+    this._tooltipReference.destroy();
     this.$node.remove();
 
     delete this.$node;
 
-    delete this._texts;
+    delete this._tooltipReference;
+    delete this._textMap;
   }
 }
 

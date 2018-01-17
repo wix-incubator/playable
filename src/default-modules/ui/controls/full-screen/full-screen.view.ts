@@ -5,6 +5,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 import View from '../../core/view';
 
 import * as styles from './full-screen.scss';
+import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
@@ -12,19 +13,26 @@ const DATA_HOOK_BUTTON_VALUE = 'full-screen-button';
 
 const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 
+type IFullScreenViewConfig = {
+  callbacks: any;
+  textMap: any;
+  tooltipService: ITooltipService;
+};
+
 class FullScreenView extends View {
   private _callbacks;
-  private _texts;
+  private _textMap;
+  private _tooltipReference: ITooltipReference;
 
   $node;
   $toggleFullScreenControl;
 
-  constructor(config) {
+  constructor(config: IFullScreenViewConfig) {
     super();
-    const { callbacks, texts } = config;
+    const { callbacks, textMap, tooltipService } = config;
 
     this._callbacks = callbacks;
-    this._texts = texts;
+    this._textMap = textMap;
 
     this.$node = $('<div>', {
       class: this.styleNames['full-screen-control'],
@@ -37,10 +45,17 @@ class FullScreenView extends View {
         this.styleNames['control-button']
       }`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
-      'aria-label': this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
+      'aria-label': this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
       type: 'button',
       tabIndex: 0,
     });
+
+    this._tooltipReference = tooltipService.createReference(
+      this.$toggleFullScreenControl[0],
+      {
+        text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
+      },
+    );
 
     this.$node.append(this.$toggleFullScreenControl);
 
@@ -77,8 +92,13 @@ class FullScreenView extends View {
     this.$toggleFullScreenControl.attr(
       'aria-label',
       isInFullScreen
-        ? this._texts.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL)
-        : this._texts.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
+        ? this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL)
+        : this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
+    );
+    this._tooltipReference.setText(
+      isInFullScreen
+        ? this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP)
+        : this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
     );
     this.$node.attr(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
   }
@@ -97,12 +117,13 @@ class FullScreenView extends View {
 
   destroy() {
     this._unbindEvents();
+    this._tooltipReference.destroy();
     this.$node.remove();
 
     delete this.$toggleFullScreenControl;
     delete this.$node;
 
-    delete this._texts;
+    delete this._textMap;
   }
 }
 

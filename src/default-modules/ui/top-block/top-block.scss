@@ -1,11 +1,7 @@
 @import '../shared';
 
 .top-block {
-  position: absolute;
   z-index: 60;
-  top: 0;
-  right: 0;
-  left: 0;
 
   &::-moz-focus-inner {
     border: 0;
