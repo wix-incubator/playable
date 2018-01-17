@@ -3,7 +3,7 @@
   class="${props.styles.timeWrapper}">
   <span
     data-hook="current-time-indicator"
-    class="${props.styles.time} ${props.styles.current}">
+    class="${props.styles.time}">
   </span>
   <span
     data-hook="duration-time-indicator"

@@ -1,8 +1,7 @@
-const TEMPLATE = document.createElement('template');
-
 function htmlToElement(html) {
-  TEMPLATE.innerHTML = html.trim();
-  return TEMPLATE.content.firstChild as HTMLElement;
+  const div: HTMLDivElement = document.createElement('div');
+  div.innerHTML = html.trim();
+  return div.firstChild as HTMLElement;
 }
 
 export default htmlToElement;
