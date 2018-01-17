@@ -4,3 +4,7 @@ export {
   ITooltipReferenceOptions,
 } from './tooltip-reference';
 export { default as TooltipService, ITooltipService } from './tooltip-service';
+export { ITooltipPosition } from './types';
+export {
+  default as getTooltipPositionByReferenceNode,
+} from './utils/getTooltipPositionByReferenceNode';

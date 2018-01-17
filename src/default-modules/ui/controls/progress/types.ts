@@ -19,6 +19,8 @@ type IProgressViewStyles = {
 
 type IProgressViewCallbacks = {
   onChangePlayedProgress: Function;
+  onSeekToByMouseStart: Function;
+  onSeekToByMouseEnd: Function;
   onSyncWithLiveClick: Function;
   onDragStart: Function;
   onDragEnd: Function;

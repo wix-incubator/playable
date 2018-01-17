@@ -84,6 +84,8 @@ export default class ProgressControl {
       callbacks: {
         onSyncWithLiveClick: this._syncWithLive,
         onChangePlayedProgress: this._changePlayedProgress,
+        onSeekToByMouseStart: this._onSeekToByMouseStart,
+        onSeekToByMouseEnd: this._onSeekToByMouseEnd,
         onDragStart: this._onUserInteractionStarts,
         onDragEnd: this._onUserInteractionEnds,
       },
@@ -142,6 +144,8 @@ export default class ProgressControl {
     this._syncWithLive = this._syncWithLive.bind(this);
     this._updateControlOnInterval = this._updateControlOnInterval.bind(this);
     this._changePlayedProgress = this._changePlayedProgress.bind(this);
+    this._onSeekToByMouseStart = this._onSeekToByMouseStart.bind(this);
+    this._onSeekToByMouseEnd = this._onSeekToByMouseEnd.bind(this);
     this._onUserInteractionStarts = this._onUserInteractionStarts.bind(this);
     this._onUserInteractionEnds = this._onUserInteractionEnds.bind(this);
     this._processStateChange = this._processStateChange.bind(this);
@@ -168,6 +172,20 @@ export default class ProgressControl {
       this._updateControlOnInterval,
       UPDATE_INTERVAL_DELAY,
     );
+  }
+
+  private _onSeekToByMouseStart(percent) {
+    const durationTime = this._engine.getDurationTime();
+    const seekTime = durationTime * percent / 100;
+    const time = this._engine.isDynamicContent
+      ? seekTime - durationTime
+      : seekTime;
+
+    this.view.showProgressTimeTooltip({ time, percent });
+  }
+
+  private _onSeekToByMouseEnd() {
+    this.view.hideProgressTimeTooltip();
   }
 
   private _stopIntervalUpdates() {
