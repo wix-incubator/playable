@@ -1,4 +1,7 @@
-type ITooltipPositionPlacement = 'top' | 'bottom';
+enum ITooltipPositionPlacement {
+  TOP = 'top',
+  BOTTOM = 'bottom',
+}
 
 type ITooltipPosition = {
   placement: ITooltipPositionPlacement;
