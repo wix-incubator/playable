@@ -4,7 +4,6 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import { formatTime } from './time.view';
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 
 describe('TimeControl', () => {
@@ -23,18 +22,6 @@ describe('TimeControl', () => {
     it('should create instance ', () => {
       expect(control).to.exist;
       expect(control.view).to.exist;
-    });
-  });
-
-  describe('formatTime', () => {
-    it('should return valid string', () => {
-      expect(formatTime(NaN)).to.be.equal('00:00');
-      expect(formatTime(Infinity)).to.be.equal('00:00');
-      expect(formatTime(0)).to.be.equal('00:00');
-      expect(formatTime(-10)).to.be.equal('23:59:50');
-      expect(formatTime(10)).to.be.equal('00:10');
-      expect(formatTime(110)).to.be.equal('01:50');
-      expect(formatTime(11100)).to.be.equal('03:05:00');
     });
   });
 
