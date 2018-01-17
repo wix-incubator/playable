@@ -9,11 +9,10 @@ import KeyboardInterceptor, {
 import { UI_EVENTS } from '../../../../constants/index';
 import View from './logo.view';
 
-
 export interface ILogoConfig {
-  callback?: Function,
-  src?: string,
-  showAlways?: boolean,
+  callback?: Function;
+  src?: string;
+  showAlways?: boolean;
 }
 
 export default class Logo {

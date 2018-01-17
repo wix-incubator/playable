@@ -3,7 +3,6 @@ import { UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './screen.view';
 
-
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
 const DEFAULT_CONFIG = {
@@ -13,9 +12,9 @@ const DEFAULT_CONFIG = {
 };
 
 export interface IScreenConfig {
-  disableClickProcessing?: boolean,
-  indicateScreenClick?: boolean,
-  nativeControls?: boolean,
+  disableClickProcessing?: boolean;
+  indicateScreenClick?: boolean;
+  nativeControls?: boolean;
 }
 
 export default class Screen {
@@ -60,11 +59,21 @@ export default class Screen {
     this.isHidden = false;
 
     this._delayedToggleVideoPlaybackTimeout = null;
-    this._indicateScreenClick = get(config.screen, 'indicateScreenClick', DEFAULT_CONFIG.indicateScreenClick);
-    this._disableClickProcessing = get(config.screen, 'disableClickProcessing', DEFAULT_CONFIG.disableClickProcessing);
+    this._indicateScreenClick = get(
+      config.screen,
+      'indicateScreenClick',
+      DEFAULT_CONFIG.indicateScreenClick,
+    );
+    this._disableClickProcessing = get(
+      config.screen,
+      'disableClickProcessing',
+      DEFAULT_CONFIG.disableClickProcessing,
+    );
 
     this._bindCallbacks();
-    this._initUI(get(config.screen, 'nativeControls', DEFAULT_CONFIG.nativeControls));
+    this._initUI(
+      get(config.screen, 'nativeControls', DEFAULT_CONFIG.nativeControls),
+    );
     this._bindEvents();
 
     if (this._indicateScreenClick) {

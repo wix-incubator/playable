@@ -1,5 +1,10 @@
 import { UI_EVENTS } from '../../constants/index';
-import { isIPhone, isIPod, isIPad, isAndroid } from '../../utils/device-detection';
+import {
+  isIPhone,
+  isIPod,
+  isIPad,
+  isAndroid,
+} from '../../utils/device-detection';
 
 import KeyboardInterceptor, {
   KEYCODES,

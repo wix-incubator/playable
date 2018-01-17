@@ -2,12 +2,7 @@ import View from './top-block.view';
 
 export default class TopBlock {
   static View = View;
-  static dependencies = [
-    'config',
-    'screen',
-    'title',
-    'liveIndicator',
-  ];
+  static dependencies = ['config', 'screen', 'title', 'liveIndicator'];
 
   private _screen;
 

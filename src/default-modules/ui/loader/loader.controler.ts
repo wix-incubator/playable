@@ -122,7 +122,10 @@ export default class Loader {
     if (this.isDelayedShowScheduled) {
       this.stopDelayedShow();
     }
-    this._delayedShowTimeout = setTimeout(this._showContent, DELAYED_SHOW_TIMEOUT);
+    this._delayedShowTimeout = setTimeout(
+      this._showContent,
+      DELAYED_SHOW_TIMEOUT,
+    );
   }
 
   stopDelayedShow() {
