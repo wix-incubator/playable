@@ -1,5 +1,6 @@
 const COMMENT_BLOCK_TYPE = 'CommentBlock';
 const JSDOC_PATTERN = /^\*[^*]+/;
+const JSDOC_CLEANUP_SPACES_PATTERN = /\n\s*/g;
 
 function getDecoratorArguments(decoratorNode) {
   return decoratorNode.expression.arguments;
@@ -19,8 +20,7 @@ function createCommentBlock(description) {
 }
 
 function createJSDocComment(description = '') {
-  // cleanup spaces
-  description = description.replace(/\n\s*/g, '\n');
+  description = description.replace(JSDOC_CLEANUP_SPACES_PATTERN, '\n');
 
   return description.startsWith('*') ? description : `* ${description}`;
 }
