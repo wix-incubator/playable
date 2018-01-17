@@ -60,7 +60,7 @@ export default class VolumeControl {
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
         onToggleMuteClick: this._toggleMuteStatus,
       },
-      texts: this._textMap,
+      textMap: this._textMap,
       tooltipService: this._tooltipService,
     };
 

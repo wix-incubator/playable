@@ -10,6 +10,5 @@ $progressBarOffset: 4px;
 
   display: flex;
 
-  margin-top: $tooltipMargin;
-  margin-bottom: $tooltipMargin - $progressBarOffset;
+  margin: $tooltipMargin $tooltipMargin $tooltipMargin - $progressBarOffset;
 }

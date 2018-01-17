@@ -39,13 +39,13 @@ const getPercentBasedOnXPosition = (
 
 type IVolumeViewConfig = {
   callbacks: any;
-  texts: any;
+  textMap: any;
   tooltipService: ITooltipService;
 };
 
 class VolumeView extends View {
   private _callbacks;
-  private _texts;
+  private _textMap;
   private _tooltipService: ITooltipService;
   private _muteButtonTooltipReference: ITooltipReference;
 
@@ -59,10 +59,10 @@ class VolumeView extends View {
 
   constructor(config: IVolumeViewConfig) {
     super();
-    const { callbacks, texts, tooltipService } = config;
+    const { callbacks, textMap, tooltipService } = config;
 
     this._callbacks = callbacks;
-    this._texts = texts;
+    this._textMap = textMap;
     this._tooltipService = tooltipService;
 
     this._bindCallbacks();
@@ -83,7 +83,7 @@ class VolumeView extends View {
         this.styleNames['control-button']
       }`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
-      'aria-label': this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
+      'aria-label': this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
       type: 'button',
       tabIndex: 0,
     });
@@ -91,14 +91,14 @@ class VolumeView extends View {
     this._muteButtonTooltipReference = this._tooltipService.createReference(
       this._$muteButton[0],
       {
-        title: this._texts.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
+        title: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
       },
     );
 
     this._$volumeNode = $('<div>', {
       class: this.styleNames['volume-input-block'],
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VOLUME_INPUT_BLOCK_VALUE,
-      'aria-label': this._texts.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
+      'aria-label': this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
       'aria-valuemin': 0,
       'aria-valuenow': 0,
       'aria-valuemax': 100,
@@ -221,7 +221,7 @@ class VolumeView extends View {
     this._$volumeNode.attr('value', percent);
     this._$volumeNode.attr(
       'aria-valuetext',
-      this._texts.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { percent }),
+      this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { percent }),
     );
     this._$volumeNode.attr('aria-valuenow', percent);
     this._$volumeNode.attr(DATA_VOLUME, percent);
@@ -256,13 +256,13 @@ class VolumeView extends View {
     this._$muteButton.attr(
       'aria-label',
       isMuted
-        ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
-        : this._texts.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
+        ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
+        : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
     );
     this._muteButtonTooltipReference.setTitle(
       isMuted
-        ? this._texts.get(TEXT_LABELS.UNMUTE_CONTROL_TOOLTIP)
-        : this._texts.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
+        ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_TOOLTIP)
+        : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
     );
   }
 
@@ -294,7 +294,7 @@ class VolumeView extends View {
     delete this._$muteButton;
     delete this._$node;
 
-    delete this._texts;
+    delete this._textMap;
   }
 }
 

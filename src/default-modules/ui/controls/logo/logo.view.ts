@@ -10,7 +10,7 @@ import * as viewOnSiteIcon from '../../../../assets/view-on-site.svg';
 
 type ILogoViewConfig = {
   callbacks: { onLogoClick: Function };
-  texts: any;
+  textMap: any;
   tooltipService: ITooltipService;
   logo?: string;
 };
@@ -18,17 +18,17 @@ type ILogoViewConfig = {
 class LogoView extends View {
   private _tooltipReference: ITooltipReference;
   private _callbacks;
-  private _texts;
+  private _textMap;
 
   $node;
   $logo;
 
   constructor(config: ILogoViewConfig) {
     super();
-    const { callbacks, texts, tooltipService } = config;
+    const { callbacks, textMap, tooltipService } = config;
 
     this._callbacks = callbacks;
-    this._texts = texts;
+    this._textMap = textMap;
 
     this.$node = $('<div>', {
       class: this.styleNames.wrapper,
@@ -36,13 +36,13 @@ class LogoView extends View {
 
     this.$logo = $('<img>', {
       class: this.styleNames['default-logo'],
-      'aria-label': this._texts.get(TEXT_LABELS.LOGO_LABEL),
+      'aria-label': this._textMap.get(TEXT_LABELS.LOGO_LABEL),
       role: 'button',
       tabIndex: 0,
     });
 
     this._tooltipReference = tooltipService.createReference(this.$logo[0], {
-      title: this._texts.get(TEXT_LABELS.LOGO_TOOLTIP),
+      title: this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
     });
 
     this.$node.append(this.$logo);
@@ -106,7 +106,7 @@ class LogoView extends View {
     delete this.$node;
 
     delete this._tooltipReference;
-    delete this._texts;
+    delete this._textMap;
   }
 }
 

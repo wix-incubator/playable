@@ -65,7 +65,7 @@ export default class Logo {
       callbacks: {
         onLogoClick: this._triggerCallback,
       },
-      texts: this._textMap,
+      textMap: this._textMap,
       tooltipService: this._tooltipService,
     };
 

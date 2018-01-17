@@ -71,7 +71,7 @@ export default class FullScreenControl {
       callbacks: {
         onToggleFullScreenButtonClick: this._toggleFullScreen,
       },
-      texts: this._textMap,
+      textMap: this._textMap,
       tooltipService: this._tooltipService,
     };
 

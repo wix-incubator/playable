@@ -26,7 +26,7 @@ type IProgressViewCallbacks = {
 
 type IProgressViewOptions = {
   callbacks: IProgressViewCallbacks;
-  texts: any;
+  textMap: any;
   tooltipService: ITooltipService;
 };
 

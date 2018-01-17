@@ -87,7 +87,7 @@ export default class ProgressControl {
         onDragStart: this._onUserInteractionStarts,
         onDragEnd: this._onUserInteractionEnds,
       },
-      texts: this._textMap,
+      textMap: this._textMap,
       tooltipService: this._tooltipService,
     };
 
