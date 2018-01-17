@@ -877,6 +877,30 @@ Add time indicator to progress bar
 </div>
 
 
+## addTimeIndicators
+
+Add time indicators to progress bar
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>times</code>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 ## clearTimeIndicators
 
 Delete all time indicators from progress bar

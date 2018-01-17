@@ -1,17 +1,18 @@
 type IProgressViewStyles = {
-  'seek-block': string;
-  'progress-bars-wrapper': string;
-  'progress-bar': string;
+  seekBlock: string;
+  progressBarsWrapper: string;
+  progressBar: string;
   background: string;
   buffered: string;
-  'seek-to': string;
+  seekTo: string;
   played: string;
-  'time-indicators': string;
+  timeIndicators: string;
   hitbox: string;
-  'sync-button': string;
+  syncButton: string;
   hidden: string;
-  'in-live': string;
-  'is-dragging': string;
+  inLive: string;
+  isDragging: string;
+  liveSync: string;
 };
 
 type IProgressViewCallbacks = {

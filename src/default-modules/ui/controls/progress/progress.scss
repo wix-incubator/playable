@@ -31,7 +31,7 @@ $color-sync-pointer-border: #bababa;
 $color-sync-pointer-hover-background: #ea492e;
 $color-sync-pointer-hover-border: #fff;
 
-.seek-block {
+.seekBlock {
   position: relative;
 
   display: block;
@@ -47,35 +47,38 @@ $color-sync-pointer-hover-border: #fff;
   }
   touch-action: none;
 
-  &.in-live {
+  &.inLive {
     .played {
       background-color: $color-played-live;
     }
-    .seek-to {
+    .seekTo {
       background-color: $color-seek-to-live;
+    }
+    .syncButton {
+      display: initial;
     }
   }
 
   &:hover,
-  &.is-dragging {
-    .progress-bars-wrapper {
+  &.isDragging {
+    .progressBarsWrapper {
       transform: scaleY(1);
 
       @include in-full-screen() {
         transform: scaleY(1);
       }
-      .seek-to {
+      .seekTo {
         opacity: 1;
       }
       .played:after {
         transform: scale(1);
       }
-      .time-indicator:after {
+      .timeIndicator:after {
         transform: scale(1);
       }
     }
 
-    .sync-button {
+    .syncButton {
       top: -($sync-pointer-hover-height + 2 * $sync-pointer-hover-border - $progress-bar-height) / 2;
       right: -($sync-pointer-hover-width + 2 * $sync-pointer-hover-border) / 2;
 
@@ -85,7 +88,7 @@ $color-sync-pointer-hover-border: #fff;
       border-width: $sync-pointer-hover-border;
       border-color: $color-played;
       //opacity: 1;
-      background-color: red;
+      background-color: $color-sync-pointer-hover-background;
 
       @include in-full-screen() {
         top: -$progress-bar-height-full-screen / 2;
@@ -94,22 +97,27 @@ $color-sync-pointer-hover-border: #fff;
         width: $sync-pointer-width-hover-full-screen;
         height: $sync-pointer-height-hover-full-screen;
       }
+
+      &.liveSync {
+        background-color: $color-played;
+      }
     }
   }
 }
 
-.sync-button {
+.syncButton {
   position: absolute;
   z-index: 6;
   top: -($sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height) / 2;
   right: -($sync-pointer-width + 2 * $sync-pointer-border) / 2;
 
+  display: none;
+
   width: $sync-pointer-width;
   height: $sync-pointer-height;
 
   cursor: pointer;
-  transition: opacity .2s;
-  //opacity: .6;
+  transition: width .1s cubic-bezier(.0,.0,.2,1), height .1s cubic-bezier(.0,.0,.2,1);
 
   border: $sync-pointer-border solid $color-sync-pointer-border;
   border-radius: 50%;
@@ -132,7 +140,7 @@ $color-sync-pointer-hover-border: #fff;
   }
 }
 
-.progress-bars-wrapper {
+.progressBarsWrapper {
   height: $progress-bar-height;
 
   transition: transform .1s cubic-bezier(.0,.0,.2,1);
@@ -145,7 +153,7 @@ $color-sync-pointer-hover-border: #fff;
   }
 }
 
-.progress-bar {
+.progressBar {
   position: absolute;
 
   height: $progress-bar-height;
@@ -196,14 +204,13 @@ $color-sync-pointer-hover-border: #fff;
   background-color: transparentize(#fff, .75);
 }
 
-.seek-to {
+.seekTo {
   transition: opacity .2s;
-  //opacity: 0;
 
   background-color: $color-seek-to;
 }
 
-.time-indicators {
+.timeIndicators {
   position: absolute;
 
   overflow-x: hidden;
@@ -214,7 +221,7 @@ $color-sync-pointer-hover-border: #fff;
   background-color: transparent;
 }
 
-.time-indicator {
+.timeIndicator {
   position: absolute;
 
   &:after {

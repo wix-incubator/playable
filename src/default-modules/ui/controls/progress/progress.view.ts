@@ -62,6 +62,7 @@ class ProgressView extends Stylable<IProgressViewStyles>
 
     this._setPlayedDOMAttributes(0);
     this._setBufferedDOMAttributes(0);
+    this.setUsualMode();
   }
 
   private _initDOM() {
@@ -149,14 +150,14 @@ class ProgressView extends Stylable<IProgressViewStyles>
   private _startDrag() {
     this._isDragging = true;
     this._callbacks.onDragStart();
-    this._$node.classList.add(this.styleNames['is-dragging']);
+    this._$node.classList.add(this.styleNames.isDragging);
   }
 
   private _stopDrag() {
     if (this._isDragging) {
       this._isDragging = false;
       this._callbacks.onDragEnd();
-      this._$node.classList.remove(this.styleNames['is-dragging']);
+      this._$node.classList.remove(this.styleNames.isDragging);
     }
   }
 
@@ -190,14 +191,23 @@ class ProgressView extends Stylable<IProgressViewStyles>
     this._$syncButton.classList.add(this.styleNames.hidden);
   }
 
+  setLiveSyncStatus(isSync) {
+    if (isSync) {
+      this._$syncButton.classList.add(this.styleNames.liveSync);
+      this._$played.setAttribute('style', `width:100%;`);
+    } else {
+      this._$syncButton.classList.remove(this.styleNames.liveSync);
+    }
+  }
+
   setLiveMode() {
-    this._$node.classList.add(this.styleNames['in-live']);
+    this._$node.classList.add(this.styleNames.inLive);
 
     this._showSyncWithLive();
   }
 
   setUsualMode() {
-    this._$node.classList.remove(this.styleNames['in-live']);
+    this._$node.classList.remove(this.styleNames.inLive);
 
     this._hideSyncWithLive();
   }

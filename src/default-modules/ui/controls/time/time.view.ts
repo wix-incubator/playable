@@ -12,9 +12,6 @@ import * as styles from './time.scss';
 
 import { ITimeViewStyles } from './types';
 
-const BACKWARD_PREFIX = '- ';
-
-
 class TimeView extends Stylable<ITimeViewStyles>
   implements IView<ITimeViewStyles> {
   private _$node: HTMLElement;
@@ -57,7 +54,7 @@ class TimeView extends Stylable<ITimeViewStyles>
     }
   }
 
-  setCurrentTimeBackward(_isBackward) {
+  setCurrentTimeBackward(_isBackward: boolean) {
     this._isBackward = _isBackward;
     this._updateCurrentTime();
   }
@@ -68,9 +65,7 @@ class TimeView extends Stylable<ITimeViewStyles>
 
   private _updateCurrentTime() {
     if (this._isBackward) {
-      this._$currentTime.innerHTML = BACKWARD_PREFIX.concat(
-        formatTime(this._current - this._duration),
-      );
+      this._$currentTime.innerHTML = formatTime(this._current - this._duration);
     } else {
       this._$currentTime.innerHTML = formatTime(this._current);
     }

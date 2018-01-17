@@ -129,6 +129,7 @@ export default class TimeControl {
     this.setDurationTime(0);
     this.setCurrentTime(0);
     this.view.showDuration();
+    this.view.setCurrentTimeBackward(false);
     this.show();
   }
 

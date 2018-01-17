@@ -1,1 +1,1 @@
-<div class="${props.styles['time-indicator']}" style="left: ${props.percent}%"></div>
+<div class="${props.styles.timeIndicator}" style="left: ${props.percent}%"></div>

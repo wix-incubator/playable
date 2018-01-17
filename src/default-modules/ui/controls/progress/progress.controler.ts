@@ -274,9 +274,11 @@ export default class ProgressControl {
 
   private _updatePlayedIndicator() {
     if (this._engine.isSyncWithLive) {
-      this.view.setPlayed(100);
+      this.view.setLiveSyncStatus(true);
       return;
     }
+
+    this.view.setLiveSyncStatus(false);
 
     const currentTime = this._engine.getCurrentTime();
     const duration = this._engine.getDurationTime();
