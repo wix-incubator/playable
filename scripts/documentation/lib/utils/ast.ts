@@ -18,13 +18,21 @@ function createCommentBlock(description) {
   };
 }
 
+function createJSDocComment(description = '') {
+  // cleanup spaces
+  description = description.replace(/\n\s*/g, '\n');
+
+  return description.startsWith('*') ? description : `* ${description}`;
+}
+
 function createJSDocCommentBlock(description) {
-  return createCommentBlock(`* ${description}`);
+  return createCommentBlock(createJSDocComment(description));
 }
 
 export {
   getDecoratorArguments,
   isJSDocComment,
   createCommentBlock,
+  createJSDocComment,
   createJSDocCommentBlock,
 };

@@ -1,5 +1,5 @@
 import * as t from '@babel/types';
-import { createJSDocCommentBlock } from '../utils/ast';
+import { createJSDocComment } from '../utils/ast';
 
 type PlayerClassOptions = {
   playerClassJSDocComment?: string;
@@ -16,9 +16,11 @@ function buildPlayerClassDeclaration(
   );
 
   // NOTE: if JSDoc not provided, add empty comment to force JSDoc util to add this class to documentation
-  playerClassDeclaration.leadingComments = [
-    createJSDocCommentBlock(options.playerClassJSDocComment || ''),
-  ];
+  t.addComment(
+    playerClassDeclaration,
+    'leading',
+    createJSDocComment(options.playerClassJSDocComment || ''),
+  );
 
   return playerClassDeclaration;
 }

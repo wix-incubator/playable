@@ -906,6 +906,35 @@ Add time indicators to progress bar
 Delete all time indicators from progress bar
 
 
+## setLoadingCover
+
+```javascript
+const src = 'link.to.your.image'
+player.setLoadingCover(src);
+```
+
+Method for setting source of image, that would be used as loading cover instead of loader.
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>src</code><span class="type">string</span class="type">
+        </td>
+        <td>Link to your image</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 ## setControlsShouldAlwaysShow
 
 
