@@ -16,16 +16,12 @@ const player: any = VideoPlayer.create({
       'I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video! I hate this video!',
   },
   size: {
-    width: 760,
-    height: 428,
+    width: 550,
+    height: 310,
   },
   src: DEFAULT_URL,
   playInline: true,
   overlay: false,
-  logo: {
-    showAlways: true,
-    src: 'https://www.file-extensions.org/imgs/app-icon/128/10395/wix-icon.png',
-  },
 });
 
 Object.defineProperty(window, 'player', {

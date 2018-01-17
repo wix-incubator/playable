@@ -1,76 +1,104 @@
-import * as $ from 'jbone';
+import Stylable from '../../core/stylable';
+import { IView } from '../../core/types';
 
-import View from '../../core/view';
 import formatTime from '../../core/utils/formatTime';
+
+import { timeTemplate } from './templates';
+
+import htmlToElement from '../../core/htmlToElement';
+import getElementByHook from '../../core/getElementByHook';
 
 import * as styles from './time.scss';
 
-class TimeView extends View {
-  $node;
-  $currentTime;
-  $divider;
-  $durationTime;
+import { ITimeViewStyles } from './types';
+
+class TimeView extends Stylable<ITimeViewStyles>
+  implements IView<ITimeViewStyles> {
+  private _$node: HTMLElement;
+  private _$currentTime: HTMLElement;
+  private _$durationTime: HTMLElement;
+  private _duration: number;
+  private _current: number;
+  private _isBackward: boolean;
 
   constructor() {
     super();
 
-    this.$node = $('<div>', {
-      class: this.styleNames['time-wrapper'],
-      'data-hook': 'time-control',
-    });
-
-    this.$currentTime = $('<span>', {
-      class: `${this.styleNames.current} ${this.styleNames.time}`,
-      'data-hook': 'current-time-indicator',
-    });
-
-    this.$divider = $('<span>', {
-      class: this.styleNames.time,
-    }).html('/');
-
-    this.$durationTime = $('<span>', {
-      class: `${this.styleNames.duration} ${this.styleNames.time}`,
-      'data-hook': 'duration-time-indicator',
-    });
-
-    this.$node
-      .append(this.$currentTime)
-      .append(this.$divider)
-      .append(this.$durationTime);
+    this._initDOM();
   }
 
-  setState({ duration, current }: { duration?: number; current?: number }) {
-    duration !== undefined && this._setDurationTime(duration);
-    current !== undefined && this._setCurrentTime(current);
+  private _initDOM() {
+    this._$node = htmlToElement(timeTemplate({ styles: this.styleNames }));
+
+    this._$currentTime = getElementByHook(
+      this._$node,
+      'current-time-indicator',
+    );
+    this._$durationTime = getElementByHook(
+      this._$node,
+      'duration-time-indicator',
+    );
   }
 
-  _setDurationTime(duration) {
-    this.$durationTime.html(formatTime(duration));
+  setDurationTime(duration: number) {
+    if (duration !== this._duration) {
+      this._duration = duration;
+      this._updateDurationTime();
+    }
   }
 
-  _setCurrentTime(current) {
-    this.$currentTime.html(formatTime(current));
+  setCurrentTime(current: number) {
+    if (current !== this._current) {
+      this._current = current;
+      this._updateCurrentTime();
+    }
+  }
+
+  setCurrentTimeBackward(_isBackward: boolean) {
+    this._isBackward = _isBackward;
+    this._updateCurrentTime();
+  }
+
+  private _updateDurationTime() {
+    this._$durationTime.innerHTML = formatTime(this._duration);
+  }
+
+  private _updateCurrentTime() {
+    if (this._isBackward) {
+      this._$currentTime.innerHTML = formatTime(this._current - this._duration);
+    } else {
+      this._$currentTime.innerHTML = formatTime(this._current);
+    }
+  }
+
+  showDuration() {
+    this._$durationTime.classList.remove(this.styleNames.hidden);
+  }
+
+  hideDuration() {
+    this._$durationTime.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   destroy() {
-    this.$node.remove();
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
 
-    delete this.$currentTime;
-    delete this.$divider;
-    delete this.$durationTime;
-    delete this.$node;
+    delete this._$currentTime;
+    delete this._$durationTime;
+    delete this._$node;
   }
 }
 

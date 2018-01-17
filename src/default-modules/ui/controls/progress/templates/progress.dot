@@ -1,34 +1,34 @@
 <div
   data-hook="progress-control"
-  class="${props.styles['seek-block']}"
+  class="${props.styles.seekBlock}"
   tabindex="0">
-  <div class="${props.styles['progress-bars-wrapper']}">
+  <div class="${props.styles.progressBarsWrapper}">
     <div
-      class="${props.styles['progress-bar']} ${props.styles['background']}">
+      class="${props.styles.progressBar} ${props.styles.background}">
     </div>
     <div
       data-hook="progress-buffered"
-      class="${props.styles['progress-bar']} ${props.styles['buffered']}">
+      class="${props.styles.progressBar} ${props.styles.buffered}">
     </div>
     <div
       data-hook="progress-seek-to"
-      class="${props.styles['progress-bar']} ${props.styles['seek-to']}">
+      class="${props.styles.progressBar} ${props.styles.seekTo}">
     </div>
     <div
       data-hook="progress-played"
-      class="${props.styles['progress-bar']} ${props.styles['played']}">
+      class="${props.styles.progressBar} ${props.styles.played}">
     </div>
     <div
       data-hook="progress-time-indicators"
-      class="${props.styles['time-indicators']}">
+      class="${props.styles.timeIndicators}">
     </div>
   </div>
   <div
     data-hook="progress-hitbox"
-    class="${props.styles['hitbox']}">
+    class="${props.styles.hitbox}">
   </div>
   <div
     data-hook="progress-sync-button"
-    class="${props.styles['sync-button']}">
+    class="${props.styles.syncButton}">
   </div>
 </div>

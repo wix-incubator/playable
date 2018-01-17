@@ -12,6 +12,7 @@
 
   &.active {
     display: flex;
+
     justify-content: center;
     align-items: center;
   }
@@ -48,11 +49,12 @@
 }
 
 .icon {
-  cursor: pointer;
   position: relative;
 
   width: 71px;
   height: 71px;
+
+  cursor: pointer;
 
   opacity: 1;
   background-image: url('../../../assets/overlay-play.svg');

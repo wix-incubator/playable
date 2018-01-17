@@ -12,6 +12,7 @@ $timing: 1s;
   top: 50%;
   left: 50%;
 
+  display: none;
   clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);
 
   width: $diameter;
@@ -22,9 +23,7 @@ $timing: 1s;
   animation: rotate $timing linear infinite;
 
   color: white;
-  
-  display: none;
-  
+
   &.active {
     display: block;
   }
