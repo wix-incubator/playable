@@ -16,8 +16,9 @@ import {
   IProgressViewCallbacks,
   IProgressViewOptions,
 } from './types';
+
+import progressViewTheme from './progress.theme';
 import * as styles from './progress.scss';
-import { transperentize } from '../../../../theme/style-sheet';
 
 const DATA_PLAYED = 'data-played-percent';
 
@@ -45,24 +46,6 @@ class ProgressView extends View<IProgressViewStyles>
   private _textMap;
   private _tooltipService: ITooltipService;
   private _syncButtonTooltipReference: ITooltipReference;
-
-  protected static _moduleTheme = {
-    progressPlayed: {
-      backgroundColor: data => data.color,
-      '&:after': {
-        backgroundColor: data => data.color,
-      },
-    },
-    progressSeekTo: {
-      backgroundColor: data => transperentize(data.color, 0.5),
-    },
-    progressBackground: {
-      backgroundColor: data => transperentize(data.color, 0.25),
-    },
-    progressSyncBtn: {
-      borderColor: data => data.color,
-    },
-  };
 
   private _isDragging: boolean;
 
@@ -94,7 +77,10 @@ class ProgressView extends View<IProgressViewStyles>
 
   private _initDOM() {
     this._$node = htmlToElement(
-      progressTemplate({ styles: this.styleNames, theme: this._themeClasses }),
+      progressTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+      }),
     );
 
     this._$played = getElementByHook(this._$node, 'progress-played');
@@ -320,6 +306,7 @@ class ProgressView extends View<IProgressViewStyles>
   }
 }
 
+ProgressView.setTheme(progressViewTheme);
 ProgressView.extendStyleNames(styles);
 
 export default ProgressView;

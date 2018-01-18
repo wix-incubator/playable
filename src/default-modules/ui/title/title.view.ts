@@ -2,17 +2,13 @@ import * as $ from 'jbone';
 
 import View from '../core/view';
 
+import titleViewTheme from './title.theme';
 import * as styles from './title.scss';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_VALUE = 'video-title';
 
 class TitleView extends View {
-  protected static _moduleTheme = {
-    text: {
-      color: data => data.color,
-    },
-  };
   private _callbacks;
 
   $node;
@@ -28,7 +24,7 @@ class TitleView extends View {
     this.$node = $('<div>');
 
     this.$title = $('<div>', {
-      class: `${this.styleNames.title} ${this._themeClasses.text}`,
+      class: `${this.styleNames.title} ${this.themeStyles.text}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
     });
 
@@ -80,6 +76,7 @@ class TitleView extends View {
   }
 }
 
+TitleView.setTheme(titleViewTheme);
 TitleView.extendStyleNames(styles);
 
 export default TitleView;

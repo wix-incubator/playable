@@ -4,8 +4,6 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
 
-import * as styles from './full-screen.scss';
-
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import {
   enterFullScreenIconTemplate,
@@ -13,6 +11,9 @@ import {
 } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
+
+import fullScreenViewTheme from './full-screen.theme';
+import * as styles from './full-screen.scss';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
@@ -31,11 +32,6 @@ class FullScreenView extends View {
   private _callbacks;
   private _textMap;
   private _tooltipReference: ITooltipReference;
-  protected static _moduleTheme = {
-    svgFill: {
-      fill: data => data.color,
-    },
-  };
 
   $node;
   $toggleFullScreenControl;
@@ -74,7 +70,7 @@ class FullScreenView extends View {
       htmlToElement(
         enterFullScreenIconTemplate({
           styles: this.styleNames,
-          themeStyles: this._themeClasses,
+          themeStyles: this.themeStyles,
         }),
       ),
     );
@@ -124,7 +120,7 @@ class FullScreenView extends View {
       htmlToElement(
         iconTemplate({
           styles: this.styleNames,
-          themeStyles: this._themeClasses,
+          themeStyles: this.themeStyles,
         }),
       ),
     );
@@ -167,6 +163,7 @@ class FullScreenView extends View {
   }
 }
 
+FullScreenView.setTheme(fullScreenViewTheme);
 FullScreenView.extendStyleNames(styles);
 
 export default FullScreenView;

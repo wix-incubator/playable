@@ -6,6 +6,7 @@ import View from '../../core/view';
 
 import { playIconTemplate, pauseIconTemplate } from './templates';
 import htmlToElement from '../../core/htmlToElement';
+import playViewTheme from './play.theme';
 import * as styles from './play.scss';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
@@ -23,12 +24,6 @@ type IPlayViewConfig = {
 class PlayView extends View {
   private _callbacks;
   private _textMap;
-
-  protected static _moduleTheme = {
-    svgFill: {
-      fill: data => data.color,
-    },
-  };
 
   $node;
   $playbackControl;
@@ -62,7 +57,7 @@ class PlayView extends View {
       htmlToElement(
         pauseIconTemplate({
           styles: this.styleNames,
-          themeStyles: this._themeClasses,
+          themeStyles: this.themeStyles,
         }),
       ),
     );
@@ -99,7 +94,7 @@ class PlayView extends View {
       htmlToElement(
         iconTemplate({
           styles: this.styleNames,
-          themeStyles: this._themeClasses,
+          themeStyles: this.themeStyles,
         }),
       ),
     );
@@ -135,6 +130,7 @@ class PlayView extends View {
   }
 }
 
+PlayView.setTheme(playViewTheme);
 PlayView.extendStyleNames(styles);
 
 export default PlayView;

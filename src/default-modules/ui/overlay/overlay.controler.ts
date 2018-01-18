@@ -50,6 +50,7 @@ export default class Overlay {
         onPlayClick: this._playVideo,
       },
       src: get(config, 'poster'),
+      theme: this._theme,
     };
 
     const customView = get(config, 'view');
@@ -57,7 +58,7 @@ export default class Overlay {
     if (customView) {
       this.view = new customView(params);
     } else {
-      this.view = new Overlay.View(params, this._theme);
+      this.view = new Overlay.View(params);
     }
   }
 

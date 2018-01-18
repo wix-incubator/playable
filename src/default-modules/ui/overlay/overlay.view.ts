@@ -5,25 +5,19 @@ import View from '../core/view';
 import { playIconTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
 
+import overlayViewTheme from './overlay.theme';
 import * as styles from './overlay.scss';
 
 class OverlayView extends View {
   private _callbacks;
-  protected static _moduleTheme = {
-    svgFill: {
-      fill: data => data.color,
-    },
-    svgStroke: {
-      stroke: data => data.color,
-    },
-  };
 
   $node;
   $content;
   $playButton;
 
-  constructor(config, theme) {
-    super(theme);
+  constructor(config) {
+    super(config.theme);
+
     const { callbacks, src } = config;
 
     this._callbacks = callbacks;
@@ -43,7 +37,7 @@ class OverlayView extends View {
       htmlToElement(
         playIconTemplate({
           styles: this.styleNames,
-          themeStyles: this._themeClasses,
+          themeStyles: this.themeStyles,
         }),
       ),
     );
@@ -101,6 +95,7 @@ class OverlayView extends View {
   }
 }
 
+OverlayView.setTheme(overlayViewTheme);
 OverlayView.extendStyleNames(styles);
 
 export default OverlayView;

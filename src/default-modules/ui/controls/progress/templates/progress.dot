@@ -4,7 +4,7 @@
   tabindex="0">
   <div class="${props.styles.progressBarsWrapper}">
     <div
-      class="${props.styles.progressBar} ${props.styles.background} ${props.theme.progressBackground}">
+      class="${props.styles.progressBar} ${props.styles.background} ${props.themeStyles.progressBackground}">
     </div>
     <div
       data-hook="progress-buffered"
@@ -12,11 +12,11 @@
     </div>
     <div
       data-hook="progress-seek-to"
-      class="${props.styles.progressBar} ${props.styles.seekTo} ${props.theme.progressSeekTo}">
+      class="${props.styles.progressBar} ${props.styles.seekTo} ${props.themeStyles.progressSeekTo}">
     </div>
     <div
       data-hook="progress-played"
-      class="${props.styles.progressBar} ${props.styles.played} ${props.theme.progressPlayed}">
+      class="${props.styles.progressBar} ${props.styles.played} ${props.themeStyles.progressPlayed}">
     </div>
     <div
       data-hook="progress-time-indicators"
@@ -29,6 +29,6 @@
   </div>
   <div
     data-hook="progress-sync-button"
-    class="${props.styles.syncButton} ${props.theme.progressSyncBtn}">
+    class="${props.styles.syncButton} ${props.themeStyles.progressSyncBtn}">
   </div>
 </div>

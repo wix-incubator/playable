@@ -9,10 +9,10 @@ import {
   volume50IconTemplate,
   volume100IconTemplate,
 } from './templates';
-import { transperentize } from '../../../../theme/style-sheet';
 import htmlToElement from '../../core/htmlToElement';
 import View from '../../core/view';
 
+import volumeViewTheme from './volume.theme';
 import * as styles from './volume.scss';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
@@ -52,23 +52,6 @@ type IVolumeViewConfig = {
 };
 
 class VolumeView extends View {
-  protected static _moduleTheme = {
-    svgFill: {
-      fill: data => data.color,
-    },
-    svgStroke: {
-      stroke: data => data.color,
-    },
-    volumeProgress: {
-      backgroundColor: data => data.color,
-      '&:after': {
-        backgroundColor: data => data.color,
-      },
-    },
-    volumeProgressBackground: {
-      backgroundColor: data => transperentize(data.color, 0.25),
-    },
-  };
   private _callbacks;
   private _textMap;
   private _tooltipService: ITooltipService;
@@ -125,7 +108,7 @@ class VolumeView extends View {
       htmlToElement(
         volume0IconTemplate({
           styles: this.styleNames,
-          themeStyles: this._themeClasses,
+          themeStyles: this.themeStyles,
         }),
       ),
     );
@@ -149,7 +132,7 @@ class VolumeView extends View {
       class: classnames(
         this.styleNames['progress-bar'],
         this.styleNames.volume,
-        this._themeClasses.volumeProgress,
+        this.themeStyles.volumeProgress,
       ),
     });
 
@@ -157,7 +140,7 @@ class VolumeView extends View {
       class: classnames(
         this.styleNames['progress-bar'],
         this.styleNames.background,
-        this._themeClasses.volumeProgressBackground,
+        this.themeStyles.volumeProgressBackground,
       ),
     });
 
@@ -269,7 +252,7 @@ class VolumeView extends View {
 
     const iconTemplateProps = {
       styles: this.styleNames,
-      themeStyles: this._themeClasses,
+      themeStyles: this.themeStyles,
     };
 
     if (percent >= MAX_VOLUME_ICON_RANGE) {
@@ -309,7 +292,7 @@ class VolumeView extends View {
         htmlToElement(
           volume0IconTemplate({
             styles: this.styleNames,
-            themeStyles: this._themeClasses,
+            themeStyles: this.themeStyles,
           }),
         ),
       );
@@ -361,6 +344,7 @@ class VolumeView extends View {
   }
 }
 
+VolumeView.setTheme(volumeViewTheme);
 VolumeView.extendStyleNames(styles);
 
 export default VolumeView;
