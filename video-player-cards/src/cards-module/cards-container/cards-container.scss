@@ -10,13 +10,13 @@
   }
 }
 
-$controls-size-less-550px: 48;
-$controls-size-more-550px: 60;
-$controls-size-full-screen: 88;
+$controls-size-less-550px: 56;
+$controls-size-more-550px: 74;
+$controls-size-full-screen: 112;
 
-$container-margin-less-550px: 12;
-$container-margin-more-550px: 18;
-$container-margin-full-screen: 30;
+$container-margin-less-550px: 6;
+$container-margin-more-550px: 12;
+$container-margin-full-screen: 24;
 
 .hidden {
   visibility: hidden;
@@ -46,7 +46,7 @@ $container-margin-full-screen: 30;
   }
   @include in-full-screen() {
     max-width: calc(100% - 2 * #{$container-margin-full-screen});
-    max-height: calc(100% - 85px);
+    max-height: calc(100% - #{$controls-size-full-screen}px);
     margin: 0 #{$container-margin-full-screen}px;
   }
 
