@@ -960,6 +960,31 @@ Method for allowing bottom block to be always shown.
 </div>
 
 
+## setPoster
+
+
+Method for setting overlay poster
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>src</code><span class="type">string</span class="type">
+        </td>
+        <td>Source of image</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 ## setTitle
 
 ```javascript

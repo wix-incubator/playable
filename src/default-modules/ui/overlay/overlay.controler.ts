@@ -2,6 +2,8 @@ import * as get from 'lodash/get';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
+import playerAPI from '../../../utils/player-api-decorator';
+
 import View from './overlay.view';
 
 export interface IOverlayConfig {
@@ -95,7 +97,14 @@ export default class Overlay {
     this.view.show();
   }
 
-  setPoster(src) {
+  /**
+   * Method for setting overlay poster
+   *
+   * @param src - Source of image
+   *
+   */
+  @playerAPI()
+  setPoster(src: string) {
     this.view.setPoster(src);
   }
 
