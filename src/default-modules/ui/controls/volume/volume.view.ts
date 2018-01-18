@@ -4,11 +4,16 @@ import * as classnames from 'classnames';
 import { TEXT_LABELS } from '../../../../constants/index';
 
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
+import {
+  volume0IconTemplate,
+  volume50IconTemplate,
+  volume100IconTemplate,
+} from './templates';
+import { transperentize } from '../../../../theme/style-sheet';
+import htmlToElement from '../../core/htmlToElement';
 import View from '../../core/view';
 
 import * as styles from './volume.scss';
-import { volume0, volume50, volume100 } from '../../../../assets';
-import { transperentize } from '../../../../theme/style-sheet';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'volume-control';
@@ -116,7 +121,14 @@ class VolumeView extends View {
         text: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
       },
     );
-    this._$muteButton.append(volume100(this._themeClasses));
+    this._$muteButton.append(
+      htmlToElement(
+        volume0IconTemplate({
+          styles: this.styleNames,
+          themeStyles: this._themeClasses,
+        }),
+      ),
+    );
 
     this._$volumeNode = $('<div>', {
       class: this.styleNames['volume-input-block'],
@@ -255,14 +267,23 @@ class VolumeView extends View {
 
     this._$node.attr(DATA_VOLUME, percent);
 
+    const iconTemplateProps = {
+      styles: this.styleNames,
+      themeStyles: this._themeClasses,
+    };
+
     if (percent >= MAX_VOLUME_ICON_RANGE) {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], false);
       this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(volume100(this._themeClasses));
+      this._$muteButton.append(
+        htmlToElement(volume100IconTemplate(iconTemplateProps)),
+      );
     } else if (percent > 0) {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
       this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(volume50(this._themeClasses));
+      this._$muteButton.append(
+        htmlToElement(volume50IconTemplate(iconTemplateProps)),
+      );
     } else {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
     }
@@ -284,7 +305,14 @@ class VolumeView extends View {
   private _setMuteDOMAttributes(isMuted) {
     if (isMuted) {
       this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(volume0(this._themeClasses));
+      this._$muteButton.append(
+        htmlToElement(
+          volume0IconTemplate({
+            styles: this.styleNames,
+            themeStyles: this._themeClasses,
+          }),
+        ),
+      );
     }
     this._$muteButton.toggleClass(this.styleNames.muted, isMuted);
     this._$node.attr(DATA_IS_MUTED, isMuted);

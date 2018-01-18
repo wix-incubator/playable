@@ -24,7 +24,15 @@
     height: 35px;
     min-height: 21px;
 
-    background-size: 21px 21px;
+    .icon {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
   }
 
   &:hover {

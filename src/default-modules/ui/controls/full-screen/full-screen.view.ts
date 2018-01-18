@@ -7,7 +7,12 @@ import View from '../../core/view';
 import * as styles from './full-screen.scss';
 
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
-import { enterFullScreen, exitFullScreen } from '../../../../assets';
+import {
+  enterFullScreenIconTemplate,
+  exitFullScreenIconTemplate,
+} from './templates';
+
+import htmlToElement from '../../core/htmlToElement';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
@@ -65,7 +70,14 @@ class FullScreenView extends View {
         text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       },
     );
-    this.$toggleFullScreenControl.append(enterFullScreen(this._themeClasses));
+    this.$toggleFullScreenControl.append(
+      htmlToElement(
+        enterFullScreenIconTemplate({
+          styles: this.styleNames,
+          themeStyles: this._themeClasses,
+        }),
+      ),
+    );
 
     this.$node.append(this.$toggleFullScreenControl);
 
@@ -104,10 +116,17 @@ class FullScreenView extends View {
       this.$toggleFullScreenControl[0].firstElementChild,
     );
 
+    const iconTemplate = isInFullScreen
+      ? exitFullScreenIconTemplate
+      : enterFullScreenIconTemplate;
+
     this.$toggleFullScreenControl.append(
-      isInFullScreen
-        ? exitFullScreen(this._themeClasses)
-        : enterFullScreen(this._themeClasses),
+      htmlToElement(
+        iconTemplate({
+          styles: this.styleNames,
+          themeStyles: this._themeClasses,
+        }),
+      ),
     );
 
     this.$toggleFullScreenControl.attr(

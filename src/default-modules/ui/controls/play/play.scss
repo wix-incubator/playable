@@ -25,8 +25,18 @@
 
     background-size: 15px 21px;
 
+    .icon {
+      width: 15px;
+      height: 21px;
+    }
+
     &.paused {
       background-size: 16px 21px;
     }
+  }
+
+  .icon {
+    width: 11px;
+    height: 14px;
   }
 }

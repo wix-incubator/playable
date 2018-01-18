@@ -1,0 +1,15 @@
+<div class="${props.styles.icon}">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 17 14"
+    preserveAspectRatio="xMidYMin slice"
+    width="100%"
+    style="padding-bottom: 82%; height: 1px; overflow: visible"
+  >
+    <!-- padding-bottom: 100% * height/width -->
+    <g fill="none" fill-rule="evenodd">
+      <path class="${props.themeStyles.svgFill}" d="M0 3.919h2.993v5.97H0V3.92zm2.995-.015L7 .924v12L2.995 9.882v-5.98z"/>
+      <path class="${props.themeStyles.svgStroke}" d="M9.853 10.837a5.45 5.45 0 0 0 0-7.707"/>
+    </g>
+  </svg>
+</div>

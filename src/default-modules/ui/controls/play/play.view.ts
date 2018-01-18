@@ -4,8 +4,9 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
 
+import { playIconTemplate, pauseIconTemplate } from './templates';
+import htmlToElement from '../../core/htmlToElement';
 import * as styles from './play.scss';
-import { play, pause } from '../../../../assets';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'playback-control';
@@ -57,7 +58,14 @@ class PlayView extends View {
       tabIndex: 0,
     });
 
-    this.$playbackControl.append(pause(this._themeClasses.svgFill));
+    this.$playbackControl.append(
+      htmlToElement(
+        pauseIconTemplate({
+          styles: this.styleNames,
+          themeStyles: this._themeClasses,
+        }),
+      ),
+    );
 
     this.$node.append(this.$playbackControl);
 
@@ -84,10 +92,16 @@ class PlayView extends View {
     this.$playbackControl[0].removeChild(
       this.$playbackControl[0].firstElementChild,
     );
+
+    const iconTemplate = isPlaying ? pauseIconTemplate : playIconTemplate;
+
     this.$playbackControl.append(
-      isPlaying
-        ? pause(this._themeClasses.svgFill)
-        : play(this._themeClasses.svgFill),
+      htmlToElement(
+        iconTemplate({
+          styles: this.styleNames,
+          themeStyles: this._themeClasses,
+        }),
+      ),
     );
 
     this.$node.attr(DATA_IS_PLAYING, isPlaying);

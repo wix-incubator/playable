@@ -2,8 +2,10 @@ import * as $ from 'jbone';
 import * as classnames from 'classnames';
 import View from '../core/view';
 
+import { playIconTemplate } from './templates';
+import htmlToElement from '../core/htmlToElement';
+
 import * as styles from './overlay.scss';
-import { overlayPlay } from '../../../assets';
 
 class OverlayView extends View {
   private _callbacks;
@@ -37,11 +39,14 @@ class OverlayView extends View {
 
     this.setPoster(src);
 
-    this.$playButton = $('<div>', {
-      class: this.styleNames.icon,
-    });
-
-    this.$playButton.append(overlayPlay(this._themeClasses));
+    this.$playButton = $(
+      htmlToElement(
+        playIconTemplate({
+          styles: this.styleNames,
+          themeStyles: this._themeClasses,
+        }),
+      ),
+    );
 
     this.$node.append(this.$content).append(this.$playButton);
 

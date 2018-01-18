@@ -45,7 +45,15 @@ $color: white !default;
     height: 35px;
     min-height: 35px;
 
-    background-size: 25px 21px;
+    .icon {
+      width: 25px;
+      height: 21px;
+    }
+  }
+
+  .icon {
+    width: 17px;
+    height: 14px;
   }
 }
 
