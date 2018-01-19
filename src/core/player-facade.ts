@@ -1,10 +1,9 @@
 import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
 import { PLAYER_API_PROPERTY } from '../utils/player-api-decorator';
-import { createStyleSheet, IThemeConfig } from '../theme';
+import { IThemeConfig } from '../default-modules/ui/core/theme';
 
 export default class Player {
   private _config;
-  private _theme;
   private _defaultModules;
   private _additionalModules;
   private _destroyed: boolean;
@@ -21,16 +20,13 @@ export default class Player {
     });
 
     scope.registerValue({
-      theme: createStyleSheet(themeConfig),
+      themeConfig: themeConfig,
     });
 
     this._config = scope.resolve('config');
-    this._theme = scope.resolve('theme');
 
     this._resolveDefaultModules(scope, defaultModules);
     this._resolveAdditionalModules(scope, additionalModules);
-
-    this._theme.attach();
   }
 
   /*
@@ -141,10 +137,6 @@ export default class Player {
         delete this[apiKey];
       });
     }
-  }
-
-  updateTheme(themeConfig: IThemeConfig) {
-    this._theme.update(themeConfig);
   }
 
   destroy() {

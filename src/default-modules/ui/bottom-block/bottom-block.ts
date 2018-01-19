@@ -1,5 +1,3 @@
-import * as get from 'lodash/get';
-
 import playerAPI from '../../../utils/player-api-decorator';
 
 import View from './bottom-block.view';
@@ -29,10 +27,7 @@ export default class BottomBlock {
     this._screen = screen;
 
     this._bindViewCallbacks();
-    this._initUI(
-      this._getElementsNodes(dependencies),
-      get(config.controls, 'view'),
-    );
+    this._initUI(this._getElementsNodes(dependencies));
     this._initLogo(config.logo);
   }
 
@@ -60,7 +55,7 @@ export default class BottomBlock {
     return this.view.getNode();
   }
 
-  private _initUI(elementNodes, customView) {
+  private _initUI(elementNodes) {
     const config = {
       elements: elementNodes,
       callbacks: {
@@ -69,11 +64,7 @@ export default class BottomBlock {
       },
     };
 
-    if (customView) {
-      this.view = new customView(config);
-    } else {
-      this.view = new BottomBlock.View(config);
-    }
+    this.view = new BottomBlock.View(config);
   }
 
   private _initLogo(logoConfig) {

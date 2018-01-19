@@ -1,5 +1,3 @@
-import * as get from 'lodash/get';
-
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import View from './loader.view';
@@ -25,7 +23,7 @@ export default class Loader {
 
     this._bindCallbacks();
 
-    this._initUI(get(config.loader, 'view'));
+    this._initUI();
     this._bindEvents();
     this._hideContent();
 
@@ -86,12 +84,8 @@ export default class Loader {
     }
   }
 
-  _initUI(customView) {
-    if (customView) {
-      this.view = new customView();
-    } else {
-      this.view = new Loader.View();
-    }
+  _initUI() {
+    this.view = new Loader.View();
   }
 
   private _showContent() {

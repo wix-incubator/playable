@@ -3,7 +3,7 @@ import PlayerFacade from './player-facade';
 
 import defaultModules from '../default-modules';
 import defaultPlaybackAdapters from '../default-modules/playback-engine/adapters/default-set';
-import { IThemeConfig } from '../theme/index';
+import { IThemeConfig } from '../default-modules/ui/core/theme/index';
 
 import { IPlayerConfig } from './config';
 

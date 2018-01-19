@@ -25,27 +25,6 @@ describe('Loader', () => {
       expect(loader).to.exist;
       expect(loader.view).to.exist;
     });
-
-    it('should create instance with custom view if passed', () => {
-      const config = {
-        loader: {
-          view: sinon.spy(() => {
-            return {
-              getNode: () => {},
-              hide: () => {},
-              show: () => {},
-              hideContent: () => {},
-              showContent: () => {},
-            };
-          }),
-        },
-      };
-      testkit.setConfig(config);
-
-      loader = testkit.getModule('loader');
-
-      expect(config.loader.view.calledWithNew()).to.be.true;
-    });
   });
 
   describe('instance', () => {
