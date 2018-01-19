@@ -33,6 +33,10 @@ export default class Card {
     this.initContainer();
   }
 
+  setTabIndex(tabIndex) {
+    this.node.tabIndex = tabIndex;
+  }
+
   initContainer() {
     this.node = document.createElement('div');
     this.node.className = classnames(styles.container, styles.hidden, 'action-card');

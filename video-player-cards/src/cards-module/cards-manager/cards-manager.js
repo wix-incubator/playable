@@ -259,6 +259,8 @@ export default class CardsManager {
   async _showCards(cards = []) {
     const cardsToShow = this._limitToContainerSize(cards);
     this._hideNotFittingCards(cardsToShow);
+    this._sortCardNodes(cardsToShow);
+    await waitForDomUpdate();
     await this._prepareCardsToShow(cardsToShow);
     cardsToShow.forEach(card => this._showCard(card));
     await this._updateCardsPositions();
@@ -274,7 +276,14 @@ export default class CardsManager {
   _hideCard(card) {
     card.removeResizeHandler(this.handleCardSizeChange);
     card.hide();
+    card.setTabIndex(-1);
     this._defer(() => card.setInitialPosition(), CARD_ANIMATION_TIME);
+  }
+
+  _sortCardNodes(cardsToShow) {
+    const nextVisibleCardNodes = this.activeCards.filter(card => card.isVisible || cardsToShow.indexOf(card) !== -1);
+    this.cardsContainer.addCardNodes([...nextVisibleCardNodes].reverse());
+    nextVisibleCardNodes.forEach(card => card.setTabIndex(0));
   }
 
   _showNextCard() {
