@@ -53,13 +53,7 @@ export default class Overlay {
       theme: this._theme,
     };
 
-    const customView = get(config, 'view');
-
-    if (customView) {
-      this.view = new customView(params);
-    } else {
-      this.view = new Overlay.View(params);
-    }
+    this.view = new Overlay.View(params);
   }
 
   _bindEvents() {

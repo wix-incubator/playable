@@ -36,7 +36,7 @@ describe("Player's instance", () => {
 
       player = new Player({}, container, {});
 
-      expect(resolveSpy.args).to.deep.equal([['config'], ['theme']]);
+      expect(resolveSpy.args).to.deep.equal([['config']]);
     });
   });
 

@@ -11,7 +11,7 @@ class Stylable<TStyles = IStyles> implements IStylable<TStyles> {
     const moduleTheme = (<typeof Stylable>this.constructor)._moduleTheme;
     if (theme && moduleTheme) {
       theme.registerModuleTheme(this, moduleTheme);
-      this._themeStyles = theme.classes.get(this);
+      this._themeStyles = theme.get(this);
     }
   }
 

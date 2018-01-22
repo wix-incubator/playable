@@ -1,4 +1,4 @@
-import { transperentize } from '../../../../theme/style-sheet';
+import { transperentize } from '../../core/theme/style-sheet';
 
 export default {
   progressPlayed: {
