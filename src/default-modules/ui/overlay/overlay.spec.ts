@@ -7,7 +7,6 @@ import createPlayerTestkit from '../../../testkit';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
-
 describe('Overlay', () => {
   let testkit;
   let overlay: any = {};

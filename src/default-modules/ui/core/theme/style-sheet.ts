@@ -9,41 +9,41 @@ export interface CSSRules {
 }
 
 export class StyleSheet {
-  public classes: Map<object, object> = new Map();
+  private _raw: Map<object, CSSRules> = new Map();
+  private _data: any;
+  private _styleNode: Element;
 
-  private raw: Map<object, CSSRules> = new Map();
-  private data: any;
-  private styleNode: Element;
+  classes: Map<object, object> = new Map();
 
-  public attach() {
-    this.styleNode = this.styleNode || document.createElement('style');
+  attach() {
+    this._styleNode = this._styleNode || document.createElement('style');
     const discoveredStyles = [];
-    this.raw.forEach((value, key) => {
-      discoveredStyles.push(this.convertModuleCSS([key, value]));
+    this._raw.forEach((value, key) => {
+      discoveredStyles.push(this._convertModuleCSS([key, value]));
     });
-    this.styleNode.innerHTML = discoveredStyles.join(' ');
+    this._styleNode.innerHTML = discoveredStyles.join(' ');
 
-    document.getElementsByTagName('head')[0].appendChild(this.styleNode);
+    document.getElementsByTagName('head')[0].appendChild(this._styleNode);
   }
 
-  public update(data: any) {
-    this.data = data;
+  update(data: any) {
+    this._data = data;
 
-    if (this.styleNode) {
+    if (this._styleNode) {
       this.attach();
     }
   }
 
-  public registerModuleTheme(module: object, rules: CSSRules) {
+  registerModuleTheme(module: object, rules: CSSRules) {
     //todo maybe we would like to update overrides for module? Or at least show warning instead of Error
-    if (this.raw.get(module)) {
+    if (this._raw.get(module)) {
       throw new Error('can`t register multiple themes for one module');
     }
-    this.raw.set(module, rules);
-    this.classes.set(module, this.generateClasses(rules));
+    this._raw.set(module, rules);
+    this.classes.set(module, this._generateClasses(rules));
   }
 
-  private generateClasses(rules: CSSRules) {
+  private _generateClasses(rules: CSSRules) {
     return Object.keys(rules).reduce(
       (acc, classImportName) => ({
         ...acc,
@@ -55,14 +55,14 @@ export class StyleSheet {
     );
   }
 
-  private convertModuleCSS = ([module, rules]: [object, CSSRules]) => {
+  private _convertModuleCSS = ([module, rules]: [object, CSSRules]) => {
     return Object.keys(rules)
-      .map(this.convertCssClass(module))
+      .map(this._convertCssClass(module))
       .join(' ');
   };
 
-  private convertCssClass = (module: object) => (classImportName: string) => {
-    const moduleRules = this.raw.get(module);
+  private _convertCssClass = (module: object) => (classImportName: string) => {
+    const moduleRules = this._raw.get(module);
     const moduleClasses = this.classes.get(module);
     if (
       !moduleRules ||
@@ -88,16 +88,16 @@ export class StyleSheet {
           `.${moduleClasses[classImportName]}`,
         );
         //don't want to allow deep nesting now, maybe later
-        return `${selector} {${this.processSimpleRule(rule[ruleName])}}`;
+        return `${selector} {${this._processSimpleRule(rule[ruleName])}}`;
       })
       .join(' ');
 
-    return `.${moduleClasses[classImportName]} {${this.processSimpleRule(
+    return `.${moduleClasses[classImportName]} {${this._processSimpleRule(
       rule,
     )}} ${complexRules}`;
   };
 
-  private processSimpleRule(rule) {
+  private _processSimpleRule(rule) {
     const simpleRuleNames = Object.keys(rule).filter(
       ruleName => typeof rule[ruleName] !== 'object',
     );
@@ -106,7 +106,7 @@ export class StyleSheet {
         ruleName =>
           `${camelToKebab(ruleName)}: ${
             typeof rule[ruleName] === 'function'
-              ? (rule[ruleName] as RuleFunction)(this.data)
+              ? (rule[ruleName] as RuleFunction)(this._data)
               : rule[ruleName]
           }`,
       )

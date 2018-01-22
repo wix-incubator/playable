@@ -2,8 +2,7 @@ import { StyleSheet, CSSRules } from './style-sheet';
 
 import playerAPI from '../../../../utils/player-api-decorator';
 
-
-export const defaultThemeConfig = {
+export const DEFAULT_THEME_CONFIG = {
   color: '#FFF',
   liveColor: '#ea492e',
 };
@@ -21,7 +20,7 @@ export default class ThemeService {
     this._styleSheet = new StyleSheet();
 
     this._styleSheet.update({
-      ...defaultThemeConfig,
+      ...DEFAULT_THEME_CONFIG,
       ...themeConfig,
     });
 
@@ -32,15 +31,15 @@ export default class ThemeService {
   }
 
   @playerAPI()
-  public updateTheme(themeConfig: IThemeConfig) {
+  updateTheme(themeConfig: IThemeConfig) {
     this._styleSheet.update(themeConfig);
   }
 
-  public registerModuleTheme(module: object, rules: CSSRules) {
+  registerModuleTheme(module: object, rules: CSSRules) {
     this._styleSheet.registerModuleTheme(module, rules);
   }
 
-  public get(module) {
+  get(module) {
     return this._styleSheet.classes.get(module);
   }
 
