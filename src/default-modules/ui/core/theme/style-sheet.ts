@@ -7,7 +7,7 @@ import { ICSSRuleFunction, ICSSRules, ICSSRule } from './types';
 export class StyleSheet {
   private _rulesByModule: Map<object, ICSSRules> = new Map();
   private _classNamesByModule: Map<object, IStyles> = new Map();
-  private _data: any;
+  private _data: any = {};
   private _styleNode: Element;
 
   attach() {
@@ -24,7 +24,10 @@ export class StyleSheet {
   }
 
   update(data: any) {
-    this._data = data;
+    this._data = {
+      ...this._data,
+      ...data,
+    };
 
     if (this._styleNode) {
       this.attach();
