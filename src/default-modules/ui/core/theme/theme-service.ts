@@ -8,6 +8,7 @@ import { ICSSRules, IThemeConfig } from './types';
 const DEFAULT_THEME_CONFIG = {
   color: '#FFF',
   liveColor: '#ea492e',
+  progressColor: '#FFF',
 };
 
 interface IThemeService {
