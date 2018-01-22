@@ -33,6 +33,7 @@ export default class MainUIBlock {
   private _hideTimeout = null;
 
   private _isContentShowingEnabled: boolean = true;
+  private _isContentShown: boolean = false;
   private _shouldShowContent: boolean = true;
   private _shouldAlwaysShow: boolean = false;
   private _isDragging: boolean = false;
@@ -186,7 +187,7 @@ export default class MainUIBlock {
     }
   }
 
-  get _isBlockFocused() {
+  private get _isBlockFocused() {
     return this._bottomBlock.isFocused;
   }
 
@@ -220,13 +221,14 @@ export default class MainUIBlock {
   }
 
   private _showContent() {
-    if (this.isHidden) {
+    if (this.isHidden || this._isContentShown) {
       return;
     }
 
     this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_SHOW_TRIGGERED);
     this._bottomBlock.showContent();
     this._topBlock.showContent();
+    this._isContentShown = true;
   }
 
   private _tryHideContent() {
@@ -241,13 +243,14 @@ export default class MainUIBlock {
   }
 
   private _hideContent() {
-    if (this.isHidden) {
+    if (this.isHidden || !this._isContentShown) {
       return;
     }
 
     this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE_TRIGGERED);
     this._bottomBlock.hideContent();
     this._topBlock.hideContent();
+    this._isContentShown = false;
   }
 
   disableShowingContent() {
