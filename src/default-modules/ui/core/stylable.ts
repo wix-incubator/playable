@@ -1,13 +1,14 @@
 import extendStyles from './extendStyles';
+import { IThemeService, ICSSRules } from './theme';
 import { IStyles, IStylable } from './types';
 
 class Stylable<TStyles = IStyles> implements IStylable<TStyles> {
-  private static _moduleTheme;
+  private static _moduleTheme: ICSSRules;
   private static _styles: IStyles = {};
 
   private _themeStyles: IStyles = {};
 
-  constructor(theme?) {
+  constructor(theme?: IThemeService) {
     const moduleTheme = (<typeof Stylable>this.constructor)._moduleTheme;
     if (theme && moduleTheme) {
       theme.registerModuleTheme(this, moduleTheme);
@@ -15,7 +16,7 @@ class Stylable<TStyles = IStyles> implements IStylable<TStyles> {
     }
   }
 
-  static setTheme(theme) {
+  static setTheme(theme: ICSSRules) {
     this._moduleTheme = theme;
   }
 

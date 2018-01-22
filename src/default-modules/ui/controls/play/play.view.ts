@@ -6,6 +6,9 @@ import View from '../../core/view';
 
 import { playIconTemplate, pauseIconTemplate } from './templates';
 import htmlToElement from '../../core/htmlToElement';
+
+import { IThemeService } from '../../core/theme';
+
 import playViewTheme from './play.theme';
 import * as styles from './play.scss';
 
@@ -18,7 +21,7 @@ const DATA_IS_PLAYING = 'data-is-playing';
 type IPlayViewConfig = {
   callbacks: any;
   textMap: any;
-  theme: any;
+  theme: IThemeService;
 };
 
 class PlayView extends View {

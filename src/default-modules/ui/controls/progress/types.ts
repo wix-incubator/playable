@@ -1,3 +1,4 @@
+import { IThemeService } from '../../core/theme';
 import { ITooltipService } from '../../core/tooltip';
 
 type IProgressViewStyles = {
@@ -29,7 +30,7 @@ type IProgressViewCallbacks = {
 type IProgressViewOptions = {
   callbacks: IProgressViewCallbacks;
   textMap: any;
-  theme: any;
+  theme: IThemeService;
   tooltipService: ITooltipService;
 };
 
