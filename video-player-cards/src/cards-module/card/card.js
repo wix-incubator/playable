@@ -33,10 +33,6 @@ export default class Card {
     this.initContainer();
   }
 
-  setTabIndex(tabIndex) {
-    this.node.tabIndex = tabIndex;
-  }
-
   initContainer() {
     this.node = document.createElement('div');
     this.node.className = classnames(styles.container, styles.hidden, 'action-card');
@@ -54,12 +50,14 @@ export default class Card {
     this.isVisible = true;
     this.node.classList.remove(styles.hidden);
     this.node.classList.add(styles.visible);
+    this.eventEmitter.emit(EVENTS.CARD_SHOWN, this);
   }
 
   hide() {
     this.isVisible = false;
     this.node.classList.remove(styles.visible);
     this.node.classList.add(styles.hidden);
+    this.eventEmitter.emit(EVENTS.CARD_HIDDEN, this);
   }
 
   close() {

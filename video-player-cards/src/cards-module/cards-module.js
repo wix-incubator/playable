@@ -133,6 +133,16 @@ export default class CardsModule {
   }
 
   @playerAPI()
+  onCardShown(callback) {
+    this.eventEmitter.on(EVENTS.CARD_SHOWN, callback);
+  }
+
+  @playerAPI()
+  onCardHidden(callback) {
+    this.eventEmitter.on(EVENTS.CARD_HIDDEN, callback);
+  }
+
+  @playerAPI()
   setCardsClosable(isClosable) {
     const isPreviewMode = !isClosable;
 
@@ -185,6 +195,8 @@ export default class CardsModule {
     );
 
     this.eventEmitter.off(EVENTS.CARD_CLOSED);
+    this.eventEmitter.off(EVENTS.CARD_SHOWN);
+    this.eventEmitter.off(EVENTS.CARD_HIDDEN);
   }
 
   destroy() {

@@ -276,14 +276,12 @@ export default class CardsManager {
   _hideCard(card) {
     card.removeResizeHandler(this.handleCardSizeChange);
     card.hide();
-    card.setTabIndex(-1);
     this._defer(() => card.setInitialPosition(), CARD_ANIMATION_TIME);
   }
 
   _sortCardNodes(cardsToShow) {
     const nextVisibleCardNodes = this.activeCards.filter(card => card.isVisible || cardsToShow.indexOf(card) !== -1);
     this.cardsContainer.addCardNodes([...nextVisibleCardNodes].reverse());
-    nextVisibleCardNodes.forEach(card => card.setTabIndex(0));
   }
 
   _showNextCard() {
