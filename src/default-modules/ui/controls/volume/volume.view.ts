@@ -12,6 +12,8 @@ import {
 import htmlToElement from '../../core/htmlToElement';
 import View from '../../core/view';
 
+import { IThemeService } from '../../core/theme';
+
 import volumeViewTheme from './volume.theme';
 import * as styles from './volume.scss';
 
@@ -47,7 +49,7 @@ const getPercentBasedOnXPosition = (
 type IVolumeViewConfig = {
   callbacks: any;
   textMap: any;
-  theme: any;
+  theme: IThemeService;
   tooltipService: ITooltipService;
 };
 

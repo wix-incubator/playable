@@ -43,6 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    player.updateTheme({ color });
+    player.updateTheme({ progressColor: color });
   });
 });

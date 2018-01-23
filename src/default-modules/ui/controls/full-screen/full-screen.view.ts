@@ -4,6 +4,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
 
+import { IThemeService } from '../../core/theme';
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import {
   enterFullScreenIconTemplate,
@@ -24,7 +25,7 @@ const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 type IFullScreenViewConfig = {
   callbacks: any;
   textMap: any;
-  theme: any;
+  theme: IThemeService;
   tooltipService: ITooltipService;
 };
 

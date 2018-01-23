@@ -1,4 +1,4 @@
-import { transperentize } from '../../core/theme/style-sheet';
+import { transperentizeColor } from '../../core/theme';
 
 export default {
   svgFill: {
@@ -14,6 +14,6 @@ export default {
     },
   },
   volumeProgressBackground: {
-    backgroundColor: data => transperentize(data.color, 0.25),
+    backgroundColor: data => transperentizeColor(data.color, 0.25),
   },
 };
