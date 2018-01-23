@@ -109,22 +109,14 @@ class FullScreenView extends View {
       isInFullScreen,
     );
 
-    this.$toggleFullScreenControl[0].removeChild(
-      this.$toggleFullScreenControl[0].firstElementChild,
-    );
-
     const iconTemplate = isInFullScreen
       ? exitFullScreenIconTemplate
       : enterFullScreenIconTemplate;
 
-    this.$toggleFullScreenControl.append(
-      htmlToElement(
-        iconTemplate({
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        }),
-      ),
-    );
+    this.$toggleFullScreenControl[0].innerHTML = iconTemplate({
+      styles: this.styleNames,
+      themeStyles: this.themeStyles,
+    });
 
     this.$toggleFullScreenControl.attr(
       'aria-label',

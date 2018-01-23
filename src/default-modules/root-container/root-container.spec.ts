@@ -49,34 +49,6 @@ describe('RootContainer', () => {
       });
     });
 
-    it('should have method for setting width', () => {
-      expect(ui.setWidth).to.exist;
-      const cssSpy = sinon.spy(ui.view.$node, 'css');
-      ui.setWidth(0);
-      expect(cssSpy.called).to.be.false;
-
-      ui.setWidth(10);
-      expect(
-        cssSpy.calledWith({
-          width: '10px',
-        }),
-      ).to.be.true;
-    });
-
-    it('should have method for setting height', () => {
-      expect(ui.setHeight).to.exist;
-      const cssSpy = sinon.spy(ui.view.$node, 'css');
-      ui.setHeight(0);
-      expect(cssSpy.called).to.be.false;
-
-      ui.setHeight(10);
-      expect(
-        cssSpy.calledWith({
-          height: '10px',
-        }),
-      ).to.be.true;
-    });
-
     it('should have method for getting width', () => {
       ui.setWidth(340);
       expect(ui.getWidth()).to.be.equal(340);
@@ -85,6 +57,14 @@ describe('RootContainer', () => {
     it('should have method for getting width', () => {
       ui.setHeight(350);
       expect(ui.getHeight()).to.be.equal(350);
+    });
+
+    it('should have method for setting width', () => {
+      expect(ui.setWidth).to.exist;
+    });
+
+    it('should have method for setting height', () => {
+      expect(ui.setHeight).to.exist;
     });
 
     it('should have method for attaching player to node', () => {

@@ -87,20 +87,13 @@ class PlayView extends View {
 
   setState({ isPlaying }) {
     this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
-    this.$playbackControl[0].removeChild(
-      this.$playbackControl[0].firstElementChild,
-    );
 
     const iconTemplate = isPlaying ? pauseIconTemplate : playIconTemplate;
 
-    this.$playbackControl.append(
-      htmlToElement(
-        iconTemplate({
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        }),
-      ),
-    );
+    this.$playbackControl[0].innerHTML = iconTemplate({
+      styles: this.styleNames,
+      themeStyles: this.themeStyles,
+    });
 
     this.$node.attr(DATA_IS_PLAYING, isPlaying);
     this.$playbackControl.attr(

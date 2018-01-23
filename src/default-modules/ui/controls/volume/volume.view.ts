@@ -9,7 +9,7 @@ import {
   volume50IconTemplate,
   volume100IconTemplate,
 } from './templates';
-import htmlToElement from '../../core/htmlToElement';
+//import htmlToElement from '../../core/htmlToElement';
 import View from '../../core/view';
 
 import { IThemeService } from '../../core/theme';
@@ -106,14 +106,10 @@ class VolumeView extends View {
         text: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
       },
     );
-    this._$muteButton.append(
-      htmlToElement(
-        volume0IconTemplate({
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        }),
-      ),
-    );
+    this._$muteButton[0].innerHTML = volume0IconTemplate({
+      styles: this.styleNames,
+      themeStyles: this.themeStyles,
+    });
 
     this._$volumeNode = $('<div>', {
       class: this.styleNames['volume-input-block'],
@@ -259,16 +255,10 @@ class VolumeView extends View {
 
     if (percent >= MAX_VOLUME_ICON_RANGE) {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], false);
-      this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(
-        htmlToElement(volume100IconTemplate(iconTemplateProps)),
-      );
+      this._$muteButton[0].innerHTML = volume100IconTemplate(iconTemplateProps);
     } else if (percent > 0) {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
-      this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(
-        htmlToElement(volume50IconTemplate(iconTemplateProps)),
-      );
+      this._$muteButton[0].innerHTML = volume50IconTemplate(iconTemplateProps);
     } else {
       this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
     }
@@ -289,16 +279,12 @@ class VolumeView extends View {
 
   private _setMuteDOMAttributes(isMuted) {
     if (isMuted) {
-      this._$muteButton[0].removeChild(this._$muteButton[0].firstElementChild);
-      this._$muteButton.append(
-        htmlToElement(
-          volume0IconTemplate({
-            styles: this.styleNames,
-            themeStyles: this.themeStyles,
-          }),
-        ),
-      );
+      this._$muteButton[0].innerHTML = volume0IconTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+      });
     }
+
     this._$muteButton.toggleClass(this.styleNames.muted, isMuted);
     this._$node.attr(DATA_IS_MUTED, isMuted);
     this._$muteButton.attr(

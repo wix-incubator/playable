@@ -1,4 +1,6 @@
-import * as $ from 'jbone';
+import htmlToElement from '../ui/core/htmlToElement';
+
+import { containerTemplate } from './templates';
 
 import View from '../ui/core/view';
 
@@ -7,18 +9,13 @@ import * as styles from './root-container.scss';
 class RootContainerView extends View {
   private _width: number;
   private _height: number;
-
-  $node;
+  private _$node: HTMLElement;
 
   constructor(config) {
     super();
     const { width, height, fillAllSpace } = config;
 
-    this.$node = $('<div>', {
-      'data-hook': 'player-container',
-      tabIndex: 0,
-      class: this.styleNames['video-wrapper'],
-    });
+    this._$node = htmlToElement(containerTemplate({ styles: this.styleNames }));
 
     this.setFillAllSpaceFlag(fillAllSpace);
 
@@ -33,9 +30,7 @@ class RootContainerView extends View {
 
     this._width = width;
 
-    this.$node.css({
-      width: `${this._width}px`,
-    });
+    this._$node.style.width = `${this._width}px`;
   }
 
   setHeight(height) {
@@ -45,9 +40,7 @@ class RootContainerView extends View {
 
     this._height = height;
 
-    this.$node.css({
-      height: `${this._height}px`,
-    });
+    this._$node.style.height = `${this._height}px`;
   }
 
   getWidth() {
@@ -59,39 +52,45 @@ class RootContainerView extends View {
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   appendComponentNode(node) {
-    this.$node.append(node);
+    this._$node.appendChild(node);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   setFullScreenStatus(isFullScreen) {
     if (isFullScreen) {
-      this.$node.attr('data-in-full-screen', true);
+      this._$node.setAttribute('data-in-full-screen', 'true');
+      this._$node.classList.add(this.styleNames.fullScreen);
     } else {
-      this.$node.removeAttr('data-in-full-screen');
+      this._$node.setAttribute('data-in-full-screen', 'false');
+      this._$node.classList.remove(this.styleNames.fullScreen);
     }
-
-    this.$node.toggleClass(this.styleNames['full-screen'], isFullScreen);
   }
 
   setFillAllSpaceFlag(isFillAllSpace = false) {
-    this.$node.toggleClass(this.styleNames['fill-all-space'], isFillAllSpace);
+    if (isFillAllSpace) {
+      this._$node.classList.add(this.styleNames.fillAllSpace);
+    } else {
+      this._$node.classList.remove(this.styleNames.fillAllSpace);
+    }
   }
 
   destroy() {
-    this.$node.remove();
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
 
-    delete this.$node;
+    delete this._$node;
   }
 }
 
