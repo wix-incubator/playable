@@ -9,6 +9,7 @@ export default function createPlayerTestkit(config = {}, adapters = []) {
   const scope = container.createScope();
 
   scope.registerValue('config', _config);
+  scope.registerValue('themeConfig', null);
   scope.registerValue('availablePlaybackAdapters', [...adapters]);
 
   return {

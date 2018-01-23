@@ -35,4 +35,14 @@ Object.defineProperty(window, 'VideoPlayer', {
 /* ignore coverage */
 document.addEventListener('DOMContentLoaded', () => {
   player.attachToElement(document.getElementById('player-wrapper'));
+
+  const themeSwitcher = document.getElementById('theme-switcher');
+  themeSwitcher.addEventListener('click', ev => {
+    const { color } = (ev.target as any).dataset;
+    if (!color) {
+      return;
+    }
+
+    player.updateTheme({ progressColor: color });
+  });
 });

@@ -1,5 +1,7 @@
 import DependencyContainer from '../core/dependency-container';
 
+import ThemeService from './ui/core/theme';
+
 import Engine from './playback-engine/playback-engine';
 import FullScreenManager from './full-screen-manager/full-screen-manager';
 import EventEmitter from './event-emitter/event-emitter';
@@ -61,4 +63,6 @@ export default {
   volumeControl: asClass(VolumeControl).scoped(),
   fullScreenControl: asClass(FullScreenControl).scoped(),
   logo: asClass(Logo).scoped(),
+
+  theme: asClass(ThemeService).scoped(),
 };

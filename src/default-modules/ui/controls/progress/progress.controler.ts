@@ -20,12 +20,19 @@ const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
 export default class ProgressControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];
+  static dependencies = [
+    'engine',
+    'eventEmitter',
+    'textMap',
+    'tooltipService',
+    'theme',
+  ];
 
   private _engine;
   private _eventEmitter;
   private _textMap;
   private _tooltipService: ITooltipService;
+  private _theme;
 
   private _isUserInteracting: boolean;
   private _shouldPlayAfterManipulationEnd: boolean;
@@ -37,13 +44,14 @@ export default class ProgressControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, textMap, tooltipService }) {
+  constructor({ engine, eventEmitter, textMap, tooltipService, theme }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
     this._isUserInteracting = false;
     this._currentProgress = 0;
+    this._theme = theme;
 
     this._timeIndicatorsToAdd = [];
 
@@ -89,6 +97,7 @@ export default class ProgressControl {
         onDragStart: this._onUserInteractionStarts,
         onDragEnd: this._onUserInteractionEnds,
       },
+      theme: this._theme,
       textMap: this._textMap,
       tooltipService: this._tooltipService,
     };

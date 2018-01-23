@@ -1,5 +1,6 @@
 import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
 import { PLAYER_API_PROPERTY } from '../utils/player-api-decorator';
+import { IThemeConfig } from '../default-modules/ui/core/theme';
 
 export default class Player {
   private _config;
@@ -12,9 +13,14 @@ export default class Player {
     scope,
     defaultModules,
     additionalModules = {},
+    themeConfig?: IThemeConfig,
   ) {
     scope.registerValue({
       config: convertToDeviceRelatedConfig(params),
+    });
+
+    scope.registerValue({
+      themeConfig,
     });
 
     this._config = scope.resolve('config');

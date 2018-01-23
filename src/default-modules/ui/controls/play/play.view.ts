@@ -4,6 +4,12 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
 
+import { playIconTemplate, pauseIconTemplate } from './templates';
+import htmlToElement from '../../core/htmlToElement';
+
+import { IThemeService } from '../../core/theme';
+
+import playViewTheme from './play.theme';
 import * as styles from './play.scss';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
@@ -15,6 +21,7 @@ const DATA_IS_PLAYING = 'data-is-playing';
 type IPlayViewConfig = {
   callbacks: any;
   textMap: any;
+  theme: IThemeService;
 };
 
 class PlayView extends View {
@@ -25,10 +32,12 @@ class PlayView extends View {
   $playbackControl;
 
   constructor(config: IPlayViewConfig) {
-    super();
-    const { callbacks, textMap } = config;
+    const { callbacks, textMap, theme } = config;
+
+    super(theme);
 
     this._callbacks = callbacks;
+
     this._textMap = textMap;
 
     this.$node = $('<div>', {
@@ -46,6 +55,15 @@ class PlayView extends View {
       type: 'button',
       tabIndex: 0,
     });
+
+    this.$playbackControl.append(
+      htmlToElement(
+        pauseIconTemplate({
+          styles: this.styleNames,
+          themeStyles: this.themeStyles,
+        }),
+      ),
+    );
 
     this.$node.append(this.$playbackControl);
 
@@ -69,6 +87,21 @@ class PlayView extends View {
 
   setState({ isPlaying }) {
     this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
+    this.$playbackControl[0].removeChild(
+      this.$playbackControl[0].firstElementChild,
+    );
+
+    const iconTemplate = isPlaying ? pauseIconTemplate : playIconTemplate;
+
+    this.$playbackControl.append(
+      htmlToElement(
+        iconTemplate({
+          styles: this.styleNames,
+          themeStyles: this.themeStyles,
+        }),
+      ),
+    );
+
     this.$node.attr(DATA_IS_PLAYING, isPlaying);
     this.$playbackControl.attr(
       'aria-label',
@@ -100,6 +133,7 @@ class PlayView extends View {
   }
 }
 
+PlayView.setTheme(playViewTheme);
 PlayView.extendStyleNames(styles);
 
 export default PlayView;

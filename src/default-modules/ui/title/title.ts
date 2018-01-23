@@ -11,14 +11,17 @@ export interface ITitleConfig {
 
 export default class TitleControl {
   static View = View;
-  static dependencies = ['config'];
+  static dependencies = ['config', 'theme'];
 
   private _callback;
+  private _theme;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ config }) {
+  constructor({ config, theme }) {
+    this._theme = theme;
+
     this._bindCallbacks();
     this._initUI();
 
@@ -40,6 +43,7 @@ export default class TitleControl {
 
   _initUI() {
     const config = {
+      theme: this._theme,
       callbacks: {
         onClick: this._triggerCallback,
       },

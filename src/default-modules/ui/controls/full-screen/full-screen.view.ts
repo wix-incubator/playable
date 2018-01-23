@@ -4,8 +4,17 @@ import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
 
-import * as styles from './full-screen.scss';
+import { IThemeService } from '../../core/theme';
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
+import {
+  enterFullScreenIconTemplate,
+  exitFullScreenIconTemplate,
+} from './templates';
+
+import htmlToElement from '../../core/htmlToElement';
+
+import fullScreenViewTheme from './full-screen.theme';
+import * as styles from './full-screen.scss';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
 const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
@@ -16,6 +25,7 @@ const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 type IFullScreenViewConfig = {
   callbacks: any;
   textMap: any;
+  theme: IThemeService;
   tooltipService: ITooltipService;
 };
 
@@ -28,8 +38,9 @@ class FullScreenView extends View {
   $toggleFullScreenControl;
 
   constructor(config: IFullScreenViewConfig) {
-    super();
-    const { callbacks, textMap, tooltipService } = config;
+    const { callbacks, textMap, tooltipService, theme } = config;
+
+    super(theme);
 
     this._callbacks = callbacks;
     this._textMap = textMap;
@@ -55,6 +66,14 @@ class FullScreenView extends View {
       {
         text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       },
+    );
+    this.$toggleFullScreenControl.append(
+      htmlToElement(
+        enterFullScreenIconTemplate({
+          styles: this.styleNames,
+          themeStyles: this.themeStyles,
+        }),
+      ),
     );
 
     this.$node.append(this.$toggleFullScreenControl);
@@ -89,6 +108,24 @@ class FullScreenView extends View {
       this.styleNames['in-full-screen'],
       isInFullScreen,
     );
+
+    this.$toggleFullScreenControl[0].removeChild(
+      this.$toggleFullScreenControl[0].firstElementChild,
+    );
+
+    const iconTemplate = isInFullScreen
+      ? exitFullScreenIconTemplate
+      : enterFullScreenIconTemplate;
+
+    this.$toggleFullScreenControl.append(
+      htmlToElement(
+        iconTemplate({
+          styles: this.styleNames,
+          themeStyles: this.themeStyles,
+        }),
+      ),
+    );
+
     this.$toggleFullScreenControl.attr(
       'aria-label',
       isInFullScreen
@@ -127,6 +164,7 @@ class FullScreenView extends View {
   }
 }
 
+FullScreenView.setTheme(fullScreenViewTheme);
 FullScreenView.extendStyleNames(styles);
 
 export default FullScreenView;

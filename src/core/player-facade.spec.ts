@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import convertToDeviceRelatedConfig from './config';
+
 import Player from './player-facade';
 import DependencyContainer from './dependency-container';
 import playerAPI from '../utils/player-api-decorator';
@@ -23,7 +24,6 @@ describe("Player's instance", () => {
       const params = {};
 
       player = new Player({}, container, {});
-
       expect(
         registerValueSpy.calledWith({
           config: convertToDeviceRelatedConfig(params),

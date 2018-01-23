@@ -1,6 +1,7 @@
 import { TEXT_LABELS } from '../../../../constants/index';
 
-import Stylable from '../../core/stylable';
+import View from '../../core/view';
+
 import { IView } from '../../core/types';
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import formatTime from '../../core/utils/formatTime';
@@ -15,6 +16,8 @@ import {
   IProgressViewCallbacks,
   IProgressViewOptions,
 } from './types';
+
+import progressViewTheme from './progress.theme';
 import * as styles from './progress.scss';
 
 const DATA_PLAYED = 'data-played-percent';
@@ -37,12 +40,13 @@ const getPercentBasedOnXPosition = (
   return (event.clientX - boundingRect.left) / boundingRect.width * 100;
 };
 
-class ProgressView extends Stylable<IProgressViewStyles>
+class ProgressView extends View<IProgressViewStyles>
   implements IView<IProgressViewStyles> {
   private _callbacks: IProgressViewCallbacks;
   private _textMap;
   private _tooltipService: ITooltipService;
   private _syncButtonTooltipReference: ITooltipReference;
+
   private _isDragging: boolean;
 
   private _$node: HTMLElement;
@@ -54,8 +58,9 @@ class ProgressView extends Stylable<IProgressViewStyles>
   private _$syncButton: HTMLElement;
 
   constructor(config: IProgressViewOptions) {
-    super();
-    const { callbacks, textMap, tooltipService } = config;
+    const { callbacks, textMap, tooltipService, theme } = config;
+
+    super(theme);
 
     this._callbacks = callbacks;
     this._textMap = textMap;
@@ -71,7 +76,12 @@ class ProgressView extends Stylable<IProgressViewStyles>
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(progressTemplate({ styles: this.styleNames }));
+    this._$node = htmlToElement(
+      progressTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+      }),
+    );
 
     this._$played = getElementByHook(this._$node, 'progress-played');
     this._$buffered = getElementByHook(this._$node, 'progress-buffered');
@@ -296,6 +306,7 @@ class ProgressView extends Stylable<IProgressViewStyles>
   }
 }
 
+ProgressView.setTheme(progressViewTheme);
 ProgressView.extendStyleNames(styles);
 
 export default ProgressView;

@@ -1,4 +1,4 @@
-import Stylable from '../../core/stylable';
+import View from '../../core/view';
 import { IView } from '../../core/types';
 
 import formatTime from '../../core/utils/formatTime';
@@ -8,27 +8,27 @@ import { timeTemplate } from './templates';
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
+import { ITimeViewStyles } from './types';
+import timeViewTheme from './time.theme';
 import * as styles from './time.scss';
 
-import { ITimeViewStyles } from './types';
-
-class TimeView extends Stylable<ITimeViewStyles>
-  implements IView<ITimeViewStyles> {
+class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
   private _$node: HTMLElement;
   private _$currentTime: HTMLElement;
   private _$durationTime: HTMLElement;
   private _duration: number;
   private _current: number;
   private _isBackward: boolean;
-
-  constructor() {
-    super();
+  constructor(theme) {
+    super(theme);
 
     this._initDOM();
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(timeTemplate({ styles: this.styleNames }));
+    this._$node = htmlToElement(
+      timeTemplate({ styles: this.styleNames, themeStyles: this.themeStyles }),
+    );
 
     this._$currentTime = getElementByHook(
       this._$node,
@@ -102,6 +102,7 @@ class TimeView extends Stylable<ITimeViewStyles>
   }
 }
 
+TimeView.setTheme(timeViewTheme);
 TimeView.extendStyleNames(styles);
 
 export default TimeView;

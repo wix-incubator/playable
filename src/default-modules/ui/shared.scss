@@ -2,6 +2,8 @@
 
 
 .control-button {
+  display: flex;
+
   cursor: pointer;
   transition-duration: .2s;
   transition-property: opacity;
@@ -11,6 +13,9 @@
   border-radius: 0;
   outline: none;
   background-color: transparent;
+
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     opacity: .7;

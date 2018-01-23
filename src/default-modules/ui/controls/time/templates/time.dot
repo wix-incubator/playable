@@ -1,6 +1,6 @@
 <div
   data-hook="time-control"
-  class="${props.styles.timeWrapper}">
+  class="${props.styles.timeWrapper} ${props.themeStyles.text}">
   <span
     data-hook="current-time-indicator"
     class="${props.styles.time}">

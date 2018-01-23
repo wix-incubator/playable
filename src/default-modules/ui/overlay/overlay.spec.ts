@@ -3,92 +3,41 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import EventEmitter from '../../event-emitter/event-emitter';
-import RootContainer from '../../root-container/root-container.controler';
-import Overlay from './overlay.controler';
-import Engine from '../../playback-engine/playback-engine';
+import createPlayerTestkit from '../../../testkit';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 describe('Overlay', () => {
+  let testkit;
   let overlay: any = {};
-  let engine: any = {};
   let eventEmitter: any = {};
-  let rootContainer: any;
   let eventEmitterSpy: any = null;
-  let config: any = {};
 
   beforeEach(() => {
-    config = {
-      ui: {},
-    };
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
-    rootContainer = new RootContainer({
-      eventEmitter,
-      engine,
-      config,
-    });
+    testkit = createPlayerTestkit();
   });
 
   describe('constructor', () => {
     beforeEach(() => {
-      overlay = new Overlay({
-        engine,
-        eventEmitter,
-        rootContainer,
-        config,
-      });
+      overlay = testkit.getModule('overlay');
     });
 
     it('should create instance ', () => {
       expect(overlay).to.exist;
       expect(overlay.view).to.exist;
     });
-
-    it('should create instance with custom view if passed', () => {
-      config.overlay = {
-        view: sinon.spy(() => {
-          return {
-            getNode: () => {},
-            hide: () => {},
-            show: () => {},
-          };
-        }),
-      };
-
-      overlay = new Overlay({
-        engine,
-        config,
-        rootContainer,
-        eventEmitter,
-      });
-
-      expect(config.overlay.view.calledWithNew()).to.be.true;
-    });
   });
 
   describe('instance callbacks to controls', () => {
     beforeEach(() => {
-      overlay = new Overlay({
-        engine,
-        eventEmitter,
-        rootContainer,
-        config: {
-          ui: {
-            poster: 'test',
-          },
-        },
-      });
+      overlay = testkit.getModule('overlay');
+      eventEmitter = testkit.getModule('eventEmitter');
 
-      eventEmitterSpy = sinon.spy(overlay._eventEmitter, 'emit');
+      eventEmitterSpy = sinon.spy(eventEmitter, 'emit');
     });
 
     afterEach(() => {
-      overlay._eventEmitter.emit.restore();
+      eventEmitter.emit.restore();
     });
 
     it('should emit ui event on play', () => {
@@ -106,17 +55,14 @@ describe('Overlay', () => {
 
   describe('instance', () => {
     beforeEach(() => {
-      overlay = new Overlay({
-        engine,
-        eventEmitter,
-        rootContainer,
-        config,
-      });
+      overlay = testkit.getModule('overlay');
+      eventEmitter = testkit.getModule('eventEmitter');
     });
 
     it('should react on video playback status changed on play', () => {
       const callback = sinon.spy(overlay, '_updatePlayingStatus');
       const hideSpy = sinon.spy(overlay, '_hideContent');
+
       overlay._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
@@ -138,31 +84,6 @@ describe('Overlay', () => {
 
       expect(callback.called).to.be.true;
       expect(showSpy.called).to.be.true;
-    });
-  });
-
-  describe('API', () => {
-    beforeEach(() => {
-      overlay = new Overlay({
-        engine,
-        eventEmitter,
-        rootContainer,
-        config,
-      });
-    });
-
-    it('should have method for setting src of background image', () => {
-      const src = 'test';
-      expect(overlay.setPoster).to.exist;
-      const cssSpy = sinon.spy(overlay.view.$content, 'css');
-      overlay.setPoster(src);
-      expect(cssSpy.calledWith('background-image', `url('${src}')`)).to.be.true;
-    });
-
-    it('should have method for getting view node', () => {
-      const getNodeSpy = sinon.spy(overlay.view, 'getNode');
-      overlay.node;
-      expect(getNodeSpy.called).to.be.true;
     });
   });
 });

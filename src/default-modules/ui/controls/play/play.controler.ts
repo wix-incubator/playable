@@ -8,21 +8,23 @@ import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
 
 export default class PlayControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'textMap'];
+  static dependencies = ['engine', 'eventEmitter', 'textMap', 'theme'];
 
   private _engine;
   private _eventEmitter;
   private _textMap;
+  private _theme;
 
   private _interceptor;
   private _isPlaying: boolean;
 
   view: View;
 
-  constructor({ engine, eventEmitter, textMap }) {
+  constructor({ engine, eventEmitter, textMap, theme }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
+    this._theme = theme;
 
     this._isPlaying = null;
 
@@ -114,6 +116,7 @@ export default class PlayControl {
       callbacks: {
         onTogglePlaybackButtonClick: this._togglePlayback,
       },
+      theme: this._theme,
       textMap: this._textMap,
     };
 

@@ -39,26 +39,21 @@ $color: white !default;
   height: 26px;
   min-height: 26px;
 
-  background-image: url('../../../../assets/volume-100.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 17px 14px;
-
   @include in-full-screen() {
     width: 35px;
     min-width: 35px;
     height: 35px;
     min-height: 35px;
 
-    background-size: 25px 21px;
+    .icon {
+      width: 25px;
+      height: 21px;
+    }
   }
 
-  &.half-volume {
-    background-image: url('../../../../assets/volume-50.svg');
-  }
-
-  &.muted {
-    background-image: url('../../../../assets/volume-0.svg');
+  .icon {
+    width: 17px;
+    height: 14px;
   }
 }
 
@@ -90,8 +85,6 @@ $color: white !default;
 }
 
 .volume {
-  background-color: white;
-
   &:after {
     position: absolute;
     top: -3px;
@@ -104,7 +97,6 @@ $color: white !default;
     transition: opacity .2s;
 
     border-radius: 50%;
-    background-color: #fff;
 
     @include in-full-screen() {
       top: -4px;
@@ -118,8 +110,6 @@ $color: white !default;
 
 .background {
   width: 100%;
-
-  background-color: transparentize(#fff, .75);
 }
 
 .hitbox {

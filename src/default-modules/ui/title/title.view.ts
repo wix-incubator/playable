@@ -2,6 +2,7 @@ import * as $ from 'jbone';
 
 import View from '../core/view';
 
+import titleViewTheme from './title.theme';
 import * as styles from './title.scss';
 
 const DATA_HOOK_ATTRIBUTE = 'data-hook';
@@ -14,16 +15,16 @@ class TitleView extends View {
   $title;
 
   constructor(config) {
-    super();
+    const { callbacks, theme } = config;
 
-    const { callbacks } = config;
+    super(theme);
 
     this._callbacks = callbacks;
 
     this.$node = $('<div>');
 
     this.$title = $('<div>', {
-      class: this.styleNames.title,
+      class: `${this.styleNames.title} ${this.themeStyles.text}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
     });
 
@@ -75,6 +76,7 @@ class TitleView extends View {
   }
 }
 
+TitleView.setTheme(titleViewTheme);
 TitleView.extendStyleNames(styles);
 
 export default TitleView;

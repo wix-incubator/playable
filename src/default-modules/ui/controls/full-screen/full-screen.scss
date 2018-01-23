@@ -18,18 +18,21 @@
 
   transition: transform .2s;
 
-  background-image: url('../../../../assets/enter-full-screen.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 14px 14px;
-
   @include in-full-screen() {
     width: 35px;
     min-width: 35px;
     height: 35px;
     min-height: 21px;
 
-    background-size: 21px 21px;
+    .icon {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
   }
 
   &:hover {
@@ -37,8 +40,6 @@
   }
 
   &.in-full-screen {
-    background-image: url('../../../../assets/exit-full-screen.svg');
-
     &:hover {
       transform: scale(.8);
     }

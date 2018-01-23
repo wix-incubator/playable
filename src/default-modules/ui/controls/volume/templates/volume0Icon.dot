@@ -1,0 +1,17 @@
+<div class="${props.styles.icon}">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 17 14"
+    preserveAspectRatio="xMidYMin slice"
+    width="100%"
+    style="padding-bottom: 82%; height: 1px; overflow: visible"
+  >
+    <!-- padding-bottom: 100% * height/width -->
+    <!--width="16"-->
+    <!--height="13"-->
+    <g class="${props.themeStyles.svgFill}">
+      <path d="M0 3.919h2.993v5.97H0V3.92zm2.995-.015L7 .924v12L2.995 9.882v-5.98z"/>
+      <path fill-rule="nonzero" d="M13 6.257l-2.05-2.05-.743.743L12.257 7l-2.05 2.05.743.743L13 7.743l2.05 2.05.743-.743L13.743 7l2.05-2.05-.743-.743L13 6.257z"/>
+    </g>
+  </svg>
+</div>

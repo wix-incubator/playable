@@ -12,17 +12,25 @@ export interface IOverlayConfig {
 
 export default class Overlay {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
+  static dependencies = [
+    'engine',
+    'eventEmitter',
+    'config',
+    'rootContainer',
+    'theme',
+  ];
 
   private _eventEmitter;
   private _engine;
+  private _theme;
 
   view: View;
   isHidden: boolean = false;
 
-  constructor({ config, eventEmitter, engine, rootContainer }) {
+  constructor({ config, eventEmitter, engine, rootContainer, theme }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
+    this._theme = theme;
 
     this._bindEvents();
     this._initUI(config.overlay);
@@ -44,15 +52,10 @@ export default class Overlay {
         onPlayClick: this._playVideo,
       },
       src: get(config, 'poster'),
+      theme: this._theme,
     };
 
-    const customView = get(config, 'view');
-
-    if (customView) {
-      this.view = new customView(params);
-    } else {
-      this.view = new Overlay.View(params);
-    }
+    this.view = new Overlay.View(params);
   }
 
   _bindEvents() {

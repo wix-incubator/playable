@@ -906,6 +906,28 @@ Add time indicators to progress bar
 Delete all time indicators from progress bar
 
 
+## updateTheme
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>themeConfig</code><span class="type">IThemeConfig</span class="type">
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 ## setLoadingCover
 
 ```javascript

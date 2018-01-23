@@ -10,12 +10,19 @@ import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
 
 export default class VolumeControl {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];
+  static dependencies = [
+    'engine',
+    'eventEmitter',
+    'textMap',
+    'tooltipService',
+    'theme',
+  ];
 
   private _engine;
   private _eventEmitter;
   private _textMap;
   private _tooltipService: ITooltipService;
+  private _theme;
 
   private _isMuted: boolean;
   private _volume: number;
@@ -26,11 +33,12 @@ export default class VolumeControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, textMap, tooltipService }) {
+  constructor({ engine, eventEmitter, textMap, tooltipService, theme }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
+    this._theme = theme;
 
     this._isMuted = this._engine.getMute();
     this._volume = this._engine.getVolume();
@@ -60,6 +68,7 @@ export default class VolumeControl {
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
         onToggleMuteClick: this._toggleMuteStatus,
       },
+      theme: this._theme,
       textMap: this._textMap,
       tooltipService: this._tooltipService,
     };
