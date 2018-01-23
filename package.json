@@ -17,6 +17,7 @@
     "start": "PORT=5000 haste start --entry-point=./dev-env/start-dev-env.js",
     "lint": "npm run tslint:all",
     "build": "haste build",
+    "build:production": "NODE_ENV=production haste build",
     "test": "npm run test:unit",
     "documentation": "ts-node ./scripts/documentation > ./docs/player-public-methods.md",
     "documentation:gitadd": "npm run documentation && git add ./docs/player-public-methods.md",

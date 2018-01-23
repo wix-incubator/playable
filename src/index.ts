@@ -23,8 +23,8 @@ import Loader from './default-modules/ui/loader/loader.controler';
 import Screen from './default-modules/ui/screen/screen.controler';
 import BottomBlock from './default-modules/ui/bottom-block/bottom-block';
 import TopBlock from './default-modules/ui/top-block/top-block';
+import MainUIBlock from './default-modules/ui/main-ui-block/main-ui-block';
 
-import AnomalyBloodhound from './default-modules/anomaly-bloodhound/anomaly-bloodhound';
 import RootContainer from './default-modules/root-container/root-container.controler';
 import FullScreenManager from './default-modules/full-screen-manager/full-screen-manager';
 import PlayerFacade from './core/player-facade';
@@ -35,13 +35,13 @@ const DefaultUIComponents = {
   Overlay,
   TopBlock,
   BottomBlock,
+  MainUIBlock,
   Loader,
   Tooltip,
 };
 
 /* ignore coverage */
 const DefaultModules = {
-  AnomalyBloodhound,
   RootContainer,
   FullScreenManager,
   PlayerFacade,
