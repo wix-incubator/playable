@@ -2,6 +2,9 @@ import { ITooltipService } from '../core/tooltip';
 import LiveIndicatorView from './live-indicator.view';
 import { STATES, VIDEO_EVENTS } from '../../../constants';
 
+/**
+ * @doc test
+ */
 export default class LiveIndicator {
   static View = LiveIndicatorView;
   static dependencies = [

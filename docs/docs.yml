@@ -2,3 +2,8 @@
   title: Player public methods
   glob: src/default-modules/**/*.ts
   visitor: scripts/documentation/playerApiVisitor.js
+
+- path: bla/test.md
+  title: Tag Test
+  glob: src/default-modules/**/*.ts
+  tag: test
