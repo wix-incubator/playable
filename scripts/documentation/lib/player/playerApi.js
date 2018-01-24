@@ -1,6 +1,5 @@
-import * as t from '@babel/types';
-
-import { getDecoratorArguments } from '../utils/ast';
+const t = require('@babel/types');
+const { getDecoratorArguments } = require('../utils/ast');
 
 function isPlayerApiDecorator(node) {
   return t.isDecorator(node) && node.expression.callee.name === 'playerAPI';
@@ -14,4 +13,5 @@ function getNameFromPlayerApiDecorator(decoratorNode) {
     : null;
 }
 
-export { isPlayerApiDecorator, getNameFromPlayerApiDecorator };
+exports.isPlayerApiDecorator = isPlayerApiDecorator;
+exports.getNameFromPlayerApiDecorator = getNameFromPlayerApiDecorator;

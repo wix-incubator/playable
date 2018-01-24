@@ -1,13 +1,12 @@
-import * as t from '@babel/types';
+const t = require('@babel/types');
+const { isJSDocComment, createJSDocComment } = require('okidoc/lib/utils/ast');
 
-import { isJSDocComment, createJSDocComment } from '../utils/ast';
-
-import {
+const {
   isPlayerApiDecorator,
   getNameFromPlayerApiDecorator,
-} from './playerApi';
+} = require('./playerApi');
 
-function createApiMethod(playerApiMethod) {
+function createPlayerApiMethod(playerApiMethod) {
   const playerApiDecorator = playerApiMethod.decorators.find(
     isPlayerApiDecorator,
   );
@@ -36,4 +35,4 @@ function createApiMethod(playerApiMethod) {
   return playerApiMethod;
 }
 
-export default createApiMethod;
+module.exports = createPlayerApiMethod;

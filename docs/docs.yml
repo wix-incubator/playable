@@ -1,4 +1,4 @@
-- id: player-public-methods
+- path: player-public-methods.md
   title: Player public methods
   glob: src/default-modules/**/*.ts
-  visitor: scripts/documentation/lib/player
+  visitor: scripts/documentation/playerApiVisitor.js
