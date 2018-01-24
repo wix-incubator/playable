@@ -41,7 +41,7 @@ export default class CardsModule {
 
     this.isInitialized = true;
 
-    this.handlePlayerStateChange({ nextState: this.engine.getCurrentState() });
+    setTimeout(() => this.handlePlayerStateChange({ nextState: this.engine.getCurrentState() }), 0);
   }
 
   initContainer() {
