@@ -6,17 +6,18 @@ config:
   siteMetadata:
     title: video-player.js
   pathPrefix: /video-player.js
+  algoliaApiKey: 8b7e07f448cec6e39fa301bf82ac83d6
 
 navigation:
-  - path: player-config
+  - path: /player-config
     title: Configuration
-  - path: video-source
+  - path: /video-source
     title: Video source
-  - path: api
+  - path: /api
     title: API reference
-  - path: modules
+  - path: /modules
     title: Modules
-  - path: events
+  - path: /events
     title: Player events
-  - path: adapters
+  - path: /adapters
     title: Playback adapters
