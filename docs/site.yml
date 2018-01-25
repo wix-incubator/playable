@@ -1,4 +1,5 @@
 docsPath: ./docs
+distPath: ./sitedist
 
 # https://www.gatsbyjs.org/docs/gatsby-config
 config:

@@ -23,8 +23,7 @@
     "documentation:gitadd": "npm run documentation && git add ./docs",
     "documentation:site": "okidoc-site develop ./docs/site.yml",
     "documentation:site:build": "okidoc-site build ./docs/site.yml",
-    "documentation:site:deploy": "okidoc-site deploy ./docs/site.yml",
-    "deploy": "cd site && npm run deploy",
+    "documentation:site:deploy": "npm run documentation:site:build && gh-pages -d sitedist",
     "release": "haste release",
     "tslint": "ts-node node_modules/.bin/tslint -p . -c tslint.json",
     "tslint:all": "npm run tslint -- '{src,scripts}/**/*.ts'",
@@ -51,6 +50,7 @@
     "css-element-queries": "^0.4.0",
     "dashjs": "latest",
     "eventemitter3": "^2.0.3",
+    "gh-pages": "^1.1.0",
     "hls.js": "latest",
     "jbone": "^1.2.0",
     "lodash": "^4.17.4"
