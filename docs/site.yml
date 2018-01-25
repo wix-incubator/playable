@@ -1,0 +1,11 @@
+docsPath: ./docs
+
+# https://www.gatsbyjs.org/docs/gatsby-config
+config:
+  siteMetadata:
+    title: video-player.js
+  pathPrefix: /video-player.js
+
+navigation:
+  - id: api.md
+    title: API reference
