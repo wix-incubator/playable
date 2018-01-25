@@ -8,5 +8,15 @@ config:
   pathPrefix: /video-player.js
 
 navigation:
-  - id: api.md
+  - path: player-config
+    title: Configuration
+  - path: video-source
+    title: Video source
+  - path: api
     title: API reference
+  - path: modules
+    title: Modules
+  - path: events
+    title: Player events
+  - path: adapters
+    title: Playback adapters
