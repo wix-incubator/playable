@@ -50,6 +50,6 @@ player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
 player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED);
 ```
 
-You can create listeners for events triggered by the video player, using [on](/docs/api#on) method. To remove a listener, use [off](/docs/api#off).
+You can create listeners for events triggered by the video player, using [on](/api#on) method. To remove a listener, use [off](/api#off).
 
 Below you can see the events that can be passed as eventName.

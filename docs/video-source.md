@@ -58,4 +58,4 @@ The logic uses the following prioritization system to pick the most suitable for
 
 The algorithm bases decisions using browser feature detection.
 
-And boi, you can extend 'dis logic with your own custom shit, [trust me](/docs/adapters)!
+And boi, you can extend 'dis logic with your own custom shit, [trust me](/adapters)!

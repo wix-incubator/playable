@@ -53,7 +53,7 @@ const player = VideoPlayer.create(config);
 
 ### Video sources
 
-`config.src: MediaSource` A string or array with source of the video. For more information see [this page](/docs/video-source)
+`config.src: MediaSource` A string or array with source of the video. For more information see [this page](/video-source)
 
 ### Playback attributes
 
