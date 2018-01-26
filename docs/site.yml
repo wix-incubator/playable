@@ -21,3 +21,8 @@ navigation:
     title: Player events
   - path: /adapters
     title: Playback adapters
+
+examples:
+  path: ./examples
+  html: <div id="content"></div>
+  resources: ['https://unpkg.parastorage.com/video-player/dist/statics/video-player.bundle.min.js']

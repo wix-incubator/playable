@@ -63,7 +63,7 @@ export default class TitleControl {
    * player.setTitle('Your awesome video title here');
    *
    * @note
-   * [Live Demo](https://jsfiddle.net/kupriyanenko/ao0rg48s/2/)
+   * [Live Demo](examples/player-set-title)
    */
   @playerAPI()
   setTitle(title?: string) {
