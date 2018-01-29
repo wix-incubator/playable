@@ -128,6 +128,14 @@ export default class Engine {
     return this.attachedAdapter.isDynamicContent;
   }
 
+  get isDynamicContentEnded() {
+    if (!this.attachedAdapter) {
+      return false;
+    }
+
+    return this.attachedAdapter.isDynamicContentEnded;
+  }
+
   get isSeekAvailable() {
     if (!this.attachedAdapter) {
       return false;

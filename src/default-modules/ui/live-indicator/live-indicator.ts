@@ -89,6 +89,7 @@ export default class LiveIndicator {
       case STATES.SRC_SET:
         this._toggle(false);
         this._toggleActive(false);
+        this._toggleEnded(false);
         break;
 
       case STATES.METADATA_LOADED:
@@ -101,11 +102,12 @@ export default class LiveIndicator {
         break;
     }
 
-    if (!this.isHidden) {
+    if (this._engine.isDynamicContent && !this.isHidden) {
       // update active state for dynamic content
       this._toggleActive(
         nextState === STATES.PLAYING && this._engine.isSyncWithLive,
       );
+      this._toggleEnded(this._engine.isDynamicContentEnded);
     }
   }
 
@@ -121,6 +123,10 @@ export default class LiveIndicator {
   private _toggleActive(shouldActivate: boolean) {
     this._isActive = shouldActivate;
     this.view.toggleActive(shouldActivate);
+  }
+
+  private _toggleEnded(isEnded: boolean) {
+    this.view.toggleEnded(isEnded);
   }
 
   destroy() {

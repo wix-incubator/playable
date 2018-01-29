@@ -30,11 +30,17 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private videoElement: HTMLVideoElement;
   private mediaStream;
 
+  private _isDynamicContent: boolean;
+  private _isDynamicContentEnded: boolean;
+
   constructor(eventEmitter) {
     this.eventEmitter = eventEmitter;
     this.hls = null;
     this.videoElement = null;
     this.mediaStream = null;
+
+    this._isDynamicContent = false;
+    this._isDynamicContentEnded = null;
 
     this._bindCallbacks();
   }
@@ -42,6 +48,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
   _bindCallbacks() {
     this.attachOnPlay = this.attachOnPlay.bind(this);
     this.broadcastError = this.broadcastError.bind(this);
+    this._onManifestParsed = this._onManifestParsed.bind(this);
+    this._onEndOfStream = this._onEndOfStream.bind(this);
   }
 
   get currentUrl() {
@@ -60,16 +68,15 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   get isDynamicContent(): boolean {
-    if (!this.hls) {
-      return false;
-    }
-    const { details } = this.hls.levels[this.hls.firstLevel];
+    return this._isDynamicContent;
+  }
 
-    return details.live;
+  get isDynamicContentEnded(): boolean {
+    return this._isDynamicContentEnded;
   }
 
   get isSyncWithLive(): boolean {
-    if (!this.isDynamicContent) {
+    if (!this.isDynamicContent || this.isDynamicContentEnded) {
       return false;
     }
 
@@ -235,8 +242,39 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
     this.hls = new HlsJs(config);
     this.hls.on(HlsJs.Events.ERROR, this.broadcastError);
+    this.hls.on(HlsJs.Events.MANIFEST_PARSED, this._onManifestParsed);
+    this.hls.on(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
     this.hls.loadSource(this.mediaStream.url);
     this.hls.attachMedia(this.videoElement);
+  }
+
+  private _onManifestParsed(_eventName, data) {
+    const onLevelUpdated = () => {
+      console.log(
+        'MANIFEST_PARSED+LEVEL_UPDATED',
+        _eventName,
+        data.levels[data.firstLevel],
+      );
+
+      const levelDetails = data.levels[data.firstLevel].details;
+
+      if (levelDetails) {
+        this._isDynamicContent = levelDetails.live;
+        this._isDynamicContentEnded = this._isDynamicContent ? false : null;
+      }
+
+      this.hls.off(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
+    };
+
+    this.hls.on(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
+  }
+
+  private _onEndOfStream(_eventName, data) {
+    console.log('BUFFER_EOS', _eventName, data);
+
+    if (this._isDynamicContent) {
+      this._isDynamicContentEnded = true;
+    }
   }
 
   detach() {
@@ -244,6 +282,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
       return;
     }
     this.hls.off(HlsJs.Events.ERROR, this.broadcastError);
+    this.hls.off(HlsJs.Events.MANIFEST_PARSED, this._onManifestParsed);
+    this.hls.off(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
     this.hls.destroy();
     this.hls = null;
 

@@ -37,7 +37,7 @@ class LiveIndicatorView extends View {
     this.$liveIndicator = $('<span>', {
       class: this.styleNames['live-indicator'],
       'aria-label': this._textMap.get(TEXT_LABELS.LIVE_SYNC_LABEL),
-    }).html(this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT));
+    }).html(this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT, {}));
 
     // NOTE: LIVE indicator is hidden by default
     this.$node = $('<div>', {
@@ -62,6 +62,12 @@ class LiveIndicatorView extends View {
 
   toggleActive(shouldActivate: boolean) {
     this.$node.toggleClass(this.styleNames.active, shouldActivate);
+  }
+
+  toggleEnded(isEnded: boolean) {
+    this.$liveIndicator.html(
+      this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT, { isEnded }),
+    );
   }
 
   show() {
