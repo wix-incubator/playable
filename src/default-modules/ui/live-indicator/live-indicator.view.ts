@@ -65,9 +65,17 @@ class LiveIndicatorView extends View {
   }
 
   toggleEnded(isEnded: boolean) {
+    this.$node.toggleClass(this.styleNames.ended, isEnded);
+
     this.$liveIndicator.html(
       this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT, { isEnded }),
     );
+
+    if (isEnded) {
+      this._tooltipReference.disable();
+    } else {
+      this._tooltipReference.enable();
+    }
   }
 
   show() {
