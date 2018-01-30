@@ -74,6 +74,8 @@ class OverlayView extends View {
   setPoster(src) {
     if (src) {
       this.$content.css('background-image', `url('${src}')`);
+    } else {
+      this.$content.css('background-image', 'none');
     }
   }
 
