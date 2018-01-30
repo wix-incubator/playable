@@ -250,18 +250,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
   private _onManifestParsed(_eventName, data) {
     const onLevelUpdated = () => {
-      console.log(
-        'MANIFEST_PARSED+LEVEL_UPDATED',
-        _eventName,
-        data.levels[data.firstLevel],
-      );
-
       const levelDetails = data.levels[data.firstLevel].details;
 
-      if (levelDetails) {
-        this._isDynamicContent = levelDetails.live;
-        this._isDynamicContentEnded = this._isDynamicContent ? false : null;
-      }
+      this._isDynamicContent = levelDetails.live;
+      this._isDynamicContentEnded = this._isDynamicContent ? false : null;
 
       this.hls.off(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
     };
@@ -269,10 +261,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.hls.on(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
   }
 
-  private _onEndOfStream(_eventName, data) {
-    console.log('BUFFER_EOS', _eventName, data);
-
+  private _onEndOfStream() {
     if (this._isDynamicContent) {
+      this.eventEmitter.emit(VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED);
+
       this._isDynamicContentEnded = true;
     }
   }

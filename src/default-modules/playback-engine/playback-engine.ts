@@ -263,6 +263,7 @@ export default class Engine {
     if (
       this.attachedAdapter &&
       this.attachedAdapter.isDynamicContent &&
+      !this.attachedAdapter.isDynamicContentEnded &&
       !this.isSyncWithLive
     ) {
       this.setCurrentTime(this.attachedAdapter.syncWithLiveTime);
