@@ -249,6 +249,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   private _onManifestParsed() {
+    // NOTE: first  level details is not ready on MANIFEST_PARSED. Wait until first LEVEL_UPDATED
     const onLevelUpdated = (_eventName, { details }) => {
       this._isDynamicContent = details.live;
       this._isDynamicContentEnded = details.live ? false : null;
