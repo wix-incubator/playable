@@ -3,9 +3,9 @@
 ```javascript
 import VideoPlayer from 'video-player';
 
-const player = VideoPlayer.create();
-
-player.setSrc('https://my-url/video.mp4');
+const player = VideoPlayer.create({
+  src: 'https://my-url/video.mp4'
+});
 
 player.setSrc([
   'https://my-url/video.mp4',

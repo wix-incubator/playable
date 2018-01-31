@@ -2,14 +2,52 @@
 
 ```javascript
 const config = {
-   src: [
-     'http://my-url/video.mp4',
-     'http://my-url/video.webm',
-     'http://my-url/video.m3u8'
-   ],
-
-   loop: true
+  src: [
+    'http://my-url/video.mp4',
+    'http://my-url/video.webm',
+    'http://my-url/video.m3u8'
+  ],
+  loop: true,
+  autoPlay: false,
+  preload: 'auto',
+  muted: false,
+  volume: 50,
+  size: {
+    width: 160,
+    height: 90
+  },
+  screen: {
+    disableClickProcessing: false,
+    indicateScreenClick: true,
+    nativeControls: false
+  },
+  title: {
+    callback: () => console.log('click on title'),
+    text: 'Awesome video'
+  },
+  controls: {
+    shouldAlwaysShow: true
+  },
+  overlay: {
+    poster: 'https://example.com/overlay.png'
+  },
+  fullScreen: {
+    exitFullScreenOnEnd: false,
+    enterFullScreenOnPlay: true,
+    exitFullScreenOnPause: false,
+    pauseVideoOnFullScreenExit: true
+  },
+  logo: {
+    callback: () => console.log('click on logo'),
+    src: 'https://example.com/logo.png',
+    showAlways: true
+  },
+  playInline: true,
+  loader: true,
+  disableControlWithKeyboard: false,
+  fillAllSpace: true
 };
+
 const player = VideoPlayer.create(config);
 ```
 
