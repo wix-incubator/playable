@@ -7,9 +7,12 @@ type ITooltipReferenceOptions = {
 
 interface ITooltipReference {
   isHidden: boolean;
+  isDisabled: boolean;
   show(): void;
   hide(): void;
   setText(text: string): void;
+  disable(): void;
+  enable(): void;
   destroy(): void;
 }
 
@@ -22,6 +25,8 @@ class TooltipReference implements ITooltipReference {
 
   private _options: ITooltipReferenceOptions;
   private _eventListeners: any[];
+
+  private _isDisabled: boolean;
 
   constructor(
     reference: HTMLElement,
@@ -59,7 +64,15 @@ class TooltipReference implements ITooltipReference {
     return this._tooltipService.isHidden;
   }
 
+  get isDisabled(): boolean {
+    return this._isDisabled;
+  }
+
   show() {
+    if (this._isDisabled) {
+      return;
+    }
+
     this._tooltipService.show({
       text: this._options.text,
       position: getTooltipPositionByReferenceNode(
@@ -76,6 +89,14 @@ class TooltipReference implements ITooltipReference {
   setText(text: string) {
     this._options.text = text;
     this._tooltipService.setText(text);
+  }
+
+  disable() {
+    this._isDisabled = true;
+  }
+
+  enable() {
+    this._isDisabled = false;
   }
 
   destroy() {

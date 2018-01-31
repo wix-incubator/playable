@@ -4,7 +4,7 @@ export default {
   [TEXT_LABELS.LOGO_LABEL]: 'Watch On Site',
   [TEXT_LABELS.LOGO_TOOLTIP]: 'Watch On Site',
   [TEXT_LABELS.LIVE_INDICATOR_TEXT]: ({ isEnded }) =>
-    !isEnded ? 'Live' : 'End Of Live',
+    !isEnded ? 'Live' : 'Live Ended',
   [TEXT_LABELS.LIVE_SYNC_LABEL]: 'Sync to Live',
   [TEXT_LABELS.LIVE_SYNC_TOOLTIP]: 'Sync to Live',
   [TEXT_LABELS.PAUSE_CONTROL_LABEL]: 'Pause',

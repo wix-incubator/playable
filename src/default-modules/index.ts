@@ -3,6 +3,7 @@ import DependencyContainer from '../core/dependency-container';
 import ThemeService from './ui/core/theme';
 
 import Engine from './playback-engine/playback-engine';
+import LiveStateEngine from './playback-engine/live-state-engine';
 import FullScreenManager from './full-screen-manager/full-screen-manager';
 import EventEmitter from './event-emitter/event-emitter';
 import TextMap from './text-map/text-map';
@@ -39,6 +40,7 @@ export default {
   rootContainer: asClass(RootContainer).scoped(),
   textMap: asClass(TextMap).scoped(),
   engine: asClass(Engine).scoped(),
+  liveStateEngine: asClass(LiveStateEngine).scoped(),
   fullScreenManager: asClass(FullScreenManager).scoped(),
   keyboardInterceptor: asClass(KeyboardInterceptor).scoped(),
   mouseInterceptor: asClass(MouseInterceptor).scoped(),

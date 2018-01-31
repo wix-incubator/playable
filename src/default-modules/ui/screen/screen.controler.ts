@@ -189,10 +189,8 @@ export default class Screen {
       const state = this._engine.getCurrentState();
 
       if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
-        this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
         this._manipulationIndicator.showPause();
       } else {
-        this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED);
         this._manipulationIndicator.showPlay();
       }
     }
@@ -228,8 +226,10 @@ export default class Screen {
     const state = this._engine.getCurrentState();
 
     if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
+      this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
       this._engine.pause();
     } else {
+      this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED);
       this._engine.play();
     }
   }

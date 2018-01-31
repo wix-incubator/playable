@@ -206,11 +206,11 @@ class ProgressView extends View<IProgressViewStyles>
     this._callbacks.onSyncWithLiveClick();
   }
 
-  private _showSyncWithLive() {
+  showSyncWithLive() {
     this._$syncButton.classList.remove(this.styleNames.hidden);
   }
 
-  private _hideSyncWithLive() {
+  hideSyncWithLive() {
     this._$syncButton.classList.add(this.styleNames.hidden);
   }
 
@@ -242,13 +242,13 @@ class ProgressView extends View<IProgressViewStyles>
   setLiveMode() {
     this._$node.classList.add(this.styleNames.inLive);
 
-    this._showSyncWithLive();
+    this.showSyncWithLive();
   }
 
   setUsualMode() {
     this._$node.classList.remove(this.styleNames.inLive);
 
-    this._hideSyncWithLive();
+    this.hideSyncWithLive();
   }
 
   setPlayed(percent: number) {
