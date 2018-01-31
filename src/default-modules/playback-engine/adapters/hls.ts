@@ -248,12 +248,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.hls.attachMedia(this.videoElement);
   }
 
-  private _onManifestParsed(_eventName, data) {
-    const onLevelUpdated = () => {
-      const levelDetails = data.levels[data.firstLevel].details;
-
-      this._isDynamicContent = levelDetails.live;
-      this._isDynamicContentEnded = this._isDynamicContent ? false : null;
+  private _onManifestParsed() {
+    const onLevelUpdated = (_eventName, { details }) => {
+      this._isDynamicContent = details.live;
+      this._isDynamicContentEnded = details.live ? false : null;
 
       this.hls.off(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
     };

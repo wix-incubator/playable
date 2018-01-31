@@ -124,7 +124,10 @@ class LiveStateEngine {
       const nextState = state;
 
       this._state = state;
-      this._eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, { prevState, nextState });
+      this._eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        prevState,
+        nextState,
+      });
     }
   }
 
