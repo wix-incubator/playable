@@ -17,7 +17,6 @@
   "files": [
     "./src/index.ts",
     "./src/develop.ts",
-    "./src/e2e/playback-test.ts",
-    "./scripts/documentation/index.ts"
+    "./src/e2e/playback-test.ts"
   ]
 }
