@@ -1,5 +1,5 @@
 const t = require('@babel/types');
-const { isJSDocComment, createJSDocComment } = require('okidoc/lib/utils/ast');
+const { isJSDocComment, createJSDocComment } = require('@wix/okidoc/lib/utils/ast');
 
 const {
   isPlayerApiDecorator,
