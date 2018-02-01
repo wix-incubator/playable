@@ -8,7 +8,7 @@ import createPlayerTestkit from '../../../testkit';
 import LiveIndicator from './live-indicator';
 
 import { describe } from 'selenium-webdriver/testing';
-import { STATES, VIDEO_EVENTS } from '../../../constants';
+import { VIDEO_EVENTS, LiveState } from '../../../constants';
 
 describe('LiveIndicator', () => {
   let testkit;
@@ -66,68 +66,53 @@ describe('LiveIndicator', () => {
     });
   });
 
-  describe('on playback status change', () => {
-    it('should hide and deactivate on `SRC_SET`', () => {
+  describe('on live state change', () => {
+    it('should reset on `LiveState.NONE`', () => {
       const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
       const viewToggleActiveSpy = sinon.spy(liveIndicator.view, 'toggleActive');
+      const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
 
       liveIndicator.show();
 
-      expect(liveIndicator.isHidden, 'hidden before SRC_SET').to.be.false;
+      expect(liveIndicator.isHidden, 'hidden before `LiveState.NONE`').to.be
+        .false;
 
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-        nextState: STATES.SRC_SET,
+      eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        nextState: LiveState.NONE,
       });
 
-      expect(liveIndicator.isHidden).to.be.true;
-      expect(viewToggleSpy.calledWith(false)).to.be.true;
-      expect(viewToggleActiveSpy.calledWith(false)).to.be.true;
+      expect(liveIndicator.isHidden, 'isHidden').to.be.true;
+      expect(viewToggleSpy.calledWith(false), 'view.toggle called with `false`')
+        .to.be.true;
+      expect(
+        viewToggleActiveSpy.calledWith(false),
+        'view.toggleActive called with `false`',
+      ).to.be.true;
+      expect(
+        viewToggleEndedSpy.calledWith(false),
+        'view.toggleEnded called with `false`',
+      ).to.be.true;
 
       viewToggleSpy.restore();
       viewToggleActiveSpy.restore();
-    });
-
-    it('should ignore on `METADATA_LOADED` for NOT dynamic content', () => {
-      const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
-
-      expect(engine.isDynamicContent, 'dynamic content').to.be.false;
-      expect(liveIndicator.isHidden, 'hidden before METADATA_LOADED').to.be
-        .true;
-
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-        nextState: STATES.METADATA_LOADED,
-      });
-
-      expect(liveIndicator.isHidden).to.be.true;
-      expect(viewToggleSpy.called).to.be.false;
-
-      viewToggleSpy.restore();
+      viewToggleEndedSpy.restore();
     });
 
     describe('for dynamic content', () => {
       beforeEach(() => {
-        Reflect.defineProperty(engine, 'isDynamicContent', {
-          ...Reflect.getOwnPropertyDescriptor(
-            engine.constructor.prototype,
-            'isDynamicContent',
-          ),
-          get: () => true,
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.NONE,
         });
       });
 
-      afterEach(() => {
-        Reflect.deleteProperty(engine, 'isDynamicContent');
-      });
-
-      it('should show when `METADATA_LOADED`', () => {
+      it('should show on `LiveState.INITIAL`', () => {
         const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
 
-        expect(engine.isDynamicContent, 'dynamic content').to.be.true;
-        expect(liveIndicator.isHidden, 'hidden before METADATA_LOADED').to.be
-          .true;
+        expect(liveIndicator.isHidden, 'hidden before `LiveState.INITIAL`').to
+          .be.true;
 
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.METADATA_LOADED,
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.INITIAL,
         });
 
         expect(liveIndicator.isHidden).to.be.false;
@@ -136,114 +121,89 @@ describe('LiveIndicator', () => {
         viewToggleSpy.restore();
       });
 
-      it('should activate when `PLAYING` sync with live', () => {
+      it('should activate on `LiveState.SYNC`', () => {
         const viewToggleActiveSpy = sinon.spy(
           liveIndicator.view,
           'toggleActive',
         );
 
-        Reflect.defineProperty(engine, 'isSyncWithLive', {
-          ...Reflect.getOwnPropertyDescriptor(
-            engine.constructor.prototype,
-            'isSyncWithLive',
-          ),
-          get: () => true,
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.INITIAL,
         });
 
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.METADATA_LOADED,
-        });
+        expect(liveIndicator.isHidden, 'hidden before `LiveState.SYNC`').to.be
+          .false;
+        expect(liveIndicator.isActive, 'active before `LiveState.SYNC`').to.be
+          .false;
 
-        expect(liveIndicator.isHidden, 'hidden before `PLAYING`').to.be.false;
-        expect(liveIndicator.isActive, 'active before `PLAYING`').to.be.false;
-
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PLAYING,
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.SYNC,
         });
 
         expect(liveIndicator.isActive).to.be.true;
         expect(viewToggleActiveSpy.calledWith(true)).to.be.true;
 
         viewToggleActiveSpy.restore();
-        Reflect.deleteProperty(engine, 'isSyncWithLive');
       });
 
-      it('should deactivate when `PLAYING` out of sync with live', () => {
+      it('should deactivate on `LiveState.NOT_SYNC`', () => {
         const viewToggleActiveSpy = sinon.spy(
           liveIndicator.view,
           'toggleActive',
         );
 
-        Reflect.defineProperty(engine, 'isSyncWithLive', {
-          ...Reflect.getOwnPropertyDescriptor(
-            engine.constructor.prototype,
-            'isSyncWithLive',
-          ),
-          get: () => true,
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.INITIAL,
         });
-
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.METADATA_LOADED,
-        });
-
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PLAYING,
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.SYNC,
         });
 
         expect(liveIndicator.isActive, 'active before out of sync').to.be.true;
 
-        Reflect.defineProperty(engine, 'isSyncWithLive', {
-          ...Reflect.getOwnPropertyDescriptor(
-            engine.constructor.prototype,
-            'isSyncWithLive',
-          ),
-          get: () => false,
-        });
-
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PLAYING,
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.NOT_SYNC,
         });
 
         expect(liveIndicator.isActive).to.be.false;
         expect(viewToggleActiveSpy.lastCall.calledWith(false)).to.be.true;
 
         viewToggleActiveSpy.restore();
-        Reflect.deleteProperty(engine, 'isSyncWithLive');
       });
 
-      it('should deactivate when NOT `PLAYING`', () => {
+      it('should react to `LiveState.ENDED`', () => {
         const viewToggleActiveSpy = sinon.spy(
           liveIndicator.view,
           'toggleActive',
         );
+        const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
 
-        Reflect.defineProperty(engine, 'isSyncWithLive', {
-          ...Reflect.getOwnPropertyDescriptor(
-            engine.constructor.prototype,
-            'isSyncWithLive',
-          ),
-          get: () => true,
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.INITIAL,
+        });
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.SYNC,
         });
 
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.METADATA_LOADED,
+        expect(liveIndicator.isActive, 'active before `LiveState.ENDED`').to.be
+          .true;
+
+        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+          nextState: LiveState.ENDED,
         });
 
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PLAYING,
-        });
-
-        expect(liveIndicator.isActive, 'active before `PAUSED`').to.be.true;
-
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PAUSED,
-        });
-
-        expect(liveIndicator.isActive).to.be.false;
-        expect(viewToggleActiveSpy.lastCall.calledWith(false)).to.be.true;
+        expect(liveIndicator.isActive, 'isActive').to.be.false;
+        expect(
+          viewToggleActiveSpy.lastCall.calledWith(false),
+          'view.toggleActive called with `false`',
+        ).to.be.true;
+        expect(
+          viewToggleEndedSpy.lastCall.calledWith(true),
+          'view.toggleEnded called with `true`',
+        ).to.be.true;
 
         viewToggleActiveSpy.restore();
-        Reflect.deleteProperty(engine, 'isSyncWithLive');
+        viewToggleEndedSpy.restore();
       });
     });
   });

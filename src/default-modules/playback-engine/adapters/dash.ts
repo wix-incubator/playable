@@ -56,6 +56,11 @@ export default class DashAdapter implements IPlaybackAdapter {
     return false;
   }
 
+  get isDynamicContentEnded() {
+    // TODO: implement isDynamicContentEnded
+    return false;
+  }
+
   get isSyncWithLive() {
     return false;
   }

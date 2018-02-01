@@ -4,6 +4,7 @@ import VIDEO_EVENTS from './events/video';
 import ERRORS from './errors';
 import TEXT_LABELS from './text-labels';
 import STATES from './engine-states';
+import LiveState from './live-state';
 
 export {
   MEDIA_STREAM_TYPES,
@@ -13,4 +14,5 @@ export {
   VIDEO_EVENTS,
   ERRORS,
   STATES,
+  LiveState,
 };

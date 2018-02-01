@@ -7,7 +7,12 @@ import {
   getOverallPlayedPercent,
 } from '../../../../utils/video-data';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
+import {
+  VIDEO_EVENTS,
+  UI_EVENTS,
+  STATES,
+  LiveState,
+} from '../../../../constants/index';
 import { AMOUNT_TO_SKIP_SECONDS } from '../../../keyboard-control/keyboard-control';
 
 import KeyboardInterceptor, {
@@ -22,6 +27,7 @@ export default class ProgressControl {
   static View = View;
   static dependencies = [
     'engine',
+    'liveStateEngine',
     'eventEmitter',
     'textMap',
     'tooltipService',
@@ -29,6 +35,7 @@ export default class ProgressControl {
   ];
 
   private _engine;
+  private _liveStateEngine;
   private _eventEmitter;
   private _textMap;
   private _tooltipService: ITooltipService;
@@ -44,8 +51,16 @@ export default class ProgressControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, textMap, tooltipService, theme }) {
+  constructor({
+    engine,
+    liveStateEngine,
+    eventEmitter,
+    textMap,
+    tooltipService,
+    theme,
+  }) {
     this._engine = engine;
+    this._liveStateEngine = liveStateEngine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
@@ -73,6 +88,11 @@ export default class ProgressControl {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._processStateChange,
+      this,
+    );
+    this._eventEmitter.on(
+      VIDEO_EVENTS.LIVE_STATE_CHANGED,
+      this._processLiveStateChange,
       this,
     );
     this._eventEmitter.on(
@@ -235,18 +255,13 @@ export default class ProgressControl {
 
         if (this._engine.isSeekAvailable) {
           this.show();
-          if (this._engine.isDynamicContent) {
-            this.view.setLiveMode();
-          } else {
-            this.view.setUsualMode();
-          }
         } else {
           this.hide();
         }
 
         break;
       case STATES.PLAYING:
-        if (this._engine.isSyncWithLive) {
+        if (this._liveStateEngine.getState() === LiveState.SYNC) {
           this.view.setPlayed(100);
         } else {
           this._startIntervalUpdates();
@@ -258,6 +273,39 @@ export default class ProgressControl {
         break;
       default:
         this._stopIntervalUpdates();
+        break;
+    }
+  }
+
+  private _processLiveStateChange({ nextState }) {
+    switch (nextState) {
+      case LiveState.NONE:
+        this.view.setLiveSyncStatus(false);
+        this.view.setUsualMode();
+        break;
+
+      case LiveState.INITIAL:
+        this.view.setLiveMode();
+        break;
+
+      case LiveState.SYNC:
+        this.view.setLiveSyncStatus(true);
+        break;
+
+      case LiveState.NOT_SYNC:
+        this.view.setLiveSyncStatus(false);
+        break;
+
+      case LiveState.ENDED:
+        this.view.setLiveSyncStatus(false);
+        this.view.hideSyncWithLive();
+
+        // ensure progress indicators show latest info
+        this._updatePlayedIndicator();
+        this._updateBufferIndicator();
+        break;
+
+      default:
         break;
     }
   }
@@ -304,12 +352,10 @@ export default class ProgressControl {
   }
 
   private _updatePlayedIndicator() {
-    if (this._engine.isSyncWithLive) {
-      this.view.setLiveSyncStatus(true);
+    if (this._liveStateEngine.getState() === LiveState.SYNC) {
+      // TODO: mb use this.updatePlayed(100) here?
       return;
     }
-
-    this.view.setLiveSyncStatus(false);
 
     const currentTime = this._engine.getCurrentTime();
     const duration = this._engine.getDurationTime();
@@ -407,6 +453,11 @@ export default class ProgressControl {
       this,
     );
     this._eventEmitter.off(
+      VIDEO_EVENTS.LIVE_STATE_CHANGED,
+      this._processLiveStateChange,
+      this,
+    );
+    this._eventEmitter.off(
       VIDEO_EVENTS.CHUNK_LOADED,
       this._updateBufferIndicator,
       this,
@@ -428,6 +479,7 @@ export default class ProgressControl {
 
     delete this._eventEmitter;
     delete this._engine;
+    delete this._liveStateEngine;
     delete this._timeIndicatorsToAdd;
   }
 }

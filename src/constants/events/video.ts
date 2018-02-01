@@ -1,6 +1,8 @@
 const VIDEO_EVENTS = {
   ERROR: 'error',
   STATE_CHANGED: 'state-changed',
+  LIVE_STATE_CHANGED: 'live-state-changed',
+  DYNAMIC_CONTENT_ENDED: 'dynamic-content-ended',
   CHUNK_LOADED: 'chunk-loaded',
   CURRENT_TIME_UPDATED: 'current-time-updated',
   DURATION_UPDATED: 'duration-updated',

@@ -30,11 +30,17 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private videoElement: HTMLVideoElement;
   private mediaStream;
 
+  private _isDynamicContent: boolean;
+  private _isDynamicContentEnded: boolean;
+
   constructor(eventEmitter) {
     this.eventEmitter = eventEmitter;
     this.hls = null;
     this.videoElement = null;
     this.mediaStream = null;
+
+    this._isDynamicContent = false;
+    this._isDynamicContentEnded = null;
 
     this._bindCallbacks();
   }
@@ -42,6 +48,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
   _bindCallbacks() {
     this.attachOnPlay = this.attachOnPlay.bind(this);
     this.broadcastError = this.broadcastError.bind(this);
+    this._onManifestParsed = this._onManifestParsed.bind(this);
+    this._onEndOfStream = this._onEndOfStream.bind(this);
   }
 
   get currentUrl() {
@@ -60,16 +68,15 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   get isDynamicContent(): boolean {
-    if (!this.hls) {
-      return false;
-    }
-    const { details } = this.hls.levels[this.hls.firstLevel];
+    return this._isDynamicContent;
+  }
 
-    return details.live;
+  get isDynamicContentEnded(): boolean {
+    return this._isDynamicContentEnded;
   }
 
   get isSyncWithLive(): boolean {
-    if (!this.isDynamicContent) {
+    if (!this.isDynamicContent || this.isDynamicContentEnded) {
       return false;
     }
 
@@ -80,9 +87,12 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   get isSeekAvailable(): boolean {
-    if (this.isDynamicContent) {
-      const { details } = this.hls.levels[this.hls.firstLevel];
-      const type = details.type || '';
+    if (this.isDynamicContent && this.hls.levels) {
+      const level = this.hls.levels[this.hls.firstLevel];
+      if (!level.details) {
+        return false;
+      }
+      const type = level.details.type || '';
       return type.trim() === 'EVENT';
     }
 
@@ -235,8 +245,30 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
     this.hls = new HlsJs(config);
     this.hls.on(HlsJs.Events.ERROR, this.broadcastError);
+    this.hls.on(HlsJs.Events.MANIFEST_PARSED, this._onManifestParsed);
+    this.hls.on(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
     this.hls.loadSource(this.mediaStream.url);
     this.hls.attachMedia(this.videoElement);
+  }
+
+  private _onManifestParsed() {
+    // NOTE: first  level details is not ready on MANIFEST_PARSED. Wait until first LEVEL_UPDATED
+    const onLevelUpdated = (_eventName, { details }) => {
+      this._isDynamicContent = details.live;
+      this._isDynamicContentEnded = details.live ? false : null;
+
+      this.hls.off(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
+    };
+
+    this.hls.on(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
+  }
+
+  private _onEndOfStream() {
+    if (this._isDynamicContent) {
+      this.eventEmitter.emit(VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED);
+
+      this._isDynamicContentEnded = true;
+    }
   }
 
   detach() {
@@ -244,6 +276,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
       return;
     }
     this.hls.off(HlsJs.Events.ERROR, this.broadcastError);
+    this.hls.off(HlsJs.Events.MANIFEST_PARSED, this._onManifestParsed);
+    this.hls.off(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
     this.hls.destroy();
     this.hls = null;
 

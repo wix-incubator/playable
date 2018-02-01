@@ -79,6 +79,7 @@ export default class TimeControl {
       case STATES.METADATA_LOADED:
         if (this._engine.isSeekAvailable) {
           if (this._engine.isDynamicContent) {
+            // TODO: is duration hidden when live ended?
             this.view.hideDuration();
           }
         } else {
@@ -103,6 +104,7 @@ export default class TimeControl {
 
   _updateCurrentTime() {
     if (this._engine.isDynamicContent) {
+      // TODO: is it same for live ended?
       this.view.setCurrentTimeBackward(!this._engine.isSyncWithLive);
     }
 

@@ -28,7 +28,11 @@ $inactive-color: #959595;
     padding: 2px 3px;
   }
 
-  &:hover,
+  &.ended {
+    cursor: default;
+  }
+
+  &:hover:not(.ended),
   &.active {
     background-color: $active-color;
   }
