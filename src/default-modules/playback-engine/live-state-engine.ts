@@ -66,7 +66,7 @@ class LiveStateEngine {
       return;
     }
 
-    if (!this._engine.isDynamicContent) {
+    if (!this._engine.isDynamicContent || this._engine.isDynamicContentEnded) {
       return;
     }
 
@@ -108,7 +108,10 @@ class LiveStateEngine {
   }
 
   private _processSeekByUI() {
-    if (this._engine.getCurrentState() === STATES.PLAYING) {
+    if (
+      this._engine.isDynamicContent &&
+      this._engine.getCurrentState() === STATES.PLAYING
+    ) {
       // NOTE: flag should be handled on `PLAYING` state in `_processStateChange`
       this._isSeekedByUIWhilePlaying = true;
     }
