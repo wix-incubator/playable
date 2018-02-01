@@ -4,6 +4,8 @@
 
 `VIDEO_EVENTS.STATE_CHANGED` - Playback state changed. You can check all states [below](#playback-states).
 
+`VIDEO_EVENTS.LIVE_STATE_CHANGED` - Live video state changed. You can check all states [below](#live-states).
+
 `VIDEO_EVENTS.CHUNK_LOADED` - Chunk of video loaded.
 
 `VIDEO_EVENTS.CURRENT_TIME_UPDATED` - Updated current time of playback.
