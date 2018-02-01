@@ -12,6 +12,7 @@ import {
   MEDIA_STREAM_TYPES,
   MEDIA_STREAM_DELIVERY_TYPE,
   STATES as ENGINE_STATES,
+  LiveState as LIVE_STATES
 } from './constants';
 
 import DefaultControls from './default-modules/ui/controls/default-controls';
@@ -55,6 +56,7 @@ export {
   VIDEO_EVENTS,
   TEXT_LABELS,
   ENGINE_STATES,
+  LIVE_STATES,
   MEDIA_STREAM_TYPES,
   MEDIA_STREAM_DELIVERY_TYPE,
   playerAPIDecorator,
