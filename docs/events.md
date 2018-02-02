@@ -5,6 +5,7 @@ include:
   - ./events/ui-events.md
   - ./events/errors.md
   - ./events/playback-states.md
+  - ./events/live-states.md
 ---
 
 # Player events
