@@ -24,7 +24,7 @@ class TitleView extends View {
     this.$node = $('<div>');
 
     this.$title = $('<div>', {
-      class: `${this.styleNames.title} ${this.themeStyles.text}`,
+      class: `${this.styleNames.title} ${this.themeStyles.titleText}`,
       [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
     });
 

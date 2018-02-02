@@ -1,13 +1,23 @@
-const generatedIds = new Set();
-function getUniqueId(): string {
-  const id = (Math.random() * 1e4).toFixed(0);
+import camelToKebab from './camelToKebab';
 
-  if (generatedIds.has(id)) {
-    return getUniqueId();
+const generatedIds: Map<string, number> = new Map();
+
+function getUniquePostfix(className): string {
+  if (generatedIds.has(className)) {
+    const newID: number = generatedIds.get(className) + 1;
+    generatedIds.set(className, newID);
+
+    return `${newID}`;
   }
 
-  generatedIds.add(id);
-  return id;
+  generatedIds.set(className, 0);
+  return '';
+}
+
+function getUniqueId(classImportName: string): string {
+  const kebabName: string = camelToKebab(classImportName);
+
+  return `${kebabName}${getUniquePostfix(kebabName)}`;
 }
 
 export default getUniqueId;

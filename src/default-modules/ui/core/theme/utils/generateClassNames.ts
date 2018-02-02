@@ -1,11 +1,10 @@
-import camelToKebab from './camelToKebab';
 import getUniqueId from './getUniqueId';
 
 import { IStyles } from '../../types';
 import { ICSSRules } from '../types';
 
-function getUniqueClassName(classImportName) {
-  return `wix-vp--${camelToKebab(classImportName)}-${getUniqueId()}`;
+function getUniqueClassName(classImportName: string) {
+  return `wix-playable--${getUniqueId(classImportName)}`;
 }
 
 function generateClassNames(rules: ICSSRules): IStyles {

@@ -27,11 +27,7 @@ interface IMediaSource {
   type: string;
 }
 
-interface ISourceArray {
-  [index: number]: string | IMediaSource;
-}
-
-export type MediaSource = string | IMediaSource | ISourceArray;
+export type MediaSource = string | IMediaSource | Array<string | IMediaSource>;
 
 /**
  * @property type - Name of current attached stream.

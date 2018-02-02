@@ -6,6 +6,6 @@
     width="100%"
     style="padding-bottom: 100%; height: 1px; overflow: visible">
     <!-- padding-bottom: 100% * height/width -->
-    <path class="${props.themeStyles.svgFill}" fill-rule="evenodd" d="M2 10H0v4h4v-2H2v-2zM0 1v3h2V2h2V0H0v1zm14-1h-4v2h2v2h2V0zm-2 12h-2v2h4v-4h-2v2z"/>
+    <path class="${props.themeStyles.fullScreenSvgFill}" fill-rule="evenodd" d="M2 10H0v4h4v-2H2v-2zM0 1v3h2V2h2V0H0v1zm14-1h-4v2h2v2h2V0zm-2 12h-2v2h4v-4h-2v2z"/>
   </svg>
 </div>

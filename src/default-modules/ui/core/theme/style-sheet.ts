@@ -89,7 +89,7 @@ export class StyleSheet {
   }
 
   private _getRuleStyles(rule) {
-    const simpleRuleNames = Object.keys(rule).filter(
+    const simpleRuleNames: Array<string> = Object.keys(rule).filter(
       ruleName => typeof rule[ruleName] !== 'object',
     );
 

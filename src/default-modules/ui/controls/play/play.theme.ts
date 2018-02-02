@@ -1,5 +1,5 @@
 export default {
-  svgFill: {
+  playSvgFill: {
     fill: data => data.color,
   },
 };
