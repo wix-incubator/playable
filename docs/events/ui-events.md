@@ -52,7 +52,7 @@
 
 `UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED` - Soune unmuted via keyobard.
 
-`UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED` - Manipulation indicator disappeared.
+`UI_EVENTS.HIDE_INTERACTION_INDICATOR_TRIGGERED` - Interaction indicator disappeared.
 
 `UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED` - Player width changed.
 

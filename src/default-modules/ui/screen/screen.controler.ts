@@ -7,13 +7,11 @@ const PLAYBACK_CHANGE_TIMEOUT = 300;
 
 const DEFAULT_CONFIG = {
   disableClickProcessing: false,
-  indicateScreenClick: true,
   nativeControls: false,
 };
 
 export interface IScreenConfig {
   disableClickProcessing?: boolean;
-  indicateScreenClick?: boolean;
   nativeControls?: boolean;
 }
 
@@ -24,18 +22,17 @@ export default class Screen {
     'eventEmitter',
     'config',
     'fullScreenManager',
-    'manipulationIndicator',
+    'interactionIndicator',
     'rootContainer',
   ];
 
   private _eventEmitter;
   private _engine;
   private _fullScreenManager;
-  private _manipulationIndicator;
+  private _interactionIndicator;
 
   private _delayedToggleVideoPlaybackTimeout;
 
-  private _indicateScreenClick: boolean;
   private _disableClickProcessing: boolean;
   private _isInFullScreen: boolean;
 
@@ -47,23 +44,19 @@ export default class Screen {
     eventEmitter,
     engine,
     fullScreenManager,
-    manipulationIndicator,
+    interactionIndicator,
     rootContainer,
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._fullScreenManager = fullScreenManager;
-    this._manipulationIndicator = manipulationIndicator;
+    this._interactionIndicator = interactionIndicator;
 
     this._isInFullScreen = false;
     this.isHidden = false;
 
     this._delayedToggleVideoPlaybackTimeout = null;
-    this._indicateScreenClick = get(
-      config.screen,
-      'indicateScreenClick',
-      DEFAULT_CONFIG.indicateScreenClick,
-    );
+
     this._disableClickProcessing = get(
       config.screen,
       'disableClickProcessing',
@@ -75,10 +68,6 @@ export default class Screen {
       get(config.screen, 'nativeControls', DEFAULT_CONFIG.nativeControls),
     );
     this._bindEvents();
-
-    if (this._indicateScreenClick) {
-      this.view.appendComponentNode(this._manipulationIndicator.node);
-    }
 
     rootContainer.appendComponentNode(this.node);
   }
@@ -185,21 +174,17 @@ export default class Screen {
   }
 
   _showPlaybackChangeIndicator() {
-    if (this._indicateScreenClick) {
-      const state = this._engine.getCurrentState();
+    const state = this._engine.getCurrentState();
 
-      if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
-        this._manipulationIndicator.showPause();
-      } else {
-        this._manipulationIndicator.showPlay();
-      }
+    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
+      this._interactionIndicator.showPause();
+    } else {
+      this._interactionIndicator.showPlay();
     }
   }
 
   _hideDelayedPlaybackChangeIndicator() {
-    if (this._indicateScreenClick) {
-      this._eventEmitter.emit(UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED);
-    }
+    this._interactionIndicator.hideIcons();
   }
 
   _setDelayedPlaybackToggle() {
@@ -271,7 +256,7 @@ export default class Screen {
     this.view.destroy();
     delete this.view;
 
-    delete this._manipulationIndicator;
+    delete this._interactionIndicator;
     delete this._eventEmitter;
     delete this._engine;
     delete this._fullScreenManager;

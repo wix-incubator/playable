@@ -21,7 +21,7 @@ import Overlay from './ui/overlay/overlay.controler';
 import Loader from './ui/loader/loader.controler';
 import TopBlock from './ui/top-block/top-block';
 import BottomBlock from './ui/bottom-block/bottom-block';
-import ManipulationIndicator from './ui/manipulation-indicator/manipulation-indicator.controler';
+import InteractionIndicator from './ui/interaction-indicator/interaction-indicator';
 
 import ProgressControl from './ui/controls/progress/progress.controler';
 import PlayControl from './ui/controls/play/play.controler';
@@ -47,7 +47,7 @@ export default {
   debugPanel: asClass(DebugPanel).scoped(),
 
   screen: asClass(Screen).scoped(),
-  manipulationIndicator: asClass(ManipulationIndicator).scoped(),
+  interactionIndicator: asClass(InteractionIndicator).scoped(),
 
   overlay: asClass(Overlay).scoped(),
   loader: asClass(Loader).scoped(),

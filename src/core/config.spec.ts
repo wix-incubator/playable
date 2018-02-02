@@ -32,8 +32,8 @@ describe('getUIConfig function', () => {
       loader: false,
       controls: false,
       title: false,
+      showInteractionIndicator: false,
       screen: {
-        indicateScreenClick: false,
         disableClickProcessing: true,
         nativeControls: true,
       },
@@ -53,8 +53,8 @@ describe('getUIConfig function', () => {
       loader: false,
       controls: false,
       title: false,
+      showInteractionIndicator: false,
       screen: {
-        indicateScreenClick: false,
         disableClickProcessing: true,
         nativeControls: true,
       },
@@ -73,8 +73,8 @@ describe('getUIConfig function', () => {
       loader: false,
       controls: false,
       title: false,
+      showInteractionIndicator: false,
       screen: {
-        indicateScreenClick: false,
         disableClickProcessing: true,
         nativeControls: true,
       },

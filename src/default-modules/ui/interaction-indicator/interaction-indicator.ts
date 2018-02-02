@@ -1,22 +1,28 @@
 import { UI_EVENTS, STATES } from '../../../constants/index';
 
-import View from './manipulation-indicator.view';
+import View from './interaction-indicator.view';
 
-export default class ManipulationIndicator {
+export default class InteractionIndicator {
   static View = View;
-  static dependencies = ['engine', 'eventEmitter'];
+  static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
   private _eventEmitter;
   private _engine;
 
   view: View;
 
-  constructor({ eventEmitter, engine }) {
+  constructor({ eventEmitter, engine, config, rootContainer }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
 
     this._initUI();
     this._bindEvents();
+
+    rootContainer.appendComponentNode(this.node);
+
+    if (config.showInteractionIndicator === false) {
+      this.hide();
+    }
   }
 
   get node() {
@@ -63,11 +69,6 @@ export default class ManipulationIndicator {
       this.showIncreaseVolume,
       this,
     );
-    this._eventEmitter.on(
-      UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED,
-      this.hide,
-      this,
-    );
   }
 
   showPause() {
@@ -98,8 +99,17 @@ export default class ManipulationIndicator {
     this.view.activateDecreaseVolumeIcon();
   }
 
-  hide() {
+  hideIcons() {
     this.view.deactivateIcon();
+    this._eventEmitter.emit(UI_EVENTS.HIDE_INTERACTION_INDICATOR_TRIGGERED);
+  }
+
+  show() {
+    this.view.hide();
+  }
+
+  hide() {
+    this.view.show();
   }
 
   _unbindEvents() {
@@ -136,11 +146,6 @@ export default class ManipulationIndicator {
     this._eventEmitter.off(
       UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
       this.showIncreaseVolume,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.HIDE_MANIPULATION_INDICATOR_TRIGGERED,
-      this.hide,
       this,
     );
   }

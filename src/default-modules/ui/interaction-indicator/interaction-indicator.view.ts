@@ -2,11 +2,11 @@ import * as $ from 'jbone';
 
 import View from '../core/view';
 
-import * as styles from './manipulation-indicator.scss';
+import * as styles from './interaction-indicator.scss';
 
 const SECONDS_COUNT = 5;
 
-class ManipulationIndicatorView extends View {
+class InteractionIndicatorView extends View {
   $node;
 
   private playIcon: string;
@@ -97,6 +97,14 @@ class ManipulationIndicatorView extends View {
     this.$node.html('');
   }
 
+  hide() {
+    this.$node.addClass(this.styleNames.hidden);
+  }
+
+  show() {
+    this.$node.removeClass(this.styleNames.hidden);
+  }
+
   getNode() {
     return this.$node[0];
   }
@@ -108,6 +116,6 @@ class ManipulationIndicatorView extends View {
   }
 }
 
-ManipulationIndicatorView.extendStyleNames(styles);
+InteractionIndicatorView.extendStyleNames(styles);
 
-export default ManipulationIndicatorView;
+export default InteractionIndicatorView;

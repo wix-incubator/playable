@@ -35,15 +35,16 @@ export interface IPlayerConfig {
 
   texts?: ITextMapConfig;
 
+  showInteractionIndicator?: boolean;
   fillAllSpace?: boolean;
   disableControlWithKeyboard?: boolean;
 }
 
 const convertUIConfigForIOS = params => ({
   ...params,
+  showInteractionIndicator: false,
   screen: {
     ...params.screen,
-    indicateScreenClick: false,
     disableClickProcessing: true,
     nativeControls: true,
   },

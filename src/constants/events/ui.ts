@@ -29,8 +29,8 @@ const UI_EVENTS = {
   MUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-mute-sound-with-keyboard-triggered',
   UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED:
     'ui-unmute-sound-with-keyboard-triggered',
-  HIDE_MANIPULATION_INDICATOR_TRIGGERED:
-    'ui-hide-manipulation-indicator-triggered',
+  HIDE_INTERACTION_INDICATOR_TRIGGERED:
+    'ui-hide-interaction-indicator-triggered',
   PLAYER_WIDTH_CHANGE_TRIGGERED: 'ui-player-width-change-triggered',
   PLAYER_HEIGHT_CHANGE_TRIGGERED: 'ui-player-height-change-triggered',
   PLAY_WITH_SCREEN_CLICK_TRIGGERED: 'ui-play-with-screen-click-triggered',
