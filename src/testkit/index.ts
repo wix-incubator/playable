@@ -1,7 +1,25 @@
+import 'jsdom-global/register';
+
 import { container } from '../core/player-factory';
 import DependencyContainer from '../core/dependency-container';
 
 const { asClass } = DependencyContainer;
+
+function setProperty(target, propertyKey, propertyValue) {
+  Reflect.defineProperty(target, propertyKey, {
+    ...Reflect.getOwnPropertyDescriptor(
+      target.constructor.prototype,
+      propertyKey,
+    ),
+    get: () => propertyValue,
+  });
+}
+
+function resetProperty(target, propertyKey) {
+  Reflect.deleteProperty(target, propertyKey);
+}
+
+export { setProperty, resetProperty };
 
 export default function createPlayerTestkit(config = {}, adapters = []) {
   const _config = config;
