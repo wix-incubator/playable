@@ -1,5 +1,5 @@
 export default {
-  text: {
+  titleText: {
     color: data => data.color,
   },
 };

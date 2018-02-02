@@ -7,6 +7,6 @@
     style="padding-bottom: 140%; height: 1px; overflow: visible"
   >
     <!-- padding-bottom: 100% * height/width -->
-    <path class="${props.themeStyles.svgFill}" d="M7 0h3v14H7V0zM0 0h3v14H0V0z"/>
+    <path class="${props.themeStyles.playSvgFill}" d="M7 0h3v14H7V0zM0 0h3v14H0V0z"/>
   </svg>
 </div>

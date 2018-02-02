@@ -8,8 +8,8 @@
   >
     <!-- padding-bottom: 100% * height/width -->
     <g fill="none" fill-rule="evenodd">
-      <circle cx="18" cy="18" r="17" class="${props.themeStyles.svgStroke}" stroke-width="2"/>
-      <path class="${props.themeStyles.svgFill}" d="M23.935 17.708l-10.313 6.033V11.676z"/>
+      <circle cx="18" cy="18" r="17" class="${props.themeStyles.overlayPlaySvgStroke}" stroke-width="2"/>
+      <path class="${props.themeStyles.overlayPlaySvgFill}" d="M23.935 17.708l-10.313 6.033V11.676z"/>
     </g>
   </svg>
 </div>

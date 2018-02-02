@@ -8,8 +8,8 @@
   >
     <!-- padding-bottom: 100% * height/width -->
     <g fill="none" fill-rule="evenodd">
-      <path class="${props.themeStyles.svgFill}" d="M0 3.919h2.993v5.97H0V3.92zm2.995-.015L7 .924v12L2.995 9.882v-5.98z"/>
-      <path class="${props.themeStyles.svgStroke}" d="M9.853 10.837a5.45 5.45 0 0 0 0-7.707"/>
+      <path class="${props.themeStyles.volumeSvgFill}" d="M0 3.919h2.993v5.97H0V3.92zm2.995-.015L7 .924v12L2.995 9.882v-5.98z"/>
+      <path class="${props.themeStyles.volumeSvgStroke}" d="M9.853 10.837a5.45 5.45 0 0 0 0-7.707"/>
     </g>
   </svg>
 </div>

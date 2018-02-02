@@ -1,8 +1,8 @@
 export default {
-  svgFill: {
+  overlayPlaySvgFill: {
     fill: data => data.color,
   },
-  svgStroke: {
+  overlayPlaySvgStroke: {
     stroke: data => data.color,
   },
 };

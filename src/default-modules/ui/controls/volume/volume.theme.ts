@@ -1,10 +1,10 @@
 import { transperentizeColor } from '../../core/theme';
 
 export default {
-  svgFill: {
+  volumeSvgFill: {
     fill: data => data.color,
   },
-  svgStroke: {
+  volumeSvgStroke: {
     stroke: data => data.color,
   },
   volumeProgress: {

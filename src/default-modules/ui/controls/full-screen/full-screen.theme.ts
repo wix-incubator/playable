@@ -1,5 +1,5 @@
 export default {
-  svgFill: {
+  fullScreenSvgFill: {
     fill: data => data.color,
   },
 };
