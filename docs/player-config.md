@@ -16,9 +16,9 @@ const config = {
     width: 160,
     height: 90
   },
+  showInteractionIndicator: false,
   screen: {
     disableClickProcessing: false,
-    indicateScreenClick: true,
     nativeControls: false
   },
   title: {
@@ -78,8 +78,6 @@ const player = VideoPlayer.create(config);
 
 `config.screen.disableClickProcessing: Boolean` Pass `true` to disable control of player through click on screen
 
-`config.screen.indicateScreenClick: Boolean` Pass `false` to disable screen indication of user interaction with player
-
 `config.screen.nativeControls: Boolean` Pass `true` to show native browser controls
 
 ### Title
@@ -125,6 +123,8 @@ const player = VideoPlayer.create(config);
 `config.logo.showAlways: Boolean` Pass `true` to alow logo be visible no matter or what
 
 ### Other
+
+`config.showInteractionIndicator: Boolean` Pass `false` to disable indication of user interaction with player
 
 `config.playInline: Boolean` Attribute for playing inline in iOS
 
