@@ -1,19 +1,12 @@
 ---
 title: video-player.js
+layout: simple
 ---
 
 # video-player.js
 
-```javascript
-$ npm install video-player --save
-
-var VideoPlayer = require('video-player');
-```
-
-> Or add a `<script>` element
-
 ```html
-<script src="https://unpkg.parastorage.com/video-player@2.0.5/dist/statics/video-player.bundle.min.js"></script>
+<script src="https://static.parastorage.com/unpkg/video-player@2.0.43/dist/statics/video-player.bundle.min.js"></script>
 
 <script>
   var VideoPlayer = window.VideoPlayer;
