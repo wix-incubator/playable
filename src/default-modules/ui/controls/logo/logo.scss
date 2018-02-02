@@ -1,13 +1,7 @@
 @import '../../media-query-mixins';
+@import '../../shared';
 
-
-.hidden {
-  visibility: hidden!important;
-
-  opacity: 0!important;
-}
-
-.wrapper {
+.logoWrapper {
   position: relative;
   z-index: 3;
 
@@ -23,15 +17,9 @@
   align-items: center;
 
   &:hover {
-    .default-logo,
+    .logoPlaceholder,
     img {
       opacity: .7;
-    }
-
-    .tooltip {
-      visibility: visible;
-
-      opacity: 1;
     }
   }
 
@@ -40,7 +28,7 @@
   }
 }
 
-.company-logo {
+.companyLogo {
   max-width: 125px;
   max-height: 26px;
 
@@ -60,7 +48,7 @@
   }
 }
 
-.default-logo {
+.logoPlaceholder {
   width: 14px;
   min-width: 14px;
   height: 14px;
@@ -68,25 +56,14 @@
 
   transition: transform .2s;
 
-  background-image: url('../../../../assets/view-on-site.svg');
-  background-size: 14px 14px;
-
   @include in-full-screen() {
     width: 21px;
     min-width: 21px;
     height: 21px;
     min-height: 21px;
-
-    background-size: 21px 21px;
   }
 
   &:hover {
     transform: scale(1.20);
-  }
-
-  &.in-full-screen {
-    &:hover {
-      transform: scale(.8);
-    }
   }
 }

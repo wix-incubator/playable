@@ -1,0 +1,19 @@
+<div class="${props.styles.logoWrapper}">
+  <img class="${props.styles.companyLogo}"
+       data-hook="company-logo"
+       aria-label="${props.texts.label}"
+       role="button"
+       tab-index="0" />
+  <div class="${props.styles.logoPlaceholder}"
+       data-hook="logo-placeholder">
+    <svg xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 14 14"
+        preserveAspectRatio="xMidYMin slice"
+        width="100%"
+        style="padding-bottom: 127%; height: 1px; overflow: visible">
+      <path fill="#FFF"
+            fill-rule="evenodd"
+            d="M2 12h10v-2h2v4H0V0h4v2H2v10zm10-8.515L7.414 8.071 6 6.657 10.657 2H9.004V0H14v5.005h-2v-1.52z"/>
+    </svg>
+  </div>
+</div>

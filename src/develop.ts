@@ -22,6 +22,9 @@ const player: any = VideoPlayer.create({
   src: DEFAULT_URL,
   playInline: true,
   overlay: false,
+  logo: {
+    src: '',
+  },
 });
 
 Object.defineProperty(window, 'player', {

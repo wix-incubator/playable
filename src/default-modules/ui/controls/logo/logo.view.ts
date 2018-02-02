@@ -1,12 +1,15 @@
-import * as $ from 'jbone';
-
 import { TEXT_LABELS } from '../../../../constants/index';
 
 import { ITooltipService, ITooltipReference } from '../../core/tooltip';
 import View from '../../core/view';
+import { IView } from '../../core/types';
+import { ILogoViewStyles } from './types';
+import { logoTemplate } from './templates';
+
+import htmlToElement from '../../core/htmlToElement';
+import getElementByHook from '../../core/getElementByHook';
 
 import * as styles from './logo.scss';
-import * as viewOnSiteIcon from '../../../../assets/view-on-site.svg';
 
 type ILogoViewConfig = {
   callbacks: { onLogoClick: Function };
@@ -15,13 +18,14 @@ type ILogoViewConfig = {
   logo?: string;
 };
 
-class LogoView extends View {
+class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   private _tooltipReference: ITooltipReference;
   private _callbacks;
   private _textMap;
 
-  $node;
-  $logo;
+  private _$node: HTMLElement;
+  private _$logo: HTMLElement;
+  private _$placeholder: HTMLElement;
 
   constructor(config: ILogoViewConfig) {
     super();
@@ -30,22 +34,21 @@ class LogoView extends View {
     this._callbacks = callbacks;
     this._textMap = textMap;
 
-    this.$node = $('<div>', {
-      class: this.styleNames.wrapper,
-    });
+    this._$node = htmlToElement(
+      logoTemplate({
+        styles: this.styleNames,
+        texts: {
+          label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
+        },
+      }),
+    );
 
-    this.$logo = $('<img>', {
-      class: this.styleNames['default-logo'],
-      'aria-label': this._textMap.get(TEXT_LABELS.LOGO_LABEL),
-      role: 'button',
-      tabIndex: 0,
-    });
+    this._$logo = getElementByHook(this._$node, 'company-logo');
+    this._$placeholder = getElementByHook(this._$node, 'logo-placeholder');
 
-    this._tooltipReference = tooltipService.createReference(this.$logo[0], {
+    this._tooltipReference = tooltipService.createReference(this._$node, {
       text: this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
     });
-
-    this.$node.append(this.$logo);
 
     this.setLogo(config.logo);
 
@@ -55,18 +58,22 @@ class LogoView extends View {
 
   setLogo(url) {
     if (url) {
-      this.$logo.removeClass(this.styleNames['default-logo']);
-      this.$logo.addClass(this.styleNames['company-logo']);
-      this.$logo.attr('src', url);
+      this._$logo.classList.remove(this.styleNames.hidden);
+      this._$placeholder.classList.add(this.styleNames.hidden);
+      this._$logo.setAttribute('src', url);
     } else {
-      this.$logo.removeClass(this.styleNames['company-logo']);
-      this.$logo.addClass(this.styleNames['default-logo']);
-      this.$logo.attr('src', viewOnSiteIcon);
+      this._$logo.classList.add(this.styleNames.hidden);
+      this._$placeholder.classList.remove(this.styleNames.hidden);
+      this._$logo.removeAttribute('src');
     }
   }
 
   setDisplayAsLink(flag) {
-    this.$node.toggleClass(this.styleNames.link, flag);
+    if (flag) {
+      this._$node.classList.add(this.styleNames.link);
+    } else {
+      this._$node.classList.remove(this.styleNames.link);
+    }
   }
 
   _bindCallbacks() {
@@ -74,36 +81,41 @@ class LogoView extends View {
   }
 
   _bindEvents() {
-    this.$logo[0].addEventListener('click', this._onNodeClick);
+    this._$node.addEventListener('click', this._onNodeClick);
   }
 
   _unbindEvents() {
-    this.$logo[0].removeEventListener('click', this._onNodeClick);
+    this._$node.removeEventListener('click', this._onNodeClick);
   }
 
   _onNodeClick() {
-    this.$logo[0].focus();
+    this._$node.focus();
     this._callbacks.onLogoClick();
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   destroy() {
     this._unbindEvents();
     this._tooltipReference.destroy();
-    this.$node.remove();
 
-    delete this.$node;
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
+
+    delete this._$node;
+    delete this._$logo;
+    delete this._$placeholder;
 
     delete this._tooltipReference;
     delete this._textMap;

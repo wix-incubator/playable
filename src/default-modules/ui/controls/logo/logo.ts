@@ -74,7 +74,7 @@ export default class Logo {
 
   _initInterceptor() {
     this._interceptor = new KeyboardInterceptor({
-      node: this.view.$logo[0],
+      node: this.node,
       callbacks: {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
