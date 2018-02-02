@@ -1,0 +1,9 @@
+<div class="${props.styles.icon}">
+  <svg class="${props.styles.pauseIcon} ${props.styles.animatedIcon}"
+       xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 10 14">
+    <path fill="#FFF"
+          fill-rule="evenodd"
+          d="M7 0h3v14H7V0zM0 0h3v14H0V0z"/>
+  </svg>
+</div>

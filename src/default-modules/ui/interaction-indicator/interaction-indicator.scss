@@ -1,4 +1,4 @@
-.icon-container {
+.iconContainer {
   position: absolute;
   z-index: 100;
   top: 0;
@@ -23,7 +23,7 @@
 
     box-sizing: initial;
 
-    animation-name: fade-out;
+    animation-name: fadeOut;
     animation-duration: .5s;
 
     opacity: 0;
@@ -34,17 +34,17 @@
     align-items: center;
   }
 
-  .animated-icon {
-    animation-name: icon-size;
+  .animatedIcon {
+    animation-name: iconSize;
     animation-duration: .5s;
   }
 
-  .play-icon {
+  .playIcon {
     position: relative;
     left: 3px;
   }
 
-  .pause-icon {
+  .pauseIcon {
     margin: 5px 0;
   }
 
@@ -71,7 +71,7 @@
   }
 }
 
-@keyframes icon-size {
+@keyframes iconSize {
   from {
     width: 22px;
     height: 22px;
@@ -83,7 +83,7 @@
   }
 }
 
-@keyframes fade-out {
+@keyframes fadeOut {
   from {
     width: 22px;
     height: 22px;

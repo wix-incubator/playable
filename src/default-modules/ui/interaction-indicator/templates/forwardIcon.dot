@@ -1,0 +1,12 @@
+<div class="${props.styles.icon}">
+  <div class="${props.styles.seconds}">
+    <span>${props.texts.SECONDS_COUNT}</span>
+  </div>
+  <svg class="${props.styles.animatedIcon}"
+       xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 34 34">
+    <path fill="#FFF"
+          fill-rule="evenodd"
+          d="M17 0c4.59 0 8.84 1.87 11.9 4.93V1.7h3.4v10.2H22.1V8.5h5.44C24.99 5.27 21.25 3.4 17 3.4 9.52 3.4 3.4 9.52 3.4 17c0 7.48 6.12 13.6 13.6 13.6 7.48 0 13.6-6.12 13.6-13.6H34c0 9.35-7.65 17-17 17S0 26.35 0 17 7.65 0 17 0z"/>
+  </svg>
+</div>
