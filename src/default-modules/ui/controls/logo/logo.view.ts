@@ -1,9 +1,9 @@
 import { TEXT_LABELS } from '../../../../constants/index';
 
-import { ITooltipService, ITooltipReference } from '../../core/tooltip';
+import { ITooltipReference } from '../../core/tooltip';
 import View from '../../core/view';
 import { IView } from '../../core/types';
-import { ILogoViewStyles } from './types';
+import { ILogoViewStyles, ILogoViewCallbacks, ILogoViewOptions } from './types';
 import { logoTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
@@ -11,23 +11,16 @@ import getElementByHook from '../../core/getElementByHook';
 
 import * as styles from './logo.scss';
 
-type ILogoViewConfig = {
-  callbacks: { onLogoClick: Function };
-  textMap: any;
-  tooltipService: ITooltipService;
-  logo?: string;
-};
-
 class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   private _tooltipReference: ITooltipReference;
-  private _callbacks;
+  private _callbacks: ILogoViewCallbacks;
   private _textMap;
 
   private _$node: HTMLElement;
   private _$logo: HTMLElement;
   private _$placeholder: HTMLElement;
 
-  constructor(config: ILogoViewConfig) {
+  constructor(config: ILogoViewOptions) {
     super();
     const { callbacks, textMap, tooltipService } = config;
 

@@ -1,43 +1,39 @@
-import * as $ from 'jbone';
-
 import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
+import { IView } from '../../core/types';
 
-import { IThemeService } from '../../core/theme';
-import { ITooltipReference, ITooltipService } from '../../core/tooltip';
+import { ITooltipReference } from '../../core/tooltip';
 import {
+  controlTemplate,
   enterFullScreenIconTemplate,
   exitFullScreenIconTemplate,
 } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
+import getElementByHook from '../../core/getElementByHook';
+
+import {
+  IFullScreenViewStyles,
+  IFullScreenViewCallbacks,
+  IFullScreenViewOptions,
+} from './types';
 
 import fullScreenViewTheme from './full-screen.theme';
 import * as styles from './full-screen.scss';
 
-const DATA_HOOK_ATTRIBUTE = 'data-hook';
-const DATA_HOOK_CONTROL_VALUE = 'full-screen-control';
-const DATA_HOOK_BUTTON_VALUE = 'full-screen-button';
-
 const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 
-type IFullScreenViewConfig = {
-  callbacks: any;
-  textMap: any;
-  theme: IThemeService;
-  tooltipService: ITooltipService;
-};
-
-class FullScreenView extends View {
-  private _callbacks;
+class FullScreenView extends View<IFullScreenViewStyles>
+  implements IView<IFullScreenViewStyles> {
+  private _callbacks: IFullScreenViewCallbacks;
   private _textMap;
   private _tooltipReference: ITooltipReference;
 
-  $node;
-  $toggleFullScreenControl;
+  private _$node: HTMLElement;
+  private _$toggleFullScreenControl: HTMLElement;
 
-  constructor(config: IFullScreenViewConfig) {
+  constructor(config: IFullScreenViewOptions) {
     const { callbacks, textMap, tooltipService, theme } = config;
 
     super(theme);
@@ -45,38 +41,26 @@ class FullScreenView extends View {
     this._callbacks = callbacks;
     this._textMap = textMap;
 
-    this.$node = $('<div>', {
-      class: this.styleNames['full-screen-control'],
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
-      [DATA_IS_IN_FULL_SCREEN]: false,
-    });
+    this._$node = htmlToElement(
+      controlTemplate({
+        styles: this.styleNames,
+        texts: {
+          label: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
+        },
+      }),
+    );
 
-    this.$toggleFullScreenControl = $('<button>', {
-      class: `${this.styleNames['full-screen-toggle']} ${
-        this.styleNames['control-button']
-      }`,
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
-      'aria-label': this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
-      type: 'button',
-      tabIndex: 0,
-    });
+    this._$toggleFullScreenControl = getElementByHook(
+      this._$node,
+      'full-screen-button',
+    );
 
     this._tooltipReference = tooltipService.createReference(
-      this.$toggleFullScreenControl[0],
+      this._$toggleFullScreenControl,
       {
         text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       },
     );
-    this.$toggleFullScreenControl.append(
-      htmlToElement(
-        enterFullScreenIconTemplate({
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        }),
-      ),
-    );
-
-    this.$node.append(this.$toggleFullScreenControl);
 
     this.setState({ isInFullScreen: false });
     this._bindEvents();
@@ -85,72 +69,83 @@ class FullScreenView extends View {
   _bindEvents() {
     this._onButtonClick = this._onButtonClick.bind(this);
 
-    this.$toggleFullScreenControl[0].addEventListener(
+    this._$toggleFullScreenControl.addEventListener(
       'click',
       this._onButtonClick,
     );
   }
 
   _unbindEvents() {
-    this.$toggleFullScreenControl[0].removeEventListener(
+    this._$toggleFullScreenControl.removeEventListener(
       'click',
       this._onButtonClick,
     );
   }
 
   _onButtonClick() {
-    this.$toggleFullScreenControl[0].focus();
-    this._callbacks.onToggleFullScreenButtonClick();
+    this._$toggleFullScreenControl.focus();
+    this._callbacks.onButtonClick();
   }
 
   setState({ isInFullScreen }) {
-    this.$toggleFullScreenControl.toggleClass(
-      this.styleNames['in-full-screen'],
-      isInFullScreen,
-    );
+    if (isInFullScreen) {
+      this._$toggleFullScreenControl.classList.add(
+        this.styleNames.inFullScreen,
+      );
+      this._$toggleFullScreenControl.innerHTML = exitFullScreenIconTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+      });
+      this._$toggleFullScreenControl.setAttribute(
+        'aria-label',
+        this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL),
+      );
 
-    const iconTemplate = isInFullScreen
-      ? exitFullScreenIconTemplate
-      : enterFullScreenIconTemplate;
+      this._tooltipReference.setText(
+        this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP),
+      );
+    } else {
+      this._$toggleFullScreenControl.classList.remove(
+        this.styleNames.inFullScreen,
+      );
+      this._$toggleFullScreenControl.innerHTML = enterFullScreenIconTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+      });
+      this._$toggleFullScreenControl.setAttribute(
+        'aria-label',
+        this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
+      );
 
-    this.$toggleFullScreenControl[0].innerHTML = iconTemplate({
-      styles: this.styleNames,
-      themeStyles: this.themeStyles,
-    });
+      this._tooltipReference.setText(
+        this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
+      );
+    }
 
-    this.$toggleFullScreenControl.attr(
-      'aria-label',
-      isInFullScreen
-        ? this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL)
-        : this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
-    );
-    this._tooltipReference.setText(
-      isInFullScreen
-        ? this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP)
-        : this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
-    );
-    this.$node.attr(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
+    this._$node.setAttribute(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   destroy() {
     this._unbindEvents();
     this._tooltipReference.destroy();
-    this.$node.remove();
 
-    delete this.$toggleFullScreenControl;
-    delete this.$node;
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
+    delete this._$toggleFullScreenControl;
+    delete this._$node;
 
     delete this._textMap;
   }

@@ -1,5 +1,7 @@
 import { UI_EVENTS } from '../../../../constants/index';
 
+import { IFullScreenViewOptions } from './types';
+
 import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
@@ -76,9 +78,9 @@ export default class FullScreenControl {
   }
 
   _initUI() {
-    const config = {
+    const config: IFullScreenViewOptions = {
       callbacks: {
-        onToggleFullScreenButtonClick: this._toggleFullScreen,
+        onButtonClick: this._toggleFullScreen,
       },
       textMap: this._textMap,
       tooltipService: this._tooltipService,
@@ -90,7 +92,7 @@ export default class FullScreenControl {
 
   _initInterceptor() {
     this._interceptor = new KeyboardInterceptor({
-      node: this.view.$toggleFullScreenControl[0],
+      node: this.node,
       callbacks: {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();

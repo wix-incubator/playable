@@ -4,3 +4,4 @@ export {
 export {
   default as exitFullScreenIconTemplate,
 } from './exitFullScreenIcon.dot';
+export { default as controlTemplate } from './control.dot';

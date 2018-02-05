@@ -43,7 +43,7 @@ export default class PlayControl {
 
   _initInterceptor() {
     this._interceptor = new KeyboardInterceptor({
-      node: this.view.$playbackControl[0],
+      node: this.node,
       callbacks: {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
@@ -114,7 +114,7 @@ export default class PlayControl {
   _initUI() {
     const config = {
       callbacks: {
-        onTogglePlaybackButtonClick: this._togglePlayback,
+        onButtonClick: this._togglePlayback,
       },
       theme: this._theme,
       textMap: this._textMap,

@@ -1,3 +1,5 @@
+import { ITooltipService } from '../../core/tooltip';
+
 type ILogoViewStyles = {
   logoWrapper: string;
   logoPlaceholder: string;
@@ -6,4 +8,15 @@ type ILogoViewStyles = {
   hidden: string;
 };
 
-export { ILogoViewStyles };
+type ILogoViewCallbacks = {
+  onLogoClick: Function;
+};
+
+type ILogoViewOptions = {
+  callbacks: ILogoViewCallbacks;
+  textMap: any;
+  tooltipService: ITooltipService;
+  logo?: string;
+};
+
+export { ILogoViewStyles, ILogoViewOptions, ILogoViewCallbacks };
