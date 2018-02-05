@@ -62,7 +62,7 @@
     "@babel/types": "7.0.0-beta.34",
     "@types/chai": "^4.0.8",
     "@types/mocha": "^2.2.44",
-    "@wix/okidoc": "^1.0.4",
+    "@wix/okidoc": "^1.0.12",
     "babylon": "7.0.0-beta.34",
     "chai": "~3.5.0",
     "csscomb": "^4.2.0",

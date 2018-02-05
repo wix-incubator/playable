@@ -7,6 +7,7 @@ config:
     title: video-player.js
   pathPrefix: /video-player.js
   algoliaApiKey: 8b7e07f448cec6e39fa301bf82ac83d6
+  githubLink: https://github.com/wix-private/video-player.js
 
 navigation:
   - path: /player-config
