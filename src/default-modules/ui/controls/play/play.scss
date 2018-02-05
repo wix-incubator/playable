@@ -1,6 +1,6 @@
 @import '../../shared';
 
-.play-control {
+.playControl {
   position: relative;
 
   display: flex;
@@ -11,7 +11,7 @@
   justify-content: flex-start;
 }
 
-.playback-toggle {
+.playbackToggle {
   width: 26px;
   min-width: 26px;
   height: 26px;

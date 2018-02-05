@@ -1,0 +1,9 @@
+<div class="${props.styles.fullScreenControl}"
+     data-hook="full-screen-control"
+     data-is-in-full-screen="false">
+  <button class="${props.styles.fullScreenToggle} ${props.styles.controlButton}"
+          data-hook="full-screen-button"
+          aria-label="${props.texts.label}"
+          type="button"
+          tabIndex="0"/>
+</div>

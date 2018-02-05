@@ -1,37 +1,32 @@
-import * as $ from 'jbone';
-
 import { TEXT_LABELS } from '../../../../constants/index';
 
 import View from '../../core/view';
+import { IView } from '../../core/types';
 
-import { playIconTemplate, pauseIconTemplate } from './templates';
+import {
+  controlTemplate,
+  playIconTemplate,
+  pauseIconTemplate,
+} from './templates';
+
 import htmlToElement from '../../core/htmlToElement';
+import getElementByHook from '../../core/getElementByHook';
 
-import { IThemeService } from '../../core/theme';
+import { IPlayViewStyles, IPlayViewCallbacks, IPlayViewOptions } from './types';
 
 import playViewTheme from './play.theme';
 import * as styles from './play.scss';
 
-const DATA_HOOK_ATTRIBUTE = 'data-hook';
-const DATA_HOOK_CONTROL_VALUE = 'playback-control';
-const DATA_HOOK_BUTTON_VALUE = 'toggle-playback-button';
-
 const DATA_IS_PLAYING = 'data-is-playing';
 
-type IPlayViewConfig = {
-  callbacks: any;
-  textMap: any;
-  theme: IThemeService;
-};
-
-class PlayView extends View {
-  private _callbacks;
+class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
+  private _callbacks: IPlayViewCallbacks;
   private _textMap;
 
-  $node;
-  $playbackControl;
+  private _$node: HTMLElement;
+  private _$playbackControl: HTMLElement;
 
-  constructor(config: IPlayViewConfig) {
+  constructor(config: IPlayViewOptions) {
     const { callbacks, textMap, theme } = config;
 
     super(theme);
@@ -40,32 +35,18 @@ class PlayView extends View {
 
     this._textMap = textMap;
 
-    this.$node = $('<div>', {
-      class: this.styleNames['play-control'],
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
-      [DATA_IS_PLAYING]: false,
-    });
-
-    this.$playbackControl = $('<button>', {
-      class: `${this.styleNames['playback-toggle']} ${
-        this.styleNames['control-button']
-      }`,
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
-      'aria-label': this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
-      type: 'button',
-      tabIndex: 0,
-    });
-
-    this.$playbackControl.append(
-      htmlToElement(
-        pauseIconTemplate({
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        }),
-      ),
+    this._$node = htmlToElement(
+      controlTemplate({
+        styles: this.styleNames,
+        texts: {
+          label: this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
+        },
+      }),
     );
 
-    this.$node.append(this.$playbackControl);
+    this._$playbackControl = getElementByHook(this._$node, 'playback-control');
+
+    this.setState({ isPlaying: false });
 
     this._bindEvents();
   }
@@ -73,55 +54,65 @@ class PlayView extends View {
   _bindEvents() {
     this._onButtonClick = this._onButtonClick.bind(this);
 
-    this.$playbackControl[0].addEventListener('click', this._onButtonClick);
+    this._$playbackControl.addEventListener('click', this._onButtonClick);
   }
 
   _unbindEvents() {
-    this.$playbackControl[0].removeEventListener('click', this._onButtonClick);
+    this._$playbackControl.removeEventListener('click', this._onButtonClick);
   }
 
   _onButtonClick() {
-    this.$playbackControl[0].focus();
-    this._callbacks.onTogglePlaybackButtonClick();
+    this._$playbackControl.focus();
+    this._callbacks.onButtonClick();
   }
 
   setState({ isPlaying }) {
-    this.$playbackControl.toggleClass(this.styleNames.paused, !isPlaying);
+    if (isPlaying) {
+      this._$playbackControl.classList.remove(this.styleNames.paused);
+      this._$playbackControl.innerHTML = pauseIconTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+      });
+      this._$playbackControl.setAttribute(
+        'aria-label',
+        this._textMap.get(TEXT_LABELS.PAUSE_CONTROL_LABEL),
+      );
+    } else {
+      this._$playbackControl.classList.add(this.styleNames.paused);
+      this._$playbackControl.innerHTML = playIconTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+      });
+      this._$playbackControl.setAttribute(
+        'aria-label',
+        this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
+      );
+    }
 
-    const iconTemplate = isPlaying ? pauseIconTemplate : playIconTemplate;
-
-    this.$playbackControl[0].innerHTML = iconTemplate({
-      styles: this.styleNames,
-      themeStyles: this.themeStyles,
-    });
-
-    this.$node.attr(DATA_IS_PLAYING, isPlaying);
-    this.$playbackControl.attr(
-      'aria-label',
-      isPlaying
-        ? this._textMap.get(TEXT_LABELS.PAUSE_CONTROL_LABEL)
-        : this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
-    );
+    this._$node.setAttribute(DATA_IS_PLAYING, isPlaying);
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   destroy() {
     this._unbindEvents();
-    this.$node.remove();
 
-    delete this.$playbackControl;
-    delete this.$node;
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
+
+    delete this._$playbackControl;
+    delete this._$node;
     delete this._textMap;
   }
 }

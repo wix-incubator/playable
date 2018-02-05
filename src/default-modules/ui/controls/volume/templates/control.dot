@@ -1,0 +1,14 @@
+<div class="${props.styles.volumeControl}"
+     data-hook="volume-control"
+     data-volume-percent="100"
+     data-is-muted="false">
+  <button class="${props.styles.muteButton} ${props.styles.controlButton}"
+          data-hook="mute-button"
+          aria-label="${props.texts.muteLabel}"
+          type="button"
+          tabIndex="0"/>
+  <div class="${props.styles.volumeInputBlock}"
+       data-hook="volume-input-block"
+       aria-label="${props.texts.volumeLabel}">
+  </div>
+</div>

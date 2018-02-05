@@ -1,6 +1,6 @@
 @import '../../shared';
 
-.full-screen-control {
+.fullScreenControl {
   position: relative;
 
   display: flex;
@@ -10,7 +10,7 @@
 }
 
 
-.full-screen-toggle {
+.fullScreenToggle {
   width: 26px;
   min-width: 26px;
   height: 26px;
@@ -41,7 +41,7 @@
     transform: scale(1.18);
   }
 
-  &.in-full-screen {
+  &.inFullScreen {
     &:hover {
       transform: scale(.8);
     }

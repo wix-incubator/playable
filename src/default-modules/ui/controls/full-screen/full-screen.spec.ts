@@ -89,35 +89,4 @@ describe('FullScreenControl', () => {
       fullScreenManager.exitFullScreen.restore();
     });
   });
-
-  describe('View', () => {
-    it('should react on play/pause icon click', () => {
-      const toggleSpy = sinon.spy(control, '_toggleFullScreen');
-      control._bindCallbacks();
-      control._initUI();
-
-      control.view.$toggleFullScreenControl.trigger('click');
-      expect(toggleSpy.called).to.be.true;
-    });
-
-    it('should have method for setting current time', () => {
-      expect(control.view.setState).to.exist;
-    });
-
-    it('should have method for showing itself', () => {
-      expect(control.view.show).to.exist;
-    });
-
-    it('should have method for hidding itself', () => {
-      expect(control.view.hide).to.exist;
-    });
-
-    it('should have method gettind root node', () => {
-      expect(control.view.getNode).to.exist;
-    });
-
-    it('should have method for destroying', () => {
-      expect(control.view.destroy).to.exist;
-    });
-  });
 });
