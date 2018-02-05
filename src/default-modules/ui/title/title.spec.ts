@@ -86,20 +86,17 @@ describe('Title', () => {
   describe('API', () => {
     describe('setTitle method', () => {
       let titleViewSetTitleSpy;
-      let titleViewHtmlSpy;
       let titleViewShowSpy;
       let titleViewHideSpy;
 
       beforeEach(() => {
         titleViewSetTitleSpy = sinon.spy(title.view, 'setTitle');
-        titleViewHtmlSpy = sinon.spy(title.view.$title, 'html');
         titleViewShowSpy = sinon.spy(title.view, 'show');
         titleViewHideSpy = sinon.spy(title.view, 'hide');
       });
 
       afterEach(() => {
         titleViewSetTitleSpy.restore();
-        titleViewHtmlSpy.restore();
         titleViewShowSpy.restore();
         titleViewHideSpy.restore();
       });
@@ -114,7 +111,7 @@ describe('Title', () => {
         title.setTitle(TITLE_TEXT);
 
         expect(titleViewSetTitleSpy.calledWith(TITLE_TEXT)).to.be.true;
-        expect(titleViewHtmlSpy.calledWith(TITLE_TEXT)).to.be.true;
+        expect(title.view._$title.innerHTML).to.equal(TITLE_TEXT);
         expect(titleViewShowSpy.called).to.be.true;
       });
 
@@ -123,7 +120,6 @@ describe('Title', () => {
 
         expect(titleViewSetTitleSpy.calledWith('')).to.be.true;
         // TODO: should html be cleared if setTitle called with empty value?
-        // expect(titleViewHtmlSpy.calledWith('')).to.be.true;
         expect(titleViewHideSpy.called).to.be.true;
       });
     });
@@ -148,7 +144,7 @@ describe('Title', () => {
 
         title.setTitleClickCallback(clickCallback);
 
-        title.view.$title.trigger('click');
+        title.view._$title.dispatchEvent(new Event('click'));
 
         expect(setViewDisplayAsLinkSpy.calledWith(true)).to.be.true;
         expect(clickCallback.called).to.be.true;
@@ -159,11 +155,11 @@ describe('Title', () => {
 
         title.setTitleClickCallback(clickCallback);
 
-        title.view.$title.trigger('click');
+        title.view._$title.dispatchEvent(new Event('click'));
 
         title.setTitleClickCallback();
 
-        title.view.$title.trigger('click');
+        title.view._$title.dispatchEvent(new Event('click'));
 
         expect(setViewDisplayAsLinkSpy.lastCall.calledWith(false)).to.be.true;
         expect(clickCallback.calledOnce).to.be.true;
