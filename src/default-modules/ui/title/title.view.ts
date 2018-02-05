@@ -3,6 +3,7 @@ import View from '../core/view';
 import { titleTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
+import toggleNodeClass from '../core/toggleNodeClass';
 
 import {
   ITitleViewStyles,
@@ -48,11 +49,7 @@ class TitleView extends View<ITitleViewStyles>
   }
 
   setDisplayAsLink(flag: boolean) {
-    if (flag) {
-      this._$title.classList.add(this.styleNames.link);
-    } else {
-      this._$title.classList.remove(this.styleNames.link);
-    }
+    toggleNodeClass(this._$title, this.styleNames.link, flag);
   }
 
   setTitle(title?: string) {
