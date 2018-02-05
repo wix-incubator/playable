@@ -1,48 +1,55 @@
-import * as $ from 'jbone';
-
 import View from '../core/view';
+
+import { titleTemplate } from './templates';
+import htmlToElement from '../core/htmlToElement';
+import getElementByHook from '../core/getElementByHook';
+import toggleNodeClass from '../core/toggleNodeClass';
+
+import {
+  ITitleViewStyles,
+  ITitleViewCallbacks,
+  ITitleViewConfig,
+} from './types';
+import { IView } from '../core/types';
 
 import titleViewTheme from './title.theme';
 import * as styles from './title.scss';
 
-const DATA_HOOK_ATTRIBUTE = 'data-hook';
-const DATA_HOOK_VALUE = 'video-title';
+class TitleView extends View<ITitleViewStyles>
+  implements IView<ITitleViewStyles> {
+  private _callbacks: ITitleViewCallbacks;
 
-class TitleView extends View {
-  private _callbacks;
+  _$node: HTMLElement;
+  _$title: HTMLElement;
 
-  $node;
-  $title;
-
-  constructor(config) {
+  constructor(config: ITitleViewConfig) {
     const { callbacks, theme } = config;
 
     super(theme);
 
     this._callbacks = callbacks;
 
-    this.$node = $('<div>');
-
-    this.$title = $('<div>', {
-      class: `${this.styleNames.title} ${this.themeStyles.titleText}`,
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VALUE,
-    });
-
-    this.$node.append(this.$title);
-
+    this._initDOM();
     this._bindEvents();
   }
 
+  _initDOM() {
+    this._$node = htmlToElement(
+      titleTemplate({ styles: this.styleNames, themeStyles: this.themeStyles }),
+    );
+    this._$title = getElementByHook(this._$node, 'video-title');
+  }
+
   _bindEvents() {
-    this.$title[0].addEventListener('click', this._callbacks.onClick);
+    this._$title.addEventListener('click', this._callbacks.onClick);
   }
 
   _unbindEvents() {
-    this.$title[0].removeEventListener('click', this._callbacks.onClick);
+    this._$title.removeEventListener('click', this._callbacks.onClick);
   }
 
   setDisplayAsLink(flag: boolean) {
-    this.$title.toggleClass(this.styleNames.link, flag);
+    toggleNodeClass(this._$title, this.styleNames.link, flag);
   }
 
   setTitle(title?: string) {
@@ -50,29 +57,32 @@ class TitleView extends View {
     // TODO: what if we call with empty value `.setTitle('')` and then call `.show()` method? Mb clear value anyway?
     if (title) {
       this.show();
-      this.$title.html(title);
+      this._$title.innerHTML = title;
     } else {
       this.hide();
     }
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   destroy() {
     this._unbindEvents();
-    this.$node.remove();
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
 
-    delete this.$node;
+    delete this._$node;
+    delete this._$title;
   }
 }
 
