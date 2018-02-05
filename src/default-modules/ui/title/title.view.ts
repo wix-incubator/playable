@@ -4,16 +4,24 @@ import { titleTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
 
+import {
+  ITitleViewStyles,
+  ITitleViewCallbacks,
+  ITitleViewConfig,
+} from './types';
+import { IView } from '../core/types';
+
 import titleViewTheme from './title.theme';
 import * as styles from './title.scss';
 
-class TitleView extends View {
-  private _callbacks;
+class TitleView extends View<ITitleViewStyles>
+  implements IView<ITitleViewStyles> {
+  private _callbacks: ITitleViewCallbacks;
 
   _$node: HTMLElement;
   _$title: HTMLElement;
 
-  constructor(config) {
+  constructor(config: ITitleViewConfig) {
     const { callbacks, theme } = config;
 
     super(theme);

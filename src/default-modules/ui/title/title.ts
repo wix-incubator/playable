@@ -4,6 +4,9 @@ import View from './title.view';
 
 import playerAPI from '../../../utils/player-api-decorator';
 
+import { IThemeService } from '../core/theme';
+import { ITitleViewConfig } from './types';
+
 export interface ITitleConfig {
   text?: string;
   callback?: Function;
@@ -13,8 +16,8 @@ export default class TitleControl {
   static View = View;
   static dependencies = ['config', 'theme'];
 
-  private _callback;
-  private _theme;
+  private _callback: Function;
+  private _theme: IThemeService;
 
   view: View;
   isHidden: boolean;
@@ -42,7 +45,7 @@ export default class TitleControl {
   }
 
   _initUI() {
-    const config = {
+    const config: ITitleViewConfig = {
       theme: this._theme,
       callbacks: {
         onClick: this._triggerCallback,
