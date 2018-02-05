@@ -3,7 +3,7 @@
 $active-color: #ea492e;
 $inactive-color: #959595;
 
-.liveIndicatorWrapper {
+.liveIndicator {
   position: relative;
   // position styles start
 
@@ -38,7 +38,7 @@ $inactive-color: #959595;
   }
 }
 
-.liveIndicator {
+.liveIndicatorText {
   font-size: 12px;
   line-height: 14px;
 

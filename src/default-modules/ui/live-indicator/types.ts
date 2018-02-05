@@ -1,15 +1,15 @@
 import { ITooltipService } from '../core/tooltip';
 
 type ILiveIndicatorViewStyles = {
-  liveIndicatorWrapper: string;
   liveIndicator: string;
+  liveIndicatorText: string;
   active: string;
   hidden: string;
   ended: string;
 };
 
 type ILiveIndicatorViewCallbacks = {
-  onClick: Function;
+  onClick: EventListenerOrEventListenerObject;
 };
 
 type ILiveIndicatorViewConfig = {
