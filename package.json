@@ -90,7 +90,9 @@
     "entry": {
       "video-player": "./index.ts",
       "video-player-test": "./e2e/playback-test.ts",
-      "video-player-develop": "./develop.ts"
+      "video-player-develop": "./develop.ts",
+      "video-player-dash": "./with-dash.ts",
+      "video-player-hls": "./with-hls.ts"
     }
   },
   "keywords": [
