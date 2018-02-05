@@ -1,26 +1,31 @@
-import * as $ from 'jbone';
-import * as classNames from 'classnames';
-
 import { ITooltipReference, ITooltipService } from '../core/tooltip';
+import { IView } from '../core/types';
 import View from '../core/view';
+
+import { liveIndicatorTemplate } from './templates';
+
+import htmlToElement from '../core/htmlToElement';
+import getElementByHook from '../core/getElementByHook';
+import toggleNodeClass from '../core/toggleNodeClass';
+
+import {
+  ILiveIndicatorViewStyles,
+  ILiveIndicatorViewCallbacks,
+  ILiveIndicatorViewConfig,
+} from './types';
 
 import * as styles from './live-indicator.scss';
 import { TEXT_LABELS } from '../../../constants';
 
-type ILiveIndicatorViewConfig = {
-  callbacks: { onClick: Function };
-  textMap: any;
-  tooltipService: ITooltipService;
-};
-
-class LiveIndicatorView extends View {
-  private _callbacks;
+class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
+  implements IView<ILiveIndicatorViewStyles> {
+  private _callbacks: ILiveIndicatorViewCallbacks;
   private _textMap;
   private _tooltipService: ITooltipService;
   private _tooltipReference: ITooltipReference;
 
-  $node;
-  $liveIndicator;
+  private _$node: HTMLElement;
+  private _$liveIndicatorText: HTMLElement;
 
   constructor(config: ILiveIndicatorViewConfig) {
     super();
@@ -34,41 +39,51 @@ class LiveIndicatorView extends View {
   }
 
   private _initDOM() {
-    this.$liveIndicator = $('<span>', {
-      class: this.styleNames['live-indicator'],
-      'aria-label': this._textMap.get(TEXT_LABELS.LIVE_SYNC_LABEL),
-    }).html(this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT, {}));
-
-    // NOTE: LIVE indicator is hidden by default
-    this.$node = $('<div>', {
-      class: classNames(this.styleNames.wrapper, this.styleNames.hidden),
-    }).append(this.$liveIndicator);
-
-    this._tooltipReference = this._tooltipService.createReference(
-      this.$node[0],
-      {
-        text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
-      },
+    this._$node = htmlToElement(
+      liveIndicatorTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+        texts: {},
+      }),
     );
+
+    this._$liveIndicatorText = getElementByHook(
+      this._$node,
+      'live-indicator-text',
+    );
+
+    this._tooltipReference = this._tooltipService.createReference(this._$node, {
+      text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+    });
+
+    // NOTE: LIVE indicator is hidden and inactive by default
+    this.toggle(false);
+    this.toggleActive(false);
+    this.toggleEnded(false);
   }
 
   private _bindEvents() {
-    this.$node[0].addEventListener('click', this._callbacks.onClick);
+    this._$node.addEventListener('click', this._callbacks.onClick);
   }
 
   private _unbindEvents() {
-    this.$node[0].removeEventListener('click', this._callbacks.onClick);
+    this._$node.removeEventListener('click', this._callbacks.onClick);
   }
 
   toggleActive(shouldActivate: boolean) {
-    this.$node.toggleClass(this.styleNames.active, shouldActivate);
+    toggleNodeClass(this._$node, this.styleNames.active, shouldActivate);
   }
 
   toggleEnded(isEnded: boolean) {
-    this.$node.toggleClass(this.styleNames.ended, isEnded);
+    toggleNodeClass(this._$node, this.styleNames.ended, isEnded);
 
-    this.$liveIndicator.html(
-      this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT, { isEnded }),
+    this._$liveIndicatorText.innerText = this._textMap.get(
+      TEXT_LABELS.LIVE_INDICATOR_TEXT,
+      { isEnded },
+    );
+    this._$liveIndicatorText.setAttribute(
+      'aria-label',
+      !isEnded ? this._textMap.get(TEXT_LABELS.LIVE_SYNC_LABEL) : '',
     );
 
     if (isEnded) {
@@ -87,20 +102,23 @@ class LiveIndicatorView extends View {
   }
 
   toggle(shouldShow: boolean) {
-    this.$node.toggleClass(this.styleNames.hidden, !shouldShow);
+    toggleNodeClass(this._$node, this.styleNames.hidden, !shouldShow);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   destroy() {
     this._unbindEvents();
     this._tooltipReference.destroy();
-    this.$node.remove();
 
-    delete this.$node;
-    delete this.$liveIndicator;
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
+
+    delete this._$node;
+    delete this._$liveIndicatorText;
     delete this._callbacks;
     delete this._textMap;
   }

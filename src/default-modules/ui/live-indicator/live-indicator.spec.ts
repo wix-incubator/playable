@@ -57,8 +57,9 @@ describe('LiveIndicator', () => {
 
     it('should try to sync with live on click', () => {
       const engineSyncWithLiveSpy = sinon.spy(engine, 'syncWithLive');
+      const liveIndicatorViewNode = liveIndicator.view.getNode();
 
-      liveIndicator.view.$liveIndicator.trigger('click');
+      liveIndicatorViewNode.dispatchEvent(new Event('click'));
 
       expect(engineSyncWithLiveSpy.called).to.be.true;
 
