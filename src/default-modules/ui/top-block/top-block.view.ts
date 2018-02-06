@@ -1,13 +1,24 @@
-import * as $ from 'jbone';
-
 import View from '../core/view';
+import { IView } from '../core/types';
+
+import htmlToElement from '../core/htmlToElement';
+import getElementByHook from '../core/getElementByHook';
+
+import { topBlockTemplate } from './templates';
+
+import {
+  ITopBlockViewStyles,
+  ITopBlockViewConfig,
+  ITopBlockViewElements,
+} from './types';
 
 import * as styles from './top-block.scss';
 
-class TopBlockView extends View {
-  $node;
+class TopBlockView extends View<ITopBlockViewStyles>
+  implements IView<ITopBlockViewStyles> {
+  private _$node: HTMLElement;
 
-  constructor(config) {
+  constructor(config: ITopBlockViewConfig) {
     super();
     const { elements } = config;
 
@@ -15,31 +26,21 @@ class TopBlockView extends View {
     this._bindEvents();
   }
 
-  private _initDOM(elements) {
-    this.$node = $('<div>', {
-      class: this.styleNames['top-block'],
-      'data-hook': 'top-block',
-    });
+  private _initDOM(elements: ITopBlockViewElements) {
+    this._$node = htmlToElement(
+      topBlockTemplate({
+        styles: this.styleNames,
+      }),
+    );
 
-    const $elementsContainer = $('<div>', {
-      class: this.styleNames['elements-container'],
-    });
+    const $titleContainer = getElementByHook(this._$node, 'title-container');
+    const $liveIndicatorContainer = getElementByHook(
+      this._$node,
+      'live-indicator-container',
+    );
 
-    const $titleContainer = $('<div>', {
-      class: this.styleNames['title-container'],
-    });
-
-    $titleContainer.append(elements.title);
-
-    const $liveIndicatorContainer = $('<div>', {
-      class: this.styleNames['live-indicator-container'],
-    });
-
-    $liveIndicatorContainer.append(elements.liveIndicator);
-
-    $elementsContainer.append($liveIndicatorContainer).append($titleContainer);
-
-    this.$node.append($elementsContainer);
+    $titleContainer.appendChild(elements.title);
+    $liveIndicatorContainer.appendChild(elements.liveIndicator);
   }
 
   private _preventClickPropagation(e) {
@@ -47,38 +48,39 @@ class TopBlockView extends View {
   }
 
   private _bindEvents() {
-    this.$node[0].addEventListener('click', this._preventClickPropagation);
+    this._$node.addEventListener('click', this._preventClickPropagation);
   }
 
   private _unbindEvents() {
-    this.$node[0].removeEventListener('click', this._preventClickPropagation);
+    this._$node.removeEventListener('click', this._preventClickPropagation);
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   showContent() {
-    this.$node.addClass(this.styleNames.activated);
+    this._$node.classList.add(this.styleNames.activated);
   }
 
   hideContent() {
-    this.$node.removeClass(this.styleNames.activated);
+    this._$node.classList.remove(this.styleNames.activated);
   }
 
   destroy() {
     this._unbindEvents();
-    this.$node.remove();
-
-    delete this.$node;
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
+    delete this._$node;
   }
 }
 

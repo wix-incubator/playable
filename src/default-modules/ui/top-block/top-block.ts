@@ -1,5 +1,7 @@
 import View from './top-block.view';
 
+import { ITopBlockViewConfig, ITopBlockViewElements } from './types';
+
 export default class TopBlock {
   static View = View;
   static dependencies = ['config', 'screen', 'title', 'liveIndicator'];
@@ -18,15 +20,15 @@ export default class TopBlock {
     this._initUI(this._getElementsNodes(dependencies));
   }
 
-  private _initUI(elementNodes) {
-    const config = {
+  private _initUI(elementNodes: ITopBlockViewElements) {
+    const config: ITopBlockViewConfig = {
       elements: elementNodes,
     };
 
     this.view = new TopBlock.View(config);
   }
 
-  private _getElementsNodes(dependencies) {
+  private _getElementsNodes(dependencies): ITopBlockViewElements {
     const { title, liveIndicator } = dependencies;
 
     return {

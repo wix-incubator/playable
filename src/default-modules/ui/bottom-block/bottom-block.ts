@@ -1,5 +1,7 @@
 import playerAPI from '../../../utils/player-api-decorator';
 
+import { IBottomBlockViewConfig, IBottomBlockViewElements } from './types';
+
 import View from './bottom-block.view';
 
 export default class BottomBlock {
@@ -31,7 +33,7 @@ export default class BottomBlock {
     this._initLogo(config.logo);
   }
 
-  private _getElementsNodes(dependencies) {
+  private _getElementsNodes(dependencies): IBottomBlockViewElements {
     const {
       playControl,
       progressControl,
@@ -55,8 +57,8 @@ export default class BottomBlock {
     return this.view.getNode();
   }
 
-  private _initUI(elementNodes) {
-    const config = {
+  private _initUI(elementNodes: IBottomBlockViewElements) {
+    const config: IBottomBlockViewConfig = {
       elements: elementNodes,
       callbacks: {
         onBlockMouseMove: this._setFocusState,

@@ -1,0 +1,29 @@
+<div data-hook="bottom-block"
+     class="${props.styles.bottomBlock}">
+  <div class="${props.styles.progressBarContainer}"
+       data-hook="progress-bar-container">
+  </div>
+  <div class="${props.styles.elementsContainer}">
+    <div class="${props.styles.controlsContainerLeft}"
+         data-hook="controls-container-left">
+      <div class="${props.styles.playContainer}"
+         data-hook="play-container">
+      </div>
+      <div class="${props.styles.volumeContainer}"
+         data-hook="volume-container">
+      </div>
+      <div class="${props.styles.timeContainer}"
+         data-hook="time-container">
+      </div>
+    </div>
+    <div class="${props.styles.controlsContainerRight}"
+         data-hook="controls-container-right">
+      <div class="${props.styles.fullScreenContainer}"
+           data-hook="full-screen-container">
+      </div>
+    </div>
+    <div class="${props.styles.logoContainer}"
+         data-hook="logo-container">
+    </div>
+  </div>
+</div>
