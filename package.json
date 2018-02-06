@@ -49,7 +49,6 @@
     "css-element-queries": "^0.4.0",
     "dashjs": "latest",
     "eventemitter3": "^2.0.3",
-    "gh-pages": "^1.1.0",
     "hls.js": "latest",
     "jbone": "^1.2.0",
     "lodash": "^4.17.4"
@@ -64,6 +63,7 @@
     "documentation": "^5.3.3",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
+    "gh-pages": "^1.1.0",
     "glob": "^7.1.2",
     "haste-preset-yoshi": "git+ssh://git@github.com/bodia-uz/wix-haste-preset-yoshi-video-player.git#148b05a",
     "husky": "^0.13.1",
