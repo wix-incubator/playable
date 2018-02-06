@@ -4,8 +4,8 @@
     <groupId>com.wixpress.media-cloud</groupId>
     <artifactId>video-player-js</artifactId>
     <packaging>pom</packaging>
-    <name>video-player.js</name>
-    <description>video-player.js</description>
+    <name>playable</name>
+    <description>playable</description>
     <version>2.0.0-SNAPSHOT</version>
 
     <parent>
