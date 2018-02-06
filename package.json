@@ -1,6 +1,6 @@
 {
-  "name": "video-player",
-  "version": "2.0.0",
+  "name": "playable",
+  "version": "1.0.0",
   "author": {
     "name": "Oleksii Makodzeba",
     "email": "oleksiim@wix.com"
@@ -24,11 +24,11 @@
     "documentation:site": "okidoc-site develop ./docs/site.yml",
     "documentation:site:build": "npm run documentation && okidoc-site build ./docs/site.yml",
     "documentation:site:deploy": "npm run documentation:site:build && gh-pages -d sitedist",
-    "release": "haste release",
+    "release": "node scripts/npm-release.js",
     "tslint": "ts-node node_modules/.bin/tslint -p . -c tslint.json",
     "tslint:all": "npm run tslint -- '{src,scripts}/**/*.ts'",
     "prettier": "prettier --config .prettierrc --write",
-    "prettier:all": "npm run prettier -- '{src,scripts,tslint-rules}/**/*.ts'",
+    "prettier:all": "npm run prettier -- '{src,scripts,tslint-rules}/**/*.{js,ts}'",
     "csscomb:all": "csscomb src/.",
     "test:playback": "node ./dev-env/boot-devserver-and-test.js",
     "test:unit": "haste test --mocha",
@@ -108,11 +108,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:wix-private/video-player.js.git"
+    "url": "git@github.com:wix/playable.git"
   },
   "publishConfig": {
-    "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local/"
-  },
-  "private": false,
-  "unpkg": true
+    "registry": "https://registry.npmjs.org/",
+    "logLevel": "verbose"
+  }
 }
