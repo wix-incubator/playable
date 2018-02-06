@@ -15,7 +15,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            '../dist/statics/video-player-test.bundle.js'
+            '../dist/statics/playable-test.bundle.js'
         ],
 
 

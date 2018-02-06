@@ -5,7 +5,7 @@
     "name": "Oleksii Makodzeba",
     "email": "oleksiim@wix.com"
   },
-  "main": "dist/statics/video-player.bundle.js",
+  "main": "dist/statics/playable.bundle.js",
   "module": "dist/src/index.js",
   "jsnext:main": "dist/src/index.js",
   "files": [
@@ -88,11 +88,11 @@
     "optimizeMoment": true,
     "exports": "Playable",
     "entry": {
-      "video-player": "./index.ts",
-      "video-player-test": "./e2e/playback-test.ts",
-      "video-player-develop": "./develop.ts",
-      "video-player-dash": "./with-dash.ts",
-      "video-player-hls": "./with-hls.ts"
+      "playable": "./index.ts",
+      "playable-test": "./e2e/playback-test.ts",
+      "playable-develop": "./develop.ts",
+      "playable-dash": "./with-dash.ts",
+      "playable-hls": "./with-hls.ts"
     }
   },
   "keywords": [

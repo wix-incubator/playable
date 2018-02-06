@@ -6,7 +6,7 @@ layout: simple
 # playable
 
 ```html
-<script src="https://unpkg.com/playable@1/dist/statics/video-player.bundle.min.js"></script>
+<script src="https://unpkg.com/playable@1/dist/statics/playable.bundle.min.js"></script>
 
 <script>
   var Playable = window.Playable;
