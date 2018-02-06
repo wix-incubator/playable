@@ -108,7 +108,7 @@ class RootContainer {
    * @example
    * document.addEventListener('DOMContentLoaded', function() {
    *   const config = { src: 'http://my-url/video.mp4' }
-   *   const player = VideoPlayer.create(config);
+   *   const player = Playable.create(config);
    *
    *   player.attachToElement(document.getElementById('content'));
    * });

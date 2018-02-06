@@ -5,20 +5,20 @@
 ## on
 
 ```javascript
-const VideoPlayer = require('video-player.js');
-const player = VideoPlayer.create();
+const Playable = require('playable');
+const player = Playable.create();
 
-player.on(VideoPlayer.UI_EVENTS.PLAY_TRIGGERED, () => {
+player.on(Playable.UI_EVENTS.PLAY_TRIGGERED, () => {
   // Will be executed after you will click on play button
 });
 
 // To supply a context value for `this` when the callback is invoked,
 // pass the optional context argument
-player.on(VideoPlayer.VIDEO_EVENTS.UPLOAD_STALLED, this.handleStalledUpload, this);
+player.on(Playable.VIDEO_EVENTS.UPLOAD_STALLED, this.handleStalledUpload, this);
 ```
 
 Method for adding listeners of events inside player.
-You can check all events inside <code>VideoPlayer.UI_EVENTS</code> and <code>VideoPlayer.VIDEO_EVENTS</code>
+You can check all events inside <code>Playable.UI_EVENTS</code> and <code>Playable.VIDEO_EVENTS</code>
 
 <div class="method-list">
   <table>
@@ -33,7 +33,7 @@ You can check all events inside <code>VideoPlayer.UI_EVENTS</code> and <code>Vid
         <td class="param">
           <code>event</code><span class="type">string</span class="type">
         </td>
-        <td>The Event name, such as <code>VideoPlayer.UI_EVENTS.PLAY_TRIGGERED</code></td>
+        <td>The Event name, such as <code>Playable.UI_EVENTS.PLAY_TRIGGERED</code></td>
       </tr><tr>
         <td class="param">
           <code>fn</code><span class="type">ListenerFn</span class="type">
@@ -53,21 +53,21 @@ You can check all events inside <code>VideoPlayer.UI_EVENTS</code> and <code>Vid
 ## off
 
 ```javascript
-const VideoPlayer = require('video-player.js');
-const player = VideoPlayer.create();
+const Playable = require('playable');
+const player = Playable.create();
 
 const callback = function() {
   // Code to handle some kind of event
 };
 
 // ... Now callback will be called when some one will pause the video ...
-player.on(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
+player.on(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
 
 // ... callback will no longer be called.
-player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
+player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
 
 // ... remove all handlers for event UI_EVENTS.PAUSE_TRIGGERED.
-player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED);
+player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED);
 ```
 
 Method for removing listeners of events inside player.
@@ -85,7 +85,7 @@ Method for removing listeners of events inside player.
         <td class="param">
           <code>event</code><span class="type">string</span class="type">
         </td>
-        <td>The Event name, such as <code>VideoPlayer.UI_EVENTS.PLAY_TRIGGERED</code></td>
+        <td>The Event name, such as <code>Playable.UI_EVENTS.PLAY_TRIGGERED</code></td>
       </tr><tr>
         <td class="param">
           <code>fn</code><span class="type">ListenerFn</span class="type">
@@ -639,7 +639,7 @@ Getter for DOM node with player UI element
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
   const config = { src: 'http://my-url/video.mp4' }
-  const player = VideoPlayer.create(config);
+  const player = Playable.create(config);
 
   player.attachToElement(document.getElementById('content'));
 });

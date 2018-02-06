@@ -1,7 +1,7 @@
-import VideoPlayer from './index';
+import Playable from './index';
 import DASHAdapter from './adapters/dash';
 
-VideoPlayer.registerPlaybackAdapter(DASHAdapter);
+Playable.registerPlaybackAdapter(DASHAdapter);
 
-export default VideoPlayer;
+export default Playable;
 export * from './index';

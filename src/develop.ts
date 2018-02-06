@@ -1,15 +1,15 @@
-import VideoPlayer from './index';
+import Playable from './index';
 import HLSAdapter from './adapters/hls';
 import DASHAdapter from './adapters/dash';
 import { PreloadTypes } from './default-modules/playback-engine/playback-engine';
 /* ignore coverage */
 const DEFAULT_URL = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
 
-VideoPlayer.registerPlaybackAdapter(HLSAdapter);
-VideoPlayer.registerPlaybackAdapter(DASHAdapter);
+Playable.registerPlaybackAdapter(HLSAdapter);
+Playable.registerPlaybackAdapter(DASHAdapter);
 
 /* ignore coverage */
-const player: any = VideoPlayer.create({
+const player: any = Playable.create({
   preload: PreloadTypes.METADATA,
   title: {
     text:
@@ -31,8 +31,8 @@ Object.defineProperty(window, 'player', {
   value: player,
 });
 
-Object.defineProperty(window, 'VideoPlayer', {
-  value: VideoPlayer,
+Object.defineProperty(window, 'Playable', {
+  value: Playable,
 });
 
 /* ignore coverage */
