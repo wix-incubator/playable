@@ -1,6 +1,6 @@
 import { UI_EVENTS } from '../../../../constants/index';
 
-import { IFullScreenViewOptions } from './types';
+import { IFullScreenViewConfig } from './types';
 
 import KeyboardInterceptor, {
   KEYCODES,
@@ -78,7 +78,7 @@ export default class FullScreenControl {
   }
 
   _initUI() {
-    const config: IFullScreenViewOptions = {
+    const config: IFullScreenViewConfig = {
       callbacks: {
         onButtonClick: this._toggleFullScreen,
       },

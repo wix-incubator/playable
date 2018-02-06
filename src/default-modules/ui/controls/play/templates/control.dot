@@ -5,5 +5,5 @@
           data-hook="playback-control"
           aria-label="${props.texts.label}"
           type="button"
-          tabIndex="0"/>
+          tabindex="0"/>
 </div>

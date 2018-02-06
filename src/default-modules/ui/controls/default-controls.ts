@@ -1,8 +1,8 @@
-import ProgressControl from './progress/progress.controler';
-import PlayControl from './play/play.controler';
-import TimeControl from './time/time.controler';
-import VolumeControl from './volume/volume.controler';
-import FullScreenControl from './full-screen/full-screen.controler';
+import ProgressControl from './progress/progress';
+import PlayControl from './play/play';
+import TimeControl from './time/time';
+import VolumeControl from './volume/volume';
+import FullScreenControl from './full-screen/full-screen';
 
 export default {
   PlayControl,

@@ -23,11 +23,11 @@ import TopBlock from './ui/top-block/top-block';
 import BottomBlock from './ui/bottom-block/bottom-block';
 import InteractionIndicator from './ui/interaction-indicator/interaction-indicator';
 
-import ProgressControl from './ui/controls/progress/progress.controler';
-import PlayControl from './ui/controls/play/play.controler';
-import TimeControl from './ui/controls/time/time.controler';
-import VolumeControl from './ui/controls/volume/volume.controler';
-import FullScreenControl from './ui/controls/full-screen/full-screen.controler';
+import ProgressControl from './ui/controls/progress/progress';
+import PlayControl from './ui/controls/play/play';
+import TimeControl from './ui/controls/time/time';
+import VolumeControl from './ui/controls/volume/volume';
+import FullScreenControl from './ui/controls/full-screen/full-screen';
 import Logo from './ui/controls/logo/logo';
 
 import { TooltipService } from './ui/core/tooltip';

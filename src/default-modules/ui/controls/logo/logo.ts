@@ -2,7 +2,7 @@ import * as get from 'lodash/get';
 
 import playerAPI from '../../../../utils/player-api-decorator';
 
-import { ILogoViewOptions } from './types';
+import { ILogoViewConfig } from './types';
 
 import KeyboardInterceptor, {
   KEYCODES,
@@ -63,7 +63,7 @@ export default class Logo {
   }
 
   _initUI() {
-    const config: ILogoViewOptions = {
+    const config: ILogoViewConfig = {
       callbacks: {
         onLogoClick: this._triggerCallback,
       },

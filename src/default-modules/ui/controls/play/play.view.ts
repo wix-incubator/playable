@@ -12,7 +12,7 @@ import {
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
-import { IPlayViewStyles, IPlayViewCallbacks, IPlayViewOptions } from './types';
+import { IPlayViewStyles, IPlayViewCallbacks, IPlayViewConfig } from './types';
 
 import playViewTheme from './play.theme';
 import * as styles from './play.scss';
@@ -26,7 +26,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
   private _$node: HTMLElement;
   private _$playbackControl: HTMLElement;
 
-  constructor(config: IPlayViewOptions) {
+  constructor(config: IPlayViewConfig) {
     const { callbacks, textMap, theme } = config;
 
     super(theme);

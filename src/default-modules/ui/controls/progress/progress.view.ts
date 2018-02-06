@@ -14,7 +14,7 @@ import getElementByHook from '../../core/getElementByHook';
 import {
   IProgressViewStyles,
   IProgressViewCallbacks,
-  IProgressViewOptions,
+  IProgressViewConfig,
 } from './types';
 
 import progressViewTheme from './progress.theme';
@@ -57,7 +57,7 @@ class ProgressView extends View<IProgressViewStyles>
   private _$timeIndicators: HTMLElement;
   private _$syncButton: HTMLElement;
 
-  constructor(config: IProgressViewOptions) {
+  constructor(config: IProgressViewConfig) {
     const { callbacks, textMap, tooltipService, theme } = config;
 
     super(theme);

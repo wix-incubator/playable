@@ -16,7 +16,7 @@ import getElementByHook from '../../core/getElementByHook';
 import {
   IFullScreenViewStyles,
   IFullScreenViewCallbacks,
-  IFullScreenViewOptions,
+  IFullScreenViewConfig,
 } from './types';
 
 import fullScreenViewTheme from './full-screen.theme';
@@ -33,7 +33,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
   private _$node: HTMLElement;
   private _$toggleFullScreenControl: HTMLElement;
 
-  constructor(config: IFullScreenViewOptions) {
+  constructor(config: IFullScreenViewConfig) {
     const { callbacks, textMap, tooltipService, theme } = config;
 
     super(theme);

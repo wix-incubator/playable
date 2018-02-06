@@ -8,7 +8,7 @@ import { timeTemplate } from './templates';
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
-import { ITimeViewStyles } from './types';
+import { ITimeViewStyles, ITimeViewConfig } from './types';
 import timeViewTheme from './time.theme';
 import * as styles from './time.scss';
 
@@ -19,7 +19,8 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
   private _duration: number;
   private _current: number;
   private _isBackward: boolean;
-  constructor(theme) {
+  constructor(config: ITimeViewConfig) {
+    const { theme } = config;
     super(theme);
 
     this._initDOM();
