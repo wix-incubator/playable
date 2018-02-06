@@ -3,7 +3,7 @@
 
 $color: white !default;
 
-.volume-control {
+.volumeControl {
   position: relative;
 
   display: flex;
@@ -18,8 +18,8 @@ $color: white !default;
   }
 
   &:hover,
-  &.is-dragging {
-    .volume-input-block {
+  &.isDragging {
+    .volumeInputBlock {
       width: 50px;
       margin-right: 5px;
 
@@ -33,7 +33,7 @@ $color: white !default;
   }
 }
 
-.mute-button {
+.muteButton {
   width: 26px;
   min-width: 26px;
   height: 26px;
@@ -58,7 +58,7 @@ $color: white !default;
   }
 }
 
-.volume-input-block {
+.volumeInputBlock {
   position: relative;
 
   display: block;
@@ -77,7 +77,7 @@ $color: white !default;
 }
 
 
-.progress-bar {
+.progressBar {
   position: absolute;
   top: 11.5px;
 
@@ -131,7 +131,7 @@ $color: white !default;
   [data-focus-source='key'] [data-hook='volume-control'],
   [data-focus-source='script'] [data-hook='volume-control'] {
     .focus-within {
-      &:local.volume-input-block {
+      &:local.volumeInputBlock {
         width: 50px;
         margin-right: 5px;
 

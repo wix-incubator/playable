@@ -12,11 +12,11 @@ type ILogoViewCallbacks = {
   onLogoClick: Function;
 };
 
-type ILogoViewOptions = {
+type ILogoViewConfig = {
   callbacks: ILogoViewCallbacks;
   textMap: any;
   tooltipService: ITooltipService;
   logo?: string;
 };
 
-export { ILogoViewStyles, ILogoViewOptions, ILogoViewCallbacks };
+export { ILogoViewStyles, ILogoViewConfig, ILogoViewCallbacks };

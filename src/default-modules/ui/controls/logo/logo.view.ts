@@ -3,7 +3,7 @@ import { TEXT_LABELS } from '../../../../constants/index';
 import { ITooltipReference } from '../../core/tooltip';
 import View from '../../core/view';
 import { IView } from '../../core/types';
-import { ILogoViewStyles, ILogoViewCallbacks, ILogoViewOptions } from './types';
+import { ILogoViewStyles, ILogoViewCallbacks, ILogoViewConfig } from './types';
 import { logoTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
@@ -20,7 +20,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   private _$logo: HTMLElement;
   private _$placeholder: HTMLElement;
 
-  constructor(config: ILogoViewOptions) {
+  constructor(config: ILogoViewConfig) {
     super();
     const { callbacks, textMap, tooltipService } = config;
 

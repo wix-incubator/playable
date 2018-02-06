@@ -1,3 +1,5 @@
+import { IThemeService } from '../../core/theme';
+
 type ITimeViewStyles = {
   timeWrapper: string;
   time: string;
@@ -7,4 +9,8 @@ type ITimeViewStyles = {
   hidden: string;
 };
 
-export { ITimeViewStyles };
+type ITimeViewConfig = {
+  theme: IThemeService;
+};
+
+export { ITimeViewStyles, ITimeViewConfig };

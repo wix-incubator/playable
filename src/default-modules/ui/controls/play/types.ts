@@ -12,10 +12,10 @@ type IPlayViewCallbacks = {
   onButtonClick: Function;
 };
 
-type IPlayViewOptions = {
+type IPlayViewConfig = {
   callbacks: IPlayViewCallbacks;
   textMap: any;
   theme: IThemeService;
 };
 
-export { IPlayViewStyles, IPlayViewCallbacks, IPlayViewOptions };
+export { IPlayViewStyles, IPlayViewCallbacks, IPlayViewConfig };

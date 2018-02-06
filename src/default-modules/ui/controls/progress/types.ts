@@ -27,11 +27,11 @@ type IProgressViewCallbacks = {
   onDragEnd: Function;
 };
 
-type IProgressViewOptions = {
+type IProgressViewConfig = {
   callbacks: IProgressViewCallbacks;
   textMap: any;
   theme: IThemeService;
   tooltipService: ITooltipService;
 };
 
-export { IProgressViewStyles, IProgressViewCallbacks, IProgressViewOptions };
+export { IProgressViewStyles, IProgressViewCallbacks, IProgressViewConfig };

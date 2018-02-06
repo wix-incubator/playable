@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import VolumeControl from './volume.controler';
+import VolumeControl from './volume';
 
 import { VIDEO_EVENTS } from '../../../../constants/index';
 

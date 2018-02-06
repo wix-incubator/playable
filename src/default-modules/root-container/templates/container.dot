@@ -1,5 +1,5 @@
 <div
   data-hook="player-container"
-  tabIndex="0"
+  tabindex="0"
   class="${props.styles.videoWrapper}">
 </div>

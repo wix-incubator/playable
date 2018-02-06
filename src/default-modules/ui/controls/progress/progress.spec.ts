@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import ProgressControl from './progress.controler';
+import ProgressControl from './progress';
 
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 

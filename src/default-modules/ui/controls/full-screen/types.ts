@@ -13,7 +13,7 @@ type IFullScreenViewCallbacks = {
   onButtonClick: Function;
 };
 
-type IFullScreenViewOptions = {
+type IFullScreenViewConfig = {
   callbacks: IFullScreenViewCallbacks;
   textMap: any;
   theme: IThemeService;
@@ -23,5 +23,5 @@ type IFullScreenViewOptions = {
 export {
   IFullScreenViewStyles,
   IFullScreenViewCallbacks,
-  IFullScreenViewOptions,
+  IFullScreenViewConfig,
 };

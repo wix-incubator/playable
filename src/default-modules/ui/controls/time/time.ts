@@ -1,3 +1,5 @@
+import { ITimeViewConfig } from './types';
+
 import View from './time.view';
 
 import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
@@ -53,7 +55,10 @@ export default class TimeControl {
   }
 
   _initUI() {
-    this.view = new TimeControl.View(this._theme);
+    const config: ITimeViewConfig = {
+      theme: this._theme,
+    };
+    this.view = new TimeControl.View(config);
   }
 
   _startIntervalUpdates() {

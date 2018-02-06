@@ -1,4 +1,6 @@
 import { ITooltipService } from '../../core/tooltip';
+import { IVolumeViewConfig } from './types';
+
 import View from './volume.view';
 
 import KeyboardInterceptor, {
@@ -60,7 +62,7 @@ export default class VolumeControl {
   }
 
   private _initUI() {
-    const config = {
+    const config: IVolumeViewConfig = {
       callbacks: {
         onDragStart: this._broadcastDragStart,
         onDragEnd: this._broadcastDragEnd,

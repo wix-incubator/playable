@@ -1,27 +1,27 @@
-import * as $ from 'jbone';
-import * as classnames from 'classnames';
-
 import { TEXT_LABELS } from '../../../../constants/index';
 
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import {
+  controlTemplate,
   volume0IconTemplate,
   volume50IconTemplate,
   volume100IconTemplate,
 } from './templates';
-//import htmlToElement from '../../core/htmlToElement';
-import View from '../../core/view';
 
-import { IThemeService } from '../../core/theme';
+import View from '../../core/view';
+import { IView } from '../../core/types';
+
+import htmlToElement from '../../core/htmlToElement';
+import getElementByHook from '../../core/getElementByHook';
+
+import {
+  IVolumeViewStyles,
+  IVolumeViewCallbacks,
+  IVolumeViewConfig,
+} from './types';
 
 import volumeViewTheme from './volume.theme';
 import * as styles from './volume.scss';
-
-const DATA_HOOK_ATTRIBUTE = 'data-hook';
-const DATA_HOOK_CONTROL_VALUE = 'volume-control';
-const DATA_HOOK_BUTTON_VALUE = 'mute-button';
-const DATA_HOOK_INPUT_VALUE = 'volume-input';
-const DATA_HOOK_VOLUME_INPUT_BLOCK_VALUE = 'volume-input-block';
 
 const DATA_IS_MUTED = 'data-is-muted';
 const DATA_VOLUME = 'data-volume-percent';
@@ -46,24 +46,18 @@ const getPercentBasedOnXPosition = (
   return (event.clientX - boundingRect.left) / boundingRect.width * 100;
 };
 
-type IVolumeViewConfig = {
-  callbacks: any;
-  textMap: any;
-  theme: IThemeService;
-  tooltipService: ITooltipService;
-};
-
-class VolumeView extends View {
-  private _callbacks;
+class VolumeView extends View<IVolumeViewStyles>
+  implements IView<IVolumeViewStyles> {
+  private _callbacks: IVolumeViewCallbacks;
   private _textMap;
   private _tooltipService: ITooltipService;
   private _muteButtonTooltipReference: ITooltipReference;
 
-  _$node;
-  _$muteButton;
-  _$volumeNode;
-  _$volume;
-  _$hitbox;
+  private _$node: HTMLElement;
+  private _$muteButton: HTMLElement;
+  private _$volumeNode: HTMLElement;
+  private _$volume: HTMLElement;
+  private _$hitbox: HTMLElement;
 
   private _isDragging;
 
@@ -83,71 +77,27 @@ class VolumeView extends View {
   }
 
   private _initDOM() {
-    this._$node = $('<div>', {
-      class: this.styleNames['volume-control'],
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_CONTROL_VALUE,
-      [DATA_VOLUME]: 100,
-      [DATA_IS_MUTED]: false,
-    });
+    this._$node = htmlToElement(
+      controlTemplate({
+        styles: this.styleNames,
+        texts: {
+          muteLabel: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
+          volumeLabel: this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
+        },
+      }),
+    );
 
-    this._$muteButton = $('<button>', {
-      class: `${this.styleNames['mute-button']} ${
-        this.styleNames['control-button']
-      }`,
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_BUTTON_VALUE,
-      'aria-label': this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
-      type: 'button',
-      tabIndex: 0,
-    });
+    this._$muteButton = getElementByHook(this._$node, 'mute-button');
+    this._$volumeNode = getElementByHook(this._$node, 'volume-input-block');
+    this._$hitbox = getElementByHook(this._$node, 'volume-hitbox');
+    this._$volume = getElementByHook(this._$node, 'volume-input');
 
     this._muteButtonTooltipReference = this._tooltipService.createReference(
-      this._$muteButton[0],
+      this._$muteButton,
       {
         text: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
       },
     );
-    this._$muteButton[0].innerHTML = volume0IconTemplate({
-      styles: this.styleNames,
-      themeStyles: this.themeStyles,
-    });
-
-    this._$volumeNode = $('<div>', {
-      class: this.styleNames['volume-input-block'],
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_VOLUME_INPUT_BLOCK_VALUE,
-      'aria-label': this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
-      'aria-valuemin': 0,
-      'aria-valuenow': 0,
-      'aria-valuemax': 100,
-      tabIndex: 0,
-    });
-
-    this._$hitbox = $('<div>', {
-      class: this.styleNames.hitbox,
-    });
-
-    this._$volume = $('<div>', {
-      [DATA_HOOK_ATTRIBUTE]: DATA_HOOK_INPUT_VALUE,
-      class: classnames(
-        this.styleNames['progress-bar'],
-        this.styleNames.volume,
-        this.themeStyles.volumeProgress,
-      ),
-    });
-
-    const background = $('<div>', {
-      class: classnames(
-        this.styleNames['progress-bar'],
-        this.styleNames.background,
-        this.themeStyles.volumeProgressBackground,
-      ),
-    });
-
-    this._$volumeNode
-      .append(background)
-      .append(this._$volume)
-      .append(this._$hitbox);
-
-    this._$node.append(this._$muteButton).append(this._$volumeNode);
   }
 
   private _bindCallbacks() {
@@ -161,24 +111,21 @@ class VolumeView extends View {
   }
 
   private _bindEvents() {
-    this._$hitbox[0].addEventListener('wheel', this._setVolumeByWheel);
-    this._$hitbox[0].addEventListener('mousedown', this._startDragOnMouseDown);
+    this._$hitbox.addEventListener('wheel', this._setVolumeByWheel);
+    this._$hitbox.addEventListener('mousedown', this._startDragOnMouseDown);
     window.addEventListener('mousemove', this._setVolumeByDrag);
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
 
-    this._$muteButton[0].addEventListener('click', this._onButtonClick);
+    this._$muteButton.addEventListener('click', this._onButtonClick);
   }
 
   private _unbindEvents() {
-    this._$hitbox[0].removeEventListener('wheel', this._setVolumeByWheel);
-    this._$hitbox[0].removeEventListener(
-      'mousedown',
-      this._startDragOnMouseDown,
-    );
+    this._$hitbox.removeEventListener('wheel', this._setVolumeByWheel);
+    this._$hitbox.removeEventListener('mousedown', this._startDragOnMouseDown);
     window.removeEventListener('mousemove', this._setVolumeByDrag);
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
 
-    this._$muteButton[0].removeEventListener('click', this._onButtonClick);
+    this._$muteButton.removeEventListener('click', this._onButtonClick);
   }
 
   private _startDragOnMouseDown(event: MouseEvent) {
@@ -198,13 +145,13 @@ class VolumeView extends View {
   }
 
   private _setVolumeByClick(event: MouseEvent) {
-    this._$volumeNode[0].focus();
-    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+    this._$volumeNode.focus();
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox);
     this._callbacks.onVolumeLevelChangeFromInput(percent);
   }
 
   private _setVolumeByDrag(event: MouseEvent) {
-    const percent = getPercentBasedOnXPosition(event, this._$hitbox[0]);
+    const percent = getPercentBasedOnXPosition(event, this._$hitbox);
     if (this._isDragging) {
       this._callbacks.onVolumeLevelChangeFromInput(percent);
     }
@@ -223,30 +170,30 @@ class VolumeView extends View {
 
   private _startDrag() {
     this._isDragging = true;
-    this._$node.addClass(this.styleNames['is-dragging']);
+    this._$node.classList.add(this.styleNames.isDragging);
     this._callbacks.onDragStart();
   }
 
   private _stopDrag() {
     if (this._isDragging) {
       this._isDragging = false;
-      this._$node.removeClass(this.styleNames['is-dragging']);
+      this._$node.classList.remove(this.styleNames.isDragging);
       this._callbacks.onDragEnd();
     }
   }
 
   private _setVolumeDOMAttributes(percent: number) {
-    this._$volumeNode.attr('value', percent);
-    this._$volumeNode.attr(
+    this._$volumeNode.setAttribute('value', String(percent));
+    this._$volumeNode.setAttribute(
       'aria-valuetext',
       this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { percent }),
     );
-    this._$volumeNode.attr('aria-valuenow', percent);
-    this._$volumeNode.attr(DATA_VOLUME, percent);
+    this._$volumeNode.setAttribute('aria-valuenow', String(percent));
+    this._$volumeNode.setAttribute(DATA_VOLUME, String(percent));
 
-    this._$volume.attr('style', `width:${percent}%;`);
+    this._$volume.setAttribute('style', `width:${percent}%;`);
 
-    this._$node.attr(DATA_VOLUME, percent);
+    this._$node.setAttribute(DATA_VOLUME, String(percent));
 
     const iconTemplateProps = {
       styles: this.styleNames,
@@ -254,13 +201,11 @@ class VolumeView extends View {
     };
 
     if (percent >= MAX_VOLUME_ICON_RANGE) {
-      this._$muteButton.toggleClass(this.styleNames['half-volume'], false);
-      this._$muteButton[0].innerHTML = volume100IconTemplate(iconTemplateProps);
+      this._$muteButton.innerHTML = volume100IconTemplate(iconTemplateProps);
     } else if (percent > 0) {
-      this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
-      this._$muteButton[0].innerHTML = volume50IconTemplate(iconTemplateProps);
+      this._$muteButton.innerHTML = volume50IconTemplate(iconTemplateProps);
     } else {
-      this._$muteButton.toggleClass(this.styleNames['half-volume'], true);
+      this._$muteButton.innerHTML = volume0IconTemplate(iconTemplateProps);
     }
   }
 
@@ -279,15 +224,14 @@ class VolumeView extends View {
 
   private _setMuteDOMAttributes(isMuted) {
     if (isMuted) {
-      this._$muteButton[0].innerHTML = volume0IconTemplate({
+      this._$muteButton.innerHTML = volume0IconTemplate({
         styles: this.styleNames,
         themeStyles: this.themeStyles,
       });
     }
 
-    this._$muteButton.toggleClass(this.styleNames.muted, isMuted);
-    this._$node.attr(DATA_IS_MUTED, isMuted);
-    this._$muteButton.attr(
+    this._$node.setAttribute(DATA_IS_MUTED, isMuted);
+    this._$muteButton.setAttribute(
       'aria-label',
       isMuted
         ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
@@ -301,29 +245,32 @@ class VolumeView extends View {
   }
 
   show() {
-    this._$node.toggleClass(styles.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this._$node.toggleClass(styles.hidden, true);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node[0];
+    return this._$node;
   }
 
   getButtonNode() {
-    return this._$muteButton[0];
+    return this._$muteButton;
   }
 
   getInputNode() {
-    return this._$volumeNode[0];
+    return this._$volumeNode;
   }
 
   destroy() {
     this._unbindEvents();
     this._muteButtonTooltipReference.destroy();
-    this._$node.remove();
+
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
 
     delete this._$muteButton;
     delete this._$node;

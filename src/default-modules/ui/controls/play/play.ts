@@ -1,3 +1,5 @@
+import { IPlayViewConfig } from './types';
+
 import View from './play.view';
 
 import KeyboardInterceptor, {
@@ -112,7 +114,7 @@ export default class PlayControl {
   }
 
   _initUI() {
-    const config = {
+    const config: IPlayViewConfig = {
       callbacks: {
         onButtonClick: this._togglePlayback,
       },
