@@ -86,7 +86,7 @@
   "yoshi": {
     "separateCss": false,
     "optimizeMoment": true,
-    "exports": "VideoPlayer",
+    "exports": "Playable",
     "entry": {
       "video-player": "./index.ts",
       "video-player-test": "./e2e/playback-test.ts",

@@ -48,7 +48,7 @@ const config = {
   fillAllSpace: true
 };
 
-const player = VideoPlayer.create(config);
+const player = Playable.create(config);
 ```
 
 ### Video sources

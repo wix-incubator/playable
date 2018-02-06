@@ -1,4 +1,4 @@
-import VideoPlayer from '../index';
+import Playable from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import HLSAdapter from '../default-modules/playback-engine/adapters/hls';
 import DASHAdapter from '../default-modules/playback-engine/adapters/dash';
@@ -6,8 +6,8 @@ import { PreloadTypes } from '../default-modules/playback-engine/playback-engine
 
 /* ignore coverage */
 describe('Playback e2e test', function() {
-  VideoPlayer.registerPlaybackAdapter(HLSAdapter);
-  VideoPlayer.registerPlaybackAdapter(DASHAdapter);
+  Playable.registerPlaybackAdapter(HLSAdapter);
+  Playable.registerPlaybackAdapter(DASHAdapter);
 
   this.timeout(10000);
   const node = document.createElement('div');
@@ -55,11 +55,11 @@ describe('Playback e2e test', function() {
     if (formatToTest.supportedByEnv) {
       it(`allows playback of ${formatToTest.type}`, function(done) {
         // TODO: describe `@playerApi` methods in `Player` with TS
-        const player: any = VideoPlayer.create();
+        const player: any = Playable.create();
         player.attachToElement(node);
-        player.on(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
-          if (nextState === VideoPlayer.ENGINE_STATES.PLAYING) {
-            player.off(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED);
+        player.on(Playable.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
+          if (nextState === Playable.ENGINE_STATES.PLAYING) {
+            player.off(Playable.VIDEO_EVENTS.STATE_CHANGED);
             player.destroy();
             done();
           }
@@ -71,13 +71,13 @@ describe('Playback e2e test', function() {
       it(`allows playback of ${
         formatToTest.type
       } when preload = none`, function(done) {
-        const player: any = VideoPlayer.create({
+        const player: any = Playable.create({
           preload: PreloadTypes.NONE,
         });
         player.attachToElement(node);
-        player.on(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
-          if (nextState === VideoPlayer.ENGINE_STATES.PLAYING) {
-            player.off(VideoPlayer.VIDEO_EVENTS.STATE_CHANGED);
+        player.on(Playable.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
+          if (nextState === Playable.ENGINE_STATES.PLAYING) {
+            player.off(Playable.VIDEO_EVENTS.STATE_CHANGED);
             player.destroy();
             done();
           }

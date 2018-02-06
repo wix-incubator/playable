@@ -1,15 +1,15 @@
 ---
-title: video-player.js
+title: playable
 layout: simple
 ---
 
-# video-player.js
+# playable
 
 ```html
-<script src="https://static.parastorage.com/unpkg/video-player@2.0.43/dist/statics/video-player.bundle.min.js"></script>
+<script src="https://unpkg.com/playable@1/dist/statics/video-player.bundle.min.js"></script>
 
 <script>
-  var VideoPlayer = window.VideoPlayer;
+  var Playable = window.Playable;
 </script>
 ```
 
@@ -28,10 +28,10 @@ To install the stable version use [npm](https://www.npmjs.com/).
 
 // javascript
 
-import VideoPlayer from 'video-player';
+import Playable from 'playable';
 
 document.addEventListener('DOMContentLoaded', function() {
-  const player = VideoPlayer.create({
+  const player = Playable.create({
     size: {
       width: 700,
       height: 394
@@ -40,13 +40,13 @@ document.addEventListener('DOMContentLoaded', function() {
     preload: 'metadata'
   });
 
-  player.attachToElement(document.getElementById('content'));
+  playable.attachToElement(document.getElementById('content'));
 });
 ```
 
 Check page with info about [config object](/player-config)
 
-After that just choose what you want to configure, create object with proper fields and pass it to `VideoPlayer.create`.
+After that just choose what you want to configure, create object with proper fields and pass it to `Playable.create`.
 
 It will return instance of player. You can later modify the instance (for example, as a reaction to user input) with the  [public methods](/player-public-methods).
 

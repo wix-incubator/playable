@@ -11,13 +11,13 @@ include:
 # Player events
 
 ```javascript
-// Use it from VideoPlayer object
-import VideoPlayer from 'video-player';
+// Use it from Playable object
+import Playable from 'playable';
 
-console.log(VideoPlayer.VIDEO_EVENTS);
+console.log(Playable.VIDEO_EVENTS);
 
 // Use destruction
-import { VIDEO_EVENTS } from 'video-player';
+import { VIDEO_EVENTS } from 'playable';
 
 console.log(VIDEO_EVENTS);
 ```
@@ -25,13 +25,13 @@ console.log(VIDEO_EVENTS);
 > Add new event listeners
 
 ```javascript
-player.on(VideoPlayer.UI_EVENTS.PLAY_TRIGGERED, () => {
+player.on(Playable.UI_EVENTS.PLAY_TRIGGERED, () => {
   // Will be executed after you will click on play button
 });
 
 // To supply a context value for `this` when the callback is invoked,
 // pass the optional context argument
-player.on(VideoPlayer.VIDEO_EVENTS.UPLOAD_STALLED, this.handleStalledUpload, this);
+player.on(Playable.VIDEO_EVENTS.UPLOAD_STALLED, this.handleStalledUpload, this);
 ```
 
 > And remove them
@@ -42,13 +42,13 @@ const callback = function() {
 };
 
 // ... Now callback will be called when some one will pause the video ...
-player.on(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
+player.on(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
 
 // ... callback will no longer be called.
-player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED, callback);
+player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
 
 // ... remove all handlers for event UI_EVENTS.PAUSE_TRIGGERED.
-player.off(VideoPlayer.UI_EVENTS.PAUSE_TRIGGERED);
+player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED);
 ```
 
 You can create listeners for events triggered by the video player, using [on](/api#on) method. To remove a listener, use [off](/api#off).

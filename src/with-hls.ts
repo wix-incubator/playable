@@ -1,7 +1,7 @@
-import VideoPlayer from './index';
+import Playable from './index';
 import HLSAdapter from './adapters/hls';
 
-VideoPlayer.registerPlaybackAdapter(HLSAdapter);
+Playable.registerPlaybackAdapter(HLSAdapter);
 
-export default VideoPlayer;
+export default Playable;
 export * from './index';

@@ -1,9 +1,9 @@
 # Video source
 
 ```javascript
-import VideoPlayer from 'video-player';
+import Playable from 'playable';
 
-const player = VideoPlayer.create({
+const player = Playable.create({
   src: 'https://my-url/video.mp4'
 });
 
@@ -32,11 +32,11 @@ player.setSrc([
   'https://my-url/video.mp4',
   {
     url: 'https://my-url/video.webm',
-    type: VideoPlayer.MEDIA_STREAM_TYPES.WEBM
+    type: Playable.MEDIA_STREAM_TYPES.WEBM
   },
   {
     url: 'https://my-url/video.m3u8',
-    type: VideoPlayer.MEDIA_STREAM_TYPES.HLS
+    type: Playable.MEDIA_STREAM_TYPES.HLS
   },
 ]);
 ```

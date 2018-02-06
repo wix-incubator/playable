@@ -1,11 +1,9 @@
-# video-player.js
-
-You can play with demo playground here: [https://wix-private.github.io/video-player-playground/](https://wix-private.github.io/video-player-playground/)
+# playable
 
 ## Get it
 
 ```
-$ npm install video-player --save
+$ npm install playable --save
 ```
 
 ## Use it
@@ -13,13 +11,13 @@ $ npm install video-player --save
 In modern way
 
 ```javascript
-import VideoPlayer from 'video-player';
+import Playable from 'playable';
 ```
 
 Or in old school way, add a `<script>` element for video-player
 
 ```html
-<script src="path/to/video-player/dist/statics/video-player.bundle.js"></script>
+<script src="path/to/playable/dist/statics/video-player.bundle.js"></script>
 ```
 
 And write awesome code:
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
    src: 'http://my-url/video.mp4',
    preload: 'metadata'
   };
-  const player = VideoPlayer.create(config);
+  const player = Playable.create(config);
 
   player.attachToElement(document.getElementById('content'));
 });
@@ -42,11 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## API
 
-### VideoPlayer ```config```
+### Playable ```config```
 
 #### Video sources
 
-```config.src``` A string or array with source of the video. For more information see [vidi](https://github.com/wix/vidi)
+```config.src``` A string or array with source of the video.
 
 #### Playback attributes
 
@@ -81,7 +79,7 @@ const config = {
    ],
    loop: true
 };
-const player = VideoPlayer.create(config);
+const player = Playable.create(config);
 ```
 
 ### Player public methods
@@ -110,7 +108,7 @@ const player = VideoPlayer.create(config);
 
 ```Player.getPlayInline()``` Get playInline flag
 
-```Player.on(eventName: String, listener: Function)``` Method for adding listeners of events inside player. You can check all events inside ```VideoPlayer.UI_EVENTS``` and ```VideoPlayer.VIDEO_EVENTS```
+```Player.on(eventName: String, listener: Function)``` Method for adding listeners of events inside player. You can check all events inside ```Playable.UI_EVENTS``` and ```Playable.VIDEO_EVENTS```
 
 ```Player.off(eventName: String, listener: Function)``` Method for removing listeners of events inside player.
 
@@ -119,7 +117,7 @@ const player = VideoPlayer.create(config);
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
   const config = { src: 'http://my-url/video.mp4' }
-  const player = VideoPlayer.create(config);
+  const player = Playable.create(config);
 
   player.attachToElement(document.getElementById('content'));
 });
