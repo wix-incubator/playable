@@ -10,8 +10,7 @@
   "jsnext:main": "dist/src/index.js",
   "files": [
     "dist",
-    "src",
-    "video-player-cards"
+    "src"
   ],
   "scripts": {
     "start": "PORT=5000 haste start --entry-point=./dev-env/start-dev-env.js",
@@ -56,13 +55,9 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
-    "@babel/generator": "7.0.0-beta.34",
-    "@babel/template": "7.0.0-beta.34",
-    "@babel/traverse": "7.0.0-beta.34",
-    "@babel/types": "7.0.0-beta.34",
+    "@babel/types": "7.0.0-beta.38",
     "@types/chai": "^4.0.8",
     "@types/mocha": "^2.2.44",
-    "@wix/okidoc": "^1.0.12",
     "babylon": "7.0.0-beta.34",
     "chai": "~3.5.0",
     "csscomb": "^4.2.0",
@@ -74,6 +69,7 @@
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "lint-staged": "^5.0.0",
+    "okidoc": "^1.0.0",
     "prettier": "^1.9.0",
     "sinon": "^2.3.8",
     "tslint": "^5.8.0",
