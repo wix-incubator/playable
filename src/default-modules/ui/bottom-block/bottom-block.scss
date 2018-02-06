@@ -1,6 +1,6 @@
 @import '../shared';
 
-.bottom-block {
+.bottomBlock {
   z-index: 60;
 
   display: flex;
@@ -12,28 +12,28 @@
 
   &.activated,
   &.focus-within {
-    .progress-bar-container,
-    .controls-container-left,
-    .controls-container-right,
-    .logo-container {
+    .progressBarContainer,
+    .controlsContainerLeft,
+    .controlsContainerRight,
+    .logoContainer {
       opacity: 1;
     }
   }
 
-  &.show-logo-always {
-    .logo-container {
+  &.showLogoAlways {
+    .logoContainer {
       opacity: 1;
     }
   }
 
-  &.logo-hidden {
-    .logo-container {
+  &.logoHidden {
+    .logoContainer {
       display: none;
     }
   }
 }
 
-.container-wrapper {
+.elementsContainer {
   display: flex;
 
   width: 100%;
@@ -41,7 +41,7 @@
   flex-grow: 2;
 }
 
-.progress-bar-container {
+.progressBarContainer {
   position: relative;
   top: 2px;
 
@@ -60,17 +60,17 @@
   }
 }
 
-.progress-bar-container,
-.controls-container-left,
-.controls-container-right,
-.logo-container {
+.progressBarContainer,
+.controlsContainerLeft,
+.controlsContainerRight,
+.logoContainer {
   transition: opacity .2s, visibility .2s;
 
   opacity: 0;
 }
 
-.controls-container-right,
-.controls-container-left {
+.controlsContainerRight,
+.controlsContainerLeft {
   position: relative;
 
   display: flex;
@@ -82,13 +82,13 @@
   align-items: center;
 }
 
-.controls-container-right {
+.controlsContainerRight {
   justify-content: flex-end;
 }
 
-.controls-container-right,
-.controls-container-left,
-.logo-container {
+.controlsContainerRight,
+.controlsContainerLeft,
+.logoContainer {
   height: 54px;
 
   @include in-full-screen() {
@@ -102,7 +102,7 @@
   }
 }
 
-.play-container {
+.playContainer {
   margin-right: 9px;
   margin-left: 13px;
 
@@ -118,7 +118,7 @@
   }
 }
 
-.volume-container {
+.volumeContainer {
   margin-right: 15px;
 
   @include in-full-screen() {
@@ -126,7 +126,7 @@
   }
 }
 
-.time-container {
+.timeContainer {
   margin-right: 18px;
 
   @include in-full-screen() {
@@ -137,7 +137,7 @@
   }
 }
 
-.full-screen-container {
+.fullScreenContainer {
   margin-right: 14px;
   margin-left: 5px;
 
@@ -150,7 +150,7 @@
   }
 }
 
-.logo-container {
+.logoContainer {
   display: flex;
 
   margin-right: 20px;

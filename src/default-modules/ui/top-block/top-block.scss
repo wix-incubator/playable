@@ -1,6 +1,6 @@
 @import '../shared';
 
-.top-block {
+.topBlock {
   z-index: 60;
 
   &::-moz-focus-inner {
@@ -9,17 +9,17 @@
 
   &.activated,
   &.focus-within {
-    .title-container {
+    .titleContainer {
       opacity: 1;
     }
   }
 }
 
-.live-indicator-container {
+.liveIndicatorContainer {
   flex-grow: 0;
 }
 
-.elements-container {
+.elementsContainer {
   display: flex;
   flex-direction: row;
 
@@ -41,7 +41,7 @@
   }
 }
 
-.title-container {
+.titleContainer {
   max-width: calc(100% - 200px);
 
   transition: opacity .2s, visibility .2s;
