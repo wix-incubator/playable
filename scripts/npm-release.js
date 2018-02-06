@@ -19,7 +19,9 @@ const ZERO_VERSION = '0.0.0';
 function getPublishedVersion() {
   return exec(
     'npm view playable version --registry=https://registry.npmjs.org/',
-  ).catch(e => {
+  )
+    .then(result => result.stdout && result.stdout.trim())
+    .catch(e => {
     if (e.stderr.startsWith('npm ERR! code E404')) {
       console.log('ERROR: package not found. Possibly not published yet', e);
       return ZERO_VERSION;
@@ -36,15 +38,19 @@ function shouldPublish(publishedVersion, packageJSONVersion) {
   );
 }
 
+function stringify(data) {
+  return JSON.stringify(data, null, 2);
+}
+
 writeFile(
   packageJSONPath,
   // NOTE: use `private: true` to prevent publish to npm
-  JSON.stringify(Object.assign({}, packageJSON, { private: true })),
+  stringify(Object.assign({}, packageJSON, { private: true })),
 )
   .then(getPublishedVersion)
   .then(publishedVersion => {
     if (shouldPublish(publishedVersion, packageJSON.version)) {
-      return writeFile(packageJSONPath, JSON.stringify(packageJSON)).then(
+      return writeFile(packageJSONPath, stringify(packageJSON)).then(
         () => {
           if (publishedVersion !== ZERO_VERSION) {
             console.log(
