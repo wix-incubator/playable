@@ -17,7 +17,7 @@ import Playable from 'playable';
 Or in old school way, add a `<script>` element for video-player
 
 ```html
-<script src="path/to/playable/dist/statics/video-player.bundle.js"></script>
+<script src="path/to/playable/dist/statics/playable.bundle.js"></script>
 ```
 
 And write awesome code:
