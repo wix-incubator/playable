@@ -56,8 +56,8 @@ Check page with info about [config object](/player-config)
 
 After that just choose what you want to configure, create object with proper fields and pass it to `Playable.create`.
 
-It will return instance of player. You can later modify the instance (for example, as a reaction to user input) with the  [public methods](/player-public-methods).
+It will return instance of player. You can later modify the instance (for example, as a reaction to user input) with the  [public methods](/api).
 
-To place it somewhere in your structure, just call [`attachToElement`](/player-public-methods#attachtoelement)
+To place it somewhere in your structure, just call [`attachToElement`](/api#attachtoelement)
 
 It's really important to call `attachToElement` after `DOMContentLoaded` event due to [css-element-query](https://github.com/marcj/css-element-queries)
