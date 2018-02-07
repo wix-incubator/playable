@@ -5,21 +5,29 @@ layout: simple
 
 # playable
 
+<aside class="notice">
+Integrate a video player into the product you’re working on – no hassle, no fuss, just nice and easy code for you to incorporate in your project.
+</aside>
+
+To install the stable version use [npm](https://www.npmjs.com/package/playable).
+
+```javascript
+$ npm install playable --save
+
+import Playable from 'playable';
+```
+
+Or add a `<script>` element
+
 ```html
-<script src="https://unpkg.com/playable@1/dist/statics/playable.bundle.min.js"></script>
+<script src="https://unpkg.com/playable@1.0.2/dist/statics/playable.bundle.min.js"></script>
 
 <script>
   var Playable = window.Playable;
 </script>
 ```
 
-<aside class="notice">
-Integrate a video player into the product you’re working on – no hassle, no fuss, just nice and easy code for you to incorporate in your project.
-</aside>
-
 The video player supports the following video formats: `MP4`, `WebM`, `HLS`, `DASH` manifest. Read more about [Video Source](/video-source).
-
-To install the stable version use [npm](https://www.npmjs.com/).
 
 ## How to use
 

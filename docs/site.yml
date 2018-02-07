@@ -6,7 +6,8 @@ config:
   siteMetadata:
     title: playable
   pathPrefix: /playable
-  algoliaApiKey: 8b7e07f448cec6e39fa301bf82ac83d6
+  algoliaApiKey: 16e486e2b40c2263303630cc39f2510a
+  algoliaIndexName: wix_playable
   githubLink: https://github.com/wix/playable
 
 navigation:
