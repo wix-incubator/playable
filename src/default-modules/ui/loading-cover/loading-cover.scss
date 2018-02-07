@@ -1,4 +1,4 @@
-.loading-cover {
+.loadingCover {
   position: absolute;
   z-index: 70;
   top: 0;
@@ -31,7 +31,7 @@
   opacity: 0 !important;
 }
 
-.image {
+.loadingCoverImage {
   height: 100%;
 
   transition: opacity .6s, visibility .6s;

@@ -1,0 +1,8 @@
+<div
+  class="${props.styles.loadingCover}"
+  data-hook="loading-cover">
+  <img
+    class="${props.styles.loadingCoverImage}"
+    data-hook="loading-cover-image"
+  />
+</div>
