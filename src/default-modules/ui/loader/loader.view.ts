@@ -1,46 +1,54 @@
-import * as $ from 'jbone';
-import * as classnames from 'classnames';
-
+import { IView } from '../core/types';
 import View from '../core/view';
+
+import { loaderTemplate } from './templates';
+
+import htmlToElement from '../core/htmlToElement';
+
+import { ILoaderViewStyles } from './types';
 
 import * as styles from './loader.scss';
 
-class LoaderView extends View {
-  $node;
+class LoaderView extends View<ILoaderViewStyles>
+  implements IView<ILoaderViewStyles> {
+  private _$node: HTMLElement;
 
   constructor() {
     super();
 
-    this.$node = $('<div>', {
-      class: classnames(this.styleNames.loader, this.styleNames.active),
-      'data-hook': 'loader',
-    });
+    this._$node = htmlToElement(
+      loaderTemplate({
+        styles: this.styleNames,
+      }),
+    );
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   showContent() {
-    this.$node.addClass(this.styleNames.active);
+    this._$node.classList.add(this.styleNames.active);
   }
 
   hideContent() {
-    this.$node.removeClass(this.styleNames.active);
+    this._$node.classList.remove(this.styleNames.active);
   }
 
   hide() {
-    this.$node.addClass(this.styleNames.hidden);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this.$node.removeClass(this.styleNames.hidden);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   destroy() {
-    this.$node.remove();
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
 
-    delete this.$node;
+    delete this._$node;
   }
 }
 
