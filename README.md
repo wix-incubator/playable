@@ -1,5 +1,7 @@
 # playable
 
+You can play with demo here: [https://jsfiddle.net/bodia/to0r65f4/](https://jsfiddle.net/bodia/to0r65f4/)
+
 ## Get it
 
 ```

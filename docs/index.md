@@ -27,6 +27,8 @@ Or add a `<script>` element
 </script>
 ```
 
+Or you can play with demo here: [https://jsfiddle.net/bodia/to0r65f4/](https://jsfiddle.net/bodia/to0r65f4/)
+
 The video player supports the following video formats: `MP4`, `WebM`, `HLS`, `DASH` manifest. Read more about [Video Source](/video-source).
 
 ## How to use
