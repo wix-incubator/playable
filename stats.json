@@ -13,8 +13,8 @@
       "path---api-1636e1b15c4df33fca5c.js.map"
     ],
     "path---events": [
-      "path---events-b3eaf46127e0c58304cc.js",
-      "path---events-b3eaf46127e0c58304cc.js.map"
+      "path---events-416e12037649bbe4450b.js",
+      "path---events-416e12037649bbe4450b.js.map"
     ],
     "path---adapters": [
       "path---adapters-6f818413c8fdd994ba69.js",
@@ -25,16 +25,16 @@
       "path----80059e40ceaaad320d15.js.map"
     ],
     "path---video-source": [
-      "path---video-source-ff5c19b9613d4b56168e.js",
-      "path---video-source-ff5c19b9613d4b56168e.js.map"
+      "path---video-source-b87d0a9d8b43880e5443.js",
+      "path---video-source-b87d0a9d8b43880e5443.js.map"
     ],
     "component---src-layouts-index-js": [
-      "component---src-layouts-index-js-204616545bfe2d88557e.js",
-      "component---src-layouts-index-js-204616545bfe2d88557e.js.map"
+      "component---src-layouts-index-js-c034cfc308e7a9eaa6e1.js",
+      "component---src-layouts-index-js-c034cfc308e7a9eaa6e1.js.map"
     ],
     "path---index": [
-      "path---index-b9dcd2d1678825e63d47.js",
-      "path---index-b9dcd2d1678825e63d47.js.map"
+      "path---index-0c1665fa8b3fec36bb49.js",
+      "path---index-0c1665fa8b3fec36bb49.js.map"
     ],
     "component---src-pages-404-js": [
       "component---src-pages-404-js-4503918ea3a16cfcdb75.js",
@@ -71,9 +71,9 @@
       "component---src-templates-md-js-e0c776d49690d9693599.js.map"
     ],
     "app": [
-      "app-603bd716f94bd89d1484.js",
+      "app-72afb486c88ea022faaa.js",
       "build-js-styles.css",
-      "app-603bd716f94bd89d1484.js.map",
+      "app-72afb486c88ea022faaa.js.map",
       "build-js-styles.css.map"
     ],
     "path---events-ui-events": [
@@ -93,8 +93,8 @@
       "path---events-errors-a83759be229b5218e219.js.map"
     ],
     "path---player-config": [
-      "path---player-config-316fb4df9ee70881fa8d.js",
-      "path---player-config-316fb4df9ee70881fa8d.js.map"
+      "path---player-config-7852420cdaaaf63f5954.js",
+      "path---player-config-7852420cdaaaf63f5954.js.map"
     ]
   }
 }
