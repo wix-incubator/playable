@@ -1,1 +1,1 @@
-export { default as playIconTemplate } from './playIcon.dot';
+export { default as overlayTemplate } from './overlay.dot';
