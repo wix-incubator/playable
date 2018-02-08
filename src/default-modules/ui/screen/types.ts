@@ -7,8 +7,8 @@ type IScreenViewStyles = {
 };
 
 type IScreenViewCallbacks = {
-  onWrapperMouseClick?: Function;
-  onWrapperMouseDblClick?: Function;
+  onWrapperMouseClick?: EventListenerOrEventListenerObject;
+  onWrapperMouseDblClick?: EventListenerOrEventListenerObject;
 };
 
 type IScreenViewConfig = {
