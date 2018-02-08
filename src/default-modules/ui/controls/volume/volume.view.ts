@@ -210,7 +210,7 @@ class VolumeView extends View<IVolumeViewStyles>
   }
 
   private _onButtonClick() {
-    this._$muteButton[0].focus();
+    this._$muteButton.focus();
     this._callbacks.onToggleMuteClick();
   }
 
