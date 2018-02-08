@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
     <name>playable</name>
     <description>playable</description>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <parent>
         <groupId>com.wixpress.common</groupId>
