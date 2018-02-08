@@ -1,7 +1,7 @@
 import * as get from 'lodash/get';
 import { UI_EVENTS, STATES } from '../../../constants/index';
 
-import { IScreenViewCallbacks, IScreenViewConfig } from './types';
+import { IScreenViewConfig } from './types';
 import View from './screen.view';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
@@ -34,7 +34,7 @@ export default class Screen {
 
   private _delayedToggleVideoPlaybackTimeout;
 
-  private _disableClickProcessing: boolean;
+  private _isClickProcessingDisabled: boolean;
   private _isInFullScreen: boolean;
 
   view: View;
@@ -58,7 +58,7 @@ export default class Screen {
 
     this._delayedToggleVideoPlaybackTimeout = null;
 
-    this._disableClickProcessing = get(
+    this._isClickProcessingDisabled = get(
       config.screen,
       'disableClickProcessing',
       DEFAULT_CONFIG.disableClickProcessing,
@@ -84,16 +84,12 @@ export default class Screen {
   }
 
   _initUI(isNativeControls) {
-    const callbacks: IScreenViewCallbacks = this._disableClickProcessing
-      ? {}
-      : {
-          onWrapperMouseClick: this._processNodeClick,
-          onWrapperMouseDblClick: this._processNodeDblClick,
-        };
-
     const config: IScreenViewConfig = {
       nativeControls: isNativeControls,
-      callbacks: callbacks,
+      callbacks: {
+        onWrapperMouseClick: this._processNodeClick,
+        onWrapperMouseDblClick: this._processNodeDblClick,
+      },
       playbackViewNode: this._engine.getNode(),
     };
 
@@ -147,6 +143,10 @@ export default class Screen {
   }
 
   _processNodeClick() {
+    if (this._isClickProcessingDisabled) {
+      return;
+    }
+
     this._showPlaybackChangeIndicator();
 
     if (
@@ -160,6 +160,10 @@ export default class Screen {
   }
 
   _processNodeDblClick() {
+    if (this._isClickProcessingDisabled) {
+      return;
+    }
+
     if (
       this._fullScreenManager.isEnabled ||
       !this._fullScreenManager._enterFullScreenOnPlay

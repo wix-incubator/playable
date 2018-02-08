@@ -42,8 +42,15 @@ class ScreenView extends View<IScreenViewStyles>
       }),
     );
 
-    this._$topBackground = getElementByHook(this._$node, 'screen-top-background');
-    this._$bottomBackground = getElementByHook(this._$node, 'screen-bottom-background');
+
+    this._$topBackground = getElementByHook(
+      this._$node,
+      'screen-top-background',
+    );
+    this._$bottomBackground = getElementByHook(
+      this._$node,
+      'screen-bottom-background',
+    );
 
     if (this._isNativeControls) {
       playbackViewNode.setAttribute('controls', 'true');
@@ -51,15 +58,12 @@ class ScreenView extends View<IScreenViewStyles>
 
     playbackViewNode.setAttribute('tabindex', String(-1));
 
-    // TODO: is it required to insert `playbackViewNode` as first screen block child?
-    this._$node.insertBefore(playbackViewNode, this._$topBackground);
+
+    this._$node.appendChild(playbackViewNode);
   }
 
   private _bindEvents() {
-    this._$node.addEventListener(
-      'click',
-      this._callbacks.onWrapperMouseClick,
-    );
+    this._$node.addEventListener('click', this._callbacks.onWrapperMouseClick);
     this._$node.addEventListener(
       'dblclick',
       this._callbacks.onWrapperMouseDblClick,
