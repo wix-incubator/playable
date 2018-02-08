@@ -1,6 +1,7 @@
 import * as get from 'lodash/get';
 import { UI_EVENTS, STATES } from '../../../constants/index';
 
+import { IScreenViewCallbacks, IScreenViewConfig } from './types';
 import View from './screen.view';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
@@ -83,19 +84,18 @@ export default class Screen {
   }
 
   _initUI(isNativeControls) {
-    const config = {
+    const callbacks: IScreenViewCallbacks = this._disableClickProcessing
+      ? {}
+      : {
+          onWrapperMouseClick: this._processNodeClick,
+          onWrapperMouseDblClick: this._processNodeDblClick,
+        };
+
+    const config: IScreenViewConfig = {
       nativeControls: isNativeControls,
-      callbacks: {
-        onWrapperMouseClick: undefined,
-        onWrapperMouseDblClick: undefined,
-      },
+      callbacks: callbacks,
       playbackViewNode: this._engine.getNode(),
     };
-
-    if (!this._disableClickProcessing) {
-      config.callbacks.onWrapperMouseClick = this._processNodeClick;
-      config.callbacks.onWrapperMouseDblClick = this._processNodeDblClick;
-    }
 
     this.view = new View(config);
   }

@@ -1,115 +1,123 @@
 import * as $ from 'jbone';
 
 import View from '../core/view';
+import { IView } from '../core/types';
+
+import {
+  IScreenViewStyles,
+  IScreenViewCallbacks,
+  IScreenViewConfig,
+} from './types';
 
 import * as styles from './screen.scss';
 
-class ScreenView extends View {
-  private _nativeControls;
-  private _callbacks;
+class ScreenView extends View<IScreenViewStyles>
+  implements IView<IScreenViewStyles> {
+  private _isNativeControls: boolean;
+  private _callbacks: IScreenViewCallbacks;
 
-  $node;
-  $topBackground;
-  $bottomBackground;
+  private _$node;
+  private _$topBackground;
+  private _$bottomBackground;
 
-  constructor(config) {
+  constructor(config: IScreenViewConfig) {
     super();
     const { callbacks, nativeControls, playbackViewNode } = config;
 
-    this._nativeControls = nativeControls;
+    this._isNativeControls = nativeControls;
     this._callbacks = callbacks;
-    this.$node = $('<div>', {
-      class: this.styleNames['screen-block'],
+    this._$node = $('<div>', {
+      class: this.styleNames.screen,
       'data-hook': 'screen-block',
     });
 
     this._bindEvents();
 
-    this.$topBackground = $('<div>', {
-      class: this.styleNames['top-gradient-background'],
+    this._$topBackground = $('<div>', {
+      class: this.styleNames.screenTopBackground,
     });
 
-    this.$bottomBackground = $('<div>', {
-      class: this.styleNames['bottom-gradient-background'],
+    this._$bottomBackground = $('<div>', {
+      class: this.styleNames.screenBottomBackground,
     });
 
-    if (this._nativeControls) {
+    if (this._isNativeControls) {
       playbackViewNode.setAttribute('controls', 'true');
     }
 
-    playbackViewNode.setAttribute('tabindex', -1);
+    playbackViewNode.setAttribute('tabindex', String(-1));
 
-    this.$node
+    this._$node
       .append(playbackViewNode)
-      .append(this.$topBackground)
-      .append(this.$bottomBackground);
+      .append(this._$topBackground)
+      .append(this._$bottomBackground);
   }
 
-  _bindEvents() {
-    this.$node[0].addEventListener(
+  private _bindEvents() {
+    this._$node[0].addEventListener(
       'click',
       this._callbacks.onWrapperMouseClick,
     );
-    this.$node[0].addEventListener(
+    this._$node[0].addEventListener(
       'dblclick',
       this._callbacks.onWrapperMouseDblClick,
     );
   }
 
-  _unbindEvents() {
-    this.$node[0].removeEventListener(
+  private _unbindEvents() {
+    this._$node[0].removeEventListener(
       'click',
       this._callbacks.onWrapperMouseClick,
     );
-    this.$node[0].removeEventListener(
+    this._$node[0].removeEventListener(
       'dblclick',
       this._callbacks.onWrapperMouseDblClick,
     );
   }
 
   focusOnNode() {
-    this.$node[0].focus();
+    this._$node[0].focus();
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.toggleClass(this.styleNames.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.toggleClass(this.styleNames.hidden, true);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node[0];
   }
 
   showTopShadow() {
-    this.$topBackground.addClass(this.styleNames.visible);
+    this._$topBackground.addClass(this.styleNames.visible);
   }
 
   hideTopShadow() {
-    this.$topBackground.removeClass(this.styleNames.visible);
+    this._$topBackground.removeClass(this.styleNames.visible);
   }
 
   showBottomShadow() {
-    if (!this._nativeControls) {
-      this.$bottomBackground.addClass(this.styleNames.visible);
+    if (!this._isNativeControls) {
+      this._$bottomBackground.addClass(this.styleNames.visible);
     }
   }
 
   hideBottomShadow() {
-    this.$bottomBackground.removeClass(this.styleNames.visible);
+    this._$bottomBackground.removeClass(this.styleNames.visible);
   }
 
   appendComponentNode(node) {
-    this.$node.append(node);
+    this._$node.append(node);
   }
 
   destroy() {
     this._unbindEvents();
-    this.$node.remove();
+    this._$node.remove();
 
-    delete this.$node;
+    delete this._$node;
   }
 }
 
