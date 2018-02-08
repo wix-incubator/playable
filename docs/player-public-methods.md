@@ -908,6 +908,16 @@ Delete all time indicators from progress bar
 
 ## updateTheme
 
+```javascript
+player.updateTheme({
+  progressColor: "#AEAD22"
+})
+```
+
+> You can check info about theming [here](/themes)
+
+Method for setting theme for player instance
+
 <div class="method-list">
   <table>
     <thead>
@@ -921,7 +931,7 @@ Delete all time indicators from progress bar
         <td class="param">
           <code>themeConfig</code><span class="type">IThemeConfig</span class="type">
         </td>
-        <td></td>
+        <td>Theme config</td>
       </tr>
     </tbody>
   </table>
