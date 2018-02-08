@@ -15,9 +15,9 @@
        aria-valuenow="0"
        aria-valuemax="100"
        tabindex="0">
-    <div class="${props.styles.progressBar} ${props.styles.background} ${props.styles.volumeProgressBackground}">
+    <div class="${props.styles.progressBar} ${props.styles.background} ${props.themeStyles.volumeProgressBackground}">
     </div>
-    <div class="${props.styles.progressBar} ${props.styles.volume} ${props.styles.volumeProgress}"
+    <div class="${props.styles.progressBar} ${props.styles.volume} ${props.themeStyles.volumeProgress}"
          data-hook="volume-input">
     </div>
     <div class="${props.styles.hitbox}"

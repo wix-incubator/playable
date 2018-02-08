@@ -80,6 +80,7 @@ class VolumeView extends View<IVolumeViewStyles>
     this._$node = htmlToElement(
       controlTemplate({
         styles: this.styleNames,
+        themeStyles: this.themeStyles,
         texts: {
           muteLabel: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
           volumeLabel: this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
