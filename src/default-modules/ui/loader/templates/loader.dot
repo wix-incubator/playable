@@ -1,0 +1,5 @@
+<div
+  class="${props.styles.loader} ${props.styles.active}"
+  data-hook="loader"
+  >
+</div>
