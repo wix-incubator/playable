@@ -5,8 +5,8 @@
       "path---player-public-methods-2208eb2ef088505700c2.js.map"
     ],
     "component---src-pages-index-js": [
-      "component---src-pages-index-js-699f6f7315474e71d33a.js",
-      "component---src-pages-index-js-699f6f7315474e71d33a.js.map"
+      "component---src-pages-index-js-7f1315a0ba8743a9d142.js",
+      "component---src-pages-index-js-7f1315a0ba8743a9d142.js.map"
     ],
     "path---api": [
       "path---api-e8f1cdea50c330ae70aa.js",
@@ -29,12 +29,12 @@
       "path---video-source-2eafd789b695fb1c726d.js.map"
     ],
     "component---src-layouts-index-js": [
-      "component---src-layouts-index-js-83a53812b628b77401b5.js",
-      "component---src-layouts-index-js-83a53812b628b77401b5.js.map"
+      "component---src-layouts-index-js-75ee8b3358701b2660bb.js",
+      "component---src-layouts-index-js-75ee8b3358701b2660bb.js.map"
     ],
     "path---index": [
-      "path---index-9fb639b61296b7d1e143.js",
-      "path---index-9fb639b61296b7d1e143.js.map"
+      "path---index-be95fa7727f4174c964e.js",
+      "path---index-be95fa7727f4174c964e.js.map"
     ],
     "component---src-pages-404-js": [
       "component---src-pages-404-js-4503918ea3a16cfcdb75.js",
@@ -63,21 +63,21 @@
       "path---events-video-events-0f259b303b2966b33f1b.js.map"
     ],
     "path---themes": [
-      "path---themes-42ac64f8296dd3f0c41f.js",
-      "path---themes-42ac64f8296dd3f0c41f.js.map"
+      "path---themes-b0caab9025eeb68865b4.js",
+      "path---themes-b0caab9025eeb68865b4.js.map"
     ],
     "path---pages-page-fix": [
       "path---pages-page-fix-146486a368d6eec6e705.js",
       "path---pages-page-fix-146486a368d6eec6e705.js.map"
     ],
     "component---src-templates-md-js": [
-      "component---src-templates-md-js-88a0b1024bfdbf927c3a.js",
-      "component---src-templates-md-js-88a0b1024bfdbf927c3a.js.map"
+      "component---src-templates-md-js-e0c776d49690d9693599.js",
+      "component---src-templates-md-js-e0c776d49690d9693599.js.map"
     ],
     "app": [
-      "app-a8fc31079e2dfb696a41.js",
+      "app-76dac0f45404521be5ff.js",
       "build-js-styles.css",
-      "app-a8fc31079e2dfb696a41.js.map",
+      "app-76dac0f45404521be5ff.js.map",
       "build-js-styles.css.map"
     ],
     "path---events-ui-events": [
