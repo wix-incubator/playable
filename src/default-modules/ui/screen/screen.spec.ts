@@ -1,5 +1,4 @@
 import 'jsdom-global/register';
-import * as $ from 'jbone';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
@@ -71,7 +70,7 @@ describe('Loader', () => {
         },
       });
 
-      const video = $('<video>')[0];
+      const video: any = document.createElement('video');
 
       video.setAttribute = sinon.spy();
 
