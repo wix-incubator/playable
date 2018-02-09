@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-
 import { VIDEO_EVENTS, STATES } from '../../constants/index';
 //import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
@@ -30,7 +28,7 @@ export default class AnomalyBloodhound {
 
   constructor({ engine, eventEmitter, config }) {
     this._config = {
-      ...get(config, 'anomalyBloodhound'),
+      ...config.anomalyBloodhound,
     };
     this._engine = engine;
     this._eventEmitter = eventEmitter;

@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 import playerAPI from '../../../utils/player-api-decorator';
 
@@ -57,11 +55,12 @@ export default class MainUIBlock {
 
     this.isHidden = false;
 
-    this._shouldAlwaysShow = get(
-      config.controls,
-      'shouldAlwaysShow',
-      DEFAULT_CONFIG.shouldAlwaysShow,
-    );
+    const mainBlockConfig = {
+      ...DEFAULT_CONFIG,
+      ...config.controls,
+    };
+
+    this._shouldAlwaysShow = mainBlockConfig.shouldAlwaysShow;
 
     this._initUI({
       tooltipContainer: tooltipService.tooltipContainerNode,

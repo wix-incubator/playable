@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-
 import { ElementQueries } from 'css-element-queries';
 
 import focusSource from '../../utils/focus-source';
@@ -68,10 +66,13 @@ class RootContainer {
   }
 
   _initUI(config) {
+    const sizeConfig = {
+      ...config.size,
+    };
     this.view = new View({
-      width: get(config, 'size.width', null),
-      height: get(config, 'size.height', null),
-      fillAllSpace: get(config, 'fillAllSpace', DEFAULT_CONFIG.fillAllSpace),
+      width: sizeConfig.width || null,
+      height: sizeConfig.height || null,
+      fillAllSpace: config.fillAllSpace || DEFAULT_CONFIG.fillAllSpace,
     });
   }
 

@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-
 import { UI_EVENTS, STATES } from '../../../constants/index';
 
 import { IScreenViewConfig } from './types';
@@ -59,16 +57,15 @@ export default class Screen {
 
     this._delayedToggleVideoPlaybackTimeout = null;
 
-    this._isClickProcessingDisabled = get(
-      config.screen,
-      'disableClickProcessing',
-      DEFAULT_CONFIG.disableClickProcessing,
-    );
+    const screenConfig = {
+      ...DEFAULT_CONFIG,
+      ...config.screen,
+    };
+
+    this._isClickProcessingDisabled = screenConfig.disableClickProcessing;
 
     this._bindCallbacks();
-    this._initUI(
-      get(config.screen, 'nativeControls', DEFAULT_CONFIG.nativeControls),
-    );
+    this._initUI(screenConfig.nativeControls);
     this._bindEvents();
 
     rootContainer.appendComponentNode(this.node);

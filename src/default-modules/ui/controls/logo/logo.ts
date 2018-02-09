@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-
 import playerAPI from '../../../../utils/player-api-decorator';
 
 import { ILogoViewConfig } from './types';
@@ -50,8 +48,12 @@ export default class Logo {
     this._initUI();
     this._initInterceptor();
 
-    this.setLogo(get(config.logo, 'src'));
-    this.setLogoClickCallback(get(config.logo, 'callback'));
+    const logoConfig = {
+      ...config.logo,
+    };
+
+    this.setLogo(logoConfig.src);
+    this.setLogoClickCallback(logoConfig.callback);
   }
 
   get node() {

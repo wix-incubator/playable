@@ -1,5 +1,3 @@
-import get from 'lodash/get';
-
 import { isIPhone, isIPod, isIPad } from '../../utils/device-detection';
 import playerAPI from '../../utils/player-api-decorator';
 import DesktopFullScreen from './desktop';
@@ -28,10 +26,10 @@ export default class FullScreenManager {
   private _engine;
   private _helper;
 
-  private _exitFullScreenOnEnd: boolean;
-  private _enterFullScreenOnPlay: boolean;
-  private _exitFullScreenOnPause: boolean;
-  private _pauseVideoOnFullScreenExit: boolean;
+  private _exitFullScreenOnEnd: boolean = false;
+  private _enterFullScreenOnPlay: boolean = false;
+  private _exitFullScreenOnPause: boolean = false;
+  private _pauseVideoOnFullScreenExit: boolean = false;
 
   private _isEnabled: boolean;
 
@@ -39,30 +37,20 @@ export default class FullScreenManager {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
 
-    const _config: boolean | IFullScreenConfig = config.fullScreen;
-    this._isEnabled = _config !== false;
+    if (config.fullScreen === false) {
+      this._isEnabled = false;
+    } else {
+      this._isEnabled = true;
+      const _config: IFullScreenConfig = {
+        ...DEFAULT_CONFIG,
+        ...config.fullScreen,
+      };
 
-    this._exitFullScreenOnEnd = get(
-      _config,
-      'exitFullScreenOnEnd',
-      DEFAULT_CONFIG.exitFullScreenOnEnd,
-    );
-    this._enterFullScreenOnPlay = get(
-      _config,
-      'enterFullScreenOnPlay',
-      DEFAULT_CONFIG.enterFullScreenOnPlay,
-    );
-    this._exitFullScreenOnPause = get(
-      _config,
-      'exitFullScreenOnPause',
-      DEFAULT_CONFIG.exitFullScreenOnPause,
-    );
-    this._pauseVideoOnFullScreenExit = get(
-      _config,
-      'pauseVideoOnFullScreenExit',
-      DEFAULT_CONFIG.pauseVideoOnFullScreenExit,
-    );
-
+      this._exitFullScreenOnEnd = _config.exitFullScreenOnEnd;
+      this._enterFullScreenOnPlay = _config.enterFullScreenOnPlay;
+      this._exitFullScreenOnPause = _config.exitFullScreenOnPause;
+      this._pauseVideoOnFullScreenExit = _config.pauseVideoOnFullScreenExit;
+    }
     this._onChange = this._onChange.bind(this);
 
     if (isIPhone() || isIPod() || isIPad()) {
