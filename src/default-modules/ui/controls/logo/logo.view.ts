@@ -9,7 +9,7 @@ import { logoTemplate } from './templates';
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
-import * as styles from './logo.scss';
+import styles from './logo.scss';
 
 class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   private _tooltipReference: ITooltipReference;

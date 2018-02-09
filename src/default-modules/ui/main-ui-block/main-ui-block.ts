@@ -1,4 +1,4 @@
-import * as get from 'lodash/get';
+import get from 'lodash/get';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 import playerAPI from '../../../utils/player-api-decorator';

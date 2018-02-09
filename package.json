@@ -74,7 +74,7 @@
     "sinon": "^2.3.8",
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
-    "typescript": "^2.6.1"
+    "typescript": "^2.7.0"
   },
   "haste": {
     "preset": "yoshi"

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as classnames from 'classnames';
+import classnames from 'classnames';
 
 import Stylable from './stylable';
 

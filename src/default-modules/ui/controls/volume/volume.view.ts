@@ -21,7 +21,7 @@ import {
 } from './types';
 
 import volumeViewTheme from './volume.theme';
-import * as styles from './volume.scss';
+import styles from './volume.scss';
 
 const DATA_IS_MUTED = 'data-is-muted';
 const DATA_VOLUME = 'data-volume-percent';

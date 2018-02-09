@@ -1,4 +1,4 @@
-import * as get from 'lodash/get';
+import get from 'lodash/get';
 
 import playerAPI from '../../../../utils/player-api-decorator';
 

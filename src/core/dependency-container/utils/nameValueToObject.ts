@@ -1,4 +1,4 @@
-import * as isPlainObject from 'lodash/isPlainObject';
+import isPlainObject from 'lodash/isPlainObject';
 import assign from './assign';
 
 export default function(name, value) {

@@ -1,4 +1,4 @@
-import * as get from 'lodash/get';
+import get from 'lodash/get';
 
 import { VIDEO_EVENTS, STATES } from '../../constants/index';
 //import { getNearestBufferSegmentInfo } from '../../utils/video-data';

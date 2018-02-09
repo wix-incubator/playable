@@ -1,6 +1,7 @@
-import * as get from 'lodash/get';
+import get from 'lodash/get';
 
 import { ElementQueries } from 'css-element-queries';
+
 import focusSource from '../../utils/focus-source';
 import focusWithin from '../../utils/focus-within';
 
@@ -118,7 +119,9 @@ class RootContainer {
     this._enableFocusInterceptors();
 
     node.appendChild(this.node);
-    ElementQueries.init();
+    setTimeout(() => {
+      ElementQueries.init();
+    });
   }
 
   /**

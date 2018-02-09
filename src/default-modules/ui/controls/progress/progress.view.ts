@@ -18,7 +18,7 @@ import {
 } from './types';
 
 import progressViewTheme from './progress.theme';
-import * as styles from './progress.scss';
+import styles from './progress.scss';
 
 const DATA_PLAYED = 'data-played-percent';
 

@@ -1,4 +1,4 @@
-import * as get from 'lodash/get';
+import get from 'lodash/get';
 
 import { isIPhone, isIPod, isIPad } from '../../utils/device-detection';
 import playerAPI from '../../utils/player-api-decorator';

@@ -8,7 +8,7 @@ import { loadingCoverTemplate } from './templates';
 import getElementByHook from '../core/getElementByHook';
 import htmlToElement from '../core/htmlToElement';
 
-import * as styles from './loading-cover.scss';
+import styles from './loading-cover.scss';
 
 class LoadingCoverView extends View<ILoadingCoverViewStyles>
   implements IView<ILoadingCoverViewStyles> {

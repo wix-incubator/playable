@@ -1,5 +1,5 @@
-import * as ts from 'typescript';
-import * as Lint from 'tslint';
+import ts from 'typescript';
+import { Rules, RuleWalker, RuleFailure } from 'tslint';
 
 import { getDecoratorArguments } from './utils/ast';
 
@@ -21,18 +21,18 @@ const OPTION_REQUIRE_JSDOC = 'require-jsdoc';
  * @example
  * "player-api": [true, "require-jsdoc"]
  */
-export class Rule extends Lint.Rules.AbstractRule {
+export class Rule extends Rules.AbstractRule {
   public static DECORATOR_MAME_FAILURE_STRING = `"${PLAYER_API_DECORATOR_NAME}" decorator argument should be string literal or undefined`;
   public static REQUIRE_JSDOC_FAILURE_STRING = `"${PLAYER_API_DECORATOR_NAME}" method should have valid JSDoc comment`;
 
-  public apply(sourceFile: ts.SourceFile): Lint.RuleFailure[] {
+  public apply(sourceFile: ts.SourceFile): RuleFailure[] {
     return this.applyWithWalker(
       new PlayerApiMethodWalker(sourceFile, this.getOptions()),
     );
   }
 }
 
-class PlayerApiMethodWalker extends Lint.RuleWalker {
+class PlayerApiMethodWalker extends RuleWalker {
   public visitMethodDeclaration(method) {
     const decorator: any =
       method.decorators && method.decorators.find(isPlayerApiDecorator);

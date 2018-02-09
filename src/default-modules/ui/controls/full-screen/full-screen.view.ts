@@ -20,7 +20,7 @@ import {
 } from './types';
 
 import fullScreenViewTheme from './full-screen.theme';
-import * as styles from './full-screen.scss';
+import styles from './full-screen.scss';
 
 const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 

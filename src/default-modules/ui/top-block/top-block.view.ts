@@ -12,7 +12,7 @@ import {
   ITopBlockViewElements,
 } from './types';
 
-import * as styles from './top-block.scss';
+import styles from './top-block.scss';
 
 class TopBlockView extends View<ITopBlockViewStyles>
   implements IView<ITopBlockViewStyles> {

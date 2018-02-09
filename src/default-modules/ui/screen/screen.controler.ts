@@ -1,4 +1,5 @@
-import * as get from 'lodash/get';
+import get from 'lodash/get';
+
 import { UI_EVENTS, STATES } from '../../../constants/index';
 
 import { IScreenViewConfig } from './types';

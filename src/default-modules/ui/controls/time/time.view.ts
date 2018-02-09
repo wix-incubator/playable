@@ -10,7 +10,7 @@ import getElementByHook from '../../core/getElementByHook';
 
 import { ITimeViewStyles, ITimeViewConfig } from './types';
 import timeViewTheme from './time.theme';
-import * as styles from './time.scss';
+import styles from './time.scss';
 
 class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
   private _$node: HTMLElement;

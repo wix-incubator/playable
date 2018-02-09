@@ -13,7 +13,7 @@ import {
   IScreenViewConfig,
 } from './types';
 
-import * as styles from './screen.scss';
+import styles from './screen.scss';
 
 class ScreenView extends View<IScreenViewStyles>
   implements IView<IScreenViewStyles> {
