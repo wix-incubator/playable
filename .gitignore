@@ -3,6 +3,7 @@ sitedist
 node_modules
 target
 .idea
+.rpt2_cache
 .DS_Store
 yarn-error.log
 package-lock.json
