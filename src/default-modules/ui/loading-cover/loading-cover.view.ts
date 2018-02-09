@@ -1,62 +1,70 @@
-import * as $ from 'jbone';
-
 import View from '../core/view';
+import { IView } from '../core/types';
+
+import { ILoadingCoverViewStyles } from './types';
+
+import { loadingCoverTemplate } from './templates';
+
+import getElementByHook from '../core/getElementByHook';
+import htmlToElement from '../core/htmlToElement';
 
 import * as styles from './loading-cover.scss';
 
-class LoadingCoverView extends View {
-  $node;
-  $image;
+class LoadingCoverView extends View<ILoadingCoverViewStyles>
+  implements IView<ILoadingCoverViewStyles> {
+  private _$node: HTMLElement;
+  private _$image: HTMLElement;
 
   constructor(config) {
     super();
 
-    this.$node = $('<div>', {
-      class: this.styleNames['loading-cover'],
-      'data-hook': 'loading-cover',
-    });
-
-    this.$image = $('<img>', {
-      class: this.styleNames.image,
-    });
-
-    this._showImageOnLoad = this._showImageOnLoad.bind(this);
-
-    this.$image.on('load', this._showImageOnLoad);
+    this._initDOM();
 
     this.setCover(config.url);
-
-    this.$node.append(this.$image);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
-  _showImageOnLoad() {
-    this.$image.removeClass(this.styleNames.hidden);
+  private _initDOM() {
+    this._$node = htmlToElement(
+      loadingCoverTemplate({
+        styles: this.styleNames,
+      }),
+    );
+
+    this._$image = getElementByHook(this._$node, 'loading-cover-image');
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
   setCover(url) {
     if (url) {
-      this.$image.addClass(this.styleNames.hidden);
-      this.$image.attr('src', url);
+      this._$image.classList.add(this.styleNames.hidden);
+
+      const onImageLoad = () => {
+        this._$image.classList.remove(this.styleNames.hidden);
+        this._$image.removeEventListener('load', onImageLoad);
+      };
+
+      this._$image.addEventListener('load', onImageLoad);
+      this._$image.setAttribute('src', url);
     }
   }
 
   destroy() {
-    this.$image.off('load', this._showImageOnLoad);
-    this.$node.remove();
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
 
-    delete this.$node;
+    delete this._$node;
   }
 }
 
