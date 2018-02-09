@@ -1,111 +1,102 @@
-import * as $ from 'jbone';
-
 import View from '../core/view';
+import { IView } from '../core/types';
+
+import { debugPanelTemplate } from './templates';
+
+import syntaxHighlight from './syntaxHighlight';
+
+import htmlToElement from '../core/htmlToElement';
+import getElementByHook from '../core/getElementByHook';
+import toggleNodeClass from '../core/toggleNodeClass';
+
+import {
+  IDebugPanelViewStyles,
+  IDebugPanelViewCallbacks,
+  IDebugPanelViewConfig,
+} from './types';
 
 import * as styles from './debug-panel.scss';
 
-function syntaxHighlight(json, styleNames) {
-  json = json
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+class DebugPanelView extends View<IDebugPanelViewStyles>
+  implements IView<IDebugPanelViewStyles> {
+  private _callbacks: IDebugPanelViewCallbacks;
 
-  return json.replace(
-    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
-    match => {
-      let cls = styleNames.number;
-      if (/^"/.test(match)) {
-        if (/:$/.test(match)) {
-          cls = styleNames.key;
-        } else {
-          cls = styleNames.string;
-        }
-      } else if (/true|false/.test(match)) {
-        cls = styleNames.boolean;
-      } else if (/null/.test(match)) {
-        cls = styleNames.null;
-      }
-      return `<span class="${cls}">${match}</span>`;
-    },
-  );
-}
+  private _$node: HTMLElement;
+  private _$infoContainer: HTMLElement;
+  private _$closeButton: HTMLElement;
 
-class DebugPanelView extends View {
-  private config;
-
-  $node;
-  $infoContainer;
-  $close;
-
-  constructor(config) {
+  constructor(config: IDebugPanelViewConfig) {
     super();
-    this.config = config;
+    const { callbacks } = config;
 
-    this.$node = $('<div>', {
-      class: this.styleNames['video-player-debug-panel'],
-    });
+    this._callbacks = callbacks;
 
-    this.$infoContainer = $('<pre>', {
-      class: this.styleNames['info-container'],
-    });
-
-    this.$close = $('<div>', {
-      class: this.styleNames['close-button'],
-    });
-    this.$close.html('x');
-
-    this.$node.append(this.$close).append(this.$infoContainer);
-
-    this._bindCallbacks();
+    this._initDOM();
     this._bindEvents();
   }
 
-  _onCloseClick(e) {
-    e.stopPropagation();
-    this.config.callbacks.onCloseButtonClick();
-  }
+  private _initDOM() {
+    this._$node = htmlToElement(
+      debugPanelTemplate({
+        styles: this.styleNames,
+      }),
+    );
 
-  _bindCallbacks() {
-    this._onCloseClick = this._onCloseClick.bind(this);
-  }
-
-  _bindEvents() {
-    this.$close[0].addEventListener(
-      'click',
-      this.config.callbacks.onCloseButtonClick,
+    this._$closeButton = getElementByHook(
+      this._$node,
+      'debug-panel-close-button',
+    );
+    this._$infoContainer = getElementByHook(
+      this._$node,
+      'debug-panel-info-container',
     );
   }
 
-  _unbindEvents() {
-    this.$close[0].removeEventListener(
+  private _bindEvents() {
+    this._$closeButton.addEventListener(
       'click',
-      this.config.callbacks.onCloseButtonClick,
+      this._callbacks.onCloseButtonClick,
+    );
+  }
+
+  private _unbindEvents() {
+    this._$closeButton.removeEventListener(
+      'click',
+      this._callbacks.onCloseButtonClick,
     );
   }
 
   show() {
-    this.$node.toggleClass(this.styleNames.hidden, false);
+    toggleNodeClass(this._$node, this.styleNames.hidden, false);
   }
 
   hide() {
-    this.$node.toggleClass(this.styleNames.hidden, true);
+    toggleNodeClass(this._$node, this.styleNames.hidden, true);
   }
 
   setInfo(info) {
-    this.$infoContainer.html(
-      syntaxHighlight(JSON.stringify(info, undefined, 4), this.styleNames),
+    this._$infoContainer.innerHTML = syntaxHighlight(
+      JSON.stringify(info, undefined, 4),
+      this.styleNames,
     );
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   destroy() {
     this._unbindEvents();
-    this.$node.remove();
 
-    delete this.$node;
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
+
+    delete this._$node;
+    delete this._$closeButton;
+    delete this._$infoContainer;
+
+    delete this._callbacks;
   }
 }
 
