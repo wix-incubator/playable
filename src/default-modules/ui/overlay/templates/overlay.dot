@@ -1,24 +1,39 @@
 <div
   class="${props.styles.overlay} ${props.styles.active}"
-  data-hook="overlay">
+  data-hook="overlay"
+  >
   <div
     class="${props.styles.poster}"
-    data-hook="overlay-content">
+    data-hook="overlay-content"
+    >
   </div>
   <div
     class="${props.styles.icon}"
-    data-hook="overlay-play-button">
+    data-hook="overlay-play-button"
+    >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 36 36"
       preserveAspectRatio="xMidYMin slice"
       width="100%"
       style="padding-bottom: 100%; height: 1px; overflow: visible"
-    >
+      >
       <!-- padding-bottom: 100% * height/width -->
-      <g fill="none" fill-rule="evenodd">
-        <circle cx="18" cy="18" r="17" class="${props.themeStyles.overlayPlaySvgStroke}" stroke-width="2"/>
-        <path class="${props.themeStyles.overlayPlaySvgFill}" d="M23.935 17.708l-10.313 6.033V11.676z"/>
+      <g 
+        fill="none" 
+        fill-rule="evenodd"
+        >
+        <circle 
+          cx="18"
+          cy="18"
+          r="17"
+          class="${props.themeStyles.overlayPlaySvgStroke}" 
+          stroke-width="2"
+          />
+        <path
+          class="${props.themeStyles.overlayPlaySvgFill}"
+          d="M23.935 17.708l-10.313 6.033V11.676z"
+          />
       </g>
     </svg>
   </div>
