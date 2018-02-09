@@ -40,4 +40,4 @@ theme: {
 }
 ```
 
-You can play with demo [here](https://jsfiddle.net/OleksiiMakodzeba/kuobtb0o/5/)
+You can play with demo [here](https://jsfiddle.net/OleksiiMakodzeba/xxy5eveb/)
