@@ -5,6 +5,7 @@ import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 import playerAPI from '../../../utils/player-api-decorator';
 
 import View from './overlay.view';
+import { IOverlayViewConfig } from './types';
 
 export interface IOverlayConfig {
   poster?: string;
@@ -46,16 +47,16 @@ export default class Overlay {
     return this.view.getNode();
   }
 
-  _initUI(config) {
-    const params = {
+  _initUI(overlayConfig) {
+    const config: IOverlayViewConfig = {
       callbacks: {
         onPlayClick: this._playVideo,
       },
-      src: get(config, 'poster'),
+      src: get(overlayConfig, 'poster'),
       theme: this._theme,
     };
 
-    this.view = new Overlay.View(params);
+    this.view = new Overlay.View(config);
   }
 
   _bindEvents() {

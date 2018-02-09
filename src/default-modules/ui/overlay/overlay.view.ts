@@ -1,99 +1,94 @@
-import * as $ from 'jbone';
-import * as classnames from 'classnames';
 import View from '../core/view';
+import { IView } from '../core/types';
 
-import { playIconTemplate } from './templates';
+import { overlayTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
+import getElementByHook from '../core/getElementByHook';
+
+import {
+  IOverlayViewConfig,
+  IOverlayViewCallbacks,
+  IOverlayViewStyles,
+} from './types';
 
 import overlayViewTheme from './overlay.theme';
 import * as styles from './overlay.scss';
 
-class OverlayView extends View {
-  private _callbacks;
+class OverlayView extends View<IOverlayViewStyles>
+  implements IView<IOverlayViewStyles> {
+  private _callbacks: IOverlayViewCallbacks;
 
-  $node;
-  $content;
-  $playButton;
+  private _$node: HTMLElement;
+  private _$content: HTMLElement;
+  private _$playButton: HTMLElement;
 
-  constructor(config) {
+  constructor(config: IOverlayViewConfig) {
     super(config.theme);
 
     const { callbacks, src } = config;
 
     this._callbacks = callbacks;
 
-    this.$node = $('<div>', {
-      class: classnames(this.styleNames.overlay, this.styleNames.active),
-      'data-hook': 'overlay',
-    });
-
-    this.$content = $('<div>', {
-      class: this.styleNames.poster,
-    });
+    this._initDOM();
+    this._bindEvents();
 
     this.setPoster(src);
-
-    this.$playButton = $(
-      htmlToElement(
-        playIconTemplate({
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        }),
-      ),
-    );
-
-    this.$node.append(this.$content).append(this.$playButton);
-
-    this._bindEvents();
   }
 
-  _bindEvents() {
-    this.$playButton[0].addEventListener('click', this._callbacks.onPlayClick);
+  private _initDOM() {
+    this._$node = htmlToElement(
+      overlayTemplate({
+        styles: this.styleNames,
+        themeStyles: this.themeStyles,
+      }),
+    );
+
+    this._$content = getElementByHook(this._$node, 'overlay-content');
+    this._$playButton = getElementByHook(this._$node, 'overlay-play-button');
+  }
+
+  private _bindEvents() {
+    this._$playButton.addEventListener('click', this._callbacks.onPlayClick);
+  }
+
+  private _unbindEvents() {
+    this._$playButton.removeEventListener('click', this._callbacks.onPlayClick);
   }
 
   getNode() {
-    return this.$node[0];
+    return this._$node;
   }
 
   hideContent() {
-    this.$node.removeClass(this.styleNames.active);
+    this._$node.classList.remove(this.styleNames.active);
   }
 
   showContent() {
-    this.$node.addClass(this.styleNames.active);
+    this._$node.classList.add(this.styleNames.active);
   }
 
   hide() {
-    this.$node.addClass(this.styleNames.hidden);
+    this._$node.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this.$node.removeClass(this.styleNames.hidden);
+    this._$node.classList.remove(this.styleNames.hidden);
   }
 
-  setPoster(src) {
-    if (src) {
-      this.$content.css('background-image', `url('${src}')`);
-    } else {
-      this.$content.css('background-image', 'none');
-    }
-  }
-
-  _unbindEvents() {
-    this.$playButton[0].removeEventListener(
-      'click',
-      this._callbacks.onPlayClick,
-    );
+  setPoster(src: string) {
+    this._$content.style.backgroundImage = src ? `url('${src}')` : 'none';
   }
 
   destroy() {
     this._unbindEvents();
 
-    this.$node.remove();
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
+    }
 
-    delete this.$content;
-    delete this.$playButton;
-    delete this.$node;
+    delete this._$node;
+    delete this._$content;
+    delete this._$playButton;
   }
 }
 
