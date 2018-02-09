@@ -1,3 +1,5 @@
+import { __assign } from 'tslib';
+
 import { asClass, asFunction, asValue } from './registrations';
 import ResolutionError from './errors/ResolutionError';
 import nameValueToObject from './utils/nameValueToObject';
@@ -6,7 +8,7 @@ import Lifetime from './constants/Lifetime';
 const FAMILY_TREE = '__familyTree__';
 
 export default function createContainer(options?, __parentContainer?) {
-  options = Object.assign({}, options);
+  options = __assign({}, options);
 
   // The resolution stack is used to keep track
   // of what modules are being resolved, so when
@@ -21,7 +23,7 @@ export default function createContainer(options?, __parentContainer?) {
   const container: any = {
     options,
     get registrations() {
-      return Object.assign(
+      return __assign(
         {},
         __parentContainer && __parentContainer.registrations,
         registrations,
@@ -55,12 +57,12 @@ export default function createContainer(options?, __parentContainer?) {
         let valueToRegister = obj[key];
 
         // If we have options, copy them over.
-        opts = Object.assign({}, opts);
+        opts = __assign({}, opts);
 
         /* ignore coverage */
         if (!verbatimValue && Array.isArray(valueToRegister)) {
           // The ('name', [value, opts]) style
-          opts = Object.assign({}, opts, valueToRegister[1]);
+          opts = __assign({}, opts, valueToRegister[1]);
           valueToRegister = valueToRegister[0];
         }
 
