@@ -120,9 +120,7 @@ class RootContainer {
     this._enableFocusInterceptors();
 
     node.appendChild(this.node);
-    setTimeout(() => {
-      ElementQueries.init();
-    });
+    ElementQueries.init();
   }
 
   /**

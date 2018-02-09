@@ -1,9 +1,8 @@
 import Lifetime from './constants/Lifetime';
 import NotAFunctionError from './errors/NotAFunctionError';
-import assign from './utils/assign';
 
 export const PROPERTY_FOR_DEPENDENCIES = 'dependencies';
-const makeOptions = (defaults, input) => assign({}, defaults, input);
+const makeOptions = (defaults, input) => Object.assign({}, defaults, input);
 
 export const makeFluidInterface = obj => {
   const setLifetime = value => {
@@ -45,7 +44,7 @@ export const asFunction: any = (fn, opts?) => {
     lifetime: opts.lifetime,
   };
   result.resolve = resolve.bind(result);
-  assign(result, makeFluidInterface(result));
+  Object.assign(result, makeFluidInterface(result));
   return result;
 };
 
@@ -69,7 +68,7 @@ export const asClass: any = (Type: FunctionConstructor, opts?) => {
     lifetime: opts.lifetime,
   };
   result.resolve = resolve.bind(result);
-  assign(result, makeFluidInterface(result));
+  Object.assign(result, makeFluidInterface(result));
 
   return result;
 };

@@ -51,7 +51,8 @@
     "eventemitter3": "^2.0.3",
     "hls.js": "latest",
     "jbone": "^1.2.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "tslib": "^1.9.0"
   },
   "devDependencies": {
     "@babel/types": "7.0.0-beta.38",
