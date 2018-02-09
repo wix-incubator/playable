@@ -1,0 +1,12 @@
+<div
+  class="${props.styles.screen}"
+  data-hook="screen-block">
+  <div
+    class="${props.styles.screenTopBackground}"
+    data-hook="screen-top-background">
+  </div>
+  <div
+    class="${props.styles.screenBottomBackground}"
+    data-hook="screen-bottom-background">
+  </div>
+</div>

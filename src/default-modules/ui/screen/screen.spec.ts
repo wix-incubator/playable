@@ -46,7 +46,7 @@ describe('Loader', () => {
       screen._bindCallbacks();
       screen._initUI();
 
-      screen.view.$node.trigger('click');
+      screen.view.getNode().dispatchEvent(new Event('click'));
       expect(processClickSpy.called).to.be.true;
     });
 

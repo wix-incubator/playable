@@ -1,4 +1,4 @@
-.screen-block {
+.screen {
   position: absolute;
   z-index: 50;
   top: 0;
@@ -20,8 +20,8 @@
   }
 }
 
-.top-gradient-background,
-.bottom-gradient-background {
+.screenTopBackground,
+.screenBottomBackground {
   position: absolute;
   z-index: 1;
   right: 0;
@@ -43,7 +43,7 @@
   }
 }
 
-.top-gradient-background {
+.screenTopBackground {
   top: 0;
 
   background-image: linear-gradient(
@@ -56,7 +56,7 @@
   );
 }
 
-.bottom-gradient-background {
+.screenBottomBackground {
   bottom: 0;
 
   background-image: linear-gradient(
