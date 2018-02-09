@@ -34,37 +34,44 @@ import { TooltipService } from './ui/core/tooltip';
 
 const { asClass } = DependencyContainer;
 
-export default {
-  eventEmitter: asClass(EventEmitter).scoped(),
-  tooltipService: asClass(TooltipService).scoped(),
-  rootContainer: asClass(RootContainer).scoped(),
-  textMap: asClass(TextMap).scoped(),
-  engine: asClass(Engine).scoped(),
-  liveStateEngine: asClass(LiveStateEngine).scoped(),
-  fullScreenManager: asClass(FullScreenManager).scoped(),
-  keyboardInterceptor: asClass(KeyboardInterceptor).scoped(),
-  mouseInterceptor: asClass(MouseInterceptor).scoped(),
-  debugPanel: asClass(DebugPanel).scoped(),
+export const modules = {
+  eventEmitter: EventEmitter,
+  tooltipService: TooltipService,
+  rootContainer: RootContainer,
+  textMap: TextMap,
+  engine: Engine,
+  liveStateEngine: LiveStateEngine,
+  fullScreenManager: FullScreenManager,
+  keyboardInterceptor: KeyboardInterceptor,
+  mouseInterceptor: MouseInterceptor,
+  debugPanel: DebugPanel,
 
-  screen: asClass(Screen).scoped(),
-  interactionIndicator: asClass(InteractionIndicator).scoped(),
+  screen: Screen,
+  interactionIndicator: InteractionIndicator,
 
-  overlay: asClass(Overlay).scoped(),
-  loader: asClass(Loader).scoped(),
+  overlay: Overlay,
+  loader: Loader,
 
-  mainUIBlock: asClass(MainUIBlock).scoped(),
+  mainUIBlock: MainUIBlock,
 
-  topBlock: asClass(TopBlock).scoped(),
-  liveIndicator: asClass(LiveIndicator).scoped(),
-  title: asClass(Title).scoped(),
+  topBlock: TopBlock,
+  liveIndicator: LiveIndicator,
+  title: Title,
 
-  bottomBlock: asClass(BottomBlock).scoped(),
-  progressControl: asClass(ProgressControl).scoped(),
-  playControl: asClass(PlayControl).scoped(),
-  timeControl: asClass(TimeControl).scoped(),
-  volumeControl: asClass(VolumeControl).scoped(),
-  fullScreenControl: asClass(FullScreenControl).scoped(),
-  logo: asClass(Logo).scoped(),
+  bottomBlock: BottomBlock,
+  progressControl: ProgressControl,
+  playControl: PlayControl,
+  timeControl: TimeControl,
+  volumeControl: VolumeControl,
+  fullScreenControl: FullScreenControl,
+  logo: Logo,
 
-  theme: asClass(ThemeService).scoped(),
+  theme: ThemeService,
 };
+
+const DIModules = Object.keys(modules).reduce((DIModules, module) => {
+  DIModules[module] = asClass(modules[module]).scoped();
+  return DIModules;
+}, {});
+
+export default DIModules;
