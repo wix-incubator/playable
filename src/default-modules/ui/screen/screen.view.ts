@@ -42,7 +42,6 @@ class ScreenView extends View<IScreenViewStyles>
       }),
     );
 
-
     this._$topBackground = getElementByHook(
       this._$node,
       'screen-top-background',
@@ -57,7 +56,6 @@ class ScreenView extends View<IScreenViewStyles>
     }
 
     playbackViewNode.setAttribute('tabindex', String(-1));
-
 
     this._$node.appendChild(playbackViewNode);
   }

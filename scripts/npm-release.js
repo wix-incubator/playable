@@ -22,13 +22,13 @@ function getPublishedVersion() {
   )
     .then(result => result.stdout && result.stdout.trim())
     .catch(e => {
-    if (e.stderr.startsWith('npm ERR! code E404')) {
-      console.log('ERROR: package not found. Possibly not published yet', e);
-      return ZERO_VERSION;
-    }
+      if (e.stderr.startsWith('npm ERR! code E404')) {
+        console.log('ERROR: package not found. Possibly not published yet', e);
+        return ZERO_VERSION;
+      }
 
-    console.log('ERROR: Unable to get published version from npmjs.org', e);
-  });
+      console.log('ERROR: Unable to get published version from npmjs.org', e);
+    });
 }
 
 function shouldPublish(publishedVersion, packageJSONVersion) {
@@ -50,19 +50,17 @@ writeFile(
   .then(getPublishedVersion)
   .then(publishedVersion => {
     if (shouldPublish(publishedVersion, packageJSON.version)) {
-      return writeFile(packageJSONPath, stringify(packageJSON)).then(
-        () => {
-          if (publishedVersion !== ZERO_VERSION) {
-            console.log(
-              `Version set in package.json ${
-                packageJSON.version
-              } is newer than published ${publishedVersion}`,
-            );
-          }
+      return writeFile(packageJSONPath, stringify(packageJSON)).then(() => {
+        if (publishedVersion !== ZERO_VERSION) {
+          console.log(
+            `Version set in package.json ${
+              packageJSON.version
+            } is newer than published ${publishedVersion}`,
+          );
+        }
 
-          console.log(`Package will be published`);
-        },
-      );
+        console.log(`Package will be published`);
+      });
     } else {
       console.log(`Package will not be published`);
       if (publishedVersion) {
