@@ -4,6 +4,4 @@ type ILoadingCoverViewStyles = {
   hidden: string;
 };
 
-export {
-  ILoadingCoverViewStyles,
-};
+export { ILoadingCoverViewStyles };

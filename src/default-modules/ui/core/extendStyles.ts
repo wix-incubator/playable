@@ -1,4 +1,4 @@
-import * as classnames from 'classnames';
+import classnames from 'classnames';
 import { IStyles } from './types';
 
 function extendStyles(sourceStyles: IStyles, partialStyles: IStyles) {

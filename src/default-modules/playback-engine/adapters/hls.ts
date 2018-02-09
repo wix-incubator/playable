@@ -1,4 +1,4 @@
-import * as HlsJs from 'hls.js/dist/hls.light';
+import HlsJs from 'hls.js/dist/hls.light';
 
 import {
   ERRORS,

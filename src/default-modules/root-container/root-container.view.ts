@@ -4,7 +4,7 @@ import { containerTemplate } from './templates';
 
 import View from '../ui/core/view';
 
-import * as styles from './root-container.scss';
+import styles from './root-container.scss';
 
 class RootContainerView extends View {
   private _width: number;

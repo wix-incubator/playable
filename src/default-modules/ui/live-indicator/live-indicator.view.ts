@@ -14,7 +14,8 @@ import {
   ILiveIndicatorViewConfig,
 } from './types';
 
-import * as styles from './live-indicator.scss';
+import styles from './live-indicator.scss';
+
 import { TEXT_LABELS } from '../../../constants';
 
 class LiveIndicatorView extends View<ILiveIndicatorViewStyles>

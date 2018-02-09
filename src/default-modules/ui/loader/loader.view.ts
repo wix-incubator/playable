@@ -7,7 +7,7 @@ import htmlToElement from '../core/htmlToElement';
 
 import { ILoaderViewStyles } from './types';
 
-import * as styles from './loader.scss';
+import styles from './loader.scss';
 
 class LoaderView extends View<ILoaderViewStyles>
   implements IView<ILoaderViewStyles> {

@@ -4,7 +4,6 @@ import { expect } from 'chai';
 import convertToDeviceRelatedConfig from './config';
 
 declare const navigator: any;
-
 describe('getUIConfig function', () => {
   beforeEach(() => {
     Reflect.defineProperty(navigator, 'userAgent', {

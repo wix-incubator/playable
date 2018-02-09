@@ -1,6 +1,6 @@
 import { TEXT_LABELS } from '../../constants';
 
-export default {
+const map = {
   [TEXT_LABELS.LOGO_LABEL]: 'Watch On Site',
   [TEXT_LABELS.LOGO_TOOLTIP]: 'Watch On Site',
   [TEXT_LABELS.LIVE_INDICATOR_TEXT]: ({ isEnded }) =>
@@ -23,3 +23,5 @@ export default {
   [TEXT_LABELS.EXIT_FULL_SCREEN_LABEL]: 'Exit full screen mode',
   [TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP]: 'Exit full screen mode',
 };
+
+export default map;

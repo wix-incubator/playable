@@ -15,7 +15,7 @@ import getElementByHook from '../../core/getElementByHook';
 import { IPlayViewStyles, IPlayViewCallbacks, IPlayViewConfig } from './types';
 
 import playViewTheme from './play.theme';
-import * as styles from './play.scss';
+import styles from './play.scss';
 
 const DATA_IS_PLAYING = 'data-is-playing';
 
@@ -32,7 +32,6 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
     super(theme);
 
     this._callbacks = callbacks;
-
     this._textMap = textMap;
 
     this._$node = htmlToElement(
@@ -47,7 +46,6 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
     this._$playbackControl = getElementByHook(this._$node, 'playback-control');
 
     this.setState({ isPlaying: false });
-
     this._bindEvents();
   }
 

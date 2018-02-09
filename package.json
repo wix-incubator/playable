@@ -52,7 +52,7 @@
     "eventemitter3": "^2.0.3",
     "hls.js": "latest",
     "jbone": "^1.2.0",
-    "lodash": "^4.17.4"
+    "tslib": "^1.9.0"
   },
   "devDependencies": {
     "@babel/types": "7.0.0-beta.38",
@@ -75,7 +75,7 @@
     "sinon": "^2.3.8",
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
-    "typescript": "^2.6.1"
+    "typescript": "^2.7.0"
   },
   "haste": {
     "preset": "yoshi"

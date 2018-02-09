@@ -1,10 +1,9 @@
-import * as isPlainObject from 'lodash/isPlainObject';
-import assign from './assign';
+import { __assign } from 'tslib';
 
 export default function(name, value) {
   let obj = name;
-  if (!isPlainObject(obj)) {
-    obj = assign({ [name]: value });
+  if (typeof obj !== 'object') {
+    obj = __assign({ [name]: value });
   }
 
   return obj;

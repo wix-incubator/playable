@@ -12,7 +12,7 @@ import {
 } from './types';
 
 import overlayViewTheme from './overlay.theme';
-import * as styles from './overlay.scss';
+import styles from './overlay.scss';
 
 class OverlayView extends View<IOverlayViewStyles>
   implements IView<IOverlayViewStyles> {

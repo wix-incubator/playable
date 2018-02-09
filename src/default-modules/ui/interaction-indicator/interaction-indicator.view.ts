@@ -16,7 +16,7 @@ import htmlToElement from '../core/htmlToElement';
 
 import { IInteractionIndicatorViewStyles } from './types';
 
-import * as styles from './interaction-indicator.scss';
+import styles from './interaction-indicator.scss';
 
 const SECONDS_COUNT = 5;
 

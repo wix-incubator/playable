@@ -14,7 +14,7 @@ import {
   IBottomBlockViewConfig,
 } from './types';
 
-import * as styles from './bottom-block.scss';
+import styles from './bottom-block.scss';
 
 class BottomBlockView extends View<IBottomBlockViewStyles>
   implements IView<IBottomBlockViewStyles> {

@@ -1,5 +1,3 @@
-import * as get from 'lodash/get';
-
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 import playerAPI from '../../../utils/player-api-decorator';
@@ -34,7 +32,7 @@ export default class Overlay {
     this._theme = theme;
 
     this._bindEvents();
-    this._initUI(config.overlay);
+    this._initUI(config.overlay && config.overlay.poster);
 
     rootContainer.appendComponentNode(this.node);
 
@@ -47,12 +45,12 @@ export default class Overlay {
     return this.view.getNode();
   }
 
-  _initUI(overlayConfig) {
+  _initUI(poster) {
     const config: IOverlayViewConfig = {
       callbacks: {
         onPlayClick: this._playVideo,
       },
-      src: get(overlayConfig, 'poster'),
+      src: poster,
       theme: this._theme,
     };
 

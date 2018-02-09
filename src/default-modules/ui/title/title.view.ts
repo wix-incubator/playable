@@ -13,7 +13,7 @@ import {
 import { IView } from '../core/types';
 
 import titleViewTheme from './title.theme';
-import * as styles from './title.scss';
+import styles from './title.scss';
 
 class TitleView extends View<ITitleViewStyles>
   implements IView<ITitleViewStyles> {

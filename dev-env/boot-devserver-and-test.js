@@ -15,7 +15,7 @@ function startKarma() {
 }
 
 /* ignore coverage */
-startDevServer(5000, () => {
+startDevServer(5100, () => {
   startKarma();
 });
 

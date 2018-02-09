@@ -15,7 +15,7 @@ import {
   IDebugPanelViewConfig,
 } from './types';
 
-import * as styles from './debug-panel.scss';
+import styles from './debug-panel.scss';
 
 class DebugPanelView extends View<IDebugPanelViewStyles>
   implements IView<IDebugPanelViewStyles> {
