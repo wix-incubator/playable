@@ -41,20 +41,23 @@ The video player supports the following video formats: `MP4`, `WebM`, `HLS`, `DA
 import Playable from 'playable';
 
 document.addEventListener('DOMContentLoaded', function() {
-  const player = Playable.create({
+  const config = {
     size: {
       width: 700,
       height: 394
     },
-    src: 'http://my-url/video.mp4',
-    preload: 'metadata'
-  });
+    src: 'http://my-url/video.mp4'
+  };
+
+  const player = Playable.create(config);
 
   playable.attachToElement(document.getElementById('content'));
 });
 ```
 
 Check page with info about [config object](/player-config)
+
+You can customize player's UI elements via [themes](/themes)
 
 After that just choose what you want to configure, create object with proper fields and pass it to `Playable.create`.
 

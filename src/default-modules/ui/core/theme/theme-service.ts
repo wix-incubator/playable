@@ -31,12 +31,26 @@ class ThemeService implements IThemeService {
       ...themeConfig,
     });
 
-    // setTimeout here is for calling `attach` after all modules resolved
+    // setTimeout here is for calling `attach` after all modules resolved.
     setTimeout(() => {
       this._styleSheet && this._styleSheet.attach();
     }, 0);
   }
 
+  /**
+   * Method for setting theme for player instance
+   *
+   * @example
+   * player.updateTheme({
+   *   progressColor: "#AEAD22"
+   * })
+   * @note
+   *
+   * You can check info about theming [here](/themes)
+   *
+   * @param themeConfig - Theme config
+   *
+   */
   @playerAPI()
   updateTheme(themeConfig: IThemeConfig) {
     this._styleSheet.update(themeConfig);

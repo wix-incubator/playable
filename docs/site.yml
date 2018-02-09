@@ -13,6 +13,8 @@ config:
 navigation:
   - path: /player-config
     title: Configuration
+  - path: /themes
+    title: Themes
   - path: /video-source
     title: Video source
   - path: /api
