@@ -110,12 +110,9 @@ export default class LoadingCover {
 
   /**
    * Method for setting source of image, that would be used as loading cover instead of loader.
-   *
    * @param src - Link to your image
-   *
    * @example
-   * const src = 'link.to.your.image'
-   * player.setLoadingCover(src);
+   * player.setLoadingCover('https://example.com/cover.png');
    *
    */
   @playerAPI()

@@ -109,16 +109,28 @@ Method for removing listeners of events inside player.
 
 ## enterFullScreen
 
+```javascript
+player.enterFullScreen();
+```
+
 Player would try to enter fullscreen mode.
 Behavior of fullscreen mode on different platforms may differ.
 
 
 ## exitFullScreen
 
+```javascript
+player.exitFullScreen();
+```
+
 Player would try to exit fullscreen mode.
 
 
 ## isInFullScreen
+
+```javascript
+player.isInFullScreen(); // false
+```
 
 Return true if player is in full screen
 
@@ -228,6 +240,16 @@ Return object with internal debug info
 
 ## setSrc
 
+```javascript
+player.setSrc([
+  'https://my-url/video.mp4',
+  'https://my-url/video.webm',
+  'https://my-url/video.m3u8'
+]);
+```
+
+> Read more about [video source](/video-source)
+
 Method for setting source of video to player.
 
 <div class="method-list">
@@ -243,7 +265,7 @@ Method for setting source of video to player.
         <td class="param">
           <code>src</code>
         </td>
-        <td></td>
+        <td>Array with multiple sources</td>
       </tr>
     </tbody>
   </table>
@@ -252,16 +274,27 @@ Method for setting source of video to player.
 
 ## getSrc
 
+```javascript
+player.getSrc(); // ['https://my-url/video.mp4']
+```
+
 Return current source of video
 
 
 ## syncWithLive
+
+```javascript
+player.syncWithLive();
+```
 
 Method for synchronize current playback with live point. Available only if you playing live source.
 
 
 ## goForward
 
+```javascript
+player.goForward(5);
+```
 
 Method for going forward in playback by your value
 
@@ -278,7 +311,7 @@ Method for going forward in playback by your value
         <td class="param">
           <code>sec</code><span class="type">number</span class="type">
         </td>
-        <td></td>
+        <td>Value in seconds</td>
       </tr>
     </tbody>
   </table>
@@ -287,6 +320,9 @@ Method for going forward in playback by your value
 
 ## goBackward
 
+```javascript
+player.goBackward(5);
+```
 
 Method for going backward in playback by your value
 
@@ -303,7 +339,7 @@ Method for going backward in playback by your value
         <td class="param">
           <code>sec</code><span class="type">number</span class="type">
         </td>
-        <td></td>
+        <td>Value in seconds</td>
       </tr>
     </tbody>
   </table>
@@ -312,6 +348,9 @@ Method for going backward in playback by your value
 
 ## decreaseVolume
 
+```javascript
+player.decreaseVolume(30);
+```
 
 Method for decreasing current volume by value
 
@@ -328,7 +367,7 @@ Method for decreasing current volume by value
         <td class="param">
           <code>value</code><span class="type">number</span class="type">
         </td>
-        <td></td>
+        <td>Value from 0 to 100</td>
       </tr>
     </tbody>
   </table>
@@ -337,6 +376,9 @@ Method for decreasing current volume by value
 
 ## increaseVolume
 
+```javascript
+player.increaseVolume(30);
+```
 
 Method for increasing current volume by value
 
@@ -353,7 +395,7 @@ Method for increasing current volume by value
         <td class="param">
           <code>value</code><span class="type">number</span class="type">
         </td>
-        <td></td>
+        <td>Value from 0 to 100</td>
       </tr>
     </tbody>
   </table>
@@ -361,6 +403,10 @@ Method for increasing current volume by value
 
 
 ## setAutoPlay
+
+```javascript
+player.setAutoPlay();
+```
 
 Set autoPlay flag
 
@@ -386,10 +432,18 @@ Set autoPlay flag
 
 ## getAutoPlay
 
+```javascript
+player.getAutoPlay(); // true
+```
+
 Get autoPlay flag
 
 
 ## setLoop
+
+```javascript
+player.setLoop(true);
+```
 
 Set loop flag
 
@@ -406,7 +460,7 @@ Set loop flag
         <td class="param">
           <code>isLoop</code><span class="type">boolean</span class="type">
         </td>
-        <td></td>
+        <td>If <code>true</code> video will be played again after it will finish</td>
       </tr>
     </tbody>
   </table>
@@ -415,12 +469,20 @@ Set loop flag
 
 ## getLoop
 
+```javascript
+player.getLoop(); // true
+```
+
 Get loop flag
 
 
 ## setMute
 
-Set mute flag
+```javascript
+player.setMute(true);
+```
+
+Mute or unmute the video
 
 <div class="method-list">
   <table>
@@ -435,7 +497,7 @@ Set mute flag
         <td class="param">
           <code>isMuted</code><span class="type">boolean</span class="type">
         </td>
-        <td></td>
+        <td><code>true</code> to mute the video.</td>
       </tr>
     </tbody>
   </table>
@@ -444,11 +506,18 @@ Set mute flag
 
 ## getMute
 
+```javascript
+player.getMute(); // true
+```
+
 Get mute flag
 
 
 ## setVolume
 
+```javascript
+player.setVolume(50);
+```
 
 Set volume
 
@@ -473,6 +542,10 @@ Set volume
 
 
 ## getVolume
+
+```javascript
+player.getVolume(); // 50
+```
 
 Get volume
 
@@ -508,6 +581,10 @@ Return current playback rate
 
 ## setPreload
 
+```javascript
+player.setPreload('none');
+```
+
 Set preload type
 
 <div class="method-list">
@@ -532,15 +609,27 @@ Set preload type
 
 ## getPreload
 
+```javascript
+player.getPreload(); // none
+```
+
 Return preload type
 
 
 ## getCurrentTime
 
+```javascript
+player.getCurrentTime(); //  60.139683
+```
+
 Return current time of video playback
 
 
 ## goTo
+
+```javascript
+player.goTo(34);
+```
 
 Method for seeking to time in video
 
@@ -557,7 +646,7 @@ Method for seeking to time in video
         <td class="param">
           <code>time</code><span class="type">number</span class="type">
         </td>
-        <td></td>
+        <td>Time in seconds</td>
       </tr>
     </tbody>
   </table>
@@ -566,20 +655,36 @@ Method for seeking to time in video
 
 ## getDurationTime
 
+```javascript
+player.getDurationTime(); // 180.149745
+```
+
 Return duration of video
 
 
 ## getVideoRealWidth
+
+```javascript
+player.getVideoWidth(); // 400
+```
 
 Return real width of video from metadata
 
 
 ## getVideoRealHeight
 
+```javascript
+player.getVideoHeight(); // 225
+```
+
 Return real height of video from metadata
 
 
 ## setPlayInline
+
+```javascript
+player.setPlayInline(true);
+```
 
 Set playInline flag
 
@@ -596,7 +701,7 @@ Set playInline flag
         <td class="param">
           <code>isPlayInline</code><span class="type">boolean</span class="type">
         </td>
-        <td></td>
+        <td>If <code>false</code> - video will be played in full screen, <code>true</code> - inline</td>
       </tr>
     </tbody>
   </table>
@@ -604,6 +709,10 @@ Set playInline flag
 
 
 ## getPlayInline
+
+```javascript
+player.getPlayInline(); // true
+```
 
 Get playInline flag
 
@@ -615,15 +724,27 @@ Return current state of playback
 
 ## play
 
+```javascript
+player.play();
+```
+
 Method for starting playback of video
 
 
 ## pause
 
+```javascript
+player.pause();
+```
+
 Method for pausing playback of video
 
 
 ## togglePlayback
+
+```javascript
+player.togglePlayback();
+```
 
 Method for toggling(play\pause) playback of video
 
@@ -670,16 +791,27 @@ It's important to call this methods after <code>DOMContentLoaded</code> event!
 
 ## hide
 
+```javascript
+player.hide();
+```
+
 Hide whole ui
 
 
 ## show
+
+```javascript
+player.show();
+```
 
 Show whole ui
 
 
 ## setWidth
 
+```javascript
+player.setWidth(400);
+```
 
 Method for setting width of player
 
@@ -705,6 +837,9 @@ Method for setting width of player
 
 ## setHeight
 
+```javascript
+player.setHeight(225);
+```
 
 Method for setting width of player
 
@@ -730,16 +865,27 @@ Method for setting width of player
 
 ## getWidth
 
+```javascript
+player.getWidth(); // 400
+```
+
 Return current width of player in pixels
 
 
 ## getHeight
+
+```javascript
+player.getHeight(); // 225
+```
 
 Return current height of player in pixels
 
 
 ## setFillAllSpace
 
+```javascript
+player.setFillAllSpace(true);
+```
 
 Method for allowing player fill all available space
 
@@ -756,7 +902,7 @@ Method for allowing player fill all available space
         <td class="param">
           <code>flag</code><span class="type">boolean</span class="type">
         </td>
-        <td>True for allowing</td>
+        <td><code>true</code> for allowing</td>
       </tr>
     </tbody>
   </table>
@@ -765,6 +911,9 @@ Method for allowing player fill all available space
 
 ## setLogoAlwaysShowFlag
 
+```javascript
+player.setLogoAlwaysShowFlag(true);
+```
 
 Method for allowing logo to be always shown in bottom block
 
@@ -781,7 +930,7 @@ Method for allowing logo to be always shown in bottom block
         <td class="param">
           <code>flag</code><span class="type">boolean</span class="type">
         </td>
-        <td>: True for showing always</td>
+        <td><code>true</code> for showing always</td>
       </tr>
     </tbody>
   </table>
@@ -790,14 +939,17 @@ Method for allowing logo to be always shown in bottom block
 
 ## hideLogo
 
+```javascript
+player.hideLogo();
+```
+
 Method for hidding logo. If you use <code>setLogoAlwaysShowFlag</code> or <code>setControlsShouldAlwaysShow</code>, logo would automaticaly appear.
 
 
 ## setLogo
 
 ```javascript
-const src = 'link.to.your.image.with.logo'
-player.setLogo(src);
+player.setLogo('https://example.com/logo.png');
 ```
 
 Method for setting source of image, that would be used as logo
@@ -815,7 +967,7 @@ Method for setting source of image, that would be used as logo
         <td class="param">
           <code>src</code><span class="type">string</span class="type">
         </td>
-        <td>: Source of logo</td>
+        <td>Source of logo</td>
       </tr>
     </tbody>
   </table>
@@ -941,8 +1093,7 @@ Method for setting theme for player instance
 ## setLoadingCover
 
 ```javascript
-const src = 'link.to.your.image'
-player.setLoadingCover(src);
+player.setLoadingCover('https://example.com/cover.png');
 ```
 
 Method for setting source of image, that would be used as loading cover instead of loader.
@@ -969,6 +1120,9 @@ Method for setting source of image, that would be used as loading cover instead 
 
 ## setControlsShouldAlwaysShow
 
+```javascript
+player.setControlsShouldAlwaysShow(true);
+```
 
 Method for allowing bottom block to be always shown.
 
@@ -985,7 +1139,7 @@ Method for allowing bottom block to be always shown.
         <td class="param">
           <code>flag</code><span class="type">boolean</span class="type">
         </td>
-        <td>: True for showing always</td>
+        <td><code>true</code> for showing always</td>
       </tr>
     </tbody>
   </table>
@@ -994,6 +1148,9 @@ Method for allowing bottom block to be always shown.
 
 ## setPoster
 
+```javascript
+player.setPoster('https://example.com/poster.png');
+```
 
 Method for setting overlay poster
 

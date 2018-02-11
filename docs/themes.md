@@ -5,30 +5,27 @@ layout: simple
 
 # Themes
 
-We added ability to customize some UI elements. You pass object with theme configuration as second parameret to `Playable.create`
-or you can call method `player.updateTheme` on instance of Playable player.
+We added ability to customize some UI elements. You pass object with theme configuration as second parameret to [Playable.create](/player-config) or you can call method [player.updateTheme](/api#updatetheme) on instance of Playable player.
 
 ```javascript
-  const config = {
-    size: {
-      width: 160,
-      height: 90
-    }
+const config = {
+  size: {
+    width: 160,
+    height: 90
   }
+}
 
-  const theme1 = {
-    progressColor: "#AAA"
-  }
+const theme = {
+  progressColor: "#aaa"
+}
 
-  const player = Playable.create(config, theme1);
+const player = Playable.create(config, theme);
 
-  ...
+// ...
 
-  const theme2 = {
-    progressColor: "#FAA"
-  }
-
-  player.updateTheme(theme2);
+player.updateTheme({
+  progressColor: "#faa"
+});
 ```
 
 Right now we support such parameters:
@@ -36,7 +33,7 @@ Right now we support such parameters:
 ```javascript
 theme: {
   liveColor: '#ea492e', // color of progress bar in live mode
-  progressColor: '#FFF' // color of progress bar in default mode
+  progressColor: '#fff' // color of progress bar in default mode
 }
 ```
 

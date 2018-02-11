@@ -125,6 +125,8 @@ class RootContainer {
 
   /**
    * Hide whole ui
+   * @example
+   * player.hide();
    */
   @playerAPI()
   hide() {
@@ -134,6 +136,8 @@ class RootContainer {
 
   /**
    * Show whole ui
+   * @example
+   * player.show();
    */
   @playerAPI()
   show() {
@@ -143,8 +147,9 @@ class RootContainer {
 
   /**
    * Method for setting width of player
-   *
    * @param width - Desired width of player in pixels
+   * @example
+   * player.setWidth(400);
    */
   @playerAPI()
   setWidth(width: number) {
@@ -154,8 +159,9 @@ class RootContainer {
 
   /**
    * Method for setting width of player
-   *
    * @param height - Desired height of player in pixels
+   * @example
+   * player.setHeight(225);
    */
   @playerAPI()
   setHeight(height: number) {
@@ -165,6 +171,8 @@ class RootContainer {
 
   /**
    * Return current width of player in pixels
+   * @example
+   * player.getWidth(); // 400
    */
   @playerAPI()
   getWidth(): number {
@@ -173,6 +181,8 @@ class RootContainer {
 
   /**
    * Return current height of player in pixels
+   * @example
+   * player.getHeight(); // 225
    */
   @playerAPI()
   getHeight(): number {
@@ -181,8 +191,9 @@ class RootContainer {
 
   /**
    * Method for allowing player fill all available space
-   *
-   * @param flag - True for allowing
+   * @param flag - `true` for allowing
+   * @example
+   * player.setFillAllSpace(true);
    */
   @playerAPI()
   setFillAllSpace(flag: boolean) {

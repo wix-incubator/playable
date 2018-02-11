@@ -106,12 +106,9 @@ export default class Logo {
 
   /**
    * Method for setting source of image, that would be used as logo
-   *
-   * @param src: Source of logo
-   *
+   * @param src - Source of logo
    * @example
-   * const src = 'link.to.your.image.with.logo'
-   * player.setLogo(src);
+   * player.setLogo('https://example.com/logo.png');
    *
    */
   @playerAPI()

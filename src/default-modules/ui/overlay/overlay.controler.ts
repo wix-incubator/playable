@@ -101,8 +101,9 @@ export default class Overlay {
 
   /**
    * Method for setting overlay poster
-   *
    * @param src - Source of image
+   * @example
+   * player.setPoster('https://example.com/poster.png');
    *
    */
   @playerAPI()

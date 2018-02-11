@@ -228,6 +228,15 @@ export default class Engine {
 
   /**
    * Method for setting source of video to player.
+   * @param src Array with multiple sources
+   * @example
+   * player.setSrc([
+   *   'https://my-url/video.mp4',
+   *   'https://my-url/video.webm',
+   *   'https://my-url/video.m3u8'
+   * ]);
+   * @note
+   * Read more about [video source](/video-source)
    */
   @playerAPI()
   setSrc(src) {
@@ -245,6 +254,8 @@ export default class Engine {
 
   /**
    * Return current source of video
+   * @example
+   * player.getSrc(); // ['https://my-url/video.mp4']
    */
   @playerAPI()
   getSrc() {
@@ -253,6 +264,8 @@ export default class Engine {
 
   /**
    * Method for synchronize current playback with live point. Available only if you playing live source.
+   * @example
+   * player.syncWithLive();
    */
   @playerAPI()
   syncWithLive() {
@@ -270,8 +283,9 @@ export default class Engine {
 
   /**
    * Method for going forward in playback by your value
-   *
-   * @param sec
+   * @param sec - Value in seconds
+   * @example
+   * player.goForward(5);
    */
   @playerAPI()
   goForward(sec: number) {
@@ -285,8 +299,9 @@ export default class Engine {
 
   /**
    * Method for going backward in playback by your value
-   *
-   * @param sec
+   * @param sec - Value in seconds
+   * @example
+   * player.goBackward(5);
    */
   @playerAPI()
   goBackward(sec: number) {
@@ -300,8 +315,9 @@ export default class Engine {
 
   /**
    * Method for decreasing current volume by value
-   *
-   * @param value
+   * @param value - Value from 0 to 100
+   * @example
+   * player.decreaseVolume(30);
    */
   @playerAPI()
   decreaseVolume(value: number) {
@@ -310,8 +326,9 @@ export default class Engine {
 
   /**
    * Method for increasing current volume by value
-   *
-   * @param value
+   * @param value - Value from 0 to 100
+   * @example
+   * player.increaseVolume(30);
    */
   @playerAPI()
   increaseVolume(value: number) {
@@ -320,6 +337,8 @@ export default class Engine {
 
   /**
    * Set autoPlay flag
+   * @example
+   * player.setAutoPlay();
    */
   @playerAPI()
   setAutoPlay(isAutoPlay: boolean) {
@@ -328,6 +347,8 @@ export default class Engine {
 
   /**
    * Get autoPlay flag
+   * @example
+   * player.getAutoPlay(); // true
    */
   @playerAPI()
   getAutoPlay(): boolean {
@@ -336,6 +357,9 @@ export default class Engine {
 
   /**
    * Set loop flag
+   * @param isLoop - If `true` video will be played again after it will finish
+   * @example
+   * player.setLoop(true);
    */
   @playerAPI()
   setLoop(isLoop: boolean) {
@@ -344,6 +368,8 @@ export default class Engine {
 
   /**
    * Get loop flag
+   * @example
+   * player.getLoop(); // true
    */
   @playerAPI()
   getLoop(): boolean {
@@ -351,7 +377,10 @@ export default class Engine {
   }
 
   /**
-   * Set mute flag
+   * Mute or unmute the video
+   * @param isMuted - `true` to mute the video.
+   * @example
+   * player.setMute(true);
    */
   @playerAPI()
   setMute(isMuted: boolean) {
@@ -360,6 +389,8 @@ export default class Engine {
 
   /**
    * Get mute flag
+   * @example
+   * player.getMute(); // true
    */
   @playerAPI()
   getMute(): boolean {
@@ -369,6 +400,8 @@ export default class Engine {
   /**
    * Set volume
    * @param volume - Volume value `0..100`
+   * @example
+   * player.setVolume(50);
    */
   @playerAPI()
   setVolume(volume: number) {
@@ -380,6 +413,8 @@ export default class Engine {
 
   /**
    * Get volume
+   * @example
+   * player.getVolume(); // 50
    */
   @playerAPI()
   getVolume(): number {
@@ -404,6 +439,8 @@ export default class Engine {
 
   /**
    * Set preload type
+   * @example
+   * player.setPreload('none');
    */
   @playerAPI()
   setPreload(preload: 'auto' | 'metadata' | 'none') {
@@ -412,6 +449,8 @@ export default class Engine {
 
   /**
    * Return preload type
+   * @example
+   * player.getPreload(); // none
    */
   @playerAPI()
   getPreload(): string {
@@ -420,6 +459,8 @@ export default class Engine {
 
   /**
    * Return current time of video playback
+   * @example
+   * player.getCurrentTime(); //  60.139683
    */
   @playerAPI()
   getCurrentTime() {
@@ -428,6 +469,9 @@ export default class Engine {
 
   /**
    * Method for seeking to time in video
+   * @param time - Time in seconds
+   * @example
+   * player.goTo(34);
    */
   @playerAPI('goTo')
   setCurrentTime(time: number) {
@@ -436,6 +480,8 @@ export default class Engine {
 
   /**
    * Return duration of video
+   * @example
+   * player.getDurationTime(); // 180.149745
    */
   @playerAPI()
   getDurationTime() {
@@ -444,6 +490,8 @@ export default class Engine {
 
   /**
    * Return real width of video from metadata
+   * @example
+   * player.getVideoWidth(); // 400
    */
   @playerAPI('getVideoRealWidth')
   getVideoWidth() {
@@ -452,6 +500,8 @@ export default class Engine {
 
   /**
    * Return real height of video from metadata
+   * @example
+   * player.getVideoHeight(); // 225
    */
   @playerAPI('getVideoRealHeight')
   getVideoHeight() {
@@ -464,6 +514,9 @@ export default class Engine {
 
   /**
    * Set playInline flag
+   * @param isPlayInline - If `false` - video will be played in full screen, `true` - inline
+   * @example
+   * player.setPlayInline(true);
    */
   @playerAPI()
   setPlayInline(isPlayInline: boolean) {
@@ -474,6 +527,8 @@ export default class Engine {
 
   /**
    * Get playInline flag
+   * @example
+   * player.getPlayInline(); // true
    */
   @playerAPI()
   getPlayInline(): boolean {
@@ -490,6 +545,8 @@ export default class Engine {
 
   /**
    * Method for starting playback of video
+   * @example
+   * player.play();
    */
   @playerAPI()
   play() {
@@ -518,6 +575,8 @@ export default class Engine {
 
   /**
    * Method for pausing playback of video
+   * @example
+   * player.pause();
    */
   @playerAPI()
   pause() {
@@ -531,6 +590,8 @@ export default class Engine {
 
   /**
    * Method for toggling(play\pause) playback of video
+   * @example
+   * player.togglePlayback();
    */
   @playerAPI()
   togglePlayback() {

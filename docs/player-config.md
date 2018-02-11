@@ -48,7 +48,11 @@ const config = {
   fillAllSpace: true
 };
 
-const player = Playable.create(config);
+const theme = {
+  progressColor: "#aaa"
+};
+
+const player = Playable.create(config, theme);
 ```
 
 ### Video sources

@@ -136,6 +136,8 @@ export default class FullScreenManager {
   /**
    * Player would try to enter fullscreen mode.
    * Behavior of fullscreen mode on different platforms may differ.
+   * @example
+   * player.enterFullScreen();
    */
   @playerAPI()
   enterFullScreen() {
@@ -148,6 +150,8 @@ export default class FullScreenManager {
 
   /**
    * Player would try to exit fullscreen mode.
+   * @example
+   * player.exitFullScreen();
    */
   @playerAPI()
   exitFullScreen() {
@@ -160,6 +164,8 @@ export default class FullScreenManager {
 
   /**
    * Return true if player is in full screen
+   * @example
+   * player.isInFullScreen(); // false
    */
   @playerAPI()
   get isInFullScreen(): boolean {

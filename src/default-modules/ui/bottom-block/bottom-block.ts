@@ -118,8 +118,9 @@ export default class BottomBlock {
 
   /**
    * Method for allowing logo to be always shown in bottom block
-   *
-   * @param flag: True for showing always
+   * @param flag - `true` for showing always
+   * @example
+   * player.setLogoAlwaysShowFlag(true);
    *
    */
   @playerAPI()
@@ -129,6 +130,8 @@ export default class BottomBlock {
 
   /**
    * Method for hidding logo. If you use `setLogoAlwaysShowFlag` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
+   * @example
+   * player.hideLogo();
    */
   @playerAPI()
   hideLogo() {

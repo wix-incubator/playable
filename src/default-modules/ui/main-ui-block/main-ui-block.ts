@@ -278,8 +278,9 @@ export default class MainUIBlock {
 
   /**
    * Method for allowing bottom block to be always shown.
-   *
-   * @param flag: True for showing always
+   * @param flag - `true` for showing always
+   * @example
+   * player.setControlsShouldAlwaysShow(true);
    *
    */
   @playerAPI('setControlsShouldAlwaysShow')
