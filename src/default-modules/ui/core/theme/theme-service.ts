@@ -19,6 +19,7 @@ interface IThemeService {
 }
 
 class ThemeService implements IThemeService {
+  static moduleName = 'theme';
   static dependencies = ['themeConfig'];
 
   private _styleSheet: StyleSheet;

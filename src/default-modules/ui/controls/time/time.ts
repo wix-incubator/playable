@@ -7,6 +7,7 @@ import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
 export default class TimeControl {
+  static moduleName = 'timeControl';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'theme'];
 

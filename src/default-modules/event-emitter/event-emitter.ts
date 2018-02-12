@@ -3,6 +3,7 @@ import { EventEmitter, ListenerFn } from 'eventemitter3';
 import playerAPI from '../../utils/player-api-decorator';
 
 export default class EventEmitterModule extends EventEmitter {
+  static moduleName = 'eventEmitter';
   /**
    * Method for adding listeners of events inside player.
    * You can check all events inside `Playable.UI_EVENTS` and `Playable.VIDEO_EVENTS`

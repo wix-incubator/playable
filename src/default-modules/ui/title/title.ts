@@ -11,6 +11,7 @@ export interface ITitleConfig {
 }
 
 export default class TitleControl {
+  static moduleName = 'title';
   static View = View;
   static dependencies = ['config', 'theme'];
 

@@ -8,7 +8,7 @@ import { UI_EVENTS } from '../../constants/index';
 
 import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
-import RootContainer from '../root-container/root-container.controler';
+import RootContainer from '../root-container/root-container';
 import KeyboardControl, {
   AMOUNT_TO_SKIP_SECONDS,
   AMOUNT_TO_CHANGE_VOLUME,

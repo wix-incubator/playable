@@ -56,6 +56,7 @@ interface DebugInfo {
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 export default class Engine {
+  static moduleName = 'engine';
   static dependencies = ['eventEmitter', 'config', 'availablePlaybackAdapters'];
 
   private _eventEmitter;

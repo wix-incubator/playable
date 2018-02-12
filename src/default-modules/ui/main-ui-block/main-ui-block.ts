@@ -14,6 +14,7 @@ const DEFAULT_CONFIG: IControlsConfig = {
 };
 
 export default class MainUIBlock {
+  static moduleName = 'mainUIBlock';
   static View = MainUIBlockView;
   static dependencies = [
     'config',

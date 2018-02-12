@@ -5,6 +5,7 @@ import { IBottomBlockViewConfig, IBottomBlockViewElements } from './types';
 import View from './bottom-block.view';
 
 export default class BottomBlock {
+  static moduleName = 'bottomBlock';
   static View = View;
   static dependencies = [
     'config',

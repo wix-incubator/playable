@@ -1,4 +1,4 @@
-import Playable from '../index';
+import Playable, { ENGINE_STATES, VIDEO_EVENTS } from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import HLSAdapter from '../default-modules/playback-engine/adapters/hls';
 import DASHAdapter from '../default-modules/playback-engine/adapters/dash';
@@ -57,9 +57,9 @@ describe('Playback e2e test', function() {
         // TODO: describe `@playerApi` methods in `Player` with TS
         const player: any = Playable.create();
         player.attachToElement(node);
-        player.on(Playable.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
-          if (nextState === Playable.ENGINE_STATES.PLAYING) {
-            player.off(Playable.VIDEO_EVENTS.STATE_CHANGED);
+        player.on(VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
+          if (nextState === ENGINE_STATES.PLAYING) {
+            player.off(VIDEO_EVENTS.STATE_CHANGED);
             player.destroy();
             done();
           }
@@ -75,9 +75,9 @@ describe('Playback e2e test', function() {
           preload: PreloadTypes.NONE,
         });
         player.attachToElement(node);
-        player.on(Playable.VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
-          if (nextState === Playable.ENGINE_STATES.PLAYING) {
-            player.off(Playable.VIDEO_EVENTS.STATE_CHANGED);
+        player.on(VIDEO_EVENTS.STATE_CHANGED, ({ nextState }) => {
+          if (nextState === ENGINE_STATES.PLAYING) {
+            player.off(VIDEO_EVENTS.STATE_CHANGED);
             player.destroy();
             done();
           }

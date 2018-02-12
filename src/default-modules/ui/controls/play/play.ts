@@ -9,6 +9,7 @@ import KeyboardInterceptor, {
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
 
 export default class PlayControl {
+  static moduleName = 'playControl';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'theme'];
 

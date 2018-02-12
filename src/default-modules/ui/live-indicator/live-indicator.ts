@@ -3,6 +3,7 @@ import LiveIndicatorView from './live-indicator.view';
 import { VIDEO_EVENTS, LiveState } from '../../../constants';
 
 export default class LiveIndicator {
+  static moduleName = 'liveIndicator';
   static View = LiveIndicatorView;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];
 

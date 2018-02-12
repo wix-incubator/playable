@@ -3,6 +3,7 @@ import View from './top-block.view';
 import { ITopBlockViewConfig, ITopBlockViewElements } from './types';
 
 export default class TopBlock {
+  static moduleName = 'topBlock';
   static View = View;
   static dependencies = ['config', 'screen', 'title', 'liveIndicator'];
 

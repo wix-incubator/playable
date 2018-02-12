@@ -19,6 +19,7 @@ export const DELAYED_REPORT_TYPES = {
 };
 
 export default class AnomalyBloodhound {
+  static moduleName = 'anomalyBloodhound';
   static dependencies = ['eventEmitter', 'engine', 'config'];
 
   private _config;

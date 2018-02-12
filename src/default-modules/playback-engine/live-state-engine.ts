@@ -8,6 +8,7 @@ const SEEK_BY_UI_EVENTS = [
 ];
 
 class LiveStateEngine {
+  static moduleName = 'liveStateEngine';
   static dependencies = ['eventEmitter', 'engine'];
 
   private _eventEmitter;

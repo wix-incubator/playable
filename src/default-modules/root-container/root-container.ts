@@ -19,6 +19,7 @@ export interface IPlayerSize {
 }
 
 class RootContainer {
+  static moduleName = 'rootContainer';
   static dependencies = ['eventEmitter', 'config', 'engine'];
 
   private _eventEmitter;

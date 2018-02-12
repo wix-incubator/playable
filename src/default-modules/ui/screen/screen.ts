@@ -16,6 +16,7 @@ export interface IScreenConfig {
 }
 
 export default class Screen {
+  static moduleName = 'screen';
   static View = View;
   static dependencies = [
     'engine',

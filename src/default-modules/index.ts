@@ -9,16 +9,16 @@ import EventEmitter from './event-emitter/event-emitter';
 import TextMap from './text-map/text-map';
 import KeyboardInterceptor from './keyboard-control/keyboard-control';
 import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
-import RootContainer from './root-container/root-container.controler';
+import RootContainer from './root-container/root-container';
 import DebugPanel from './ui/debug-panel/debug-panel';
 
 import MainUIBlock from './ui/main-ui-block/main-ui-block';
 
 import Title from './ui/title/title';
 import LiveIndicator from './ui/live-indicator/live-indicator';
-import Screen from './ui/screen/screen.controler';
-import Overlay from './ui/overlay/overlay.controler';
-import Loader from './ui/loader/loader.controler';
+import Screen from './ui/screen/screen';
+import Overlay from './ui/overlay/overlay';
+import Loader from './ui/loader/loader';
 import TopBlock from './ui/top-block/top-block';
 import BottomBlock from './ui/bottom-block/bottom-block';
 import InteractionIndicator from './ui/interaction-indicator/interaction-indicator';
@@ -34,37 +34,49 @@ import { TooltipService } from './ui/core/tooltip';
 
 const { asClass } = DependencyContainer;
 
-export default {
-  eventEmitter: asClass(EventEmitter).scoped(),
-  tooltipService: asClass(TooltipService).scoped(),
-  rootContainer: asClass(RootContainer).scoped(),
-  textMap: asClass(TextMap).scoped(),
-  engine: asClass(Engine).scoped(),
-  liveStateEngine: asClass(LiveStateEngine).scoped(),
-  fullScreenManager: asClass(FullScreenManager).scoped(),
-  keyboardInterceptor: asClass(KeyboardInterceptor).scoped(),
-  mouseInterceptor: asClass(MouseInterceptor).scoped(),
-  debugPanel: asClass(DebugPanel).scoped(),
+export const modules = {
+  EventEmitter,
+  TooltipService,
+  RootContainer,
+  TextMap,
+  Engine,
+  LiveStateEngine,
+  FullScreenManager,
+  KeyboardInterceptor,
+  MouseInterceptor,
+  DebugPanel,
 
-  screen: asClass(Screen).scoped(),
-  interactionIndicator: asClass(InteractionIndicator).scoped(),
+  Screen,
+  InteractionIndicator,
 
-  overlay: asClass(Overlay).scoped(),
-  loader: asClass(Loader).scoped(),
+  Overlay,
+  Loader,
 
-  mainUIBlock: asClass(MainUIBlock).scoped(),
+  MainUIBlock,
 
-  topBlock: asClass(TopBlock).scoped(),
-  liveIndicator: asClass(LiveIndicator).scoped(),
-  title: asClass(Title).scoped(),
+  TopBlock,
+  LiveIndicator,
+  Title,
 
-  bottomBlock: asClass(BottomBlock).scoped(),
-  progressControl: asClass(ProgressControl).scoped(),
-  playControl: asClass(PlayControl).scoped(),
-  timeControl: asClass(TimeControl).scoped(),
-  volumeControl: asClass(VolumeControl).scoped(),
-  fullScreenControl: asClass(FullScreenControl).scoped(),
-  logo: asClass(Logo).scoped(),
+  BottomBlock,
+  ProgressControl,
+  PlayControl,
+  TimeControl,
+  VolumeControl,
+  FullScreenControl,
+  Logo,
 
-  theme: asClass(ThemeService).scoped(),
+  ThemeService,
 };
+
+const DIModules = Object.keys(modules).reduce((DIModules, key) => {
+  const module = modules[key];
+  if (!module.moduleName) {
+    throw new Error(`No moduleName in module: ${key}`);
+  }
+
+  DIModules[module.moduleName] = asClass(module).scoped();
+  return DIModules;
+}, {});
+
+export default DIModules;
