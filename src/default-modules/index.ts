@@ -9,16 +9,16 @@ import EventEmitter from './event-emitter/event-emitter';
 import TextMap from './text-map/text-map';
 import KeyboardInterceptor from './keyboard-control/keyboard-control';
 import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
-import RootContainer from './root-container/root-container.controler';
+import RootContainer from './root-container/root-container';
 import DebugPanel from './ui/debug-panel/debug-panel';
 
 import MainUIBlock from './ui/main-ui-block/main-ui-block';
 
 import Title from './ui/title/title';
 import LiveIndicator from './ui/live-indicator/live-indicator';
-import Screen from './ui/screen/screen.controler';
-import Overlay from './ui/overlay/overlay.controler';
-import Loader from './ui/loader/loader.controler';
+import Screen from './ui/screen/screen';
+import Overlay from './ui/overlay/overlay';
+import Loader from './ui/loader/loader';
 import TopBlock from './ui/top-block/top-block';
 import BottomBlock from './ui/bottom-block/bottom-block';
 import InteractionIndicator from './ui/interaction-indicator/interaction-indicator';
@@ -35,42 +35,47 @@ import { TooltipService } from './ui/core/tooltip';
 const { asClass } = DependencyContainer;
 
 export const modules = {
-  eventEmitter: EventEmitter,
-  tooltipService: TooltipService,
-  rootContainer: RootContainer,
-  textMap: TextMap,
-  engine: Engine,
-  liveStateEngine: LiveStateEngine,
-  fullScreenManager: FullScreenManager,
-  keyboardInterceptor: KeyboardInterceptor,
-  mouseInterceptor: MouseInterceptor,
-  debugPanel: DebugPanel,
+  EventEmitter,
+  TooltipService,
+  RootContainer,
+  TextMap,
+  Engine,
+  LiveStateEngine,
+  FullScreenManager,
+  KeyboardInterceptor,
+  MouseInterceptor,
+  DebugPanel,
 
-  screen: Screen,
-  interactionIndicator: InteractionIndicator,
+  Screen,
+  InteractionIndicator,
 
-  overlay: Overlay,
-  loader: Loader,
+  Overlay,
+  Loader,
 
-  mainUIBlock: MainUIBlock,
+  MainUIBlock,
 
-  topBlock: TopBlock,
-  liveIndicator: LiveIndicator,
-  title: Title,
+  TopBlock,
+  LiveIndicator,
+  Title,
 
-  bottomBlock: BottomBlock,
-  progressControl: ProgressControl,
-  playControl: PlayControl,
-  timeControl: TimeControl,
-  volumeControl: VolumeControl,
-  fullScreenControl: FullScreenControl,
-  logo: Logo,
+  BottomBlock,
+  ProgressControl,
+  PlayControl,
+  TimeControl,
+  VolumeControl,
+  FullScreenControl,
+  Logo,
 
-  theme: ThemeService,
+  ThemeService,
 };
 
-const DIModules = Object.keys(modules).reduce((DIModules, module) => {
-  DIModules[module] = asClass(modules[module]).scoped();
+const DIModules = Object.keys(modules).reduce((DIModules, key) => {
+  const module = modules[key];
+  if (!module.moduleName) {
+    throw new Error(`No moduleName in module: ${key}`);
+  }
+
+  DIModules[module.moduleName] = asClass(module).scoped();
   return DIModules;
 }, {});
 

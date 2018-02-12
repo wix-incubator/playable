@@ -5,6 +5,7 @@ export interface ITextMapConfig {
 }
 
 export default class TextMap {
+  static moduleName = 'textMap';
   static dependencies = ['config'];
 
   private _textMap;

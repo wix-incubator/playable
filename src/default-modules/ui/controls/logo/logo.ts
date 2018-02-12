@@ -17,6 +17,7 @@ export interface ILogoConfig {
 }
 
 export default class Logo {
+  static moduleName = 'logo';
   static View = View;
   static dependencies = [
     'engine',

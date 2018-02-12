@@ -10,6 +10,7 @@ import { ITooltipService } from '../../core/tooltip';
 import View from './full-screen.view';
 
 export default class FullScreenControl {
+  static moduleName = 'fullScreenControl';
   static View = View;
   static dependencies = [
     'eventEmitter',

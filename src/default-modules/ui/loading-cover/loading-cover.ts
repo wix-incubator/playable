@@ -5,6 +5,7 @@ import playerAPI from '../../../utils/player-api-decorator';
 import View from './loading-cover.view';
 
 export default class LoadingCover {
+  static moduleName = 'loadingCover';
   static View = View;
   static dependencies = [
     'engine',

@@ -1,11 +1,7 @@
-import create, {
-  registerModule,
-  registerPlaybackAdapter,
-} from './core/player-factory';
+import * as playerFactoryMethods from './core/player-factory';
+export * from './core/player-factory';
 
-import playerAPIDecorator from './utils/player-api-decorator';
-
-export {
+import {
   UI_EVENTS,
   VIDEO_EVENTS,
   TEXT_LABELS,
@@ -15,14 +11,35 @@ export {
   LiveState as LIVE_STATES,
 } from './constants';
 
+export {
+  UI_EVENTS,
+  VIDEO_EVENTS,
+  TEXT_LABELS,
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_TYPE,
+  ENGINE_STATES,
+  LIVE_STATES,
+};
+
+import { modules as DEFAULT_MODULES } from './default-modules';
+
+import playerAPIDecorator from './utils/player-api-decorator';
+export { playerAPIDecorator };
+
 export { Tooltip } from './default-modules/ui/core/tooltip';
 
-export * from './default-modules';
+export { modules as DEFAULT_MODULES } from './default-modules';
 
-export { playerAPIDecorator, create, registerModule, registerPlaybackAdapter };
-
-export default {
-  create,
-  registerModule,
-  registerPlaybackAdapter,
+const defaultExport = {
+  ...playerFactoryMethods,
+  UI_EVENTS,
+  VIDEO_EVENTS,
+  TEXT_LABELS,
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_TYPE,
+  ENGINE_STATES,
+  LIVE_STATES,
+  DEFAULT_MODULES,
 };
+
+export default defaultExport;

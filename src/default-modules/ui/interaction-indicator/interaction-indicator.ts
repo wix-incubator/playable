@@ -3,6 +3,7 @@ import { UI_EVENTS, STATES } from '../../../constants/index';
 import View from './interaction-indicator.view';
 
 export default class InteractionIndicator {
+  static moduleName = 'interactionIndicator';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 

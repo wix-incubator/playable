@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
 
-import { DELAYED_SHOW_TIMEOUT } from './loader.controler';
+import { DELAYED_SHOW_TIMEOUT } from './loader';
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
 
 describe('Loader', () => {

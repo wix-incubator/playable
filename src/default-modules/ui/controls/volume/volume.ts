@@ -11,6 +11,7 @@ import { AMOUNT_TO_CHANGE_VOLUME } from '../../../keyboard-control/keyboard-cont
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
 
 export default class VolumeControl {
+  static moduleName = 'volumeControl';
   static View = View;
   static dependencies = [
     'engine',

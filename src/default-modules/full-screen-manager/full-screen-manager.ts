@@ -20,6 +20,7 @@ const DEFAULT_CONFIG: IFullScreenConfig = {
 };
 
 export default class FullScreenManager {
+  static moduleName = 'fullScreenManager';
   static dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
 
   private _eventEmitter;

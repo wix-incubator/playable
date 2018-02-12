@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 
 import { EventEmitter } from 'eventemitter3';
 
-import RootContainer from './root-container.controler';
+import RootContainer from './root-container';
 import Engine from '../playback-engine/playback-engine';
 
 (global as any).requestAnimationFrame = () => {};

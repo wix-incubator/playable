@@ -24,6 +24,7 @@ import { ITooltipService } from '../../core/tooltip';
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
 export default class ProgressControl {
+  static moduleName = 'progressControl';
   static View = View;
   static dependencies = [
     'engine',

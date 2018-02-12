@@ -8,7 +8,7 @@ import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
-import RootContainer from '../root-container/root-container.controler';
+import RootContainer from '../root-container/root-container';
 
 import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants/index';
 

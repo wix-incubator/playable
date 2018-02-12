@@ -20,6 +20,8 @@ interface ITooltipService {
 }
 
 class TooltipService implements ITooltipService {
+  static moduleName = 'tooltipService';
+
   private _tooltip: Tooltip;
   private _tooltipContainer: TooltipContainer;
 

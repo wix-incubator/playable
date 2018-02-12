@@ -10,6 +10,7 @@ export interface IOverlayConfig {
 }
 
 export default class Overlay {
+  static moduleName = 'overlay';
   static View = View;
   static dependencies = [
     'engine',

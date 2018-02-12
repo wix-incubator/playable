@@ -5,6 +5,7 @@ import View from './loader.view';
 export const DELAYED_SHOW_TIMEOUT = 100;
 
 export default class Loader {
+  static moduleName = 'loader';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 

@@ -14,6 +14,7 @@ export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
 
 export default class KeyboardControl {
+  static moduleName = 'keyboardControl';
   static dependencies = [
     'engine',
     'eventEmitter',

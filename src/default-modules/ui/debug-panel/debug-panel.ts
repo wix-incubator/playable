@@ -4,6 +4,7 @@ import View from './debug-panel.view';
 const UPDATE_TIME = 1000;
 
 export default class DebugPanel {
+  static moduleName = 'debugPanel';
   static View = View;
   static dependencies = ['engine', 'rootContainer'];
 

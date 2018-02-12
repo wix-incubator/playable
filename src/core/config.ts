@@ -3,15 +3,15 @@ import { isIPhone, isIPod, isIPad, isAndroid } from '../utils/device-detection';
 import { ITitleConfig } from '../default-modules/ui/title/title';
 import { IFullScreenConfig } from '../default-modules/full-screen-manager/full-screen-manager';
 import { ILogoConfig } from '../default-modules/ui/controls/logo/logo';
-import { IOverlayConfig } from '../default-modules/ui/overlay/overlay.controler';
+import { IOverlayConfig } from '../default-modules/ui/overlay/overlay';
 import { ITextMapConfig } from '../default-modules/text-map/text-map';
-import { IScreenConfig } from '../default-modules/ui/screen/screen.controler';
+import { IScreenConfig } from '../default-modules/ui/screen/screen';
 import { IControlsConfig } from '../default-modules/ui/main-ui-block/main-ui-block';
 import {
   PreloadTypes,
   MediaSource,
 } from '../default-modules/playback-engine/playback-engine';
-import { IPlayerSize } from '../default-modules/root-container/root-container.controler';
+import { IPlayerSize } from '../default-modules/root-container/root-container';
 
 export interface IPlayerConfig {
   src?: MediaSource;

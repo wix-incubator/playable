@@ -29,10 +29,7 @@ export function clearPlaybackAdapters() {
   playbackAdapters = [...defaultPlaybackAdapters];
 }
 
-export default function create(
-  params: IPlayerConfig = {},
-  themeConfig?: IThemeConfig,
-) {
+export function create(params: IPlayerConfig = {}, themeConfig?: IThemeConfig) {
   const scope = container.createScope();
 
   const additionalModuleNames = Object.keys(additionalModules);

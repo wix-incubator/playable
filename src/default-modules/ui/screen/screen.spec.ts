@@ -6,7 +6,7 @@ import { STATES } from '../../../constants';
 
 import createPlayerTestkit from '../../../testkit';
 
-import Screen from './screen.controler';
+import Screen from './screen';
 class FullScreenManagerMock {
   enterFullScreen = _ => _;
   exitFullScreen = _ => _;

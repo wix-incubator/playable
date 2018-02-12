@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import EventEmitter from '../event-emitter/event-emitter';
-import RootContainer from '../root-container/root-container.controler';
+import RootContainer from '../root-container/root-container';
 import MouseInterceptor from './mouse-interceptor';
 
 import { UI_EVENTS } from '../../constants/index';
