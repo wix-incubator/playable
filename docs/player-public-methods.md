@@ -2,23 +2,17 @@
 
 # Player public methods
 
-## on
+## updateTheme
 
 ```javascript
-const Playable = require('playable');
-const player = Playable.create();
-
-player.on(Playable.UI_EVENTS.PLAY_TRIGGERED, () => {
-  // Will be executed after you will click on play button
-});
-
-// To supply a context value for `this` when the callback is invoked,
-// pass the optional context argument
-player.on(Playable.VIDEO_EVENTS.UPLOAD_STALLED, this.handleStalledUpload, this);
+player.updateTheme({
+  progressColor: "#AEAD22"
+})
 ```
 
-Method for adding listeners of events inside player.
-You can check all events inside <code>Playable.UI_EVENTS</code> and <code>Playable.VIDEO_EVENTS</code>
+> You can check info about theming [here](/themes)
+
+Method for setting theme for player instance
 
 <div class="method-list">
   <table>
@@ -31,108 +25,13 @@ You can check all events inside <code>Playable.UI_EVENTS</code> and <code>Playab
     <tbody>
       <tr>
         <td class="param">
-          <code>event</code><span class="type">string</span class="type">
+          <code>themeConfig</code><span class="type">IThemeConfig</span class="type">
         </td>
-        <td>The Event name, such as <code>Playable.UI_EVENTS.PLAY_TRIGGERED</code></td>
-      </tr><tr>
-        <td class="param">
-          <code>fn</code><span class="type">ListenerFn</span class="type">
-        </td>
-        <td>A function callback to execute when the event is triggered.</td>
-      </tr><tr>
-        <td class="param">
-          <code>context</code>
-        </td>
-        <td>Value to use as <code>this</code> (i.e the reference Object) when executing callback.</td>
+        <td>Theme config</td>
       </tr>
     </tbody>
   </table>
 </div>
-
-
-## off
-
-```javascript
-const Playable = require('playable');
-const player = Playable.create();
-
-const callback = function() {
-  // Code to handle some kind of event
-};
-
-// ... Now callback will be called when some one will pause the video ...
-player.on(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
-
-// ... callback will no longer be called.
-player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
-
-// ... remove all handlers for event UI_EVENTS.PAUSE_TRIGGERED.
-player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED);
-```
-
-Method for removing listeners of events inside player.
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>event</code><span class="type">string</span class="type">
-        </td>
-        <td>The Event name, such as <code>Playable.UI_EVENTS.PLAY_TRIGGERED</code></td>
-      </tr><tr>
-        <td class="param">
-          <code>fn</code><span class="type">ListenerFn</span class="type">
-        </td>
-        <td>Only remove the listeners that match this function.</td>
-      </tr><tr>
-        <td class="param">
-          <code>context</code>
-        </td>
-        <td>Only remove the listeners that have this context.</td>
-      </tr><tr>
-        <td class="param">
-          <code>once</code><span class="type">boolean</span class="type">
-        </td>
-        <td>Only remove one-time listeners.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-## enterFullScreen
-
-```javascript
-player.enterFullScreen();
-```
-
-Player would try to enter fullscreen mode.
-Behavior of fullscreen mode on different platforms may differ.
-
-
-## exitFullScreen
-
-```javascript
-player.exitFullScreen();
-```
-
-Player would try to exit fullscreen mode.
-
-
-## isInFullScreen
-
-```javascript
-player.isInFullScreen(); // false
-```
-
-Return true if player is in full screen
 
 
 ## getDebugInfo
@@ -749,6 +648,139 @@ player.togglePlayback();
 Method for toggling(play\pause) playback of video
 
 
+## enterFullScreen
+
+```javascript
+player.enterFullScreen();
+```
+
+Player would try to enter fullscreen mode.
+Behavior of fullscreen mode on different platforms may differ.
+
+
+## exitFullScreen
+
+```javascript
+player.exitFullScreen();
+```
+
+Player would try to exit fullscreen mode.
+
+
+## isInFullScreen
+
+```javascript
+player.isInFullScreen(); // false
+```
+
+Return true if player is in full screen
+
+
+## on
+
+```javascript
+const Playable = require('playable');
+const player = Playable.create();
+
+player.on(Playable.UI_EVENTS.PLAY_TRIGGERED, () => {
+  // Will be executed after you will click on play button
+});
+
+// To supply a context value for `this` when the callback is invoked,
+// pass the optional context argument
+player.on(Playable.VIDEO_EVENTS.UPLOAD_STALLED, this.handleStalledUpload, this);
+```
+
+Method for adding listeners of events inside player.
+You can check all events inside <code>Playable.UI_EVENTS</code> and <code>Playable.VIDEO_EVENTS</code>
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>event</code><span class="type">string</span class="type">
+        </td>
+        <td>The Event name, such as <code>Playable.UI_EVENTS.PLAY_TRIGGERED</code></td>
+      </tr><tr>
+        <td class="param">
+          <code>fn</code><span class="type">ListenerFn</span class="type">
+        </td>
+        <td>A function callback to execute when the event is triggered.</td>
+      </tr><tr>
+        <td class="param">
+          <code>context</code>
+        </td>
+        <td>Value to use as <code>this</code> (i.e the reference Object) when executing callback.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+## off
+
+```javascript
+const Playable = require('playable');
+const player = Playable.create();
+
+const callback = function() {
+  // Code to handle some kind of event
+};
+
+// ... Now callback will be called when some one will pause the video ...
+player.on(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
+
+// ... callback will no longer be called.
+player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
+
+// ... remove all handlers for event UI_EVENTS.PAUSE_TRIGGERED.
+player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED);
+```
+
+Method for removing listeners of events inside player.
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>event</code><span class="type">string</span class="type">
+        </td>
+        <td>The Event name, such as <code>Playable.UI_EVENTS.PLAY_TRIGGERED</code></td>
+      </tr><tr>
+        <td class="param">
+          <code>fn</code><span class="type">ListenerFn</span class="type">
+        </td>
+        <td>Only remove the listeners that match this function.</td>
+      </tr><tr>
+        <td class="param">
+          <code>context</code>
+        </td>
+        <td>Only remove the listeners that have this context.</td>
+      </tr><tr>
+        <td class="param">
+          <code>once</code><span class="type">boolean</span class="type">
+        </td>
+        <td>Only remove one-time listeners.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 ## node
 
 Getter for DOM node with player UI element
@@ -909,6 +941,123 @@ Method for allowing player fill all available space
 </div>
 
 
+## setControlsShouldAlwaysShow
+
+```javascript
+player.setControlsShouldAlwaysShow(true);
+```
+
+Method for allowing bottom block to be always shown.
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>flag</code><span class="type">boolean</span class="type">
+        </td>
+        <td><code>true</code> for showing always</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+## setTitle
+
+```javascript
+player.setTitle('Your awesome video title here');
+```
+
+> [Live Demo](https://jsfiddle.net/bodia/243k6m0u/)
+
+Display title text over the video. If you want to have clickable title, use <code>setTitleClickCallback</code>
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>title</code><span class="type">string</span class="type">
+        </td>
+        <td>Text for the video title</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+## setTitleClickCallback
+
+```javascript
+const callback = () => {
+  console.log('Click on title);
+}
+player.setTitleClickCallback(callback);
+```
+
+Method for attaching callback for click on title
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>callback</code><span class="type">Function</span class="type">
+        </td>
+        <td>Your function</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+## setPoster
+
+```javascript
+player.setPoster('https://example.com/poster.png');
+```
+
+Method for setting overlay poster
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>src</code><span class="type">string</span class="type">
+        </td>
+        <td>Source of image</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 ## setLogoAlwaysShowFlag
 
 ```javascript
@@ -944,65 +1093,6 @@ player.hideLogo();
 ```
 
 Method for hidding logo. If you use <code>setLogoAlwaysShowFlag</code> or <code>setControlsShouldAlwaysShow</code>, logo would automaticaly appear.
-
-
-## setLogo
-
-```javascript
-player.setLogo('https://example.com/logo.png');
-```
-
-Method for setting source of image, that would be used as logo
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>src</code><span class="type">string</span class="type">
-        </td>
-        <td>Source of logo</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-## setLogoClickCallback
-
-```javascript
-const callback = () => {
-  console.log('Click on title);
-}
-player.setLogoClickCallback(callback);
-```
-
-Method for attaching callback for click on logo
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>callback</code><span class="type">Function</span class="type">
-        </td>
-        <td>Your function</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
 
 ## addTimeIndicator
@@ -1058,45 +1148,13 @@ Add time indicators to progress bar
 Delete all time indicators from progress bar
 
 
-## updateTheme
+## setLogo
 
 ```javascript
-player.updateTheme({
-  progressColor: "#AEAD22"
-})
+player.setLogo('https://example.com/logo.png');
 ```
 
-> You can check info about theming [here](/themes)
-
-Method for setting theme for player instance
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>themeConfig</code><span class="type">IThemeConfig</span class="type">
-        </td>
-        <td>Theme config</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-## setLoadingCover
-
-```javascript
-player.setLoadingCover('https://example.com/cover.png');
-```
-
-Method for setting source of image, that would be used as loading cover instead of loader.
+Method for setting source of image, that would be used as logo
 
 <div class="method-list">
   <table>
@@ -1111,109 +1169,23 @@ Method for setting source of image, that would be used as loading cover instead 
         <td class="param">
           <code>src</code><span class="type">string</span class="type">
         </td>
-        <td>Link to your image</td>
+        <td>Source of logo</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 
-## setControlsShouldAlwaysShow
-
-```javascript
-player.setControlsShouldAlwaysShow(true);
-```
-
-Method for allowing bottom block to be always shown.
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>flag</code><span class="type">boolean</span class="type">
-        </td>
-        <td><code>true</code> for showing always</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-## setPoster
-
-```javascript
-player.setPoster('https://example.com/poster.png');
-```
-
-Method for setting overlay poster
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>src</code><span class="type">string</span class="type">
-        </td>
-        <td>Source of image</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-## setTitle
-
-```javascript
-player.setTitle('Your awesome video title here');
-```
-
-> [Live Demo](https://jsfiddle.net/bodia/243k6m0u/)
-
-Display title text over the video. If you want to have clickable title, use <code>setTitleClickCallback</code>
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>title</code><span class="type">string</span class="type">
-        </td>
-        <td>Text for the video title</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-## setTitleClickCallback
+## setLogoClickCallback
 
 ```javascript
 const callback = () => {
   console.log('Click on title);
 }
-player.setTitleClickCallback(callback);
+player.setLogoClickCallback(callback);
 ```
 
-Method for attaching callback for click on title
+Method for attaching callback for click on logo
 
 <div class="method-list">
   <table>
