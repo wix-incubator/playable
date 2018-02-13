@@ -21,14 +21,14 @@ export {
   LIVE_STATES,
 };
 
-import { modules as DEFAULT_MODULES } from './default-modules';
+import { modules as DefaultModules } from './default-modules';
 
 import playerAPIDecorator from './utils/player-api-decorator';
 export { playerAPIDecorator };
 
 export { Tooltip } from './default-modules/ui/core/tooltip';
 
-export { modules as DEFAULT_MODULES } from './default-modules';
+export { modules as DefaultModules } from './default-modules';
 
 const defaultExport = {
   ...playerFactoryMethods,
@@ -39,7 +39,7 @@ const defaultExport = {
   MEDIA_STREAM_DELIVERY_TYPE,
   ENGINE_STATES,
   LIVE_STATES,
-  DEFAULT_MODULES,
+  DefaultModules,
 };
 
 export default defaultExport;
