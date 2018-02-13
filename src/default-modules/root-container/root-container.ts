@@ -125,28 +125,6 @@ class RootContainer {
   }
 
   /**
-   * Hide whole ui
-   * @example
-   * player.hide();
-   */
-  @playerAPI()
-  hide() {
-    this.isHidden = true;
-    this.view.hide();
-  }
-
-  /**
-   * Show whole ui
-   * @example
-   * player.show();
-   */
-  @playerAPI()
-  show() {
-    this.isHidden = false;
-    this.view.show();
-  }
-
-  /**
    * Method for setting width of player
    * @param width - Desired width of player in pixels
    * @example
@@ -159,6 +137,16 @@ class RootContainer {
   }
 
   /**
+   * Return current width of player in pixels
+   * @example
+   * player.getWidth(); // 400
+   */
+  @playerAPI()
+  getWidth(): number {
+    return this.view.getWidth();
+  }
+
+  /**
    * Method for setting width of player
    * @param height - Desired height of player in pixels
    * @example
@@ -168,16 +156,6 @@ class RootContainer {
   setHeight(height: number) {
     this.view.setHeight(height);
     this._eventEmitter.emit(UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED, height);
-  }
-
-  /**
-   * Return current width of player in pixels
-   * @example
-   * player.getWidth(); // 400
-   */
-  @playerAPI()
-  getWidth(): number {
-    return this.view.getWidth();
   }
 
   /**
@@ -199,6 +177,28 @@ class RootContainer {
   @playerAPI()
   setFillAllSpace(flag: boolean) {
     this.view.setFillAllSpaceFlag(flag);
+  }
+
+  /**
+   * Hide whole ui
+   * @example
+   * player.hide();
+   */
+  @playerAPI()
+  hide() {
+    this.isHidden = true;
+    this.view.hide();
+  }
+
+  /**
+   * Show whole ui
+   * @example
+   * player.show();
+   */
+  @playerAPI()
+  show() {
+    this.isHidden = false;
+    this.view.show();
   }
 
   destroy() {

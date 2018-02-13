@@ -1,28 +1,30 @@
 import DependencyContainer from '../core/dependency-container';
 
-import ThemeService from './ui/core/theme';
-
-import Engine from './playback-engine/playback-engine';
-import LiveStateEngine from './playback-engine/live-state-engine';
-import FullScreenManager from './full-screen-manager/full-screen-manager';
+import RootContainer from './root-container/root-container';
 import EventEmitter from './event-emitter/event-emitter';
+import Engine from './playback-engine/playback-engine';
+import ThemeService from './ui/core/theme';
 import TextMap from './text-map/text-map';
+
+import FullScreenManager from './full-screen-manager/full-screen-manager';
+
+import LiveStateEngine from './playback-engine/live-state-engine';
 import KeyboardInterceptor from './keyboard-control/keyboard-control';
 import MouseInterceptor from './mouse-interceptor/mouse-interceptor';
-import RootContainer from './root-container/root-container';
 import DebugPanel from './ui/debug-panel/debug-panel';
 
-import MainUIBlock from './ui/main-ui-block/main-ui-block';
-
-import Title from './ui/title/title';
-import LiveIndicator from './ui/live-indicator/live-indicator';
 import Screen from './ui/screen/screen';
-import Overlay from './ui/overlay/overlay';
-import Loader from './ui/loader/loader';
-import TopBlock from './ui/top-block/top-block';
-import BottomBlock from './ui/bottom-block/bottom-block';
 import InteractionIndicator from './ui/interaction-indicator/interaction-indicator';
 
+import Overlay from './ui/overlay/overlay';
+import Loader from './ui/loader/loader';
+
+import MainUIBlock from './ui/main-ui-block/main-ui-block';
+import TopBlock from './ui/top-block/top-block';
+import Title from './ui/title/title';
+import LiveIndicator from './ui/live-indicator/live-indicator';
+
+import BottomBlock from './ui/bottom-block/bottom-block';
 import ProgressControl from './ui/controls/progress/progress';
 import PlayControl from './ui/controls/play/play';
 import TimeControl from './ui/controls/time/time';
@@ -35,13 +37,15 @@ import { TooltipService } from './ui/core/tooltip';
 const { asClass } = DependencyContainer;
 
 export const modules = {
-  EventEmitter,
-  TooltipService,
   RootContainer,
-  TextMap,
+  EventEmitter,
   Engine,
-  LiveStateEngine,
+  ThemeService,
+  TextMap,
+
   FullScreenManager,
+
+  LiveStateEngine,
   KeyboardInterceptor,
   MouseInterceptor,
   DebugPanel,
@@ -66,7 +70,7 @@ export const modules = {
   FullScreenControl,
   Logo,
 
-  ThemeService,
+  TooltipService,
 };
 
 const DIModules = Object.keys(modules).reduce((DIModules, key) => {
