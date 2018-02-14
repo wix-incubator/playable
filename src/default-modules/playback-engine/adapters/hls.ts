@@ -265,9 +265,9 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
   private _onEndOfStream() {
     if (this._isDynamicContent) {
-      this.eventEmitter.emit(VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED);
-
       this._isDynamicContentEnded = true;
+
+      this.eventEmitter.emit(VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED);
     }
   }
 
