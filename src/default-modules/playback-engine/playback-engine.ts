@@ -174,60 +174,6 @@ export default class Engine {
   }
 
   /**
-   * Return object with internal debug info
-   *
-   * @example
-   * player.getDebugInfo();
-   *
-   * @note
-   * The above command returns JSON structured like this:
-   *
-   * @example
-   * {
-   *   "type": "HLS",
-   *   "viewDimensions": {
-   *     "width": 700,
-   *     "height": 394
-   *   }
-   *   "url": "https://example.com/video.m3u8",
-   *   "currentTime": 22.092514,
-   *   "duration": 60.139683,
-   *   "loadingStateTimestamps": {
-   *     "metadata-loaded": 76,
-   *     "ready-to-play": 67
-   *   },
-   *   "bitrates": [
-   *     // Different for different type of streams
-   *     { ... },
-   *     { ... }
-   *   ],
-   *   "currentBitrate": { ... },
-   *   "overallBufferLength": 60.139683,
-   *   "nearestBufferSegInfo": {
-   *     "start": 0,
-   *     "end": 60.139683
-   *   }
-   * }
-   */
-  @playerAPI()
-  getDebugInfo(): DebugInfo {
-    const { duration, currentTime } = this._video;
-    let data;
-
-    if (this._adapterStrategy.attachedAdapter) {
-      data = this._adapterStrategy.attachedAdapter.debugInfo;
-    }
-
-    return {
-      ...data,
-      viewDimensions: this._getViewDimensions(),
-      currentTime,
-      duration,
-      loadingStateTimestamps: this._stateEngine.getStateTimestamps(),
-    };
-  }
-
-  /**
    * Method for setting source of video to player.
    * @param src Array with multiple sources
    * @example
@@ -261,6 +207,67 @@ export default class Engine {
   @playerAPI()
   getSrc() {
     return this._currentSrc;
+  }
+
+  /**
+   * Method for starting playback of video
+   * @example
+   * player.play();
+   */
+  @playerAPI()
+  play() {
+    //Workaround for triggering functionality that requires user event pipe
+    this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
+
+    this._pauseRequested = false;
+
+    if (!this._playPromise) {
+      this._playPromise = this._video.play();
+      if (this._playPromise !== undefined) {
+        this._playPromise
+          .then(() => {
+            this._playPromise = null;
+
+            if (this._pauseRequested) {
+              this.pause();
+            }
+          })
+          .catch(() => {
+            this._playPromise = null;
+          });
+      }
+    }
+  }
+
+  /**
+   * Method for pausing playback of video
+   * @example
+   * player.pause();
+   */
+  @playerAPI()
+  pause() {
+    if (this._playPromise) {
+      this._pauseRequested = true;
+    } else {
+      this._video.pause();
+      this._pauseRequested = false;
+    }
+  }
+
+  /**
+   * Method for toggling(play\pause) playback of video
+   * @example
+   * player.togglePlayback();
+   */
+  @playerAPI()
+  togglePlayback() {
+    const state = this.getCurrentState();
+
+    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
+      this.pause();
+    } else {
+      this.play();
+    }
   }
 
   /**
@@ -315,14 +322,27 @@ export default class Engine {
   }
 
   /**
-   * Method for decreasing current volume by value
-   * @param value - Value from 0 to 100
+   * Set volume
+   * @param volume - Volume value `0..100`
    * @example
-   * player.decreaseVolume(30);
+   * player.setVolume(50);
    */
   @playerAPI()
-  decreaseVolume(value: number) {
-    this.setVolume(this.getVolume() - value);
+  setVolume(volume: number) {
+    const parsedVolume = Number(volume);
+    this._video.volume = isNaN(parsedVolume)
+      ? 1
+      : Math.max(0, Math.min(Number(volume) / 100, 1));
+  }
+
+  /**
+   * Get volume
+   * @example
+   * player.getVolume(); // 50
+   */
+  @playerAPI()
+  getVolume(): number {
+    return this._video.volume * 100;
   }
 
   /**
@@ -334,6 +354,38 @@ export default class Engine {
   @playerAPI()
   increaseVolume(value: number) {
     this.setVolume(this.getVolume() + value);
+  }
+
+  /**
+   * Method for decreasing current volume by value
+   * @param value - Value from 0 to 100
+   * @example
+   * player.decreaseVolume(30);
+   */
+  @playerAPI()
+  decreaseVolume(value: number) {
+    this.setVolume(this.getVolume() - value);
+  }
+
+  /**
+   * Mute or unmute the video
+   * @param isMuted - `true` to mute the video.
+   * @example
+   * player.setMute(true);
+   */
+  @playerAPI()
+  setMute(isMuted: boolean) {
+    this._video.muted = Boolean(isMuted);
+  }
+
+  /**
+   * Get mute flag
+   * @example
+   * player.getMute(); // true
+   */
+  @playerAPI()
+  getMute(): boolean {
+    return this._video.muted;
   }
 
   /**
@@ -375,51 +427,6 @@ export default class Engine {
   @playerAPI()
   getLoop(): boolean {
     return this._video.loop;
-  }
-
-  /**
-   * Mute or unmute the video
-   * @param isMuted - `true` to mute the video.
-   * @example
-   * player.setMute(true);
-   */
-  @playerAPI()
-  setMute(isMuted: boolean) {
-    this._video.muted = Boolean(isMuted);
-  }
-
-  /**
-   * Get mute flag
-   * @example
-   * player.getMute(); // true
-   */
-  @playerAPI()
-  getMute(): boolean {
-    return this._video.muted;
-  }
-
-  /**
-   * Set volume
-   * @param volume - Volume value `0..100`
-   * @example
-   * player.setVolume(50);
-   */
-  @playerAPI()
-  setVolume(volume: number) {
-    const parsedVolume = Number(volume);
-    this._video.volume = isNaN(parsedVolume)
-      ? 1
-      : Math.max(0, Math.min(Number(volume) / 100, 1));
-  }
-
-  /**
-   * Get volume
-   * @example
-   * player.getVolume(); // 50
-   */
-  @playerAPI()
-  getVolume(): number {
-    return this._video.volume * 100;
   }
 
   /**
@@ -545,64 +552,57 @@ export default class Engine {
   }
 
   /**
-   * Method for starting playback of video
+   * Return object with internal debug info
+   *
    * @example
-   * player.play();
+   * player.getDebugInfo();
+   *
+   * @note
+   * The above command returns JSON structured like this:
+   *
+   * @example
+   * {
+   *   "type": "HLS",
+   *   "viewDimensions": {
+   *     "width": 700,
+   *     "height": 394
+   *   }
+   *   "url": "https://example.com/video.m3u8",
+   *   "currentTime": 22.092514,
+   *   "duration": 60.139683,
+   *   "loadingStateTimestamps": {
+   *     "metadata-loaded": 76,
+   *     "ready-to-play": 67
+   *   },
+   *   "bitrates": [
+   *     // Different for different type of streams
+   *     { ... },
+   *     { ... }
+   *   ],
+   *   "currentBitrate": { ... },
+   *   "overallBufferLength": 60.139683,
+   *   "nearestBufferSegInfo": {
+   *     "start": 0,
+   *     "end": 60.139683
+   *   }
+   * }
    */
   @playerAPI()
-  play() {
-    //Workaround for triggering functionality that requires user event pipe
-    this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
+  getDebugInfo(): DebugInfo {
+    const { duration, currentTime } = this._video;
+    let data;
 
-    this._pauseRequested = false;
-
-    if (!this._playPromise) {
-      this._playPromise = this._video.play();
-      if (this._playPromise !== undefined) {
-        this._playPromise
-          .then(() => {
-            this._playPromise = null;
-
-            if (this._pauseRequested) {
-              this.pause();
-            }
-          })
-          .catch(() => {
-            this._playPromise = null;
-          });
-      }
+    if (this._adapterStrategy.attachedAdapter) {
+      data = this._adapterStrategy.attachedAdapter.debugInfo;
     }
-  }
 
-  /**
-   * Method for pausing playback of video
-   * @example
-   * player.pause();
-   */
-  @playerAPI()
-  pause() {
-    if (this._playPromise) {
-      this._pauseRequested = true;
-    } else {
-      this._video.pause();
-      this._pauseRequested = false;
-    }
-  }
-
-  /**
-   * Method for toggling(play\pause) playback of video
-   * @example
-   * player.togglePlayback();
-   */
-  @playerAPI()
-  togglePlayback() {
-    const state = this.getCurrentState();
-
-    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
-      this.pause();
-    } else {
-      this.play();
-    }
+    return {
+      ...data,
+      viewDimensions: this._getViewDimensions(),
+      currentTime,
+      duration,
+      loadingStateTimestamps: this._stateEngine.getStateTimestamps(),
+    };
   }
 
   destroy() {
