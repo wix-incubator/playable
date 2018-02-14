@@ -33,7 +33,13 @@ const getPlugins = isDevelop => ([
   }),
   commonjs(),
   postcss(isDevelop, isCssExtractionNeeded),
-  dot(),
+  dot({
+    templateSettings: {
+      varname: 'props',
+      interpolate: /\$\{([\s\S]+?)\}/g,
+      selfcontained: true,
+    }
+  }),
   typescript({
     verbosity: 1
   }),
