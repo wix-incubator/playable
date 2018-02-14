@@ -198,6 +198,8 @@ export default class ProgressControl {
       this._stopIntervalUpdates();
     }
 
+    this._updateControlOnInterval();
+
     this._updateControlInterval = setInterval(
       this._updateControlOnInterval,
       UPDATE_INTERVAL_DELAY,
@@ -302,8 +304,12 @@ export default class ProgressControl {
         this.view.hideSyncWithLive();
 
         // ensure progress indicators show latest info
-        this._updatePlayedIndicator();
-        this._updateBufferIndicator();
+        if (this._engine.getCurrentState() === STATES.PLAYING) {
+          this._startIntervalUpdates();
+        } else {
+          this._updatePlayedIndicator();
+          this._updateBufferIndicator();
+        }
         break;
 
       default:
