@@ -6,7 +6,7 @@ const uglify = require('rollup-plugin-uglify');
 const dot = require('rollup-plugin-dot');
 
 const commonjs = require('./plugins/commonjs');
-const postcss = require('./plugins/postcss/plugin');
+const postcss = require('./plugins/postcss');
 
 
 const isDevelop = process.env.NODE_ENV !== 'production';
