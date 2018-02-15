@@ -33,7 +33,9 @@
     "csscomb:all": "csscomb src/.",
     "test:playback": "node ./dev-env/boot-devserver-and-test.js",
     "test:unit": "haste test --mocha",
-    "precommit": "lint-staged && npm run build && npm run test:unit && npm run test:playback && npm run documentation:gitadd"
+    "precommit": "lint-staged && npm run build && npm run test:unit && npm run test:playback && npm run documentation:gitadd",
+    "rollup": "node rollup/build.js",
+    "rollup:production": "NODE_ENV=production node rollup/build.js"
   },
   "lint-staged": {
     "*.ts": [
@@ -58,6 +60,7 @@
     "@babel/types": "7.0.0-beta.38",
     "@types/chai": "^4.0.8",
     "@types/mocha": "^2.2.44",
+    "autoprefixer": "^7.2.5",
     "babylon": "7.0.0-beta.34",
     "chai": "~3.5.0",
     "csscomb": "^4.2.0",
@@ -70,8 +73,16 @@
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "lint-staged": "^5.0.0",
+    "node-sass": "^4.7.2",
     "okidoc": "^1.1.0",
     "prettier": "^1.9.0",
+    "rollup": "^0.55.5",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-dot": "^1.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-postcss": "^1.2.8",
+    "rollup-plugin-typescript2": "^0.8.1",
+    "rollup-plugin-uglify": "^2.0.1",
     "sinon": "^2.3.8",
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^4.1.1",
