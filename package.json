@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "css-element-queries": "^0.4.0",
+    "css-element-queries": "^1.0.1",
     "dashjs": "latest",
     "eventemitter3": "^2.0.3",
     "hls.js": "latest",
