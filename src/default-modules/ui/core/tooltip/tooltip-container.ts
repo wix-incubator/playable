@@ -9,7 +9,7 @@ import {
   ITooltipPositionPlacement,
 } from './types';
 
-import * as styles from './tooltip-container.scss';
+import styles from './tooltip-container.scss';
 
 interface ITooltipContainer {
   node: HTMLElement;
