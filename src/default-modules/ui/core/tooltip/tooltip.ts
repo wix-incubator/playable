@@ -3,7 +3,7 @@ import htmlToElement from '../htmlToElement';
 import getElementByHook from '../getElementByHook';
 import Stylable from '../stylable';
 
-import * as styles from './tooltip.scss';
+import styles from './tooltip.scss';
 
 type ITooltipStyles = {
   tooltip: string;

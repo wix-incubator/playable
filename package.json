@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "css-element-queries": "^0.4.0",
+    "css-element-queries": "^1.0.1",
     "dashjs": "latest",
     "eventemitter3": "^2.0.3",
     "hls.js": "latest",
@@ -66,7 +66,7 @@
     "express": "^4.14.0",
     "gh-pages": "^1.1.0",
     "glob": "^7.1.2",
-    "haste-preset-yoshi": "git+ssh://git@github.com/bodia-uz/wix-haste-preset-yoshi-video-player.git#215166c",
+    "haste-preset-playable": "git+ssh://git@github.com/bodia-uz/haste-preset-playable.git#v1.0.1",
     "husky": "^0.13.1",
     "jsdom-global": "^2.1.1",
     "lint-staged": "^5.0.0",
@@ -78,7 +78,7 @@
     "typescript": "^2.7.0"
   },
   "haste": {
-    "preset": "yoshi"
+    "preset": "playable"
   },
   "yoshi": {
     "separateCss": false,

@@ -2,7 +2,7 @@ import View from '../core/view';
 
 import { mainUIBlockTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
-import * as styles from './main-ui-block.scss';
+import styles from './main-ui-block.scss';
 
 type IMainUIBlockViewConfig = {
   elements: {
