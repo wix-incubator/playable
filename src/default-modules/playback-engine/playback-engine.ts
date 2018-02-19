@@ -261,13 +261,35 @@ export default class Engine {
    */
   @playerAPI()
   togglePlayback() {
-    const state = this.getCurrentState();
-
-    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
-      this.pause();
-    } else {
+    if (this.isVideoPaused) {
       this.play();
+    } else {
+      this.pause();
     }
+  }
+
+  /**
+   * High level status of video playback. Returns true if playback is paused.
+   * For more advance state use `getCurrentPlaybackState`
+   * @example
+   * player.play();
+   * console.log(player.isVideoPaused);
+   */
+  @playerAPI()
+  get isVideoPaused(): boolean {
+    return this._video.paused;
+  }
+
+  /**
+   * High level status of video playback. Returns true if playback is ended. Also note, that `isPaused` will return `true` if playback is ended also.
+   * For more advance state use `getCurrentPlaybackState`
+   * @example
+   * player.play();
+   * console.log(player.isVideoEnded);
+   */
+  @playerAPI()
+  get isVideoEnded(): boolean {
+    return this._video.ended;
   }
 
   /**
