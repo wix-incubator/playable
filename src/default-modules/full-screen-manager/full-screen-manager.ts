@@ -166,7 +166,7 @@ export default class FullScreenManager {
   /**
    * Return true if player is in full screen
    * @example
-   * player.isInFullScreen(); // false
+   * console.log(player.isInFullScreen); // false
    */
   @playerAPI()
   get isInFullScreen(): boolean {

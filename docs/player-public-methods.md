@@ -369,6 +369,28 @@ player.togglePlayback();
 Method for toggling(play\pause) playback of video
 
 
+## isVideoPaused
+
+```javascript
+player.play();
+console.log(player.isVideoPaused);
+```
+
+High level status of video playback. Returns true if playback is paused.
+For more advance state use <code>getCurrentPlaybackState</code>
+
+
+## isVideoEnded
+
+```javascript
+player.play();
+console.log(player.isVideoEnded);
+```
+
+High level status of video playback. Returns true if playback is ended. Also note, that <code>isPaused</code> will return <code>true</code> if playback is ended also.
+For more advance state use <code>getCurrentPlaybackState</code>
+
+
 ## syncWithLive
 
 ```javascript
@@ -935,7 +957,7 @@ Player would try to exit fullscreen mode.
 ## isInFullScreen
 
 ```javascript
-player.isInFullScreen(); // false
+console.log(player.isInFullScreen); // false
 ```
 
 Return true if player is in full screen
