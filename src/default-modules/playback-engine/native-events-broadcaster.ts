@@ -14,10 +14,15 @@ export const NATIVE_VIDEO_TO_BROADCAST = [
 export default class NativeEventsBroadcaster {
   private _eventEmitter;
   private _video;
+  private _currentVolume: number;
+  private _currentMute: boolean;
 
   constructor(eventEmitter, video) {
     this._eventEmitter = eventEmitter;
     this._video = video;
+
+    this._currentMute = this._video.muted;
+    this._currentVolume = this._video.volume;
 
     this._bindCallbacks();
     this._bindEvents();
@@ -77,6 +82,19 @@ export default class NativeEventsBroadcaster {
         break;
       }
       case 'volumechange': {
+        if (this._currentVolume !== videoEl.volume) {
+          this._currentVolume = videoEl.volume * 100;
+          this._eventEmitter.emit(
+            VIDEO_EVENTS.VOLUME_CHANGED,
+            this._currentVolume,
+          );
+        }
+
+        if (this._currentMute !== videoEl.muted) {
+          this._currentMute = videoEl.muted;
+          this._eventEmitter.emit(VIDEO_EVENTS.MUTE_CHANGED, this._currentMute);
+        }
+
         this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
           volume: videoEl.volume,
           muted: videoEl.muted,

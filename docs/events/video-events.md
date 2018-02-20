@@ -14,7 +14,11 @@
 
 `VIDEO_EVENTS.DURATION_UPDATED` - Duration of video updated.
 
-`VIDEO_EVENTS.VOLUME_STATUS_CHANGED` - Volume status changed.
+`VIDEO_EVENTS.VOLUME_CHANGED` - Volume changed.
+
+`VIDEO_EVENTS.MUTE_CHANGED` - Video muted or unmuted.
+
+`VIDEO_EVENTS.VOLUME_STATUS_CHANGED` - Volume status changed. It will emit on both volume changes or muted\unmute. For internal use
 
 `VIDEO_EVENTS.UPLOAD_STALLED` - Upload stalled for some reason.
 

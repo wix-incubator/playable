@@ -105,9 +105,9 @@ describe('NativeEventsBroadcaster', () => {
     ).to.be.true;
   });
 
-  it('should broadcast error event', () => {
-    video.volume = 'Test volume';
-    video.muted = 'Test muted';
+  it('should broadcast volume change event', () => {
+    video.volume = 0.2;
+    video.muted = true;
     broadcaster._processEventFromVideo(NATIVE_EVENTS.VOLUME_CHANGE);
     expect(
       eventEmitter.emit.calledWith(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
@@ -115,6 +115,16 @@ describe('NativeEventsBroadcaster', () => {
         muted: video.muted,
       }),
     ).to.be.true;
+
+    expect(
+      eventEmitter.emit.calledWith(
+        VIDEO_EVENTS.VOLUME_CHANGED,
+        video.volume * 100,
+      ),
+    ).to.be.true;
+
+    expect(eventEmitter.emit.calledWith(VIDEO_EVENTS.MUTE_CHANGED, video.muted))
+      .to.be.true;
   });
 
   it('should do nothing if event is not in list', () => {
