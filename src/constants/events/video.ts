@@ -11,6 +11,7 @@ const VIDEO_EVENTS = {
   UPLOAD_STALLED: 'upload-stalled',
   UPLOAD_SUSPEND: 'upload-suspend',
   PLAY_REQUEST_TRIGGERED: 'play-request-triggered',
+  PLAY_ABORTED: 'play-aborted',
   UNKNOWN: 'unknown',
 };
 

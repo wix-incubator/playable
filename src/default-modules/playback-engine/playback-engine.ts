@@ -232,7 +232,8 @@ export default class Engine {
               this.pause();
             }
           })
-          .catch(() => {
+          .catch(event => {
+            this._eventEmitter.emit(VIDEO_EVENTS.PLAY_ABORTED, event);
             this._playPromise = null;
           });
       }
