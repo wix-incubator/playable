@@ -1,24 +1,24 @@
 {
   "assetsByChunkName": {
     "path---player-public-methods": [
-      "path---player-public-methods-ee3f87cf8f996815cc88.js",
-      "path---player-public-methods-ee3f87cf8f996815cc88.js.map"
+      "path---player-public-methods-74e16135da6ade783bf8.js",
+      "path---player-public-methods-74e16135da6ade783bf8.js.map"
     ],
     "component---src-pages-index-js": [
       "component---src-pages-index-js-25d311cdceaa2478dc2d.js",
       "component---src-pages-index-js-25d311cdceaa2478dc2d.js.map"
     ],
     "path---api": [
-      "path---api-ba75f9a5e83d31e7194e.js",
-      "path---api-ba75f9a5e83d31e7194e.js.map"
+      "path---api-1e1e3087ab666310573e.js",
+      "path---api-1e1e3087ab666310573e.js.map"
     ],
     "path---events": [
-      "path---events-d139239626bd1170dd19.js",
-      "path---events-d139239626bd1170dd19.js.map"
+      "path---events-a65dd7fad4332a154de7.js",
+      "path---events-a65dd7fad4332a154de7.js.map"
     ],
     "path---adapters": [
-      "path---adapters-b8b487b0f3c6e3eb29c3.js",
-      "path---adapters-b8b487b0f3c6e3eb29c3.js.map"
+      "path---adapters-a9a0386e0a1272c2a01a.js",
+      "path---adapters-a9a0386e0a1272c2a01a.js.map"
     ],
     "path---": [
       "path----80059e40ceaaad320d15.js",
@@ -33,8 +33,8 @@
       "component---src-layouts-index-js-83a53812b628b77401b5.js.map"
     ],
     "path---index": [
-      "path---index-b336f181822278ae4f14.js",
-      "path---index-b336f181822278ae4f14.js.map"
+      "path---index-c3f0ca6a3fd1e894ae90.js",
+      "path---index-c3f0ca6a3fd1e894ae90.js.map"
     ],
     "component---src-pages-404-js": [
       "component---src-pages-404-js-4503918ea3a16cfcdb75.js",
@@ -51,16 +51,16 @@
       "path---modules-e46c78316c140634adb5.js.map"
     ],
     "path---events-playback-states": [
-      "path---events-playback-states-0811eb859ef272deb947.js",
-      "path---events-playback-states-0811eb859ef272deb947.js.map"
+      "path---events-playback-states-1ef94890ff5f62e9d085.js",
+      "path---events-playback-states-1ef94890ff5f62e9d085.js.map"
     ],
     "path---404-html": [
       "path---404-html-a0e39f21c11f6a62c5ab.js",
       "path---404-html-a0e39f21c11f6a62c5ab.js.map"
     ],
     "path---events-video-events": [
-      "path---events-video-events-0f259b303b2966b33f1b.js",
-      "path---events-video-events-0f259b303b2966b33f1b.js.map"
+      "path---events-video-events-64126f39c4fe60cb482b.js",
+      "path---events-video-events-64126f39c4fe60cb482b.js.map"
     ],
     "path---themes": [
       "path---themes-a93035881965b6e2080e.js",
