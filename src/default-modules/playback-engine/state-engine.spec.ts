@@ -27,6 +27,9 @@ describe('NativeEventsBroadcaster', () => {
     video = {
       addEventListener: sinon.spy(),
       removeEventListener: sinon.spy(),
+      played: {
+        length: 1,
+      },
     };
 
     eventEmitter = new EventEmitter();
@@ -75,6 +78,12 @@ describe('NativeEventsBroadcaster', () => {
     expect(engine._currentState).to.be.equal(STATES.READY_TO_PLAY);
   });
 
+  it('should not trigger change of state on same state', () => {
+    engine.setState(STATES.READY_TO_PLAY);
+    engine.setState(STATES.READY_TO_PLAY);
+    expect(eventEmitter.emit.calledOnce).to.be.true;
+  });
+
   it('should set state on loadstart event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.LOAD_START);
     expect(engine.setState.calledWith(STATES.LOAD_STARTED)).to.be.true;
@@ -102,6 +111,12 @@ describe('NativeEventsBroadcaster', () => {
     expect(engine.setState.calledWith(STATES.PLAYING)).to.be.true;
   });
 
+  it('should not set state on playing event if video is not actually playing', () => {
+    video.paused = true;
+    engine._processEventFromVideo(NATIVE_EVENTS.PLAYING);
+    expect(engine.setState.calledWith(STATES.PLAYING)).to.be.false;
+  });
+
   it('should set state on waiting event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.WAITING);
     expect(engine.setState.calledWith(STATES.WAITING)).to.be.true;
@@ -110,6 +125,12 @@ describe('NativeEventsBroadcaster', () => {
   it('should set state on pause event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.PAUSE);
     expect(engine.setState.calledWith(STATES.PAUSED)).to.be.true;
+  });
+
+  it('should not set state on pause event if there is no played chunks', () => {
+    video.played.length = 0;
+    engine._processEventFromVideo(NATIVE_EVENTS.PAUSE);
+    expect(engine.setState.calledWith(STATES.PAUSED)).to.be.false;
   });
 
   it('should set state on ended event', () => {
