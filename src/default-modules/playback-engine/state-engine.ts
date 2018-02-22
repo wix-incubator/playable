@@ -96,7 +96,10 @@ export default class StateEngine {
         break;
       }
       case 'playing': {
-        this.setState(STATES.PLAYING);
+        // Event 'playing' also triggers even when play request aborted by browser. So we need to check if video is actualy playing
+        if (!videoEl.paused) {
+          this.setState(STATES.PLAYING);
+        }
         break;
       }
       case 'waiting': {
@@ -104,7 +107,10 @@ export default class StateEngine {
         break;
       }
       case 'pause': {
-        this.setState(STATES.PAUSED);
+        // No need to set state PAUSED since there was no actual playing of any parts of video
+        if (videoEl.played.length) {
+          this.setState(STATES.PAUSED);
+        }
         break;
       }
       case 'ended': {
@@ -125,6 +131,10 @@ export default class StateEngine {
   }
 
   setState(state) {
+    if (state === this._currentState) {
+      return;
+    }
+
     //This case is happens only with dash.js sometimes when manifest got some problems
     if (this._currentState === STATES.METADATA_LOADED) {
       if (state === STATES.SEEK_IN_PROGRESS || state === STATES.PAUSED) {
