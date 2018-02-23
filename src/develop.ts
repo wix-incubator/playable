@@ -47,16 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
   selectVideo('MP4');
 
   document.getElementById('types').addEventListener('click', event => {
-    const button: HTMLElement = event.target as HTMLElement;
-    const type = button.getAttribute('data-type') || 'MP4';
+    const { type } = (event.target as any).dataset;
+    if (!type) {
+      return;
+    }
+
     selectVideo(type);
   });
 
-  document.getElementById('theme-switcher').addEventListener('click', ev => {
-    const { color } = (ev.target as any).dataset;
+  document.getElementById('theme-switcher').addEventListener('click', event => {
+    const { color } = (event.target as any).dataset;
     if (!color) {
       return;
     }
+
     player.updateTheme({ progressColor: color });
   });
 
