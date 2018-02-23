@@ -73,7 +73,7 @@ export default class Engine {
 
     this._currentSrc = null;
 
-    this._createVideoTag();
+    this._createVideoTag(config.videoElement);
 
     this._stateEngine = new StateEngine(eventEmitter, this._video);
     this._nativeEventsBroadcaster = new NativeEventsBroadcaster(
@@ -89,8 +89,12 @@ export default class Engine {
     this._applyConfig(config);
   }
 
-  _createVideoTag() {
-    this._video = document.createElement('video');
+  _createVideoTag(videoElement?: HTMLVideoElement) {
+    if (videoElement && videoElement.tagName === 'VIDEO') {
+      this._video = videoElement;
+    } else {
+      this._video = document.createElement('video');
+    }
   }
 
   _applyConfig(config: any = {}) {
