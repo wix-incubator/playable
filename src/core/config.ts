@@ -18,6 +18,8 @@ export interface IPlayerConfig {
 
   size?: IPlayerSize;
 
+  videoElement?: HTMLVideoElement;
+
   preload?: PreloadTypes;
   autoPlay?: boolean;
   loop?: boolean;
