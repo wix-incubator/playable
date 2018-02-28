@@ -1,5 +1,5 @@
 const t = require('@babel/types');
-const { isJSDocComment, createJSDocComment } = require('okidoc/lib/utils/ast');
+const { JSDocASTUtils: { isJSDocComment, createJSDocCommentValue } } = require('okidoc-md');
 
 const {
   isPlayerApiDecorator,
@@ -26,7 +26,7 @@ function createPlayerApiMethod(playerApiMethod) {
   t.addComment(
     playerApiMethod,
     'leading',
-    createJSDocComment((playerApiJSDoc && playerApiJSDoc.value) || ''),
+    createJSDocCommentValue((playerApiJSDoc && playerApiJSDoc.value) || ''),
   );
 
   playerApiMethod.decorators = [];
