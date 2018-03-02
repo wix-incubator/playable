@@ -47,9 +47,9 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "css-element-queries": "^1.0.1",
-    "dashjs": "latest",
+    "dashjs": "^2.6.6",
     "eventemitter3": "^2.0.3",
-    "hls.js": "latest",
+    "hls.js": "^0.8.9",
     "tslib": "^1.9.0"
   },
   "devDependencies": {
