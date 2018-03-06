@@ -1,4 +1,4 @@
-import { isIPhone, isIPod, isIPad } from '../../utils/device-detection';
+import { isIOS } from '../../utils/device-detection';
 import playerAPI from '../../utils/player-api-decorator';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
@@ -54,7 +54,7 @@ export default class FullScreenManager {
     }
     this._onChange = this._onChange.bind(this);
 
-    if (isIPhone() || isIPod() || isIPad()) {
+    if (isIOS()) {
       this._helper = new IOSFullScreen(this._engine.getNode(), this._onChange);
     } else {
       this._helper = new DesktopFullScreen(rootContainer.node, this._onChange);
