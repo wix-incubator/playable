@@ -6,6 +6,7 @@ declare const window: {
 const IPHONE_PATTERN = /iPhone/;
 const IPOD_PATTERN = /iPod/;
 const IPAD_PATTERN = /iPad/;
+const DESKTOP_SAFARI_PATTERN = /^((?!chrome|android|iphone|ipod|ipad).)*safari/i;
 
 // There is some iPhone/iPad/iPod in Windows Phone...
 // https://msdn.microsoft.com/en-us/library/hh869301(v=vs.85).aspx
@@ -23,4 +24,6 @@ const isIOS = () => isIPhone() || isIPod() || isIPad();
 
 const isAndroid = () => /(android)/i.test(getUserAgent());
 
-export { isIPhone, isIPod, isIPad, isIOS, isAndroid };
+const isDesktopSafari = () => DESKTOP_SAFARI_PATTERN.test(getUserAgent());
+
+export { isIPhone, isIPod, isIPad, isIOS, isAndroid, isDesktopSafari };

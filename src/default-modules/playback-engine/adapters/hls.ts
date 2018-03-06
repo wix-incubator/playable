@@ -11,6 +11,7 @@ import {
   getNearestBufferSegmentInfo,
 } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
+import { isDesktopSafari } from '../../../utils/device-detection';
 import { IPlaybackAdapter } from './types';
 
 const LIVE_SYNC_DURATION = 4;
@@ -100,7 +101,9 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   get mediaStreamDeliveryType() {
-    return MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
+    return isDesktopSafari()
+      ? MediaStreamDeliveryType.FORCED
+      : MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
   }
 
   get debugInfo() {
