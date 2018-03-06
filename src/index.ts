@@ -5,7 +5,7 @@ import {
   UI_EVENTS,
   VIDEO_EVENTS,
   TEXT_LABELS,
-  MEDIA_STREAM_TYPES,
+  MediaStreamTypes as MEDIA_STREAM_TYPES,
   MediaStreamDeliveryType as MEDIA_STREAM_DELIVERY_TYPE,
   STATES as ENGINE_STATES,
   LiveState as LIVE_STATES,

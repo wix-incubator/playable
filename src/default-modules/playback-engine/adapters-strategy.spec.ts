@@ -6,7 +6,7 @@ import { EventEmitter } from 'eventemitter3';
 
 import getNativeAdapterCreator from './adapters/native';
 import AdapterStrategy from './adapters-strategy';
-import { MEDIA_STREAM_TYPES, MediaStreamDeliveryType } from '../../constants';
+import { MediaStreamTypes, MediaStreamDeliveryType } from '../../constants';
 
 describe('AdapterStrategy', () => {
   const video = {
@@ -29,11 +29,11 @@ describe('AdapterStrategy', () => {
 
   it('should generate list of available stream creator in env on construction', () => {
     const availableStream = getNativeAdapterCreator(
-      MEDIA_STREAM_TYPES.HLS,
+      MediaStreamTypes.HLS,
       MediaStreamDeliveryType.NATIVE_ADAPTIVE,
     );
     const unavailableStream = getNativeAdapterCreator(
-      MEDIA_STREAM_TYPES.DASH,
+      MediaStreamTypes.DASH,
       MediaStreamDeliveryType.NATIVE_ADAPTIVE,
     );
     availableStream.isSupported = () => true;
@@ -52,15 +52,15 @@ describe('AdapterStrategy', () => {
   it('should choose proper media stream for proper format', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.HLS,
+        MediaStreamTypes.HLS,
         MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.DASH,
+        MediaStreamTypes.DASH,
         MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.MP4,
+        MediaStreamTypes.MP4,
         MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
     ];
@@ -71,28 +71,28 @@ describe('AdapterStrategy', () => {
 
     strategy.connectAdapter('http://www.dash.com/dash.mpd');
     expect(strategy.attachedAdapter.mediaStreamType).to.be.equal(
-      MEDIA_STREAM_TYPES.DASH,
+      MediaStreamTypes.DASH,
     );
 
     strategy.connectAdapter('http://www.hls.com/hls.m3u8');
     expect(strategy.attachedAdapter.mediaStreamType).to.be.equal(
-      MEDIA_STREAM_TYPES.HLS,
+      MediaStreamTypes.HLS,
     );
 
     strategy.connectAdapter({
       url: 'http://www.mp4.com/mp4.mp4',
-      type: MEDIA_STREAM_TYPES.MP4,
+      type: MediaStreamTypes.MP4,
     });
   });
 
   it('should choose proper media stream based on priority', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.DASH,
+        MediaStreamTypes.DASH,
         MediaStreamDeliveryType.NATIVE_PROGRESSIVE,
       ),
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.DASH,
+        MediaStreamTypes.DASH,
         MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
     ];
@@ -108,11 +108,11 @@ describe('AdapterStrategy', () => {
 
     playbackAdapters = [
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.HLS,
+        MediaStreamTypes.HLS,
         MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.HLS,
+        MediaStreamTypes.HLS,
         MediaStreamDeliveryType.NATIVE_PROGRESSIVE,
       ),
     ];
@@ -130,7 +130,7 @@ describe('AdapterStrategy', () => {
   it('should detach current stream on changing of stream and destroy', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.DASH,
+        MediaStreamTypes.DASH,
         MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
     ];
@@ -150,7 +150,7 @@ describe('AdapterStrategy', () => {
   it('should detach current stream on destroy', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
-        MEDIA_STREAM_TYPES.DASH,
+        MediaStreamTypes.DASH,
         MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
     ];

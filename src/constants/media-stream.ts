@@ -1,9 +1,9 @@
-const MEDIA_STREAM_TYPES = {
-  MP4: 'MP4',
-  WEBM: 'WEBM',
-  HLS: 'HLS',
-  DASH: 'DASH',
-};
+enum MediaStreamTypes {
+  MP4 = 'MP4',
+  WEBM = 'WEBM',
+  HLS = 'HLS',
+  DASH = 'DASH',
+}
 
 enum MediaStreamDeliveryType {
   NATIVE_PROGRESSIVE,
@@ -11,4 +11,4 @@ enum MediaStreamDeliveryType {
   NATIVE_ADAPTIVE,
 }
 
-export { MEDIA_STREAM_TYPES, MediaStreamDeliveryType };
+export { MediaStreamTypes, MediaStreamDeliveryType };

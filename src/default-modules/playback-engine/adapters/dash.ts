@@ -2,7 +2,7 @@ import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
 
 import {
   ERRORS,
-  MEDIA_STREAM_TYPES,
+  MediaStreamTypes,
   MediaStreamDeliveryType,
   VIDEO_EVENTS,
 } from '../../../constants';
@@ -36,7 +36,7 @@ export default class DashAdapter implements IPlaybackAdapter {
   }
 
   canPlay(mediaType) {
-    return mediaType === MEDIA_STREAM_TYPES.DASH;
+    return mediaType === MediaStreamTypes.DASH;
   }
 
   get mediaStreamDeliveryType() {
@@ -119,7 +119,7 @@ export default class DashAdapter implements IPlaybackAdapter {
   logError(error, errorEvent) {
     this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
       errorType: error,
-      streamType: MEDIA_STREAM_TYPES.DASH,
+      streamType: MediaStreamTypes.DASH,
       streamProvider: 'dash.js',
       errorInstance: errorEvent,
     });

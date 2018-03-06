@@ -2,7 +2,7 @@ import HlsJs from 'hls.js/dist/hls.light';
 
 import {
   ERRORS,
-  MEDIA_STREAM_TYPES,
+  MediaStreamTypes,
   MediaStreamDeliveryType,
   VIDEO_EVENTS,
 } from '../../../constants';
@@ -140,7 +140,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   canPlay(mediaType) {
-    return mediaType === MEDIA_STREAM_TYPES.HLS;
+    return mediaType === MediaStreamTypes.HLS;
   }
 
   setMediaStreams(mediaStreams) {
@@ -158,7 +158,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   logError(error, errorEvent) {
     this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
       errorType: error,
-      streamType: MEDIA_STREAM_TYPES.HLS,
+      streamType: MediaStreamTypes.HLS,
       streamProvider: 'hls.js',
       errorInstance: errorEvent,
     });

@@ -1,25 +1,22 @@
 import getNativeAdapterCreator from './native';
 
-import {
-  MEDIA_STREAM_TYPES,
-  MediaStreamDeliveryType,
-} from '../../../constants';
+import { MediaStreamTypes, MediaStreamDeliveryType } from '../../../constants';
 
 const defaultPlaybackAdapters = [
   getNativeAdapterCreator(
-    MEDIA_STREAM_TYPES.DASH,
+    MediaStreamTypes.DASH,
     MediaStreamDeliveryType.NATIVE_ADAPTIVE,
   ),
   getNativeAdapterCreator(
-    MEDIA_STREAM_TYPES.HLS,
+    MediaStreamTypes.HLS,
     MediaStreamDeliveryType.NATIVE_ADAPTIVE,
   ),
   getNativeAdapterCreator(
-    MEDIA_STREAM_TYPES.MP4,
+    MediaStreamTypes.MP4,
     MediaStreamDeliveryType.NATIVE_PROGRESSIVE,
   ),
   getNativeAdapterCreator(
-    MEDIA_STREAM_TYPES.WEBM,
+    MediaStreamTypes.WEBM,
     MediaStreamDeliveryType.NATIVE_PROGRESSIVE,
   ), // Native WebM (Chrome, Firefox)
 ];

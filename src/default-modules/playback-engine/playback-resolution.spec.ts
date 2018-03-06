@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { resolveAdapters } from './playback-resolution';
-import { MEDIA_STREAM_TYPES, MediaStreamDeliveryType } from '../../constants';
+import { MediaStreamTypes, MediaStreamDeliveryType } from '../../constants';
 
 describe('Picking proper playback stream', () => {
   class AdaptiveCanBePlayedStreamA {
@@ -55,7 +55,7 @@ describe('Picking proper playback stream', () => {
   const mediaStreams = [
     {
       url: '',
-      type: MEDIA_STREAM_TYPES.HLS,
+      type: MediaStreamTypes.HLS,
     },
   ];
 
