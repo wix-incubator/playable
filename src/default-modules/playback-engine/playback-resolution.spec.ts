@@ -1,9 +1,6 @@
 import { expect } from 'chai';
 import { resolveAdapters } from './playback-resolution';
-import {
-  MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
-} from '../../constants';
+import { MEDIA_STREAM_TYPES, MediaStreamDeliveryType } from '../../constants';
 
 describe('Picking proper playback stream', () => {
   class AdaptiveCanBePlayedStreamA {
@@ -11,7 +8,7 @@ describe('Picking proper playback stream', () => {
     constructor() {}
 
     get mediaStreamDeliveryType() {
-      return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+      return MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
     }
 
     setMediaStreams() {
@@ -23,7 +20,7 @@ describe('Picking proper playback stream', () => {
     constructor() {}
 
     get mediaStreamDeliveryType() {
-      return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+      return MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
     }
 
     setMediaStreams() {
@@ -35,7 +32,7 @@ describe('Picking proper playback stream', () => {
     canPlay = () => true;
 
     get mediaStreamDeliveryType() {
-      return MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE;
+      return MediaStreamDeliveryType.NATIVE_ADAPTIVE;
     }
 
     setMediaStreams() {
@@ -47,7 +44,7 @@ describe('Picking proper playback stream', () => {
     canPlay = () => false;
 
     get mediaStreamDeliveryType() {
-      return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+      return MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
     }
 
     setMediaStreams() {

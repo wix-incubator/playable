@@ -1,4 +1,4 @@
-import { MEDIA_STREAM_TYPES, MEDIA_STREAM_DELIVERY_TYPE } from './media-stream';
+import { MEDIA_STREAM_TYPES, MediaStreamDeliveryType } from './media-stream';
 import UI_EVENTS from './events/ui';
 import VIDEO_EVENTS from './events/video';
 import ERRORS from './errors';
@@ -8,7 +8,7 @@ import LiveState from './live-state';
 
 export {
   MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
+  MediaStreamDeliveryType,
   TEXT_LABELS,
   UI_EVENTS,
   VIDEO_EVENTS,

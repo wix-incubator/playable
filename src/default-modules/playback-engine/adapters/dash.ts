@@ -3,9 +3,9 @@ import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
 import {
   ERRORS,
   MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
+  MediaStreamDeliveryType,
   VIDEO_EVENTS,
-} from '../../../constants/index';
+} from '../../../constants';
 import { getNearestBufferSegmentInfo } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
 
@@ -40,7 +40,7 @@ export default class DashAdapter implements IPlaybackAdapter {
   }
 
   get mediaStreamDeliveryType() {
-    return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+    return MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
   }
 
   get currentUrl() {

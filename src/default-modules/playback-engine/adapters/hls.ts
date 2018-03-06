@@ -3,9 +3,9 @@ import HlsJs from 'hls.js/dist/hls.light';
 import {
   ERRORS,
   MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
+  MediaStreamDeliveryType,
   VIDEO_EVENTS,
-} from '../../../constants/index';
+} from '../../../constants';
 import {
   geOverallBufferLength,
   getNearestBufferSegmentInfo,
@@ -100,7 +100,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   get mediaStreamDeliveryType() {
-    return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+    return MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
   }
 
   get debugInfo() {
@@ -148,7 +148,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
       this.mediaStream = mediaStreams[0];
     } else {
       throw new Error(
-        `Can only handle a single DASH stream. Received ${
+        `Can only handle a single HLS stream. Received ${
           mediaStreams.length
         } streams.`,
       );

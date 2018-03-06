@@ -6,10 +6,7 @@ import { EventEmitter } from 'eventemitter3';
 
 import getNativeAdapterCreator from './adapters/native';
 import AdapterStrategy from './adapters-strategy';
-import {
-  MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
-} from '../../constants/index';
+import { MEDIA_STREAM_TYPES, MediaStreamDeliveryType } from '../../constants';
 
 describe('AdapterStrategy', () => {
   const video = {
@@ -33,11 +30,11 @@ describe('AdapterStrategy', () => {
   it('should generate list of available stream creator in env on construction', () => {
     const availableStream = getNativeAdapterCreator(
       MEDIA_STREAM_TYPES.HLS,
-      MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+      MediaStreamDeliveryType.NATIVE_ADAPTIVE,
     );
     const unavailableStream = getNativeAdapterCreator(
       MEDIA_STREAM_TYPES.DASH,
-      MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+      MediaStreamDeliveryType.NATIVE_ADAPTIVE,
     );
     availableStream.isSupported = () => true;
     unavailableStream.isSupported = () => false;
@@ -56,15 +53,15 @@ describe('AdapterStrategy', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.HLS,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+        MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.DASH,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+        MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.MP4,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+        MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
     ];
 
@@ -92,11 +89,11 @@ describe('AdapterStrategy', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.DASH,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE,
+        MediaStreamDeliveryType.NATIVE_PROGRESSIVE,
       ),
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.DASH,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+        MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
     ];
 
@@ -106,17 +103,17 @@ describe('AdapterStrategy', () => {
 
     strategy.connectAdapter('http://www.dash.com/dash.mpd');
     expect(strategy.attachedAdapter.mediaStreamDeliveryType).to.be.equal(
-      MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+      MediaStreamDeliveryType.NATIVE_ADAPTIVE,
     );
 
     playbackAdapters = [
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.HLS,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+        MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.HLS,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_PROGRESSIVE,
+        MediaStreamDeliveryType.NATIVE_PROGRESSIVE,
       ),
     ];
 
@@ -126,7 +123,7 @@ describe('AdapterStrategy', () => {
 
     strategy.connectAdapter('http://www.hls.com/hls.m3u8');
     expect(strategy.attachedAdapter.mediaStreamDeliveryType).to.be.equal(
-      MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+      MediaStreamDeliveryType.NATIVE_ADAPTIVE,
     );
   });
 
@@ -134,7 +131,7 @@ describe('AdapterStrategy', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.DASH,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+        MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
     ];
 
@@ -154,7 +151,7 @@ describe('AdapterStrategy', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
         MEDIA_STREAM_TYPES.DASH,
-        MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE,
+        MediaStreamDeliveryType.NATIVE_ADAPTIVE,
       ),
     ];
 

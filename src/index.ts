@@ -6,7 +6,7 @@ import {
   VIDEO_EVENTS,
   TEXT_LABELS,
   MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
+  MediaStreamDeliveryType as MEDIA_STREAM_DELIVERY_TYPE,
   STATES as ENGINE_STATES,
   LiveState as LIVE_STATES,
 } from './constants';
