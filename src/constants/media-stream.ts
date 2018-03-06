@@ -5,11 +5,11 @@ enum MediaStreamTypes {
   DASH = 'DASH',
 }
 
-enum MediaStreamDeliveryType {
+enum MediaStreamDeliveryPriority {
   NATIVE_PROGRESSIVE,
   ADAPTIVE_VIA_MSE,
   NATIVE_ADAPTIVE,
   FORCED,
 }
 
-export { MediaStreamTypes, MediaStreamDeliveryType };
+export { MediaStreamTypes, MediaStreamDeliveryPriority };
