@@ -1,5 +1,7 @@
 const t = require('@babel/types');
-const { JSDocASTUtils: { isJSDocComment, createJSDocCommentValue } } = require('okidoc-md');
+const {
+  nodeASTUtils: { cleanUpNodeJSDoc, removeNodeDecorators, removeNodeBody }
+} = require('okidoc-md');
 
 const {
   isPlayerApiDecorator,
@@ -10,9 +12,6 @@ function createPlayerApiMethod(playerApiMethod) {
   const playerApiDecorator = playerApiMethod.decorators.find(
     isPlayerApiDecorator,
   );
-  const playerApiComments = playerApiMethod.leadingComments;
-  const playerApiJSDoc =
-    playerApiComments && playerApiComments.find(isJSDocComment);
 
   const methodNameFromPlayerApiDecorator = getNameFromPlayerApiDecorator(
     playerApiDecorator,
@@ -22,15 +21,9 @@ function createPlayerApiMethod(playerApiMethod) {
     playerApiMethod.key = t.identifier(methodNameFromPlayerApiDecorator);
   }
 
-  t.removeComments(playerApiMethod);
-  t.addComment(
-    playerApiMethod,
-    'leading',
-    createJSDocCommentValue((playerApiJSDoc && playerApiJSDoc.value) || ''),
-  );
-
-  playerApiMethod.decorators = [];
-  playerApiMethod.body = t.blockStatement([]);
+  cleanUpNodeJSDoc(playerApiMethod);
+  removeNodeDecorators(playerApiMethod);
+  removeNodeBody(playerApiMethod);
 
   return playerApiMethod;
 }
