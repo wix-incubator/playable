@@ -3,7 +3,7 @@ import HlsJs from 'hls.js/dist/hls.light';
 import {
   ERRORS,
   MediaStreamTypes,
-  MediaStreamDeliveryType,
+  MediaStreamDeliveryPriority,
   VIDEO_EVENTS,
 } from '../../../constants';
 import {
@@ -100,10 +100,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
     return true;
   }
 
-  get mediaStreamDeliveryType() {
+  get mediaStreamDeliveryPriority() {
     return isDesktopSafari()
-      ? MediaStreamDeliveryType.FORCED
-      : MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
+      ? MediaStreamDeliveryPriority.FORCED
+      : MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
   }
 
   get debugInfo() {
@@ -134,7 +134,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
     return {
       ...this.mediaStream,
-      deliveryType: this.mediaStreamDeliveryType,
+      deliveryPriority: this.mediaStreamDeliveryPriority,
       bitrates,
       currentBitrate,
       overallBufferLength,

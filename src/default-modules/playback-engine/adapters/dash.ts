@@ -3,7 +3,7 @@ import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
 import {
   ERRORS,
   MediaStreamTypes,
-  MediaStreamDeliveryType,
+  MediaStreamDeliveryPriority,
   VIDEO_EVENTS,
 } from '../../../constants';
 import { getNearestBufferSegmentInfo } from '../../../utils/video-data';
@@ -39,8 +39,8 @@ export default class DashAdapter implements IPlaybackAdapter {
     return mediaType === MediaStreamTypes.DASH;
   }
 
-  get mediaStreamDeliveryType() {
-    return MediaStreamDeliveryType.ADAPTIVE_VIA_MSE;
+  get mediaStreamDeliveryPriority() {
+    return MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
   }
 
   get currentUrl() {
@@ -91,7 +91,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
     return {
       ...this.mediaStream,
-      deliveryType: this.mediaStreamDeliveryType,
+      deliveryPriority: this.mediaStreamDeliveryPriority,
       bitrates,
       currentBitrate,
       overallBufferLength,

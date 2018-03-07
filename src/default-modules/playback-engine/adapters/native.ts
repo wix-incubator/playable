@@ -14,7 +14,7 @@ const NATIVE_ERROR_CODES = {
   SRC_NOT_SUPPORTED: 4,
 };
 
-export default function getNativeAdapterCreator(streamType, deliveryType) {
+export default function getNativeAdapterCreator(streamType, deliveryPriority) {
   class NativeAdapter implements IPlaybackAdapter {
     static isSupported() {
       return NativeEnvironmentSupport[streamType];
@@ -68,8 +68,8 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
       */
     }
 
-    get mediaStreamDeliveryType() {
-      return deliveryType;
+    get mediaStreamDeliveryPriority() {
+      return deliveryPriority;
     }
 
     get mediaStreamType() {
@@ -88,7 +88,7 @@ export default function getNativeAdapterCreator(streamType, deliveryType) {
 
         return {
           ...this.mediaStreams[0],
-          deliveryType: this.mediaStreamDeliveryType,
+          deliveryPriority: this.mediaStreamDeliveryPriority,
           overallBufferLength,
           nearestBufferSegInfo,
         };
