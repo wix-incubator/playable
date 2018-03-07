@@ -967,6 +967,26 @@ player.getCurrentTime(); //  60.139683
 
 Return current time of video playback
 
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <div class="type">number</div>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 ## goTo()
 
 ```javascript
@@ -1005,6 +1025,26 @@ player.getDurationTime(); // 180.149745
 
 Return duration of video
 
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <div class="type">number</div>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 ## getVideoRealWidth()
 
 ```javascript
@@ -1013,6 +1053,26 @@ player.getVideoWidth(); // 400
 
 Return real width of video from metadata
 
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <div class="type">number</div>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 ## getVideoRealHeight()
 
 ```javascript
@@ -1020,6 +1080,26 @@ player.getVideoHeight(); // 225
 ```
 
 Return real height of video from metadata
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <div class="type">number</div>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ## setPlayInline()
 

@@ -498,7 +498,7 @@ export default class Engine {
    * player.getCurrentTime(); //  60.139683
    */
   @playerAPI()
-  getCurrentTime() {
+  getCurrentTime(): number {
     return this._video.currentTime;
   }
 
@@ -519,7 +519,7 @@ export default class Engine {
    * player.getDurationTime(); // 180.149745
    */
   @playerAPI()
-  getDurationTime() {
+  getDurationTime(): number {
     return this._video.duration || 0;
   }
 
@@ -529,7 +529,7 @@ export default class Engine {
    * player.getVideoWidth(); // 400
    */
   @playerAPI('getVideoRealWidth')
-  getVideoWidth() {
+  getVideoWidth(): number {
     return this._video.videoWidth;
   }
 
@@ -539,7 +539,7 @@ export default class Engine {
    * player.getVideoHeight(); // 225
    */
   @playerAPI('getVideoRealHeight')
-  getVideoHeight() {
+  getVideoHeight(): number {
     return this._video.videoHeight;
   }
 
