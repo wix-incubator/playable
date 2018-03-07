@@ -2,10 +2,10 @@ import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
 
 import {
   ERRORS,
-  MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
+  MediaStreamTypes,
+  MediaStreamDeliveryPriority,
   VIDEO_EVENTS,
-} from '../../../constants/index';
+} from '../../../constants';
 import { getNearestBufferSegmentInfo } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
 
@@ -36,11 +36,11 @@ export default class DashAdapter implements IPlaybackAdapter {
   }
 
   canPlay(mediaType) {
-    return mediaType === MEDIA_STREAM_TYPES.DASH;
+    return mediaType === MediaStreamTypes.DASH;
   }
 
-  get mediaStreamDeliveryType() {
-    return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+  get mediaStreamDeliveryPriority() {
+    return MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
   }
 
   get currentUrl() {
@@ -91,7 +91,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
     return {
       ...this.mediaStream,
-      deliveryType: this.mediaStreamDeliveryType,
+      deliveryPriority: this.mediaStreamDeliveryPriority,
       bitrates,
       currentBitrate,
       overallBufferLength,
@@ -119,7 +119,7 @@ export default class DashAdapter implements IPlaybackAdapter {
   logError(error, errorEvent) {
     this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
       errorType: error,
-      streamType: MEDIA_STREAM_TYPES.DASH,
+      streamType: MediaStreamTypes.DASH,
       streamProvider: 'dash.js',
       errorInstance: errorEvent,
     });

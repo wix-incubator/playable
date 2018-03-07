@@ -1,10 +1,10 @@
-import { MEDIA_STREAM_TYPES } from '../../constants/media-stream';
+import { MediaStreamTypes } from '../../constants';
 
 const extensionsMap = Object.create(null);
-extensionsMap.mp4 = MEDIA_STREAM_TYPES.MP4;
-extensionsMap.webm = MEDIA_STREAM_TYPES.WEBM;
-extensionsMap.m3u8 = MEDIA_STREAM_TYPES.HLS;
-extensionsMap.mpd = MEDIA_STREAM_TYPES.DASH;
+extensionsMap.mp4 = MediaStreamTypes.MP4;
+extensionsMap.webm = MediaStreamTypes.WEBM;
+extensionsMap.m3u8 = MediaStreamTypes.HLS;
+extensionsMap.mpd = MediaStreamTypes.DASH;
 
 const anchorElement = document.createElement('a');
 

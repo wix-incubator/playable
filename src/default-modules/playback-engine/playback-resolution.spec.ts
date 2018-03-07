@@ -1,17 +1,14 @@
 import { expect } from 'chai';
 import { resolveAdapters } from './playback-resolution';
-import {
-  MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
-} from '../../constants';
+import { MediaStreamTypes, MediaStreamDeliveryPriority } from '../../constants';
 
 describe('Picking proper playback stream', () => {
   class AdaptiveCanBePlayedStreamA {
     canPlay = () => true;
     constructor() {}
 
-    get mediaStreamDeliveryType() {
-      return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+    get mediaStreamDeliveryPriority() {
+      return MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
     }
 
     setMediaStreams() {
@@ -22,8 +19,8 @@ describe('Picking proper playback stream', () => {
     canPlay = () => true;
     constructor() {}
 
-    get mediaStreamDeliveryType() {
-      return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+    get mediaStreamDeliveryPriority() {
+      return MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
     }
 
     setMediaStreams() {
@@ -34,8 +31,8 @@ describe('Picking proper playback stream', () => {
   class NativeCanBePlayedStreamA {
     canPlay = () => true;
 
-    get mediaStreamDeliveryType() {
-      return MEDIA_STREAM_DELIVERY_TYPE.NATIVE_ADAPTIVE;
+    get mediaStreamDeliveryPriority() {
+      return MediaStreamDeliveryPriority.NATIVE_ADAPTIVE;
     }
 
     setMediaStreams() {
@@ -46,8 +43,8 @@ describe('Picking proper playback stream', () => {
   class CantBePlayedStream {
     canPlay = () => false;
 
-    get mediaStreamDeliveryType() {
-      return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+    get mediaStreamDeliveryPriority() {
+      return MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
     }
 
     setMediaStreams() {
@@ -58,7 +55,7 @@ describe('Picking proper playback stream', () => {
   const mediaStreams = [
     {
       url: '',
-      type: MEDIA_STREAM_TYPES.HLS,
+      type: MediaStreamTypes.HLS,
     },
   ];
 

@@ -2,15 +2,16 @@ import HlsJs from 'hls.js/dist/hls.light';
 
 import {
   ERRORS,
-  MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_TYPE,
+  MediaStreamTypes,
+  MediaStreamDeliveryPriority,
   VIDEO_EVENTS,
-} from '../../../constants/index';
+} from '../../../constants';
 import {
   geOverallBufferLength,
   getNearestBufferSegmentInfo,
 } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
+import { isDesktopSafari } from '../../../utils/device-detection';
 import { IPlaybackAdapter } from './types';
 
 const LIVE_SYNC_DURATION = 4;
@@ -99,8 +100,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
     return true;
   }
 
-  get mediaStreamDeliveryType() {
-    return MEDIA_STREAM_DELIVERY_TYPE.ADAPTIVE_VIA_MSE;
+  get mediaStreamDeliveryPriority() {
+    return isDesktopSafari()
+      ? MediaStreamDeliveryPriority.FORCED
+      : MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
   }
 
   get debugInfo() {
@@ -131,7 +134,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
     return {
       ...this.mediaStream,
-      deliveryType: this.mediaStreamDeliveryType,
+      deliveryPriority: this.mediaStreamDeliveryPriority,
       bitrates,
       currentBitrate,
       overallBufferLength,
@@ -140,7 +143,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   canPlay(mediaType) {
-    return mediaType === MEDIA_STREAM_TYPES.HLS;
+    return mediaType === MediaStreamTypes.HLS;
   }
 
   setMediaStreams(mediaStreams) {
@@ -148,7 +151,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
       this.mediaStream = mediaStreams[0];
     } else {
       throw new Error(
-        `Can only handle a single DASH stream. Received ${
+        `Can only handle a single HLS stream. Received ${
           mediaStreams.length
         } streams.`,
       );
@@ -158,7 +161,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   logError(error, errorEvent) {
     this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
       errorType: error,
-      streamType: MEDIA_STREAM_TYPES.HLS,
+      streamType: MediaStreamTypes.HLS,
       streamProvider: 'hls.js',
       errorInstance: errorEvent,
     });

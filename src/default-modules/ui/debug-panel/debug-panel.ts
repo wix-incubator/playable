@@ -1,4 +1,4 @@
-import { MEDIA_STREAM_DELIVERY_TYPE } from '../../../constants';
+import { MediaStreamDeliveryPriority } from '../../../constants';
 import View from './debug-panel.view';
 
 const UPDATE_TIME = 1000;
@@ -48,7 +48,7 @@ export default class DebugPanel {
     const {
       url,
       type,
-      deliveryType,
+      deliveryPriority,
       currentBitrate,
       overallBufferLength,
       nearestBufferSegInfo,
@@ -61,7 +61,7 @@ export default class DebugPanel {
     return {
       url,
       type,
-      deliveryType: MEDIA_STREAM_DELIVERY_TYPE[deliveryType],
+      deliveryPriority: MediaStreamDeliveryPriority[deliveryPriority],
       currentBitrate,
       overallBufferLength,
       nearestBufferSegInfo,

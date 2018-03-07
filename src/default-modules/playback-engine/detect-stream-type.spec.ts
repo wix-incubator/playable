@@ -1,15 +1,15 @@
 import 'jsdom-global';
 import { expect } from 'chai';
 import { getStreamType } from './detect-stream-type';
-import { MEDIA_STREAM_TYPES } from '../../constants/media-stream';
+import { MediaStreamTypes } from '../../constants';
 
 describe('Stream type auto detection', function() {
   const testURL = 'http://mocked-domain.com/some/internalPath/';
   const formatsToTest = [
-    { type: MEDIA_STREAM_TYPES.MP4, fileName: 'video.mp4' },
-    { type: MEDIA_STREAM_TYPES.WEBM, fileName: 'video.webm' },
-    { type: MEDIA_STREAM_TYPES.HLS, fileName: 'video.m3u8' },
-    { type: MEDIA_STREAM_TYPES.DASH, fileName: 'video.mpd' },
+    { type: MediaStreamTypes.MP4, fileName: 'video.mp4' },
+    { type: MediaStreamTypes.WEBM, fileName: 'video.webm' },
+    { type: MediaStreamTypes.HLS, fileName: 'video.m3u8' },
+    { type: MediaStreamTypes.DASH, fileName: 'video.mpd' },
   ];
 
   formatsToTest.forEach(formatToTest => {
@@ -26,18 +26,16 @@ describe('Stream type auto detection', function() {
     const fragment = '#sectionOnPage';
 
     it('should detect type even if it has query params', () => {
-      expect(getStreamType(mp4URL + queryParam)).to.equal(
-        MEDIA_STREAM_TYPES.MP4,
-      );
+      expect(getStreamType(mp4URL + queryParam)).to.equal(MediaStreamTypes.MP4);
     });
 
     it('should detect type even if it has fragments', () => {
-      expect(getStreamType(mp4URL + fragment)).to.equal(MEDIA_STREAM_TYPES.MP4);
+      expect(getStreamType(mp4URL + fragment)).to.equal(MediaStreamTypes.MP4);
     });
 
     it('should detect type even if it has fragments and params', () => {
       expect(getStreamType(mp4URL + queryParam + fragment)).to.equal(
-        MEDIA_STREAM_TYPES.MP4,
+        MediaStreamTypes.MP4,
       );
     });
   });

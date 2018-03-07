@@ -1,4 +1,4 @@
-import { isIPhone, isIPod, isIPad, isAndroid } from '../utils/device-detection';
+import { isIOS, isAndroid } from '../utils/device-detection';
 
 import { ITitleConfig } from '../default-modules/ui/title/title';
 import { IFullScreenConfig } from '../default-modules/full-screen-manager/full-screen-manager';
@@ -64,9 +64,11 @@ const convertUIConfigForAndroid = params => ({
 });
 
 const convertToDeviceRelatedConfig = params => {
-  if (isIPhone() || isIPod() || isIPad()) {
+  if (isIOS()) {
     return convertUIConfigForIOS(params);
-  } else if (isAndroid()) {
+  }
+
+  if (isAndroid()) {
     return convertUIConfigForAndroid(params);
   }
 
