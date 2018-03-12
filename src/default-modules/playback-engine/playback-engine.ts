@@ -190,7 +190,7 @@ export default class Engine {
    * Read more about [video source](/video-source)
    */
   @playerAPI()
-  setSrc(src) {
+  setSrc(src: string[]) {
     if (src === this._currentSrc) {
       return;
     }
@@ -209,7 +209,7 @@ export default class Engine {
    * player.getSrc(); // ['https://my-url/video.mp4']
    */
   @playerAPI()
-  getSrc() {
+  getSrc(): string[] {
     return this._currentSrc;
   }
 
@@ -468,7 +468,7 @@ export default class Engine {
    * Return current playback rate
    */
   @playerAPI()
-  getPlaybackRate() {
+  getPlaybackRate(): number {
     return this._video.playbackRate;
   }
 

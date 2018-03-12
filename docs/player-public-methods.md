@@ -415,6 +415,7 @@ Method for setting source of video to player.
           <code>src</code>
         </td>
         <td>
+            <div class="type">Array&#x3C;string></div>
             <p>Array with multiple sources</p>
         </td>
       </tr>
@@ -429,6 +430,26 @@ player.getSrc(); // ['https://my-url/video.mp4']
 ```
 
 Return current source of video
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+        </td>
+        <td>
+            <div class="type">Array&#x3C;string></div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ## play()
 
@@ -901,6 +922,26 @@ Method for setting playback rate
 ## getPlaybackRate()
 
 Return current playback rate
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+        </td>
+        <td>
+            <div class="type">number</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ## setPreload()
 
