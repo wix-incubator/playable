@@ -14,6 +14,7 @@
   outline: none;
 
   // NOTE: reset css to initial in player nodes
+  @import './normalize/button';
   *,
   *:before,
   *:after {

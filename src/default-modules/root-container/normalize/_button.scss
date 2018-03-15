@@ -1,0 +1,41 @@
+// https://github.com/necolas/normalize.css/blob/8.0.0/normalize.css#L147-L215
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Show the overflow in IE.
+ * 3. Remove the margin in Firefox and Safari.
+ * 4. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 5. Correct the inability to style clickable types in iOS and Safari.
+ */
+
+button {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+
+  overflow: visible; /* 2 */
+
+  margin: 0; /* 3 */
+
+  text-transform: none; /* 4 */
+
+  -webkit-appearance: button; /* 5 */
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner {
+  padding: 0;
+
+  border-style: none;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
