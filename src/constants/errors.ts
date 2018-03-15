@@ -5,6 +5,7 @@ const Errors = {
   MANIFEST_INCOMPATIBLE: 'error-manifest-incompatible',
   LEVEL_LOAD: 'error-level-load',
   CONTENT_LOAD: 'error-content-load',
+  CONTENT_PARSE: 'error-content-parse',
   MEDIA: 'error-media',
   UNKNOWN: 'error-unknown',
 };

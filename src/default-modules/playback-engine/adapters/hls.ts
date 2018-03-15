@@ -20,6 +20,8 @@ const DEFAULT_HLS_CONFIG = {
   abrEwmaDefaultEstimate: 5000 * 1000,
   liveSyncDuration: LIVE_SYNC_DURATION,
 };
+const NETWORK_ERROR_RECOVER_TIMEOUT = 1000;
+const MEDIA_ERROR_RECOVER_TIMEOUT = 1000;
 
 export default class HlsAdapter implements IPlaybackAdapter {
   static isSupported() {
@@ -31,6 +33,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private videoElement: HTMLVideoElement;
   private mediaStream;
 
+  private _mediaRecoverTimeout: any;
+  private _networkRecoverTimeout: any;
   private _isDynamicContent: boolean;
   private _isDynamicContentEnded: boolean;
 
@@ -208,19 +212,41 @@ export default class HlsAdapter implements IPlaybackAdapter {
           this.logError(ERRORS.UNKNOWN, data);
       }
 
-      this.hls.startLoad();
+      this._tryRecoverNetworkError();
     } else if (data.type === ErrorTypes.MEDIA_ERROR) {
       switch (data.details) {
         case ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR:
           this.logError(ERRORS.MANIFEST_INCOMPATIBLE, data);
           break;
+        case ErrorDetails.FRAG_PARSING_ERROR:
+          this.logError(ERRORS.CONTENT_PARSE, data);
+          break;
         default:
           this.logError(ERRORS.MEDIA, data);
+          break;
       }
 
-      this.hls.recoverMediaError();
+      this._tryRecoverMediaError();
     } else {
       this.logError(ERRORS.UNKNOWN, data);
+    }
+  }
+
+  private _tryRecoverMediaError() {
+    if (!this._mediaRecoverTimeout) {
+      this.hls.recoverMediaError();
+      this._mediaRecoverTimeout = setTimeout(() => {
+        this._mediaRecoverTimeout = null;
+      }, MEDIA_ERROR_RECOVER_TIMEOUT);
+    }
+  }
+
+  private _tryRecoverNetworkError() {
+    if (!this._networkRecoverTimeout) {
+      this.hls.startLoad();
+      this._networkRecoverTimeout = setTimeout(() => {
+        this._networkRecoverTimeout = null;
+      }, NETWORK_ERROR_RECOVER_TIMEOUT);
     }
   }
 
@@ -278,6 +304,17 @@ export default class HlsAdapter implements IPlaybackAdapter {
     if (!this.mediaStream) {
       return;
     }
+
+    if (this._networkRecoverTimeout) {
+      clearTimeout(this._networkRecoverTimeout);
+      this._networkRecoverTimeout = null;
+    }
+
+    if (this._mediaRecoverTimeout) {
+      clearTimeout(this._mediaRecoverTimeout);
+      this._mediaRecoverTimeout = null;
+    }
+
     this.hls.off(HlsJs.Events.ERROR, this.broadcastError);
     this.hls.off(HlsJs.Events.MANIFEST_PARSED, this._onManifestParsed);
     this.hls.off(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
