@@ -13,6 +13,15 @@
 
   outline: none;
 
+  // NOTE: reset css to initial in player nodes
+  *,
+  *:before,
+  *:after {
+    box-sizing: content-box;
+
+    outline: none;
+  }
+
   ::-moz-focus-inner {
     border: 0;
   }
@@ -35,12 +44,6 @@
     input.focus-within,
     img.focus-within {
       box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
-    }
-  }
-
-  [data-hook='player-container'] {
-    * {
-      outline: none;
     }
   }
 }
