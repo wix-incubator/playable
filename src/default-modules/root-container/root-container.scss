@@ -13,18 +13,8 @@
 
   outline: none;
 
-  // NOTE: reset css to initial in player nodes
-  *,
-  *:before,
-  *:after {
-    box-sizing: content-box;
-
-    outline: none;
-  }
-
-  ::-moz-focus-inner {
-    border: 0;
-  }
+  @import './normalize/universal';
+  @import './normalize/button';
 
   .fullScreenControl {
     display: none;
