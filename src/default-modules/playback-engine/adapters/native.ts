@@ -43,7 +43,7 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
     }
 
     get isDynamicContent() {
-      return !Number.isFinite(this.videoElement.duration);
+      return !isFinite(this.videoElement.duration);
     }
 
     get isDynamicContentEnded() {
