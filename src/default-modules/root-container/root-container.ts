@@ -1,5 +1,3 @@
-import { ElementQueries } from 'css-element-queries';
-
 import focusSource from '../../utils/focus-source';
 import focusWithin from '../../utils/focus-within';
 
@@ -8,6 +6,7 @@ import playerAPI from '../../utils/player-api-decorator';
 import { UI_EVENTS } from '../../constants/index';
 
 import View from './root-container.view';
+import ElementQueries from '../ui/core/element-queries';
 
 const DEFAULT_CONFIG = {
   fillAllSpace: false,
@@ -24,6 +23,7 @@ class RootContainer {
 
   private _eventEmitter;
   private _engine;
+  private _elementQueries: ElementQueries;
   private _disengageFocusWithin;
   private _disengageFocusSource;
 
@@ -121,7 +121,11 @@ class RootContainer {
     this._enableFocusInterceptors();
 
     node.appendChild(this.node);
-    ElementQueries.init();
+
+    if (!this._elementQueries) {
+      // NOTE: required for valid work of player "media queries"
+      this._elementQueries = new ElementQueries(this.node);
+    }
   }
 
   /**
@@ -204,6 +208,11 @@ class RootContainer {
   destroy() {
     this._unbindEvents();
     this._disableFocusInterceptors();
+
+    if (this._elementQueries) {
+      this._elementQueries.destroy();
+      delete this._elementQueries;
+    }
 
     this.view.destroy();
     delete this.view;

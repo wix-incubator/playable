@@ -5,7 +5,7 @@
 }
 
 @mixin query-basic($query, $value) {
-  div[data-hook='player-container'][#{$query}~=#{'"' + $value + '"'}] & {
+  div[data-hook='player-container'][data-#{$query}~=#{'"' + $value + '"'}] & {
     @content
   }
 }
@@ -30,13 +30,6 @@
 
 @mixin max-width-300() {
   @include query-basic(max-width, 300px) {
-    @content
-  }
-}
-
-
-@mixin max-width-280() {
-  @include query-basic(max-width, 280px) {
     @content
   }
 }
