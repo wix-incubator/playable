@@ -62,15 +62,18 @@ function getQueries() {
   return reduce(
     document.styleSheets,
     (results, styleSheet) => {
-      const rules = styleSheet.cssRules || styleSheet.rules;
+      // NOTE: browser may not able to read rules for cross-domain stylesheets
+      try {
+        const rules = styleSheet.cssRules || styleSheet.rules;
 
-      if (rules) {
-        return results.concat(getQueriesFromRules(rules));
-      }
+        if (rules) {
+          return results.concat(getQueriesFromRules(rules));
+        }
 
-      if (styleSheet.cssText) {
-        return results.concat(getQueriesFromCssSelector(styleSheet.cssText));
-      }
+        if (styleSheet.cssText) {
+          return results.concat(getQueriesFromCssSelector(styleSheet.cssText));
+        }
+      } catch (e) {}
 
       return results;
     },
@@ -84,7 +87,10 @@ function getQueriesForElement(element, prefix = '') {
 
   getQueries().forEach(query => {
     if (!matchedSelectors.has(query.selector)) {
-      matchedSelectors.set(query.selector, isElementMatchesSelector(element, query.selector));
+      matchedSelectors.set(
+        query.selector,
+        isElementMatchesSelector(element, query.selector),
+      );
     }
 
     if (!matchedSelectors.get(query.selector)) {
