@@ -7,11 +7,13 @@ const ALIASES = [
 
 let matchesSelectorFn;
 
-for (let i = 0; i < ALIASES.length; i++) {
-  matchesSelectorFn = Element.prototype[ALIASES[i]];
+if (typeof Element !== 'undefined') {
+  for (let i = 0; i < ALIASES.length; i++) {
+    matchesSelectorFn = Element.prototype[ALIASES[i]];
 
-  if (matchesSelectorFn) {
-    break;
+    if (matchesSelectorFn) {
+      break;
+    }
   }
 }
 
