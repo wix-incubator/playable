@@ -31,19 +31,15 @@ class ElementQueries {
   }
 
   private _setQueryAttribute(mode, elementWidth) {
-    const attributeName = `${this._queryPrefix}-${mode}-width`;
-    //TODO: Remove in major version
-    const depricatedAttributeName = `${mode}-width`;
+    const attributeName = this._queryPrefix
+      ? `${this._queryPrefix}-${mode}-width`
+      : `${mode}-width`;
     const attributeValue = this._getQueryAttributeValue(mode, elementWidth);
 
     if (attributeValue) {
       this._element.setAttribute(attributeName, attributeValue);
-      //TODO: Remove in major version
-      this._element.setAttribute(depricatedAttributeName, attributeValue);
     } else {
       this._element.removeAttribute(attributeName);
-      //TODO: Remove in major version
-      this._element.removeAttribute(depricatedAttributeName);
     }
   }
 

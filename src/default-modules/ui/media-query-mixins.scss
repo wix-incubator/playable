@@ -5,7 +5,7 @@
 }
 
 @mixin query-basic($query, $value) {
-  div[data-hook='player-container'][data-#{$query}~=#{'"' + $value + '"'}] & {
+  div[data-hook='player-container'][#{$query}~=#{'"' + $value + '"'}] & {
     @content
   }
 }

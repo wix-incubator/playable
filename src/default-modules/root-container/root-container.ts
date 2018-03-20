@@ -124,7 +124,9 @@ class RootContainer {
 
     if (!this._elementQueries) {
       // NOTE: required for valid work of player "media queries"
-      this._elementQueries = new ElementQueries(this.node);
+      this._elementQueries = new ElementQueries(this.node, {
+        prefix: '',
+      });
     }
   }
 
