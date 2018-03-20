@@ -27,6 +27,7 @@
   right: 0;
   left: 0;
 
+  display: none;
   visibility: hidden;
 
   height: 182px;
@@ -37,6 +38,7 @@
   background-size: 100% 182px;
 
   &.visible {
+    display: block;
     visibility: visible;
 
     opacity: 1;

@@ -31,6 +31,32 @@
       display: none;
     }
   }
+
+  &.playControlHidden {
+    .playContainer {
+      display: none;
+    }
+  }
+  &.timeControlHidden {
+    .timeContainer {
+      display: none;
+    }
+  }
+  &.volumeControlHidden {
+    .volumeContainer {
+      display: none;
+    }
+  }
+  &.fullScreenControlHidden {
+    .fullScreenContainer {
+      display: none;
+    }
+  }
+  &.progressControlHidden {
+    .progressBarContainer {
+      display: none;
+    }
+  }
 }
 
 .elementsContainer {

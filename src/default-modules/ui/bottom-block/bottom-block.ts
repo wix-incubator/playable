@@ -139,6 +139,116 @@ export default class BottomBlock {
     this.view.hideLogo();
   }
 
+  /**
+   * Method for showing logo.
+   * @example
+   * player.showLogo();
+   */
+  @playerAPI()
+  showLogo() {
+    this.view.showLogo();
+  }
+
+  /**
+   * Method for showing play control.
+   * @example
+   * player.showPlayControl();
+   */
+  @playerAPI()
+  showPlayControl() {
+    this.view.showPlayControl();
+  }
+
+  /**
+   * Method for showing volume control.
+   * @example
+   * player.showVolumeControl();
+   */
+  @playerAPI()
+  showVolumeControl() {
+    this.view.showVolumeControl();
+  }
+
+  /**
+   * Method for showing time control.
+   * @example
+   * player.showTimeControl();
+   */
+  @playerAPI()
+  showTimeControl() {
+    this.view.showTimeControl();
+  }
+
+  /**
+   * Method for showing full screen control.
+   * @example
+   * player.showFullScreenControl();
+   */
+  @playerAPI()
+  showFullScreenControl() {
+    this.view.showFullScreenControl();
+  }
+
+  /**
+   * Method for showing progress control.
+   * @example
+   * player.showProgressControl();
+   */
+  @playerAPI()
+  showProgressControl() {
+    this.view.showProgressControl();
+  }
+
+  /**
+   * Method for hidding play control.
+   * @example
+   * player.hidePlayControl();
+   */
+  @playerAPI()
+  hidePlayControl() {
+    this.view.hidePlayControl();
+  }
+
+  /**
+   * Method for hidding voluem control.
+   * @example
+   * player.hideVolumeControl();
+   */
+  @playerAPI()
+  hideVolumeControl() {
+    this.view.hideVolumeControl();
+  }
+
+  /**
+   * Method for hidding time control.
+   * @example
+   * player.hideTimeControl();
+   */
+  @playerAPI()
+  hideTimeControl() {
+    this.view.hideTimeControl();
+  }
+
+  /**
+   * Method for hidding full screen control.
+   * @example
+   * player.hideFullScreenControl();
+   */
+  @playerAPI()
+  hideFullScreenControl() {
+    this.view.hideFullScreenControl();
+  }
+
+  /**
+   * Method for hidding progress control.
+   * @example
+   * player.hideProgressControl();
+   */
+  @playerAPI()
+  hideProgressControl() {
+    this.view.hideProgressControl();
+  }
+
   destroy() {
     this.view.destroy();
     delete this.view;
