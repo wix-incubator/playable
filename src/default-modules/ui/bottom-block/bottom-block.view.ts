@@ -83,11 +83,55 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
 
   setShouldLogoShowAlwaysFlag(isShowAlways: boolean) {
     toggleNodeClass(this._$node, this.styleNames.showLogoAlways, isShowAlways);
+    this.showLogo();
+  }
+
+  showPlayControl() {
+    this._$node.classList.remove(this.styleNames.playControlHidden);
+  }
+
+  hidePlayControl() {
+    this._$node.classList.add(this.styleNames.playControlHidden);
+  }
+
+  showTimeControl() {
+    this._$node.classList.remove(this.styleNames.timeControlHidden);
+  }
+
+  hideTimeControl() {
+    this._$node.classList.add(this.styleNames.timeControlHidden);
+  }
+
+  showVolumeControl() {
+    this._$node.classList.remove(this.styleNames.volumeControlHidden);
+  }
+
+  hideVolumeControl() {
+    this._$node.classList.add(this.styleNames.volumeControlHidden);
+  }
+
+  showFullScreenControl() {
+    this._$node.classList.remove(this.styleNames.fullScreenControlHidden);
+  }
+
+  hideFullScreenControl() {
+    this._$node.classList.add(this.styleNames.fullScreenControlHidden);
+  }
+
+  showLogo() {
     this._$node.classList.remove(this.styleNames.logoHidden);
   }
 
   hideLogo() {
     this._$node.classList.add(this.styleNames.logoHidden);
+  }
+
+  showProgressControl() {
+    this._$node.classList.remove(this.styleNames.progressControlHidden);
+  }
+
+  hideProgressControl() {
+    this._$node.classList.add(this.styleNames.progressControlHidden);
   }
 
   show() {

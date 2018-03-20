@@ -1553,6 +1553,94 @@ player.hideLogo();
 
 Method for hidding logo. If you use `setLogoAlwaysShowFlag` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
 
+## showLogo()
+
+```javascript
+player.showLogo();
+```
+
+Method for showing logo.
+
+## showPlayControl()
+
+```javascript
+player.showPlayControl();
+```
+
+Method for showing play control.
+
+## showVolumeControl()
+
+```javascript
+player.showVolumeControl();
+```
+
+Method for showing volume control.
+
+## showTimeControl()
+
+```javascript
+player.showTimeControl();
+```
+
+Method for showing time control.
+
+## showFullScreenControl()
+
+```javascript
+player.showFullScreenControl();
+```
+
+Method for showing full screen control.
+
+## showProgressControl()
+
+```javascript
+player.showProgressControl();
+```
+
+Method for showing progress control.
+
+## hidePlayControl()
+
+```javascript
+player.hidePlayControl();
+```
+
+Method for hidding play control.
+
+## hideVolumeControl()
+
+```javascript
+player.hideVolumeControl();
+```
+
+Method for hidding voluem control.
+
+## hideTimeControl()
+
+```javascript
+player.hideTimeControl();
+```
+
+Method for hidding time control.
+
+## hideFullScreenControl()
+
+```javascript
+player.hideFullScreenControl();
+```
+
+Method for hidding full screen control.
+
+## hideProgressControl()
+
+```javascript
+player.hideProgressControl();
+```
+
+Method for hidding progress control.
+
 ## addTimeIndicator()
 
 Add time indicator to progress bar

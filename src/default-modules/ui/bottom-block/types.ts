@@ -13,6 +13,11 @@ type IBottomBlockViewStyles = {
   logoHidden: string;
   activated: string;
   hidden: string;
+  playControlHidden: string;
+  timeControlHidden: string;
+  volumeControlHidden: string;
+  fullScreenControlHidden: string;
+  progressControlHidden: string;
 };
 
 type IBottomBlockViewCallbacks = {
