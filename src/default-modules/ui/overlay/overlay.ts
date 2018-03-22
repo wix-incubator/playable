@@ -71,7 +71,7 @@ export default class Overlay {
   _updatePlayingStatus({ nextState }) {
     if (nextState === STATES.PLAY_REQUESTED) {
       this._hideContent();
-    } else if (nextState === STATES.ENDED) {
+    } else if (nextState === STATES.ENDED || nextState === STATES.SRC_SET) {
       this._showContent();
     }
   }
