@@ -9,10 +9,7 @@ import AdapterStrategy from './adapters-strategy';
 import { MediaStreamTypes, MediaStreamDeliveryPriority } from '../../constants';
 
 describe('AdapterStrategy', () => {
-  const video = {
-    addEventListener: () => {},
-    removeEventListener: () => {},
-  };
+  const video = document.createElement('video');
   let strategy;
   let eventEmitter;
   let playbackAdapters;

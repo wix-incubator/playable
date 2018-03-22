@@ -322,6 +322,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.hls = null;
 
     this.videoElement.removeEventListener('play', this.attachOnPlay);
+    this.videoElement.removeAttribute('src');
     this.videoElement = null;
   }
 }

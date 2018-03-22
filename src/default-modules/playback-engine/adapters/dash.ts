@@ -216,6 +216,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     this.dashPlayer.reset();
     this.dashPlayer.off(DashEvents.ERROR, this.broadcastError);
     this.dashPlayer = null;
+    this.videoElement.removeAttribute('src');
     this.videoElement = null;
   }
 }

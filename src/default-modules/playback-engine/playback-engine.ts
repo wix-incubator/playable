@@ -62,7 +62,7 @@ export default class Engine {
   private _eventEmitter;
   private _currentSrc;
   private _stateEngine;
-  private _video;
+  private _video: HTMLVideoElement;
   private _nativeEventsBroadcaster;
   private _adapterStrategy;
   private _playPromise: Promise<any>;
@@ -556,7 +556,7 @@ export default class Engine {
   @playerAPI()
   setPlayInline(isPlayInline: boolean) {
     if (isPlayInline) {
-      this._video.setAttribute('playsInline', isPlayInline);
+      this._video.setAttribute('playsInline', String(isPlayInline));
     }
   }
 
@@ -567,7 +567,7 @@ export default class Engine {
    */
   @playerAPI()
   getPlayInline(): boolean {
-    return this._video.getAttribute('playsInline');
+    return this._video.getAttribute('playsInline') === 'true';
   }
 
   /**

@@ -155,7 +155,7 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
 
     detach() {
       this.videoElement.removeEventListener('error', this.broadcastError);
-      this.videoElement.src = '';
+      this.videoElement.removeAttribute('src');
       this.videoElement = null;
     }
   }
