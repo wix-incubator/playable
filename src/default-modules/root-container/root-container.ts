@@ -23,6 +23,7 @@ class RootContainer {
 
   private _eventEmitter;
   private _engine;
+
   private _elementQueries: ElementQueries;
   private _disengageFocusWithin;
   private _disengageFocusSource;
@@ -56,12 +57,36 @@ class RootContainer {
       this.view.setFullScreenStatus,
       this.view,
     );
+
+    this._eventEmitter.on(
+      UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
+      this.view.hideCursor,
+      this.view,
+    );
+
+    this._eventEmitter.on(
+      UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
+      this.view.showCursor,
+      this.view,
+    );
   }
 
   _unbindEvents() {
     this._eventEmitter.off(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
       this.view.setFullScreenStatus,
+      this.view,
+    );
+
+    this._eventEmitter.off(
+      UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
+      this.view.hideCursor,
+      this.view,
+    );
+
+    this._eventEmitter.off(
+      UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
+      this.view.showCursor,
       this.view,
     );
   }

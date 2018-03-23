@@ -20,6 +20,10 @@
   .fullScreenControl {
     display: none;
   }
+
+  &.hiddenCursor {
+    cursor: none!important;
+  }
 }
 
 .fillAllSpace,
@@ -27,6 +31,7 @@
   width: 100%!important;
   height: 100%!important;
 }
+
 
 :global {
   [data-focus-source='key'] [data-hook='player-container'],
