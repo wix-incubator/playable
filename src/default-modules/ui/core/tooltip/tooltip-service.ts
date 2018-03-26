@@ -6,6 +6,8 @@ import TooltipContainer from './tooltip-container';
 import { ITooltipShowOptions } from './types';
 import Tooltip from './tooltip';
 
+import { UI_EVENTS } from '../../../../constants';
+
 interface ITooltipService {
   isHidden: boolean;
   tooltipContainerNode: HTMLElement;
@@ -21,13 +23,16 @@ interface ITooltipService {
 
 class TooltipService implements ITooltipService {
   static moduleName = 'tooltipService';
-
+  static dependencies = ['eventEmitter'];
   private _tooltip: Tooltip;
   private _tooltipContainer: TooltipContainer;
+  private _eventEmitter;
 
-  constructor() {
+  constructor({ eventEmitter }) {
+    this._eventEmitter = eventEmitter;
     this._tooltip = new Tooltip();
     this._tooltipContainer = new TooltipContainer(this._tooltip);
+    this._bindEvents();
   }
 
   get isHidden(): boolean {
@@ -36,6 +41,18 @@ class TooltipService implements ITooltipService {
 
   get tooltipContainerNode(): HTMLElement {
     return this._tooltipContainer.node;
+  }
+
+  private _bindEvents() {
+    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.hide, this);
+  }
+
+  private _unbindEvents() {
+    this._eventEmitter.off(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this.hide,
+      this,
+    );
   }
 
   /**
@@ -78,10 +95,14 @@ class TooltipService implements ITooltipService {
   }
 
   destroy() {
+    this._unbindEvents();
+
     this._tooltip.destroy();
     this._tooltipContainer.destroy();
     this._tooltip = null;
     this._tooltipContainer = null;
+
+    this._eventEmitter = null;
   }
 }
 
