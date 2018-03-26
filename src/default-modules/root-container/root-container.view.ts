@@ -85,6 +85,14 @@ class RootContainerView extends View {
     }
   }
 
+  hideCursor() {
+    this._$node.classList.add(this.styleNames.hiddenCursor);
+  }
+
+  showCursor() {
+    this._$node.classList.remove(this.styleNames.hiddenCursor);
+  }
+
   destroy() {
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);

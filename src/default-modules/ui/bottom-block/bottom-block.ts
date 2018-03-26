@@ -3,6 +3,7 @@ import playerAPI from '../../../utils/player-api-decorator';
 import { IBottomBlockViewConfig, IBottomBlockViewElements } from './types';
 
 import View from './bottom-block.view';
+import { UI_EVENTS } from '../../../constants/index';
 
 export default class BottomBlock {
   static moduleName = 'bottomBlock';
@@ -16,9 +17,11 @@ export default class BottomBlock {
     'volumeControl',
     'fullScreenControl',
     'logo',
+    'eventEmitter',
   ];
 
   private _screen;
+  private _eventEmitter;
 
   private _isBlockFocused: boolean = false;
 
@@ -26,12 +29,14 @@ export default class BottomBlock {
   isHidden: boolean = false;
 
   constructor(dependencies) {
-    const { config, screen } = dependencies;
+    const { config, screen, eventEmitter } = dependencies;
     this._screen = screen;
+    this._eventEmitter = eventEmitter;
 
     this._bindViewCallbacks();
     this._initUI(this._getElementsNodes(dependencies));
     this._initLogo(config.logo);
+    this._bindEvents();
   }
 
   private _getElementsNodes(dependencies): IBottomBlockViewElements {
@@ -68,6 +73,20 @@ export default class BottomBlock {
     };
 
     this.view = new BottomBlock.View(config);
+  }
+
+  private _bindEvents() {
+    this._eventEmitter.on(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this._removeFocusState,
+    );
+  }
+
+  private _unbindEvents() {
+    this._eventEmitter.off(
+      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      this._removeFocusState,
+    );
   }
 
   private _initLogo(logoConfig) {
@@ -250,9 +269,11 @@ export default class BottomBlock {
   }
 
   destroy() {
+    this._unbindEvents();
     this.view.destroy();
-    delete this.view;
 
-    delete this._screen;
+    this.view = null;
+    this._screen = null;
+    this._eventEmitter = null;
   }
 }
