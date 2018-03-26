@@ -48,7 +48,7 @@
   "linterOptions": {
     "exclude": [
       "src/**/*.spec.ts",
-      "src/e2e/playback-test.ts",
+      "src/e2e/*.ts",
       "tslint-rules/*"
     ]
   },

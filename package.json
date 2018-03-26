@@ -5,7 +5,7 @@
     "name": "Oleksii Makodzeba",
     "email": "oleksiim@wix.com"
   },
-  "main": "dist/statics/playable.bundle.js",
+  "main": "dist/statics/playable.rollup.bundle.js",
   "files": [
     "dist",
     "src"
@@ -29,7 +29,7 @@
     "prettier": "prettier --config .prettierrc --write",
     "prettier:all": "npm run prettier -- '{src,scripts,tslint-rules}/**/*.{js,ts}'",
     "csscomb:all": "csscomb src/.",
-    "test:playback": "node ./dev-env/boot-devserver-and-test.js",
+    "test:playback": "node ./dev-env/start-karma.js",
     "test:unit": "haste test --mocha",
     "precommit": "lint-staged && npm run build && npm run test:unit && npm run test:playback && npm run documentation:gitadd"
   },
@@ -86,6 +86,7 @@
     "entry": {
       "playable": "./index.ts",
       "playable-test": "./e2e/playback-test.ts",
+      "playable-test-rollup": "./e2e/playback-test-rollup.ts",
       "playable-develop": "./develop.ts",
       "playable-dash": "./with-dash.ts",
       "playable-hls": "./with-hls.ts"
