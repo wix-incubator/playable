@@ -64,8 +64,10 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   setDisplayAsLink(flag) {
     if (flag) {
       this._$node.classList.add(this.styleNames.link);
+      this._tooltipReference.enable();
     } else {
       this._$node.classList.remove(this.styleNames.link);
+      this._tooltipReference.disable();
     }
   }
 
