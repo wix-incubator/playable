@@ -2,7 +2,7 @@ import { ITimeViewConfig } from './types';
 
 import View from './time.view';
 
-import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
+import { VIDEO_EVENTS, STATES, LiveState } from '../../../../constants/index';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -53,6 +53,11 @@ export default class TimeControl {
       this._updateDurationTime,
       this,
     );
+    this._eventEmitter.on(
+      VIDEO_EVENTS.LIVE_STATE_CHANGED,
+      this._processLiveStateChange,
+      this,
+    );
   }
 
   _initUI() {
@@ -77,20 +82,29 @@ export default class TimeControl {
     this._updateControlInterval = null;
   }
 
+  _processLiveStateChange({ nextState }) {
+    switch (nextState) {
+      case LiveState.NONE:
+        this.show();
+        break;
+
+      case LiveState.INITIAL:
+        this.hide();
+        break;
+
+      case LiveState.ENDED:
+        this.show();
+        break;
+
+      default:
+        break;
+    }
+  }
+
   _toggleIntervalUpdates({ nextState }) {
     switch (nextState) {
       case STATES.SRC_SET:
         this.reset();
-        break;
-      case STATES.METADATA_LOADED:
-        if (this._engine.isSeekAvailable) {
-          if (this._engine.isDynamicContent) {
-            // TODO: is duration hidden when live ended?
-            this.view.hideDuration();
-          }
-        } else {
-          this.hide();
-        }
         break;
       case STATES.PLAYING:
         this._startIntervalUpdates();
@@ -109,11 +123,6 @@ export default class TimeControl {
   }
 
   _updateCurrentTime() {
-    if (this._engine.isDynamicContent) {
-      // TODO: is it same for live ended?
-      this.view.setCurrentTimeBackward(!this._engine.isSyncWithLive);
-    }
-
     this.setCurrentTime(this._engine.getCurrentTime());
   }
 
