@@ -3,6 +3,7 @@ enum MediaStreamTypes {
   WEBM = 'WEBM',
   HLS = 'HLS',
   DASH = 'DASH',
+  OGG = 'OGG',
 }
 
 enum MediaStreamDeliveryPriority {

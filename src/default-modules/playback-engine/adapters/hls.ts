@@ -37,6 +37,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private _networkRecoverTimeout: any;
   private _isDynamicContent: boolean;
   private _isDynamicContentEnded: boolean;
+  private _isAttached: boolean;
 
   constructor(eventEmitter) {
     this.eventEmitter = eventEmitter;
@@ -51,10 +52,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   _bindCallbacks() {
-    this.attachOnPlay = this.attachOnPlay.bind(this);
-    this.broadcastError = this.broadcastError.bind(this);
-    this._onManifestParsed = this._onManifestParsed.bind(this);
+    this._attachOnPlay = this._attachOnPlay.bind(this);
+    this._broadcastError = this._broadcastError.bind(this);
     this._onEndOfStream = this._onEndOfStream.bind(this);
+    this._onLevelUpdated = this._onLevelUpdated.bind(this);
   }
 
   get currentUrl() {
@@ -162,7 +163,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     }
   }
 
-  logError(error, errorEvent) {
+  private _logError(error, errorEvent) {
     this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
       errorType: error,
       streamType: MediaStreamTypes.HLS,
@@ -171,7 +172,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     });
   }
 
-  broadcastError(_error, data) {
+  private _broadcastError(_error, data) {
     // TODO: `_error` argument is unused
     if (!data.fatal) {
       return;
@@ -182,53 +183,54 @@ export default class HlsAdapter implements IPlaybackAdapter {
     if (data.type === ErrorTypes.NETWORK_ERROR) {
       switch (data.details) {
         case ErrorDetails.MANIFEST_LOAD_ERROR:
-          this.logError(ERRORS.MANIFEST_LOAD, data);
+          this._logError(ERRORS.MANIFEST_LOAD, data);
           break;
         case ErrorDetails.MANIFEST_LOAD_TIMEOUT:
-          this.logError(ERRORS.MANIFEST_LOAD, data);
+          this._logError(ERRORS.MANIFEST_LOAD, data);
           break;
         case ErrorDetails.MANIFEST_PARSING_ERROR:
-          this.logError(ERRORS.MANIFEST_PARSE, data);
+          this._logError(ERRORS.MANIFEST_PARSE, data);
           break;
         case ErrorDetails.LEVEL_LOAD_ERROR:
-          this.logError(ERRORS.LEVEL_LOAD, data);
+          this._logError(ERRORS.LEVEL_LOAD, data);
           break;
         case ErrorDetails.LEVEL_LOAD_TIMEOUT:
-          this.logError(ERRORS.LEVEL_LOAD, data);
+          this._logError(ERRORS.LEVEL_LOAD, data);
           break;
         case ErrorDetails.AUDIO_TRACK_LOAD_ERROR:
-          this.logError(ERRORS.CONTENT_LOAD, data);
+          this._logError(ERRORS.CONTENT_LOAD, data);
           break;
         case ErrorDetails.AUDIO_TRACK_LOAD_TIMEOUT:
-          this.logError(ERRORS.CONTENT_LOAD, data);
+          this._logError(ERRORS.CONTENT_LOAD, data);
           break;
         case ErrorDetails.FRAG_LOAD_ERROR:
-          this.logError(ERRORS.CONTENT_LOAD, data);
+          this._logError(ERRORS.CONTENT_LOAD, data);
           break;
         case ErrorDetails.FRAG_LOAD_TIMEOUT:
-          this.logError(ERRORS.CONTENT_LOAD, data);
+          this._logError(ERRORS.CONTENT_LOAD, data);
           break;
         default:
-          this.logError(ERRORS.UNKNOWN, data);
+          this._logError(ERRORS.UNKNOWN, data);
+          break;
       }
 
       this._tryRecoverNetworkError();
     } else if (data.type === ErrorTypes.MEDIA_ERROR) {
       switch (data.details) {
         case ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR:
-          this.logError(ERRORS.MANIFEST_INCOMPATIBLE, data);
+          this._logError(ERRORS.MANIFEST_INCOMPATIBLE, data);
           break;
         case ErrorDetails.FRAG_PARSING_ERROR:
-          this.logError(ERRORS.CONTENT_PARSE, data);
+          this._logError(ERRORS.CONTENT_PARSE, data);
           break;
         default:
-          this.logError(ERRORS.MEDIA, data);
+          this._logError(ERRORS.MEDIA, data);
           break;
       }
 
       this._tryRecoverMediaError();
     } else {
-      this.logError(ERRORS.UNKNOWN, data);
+      this._logError(ERRORS.UNKNOWN, data);
     }
   }
 
@@ -250,12 +252,12 @@ export default class HlsAdapter implements IPlaybackAdapter {
     }
   }
 
-  attachOnPlay() {
+  private _attachOnPlay() {
     if (!this.videoElement) {
       return;
     }
     this.hls.startLoad();
-    this.videoElement.removeEventListener('play', this.attachOnPlay);
+    this.videoElement.removeEventListener('play', this._attachOnPlay);
   }
 
   attach(videoElement) {
@@ -269,27 +271,25 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
     if (this.videoElement.preload === 'none') {
       config.autoStartLoad = false;
-      this.videoElement.addEventListener('play', this.attachOnPlay);
+      this.videoElement.addEventListener('play', this._attachOnPlay);
     }
 
     this.hls = new HlsJs(config);
-    this.hls.on(HlsJs.Events.ERROR, this.broadcastError);
-    this.hls.on(HlsJs.Events.MANIFEST_PARSED, this._onManifestParsed);
+
+    this.hls.on(HlsJs.Events.ERROR, this._broadcastError);
+    this.hls.on(HlsJs.Events.LEVEL_UPDATED, this._onLevelUpdated);
     this.hls.on(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
+
     this.hls.loadSource(this.mediaStream.url);
     this.hls.attachMedia(this.videoElement);
+    this._isAttached = true;
   }
 
-  private _onManifestParsed() {
-    // NOTE: first  level details is not ready on MANIFEST_PARSED. Wait until first LEVEL_UPDATED
-    const onLevelUpdated = (_eventName, { details }) => {
-      this._isDynamicContent = details.live;
-      this._isDynamicContentEnded = details.live ? false : null;
+  private _onLevelUpdated(_eventName, { details }) {
+    this._isDynamicContent = details.live;
+    this._isDynamicContentEnded = details.live ? false : null;
 
-      this.hls.off(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
-    };
-
-    this.hls.on(HlsJs.Events.LEVEL_UPDATED, onLevelUpdated);
+    this.hls.off(HlsJs.Events.LEVEL_UPDATED, this._onLevelUpdated);
   }
 
   private _onEndOfStream() {
@@ -301,7 +301,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   detach() {
-    if (!this.mediaStream) {
+    if (!this._isAttached) {
       return;
     }
 
@@ -315,13 +315,14 @@ export default class HlsAdapter implements IPlaybackAdapter {
       this._mediaRecoverTimeout = null;
     }
 
-    this.hls.off(HlsJs.Events.ERROR, this.broadcastError);
-    this.hls.off(HlsJs.Events.MANIFEST_PARSED, this._onManifestParsed);
+    this.hls.off(HlsJs.Events.ERROR, this._broadcastError);
     this.hls.off(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
+    this.hls.off(HlsJs.Events.LEVEL_UPDATED, this._onLevelUpdated);
+
     this.hls.destroy();
     this.hls = null;
 
-    this.videoElement.removeEventListener('play', this.attachOnPlay);
+    this.videoElement.removeEventListener('play', this._attachOnPlay);
     this.videoElement.removeAttribute('src');
     this.videoElement = null;
   }

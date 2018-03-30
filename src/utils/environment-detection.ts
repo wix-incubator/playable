@@ -13,6 +13,7 @@ export const NativeEnvironmentSupport = {
   DASH: false,
   MP4: false,
   WEBM: false,
+  OGG: false,
 };
 
 /* ignore coverage */
@@ -40,6 +41,9 @@ function detectEnvironment() {
   }
   if (video.canPlayType('video/webm')) {
     NativeEnvironmentSupport.WEBM = true;
+  }
+  if (video.canPlayType('video/ogg')) {
+    NativeEnvironmentSupport.OGG = true;
   }
 }
 

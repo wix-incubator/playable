@@ -5,6 +5,7 @@ extensionsMap.mp4 = MediaStreamTypes.MP4;
 extensionsMap.webm = MediaStreamTypes.WEBM;
 extensionsMap.m3u8 = MediaStreamTypes.HLS;
 extensionsMap.mpd = MediaStreamTypes.DASH;
+extensionsMap.ogg = MediaStreamTypes.OGG;
 
 export function getStreamType(url) {
   const anchorElement = document.createElement('a');

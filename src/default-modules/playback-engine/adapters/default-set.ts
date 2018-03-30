@@ -22,6 +22,10 @@ const defaultPlaybackAdapters = [
     MediaStreamTypes.WEBM,
     MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
   ), // Native WebM (Chrome, Firefox)
+  getNativeAdapterCreator(
+    MediaStreamTypes.OGG,
+    MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
+  ), // Native WebM (Chrome, Firefox)
 ];
 
 export default defaultPlaybackAdapters;
