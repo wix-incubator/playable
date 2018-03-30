@@ -7,8 +7,6 @@ import createPlayerTestkit from '../../../testkit';
 
 import Title from './title';
 
-import { describe } from 'selenium-webdriver/testing';
-
 describe('Title', () => {
   let testkit;
   // let eventEmitter;

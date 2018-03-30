@@ -7,7 +7,6 @@ import createPlayerTestkit from '../../../testkit';
 
 import LiveIndicator from './live-indicator';
 
-import { describe } from 'selenium-webdriver/testing';
 import { VIDEO_EVENTS, LiveState } from '../../../constants';
 
 describe('LiveIndicator', () => {
