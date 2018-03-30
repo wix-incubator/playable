@@ -4,6 +4,7 @@ type IScreenViewStyles = {
   screenBottomBackground: string;
   hidden: string;
   visible: string;
+  hiddenCursor: string;
 };
 
 type IScreenViewCallbacks = {

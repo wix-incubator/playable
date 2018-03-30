@@ -18,6 +18,7 @@ export default class MainUIBlock {
   static View = MainUIBlockView;
   static dependencies = [
     'config',
+    'screen',
     'rootContainer',
     'tooltipService',
     'eventEmitter',
@@ -28,6 +29,7 @@ export default class MainUIBlock {
   private _eventEmitter;
   private _bottomBlock;
   private _topBlock;
+  private _screen;
 
   private _hideTimeout = null;
 
@@ -48,11 +50,13 @@ export default class MainUIBlock {
       tooltipService,
       topBlock,
       bottomBlock,
+      screen,
     } = dependencies;
 
     this._eventEmitter = eventEmitter;
     this._topBlock = topBlock;
     this._bottomBlock = bottomBlock;
+    this._screen = screen;
 
     this.isHidden = false;
 
@@ -225,6 +229,8 @@ export default class MainUIBlock {
       return;
     }
 
+    this._screen.showCursor();
+
     this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_SHOW_TRIGGERED);
     this._bottomBlock.showContent();
     this._topBlock.showContent();
@@ -245,6 +251,10 @@ export default class MainUIBlock {
   private _hideContent() {
     if (this.isHidden || !this._isContentShown) {
       return;
+    }
+
+    if (this._isContentShowingEnabled) {
+      this._screen.hideCursor();
     }
 
     this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE_TRIGGERED);

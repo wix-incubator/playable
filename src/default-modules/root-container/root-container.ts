@@ -57,21 +57,6 @@ class RootContainer {
       this.view.setFullScreenStatus,
       this.view,
     );
-
-    //TODO: Think about better logic of hidding cursor
-    /*
-    this._eventEmitter.on(
-      UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
-      this.view.hideCursor,
-      this.view,
-    );
-
-    this._eventEmitter.on(
-      UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
-      this.view.showCursor,
-      this.view,
-    );
-    */
   }
 
   _unbindEvents() {
@@ -80,20 +65,6 @@ class RootContainer {
       this.view.setFullScreenStatus,
       this.view,
     );
-
-    /*
-    this._eventEmitter.off(
-      UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
-      this.view.hideCursor,
-      this.view,
-    );
-
-    this._eventEmitter.off(
-      UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
-      this.view.showCursor,
-      this.view,
-    );
-    */
   }
 
   _initUI(config) {

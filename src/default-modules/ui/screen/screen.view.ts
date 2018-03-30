@@ -117,6 +117,14 @@ class ScreenView extends View<IScreenViewStyles>
     this._$node.appendChild(node);
   }
 
+  hideCursor() {
+    this._$node.classList.add(this.styleNames.hiddenCursor);
+  }
+
+  showCursor() {
+    this._$node.classList.remove(this.styleNames.hiddenCursor);
+  }
+
   destroy() {
     this._unbindEvents();
     if (this._$node.parentNode) {

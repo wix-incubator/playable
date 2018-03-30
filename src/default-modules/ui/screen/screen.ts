@@ -121,6 +121,14 @@ export default class Screen {
     );
   }
 
+  showCursor() {
+    this.view.showCursor();
+  }
+
+  hideCursor() {
+    this.view.hideCursor();
+  }
+
   showTopShadow() {
     this.view.showTopShadow();
   }
@@ -137,11 +145,11 @@ export default class Screen {
     this.view.hideBottomShadow();
   }
 
-  _setFullScreenStatus(isInFullScreen) {
+  private _setFullScreenStatus(isInFullScreen) {
     this._isInFullScreen = isInFullScreen;
   }
 
-  _processNodeClick() {
+  private _processNodeClick() {
     if (this._isClickProcessingDisabled) {
       return;
     }
@@ -158,7 +166,7 @@ export default class Screen {
     }
   }
 
-  _processNodeDblClick() {
+  private _processNodeDblClick() {
     if (this._isClickProcessingDisabled) {
       return;
     }
@@ -176,7 +184,7 @@ export default class Screen {
     }
   }
 
-  _showPlaybackChangeIndicator() {
+  private _showPlaybackChangeIndicator() {
     const state = this._engine.getCurrentState();
 
     if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
@@ -186,11 +194,11 @@ export default class Screen {
     }
   }
 
-  _hideDelayedPlaybackChangeIndicator() {
+  private _hideDelayedPlaybackChangeIndicator() {
     this._interactionIndicator.hideIcons();
   }
 
-  _setDelayedPlaybackToggle() {
+  private _setDelayedPlaybackToggle() {
     this._clearDelayedPlaybackToggle();
 
     this._delayedToggleVideoPlaybackTimeout = setTimeout(
@@ -199,16 +207,16 @@ export default class Screen {
     );
   }
 
-  _clearDelayedPlaybackToggle() {
+  private _clearDelayedPlaybackToggle() {
     clearTimeout(this._delayedToggleVideoPlaybackTimeout);
     this._delayedToggleVideoPlaybackTimeout = null;
   }
 
-  get _isDelayedPlaybackToggleExist() {
+  private get _isDelayedPlaybackToggleExist() {
     return Boolean(this._delayedToggleVideoPlaybackTimeout);
   }
 
-  _toggleVideoPlayback() {
+  private _toggleVideoPlayback() {
     this._clearDelayedPlaybackToggle();
 
     const state = this._engine.getCurrentState();
@@ -222,7 +230,7 @@ export default class Screen {
     }
   }
 
-  _toggleFullScreen() {
+  private _toggleFullScreen() {
     if (this._isInFullScreen) {
       this._exitFullScreen();
     } else {
@@ -244,11 +252,11 @@ export default class Screen {
     }
   }
 
-  _enterFullScreen() {
+  private _enterFullScreen() {
     this._fullScreenManager.enterFullScreen();
   }
 
-  _exitFullScreen() {
+  private _exitFullScreen() {
     this._fullScreenManager.exitFullScreen();
   }
 

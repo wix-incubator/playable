@@ -10,6 +10,8 @@
   &.activated,
   &.focus-within {
     .titleContainer {
+      visibility: visible;
+
       opacity: 1;
     }
   }
@@ -42,6 +44,8 @@
 }
 
 .titleContainer {
+  visibility: hidden;
+
   max-width: calc(100% - 200px);
 
   transition: opacity .2s, visibility .2s;
