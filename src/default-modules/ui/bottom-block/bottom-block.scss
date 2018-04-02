@@ -29,6 +29,16 @@
   }
 
   &.logoHidden {
+    .fullScreenContainer {
+      margin-right: 14px;
+
+      @include max-width-550() {
+        margin-right: 7px;
+      }
+      @include in-full-screen() {
+        margin-right: 25px;
+      }
+    }
     .logoContainer {
       display: none;
     }
@@ -168,14 +178,14 @@
 }
 
 .fullScreenContainer {
-  margin-right: 14px;
+  margin-right: 8px;
   margin-left: 5px;
 
   @include max-width-550() {
-    margin-right: 7px;
+    margin-right: 1px;
   }
   @include in-full-screen() {
-    margin-right: 25px;
+    margin-right: 18px;
     margin-left: 0;
   }
 }
@@ -183,14 +193,14 @@
 .logoContainer {
   display: flex;
 
-  margin-right: 20px;
+  margin-right: 14px;
 
   @include max-width-550() {
-    margin-right: 15px;
+    margin-right: 9px;
     margin-left: 1px;
   }
   @include in-full-screen() {
-    margin-right: 30px;
+    margin-right: 23px;
     margin-left: 0;
   }
   @include max-width-280() {
