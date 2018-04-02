@@ -30,7 +30,7 @@ class MainUIBlockView extends View {
 
     const $tooltipContainerWrapper = document.createElement('div');
     $tooltipContainerWrapper.classList.add(
-      this.styleNames['tooltip-container-wrapper'],
+      this.styleNames.tooltipContainerWrapper,
     );
     $tooltipContainerWrapper.appendChild(elements.tooltipContainer);
 

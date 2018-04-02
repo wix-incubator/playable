@@ -1,0 +1,5 @@
+<div class="${props.styles.container}">
+  <div class="${props.styles.subtitlesContainer}"
+       data-hook="subtitles-container">
+  </div>
+</div>
