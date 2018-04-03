@@ -25,7 +25,12 @@ class ElementQueries {
 
   private _getQueryAttributeValue(mode, elementWidth) {
     return this._queries
-      .filter(query => query.mode === mode && query.width >= elementWidth)
+      .filter(
+        query =>
+          query.mode === mode &&
+          ((mode === 'max' && query.width >= elementWidth) ||
+            (mode === 'min' && query.width <= elementWidth)),
+      )
       .map(query => `${query.width}px`)
       .join(' ');
   }
