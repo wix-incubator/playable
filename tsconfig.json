@@ -16,9 +16,7 @@
   "include": [
     "./src/**/*.ts"
   ],
-  "files": [
-    "./src/index.ts",
-    "./src/develop.ts",
-    "./src/e2e/playback-test.ts"
+  "exclude": [
+    "**/*.spec.ts"
   ]
 }
