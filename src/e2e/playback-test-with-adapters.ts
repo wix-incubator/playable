@@ -1,11 +1,13 @@
 import Playable, { ENGINE_STATES, VIDEO_EVENTS } from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import HLSAdapter from '../default-modules/playback-engine/adapters/hls';
+import DASHAdapter from '../default-modules/playback-engine/adapters/dash';
 import { PreloadTypes } from '../default-modules/playback-engine/playback-engine';
 
 /* ignore coverage */
 describe('Playback e2e test', function() {
   Playable.registerPlaybackAdapter(HLSAdapter);
+  Playable.registerPlaybackAdapter(DASHAdapter);
 
   this.timeout(10000);
   const node = document.createElement('div');
@@ -28,6 +30,24 @@ describe('Playback e2e test', function() {
         'https://storage.googleapis.com/video-player-media-server-static/sample.m3u8',
       supportedByEnv:
         NativeEnvironmentSupport.HLS || NativeEnvironmentSupport.MSE,
+    },
+    {
+      type: 'DASH',
+      url:
+        'https://storage.googleapis.com/video-player-media-server-static/sample.mpd',
+      supportedByEnv:
+        NativeEnvironmentSupport.DASH || NativeEnvironmentSupport.MSE,
+    },
+    {
+      type: 'DASH or HLS',
+      url: [
+        'https://storage.googleapis.com/video-player-media-server-static/sample.m3u8',
+        'https://storage.googleapis.com/video-player-media-server-static/sample.mpd',
+      ],
+      supportedByEnv:
+        NativeEnvironmentSupport.HLS ||
+        NativeEnvironmentSupport.DASH ||
+        NativeEnvironmentSupport.MSE,
     },
   ];
 

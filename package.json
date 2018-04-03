@@ -5,7 +5,7 @@
     "name": "Oleksii Makodzeba",
     "email": "oleksiim@wix.com"
   },
-  "main": "dist/statics/playable.rollup.bundle.js",
+  "main": "dist/statics/playable.bundle.js",
   "files": [
     "dist",
     "src"
@@ -13,10 +13,10 @@
   "scripts": {
     "start": "haste-playable start",
     "lint": "npm run tslint:all",
-    "bundle:playable": "haste-playable bundle playable=./index.ts --rollup",
+    "bundle:playable": "haste-playable bundle playable=./index.ts",
     "bundle:playable-with-adapters": "haste-playable bundle playable-dash=./with-dash.ts playable-hls=./with-hls.ts --webpack",
-    "bundle:playback-test": "haste-playable bundle playable-test=./e2e/playback-test.ts --webpack --mode development",
-    "bundle:playback-test-rollup": "haste-playable bundle playable-test-rollup=./e2e/playback-test-rollup.ts --rollup --mode development",
+    "bundle:playback-test": "haste-playable bundle playable-test=./e2e/playback-test.ts --mode development",
+    "bundle:playback-test-with-adapters": "haste-playable bundle playable-test-with-adapters=./e2e/playback-test-with-adapters.ts --webpack --mode development",
     "build": "haste-playable clean && haste-playable build && npm run bundle:playable && npm run bundle:playable-with-adapters",
     "test": "npm run test:unit",
     "documentation": "okidoc-md ./docs/docs.yml ./docs",
@@ -33,8 +33,8 @@
     "prettier:all": "npm run prettier -- '{src,scripts,tslint-rules}/**/*.{js,ts}'",
     "csscomb:all": "csscomb src/.",
     "test:unit": "haste-playable test --mocha",
-    "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-rollup",
-    "test:playback": "haste-playable test --karma dev-env/karma-webpack.conf.js && haste-playable test --karma dev-env/karma-rollup.conf.js",
+    "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-with-adapters",
+    "test:playback": "haste-playable test --karma dev-env/karma.conf.js && haste-playable test --karma dev-env/karma-with-adapters.conf.js",
     "precommit": "lint-staged && npm run test:unit && npm run test:playback && npm run documentation:gitadd"
   },
   "lint-staged": {
@@ -64,7 +64,7 @@
     "chai": "~3.5.0",
     "csscomb": "^4.2.0",
     "gh-pages": "^1.1.0",
-    "haste-preset-playable": "github:bodia-uz/haste-preset-playable#v2.0.0",
+    "haste-preset-playable": "github:bodia-uz/haste-preset-playable#v2.1.0",
     "husky": "^0.13.1",
     "jsdom": "^9.12.0",
     "jsdom-global": "^2.1.1",
