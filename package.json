@@ -29,8 +29,7 @@
     "release": "node scripts/npm-release.js",
     "tslint": "ts-node node_modules/.bin/tslint -p . -c tslint.json",
     "tslint:all": "npm run tslint -- '{src,scripts}/**/*.ts'",
-    "prettier": "prettier --config .prettierrc --write",
-    "prettier:all": "npm run prettier -- '{src,scripts,tslint-rules}/**/*.{js,ts}'",
+    "prettier:all": "prettier --write '{src,scripts,tslint-rules}/**/*.{js,ts}'",
     "csscomb:all": "csscomb src/.",
     "test:unit": "haste-playable test --mocha",
     "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-with-adapters",
@@ -39,8 +38,8 @@
   },
   "lint-staged": {
     "*.ts": [
-      "prettier",
-      "tslint",
+      "prettier --write",
+      "npm run tslint --",
       "git add"
     ],
     "*.scss": [
@@ -65,12 +64,12 @@
     "csscomb": "^4.2.0",
     "gh-pages": "^1.1.0",
     "haste-preset-playable": "github:bodia-uz/haste-preset-playable#v2.1.0",
-    "husky": "^0.13.1",
+    "husky": "^0.14.3",
     "jsdom": "^9.12.0",
     "jsdom-global": "^2.1.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-mocha": "^1.3.0",
-    "lint-staged": "^5.0.0",
+    "lint-staged": "^7.0.3",
     "okidoc-md": "^1.3.0",
     "okidoc-site": "^1.3.0",
     "prettier": "^1.9.0",
