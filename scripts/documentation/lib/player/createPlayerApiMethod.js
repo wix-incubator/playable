@@ -1,6 +1,6 @@
 const t = require('@babel/types');
 const {
-  nodeASTUtils: { cleanUpNodeJSDoc, removeNodeDecorators, removeNodeBody }
+  nodeASTUtils: { cleanUpNodeJSDoc, removeNodeDecorators, removeNodeBody },
 } = require('okidoc-md');
 
 const {
