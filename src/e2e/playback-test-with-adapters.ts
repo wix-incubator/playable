@@ -1,7 +1,7 @@
 import Playable, { ENGINE_STATES, VIDEO_EVENTS } from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
-import HLSAdapter from '../default-modules/playback-engine/adapters/hls';
-import DASHAdapter from '../default-modules/playback-engine/adapters/dash';
+import HLSAdapter from '../adapters/hls';
+import DASHAdapter from '../adapters/dash';
 import { PreloadTypes } from '../default-modules/playback-engine/playback-engine';
 
 /* ignore coverage */

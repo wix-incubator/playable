@@ -2,6 +2,7 @@ import * as playerFactoryMethods from './core/player-factory';
 export * from './core/player-factory';
 
 import {
+  ERRORS,
   UI_EVENTS,
   VIDEO_EVENTS,
   TEXT_LABELS,
@@ -12,6 +13,7 @@ import {
 } from './constants';
 
 export {
+  ERRORS,
   UI_EVENTS,
   VIDEO_EVENTS,
   TEXT_LABELS,
@@ -27,6 +29,10 @@ import playerAPIDecorator from './utils/player-api-decorator';
 export { playerAPIDecorator };
 
 export { Tooltip } from './default-modules/ui/core/tooltip';
+
+export {
+  IPlaybackAdapter,
+} from './default-modules/playback-engine/adapters/types';
 
 export { modules as DefaultModules } from './default-modules';
 
