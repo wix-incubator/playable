@@ -415,7 +415,7 @@ Method for setting source of video to player.
           <code>src</code>
         </td>
         <td>
-            <div class="type">Array&#x3C;string></div>
+            <div class="type">MediaSource</div>
             <p>Array with multiple sources</p>
         </td>
       </tr>
@@ -444,7 +444,7 @@ Return current source of video
         <td class="param">
         </td>
         <td>
-            <div class="type">Array&#x3C;string></div>
+            <div class="type">MediaSource</div>
         </td>
       </tr>
     </tbody>
