@@ -1210,8 +1210,6 @@ Return current state of playback
 player.getDebugInfo();
 ```
 
-> The above command returns JSON structured like this:
-
 ```javascript
 {
   "type": "HLS",
@@ -1239,6 +1237,8 @@ player.getDebugInfo();
   }
 }
 ```
+
+> The above command returns JSON structured like this:
 
 Return object with internal debug info
 

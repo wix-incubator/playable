@@ -16,7 +16,7 @@ import { IPlaybackAdapter } from './types';
 
 const LIVE_SYNC_DURATION = 4;
 const LIVE_SYNC_DURATION_DELTA = 5;
-const DEFAULT_HLS_CONFIG = {
+const DEFAULT_HLS_CONFIG: any = {
   abrEwmaDefaultEstimate: 5000 * 1000,
   liveSyncDuration: LIVE_SYNC_DURATION,
 };
@@ -24,6 +24,7 @@ const NETWORK_ERROR_RECOVER_TIMEOUT = 1000;
 const MEDIA_ERROR_RECOVER_TIMEOUT = 1000;
 
 export default class HlsAdapter implements IPlaybackAdapter {
+  static DEFAULT_HLS_CONFIG = DEFAULT_HLS_CONFIG;
   static isSupported() {
     return NativeEnvironmentSupport.MSE && HlsJs.isSupported();
   }
@@ -265,7 +266,9 @@ export default class HlsAdapter implements IPlaybackAdapter {
       return;
     }
 
-    const config: any = { ...DEFAULT_HLS_CONFIG };
+    const config: any = {
+      ...HlsAdapter.DEFAULT_HLS_CONFIG,
+    };
 
     this.videoElement = videoElement;
 
