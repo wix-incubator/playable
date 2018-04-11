@@ -36056,7 +36056,7 @@
         selectVideo('MP4');
         player.attachToElement(document.getElementById('player-wrapper'));
         player.setSubtitles('https://wix.github.io/playable/subtitles/subtitles.vtt');
-        setTimeout(function () { return player.setActiveSubtitle(0); }, 100);
+        setTimeout(function () { return player.setActiveSubtitle(0); }, 1000);
     });
 
     Object.defineProperty(exports, '__esModule', { value: true });
