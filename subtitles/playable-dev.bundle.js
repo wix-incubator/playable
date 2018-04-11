@@ -36054,20 +36054,6 @@
             player.setTitle(type + " format");
         };
         selectVideo('MP4');
-        document.getElementById('types').addEventListener('click', function (event) {
-            var type = event.target.dataset.type;
-            if (!type) {
-                return;
-            }
-            selectVideo(type);
-        });
-        document.getElementById('theme-switcher').addEventListener('click', function (event) {
-            var color = event.target.dataset.color;
-            if (!color) {
-                return;
-            }
-            player.updateTheme({ progressColor: color });
-        });
         player.attachToElement(document.getElementById('player-wrapper'));
         player.setSubtitles('https://wix.github.io/playable/subtitles/subtitles.vtt');
         player.setActiveSubtitle(0);
