@@ -11,6 +11,8 @@ config:
   githubLink: https://github.com/wix/playable
 
 navigation:
+  - path: /
+    title: playable
   - path: /player-config
     title: Configuration
   - path: /themes
