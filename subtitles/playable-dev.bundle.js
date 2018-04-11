@@ -9075,6 +9075,9 @@
             }
             track.setAttribute('kind', 'subtitles');
             this._video.appendChild(track);
+            if (this._video.textTracks.length) {
+                this._addTrackToList(this._video.textTracks[this._video.textTracks.length - 1]);
+            }
         };
         Subtitles.prototype._clearSubtitles = function () {
             var _this = this;
@@ -9083,9 +9086,9 @@
             Array.from(subtitleTracks).forEach(function (trackNode) {
                 return _this._video.removeChild(trackNode);
             });
+            this._trackList = [];
         };
-        Subtitles.prototype._addTrackToList = function (event) {
-            var track = event.track;
+        Subtitles.prototype._addTrackToList = function (track) {
             this._trackList.push(track);
         };
         Subtitles.prototype._removeTrackFromList = function (event) {
@@ -9132,20 +9135,10 @@
         Subtitles.prototype._bindEvents = function () {
             this._eventEmitter.on(UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED, this.view.moveSubtitlesUp, this.view);
             this._eventEmitter.on(UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED, this.view.moveSubtitlesDown, this.view);
-            var textTracks = this._video.textTracks;
-            if (textTracks) {
-                textTracks.onaddtrack = this._addTrackToList;
-                textTracks.onremovetrack = this._removeTrackFromList;
-            }
         };
         Subtitles.prototype._unbindEvents = function () {
             this._eventEmitter.off(UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED, this.view.moveSubtitlesUp, this.view);
             this._eventEmitter.off(UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED, this.view.moveSubtitlesDown, this.view);
-            var textTracks = this._video.textTracks;
-            if (textTracks) {
-                textTracks.onaddtrack = null;
-                textTracks.onremovetrack = null;
-            }
         };
         Subtitles.prototype._showSubtitles = function (event) {
             var textTrack = event.target;
