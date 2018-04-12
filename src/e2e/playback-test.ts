@@ -1,6 +1,6 @@
 import Playable, { ENGINE_STATES, VIDEO_EVENTS } from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
-import { PreloadTypes } from '../default-modules/playback-engine/playback-engine';
+import { PreloadTypes } from '../modules/playback-engine/playback-engine';
 
 /* ignore coverage */
 describe('Playback e2e test', function() {

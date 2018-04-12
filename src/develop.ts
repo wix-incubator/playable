@@ -1,8 +1,8 @@
 import Playable from './index';
 import HLSAdapter from './adapters/hls';
 import DASHAdapter from './adapters/dash';
-import Subtitles from './default-modules/ui/subtitles/subtitles';
-import { PreloadTypes } from './default-modules/playback-engine/playback-engine';
+import Subtitles from './modules/ui/subtitles/subtitles';
+import { PreloadTypes } from './modules/playback-engine/playback-engine';
 
 const DEFAULT_URLS = {
   DASH: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',

@@ -1,6 +1,6 @@
 import * as playerFactoryMethods from './core/player-factory';
-export * from './core/player-factory';
-
+import { modules as DefaultModules } from './core/default-modules';
+import playerAPIDecorator from './core/player-api-decorator';
 import {
   ERRORS,
   UI_EVENTS,
@@ -11,6 +11,8 @@ import {
   STATES as ENGINE_STATES,
   LiveState as LIVE_STATES,
 } from './constants';
+import { Tooltip } from './modules/ui/core/tooltip';
+import { IPlaybackAdapter } from './modules/playback-engine/adapters/types';
 
 export {
   ERRORS,
@@ -21,22 +23,15 @@ export {
   MEDIA_STREAM_DELIVERY_PRIORITY,
   ENGINE_STATES,
   LIVE_STATES,
+  Tooltip,
+  playerAPIDecorator,
+  DefaultModules,
+  IPlaybackAdapter,
 };
 
-import { modules as DefaultModules } from './default-modules';
+export * from './core/player-factory';
 
-import playerAPIDecorator from './utils/player-api-decorator';
-export { playerAPIDecorator };
-
-export { Tooltip } from './default-modules/ui/core/tooltip';
-
-export {
-  IPlaybackAdapter,
-} from './default-modules/playback-engine/adapters/types';
-
-export { modules as DefaultModules } from './default-modules';
-
-const defaultExport = {
+export default {
   ...playerFactoryMethods,
   UI_EVENTS,
   VIDEO_EVENTS,
@@ -45,7 +40,7 @@ const defaultExport = {
   MEDIA_STREAM_DELIVERY_PRIORITY,
   ENGINE_STATES,
   LIVE_STATES,
+  Tooltip,
+  playerAPIDecorator,
   DefaultModules,
 };
-
-export default defaultExport;
