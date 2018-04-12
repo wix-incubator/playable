@@ -1,5 +1,8 @@
 <div data-hook="top-block"
      class="${props.styles.topBlock}">
+  <div class="${props.styles.background}"
+       data-hook="screen-top-background">
+  </div>
   <div class="${props.styles.elementsContainer}">
     <div class="${props.styles.liveIndicatorContainer}"
          data-hook="live-indicator-container">
