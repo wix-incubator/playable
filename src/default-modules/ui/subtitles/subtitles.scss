@@ -1,0 +1,47 @@
+@import '../shared';
+
+.container {
+  position: absolute;
+  z-index: 70;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+
+  transition: .2s bottom;
+  pointer-events: none;
+
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.subtitlesContainer {
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px;
+
+  transition: .2s margin;
+  pointer-events: all;
+
+  justify-content: center;
+
+  &.controlsShown {
+    margin-bottom: 60px;
+  }
+}
+
+.subtitle {
+  font-size: 16px;
+  line-height: 16px;
+
+  padding: 5px;
+
+  text-align: center;
+
+  color: white;
+  border-radius: 2px;
+  background: rgba(50, 50, 50, .85);
+}

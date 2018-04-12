@@ -95,6 +95,8 @@ export default class Engine {
     } else {
       this._video = document.createElement('video');
     }
+
+    this._video.setAttribute('crossorigin', 'anonymous');
   }
 
   _applyConfig(config: any = {}) {
