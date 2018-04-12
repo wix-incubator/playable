@@ -5,17 +5,12 @@ import { ITopBlockViewConfig, ITopBlockViewElements } from './types';
 export default class TopBlock {
   static moduleName = 'topBlock';
   static View = View;
-  static dependencies = ['config', 'screen', 'title', 'liveIndicator'];
-
-  private _screen;
+  static dependencies = ['config', 'title', 'liveIndicator'];
 
   isHidden: boolean;
   view: View;
 
   constructor(dependencies) {
-    const { screen } = dependencies;
-
-    this._screen = screen;
     this.isHidden = false;
 
     this._initUI(this._getElementsNodes(dependencies));
@@ -53,18 +48,15 @@ export default class TopBlock {
   }
 
   showContent() {
-    this._screen.showTopShadow();
-
     this.view.showContent();
   }
 
   hideContent() {
-    this._screen.hideTopShadow();
-
     this.view.hideContent();
   }
 
   destroy() {
-    delete this._screen;
+    this.view.destroy();
+    this.view = null;
   }
 }

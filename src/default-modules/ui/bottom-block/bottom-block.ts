@@ -20,7 +20,6 @@ export default class BottomBlock {
     'eventEmitter',
   ];
 
-  private _screen;
   private _eventEmitter;
 
   private _isBlockFocused: boolean = false;
@@ -29,8 +28,7 @@ export default class BottomBlock {
   isHidden: boolean = false;
 
   constructor(dependencies) {
-    const { config, screen, eventEmitter } = dependencies;
-    this._screen = screen;
+    const { config, eventEmitter } = dependencies;
     this._eventEmitter = eventEmitter;
 
     this._bindViewCallbacks();
@@ -117,12 +115,10 @@ export default class BottomBlock {
   }
 
   showContent() {
-    this._screen.showBottomShadow();
     this.view.showContent();
   }
 
   hideContent() {
-    this._screen.hideBottomShadow();
     this.view.hideContent();
   }
 
@@ -273,7 +269,6 @@ export default class BottomBlock {
     this.view.destroy();
 
     this.view = null;
-    this._screen = null;
     this._eventEmitter = null;
   }
 }

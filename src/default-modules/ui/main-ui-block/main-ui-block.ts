@@ -308,9 +308,11 @@ export default class MainUIBlock {
   destroy() {
     this._stopHideBlockTimeout();
     this._unbindEvents();
+    this.view.destroy();
 
-    delete this._eventEmitter;
-    delete this._topBlock;
-    delete this._bottomBlock;
+    this.view = null;
+    this._eventEmitter = null;
+    this._topBlock = null;
+    this._bottomBlock = null;
   }
 }

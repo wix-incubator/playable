@@ -129,22 +129,6 @@ export default class Screen {
     this.view.hideCursor();
   }
 
-  showTopShadow() {
-    this.view.showTopShadow();
-  }
-
-  hideTopShadow() {
-    this.view.hideTopShadow();
-  }
-
-  showBottomShadow() {
-    this.view.showBottomShadow();
-  }
-
-  hideBottomShadow() {
-    this.view.hideBottomShadow();
-  }
-
   private _setFullScreenStatus(isInFullScreen) {
     this._isInFullScreen = isInFullScreen;
   }
