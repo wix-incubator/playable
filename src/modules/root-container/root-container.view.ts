@@ -10,17 +10,32 @@ class RootContainerView extends View {
   private _width: number;
   private _height: number;
   private _$node: HTMLElement;
+  private _callbacks: any;
 
   constructor(config) {
     super();
-    const { width, height, fillAllSpace } = config;
-
+    const { width, height, fillAllSpace, callbacks } = config;
+    this._callbacks = callbacks;
     this._$node = htmlToElement(containerTemplate({ styles: this.styleNames }));
 
     this.setFillAllSpaceFlag(fillAllSpace);
 
     this.setWidth(width);
     this.setHeight(height);
+
+    this._bindEvents();
+  }
+
+  _bindEvents() {
+    this._$node.addEventListener('mouseenter', this._callbacks.onMouseEnter);
+    this._$node.addEventListener('mousemove', this._callbacks.onMouseMove);
+    this._$node.addEventListener('mouseleave', this._callbacks.onMouseLeave);
+  }
+
+  _unbindEvents() {
+    this._$node.removeEventListener('mouseenter', this._callbacks.onMouseEnter);
+    this._$node.removeEventListener('mousemove', this._callbacks.onMouseMove);
+    this._$node.removeEventListener('mouseleave', this._callbacks.onMouseLeave);
   }
 
   setWidth(width) {
@@ -86,6 +101,9 @@ class RootContainerView extends View {
   }
 
   destroy() {
+    this._unbindEvents();
+    this._callbacks = null;
+
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }

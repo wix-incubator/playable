@@ -9,8 +9,7 @@ import TextMap from '../modules/text-map/text-map';
 import FullScreenManager from '../modules/full-screen-manager/full-screen-manager';
 
 import LiveStateEngine from '../modules/playback-engine/live-state-engine';
-import KeyboardInterceptor from '../modules/keyboard-control/keyboard-control';
-import MouseInterceptor from '../modules/mouse-interceptor/mouse-interceptor';
+import KeyboardControls from '../modules/keyboard-control/keyboard-control';
 import DebugPanel from '../modules/ui/debug-panel/debug-panel';
 
 import Screen from '../modules/ui/screen/screen';
@@ -46,8 +45,7 @@ export const modules = {
   FullScreenManager,
 
   LiveStateEngine,
-  KeyboardInterceptor,
-  MouseInterceptor,
+  KeyboardControls,
   DebugPanel,
 
   Screen,

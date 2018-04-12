@@ -1,5 +1,5 @@
-import focusSource from '../../utils/focus-source';
-import focusWithin from '../../utils/focus-within';
+import focusSource from './utils/focus-source';
+import focusWithin from './utils/focus-within';
 
 import playerAPI from '../../core/player-api-decorator';
 
@@ -37,6 +37,7 @@ class RootContainer {
     this._engine = engine;
     this.isHidden = false;
 
+    this._bindCallbacks();
     this._initUI(config);
 
     this._bindEvents();
@@ -49,6 +50,12 @@ class RootContainer {
   @playerAPI()
   get node(): Node {
     return this.view.getNode();
+  }
+
+  _bindCallbacks() {
+    this._broadcastMouseEnter = this._broadcastMouseEnter.bind(this);
+    this._broadcastMouseMove = this._broadcastMouseMove.bind(this);
+    this._broadcastMouseLeave = this._broadcastMouseLeave.bind(this);
   }
 
   _bindEvents() {
@@ -72,6 +79,11 @@ class RootContainer {
       ...config.size,
     };
     this.view = new View({
+      callbacks: {
+        onMouseEnter: this._broadcastMouseEnter,
+        onMouseLeave: this._broadcastMouseLeave,
+        onMouseMove: this._broadcastMouseMove,
+      },
       width: sizeConfig.width || null,
       height: sizeConfig.height || null,
       fillAllSpace: config.fillAllSpace || DEFAULT_CONFIG.fillAllSpace,
@@ -80,6 +92,18 @@ class RootContainer {
 
   appendComponentNode(node) {
     this.view.appendComponentNode(node);
+  }
+
+  _broadcastMouseEnter() {
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED);
+  }
+
+  _broadcastMouseMove() {
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED);
+  }
+
+  _broadcastMouseLeave() {
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED);
   }
 
   _enableFocusInterceptors() {
