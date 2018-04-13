@@ -1,6 +1,6 @@
 import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
-import { PLAYER_API_PROPERTY } from '../utils/player-api-decorator';
-import { IThemeConfig } from '../default-modules/ui/core/theme';
+import { PLAYER_API_PROPERTY } from '../core/player-api-decorator';
+import { IThemeConfig } from '../modules/ui/core/theme';
 
 export default class Player {
   private _config;

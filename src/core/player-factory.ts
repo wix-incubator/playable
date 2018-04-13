@@ -1,9 +1,9 @@
 import DependencyContainer from './dependency-container';
 import PlayerFacade from './player-facade';
 
-import defaultModules from '../default-modules';
-import defaultPlaybackAdapters from '../default-modules/playback-engine/adapters/default-set';
-import { IThemeConfig } from '../default-modules/ui/core/theme';
+import defaultModules from './default-modules';
+import defaultPlaybackAdapters from '../modules/playback-engine/adapters/default-set';
+import { IThemeConfig } from '../modules/ui/core/theme';
 
 import { IPlayerConfig } from './config';
 

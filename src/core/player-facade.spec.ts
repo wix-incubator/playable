@@ -6,7 +6,7 @@ import convertToDeviceRelatedConfig from './config';
 
 import Player from './player-facade';
 import DependencyContainer from './dependency-container';
-import playerAPI from '../utils/player-api-decorator';
+import playerAPI from '../core/player-api-decorator';
 
 describe("Player's instance", () => {
   let container;
