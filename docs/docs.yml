@@ -1,4 +1,4 @@
 - path: player-public-methods.md
   title: Player public methods
-  entry: src/default-modules/index.ts
+  entry: src/core/default-modules.ts
   visitor: scripts/documentation/playerApiVisitor.js
