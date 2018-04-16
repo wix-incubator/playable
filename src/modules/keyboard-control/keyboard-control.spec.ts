@@ -23,7 +23,6 @@ describe('KeyboardControl', () => {
   let eventEmitter;
   let rootContainer;
   let keyboardControl;
-  let debugPanel;
 
   beforeEach(() => {
     config = {};
@@ -42,14 +41,10 @@ describe('KeyboardControl', () => {
       engine,
       config,
     });
-    debugPanel = {
-      show: sinon.spy(),
-    };
     keyboardControl = new KeyboardControl({
       eventEmitter,
       engine,
       rootContainer,
-      debugPanel,
       config,
     });
   });
@@ -71,34 +66,6 @@ describe('KeyboardControl', () => {
     afterEach(() => {
       eventEmitter.emit.restore();
       keyboardControl.destroy();
-    });
-
-    describe('if it was D', () => {
-      it('should do nothing if shiftKey is false', () => {
-        keyDownEvent.keyCode = KEYCODES.DEBUG_KEY;
-        keyDownEvent.shiftKey = false;
-        rootContainer.node.dispatchEvent(keyDownEvent);
-
-        expect(debugPanel.show.called).to.be.false;
-      });
-
-      it('should do nothing if ctrlKey is false', () => {
-        keyDownEvent.keyCode = KEYCODES.DEBUG_KEY;
-        keyDownEvent.ctrlKey = false;
-        rootContainer.node.dispatchEvent(keyDownEvent);
-
-        expect(debugPanel.show.called).to.be.false;
-      });
-
-      it('should emit event if ctrlKey and shiftKey are both true', () => {
-        keyDownEvent.keyCode = KEYCODES.DEBUG_KEY;
-        keyDownEvent.ctrlKey = true;
-        keyDownEvent.shiftKey = true;
-
-        rootContainer.node.dispatchEvent(keyDownEvent);
-
-        expect(debugPanel.show.called).to.be.true;
-      });
     });
 
     it('should do stuff if key was TAB', () => {
