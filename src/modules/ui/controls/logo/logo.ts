@@ -78,19 +78,16 @@ export default class Logo {
   }
 
   _initInterceptor() {
-    this._interceptor = new KeyboardInterceptor({
-      node: this.node,
-      callbacks: {
-        [KEYCODES.SPACE_BAR]: e => {
-          e.stopPropagation();
-          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._triggerCallback();
-        },
-        [KEYCODES.ENTER]: e => {
-          e.stopPropagation();
-          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._triggerCallback();
-        },
+    this._interceptor = new KeyboardInterceptor(this.node, {
+      [KEYCODES.SPACE_BAR]: e => {
+        e.stopPropagation();
+        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._triggerCallback();
+      },
+      [KEYCODES.ENTER]: e => {
+        e.stopPropagation();
+        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._triggerCallback();
       },
     });
   }

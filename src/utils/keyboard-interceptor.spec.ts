@@ -20,10 +20,7 @@ describe('KeyboardInterceptor', () => {
       [testKeyCode2]: sinon.spy(),
     };
 
-    interceptor = new KeyboardInterceptor({
-      node,
-      callbacks,
-    });
+    interceptor = new KeyboardInterceptor(node, callbacks);
   });
 
   it('should intercept and broadcast keydown events', () => {

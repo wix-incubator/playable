@@ -45,21 +45,18 @@ export default class PlayControl {
   }
 
   _initInterceptor() {
-    this._interceptor = new KeyboardInterceptor({
-      node: this.node,
-      callbacks: {
-        [KEYCODES.SPACE_BAR]: e => {
-          e.stopPropagation();
-          this._eventEmitter.emit(
-            UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
-          );
-        },
-        [KEYCODES.ENTER]: e => {
-          e.stopPropagation();
-          this._eventEmitter.emit(
-            UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
-          );
-        },
+    this._interceptor = new KeyboardInterceptor(this.node, {
+      [KEYCODES.SPACE_BAR]: e => {
+        e.stopPropagation();
+        this._eventEmitter.emit(
+          UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+        );
+      },
+      [KEYCODES.ENTER]: e => {
+        e.stopPropagation();
+        this._eventEmitter.emit(
+          UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+        );
       },
     });
   }

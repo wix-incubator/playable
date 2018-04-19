@@ -1,3 +1,5 @@
+import { EventEmitter } from 'eventemitter3';
+
 export const KEYCODES = {
   SPACE_BAR: 32,
   ENTER: 13,
@@ -10,12 +12,33 @@ export const KEYCODES = {
 };
 
 export default class KeyboardInterceptorCore {
-  private config;
+  private _eventEmitter;
+  private _node;
 
-  constructor(config) {
-    this.config = config;
+  constructor(node, callbacks?) {
+    this._eventEmitter = new EventEmitter();
+    this._node = node;
+
+    callbacks && this._attachCallbacks(callbacks);
     this._bindCallbacks();
     this._bindEvents();
+  }
+
+  _attachCallbacks(callbacks) {
+    Object.keys(callbacks).forEach(keyCode => {
+      const keyCodeCallbacks = callbacks[keyCode];
+      if (Array.isArray(keyCodeCallbacks)) {
+        keyCodeCallbacks.forEach(callback =>
+          this._eventEmitter.on(keyCode, callback),
+        );
+      } else {
+        this._eventEmitter.on(keyCode, keyCodeCallbacks);
+      }
+    });
+  }
+
+  _unattachCallbacks() {
+    this._eventEmitter.removeAllListeners();
   }
 
   _bindCallbacks() {
@@ -23,30 +46,30 @@ export default class KeyboardInterceptorCore {
   }
 
   _bindEvents() {
-    this.config.node.addEventListener(
-      'keydown',
-      this._processKeyboardInput,
-      false,
-    );
+    this._node.addEventListener('keydown', this._processKeyboardInput, false);
   }
 
   _unbindEvents() {
-    this.config.node.removeEventListener(
+    this._node.removeEventListener(
       'keydown',
       this._processKeyboardInput,
       false,
     );
   }
 
+  addCallbacks(callbacks) {
+    this._attachCallbacks(callbacks);
+  }
+
   _processKeyboardInput(e) {
-    if (this.config.callbacks[e.keyCode]) {
-      this.config.callbacks[e.keyCode](e);
-    }
+    this._eventEmitter.emit(e.keyCode, e);
   }
 
   destroy() {
     this._unbindEvents();
+    this._unattachCallbacks();
+    this._eventEmitter = null;
 
-    delete this.config;
+    this._node = null;
   }
 }

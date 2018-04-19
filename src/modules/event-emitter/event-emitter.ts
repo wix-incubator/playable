@@ -60,8 +60,6 @@ export default class EventEmitterModule extends EventEmitter {
   }
 
   destroy() {
-    this.eventNames().forEach(eventName => {
-      this.removeAllListeners(eventName);
-    });
+    this.removeAllListeners();
   }
 }

@@ -1,12 +1,14 @@
 import { MediaStreamDeliveryPriority } from '../../../constants';
 import View from './debug-panel.view';
 
+import { KEYCODES } from '../../../utils/keyboard-interceptor';
+
 const UPDATE_TIME = 1000;
 
 export default class DebugPanel {
   static moduleName = 'debugPanel';
   static View = View;
-  static dependencies = ['engine', 'rootContainer'];
+  static dependencies = ['engine', 'rootContainer', 'keyboardControl'];
 
   private _engine;
 
@@ -15,16 +17,23 @@ export default class DebugPanel {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, rootContainer }) {
+  constructor({ engine, rootContainer, keyboardControl }) {
     this._engine = engine;
 
     this._bindCallbacks();
-
     this._initUI();
 
     this.hide();
 
     rootContainer.appendComponentNode(this.node);
+
+    keyboardControl.addKeyControl(KEYCODES.DEBUG_KEY, this._keyControlCallback);
+  }
+
+  private _keyControlCallback(e) {
+    if (e.ctrlKey && e.shiftKey) {
+      this.show();
+    }
   }
 
   get node() {
@@ -42,6 +51,7 @@ export default class DebugPanel {
   _bindCallbacks() {
     this.updateInfo = this.updateInfo.bind(this);
     this.hide = this.hide.bind(this);
+    this._keyControlCallback = this._keyControlCallback.bind(this);
   }
 
   getDebugInfo() {
@@ -106,6 +116,6 @@ export default class DebugPanel {
     this.clearUpdateInterval();
 
     this.view.destroy();
-    delete this.view;
+    this.view = null;
   }
 }
