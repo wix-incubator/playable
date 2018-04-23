@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { resolveAdapters } from './playback-resolution';
+import { resolveAdapters } from './adapters-resolver';
 import { MediaStreamTypes, MediaStreamDeliveryPriority } from '../../constants';
 
 describe('Picking proper playback stream', () => {

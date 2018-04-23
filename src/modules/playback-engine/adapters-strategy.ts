@@ -1,6 +1,6 @@
 import { VIDEO_EVENTS, ERRORS } from '../../constants';
 
-import { resolveAdapters } from './playback-resolution';
+import { resolveAdapters } from './adapters-resolver';
 import { getStreamType } from './detect-stream-type';
 
 export default class AdaptersStrategy {
