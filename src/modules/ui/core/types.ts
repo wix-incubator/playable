@@ -6,8 +6,6 @@ interface IStylable<TStyles = IStyles> {
   styleNames: TStyles;
 }
 
-interface IView<TStyles = IStyles> extends IStylable<TStyles> {
-  destroy()
-}
+interface IView<TStyles = IStyles> extends IStylable<TStyles> {}
 
 export { IStyles, IStylable, IView };
