@@ -6,7 +6,7 @@ import { ILogoConfig } from '../modules/ui/controls/logo/logo';
 import { IOverlayConfig } from '../modules/ui/overlay/overlay';
 import { ITextMapConfig } from '../modules/text-map/text-map';
 import { IScreenConfig } from '../modules/ui/screen/screen';
-import { IControlsConfig } from '../modules/ui/main-ui-block/main-ui-block';
+import { IMainUIBlockConfig } from '../modules/ui/main-ui-block/main-ui-block';
 import {
   PreloadTypes,
   MediaSource,
@@ -30,7 +30,7 @@ export interface IPlayerConfig {
   title?: boolean | ITitleConfig;
   loader?: boolean;
   screen?: IScreenConfig;
-  controls?: boolean | IControlsConfig;
+  controls?: boolean | IMainUIBlockConfig;
   overlay?: boolean | IOverlayConfig;
   fullScreen?: boolean | IFullScreenConfig;
   logo?: boolean | ILogoConfig;

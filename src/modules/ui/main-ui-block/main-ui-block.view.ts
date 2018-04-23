@@ -1,19 +1,19 @@
 import View from '../core/view';
+import { IView } from '../core/types';
 
 import { mainUIBlockTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
 import styles from './main-ui-block.scss';
 
-type IMainUIBlockViewConfig = {
-  elements: {
-    tooltipContainer: HTMLElement;
-    topBlock: HTMLElement;
-    bottomBlock: HTMLElement;
-  };
-};
+import {
+  IMainUIBlockViewStyles,
+  IMainUIBlockViewConfig,
+  IMainUIBlockViewElements,
+} from './types';
 
-class MainUIBlockView extends View {
-  $node;
+class MainUIBlockView extends View<IMainUIBlockViewStyles>
+  implements IView<IMainUIBlockViewStyles> {
+  private _$node;
 
   constructor(config: IMainUIBlockViewConfig) {
     super();
@@ -21,8 +21,8 @@ class MainUIBlockView extends View {
     this._initDOM(config.elements);
   }
 
-  private _initDOM(elements) {
-    this.$node = htmlToElement(
+  private _initDOM(elements: IMainUIBlockViewElements) {
+    this._$node = htmlToElement(
       mainUIBlockTemplate({
         styles: this.styleNames,
       }),
@@ -34,20 +34,20 @@ class MainUIBlockView extends View {
     );
     $tooltipContainerWrapper.appendChild(elements.tooltipContainer);
 
-    this.$node.appendChild(elements.topBlock);
-    this.$node.appendChild($tooltipContainerWrapper);
-    this.$node.appendChild(elements.bottomBlock);
+    this._$node.appendChild(elements.topBlock);
+    this._$node.appendChild($tooltipContainerWrapper);
+    this._$node.appendChild(elements.bottomBlock);
   }
 
   getNode() {
-    return this.$node;
+    return this._$node;
   }
 
   destroy() {
-    if (this.$node.parentNode) {
-      this.$node.parentNode.removeChild(this.$node);
+    if (this._$node.parentNode) {
+      this._$node.parentNode.removeChild(this._$node);
     }
-    delete this.$node;
+    delete this._$node;
   }
 }
 

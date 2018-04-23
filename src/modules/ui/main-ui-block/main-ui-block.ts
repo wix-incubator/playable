@@ -5,11 +5,11 @@ import MainUIBlockView from './main-ui-block.view';
 
 const HIDE_BLOCK_TIMEOUT = 2000;
 
-export interface IControlsConfig {
+export interface IMainUIBlockConfig {
   shouldAlwaysShow?: boolean;
 }
 
-const DEFAULT_CONFIG: IControlsConfig = {
+const DEFAULT_CONFIG: IMainUIBlockConfig = {
   shouldAlwaysShow: false,
 };
 
