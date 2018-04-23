@@ -100,26 +100,4 @@ describe('RootContainer', () => {
       ui.destroy();
     });
   });
-
-  describe('View', () => {
-    it('should have method for append component node', () => {
-      expect(ui.view.appendComponentNode).to.exist;
-    });
-
-    it('should have method for showing itself', () => {
-      expect(ui.view.show).to.exist;
-    });
-
-    it('should have method for hidding itself', () => {
-      expect(ui.view.hide).to.exist;
-    });
-
-    it('should have method gettind root node', () => {
-      expect(ui.view.getNode).to.exist;
-    });
-
-    it('should have method for destroying', () => {
-      expect(ui.view.destroy).to.exist;
-    });
-  });
 });

@@ -3,16 +3,24 @@ import htmlToElement from '../ui/core/htmlToElement';
 import { containerTemplate } from './templates';
 
 import View from '../ui/core/view';
+import { IView } from '../ui/core/types';
+
+import {
+  IRootContainerViewStyles,
+  IRootContainerViewConfig,
+  IRootContainerViewCallbacks,
+} from './types';
 
 import styles from './root-container.scss';
 
-class RootContainerView extends View {
+class RootContainerView extends View<IRootContainerViewStyles>
+  implements IView<IRootContainerViewStyles> {
   private _width: number;
   private _height: number;
   private _$node: HTMLElement;
-  private _callbacks: any;
+  private _callbacks: IRootContainerViewCallbacks;
 
-  constructor(config) {
+  constructor(config: IRootContainerViewConfig) {
     super();
     const { width, height, fillAllSpace, callbacks } = config;
     this._callbacks = callbacks;
