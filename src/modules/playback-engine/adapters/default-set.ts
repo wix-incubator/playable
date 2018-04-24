@@ -26,6 +26,14 @@ const defaultPlaybackAdapters = [
     MediaStreamTypes.OGG,
     MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
   ), // Native WebM (Chrome, Firefox)
+  getNativeAdapterCreator(
+    MediaStreamTypes.MOV,
+    MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
+  ), // Native QuickTime .mov (Safari)
+  getNativeAdapterCreator(
+    MediaStreamTypes.MKV,
+    MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
+  ),
 ];
 
 export default defaultPlaybackAdapters;

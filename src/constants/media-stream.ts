@@ -4,6 +4,8 @@ enum MediaStreamTypes {
   HLS = 'HLS',
   DASH = 'DASH',
   OGG = 'OGG',
+  MOV = 'MOV',
+  MKV = 'MKV',
 }
 
 enum MediaStreamDeliveryPriority {

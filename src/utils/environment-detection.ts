@@ -14,6 +14,8 @@ export const NativeEnvironmentSupport = {
   MP4: false,
   WEBM: false,
   OGG: false,
+  MOV: false,
+  MKV: false,
 };
 
 /* ignore coverage */
@@ -44,6 +46,12 @@ function detectEnvironment() {
   }
   if (video.canPlayType('video/ogg')) {
     NativeEnvironmentSupport.OGG = true;
+  }
+  if (video.canPlayType('video/quicktime')) {
+    NativeEnvironmentSupport.MOV = true;
+  }
+  if (video.canPlayType('video/x-matroska')) {
+    NativeEnvironmentSupport.MKV = true;
   }
 }
 

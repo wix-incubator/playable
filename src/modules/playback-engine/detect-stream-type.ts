@@ -6,6 +6,8 @@ extensionsMap.webm = MediaStreamTypes.WEBM;
 extensionsMap.m3u8 = MediaStreamTypes.HLS;
 extensionsMap.mpd = MediaStreamTypes.DASH;
 extensionsMap.ogg = MediaStreamTypes.OGG;
+extensionsMap.mkv = MediaStreamTypes.MKV;
+extensionsMap.mov = MediaStreamTypes.MOV;
 
 export function getStreamType(url) {
   const anchorElement = document.createElement('a');
@@ -16,5 +18,8 @@ export function getStreamType(url) {
 }
 
 export function getExtFromPath(path) {
-  return path.split('.').pop();
+  return path
+    .split('.')
+    .pop()
+    .toLowerCase();
 }
