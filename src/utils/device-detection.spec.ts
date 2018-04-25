@@ -12,10 +12,10 @@ describe('Utils device detection method', () => {
         navigator.constructor.prototype,
         'userAgent',
       ),
-      get: function() {
+      get() {
         return this.____navigator;
       },
-      set: function(v) {
+      set(v) {
         this.____navigator = v;
       },
     });

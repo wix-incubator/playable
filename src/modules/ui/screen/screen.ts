@@ -1,19 +1,14 @@
-import { UI_EVENTS, STATES } from '../../../constants/index';
+import { UI_EVENTS, STATES } from '../../../constants';
 
-import { IScreenViewConfig } from './types';
+import { IScreenConfig, IScreenViewConfig } from './types';
 import View from './screen.view';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
-const DEFAULT_CONFIG = {
+const DEFAULT_CONFIG: IScreenConfig = {
   disableClickProcessing: false,
   nativeControls: false,
 };
-
-export interface IScreenConfig {
-  disableClickProcessing?: boolean;
-  nativeControls?: boolean;
-}
 
 export default class Screen {
   static moduleName = 'screen';

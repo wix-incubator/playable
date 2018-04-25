@@ -18,7 +18,13 @@ type IRootContainerViewConfig = {
   callbacks: IRootContainerViewCallbacks;
 };
 
+interface IPlayerSize {
+  width: number;
+  height: number;
+}
+
 export {
+  IPlayerSize,
   IRootContainerViewStyles,
   IRootContainerViewCallbacks,
   IRootContainerViewConfig,

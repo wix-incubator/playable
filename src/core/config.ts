@@ -1,17 +1,14 @@
 import { isIOS, isAndroid } from '../utils/device-detection';
 
-import { ITitleConfig } from '../modules/ui/title/title';
-import { IFullScreenConfig } from '../modules/full-screen-manager/full-screen-manager';
-import { ILogoConfig } from '../modules/ui/controls/logo/logo';
-import { IOverlayConfig } from '../modules/ui/overlay/overlay';
-import { ITextMapConfig } from '../modules/text-map/text-map';
-import { IScreenConfig } from '../modules/ui/screen/screen';
-import { IMainUIBlockConfig } from '../modules/ui/main-ui-block/main-ui-block';
-import {
-  PreloadTypes,
-  MediaSource,
-} from '../modules/playback-engine/playback-engine';
-import { IPlayerSize } from '../modules/root-container/root-container';
+import { ITitleConfig } from '../modules/ui/title/types';
+import { IFullScreenConfig } from '../modules/full-screen-manager/types';
+import { ILogoConfig } from '../modules/ui/controls/logo/types';
+import { IOverlayConfig } from '../modules/ui/overlay/types';
+import { ITextMapConfig } from '../modules/text-map/types';
+import { IScreenConfig } from '../modules/ui/screen/types';
+import { IMainUIBlockConfig } from '../modules/ui/main-ui-block/types';
+import { PreloadTypes, MediaSource } from '../modules/playback-engine/types';
+import { IPlayerSize } from '../modules/root-container/types';
 
 export interface IPlayerConfig {
   src?: MediaSource;

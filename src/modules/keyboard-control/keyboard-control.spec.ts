@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import { KEYCODES } from '../../utils/keyboard-interceptor';
-import { UI_EVENTS } from '../../constants/index';
+import { UI_EVENTS } from '../../constants';
 
 import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';

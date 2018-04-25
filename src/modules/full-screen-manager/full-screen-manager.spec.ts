@@ -10,7 +10,7 @@ import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
 import RootContainer from '../root-container/root-container';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants';
 
 declare const navigator: any;
 
@@ -20,7 +20,7 @@ const mockedFullscreenHelper = {
   request: sinon.spy(),
   exit: sinon.spy(),
   destroy: sinon.spy(),
-  _reset: function() {
+  _reset() {
     this.isInFullScreen = false;
     this.isEnabled = true;
 
@@ -70,10 +70,10 @@ describe('FullScreenManager', () => {
           navigator.constructor.prototype,
           'userAgent',
         ),
-        get: function() {
+        get() {
           return this.____navigator;
         },
-        set: function(v) {
+        set(v) {
           this.____navigator = v;
         },
       });

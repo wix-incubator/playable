@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, STATES } from '../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../constants';
 
 export const NATIVE_VIDEO_EVENTS_TO_STATE = [
   'loadstart',

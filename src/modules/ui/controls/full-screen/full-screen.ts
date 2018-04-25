@@ -1,4 +1,4 @@
-import { UI_EVENTS } from '../../../../constants/index';
+import { UI_EVENTS } from '../../../../constants';
 
 import { IFullScreenViewConfig } from './types';
 

@@ -1,4 +1,4 @@
-import { MediaStreamTypes } from '../../constants';
+import { MediaStreamTypes } from '../../../constants';
 
 const extensionsMap = Object.create(null);
 extensionsMap.mp4 = MediaStreamTypes.MP4;

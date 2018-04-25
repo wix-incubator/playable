@@ -1,7 +1,7 @@
 import 'jsdom-global';
 import { expect } from 'chai';
 import { getStreamType } from './detect-stream-type';
-import { MediaStreamTypes } from '../../constants';
+import { MediaStreamTypes } from '../../../constants';
 
 describe('Stream type auto detection', function() {
   const testURL = 'http://mocked-domain.com/some/internalPath/';

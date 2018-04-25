@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { EventEmitter } from 'eventemitter3';
 
-import { VIDEO_EVENTS, STATES } from '../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../constants';
 import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE } from './state-engine';
 
 const NATIVE_EVENTS = {

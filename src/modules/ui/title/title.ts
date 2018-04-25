@@ -5,11 +5,6 @@ import playerAPI from '../../../core/player-api-decorator';
 import { IThemeService } from '../core/theme';
 import { ITitleViewConfig } from './types';
 
-export interface ITitleConfig {
-  text?: string;
-  callback?: Function;
-}
-
 export default class TitleControl {
   static moduleName = 'title';
   static View = View;

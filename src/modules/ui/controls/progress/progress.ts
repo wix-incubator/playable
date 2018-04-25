@@ -12,7 +12,7 @@ import {
   UI_EVENTS,
   STATES,
   LiveState,
-} from '../../../../constants/index';
+} from '../../../../constants';
 import { AMOUNT_TO_SKIP_SECONDS } from '../../../keyboard-control/keyboard-control';
 
 import KeyboardInterceptor, {

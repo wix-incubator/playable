@@ -37,10 +37,6 @@
     "precommit": "lint-staged && npm run test:unit && npm run test:playback && npm run documentation:gitadd"
   },
   "lint-staged": {
-    "*.spec.ts": [
-      "prettier --write",
-      "git add"
-    ],
     "*.js": [
       "prettier --write",
       "git add"

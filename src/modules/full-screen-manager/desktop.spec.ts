@@ -69,10 +69,10 @@ describe('DesktopFullScreen', () => {
                 navigator.constructor.prototype,
                 'userAgent',
               ),
-              get: function() {
+              get() {
                 return this.____navigator;
               },
-              set: function(v) {
+              set(v) {
                 this.____navigator = v;
               },
             });
@@ -96,7 +96,7 @@ describe('DesktopFullScreen', () => {
           });
 
           it('should call it with true if ALLOW_KEYBOARD_INPUT is true', () => {
-            Element['ALLOW_KEYBOARD_INPUT'] = true;
+            (Element as any).ALLOW_KEYBOARD_INPUT = true;
             fullScreen.request();
             expect(
               element[fullScreenFn.requestFullscreen].calledWithExactly(true),
@@ -104,7 +104,7 @@ describe('DesktopFullScreen', () => {
           });
 
           it('should call it with false if ALLOW_KEYBOARD_INPUT is false', () => {
-            Element['ALLOW_KEYBOARD_INPUT'] = false;
+            (Element as any).ALLOW_KEYBOARD_INPUT = false;
             fullScreen.request();
             expect(
               element[fullScreenFn.requestFullscreen].calledWithExactly(false),

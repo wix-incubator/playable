@@ -1,4 +1,4 @@
-import { TEXT_LABELS } from '../../../../constants/index';
+import { TEXT_LABELS } from '../../../../constants';
 
 import { ITooltipReference, ITooltipService } from '../../core/tooltip';
 import {

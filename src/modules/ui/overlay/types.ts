@@ -17,4 +17,13 @@ type IOverlayViewConfig = {
   src: string;
 };
 
-export { IOverlayViewStyles, IOverlayViewCallbacks, IOverlayViewConfig };
+interface IOverlayConfig {
+  poster?: string;
+}
+
+export {
+  IOverlayConfig,
+  IOverlayViewStyles,
+  IOverlayViewCallbacks,
+  IOverlayViewConfig,
+};

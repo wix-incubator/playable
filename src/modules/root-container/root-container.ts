@@ -3,7 +3,7 @@ import focusWithin from './utils/focus-within';
 
 import playerAPI from '../../core/player-api-decorator';
 
-import { UI_EVENTS } from '../../constants/index';
+import { UI_EVENTS } from '../../constants';
 
 import View from './root-container.view';
 import ElementQueries from '../ui/core/element-queries';
@@ -11,11 +11,6 @@ import ElementQueries from '../ui/core/element-queries';
 const DEFAULT_CONFIG = {
   fillAllSpace: false,
 };
-
-export interface IPlayerSize {
-  width: number;
-  height: number;
-}
 
 class RootContainer {
   static moduleName = 'rootContainer';
@@ -25,8 +20,8 @@ class RootContainer {
   private _engine;
 
   private _elementQueries: ElementQueries;
-  private _disengageFocusWithin;
-  private _disengageFocusSource;
+  private _disengageFocusWithin: Function;
+  private _disengageFocusSource: Function;
 
   // TODO: check if props should be `private`
   view: View;

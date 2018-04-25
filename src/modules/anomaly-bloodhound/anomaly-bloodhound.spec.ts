@@ -7,7 +7,7 @@ import AnomalyBloodhound, { DELAYED_REPORT_TYPES } from './anomaly-bloodhound';
 import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
 
-import { VIDEO_EVENTS, STATES } from '../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../constants';
 
 describe('AnomalyBloodhound', () => {
   let anomalyBloodhound;
@@ -213,7 +213,7 @@ describe('AnomalyBloodhound', () => {
     (it as any)(
       'delayed report should be resolved',
       done => {
-        DELAYED_REPORT_TYPES['___test'] = {
+        (DELAYED_REPORT_TYPES as any).___test = {
           id: '___test',
           timeout: 5,
         };
@@ -223,8 +223,12 @@ describe('AnomalyBloodhound', () => {
           done();
         }, 10);
 
-        anomalyBloodhound.startDelayedReport(DELAYED_REPORT_TYPES['___test']);
-        anomalyBloodhound.startDelayedReport(DELAYED_REPORT_TYPES['___test']);
+        anomalyBloodhound.startDelayedReport(
+          (DELAYED_REPORT_TYPES as any).___test,
+        );
+        anomalyBloodhound.startDelayedReport(
+          (DELAYED_REPORT_TYPES as any).___test,
+        );
       },
       100,
     );

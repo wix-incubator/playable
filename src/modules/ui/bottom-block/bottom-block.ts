@@ -3,7 +3,7 @@ import playerAPI from '../../../core/player-api-decorator';
 import { IBottomBlockViewConfig, IBottomBlockViewElements } from './types';
 
 import View from './bottom-block.view';
-import { UI_EVENTS } from '../../../constants/index';
+import { UI_EVENTS } from '../../../constants';
 
 export default class BottomBlock {
   static moduleName = 'bottomBlock';

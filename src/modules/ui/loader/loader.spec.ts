@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import createPlayerTestkit from '../../../testkit';
 
 import { DELAYED_SHOW_TIMEOUT } from './loader';
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
 
 describe('Loader', () => {
   let loader;

@@ -2,7 +2,7 @@ import { ITimeViewConfig } from './types';
 
 import View from './time.view';
 
-import { VIDEO_EVENTS, STATES, LiveState } from '../../../../constants/index';
+import { VIDEO_EVENTS, STATES, LiveState } from '../../../../constants';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 

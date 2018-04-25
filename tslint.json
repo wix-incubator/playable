@@ -47,8 +47,8 @@
   },
   "linterOptions": {
     "exclude": [
-      "src/**/*.spec.ts",
       "src/e2e/*.ts",
+      "src/**/*.spec.ts",
       "tslint-rules/*"
     ]
   },

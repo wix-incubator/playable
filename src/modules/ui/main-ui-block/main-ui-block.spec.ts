@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
 
-import { VIDEO_EVENTS, STATES } from '../../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../../constants';
 
 describe('BottomBlock', () => {
   let testkit;

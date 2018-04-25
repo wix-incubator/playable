@@ -1,4 +1,4 @@
-import { UI_EVENTS, STATES } from '../../../constants/index';
+import { UI_EVENTS, STATES } from '../../../constants';
 
 import View from './interaction-indicator.view';
 

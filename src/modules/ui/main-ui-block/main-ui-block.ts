@@ -1,13 +1,11 @@
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import MainUIBlockView from './main-ui-block.view';
 
-const HIDE_BLOCK_TIMEOUT = 2000;
+import { IMainUIBlockConfig } from './types';
 
-export interface IMainUIBlockConfig {
-  shouldAlwaysShow?: boolean;
-}
+const HIDE_BLOCK_TIMEOUT = 2000;
 
 const DEFAULT_CONFIG: IMainUIBlockConfig = {
   shouldAlwaysShow: false,

@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, STATES } from '../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../constants';
 //import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 export const REPORT_REASONS = {

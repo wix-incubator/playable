@@ -1,9 +1,5 @@
 import DEFAULT_TEXTS from './default-texts';
 
-export interface ITextMapConfig {
-  [index: string]: string | Function;
-}
-
 export default class TextMap {
   static moduleName = 'textMap';
   static dependencies = ['config'];
