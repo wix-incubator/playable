@@ -8,7 +8,7 @@ import KeyboardInterceptor, {
 } from '../../../../utils/keyboard-interceptor';
 
 import { AMOUNT_TO_CHANGE_VOLUME } from '../../../keyboard-control/keyboard-control';
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
 
 export default class VolumeControl {
   static moduleName = 'volumeControl';

@@ -3,14 +3,8 @@ import playerAPI from '../../core/player-api-decorator';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants/index';
-
-export interface IFullScreenConfig {
-  exitFullScreenOnEnd?: boolean;
-  enterFullScreenOnPlay?: boolean;
-  exitFullScreenOnPause?: boolean;
-  pauseVideoOnFullScreenExit?: boolean;
-}
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants';
+import { IFullScreenConfig } from './types';
 
 const DEFAULT_CONFIG: IFullScreenConfig = {
   exitFullScreenOnEnd: true,

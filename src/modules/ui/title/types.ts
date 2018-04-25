@@ -15,4 +15,14 @@ type ITitleViewConfig = {
   theme: IThemeService;
 };
 
-export { ITitleViewStyles, ITitleViewCallbacks, ITitleViewConfig };
+interface ITitleConfig {
+  text?: string;
+  callback?: Function;
+}
+
+export {
+  ITitleConfig,
+  ITitleViewStyles,
+  ITitleViewCallbacks,
+  ITitleViewConfig,
+};

@@ -1,7 +1,7 @@
 import { VIDEO_EVENTS, ERRORS } from '../../constants';
 
-import { resolveAdapters } from './adapters-resolver';
-import { getStreamType } from './detect-stream-type';
+import { resolveAdapters } from './utils/adapters-resolver';
+import { getStreamType } from './utils/detect-stream-type';
 
 export default class AdaptersStrategy {
   private _video: HTMLVideoElement;

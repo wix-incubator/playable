@@ -11,48 +11,10 @@ import {
   isAndroid,
 } from '../../utils/device-detection';
 
-import { VIDEO_EVENTS, STATES } from '../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../constants';
 import { IPlaybackAdapter } from './adapters/types';
 
-export { STATES };
-
-export enum PreloadTypes {
-  NONE = 'none',
-  METADATA = 'metadata',
-  AUTO = 'auto',
-}
-
-interface IMediaSource {
-  url: string;
-  type: string;
-}
-
-export type MediaSource = string | IMediaSource | Array<string | IMediaSource>;
-
-/**
- * @property type - Name of current attached stream.
- * @property viewDimensions - Current size of view port provided by engine (right now - actual size of video tag)
- * @property url - Url of current source
- * @property currentTime - Current time of playback
- * @property duration - Duration of current video
- * @property loadingStateTimestamps - Object with time spend for different initial phases
- * @property bitrates - List of all available bitrates. Internal structure different for different type of streams
- * @property currentBitrate - Current bitrate. Internal structure different for different type of streams
- * @property overallBufferLength - Overall length of buffer
- * @property nearestBufferSegInfo - Object with start and end for current buffer segment
- */
-interface DebugInfo {
-  type: 'HLS' | 'DASH' | 'MP4' | 'WEBM';
-  viewDimensions: Object;
-  url: string;
-  currentTime: number;
-  duration: number;
-  loadingStateTimestamps: Object;
-  bitrates: Array<Object>;
-  currentBitrate: Object;
-  overallBufferLength: number;
-  nearestBufferSegInfo: Object;
-}
+import { IDebugInfo, MediaSource } from './types';
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 export default class Engine {
@@ -192,7 +154,7 @@ export default class Engine {
    * Read more about [video source](/video-source)
    */
   @playerAPI()
-  setSrc(src: string[]) {
+  setSrc(src: MediaSource) {
     if (src === this._currentSrc) {
       return;
     }
@@ -211,7 +173,7 @@ export default class Engine {
    * player.getSrc(); // ['https://my-url/video.mp4']
    */
   @playerAPI()
-  getSrc(): string[] {
+  getSrc(): MediaSource {
     return this._currentSrc;
   }
 
@@ -617,7 +579,7 @@ export default class Engine {
    * }
    */
   @playerAPI()
-  getDebugInfo(): DebugInfo {
+  getDebugInfo(): IDebugInfo {
     const { duration, currentTime } = this._video;
     let data;
 

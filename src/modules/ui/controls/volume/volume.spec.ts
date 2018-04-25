@@ -6,7 +6,7 @@ import createPlayerTestkit from '../../../../testkit';
 
 import VolumeControl from './volume';
 
-import { VIDEO_EVENTS } from '../../../../constants/index';
+import { VIDEO_EVENTS } from '../../../../constants';
 
 describe('VolumeControl', () => {
   let testkit;

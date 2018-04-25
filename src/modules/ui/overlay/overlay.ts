@@ -1,13 +1,9 @@
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
 
 import playerAPI from '../../../core/player-api-decorator';
 
 import View from './overlay.view';
 import { IOverlayViewConfig } from './types';
-
-export interface IOverlayConfig {
-  poster?: string;
-}
 
 export default class Overlay {
   static moduleName = 'overlay';

@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import createPlayerTestkit from '../../../testkit';
 import LoadingCover from './loading-cover';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
 
 describe('LoadingCover', () => {
   let testkit;

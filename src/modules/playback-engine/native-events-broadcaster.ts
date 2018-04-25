@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS } from '../../constants/index';
+import { VIDEO_EVENTS } from '../../constants';
 
 export const NATIVE_VIDEO_TO_BROADCAST = [
   'progress',

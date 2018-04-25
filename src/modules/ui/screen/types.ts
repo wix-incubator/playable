@@ -18,4 +18,14 @@ type IScreenViewConfig = {
   nativeControls: boolean;
 };
 
-export { IScreenViewStyles, IScreenViewCallbacks, IScreenViewConfig };
+interface IScreenConfig {
+  disableClickProcessing?: boolean;
+  nativeControls?: boolean;
+}
+
+export {
+  IScreenConfig,
+  IScreenViewStyles,
+  IScreenViewCallbacks,
+  IScreenViewConfig,
+};

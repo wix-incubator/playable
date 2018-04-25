@@ -6,7 +6,7 @@ import createPlayerTestkit from '../../../../testkit';
 
 import ProgressControl from './progress';
 
-import { VIDEO_EVENTS, STATES } from '../../../../constants/index';
+import { VIDEO_EVENTS, STATES } from '../../../../constants';
 
 describe('ProgressControl', () => {
   let testkit;

@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
 
 describe('Overlay', () => {
   let testkit;

@@ -6,7 +6,7 @@ import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants';
 
 export default class PlayControl {
   static moduleName = 'playControl';

@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import { UI_EVENTS } from '../../../../constants/index';
+import { UI_EVENTS } from '../../../../constants';
 class FullScreenManagerMock {
   enterFullScreen = function() {};
   exitFullScreen = function() {};

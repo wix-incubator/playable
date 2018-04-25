@@ -1,6 +1,9 @@
 import { expect } from 'chai';
 import { resolveAdapters } from './adapters-resolver';
-import { MediaStreamTypes, MediaStreamDeliveryPriority } from '../../constants';
+import {
+  MediaStreamTypes,
+  MediaStreamDeliveryPriority,
+} from '../../../constants';
 
 describe('Picking proper playback stream', () => {
   class AdaptiveCanBePlayedStreamA {
@@ -75,7 +78,7 @@ describe('Picking proper playback stream', () => {
   });
 
   it('should choose only stream that can be played', () => {
-    let resolvedStream = resolveAdapters(mediaStreams, [
+    const resolvedStream = resolveAdapters(mediaStreams, [
       new CantBePlayedStream(),
       new AdaptiveCanBePlayedStreamA(),
     ]);
@@ -83,7 +86,7 @@ describe('Picking proper playback stream', () => {
   });
 
   it('should sort resolved stream based on delivery type', () => {
-    let resolvedStream = resolveAdapters(mediaStreams, [
+    const resolvedStream = resolveAdapters(mediaStreams, [
       new AdaptiveCanBePlayedStreamA(),
       new AdaptiveCanBePlayedStreamB(),
       new NativeCanBePlayedStreamA(),

@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
 
 import playerAPI from '../../../core/player-api-decorator';
 

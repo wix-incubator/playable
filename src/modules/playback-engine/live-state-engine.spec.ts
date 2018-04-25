@@ -1,12 +1,7 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import {
-  VIDEO_EVENTS,
-  UI_EVENTS,
-  STATES,
-  LiveState,
-} from '../../constants/index';
+import { VIDEO_EVENTS, UI_EVENTS, STATES, LiveState } from '../../constants';
 import createPlayerTestkit, { setProperty, resetProperty } from '../../testkit';
 
 describe('LiveStateEngine', () => {
@@ -45,7 +40,7 @@ describe('LiveStateEngine', () => {
     expect(liveStateEngine.getState()).to.equal(LiveState.NONE);
     expect(
       eventEmitter.emit.lastCall.calledWith(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
-        prevState: prevState,
+        prevState,
         nextState: LiveState.NONE,
       }),
       'new live state emitted',

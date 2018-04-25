@@ -19,4 +19,10 @@ type ILogoViewConfig = {
   logo?: string;
 };
 
-export { ILogoViewStyles, ILogoViewConfig, ILogoViewCallbacks };
+interface ILogoConfig {
+  callback?: Function;
+  src?: string;
+  showAlways?: boolean;
+}
+
+export { ILogoConfig, ILogoViewStyles, ILogoViewConfig, ILogoViewCallbacks };
