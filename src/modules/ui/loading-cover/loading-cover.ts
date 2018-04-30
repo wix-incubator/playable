@@ -46,7 +46,7 @@ export default class LoadingCover {
     return this.view.getNode();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._checkForWaitingState,
@@ -55,7 +55,7 @@ export default class LoadingCover {
     this._eventEmitter.on(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
-  _checkForWaitingState({ nextState }) {
+  private _checkForWaitingState({ nextState }) {
     switch (nextState) {
       case STATES.LOAD_STARTED:
         if (this._engine.isPreloadAvailable) {
@@ -77,7 +77,7 @@ export default class LoadingCover {
     }
   }
 
-  _initUI() {
+  private _initUI() {
     this.view = new View({
       url: this._url,
     });
@@ -100,7 +100,7 @@ export default class LoadingCover {
     }
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._checkForWaitingState,

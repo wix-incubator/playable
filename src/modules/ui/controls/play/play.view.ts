@@ -49,17 +49,17 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
     this._bindEvents();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._onButtonClick = this._onButtonClick.bind(this);
 
     this._$playbackControl.addEventListener('click', this._onButtonClick);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._$playbackControl.removeEventListener('click', this._onButtonClick);
   }
 
-  _onButtonClick() {
+  private _onButtonClick() {
     this._$playbackControl.focus();
     this._callbacks.onButtonClick();
   }

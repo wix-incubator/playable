@@ -5,7 +5,6 @@ const checkDescriptorsOnEquality = (desc1, desc2) =>
   desc1.get === desc2.get &&
   desc1.set === desc2.set;
 
-// tslint:disable-next-line
 const playerAPI = (name?) => (target, property, descriptor) => {
   const methodName = name || property;
 

@@ -57,7 +57,7 @@ export default class FullScreenManager {
     this._bindEvents();
   }
 
-  _onChange() {
+  private _onChange() {
     if (!this._helper.isInFullScreen && this._pauseVideoOnFullScreenExit) {
       this._engine.pause();
     }
@@ -67,7 +67,7 @@ export default class FullScreenManager {
     );
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._processNextStateFromEngine,
@@ -80,7 +80,7 @@ export default class FullScreenManager {
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._processNextStateFromEngine,
@@ -93,25 +93,25 @@ export default class FullScreenManager {
     );
   }
 
-  _exitOnEnd() {
+  private _exitOnEnd() {
     if (this._exitFullScreenOnEnd && this.isInFullScreen) {
       this.exitFullScreen();
     }
   }
 
-  _enterOnPlayRequested() {
+  private _enterOnPlayRequested() {
     if (this._enterFullScreenOnPlay && !this.isInFullScreen) {
       this.enterFullScreen();
     }
   }
 
-  _exitOnPauseRequested() {
+  private _exitOnPauseRequested() {
     if (this._exitFullScreenOnPause && this.isInFullScreen) {
       this.exitFullScreen();
     }
   }
 
-  _processNextStateFromEngine({ nextState }) {
+  private _processNextStateFromEngine({ nextState }) {
     switch (nextState) {
       case STATES.ENDED: {
         this._exitOnEnd();

@@ -47,13 +47,13 @@ class RootContainer {
     return this.view.getNode();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._broadcastMouseEnter = this._broadcastMouseEnter.bind(this);
     this._broadcastMouseMove = this._broadcastMouseMove.bind(this);
     this._broadcastMouseLeave = this._broadcastMouseLeave.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
       this.view.setFullScreenStatus,
@@ -61,7 +61,7 @@ class RootContainer {
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
       this.view.setFullScreenStatus,
@@ -69,7 +69,7 @@ class RootContainer {
     );
   }
 
-  _initUI(config) {
+  private _initUI(config) {
     const sizeConfig = {
       ...config.size,
     };
@@ -89,19 +89,19 @@ class RootContainer {
     this.view.appendComponentNode(node);
   }
 
-  _broadcastMouseEnter() {
+  private _broadcastMouseEnter() {
     this._eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED);
   }
 
-  _broadcastMouseMove() {
+  private _broadcastMouseMove() {
     this._eventEmitter.emit(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED);
   }
 
-  _broadcastMouseLeave() {
+  private _broadcastMouseLeave() {
     this._eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED);
   }
 
-  _enableFocusInterceptors() {
+  private _enableFocusInterceptors() {
     if (!this._disengageFocusWithin) {
       this._disengageFocusWithin = focusWithin();
     }
@@ -112,7 +112,7 @@ class RootContainer {
     }
   }
 
-  _disableFocusInterceptors() {
+  private _disableFocusInterceptors() {
     if (this._disengageFocusSource) {
       this._disengageFocusSource();
       delete this._disengageFocusSource;

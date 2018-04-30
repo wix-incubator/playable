@@ -39,7 +39,7 @@ export default class AnomalyBloodhound {
     this._bindEvents();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._processStateChange,
@@ -47,7 +47,7 @@ export default class AnomalyBloodhound {
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._processStateChange,
@@ -55,7 +55,7 @@ export default class AnomalyBloodhound {
     );
   }
 
-  _processStateChange({
+  private _processStateChange({
     prevState,
     nextState,
   }: { prevState?; nextState? } = {}) {

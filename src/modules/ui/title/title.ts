@@ -33,11 +33,11 @@ export default class TitleControl {
     return this.view.getNode();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._triggerCallback = this._triggerCallback.bind(this);
   }
 
-  _initUI() {
+  private _initUI() {
     const config: ITitleViewConfig = {
       theme: this._theme,
       callbacks: {
@@ -84,7 +84,7 @@ export default class TitleControl {
     this.view.setDisplayAsLink(Boolean(this._callback));
   }
 
-  _triggerCallback() {
+  private _triggerCallback() {
     if (this._callback) {
       this._callback();
     }

@@ -30,11 +30,11 @@ export default class InteractionIndicator {
     return this.view.getNode();
   }
 
-  _initUI() {
+  private _initUI() {
     this.view = new View();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
       this._showPlaybackChangeIndicator,
@@ -113,7 +113,7 @@ export default class InteractionIndicator {
     this.view.show();
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
       this._showPlaybackChangeIndicator,
@@ -151,7 +151,7 @@ export default class InteractionIndicator {
     );
   }
 
-  _showPlaybackChangeIndicator() {
+  private _showPlaybackChangeIndicator() {
     const state = this._engine.getCurrentState();
 
     if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {

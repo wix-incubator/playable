@@ -34,13 +34,13 @@ class RootContainerView extends View<IRootContainerViewStyles>
     this._bindEvents();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._$node.addEventListener('mouseenter', this._callbacks.onMouseEnter);
     this._$node.addEventListener('mousemove', this._callbacks.onMouseMove);
     this._$node.addEventListener('mouseleave', this._callbacks.onMouseLeave);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._$node.removeEventListener('mouseenter', this._callbacks.onMouseEnter);
     this._$node.removeEventListener('mousemove', this._callbacks.onMouseMove);
     this._$node.removeEventListener('mouseleave', this._callbacks.onMouseLeave);

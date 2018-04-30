@@ -55,11 +55,11 @@ export default class Logo {
     return this.view.getNode();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._triggerCallback = this._triggerCallback.bind(this);
   }
 
-  _initUI() {
+  private _initUI() {
     const config: ILogoViewConfig = {
       callbacks: {
         onLogoClick: this._triggerCallback,
@@ -71,7 +71,7 @@ export default class Logo {
     this.view = new Logo.View(config);
   }
 
-  _initInterceptor() {
+  private _initInterceptor() {
     this._interceptor = new KeyboardInterceptor(this.node, {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
@@ -86,11 +86,11 @@ export default class Logo {
     });
   }
 
-  _destroyInterceptor() {
+  private _destroyInterceptor() {
     this._interceptor.destroy();
   }
 
-  _triggerCallback() {
+  private _triggerCallback() {
     if (this._callback) {
       this._callback();
     }

@@ -71,13 +71,13 @@ export default class Screen {
     return this.view.getNode();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._processNodeClick = this._processNodeClick.bind(this);
     this._processNodeDblClick = this._processNodeDblClick.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
   }
 
-  _initUI(isNativeControls) {
+  private _initUI(isNativeControls) {
     const config: IScreenViewConfig = {
       nativeControls: isNativeControls,
       callbacks: {
@@ -90,7 +90,7 @@ export default class Screen {
     this.view = new View(config);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
       this._setFullScreenStatus,
@@ -103,7 +103,7 @@ export default class Screen {
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
       this._setFullScreenStatus,

@@ -42,7 +42,7 @@ export default class Overlay {
     return this.view.getNode();
   }
 
-  _initUI(poster) {
+  private _initUI(poster) {
     const config: IOverlayViewConfig = {
       callbacks: {
         onPlayClick: this._playVideo,
@@ -54,7 +54,7 @@ export default class Overlay {
     this.view = new Overlay.View(config);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._playVideo = this._playVideo.bind(this);
 
     this._eventEmitter.on(
@@ -64,7 +64,7 @@ export default class Overlay {
     );
   }
 
-  _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }) {
     if (nextState === STATES.PLAY_REQUESTED) {
       this._hideContent();
     } else if (
@@ -75,7 +75,7 @@ export default class Overlay {
     }
   }
 
-  _playVideo() {
+  private _playVideo() {
     this._engine.play();
 
     this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
@@ -111,7 +111,7 @@ export default class Overlay {
     this.view.setPoster(src);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._updatePlayingStatus,

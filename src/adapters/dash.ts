@@ -100,7 +100,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     };
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this.broadcastError = this.broadcastError.bind(this);
   }
 

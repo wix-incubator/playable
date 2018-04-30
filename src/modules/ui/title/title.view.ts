@@ -19,7 +19,7 @@ class TitleView extends View<ITitleViewStyles>
   implements IView<ITitleViewStyles> {
   private _callbacks: ITitleViewCallbacks;
 
-  _$node: HTMLElement;
+  private _$node: HTMLElement;
   _$title: HTMLElement;
 
   constructor(config: ITitleViewConfig) {
@@ -33,18 +33,18 @@ class TitleView extends View<ITitleViewStyles>
     this._bindEvents();
   }
 
-  _initDOM() {
+  private _initDOM() {
     this._$node = htmlToElement(
       titleTemplate({ styles: this.styleNames, themeStyles: this.themeStyles }),
     );
     this._$title = getElementByHook(this._$node, 'video-title');
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._$title.addEventListener('click', this._callbacks.onClick);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._$title.removeEventListener('click', this._callbacks.onClick);
   }
 

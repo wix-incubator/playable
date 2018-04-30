@@ -66,7 +66,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._bindEvents();
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._onButtonClick = this._onButtonClick.bind(this);
 
     this._$toggleFullScreenControl.addEventListener(
@@ -75,14 +75,14 @@ class FullScreenView extends View<IFullScreenViewStyles>
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._$toggleFullScreenControl.removeEventListener(
       'click',
       this._onButtonClick,
     );
   }
 
-  _onButtonClick() {
+  private _onButtonClick() {
     this._$toggleFullScreenControl.focus();
     this._callbacks.onButtonClick();
   }

@@ -14,8 +14,6 @@ export const NATIVE_VIDEO_EVENTS_TO_STATE = [
 ];
 
 export default class StateEngine {
-  static dependencies = ['eventEmitter', 'config'];
-
   private _eventEmitter;
   private _video;
   private _currentState;
@@ -36,17 +34,17 @@ export default class StateEngine {
     this._bindEvents();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._processEventFromVideo = this._processEventFromVideo.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event =>
       this._video.addEventListener(event, this._processEventFromVideo),
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event =>
       this._video.removeEventListener(event, this._processEventFromVideo),
     );
@@ -56,11 +54,11 @@ export default class StateEngine {
     this._statesTimestamps = {};
   }
 
-  _setInitialTimeStamp() {
+  private _setInitialTimeStamp() {
     this._initialTimeStamp = Date.now();
   }
 
-  _setStateTimestamp(state) {
+  private _setStateTimestamp(state) {
     if (!this._statesTimestamps[state]) {
       this._statesTimestamps[state] = Date.now() - this._initialTimeStamp;
       this._setInitialTimeStamp();
@@ -71,7 +69,7 @@ export default class StateEngine {
     return this._statesTimestamps;
   }
 
-  _processEventFromVideo(event: any = {}) {
+  private _processEventFromVideo(event: any = {}) {
     const videoEl = this._video;
 
     switch (event.type) {

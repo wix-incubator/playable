@@ -71,19 +71,19 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     }
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._onNodeClick = this._onNodeClick.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._$node.addEventListener('click', this._onNodeClick);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._$node.removeEventListener('click', this._onNodeClick);
   }
 
-  _onNodeClick() {
+  private _onNodeClick() {
     this._$node.focus();
     this._callbacks.onLogoClick();
   }

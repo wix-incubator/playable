@@ -24,7 +24,7 @@ export default class AdaptersStrategy {
     );
   }
 
-  _autoDetectSourceTypes(mediaSources) {
+  private _autoDetectSourceTypes(mediaSources) {
     return mediaSources.map(mediaSource => {
       if (typeof mediaSource === 'string') {
         const type = getStreamType(mediaSource);
@@ -41,7 +41,7 @@ export default class AdaptersStrategy {
     });
   }
 
-  _resolvePlayableAdapters(src) {
+  private _resolvePlayableAdapters(src) {
     if (!src) {
       this._playableAdapters = [];
       return;
@@ -55,7 +55,7 @@ export default class AdaptersStrategy {
     );
   }
 
-  _connectAdapterToVideo() {
+  private _connectAdapterToVideo() {
     if (this._playableAdapters.length > 0) {
       // Use the first PlayableStream for now
       // Later, we can use the others as fallback
@@ -64,7 +64,7 @@ export default class AdaptersStrategy {
     }
   }
 
-  _detachCurrentAdapter() {
+  private _detachCurrentAdapter() {
     if (this._attachedAdapter) {
       this._attachedAdapter.detach(this._video);
       this._attachedAdapter = null;

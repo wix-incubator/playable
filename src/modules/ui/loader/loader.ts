@@ -39,12 +39,12 @@ export default class Loader {
     return this.view.getNode();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._showContent = this._showContent.bind(this);
     this._hideContent = this._hideContent.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._checkForWaitingState,
@@ -53,7 +53,7 @@ export default class Loader {
     this._eventEmitter.on(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
-  _checkForWaitingState({ nextState }) {
+  private _checkForWaitingState({ nextState }) {
     switch (nextState) {
       case STATES.SEEK_IN_PROGRESS:
         this.startDelayedShow();
@@ -85,7 +85,7 @@ export default class Loader {
     }
   }
 
-  _initUI() {
+  private _initUI() {
     this.view = new Loader.View();
   }
 
@@ -132,7 +132,7 @@ export default class Loader {
     return Boolean(this._delayedShowTimeout);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._checkForWaitingState,

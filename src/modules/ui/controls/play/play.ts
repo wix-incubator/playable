@@ -44,7 +44,7 @@ export default class PlayControl {
     return this.view.getNode();
   }
 
-  _initInterceptor() {
+  private _initInterceptor() {
     this._interceptor = new KeyboardInterceptor(this.node, {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
@@ -61,15 +61,15 @@ export default class PlayControl {
     });
   }
 
-  _destroyInterceptor() {
+  private _destroyInterceptor() {
     this._interceptor.destroy();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._togglePlayback = this._togglePlayback.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._updatePlayingStatus,
@@ -77,7 +77,7 @@ export default class PlayControl {
     );
   }
 
-  _togglePlayback() {
+  private _togglePlayback() {
     if (this._isPlaying) {
       this._pauseVideo();
     } else {
@@ -85,19 +85,19 @@ export default class PlayControl {
     }
   }
 
-  _playVideo() {
+  private _playVideo() {
     this._engine.play();
 
     this._eventEmitter.emit(UI_EVENTS.PLAY_TRIGGERED);
   }
 
-  _pauseVideo() {
+  private _pauseVideo() {
     this._engine.pause();
 
     this._eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
   }
 
-  _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }) {
     if (nextState === STATES.SRC_SET) {
       this.reset();
     } else if (nextState === STATES.PLAYING) {
@@ -111,7 +111,7 @@ export default class PlayControl {
     }
   }
 
-  _initUI() {
+  private _initUI() {
     const config: IPlayViewConfig = {
       callbacks: {
         onButtonClick: this._togglePlayback,
@@ -128,7 +128,7 @@ export default class PlayControl {
     this.view.setState({ isPlaying: this._isPlaying });
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._updatePlayingStatus,

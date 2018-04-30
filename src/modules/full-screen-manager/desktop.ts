@@ -84,14 +84,14 @@ export default class DesktopFullScreen {
     return this.isAPIExist && document[this._fullscreenFn.fullscreenEnabled];
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     document.addEventListener(
       this._fullscreenFn.fullscreenchange,
       this._callback,
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     document.removeEventListener(
       this._fullscreenFn.fullscreenchange,
       this._callback,

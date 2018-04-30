@@ -28,23 +28,23 @@ export default class NativeEventsBroadcaster {
     this._bindEvents();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._processEventFromVideo = this._processEventFromVideo.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     NATIVE_VIDEO_TO_BROADCAST.forEach(event =>
       this._video.addEventListener(event, this._processEventFromVideo),
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     NATIVE_VIDEO_TO_BROADCAST.forEach(event =>
       this._video.removeEventListener(event, this._processEventFromVideo),
     );
   }
 
-  _processEventFromVideo(event: any = {}) {
+  private _processEventFromVideo(event: any = {}) {
     const videoEl = this._video;
 
     switch (event.type) {

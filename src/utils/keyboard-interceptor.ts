@@ -24,7 +24,7 @@ export default class KeyboardInterceptorCore {
     this._bindEvents();
   }
 
-  _attachCallbacks(callbacks) {
+  private _attachCallbacks(callbacks) {
     Object.keys(callbacks).forEach(keyCode => {
       const keyCodeCallbacks = callbacks[keyCode];
       if (Array.isArray(keyCodeCallbacks)) {
@@ -37,19 +37,19 @@ export default class KeyboardInterceptorCore {
     });
   }
 
-  _unattachCallbacks() {
+  private _unattachCallbacks() {
     this._eventEmitter.removeAllListeners();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._processKeyboardInput = this._processKeyboardInput.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._node.addEventListener('keydown', this._processKeyboardInput, false);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._node.removeEventListener(
       'keydown',
       this._processKeyboardInput,
@@ -61,7 +61,7 @@ export default class KeyboardInterceptorCore {
     this._attachCallbacks(callbacks);
   }
 
-  _processKeyboardInput(e) {
+  private _processKeyboardInput(e) {
     this._eventEmitter.emit(e.keyCode, e);
   }
 

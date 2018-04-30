@@ -162,7 +162,7 @@ export default class MainUIBlock {
     );
   }
 
-  _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }) {
     switch (nextState) {
       case STATES.PLAY_REQUESTED: {
         this._shouldShowContent = false;

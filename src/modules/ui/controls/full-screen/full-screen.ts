@@ -66,11 +66,11 @@ export default class FullScreenControl {
     return this.view.getNode();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._toggleFullScreen = this._toggleFullScreen.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
       this.setControlStatus,
@@ -78,7 +78,7 @@ export default class FullScreenControl {
     );
   }
 
-  _initUI() {
+  private _initUI() {
     const config: IFullScreenViewConfig = {
       callbacks: {
         onButtonClick: this._toggleFullScreen,
@@ -91,7 +91,7 @@ export default class FullScreenControl {
     this.view = new FullScreenControl.View(config);
   }
 
-  _initInterceptor() {
+  private _initInterceptor() {
     this._interceptor = new KeyboardInterceptor(this.node, {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
@@ -104,11 +104,11 @@ export default class FullScreenControl {
     });
   }
 
-  _destroyInterceptor() {
+  private _destroyInterceptor() {
     this._interceptor.destroy();
   }
 
-  _toggleFullScreen() {
+  private _toggleFullScreen() {
     if (this._isInFullScreen) {
       this._exitFullScreen();
     } else {
@@ -116,11 +116,11 @@ export default class FullScreenControl {
     }
   }
 
-  _enterFullScreen() {
+  private _enterFullScreen() {
     this._fullScreenManager.enterFullScreen();
   }
 
-  _exitFullScreen() {
+  private _exitFullScreen() {
     this._fullScreenManager.exitFullScreen();
   }
 
@@ -139,7 +139,7 @@ export default class FullScreenControl {
     this.view.show();
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
       this.setControlStatus,

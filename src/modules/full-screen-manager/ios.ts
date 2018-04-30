@@ -27,12 +27,12 @@ export default class IOSFullScreen {
     return this.isAPIExist;
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._elem.addEventListener('webkitbeginfullscreen', this._callback);
     this._elem.addEventListener('webkitendfullscreen', this._callback);
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._elem.removeEventListener('webkitbeginfullscreen', this._callback);
     this._elem.removeEventListener('webkitendfullscreen', this._callback);
 
@@ -42,7 +42,7 @@ export default class IOSFullScreen {
     );
   }
 
-  _enterWhenHasMetaData() {
+  private _enterWhenHasMetaData() {
     this._elem.removeEventListener(
       'loadedmetadata',
       this._enterWhenHasMetaData,

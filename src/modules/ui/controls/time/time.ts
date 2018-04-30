@@ -37,12 +37,12 @@ export default class TimeControl {
     return this.view.getNode();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._updateCurrentTime = this._updateCurrentTime.bind(this);
     this._updateDurationTime = this._updateDurationTime.bind(this);
   }
 
-  _bindEvents() {
+  private _bindEvents() {
     this._eventEmitter.on(
       VIDEO_EVENTS.STATE_CHANGED,
       this._toggleIntervalUpdates,
@@ -60,14 +60,14 @@ export default class TimeControl {
     );
   }
 
-  _initUI() {
+  private _initUI() {
     const config: ITimeViewConfig = {
       theme: this._theme,
     };
     this.view = new TimeControl.View(config);
   }
 
-  _startIntervalUpdates() {
+  private _startIntervalUpdates() {
     if (this._updateControlInterval) {
       this._stopIntervalUpdates();
     }
@@ -77,12 +77,12 @@ export default class TimeControl {
     );
   }
 
-  _stopIntervalUpdates() {
+  private _stopIntervalUpdates() {
     clearInterval(this._updateControlInterval);
     this._updateControlInterval = null;
   }
 
-  _processLiveStateChange({ nextState }) {
+  private _processLiveStateChange({ nextState }) {
     switch (nextState) {
       case LiveState.NONE:
         this.show();
@@ -101,7 +101,7 @@ export default class TimeControl {
     }
   }
 
-  _toggleIntervalUpdates({ nextState }) {
+  private _toggleIntervalUpdates({ nextState }) {
     switch (nextState) {
       case STATES.SRC_SET:
         this.reset();
@@ -118,11 +118,11 @@ export default class TimeControl {
     }
   }
 
-  _updateDurationTime() {
+  private _updateDurationTime() {
     this.setDurationTime(this._engine.getDurationTime());
   }
 
-  _updateCurrentTime() {
+  private _updateCurrentTime() {
     this.setCurrentTime(this._engine.getCurrentTime());
   }
 
@@ -152,7 +152,7 @@ export default class TimeControl {
     this.show();
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._toggleIntervalUpdates,

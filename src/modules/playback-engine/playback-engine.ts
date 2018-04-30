@@ -51,7 +51,7 @@ export default class Engine {
     this._applyConfig(config);
   }
 
-  _createVideoTag(videoElement?: HTMLVideoElement) {
+  private _createVideoTag(videoElement?: HTMLVideoElement) {
     if (videoElement && videoElement.tagName === 'VIDEO') {
       this._video = videoElement;
     } else {
@@ -61,7 +61,7 @@ export default class Engine {
     this._video.setAttribute('crossorigin', 'anonymous');
   }
 
-  _applyConfig(config: any = {}) {
+  private _applyConfig(config: any = {}) {
     const { preload, autoPlay, loop, muted, volume, playInline, src } = config;
 
     this.setPreload(preload);
@@ -78,7 +78,7 @@ export default class Engine {
     return this._video;
   }
 
-  _getViewDimensions() {
+  private _getViewDimensions() {
     return {
       width: this._video.offsetWidth,
       height: this._video.offsetHeight,

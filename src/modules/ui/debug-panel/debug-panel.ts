@@ -40,7 +40,7 @@ export default class DebugPanel {
     return this.view.getNode();
   }
 
-  _initUI() {
+  private _initUI() {
     this.view = new View({
       callbacks: {
         onCloseButtonClick: this.hide,
@@ -48,7 +48,7 @@ export default class DebugPanel {
     });
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this.updateInfo = this.updateInfo.bind(this);
     this.hide = this.hide.bind(this);
     this._keyControlCallback = this._keyControlCallback.bind(this);

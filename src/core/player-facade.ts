@@ -35,7 +35,7 @@ export default class Player {
     could be abolished in future
   */
 
-  _resolveDefaultModules(scope, modules) {
+  private _resolveDefaultModules(scope, modules) {
     this._defaultModules = Object.keys(modules).reduce(
       (modules, moduleName) => {
         const resolvedModule = scope.resolve(moduleName);
@@ -49,7 +49,7 @@ export default class Player {
     );
   }
 
-  _resolveAdditionalModules(scope, modules) {
+  private _resolveAdditionalModules(scope, modules) {
     this._additionalModules = Object.keys(modules).reduce(
       (modules, moduleName) => {
         const resolvedModule = scope.resolve(moduleName);
@@ -63,7 +63,7 @@ export default class Player {
     );
   }
 
-  _getWrappedCallToModuleFunction(module, _moduleName, fn) {
+  private _getWrappedCallToModuleFunction(module, _moduleName, fn) {
     // TODO: do we need `_moduleName` as second parameter?
     return (...args) => {
       if (this._destroyed) {
@@ -74,7 +74,7 @@ export default class Player {
     };
   }
 
-  _getPlayerAPIMethodDescriptor(module, moduleName, descriptor) {
+  private _getPlayerAPIMethodDescriptor(module, moduleName, descriptor) {
     const playerMethodDescriptor: any = {
       enumerable: true,
       configurable: true,
@@ -109,7 +109,7 @@ export default class Player {
     return playerMethodDescriptor;
   }
 
-  _addPlayerAPIFromModule(module, moduleName) {
+  private _addPlayerAPIFromModule(module, moduleName) {
     if (module[PLAYER_API_PROPERTY]) {
       Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
         if (this[apiKey]) {
@@ -131,7 +131,7 @@ export default class Player {
     }
   }
 
-  _clearPlayerAPIForModule(module) {
+  private _clearPlayerAPIForModule(module) {
     if (module[PLAYER_API_PROPERTY]) {
       Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
         delete this[apiKey];

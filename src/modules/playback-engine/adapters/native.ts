@@ -97,7 +97,7 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
       return {};
     }
 
-    _bindCallbacks() {
+    private _bindCallbacks() {
       this.broadcastError = this.broadcastError.bind(this);
     }
 

@@ -52,7 +52,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this._bindCallbacks();
   }
 
-  _bindCallbacks() {
+  private _bindCallbacks() {
     this._attachOnPlay = this._attachOnPlay.bind(this);
     this._broadcastError = this._broadcastError.bind(this);
     this._onEndOfStream = this._onEndOfStream.bind(this);
