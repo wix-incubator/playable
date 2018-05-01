@@ -1,7 +1,7 @@
 const createApiVisitor = require('./lib/player/createPlayerApiVisitor');
-const createApiMethod = require('./lib/player/createPlayerApiMethod');
+const createApiClassMethod = require('./lib/player/createPlayerApiClassMethod');
 
 module.exports = {
   createApiVisitor,
-  createApiMethod,
+  createApiClassMethod,
 };
