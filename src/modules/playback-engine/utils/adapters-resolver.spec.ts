@@ -8,7 +8,6 @@ import {
 describe('Picking proper playback stream', () => {
   class AdaptiveCanBePlayedStreamA {
     canPlay = () => true;
-    constructor() {}
 
     get mediaStreamDeliveryPriority() {
       return MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
@@ -20,7 +19,6 @@ describe('Picking proper playback stream', () => {
   }
   class AdaptiveCanBePlayedStreamB {
     canPlay = () => true;
-    constructor() {}
 
     get mediaStreamDeliveryPriority() {
       return MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
@@ -66,13 +64,13 @@ describe('Picking proper playback stream', () => {
     let resolvedStream = resolveAdapters(mediaStreams, [
       new AdaptiveCanBePlayedStreamA(),
       new AdaptiveCanBePlayedStreamB(),
-    ]);
+    ] as any);
     expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamA).to.be.true;
 
     resolvedStream = resolveAdapters(mediaStreams, [
       new AdaptiveCanBePlayedStreamB(),
       new AdaptiveCanBePlayedStreamA(),
-    ]);
+    ] as any);
 
     expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamB).to.be.true;
   });
@@ -81,7 +79,7 @@ describe('Picking proper playback stream', () => {
     const resolvedStream = resolveAdapters(mediaStreams, [
       new CantBePlayedStream(),
       new AdaptiveCanBePlayedStreamA(),
-    ]);
+    ] as any);
     expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamA).to.be.true;
   });
 
@@ -90,7 +88,7 @@ describe('Picking proper playback stream', () => {
       new AdaptiveCanBePlayedStreamA(),
       new AdaptiveCanBePlayedStreamB(),
       new NativeCanBePlayedStreamA(),
-    ]);
+    ] as any);
     expect(resolvedStream[0] instanceof NativeCanBePlayedStreamA).to.be.true;
   });
 });

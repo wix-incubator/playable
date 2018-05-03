@@ -101,7 +101,7 @@ export default class DashAdapter implements IPlaybackAdapter {
   }
 
   private _bindCallbacks() {
-    this.broadcastError = this.broadcastError.bind(this);
+    this._broadcastError = this._broadcastError.bind(this);
   }
 
   setMediaStreams(mediaStreams) {
@@ -116,7 +116,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     }
   }
 
-  logError(error, errorEvent) {
+  private _logError(error, errorEvent) {
     this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
       errorType: error,
       streamType: MEDIA_STREAM_TYPES.DASH,
@@ -125,7 +125,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     });
   }
 
-  broadcastError(errorEvent) {
+  private _broadcastError(errorEvent) {
     if (!errorEvent) {
       return;
     }
@@ -133,32 +133,32 @@ export default class DashAdapter implements IPlaybackAdapter {
     if (errorEvent.error === 'download') {
       switch (errorEvent.event.id) {
         case 'manifest':
-          this.logError(ERRORS.MANIFEST_LOAD, errorEvent);
+          this._logError(ERRORS.MANIFEST_LOAD, errorEvent);
           break;
         case 'content':
-          this.logError(ERRORS.CONTENT_LOAD, errorEvent);
+          this._logError(ERRORS.CONTENT_LOAD, errorEvent);
           break;
         case 'initialization':
-          this.logError(ERRORS.LEVEL_LOAD, errorEvent);
+          this._logError(ERRORS.LEVEL_LOAD, errorEvent);
           break;
         default:
-          this.logError(ERRORS.UNKNOWN, errorEvent);
+          this._logError(ERRORS.UNKNOWN, errorEvent);
       }
     } else if (errorEvent.error === 'manifestError') {
       switch (errorEvent.event.id) {
         case 'codec':
-          this.logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
+          this._logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
           break;
         case 'parse':
-          this.logError(ERRORS.MANIFEST_PARSE, errorEvent);
+          this._logError(ERRORS.MANIFEST_PARSE, errorEvent);
           break;
         default:
-          this.logError(ERRORS.UNKNOWN, errorEvent);
+          this._logError(ERRORS.UNKNOWN, errorEvent);
       }
     } else if (errorEvent.error === 'mediasource') {
-      this.logError(ERRORS.MEDIA, errorEvent);
+      this._logError(ERRORS.MEDIA, errorEvent);
     } else {
-      this.logError(ERRORS.UNKNOWN, errorEvent);
+      this._logError(ERRORS.UNKNOWN, errorEvent);
     }
   }
 
@@ -169,37 +169,37 @@ export default class DashAdapter implements IPlaybackAdapter {
     this.videoElement = videoElement;
     this.dashPlayer = MediaPlayer().create();
     this.dashPlayer.getDebug().setLogToBrowserConsole(false);
-    this.dashPlayer.on(DashEvents.ERROR, this.broadcastError);
+    this.dashPlayer.on(DashEvents.ERROR, this._broadcastError);
 
     if (videoElement.preload === 'none') {
-      this.startDelayedInitPlayer();
+      this._startDelayedInitPlayer();
     } else {
-      this.initPlayer();
+      this._initPlayer();
     }
   }
 
-  delayedInitPlayer() {
-    this.stopDelayedInitPlayer();
-    this.initPlayer(true);
+  private _delayedInitPlayer() {
+    this._stopDelayedInitPlayer();
+    this._initPlayer(true);
   }
 
-  startDelayedInitPlayer() {
+  private _startDelayedInitPlayer() {
     this.eventEmitter.on(
       VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
-      this.delayedInitPlayer,
+      this._delayedInitPlayer,
       this,
     );
   }
 
-  stopDelayedInitPlayer() {
+  private _stopDelayedInitPlayer() {
     this.eventEmitter.off(
       VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
-      this.delayedInitPlayer,
+      this._delayedInitPlayer,
       this,
     );
   }
 
-  initPlayer(forceAutoplay?) {
+  private _initPlayer(forceAutoplay?) {
     this.dashPlayer.initialize(
       this.videoElement,
       this.mediaStream.url,
@@ -209,12 +209,12 @@ export default class DashAdapter implements IPlaybackAdapter {
   }
 
   detach() {
-    this.stopDelayedInitPlayer();
+    this._stopDelayedInitPlayer();
     if (!this.mediaStream) {
       return;
     }
     this.dashPlayer.reset();
-    this.dashPlayer.off(DashEvents.ERROR, this.broadcastError);
+    this.dashPlayer.off(DashEvents.ERROR, this._broadcastError);
     this.dashPlayer = null;
     this.videoElement.removeAttribute('src');
     this.videoElement = null;

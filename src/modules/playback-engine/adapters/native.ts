@@ -98,7 +98,7 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
     }
 
     private _bindCallbacks() {
-      this.broadcastError = this.broadcastError.bind(this);
+      this._broadcastError = this._broadcastError.bind(this);
     }
 
     canPlay(mediaType) {
@@ -109,7 +109,7 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
       this.mediaStreams = mediaStreams;
     }
 
-    logError(error, errorEvent) {
+    private _logError(error, errorEvent) {
       this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
         errorType: error,
         streamType,
@@ -118,7 +118,7 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
       });
     }
 
-    broadcastError() {
+    private _broadcastError() {
       const error = this.videoElement.error;
 
       switch (error.code) {
@@ -127,10 +127,10 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
 
           break;
         case NATIVE_ERROR_CODES.NETWORK:
-          this.logError(ERRORS.CONTENT_LOAD, error);
+          this._logError(ERRORS.CONTENT_LOAD, error);
           break;
         case NATIVE_ERROR_CODES.DECODE:
-          this.logError(ERRORS.MEDIA, error);
+          this._logError(ERRORS.MEDIA, error);
           break;
         case NATIVE_ERROR_CODES.SRC_NOT_SUPPORTED:
           /*
@@ -138,23 +138,23 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
              when video tag couldn't retriev any info from endpoit
           */
 
-          this.logError(ERRORS.CONTENT_LOAD, error);
+          this._logError(ERRORS.CONTENT_LOAD, error);
 
           break;
         default:
-          this.logError(ERRORS.UNKNOWN, error);
+          this._logError(ERRORS.UNKNOWN, error);
           break;
       }
     }
 
     attach(videoElement) {
       this.videoElement = videoElement;
-      this.videoElement.addEventListener('error', this.broadcastError);
+      this.videoElement.addEventListener('error', this._broadcastError);
       this.videoElement.src = this.mediaStreams[this.currentLevel].url;
     }
 
     detach() {
-      this.videoElement.removeEventListener('error', this.broadcastError);
+      this.videoElement.removeEventListener('error', this._broadcastError);
       this.videoElement.removeAttribute('src');
       this.videoElement = null;
     }
