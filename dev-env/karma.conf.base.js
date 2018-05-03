@@ -71,7 +71,7 @@ module.exports = function(config, { testName }) {
       ? {
           sauceLabs: {
             // https://github.com/karma-runner/karma-sauce-launcher#saucelabs-config-properties-shared-across-all-browsers
-            testName: testName
+            testName: testName,
           },
           customLaunchers: sauceLabsLaunchers,
           browsers: Object.keys(sauceLabsLaunchers),
@@ -113,7 +113,9 @@ module.exports = function(config, { testName }) {
   if (process.env.TRAVIS) {
     // https://github.com/angular/angular.js/blob/v1.6.9/karma-shared.conf.js#L179-L182
     // https://github.com/angular/angular/blob/6.0.0-rc.5/karma-js.conf.js#L127-L144
-    config.sauceLabs.build = `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${process.env.TRAVIS_BUILD_ID})`;
+    config.sauceLabs.build = `TRAVIS #${process.env.TRAVIS_BUILD_NUMBER} (${
+      process.env.TRAVIS_BUILD_ID
+    })`;
     config.sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
     config.sauceLabs.startConnect = false;
   }

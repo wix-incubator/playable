@@ -3,7 +3,7 @@ const configBase = require('./karma.conf.base');
 /* ignore coverage */
 module.exports = function(config) {
   configBase(config, {
-    testName: 'Playable'
+    testName: 'Playable',
   });
 
   config.set({

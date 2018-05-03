@@ -1,4 +1,6 @@
-const { nodeASTUtils: { cleanUpClassMethod } } = require('okidoc-md');
+const {
+  nodeASTUtils: { cleanUpClassMethod },
+} = require('okidoc-md');
 
 const {
   isPlayerApiDecorator,

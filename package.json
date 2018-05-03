@@ -29,7 +29,7 @@
     "release": "node scripts/npm-release.js",
     "tslint": "ts-node node_modules/.bin/tslint -p . -c tslint.json",
     "tslint:all": "npm run tslint -- '{src,scripts}/**/*.ts'",
-    "prettier:all": "prettier --write '{src,scripts,tslint-rules}/**/*.{js,ts}'",
+    "prettier:all": "prettier --write '{src,scripts,tslint-rules,dev-env}/**/*.{js,ts}'",
     "csscomb:all": "csscomb src/.",
     "test:unit": "haste-playable test --mocha",
     "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-with-adapters",
