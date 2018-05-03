@@ -89,7 +89,11 @@ module.exports = function(config, { testName }) {
             // https://docs.travis-ci.com/user/chrome#Sandboxing
             ChromeHeadlessNoSandbox: {
               base: 'ChromeHeadless',
-              flags: ['--no-sandbox'],
+              // NOTE: set `--autoplay-policy` to allow play video without user interaction https://goo.gl/xX8pDD
+              flags: [
+                '--no-sandbox',
+                '--autoplay-policy=no-user-gesture-required',
+              ],
             },
           },
           // start these browsers
