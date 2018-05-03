@@ -1,8 +1,14 @@
-export function resolveAdapters(mediaStreams, availableAdapters) {
-  const playableAdapters = [];
+import { IPlaybackAdapter } from '../adapters/types';
+import { MediaStreamTypes } from '../../../constants';
+
+export function resolveAdapters(
+  mediaStreams,
+  availableAdapters: IPlaybackAdapter[],
+): IPlaybackAdapter[] {
+  const playableAdapters: IPlaybackAdapter[] = [];
 
   const groupedStreams = groupStreamsByMediaType(mediaStreams);
-  const groupedStreamKeys = Object.keys(groupedStreams);
+  const groupedStreamKeys = Object.keys(groupedStreams) as MediaStreamTypes[];
 
   availableAdapters.forEach(adapter => {
     for (let i = 0; i < groupedStreamKeys.length; i += 1) {
