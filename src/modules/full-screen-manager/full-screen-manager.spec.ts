@@ -10,7 +10,7 @@ import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
 import RootContainer from '../root-container/root-container';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../constants';
 
 declare const navigator: any;
 
@@ -238,14 +238,14 @@ describe('FullScreenManager', () => {
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.ENDED,
+          nextState: EngineState.ENDED,
         });
 
         fullScreenManager._exitFullScreenOnEnd = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.ENDED,
+          nextState: EngineState.ENDED,
         });
         expect(spy.calledOnce).to.be.true;
 
@@ -258,14 +258,14 @@ describe('FullScreenManager', () => {
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PAUSED,
+          nextState: EngineState.PAUSED,
         });
 
         fullScreenManager._exitFullScreenOnPause = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-          nextState: STATES.PAUSED,
+          nextState: EngineState.PAUSED,
         });
         expect(spy.calledOnce).to.be.true;
 

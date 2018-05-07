@@ -1,4 +1,4 @@
-import { UI_EVENTS, STATES } from '../../../constants';
+import { UI_EVENTS, EngineState } from '../../../constants';
 
 import { IScreenConfig, IScreenViewConfig } from './types';
 import View from './screen.view';
@@ -166,7 +166,7 @@ export default class Screen {
   private _showPlaybackChangeIndicator() {
     const state = this._engine.getCurrentState();
 
-    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
+    if (state === EngineState.PLAY_REQUESTED || state === EngineState.PLAYING) {
       this._interactionIndicator.showPause();
     } else {
       this._interactionIndicator.showPlay();
@@ -200,7 +200,7 @@ export default class Screen {
 
     const state = this._engine.getCurrentState();
 
-    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
+    if (state === EngineState.PLAY_REQUESTED || state === EngineState.PLAYING) {
       this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
       this._engine.pause();
     } else {

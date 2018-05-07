@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 
 import View from './loader.view';
 
@@ -55,26 +55,26 @@ export default class Loader {
 
   private _checkForWaitingState({ nextState }) {
     switch (nextState) {
-      case STATES.SEEK_IN_PROGRESS:
+      case EngineState.SEEK_IN_PROGRESS:
         this.startDelayedShow();
         break;
-      case STATES.WAITING:
+      case EngineState.WAITING:
         this.startDelayedShow();
         break;
-      case STATES.LOAD_STARTED:
+      case EngineState.LOAD_STARTED:
         if (this._engine.isPreloadAvailable) {
           this._showContent();
         }
         break;
-      case STATES.READY_TO_PLAY:
+      case EngineState.READY_TO_PLAY:
         this.stopDelayedShow();
         this._hideContent();
         break;
-      case STATES.PLAYING:
+      case EngineState.PLAYING:
         this.stopDelayedShow();
         this._hideContent();
         break;
-      case STATES.PAUSED:
+      case EngineState.PAUSED:
         this.stopDelayedShow();
         this._hideContent();
         break;

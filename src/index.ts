@@ -8,7 +8,7 @@ import {
   TEXT_LABELS,
   MediaStreamTypes as MEDIA_STREAM_TYPES,
   MediaStreamDeliveryPriority as MEDIA_STREAM_DELIVERY_PRIORITY,
-  STATES as ENGINE_STATES,
+  EngineState as ENGINE_STATES,
   LiveState as LIVE_STATES,
 } from './constants';
 import { Tooltip } from './modules/ui/core/tooltip';

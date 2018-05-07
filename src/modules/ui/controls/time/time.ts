@@ -2,7 +2,7 @@ import { ITimeViewConfig } from './types';
 
 import View from './time.view';
 
-import { VIDEO_EVENTS, STATES, LiveState } from '../../../../constants';
+import { VIDEO_EVENTS, EngineState, LiveState } from '../../../../constants';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -103,13 +103,13 @@ export default class TimeControl {
 
   private _toggleIntervalUpdates({ nextState }) {
     switch (nextState) {
-      case STATES.SRC_SET:
+      case EngineState.SRC_SET:
         this.reset();
         break;
-      case STATES.PLAYING:
+      case EngineState.PLAYING:
         this._startIntervalUpdates();
         break;
-      case STATES.SEEK_IN_PROGRESS:
+      case EngineState.SEEK_IN_PROGRESS:
         this._updateCurrentTime();
         break;
       default:

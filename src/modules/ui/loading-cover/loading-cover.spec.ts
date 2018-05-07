@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import createPlayerTestkit from '../../../testkit';
 import LoadingCover from './loading-cover';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 
 describe('LoadingCover', () => {
   let testkit;
@@ -92,26 +92,26 @@ describe('LoadingCover', () => {
           loadingCover.hide.restore();
         });
 
-        it('should be proper if next state is STATES.LOAD_STARTED', () => {
+        it('should be proper if next state is EngineState.LOAD_STARTED', () => {
           engine.setPreload('none');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.LOAD_STARTED,
+            nextState: EngineState.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.false;
 
           engine.setPreload('auto');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.LOAD_STARTED,
+            nextState: EngineState.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is STATES.WAITING', () => {
+        it('should be proper if next state is EngineState.WAITING', () => {
           engine._stateEngine._isMetadataLoaded = true;
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.WAITING,
+            nextState: EngineState.WAITING,
           });
 
           expect(showSpy.called).to.be.false;
@@ -119,15 +119,15 @@ describe('LoadingCover', () => {
           engine._stateEngine._isMetadataLoaded = false;
           engine.setPreload('auto');
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.WAITING,
+            nextState: EngineState.WAITING,
           });
 
           expect(showSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is STATES.READY_TO_PLAY', () => {
+        it('should be proper if next state is EngineState.READY_TO_PLAY', () => {
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.READY_TO_PLAY,
+            nextState: EngineState.READY_TO_PLAY,
           });
 
           expect(hideSpy.called).to.be.true;

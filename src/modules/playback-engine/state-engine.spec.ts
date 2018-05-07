@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { EventEmitter } from 'eventemitter3';
 
-import { VIDEO_EVENTS, STATES } from '../../constants';
+import { VIDEO_EVENTS, EngineState } from '../../constants';
 import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE } from './state-engine';
 
 const NATIVE_EVENTS = {
@@ -67,98 +67,99 @@ describe('NativeEventsBroadcaster', () => {
   it('should have method for setting state', () => {
     expect(engine.setState).to.exist;
 
-    engine._currentState = STATES.LOAD_STARTED;
-    engine.setState(STATES.READY_TO_PLAY);
+    engine._currentState = EngineState.LOAD_STARTED;
+    engine.setState(EngineState.READY_TO_PLAY);
     expect(
       eventEmitter.emit.calledWith(VIDEO_EVENTS.STATE_CHANGED, {
-        prevState: STATES.LOAD_STARTED,
-        nextState: STATES.READY_TO_PLAY,
+        prevState: EngineState.LOAD_STARTED,
+        nextState: EngineState.READY_TO_PLAY,
       }),
     );
-    expect(engine._currentState).to.be.equal(STATES.READY_TO_PLAY);
+    expect(engine._currentState).to.be.equal(EngineState.READY_TO_PLAY);
   });
 
   it('should not trigger change of state on same state', () => {
-    engine.setState(STATES.READY_TO_PLAY);
-    engine.setState(STATES.READY_TO_PLAY);
-    expect(eventEmitter.emit.calledOnce).to.be.true;
+    engine.setState(EngineState.READY_TO_PLAY);
+    expect(eventEmitter.emit.calledTwice).to.be.true;
+    engine.setState(EngineState.READY_TO_PLAY);
+    expect(eventEmitter.emit.calledTwice).to.be.true;
   });
 
   it('should set state on loadstart event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.LOAD_START);
-    expect(engine.setState.calledWith(STATES.LOAD_STARTED)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.LOAD_STARTED)).to.be.true;
   });
 
   it('should set state on loadedmetadata event', () => {
     expect(engine._isMetadataLoaded).to.be.false;
     engine._processEventFromVideo(NATIVE_EVENTS.LOADED_META_DATA);
-    expect(engine.setState.calledWith(STATES.METADATA_LOADED)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.METADATA_LOADED)).to.be.true;
     expect(engine.isMetadataLoaded).to.be.true;
   });
 
   it('should set state on canplay event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.CAN_PLAY);
-    expect(engine.setState.calledWith(STATES.READY_TO_PLAY)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.READY_TO_PLAY)).to.be.true;
   });
 
   it('should set state on play event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.PLAY);
-    expect(engine.setState.calledWith(STATES.PLAY_REQUESTED)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.PLAY_REQUESTED)).to.be.true;
   });
 
   it('should set state on playing event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.PLAYING);
-    expect(engine.setState.calledWith(STATES.PLAYING)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.PLAYING)).to.be.true;
   });
 
   it('should not set state on playing event if video is not actually playing', () => {
     video.paused = true;
     engine._processEventFromVideo(NATIVE_EVENTS.PLAYING);
-    expect(engine.setState.calledWith(STATES.PLAYING)).to.be.false;
+    expect(engine.setState.calledWith(EngineState.PLAYING)).to.be.false;
   });
 
   it('should set state on waiting event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.WAITING);
-    expect(engine.setState.calledWith(STATES.WAITING)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.WAITING)).to.be.true;
   });
 
   it('should set state on pause event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.PAUSE);
-    expect(engine.setState.calledWith(STATES.PAUSED)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.PAUSED)).to.be.true;
   });
 
   it('should not set state on pause event if there is no played chunks', () => {
     video.played.length = 0;
     engine._processEventFromVideo(NATIVE_EVENTS.PAUSE);
-    expect(engine.setState.calledWith(STATES.PAUSED)).to.be.false;
+    expect(engine.setState.calledWith(EngineState.PAUSED)).to.be.false;
   });
 
   it('should set state on ended event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.ENDED);
-    expect(engine.setState.calledWith(STATES.ENDED)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.ENDED)).to.be.true;
   });
 
   it('should set state on seeking event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.SEEKING);
-    expect(engine.setState.calledWith(STATES.SEEK_IN_PROGRESS)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.SEEK_IN_PROGRESS)).to.be.true;
   });
 
   it('should set state on seeked event', () => {
     video.paused = true;
     engine._processEventFromVideo(NATIVE_EVENTS.SEEKED);
-    expect(engine.setState.calledWith(STATES.PAUSED)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.PAUSED)).to.be.true;
 
     video.paused = false;
     engine._processEventFromVideo(NATIVE_EVENTS.SEEKED);
-    expect(engine.setState.calledWith(STATES.PLAYING)).to.be.true;
+    expect(engine.setState.calledWith(EngineState.PLAYING)).to.be.true;
   });
 
   it('should dodge sneaky bug with dash manifest', () => {
-    engine.setState(STATES.METADATA_LOADED);
-    engine.setState(STATES.SEEK_IN_PROGRESS);
-    expect(engine.getState()).to.be.equal(STATES.METADATA_LOADED);
-    engine.setState(STATES.PAUSED);
-    expect(engine.getState()).to.be.equal(STATES.METADATA_LOADED);
+    engine.setState(EngineState.METADATA_LOADED);
+    engine.setState(EngineState.SEEK_IN_PROGRESS);
+    expect(engine.state).to.be.equal(EngineState.METADATA_LOADED);
+    engine.setState(EngineState.PAUSED);
+    expect(engine.state).to.be.equal(EngineState.METADATA_LOADED);
   });
 
   it('should collect timestamps', () => {
@@ -166,9 +167,9 @@ describe('NativeEventsBroadcaster', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.LOADED_META_DATA);
     engine._processEventFromVideo(NATIVE_EVENTS.CAN_PLAY);
 
-    expect(Object.keys(engine.getStateTimestamps())).to.be.deep.equal([
-      'metadata-loaded',
-      'ready-to-play',
+    expect(Object.keys(engine.stateTimestamps)).to.be.deep.equal([
+      'engine-state/metadata-loaded',
+      'engine-state/ready-to-play',
     ]);
   });
 

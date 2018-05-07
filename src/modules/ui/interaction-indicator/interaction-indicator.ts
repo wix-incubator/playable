@@ -1,4 +1,4 @@
-import { UI_EVENTS, STATES } from '../../../constants';
+import { UI_EVENTS, EngineState } from '../../../constants';
 
 import View from './interaction-indicator.view';
 
@@ -154,7 +154,7 @@ export default class InteractionIndicator {
   private _showPlaybackChangeIndicator() {
     const state = this._engine.getCurrentState();
 
-    if (state === STATES.PLAY_REQUESTED || state === STATES.PLAYING) {
+    if (state === EngineState.PLAY_REQUESTED || state === EngineState.PLAYING) {
       this.view.activatePauseIcon();
     } else {
       this.view.activatePlayIcon();

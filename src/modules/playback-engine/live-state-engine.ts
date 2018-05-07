@@ -1,4 +1,9 @@
-import { STATES, VIDEO_EVENTS, LiveState, UI_EVENTS } from '../../constants';
+import {
+  EngineState,
+  VIDEO_EVENTS,
+  LiveState,
+  UI_EVENTS,
+} from '../../constants';
 import Engine from './playback-engine';
 
 const SEEK_BY_UI_EVENTS = [
@@ -27,7 +32,7 @@ class LiveStateEngine {
     this._bindEvents();
   }
 
-  getState(): LiveState {
+  get state(): LiveState {
     return this._state;
   }
 
@@ -49,7 +54,7 @@ class LiveStateEngine {
     );
   }
 
-  _unbindEvents() {
+  private _unbindEvents() {
     this._eventEmitter.off(
       VIDEO_EVENTS.STATE_CHANGED,
       this._processStateChange,
@@ -62,7 +67,7 @@ class LiveStateEngine {
   }
 
   private _processStateChange({ prevState, nextState }) {
-    if (nextState === STATES.SRC_SET) {
+    if (nextState === EngineState.SRC_SET) {
       this._setState(LiveState.NONE);
       return;
     }
@@ -72,17 +77,17 @@ class LiveStateEngine {
     }
 
     switch (nextState) {
-      case STATES.METADATA_LOADED:
+      case EngineState.METADATA_LOADED:
         this._setState(LiveState.INITIAL);
         break;
 
-      case STATES.PLAY_REQUESTED:
+      case EngineState.PLAY_REQUESTED:
         if (this._state === LiveState.INITIAL) {
           this._engine.syncWithLive();
         }
         break;
 
-      case STATES.PLAYING:
+      case EngineState.PLAYING:
         // NOTE: skip PLAYING event after events like `WAITING` and other not important events.
         if (
           this._state === LiveState.INITIAL ||
@@ -96,9 +101,9 @@ class LiveStateEngine {
         }
         break;
 
-      case STATES.PAUSED:
+      case EngineState.PAUSED:
         // NOTE: process `PAUSED` event only `PLAYING`, to be sure its not related with `WAITING` events
-        if (prevState === STATES.PLAYING) {
+        if (prevState === EngineState.PLAYING) {
           this._setState(LiveState.NOT_SYNC);
         }
         break;
@@ -111,7 +116,7 @@ class LiveStateEngine {
   private _processSeekByUI() {
     if (
       this._engine.isDynamicContent &&
-      this._engine.getCurrentState() === STATES.PLAYING
+      this._engine.getCurrentState() === EngineState.PLAYING
     ) {
       // NOTE: flag should be handled on `PLAYING` state in `_processStateChange`
       this._isSeekedByUIWhilePlaying = true;
@@ -136,6 +141,7 @@ class LiveStateEngine {
   }
 
   destroy() {
+    this._unbindEvents();
     this._eventEmitter = null;
     this._engine = null;
     this._state = null;
