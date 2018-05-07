@@ -1,6 +1,11 @@
 docsPath: ./docs
 distPath: ./sitedist
 
+mdComponents:
+  path: ./docs/md-components/index.js
+  externalScripts:
+    - https://unpkg.com/playable@1.10.2/dist/statics/playable.bundle.min.js
+
 # https://www.gatsbyjs.org/docs/gatsby-config
 config:
   siteMetadata:

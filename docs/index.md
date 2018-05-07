@@ -9,6 +9,8 @@ layout: simple
 Integrate a video player into the product you’re working on – no hassle, no fuss, just nice and easy code for you to incorporate in your project.
 </aside>
 
+<playable-demo></playable-demo>
+
 To install the stable version use [npm](https://www.npmjs.com/package/playable).
 
 ```javascript
@@ -27,7 +29,7 @@ Or add a `<script>` element
 </script>
 ```
 
-Or you can play with demo here: [https://jsfiddle.net/bodia/to0r65f4/](https://jsfiddle.net/bodia/to0r65f4/)
+Or you can play with demo [here](https://jsfiddle.net/bodia/to0r65f4/)
 
 The video player supports the following video formats: `MP4`, `WebM`, `HLS`, `DASH` manifest. Read more about [Video Source](/video-source).
 
