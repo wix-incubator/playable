@@ -118,9 +118,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
     let currentBitrate = null;
     let nearestBufferSegInfo = null;
     let overallBufferLength = null;
+    let bwEstimate = 0;
 
     if (this.hls.levelController) {
-      bitrates = this.hls.levelController.levels;
+      bitrates = this.hls.levelController.levels.map(level => level.bitrate);
       if (bitrates) {
         currentBitrate = bitrates[this.hls.levelController.level];
       }
@@ -136,10 +137,14 @@ export default class HlsAdapter implements IPlaybackAdapter {
           currentTime,
         );
       }
+      if (this.hls.streamController.stats) {
+        bwEstimate = this.hls.streamController.stats.bwEstimate;
+      }
     }
 
     return {
       ...this.mediaStream,
+      bwEstimate,
       deliveryPriority: this.mediaStreamDeliveryPriority,
       bitrates,
       currentBitrate,

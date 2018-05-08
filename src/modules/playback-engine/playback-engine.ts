@@ -566,11 +566,15 @@ export default class Engine {
    *     "ready-to-play": 67
    *   },
    *   "bitrates": [
-   *     // Different for different type of streams
-   *     { ... },
-   *     { ... }
+   *     // Available bitrates
+   *     "100000",
+   *     "200000",
+   *     ...
    *   ],
-   *   "currentBitrate": { ... },
+   *   // One of available bitrates, that used right now
+   *   "currentBitrate": "100000",
+   *   // Raw estimation of bandwidth, that could be used without playback stall
+   *   "bwEstimate": "120000"
    *   "overallBufferLength": 60.139683,
    *   "nearestBufferSegInfo": {
    *     "start": 0,
