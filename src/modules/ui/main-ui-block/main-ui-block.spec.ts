@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
 
-import { VIDEO_EVENTS, STATES } from '../../../constants';
+import { VIDEO_EVENTS, EngineState } from '../../../constants';
 
 describe('BottomBlock', () => {
   let testkit;
@@ -30,15 +30,15 @@ describe('BottomBlock', () => {
       const startTimeout = sinon.spy(mainBlock, '_startHideBlockTimeout');
       const showTimeout = sinon.spy(mainBlock, '_showContent');
 
-      mainBlock._updatePlayingStatus({ nextState: STATES.PLAY_REQUESTED });
+      mainBlock._updatePlayingStatus({ nextState: EngineState.PLAY_REQUESTED });
       expect(startTimeout.called).to.be.true;
-      mainBlock._updatePlayingStatus({ nextState: STATES.PAUSED });
+      mainBlock._updatePlayingStatus({ nextState: EngineState.PAUSED });
       expect(showTimeout.called).to.be.true;
       showTimeout.reset();
-      mainBlock._updatePlayingStatus({ nextState: STATES.ENDED });
+      mainBlock._updatePlayingStatus({ nextState: EngineState.ENDED });
       expect(showTimeout.called).to.be.true;
       showTimeout.reset();
-      mainBlock._updatePlayingStatus({ nextState: STATES.SRC_SET });
+      mainBlock._updatePlayingStatus({ nextState: EngineState.SRC_SET });
       expect(showTimeout.called).to.be.true;
     });
 

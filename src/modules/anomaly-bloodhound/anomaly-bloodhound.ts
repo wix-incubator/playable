@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, STATES } from '../../constants';
+import { VIDEO_EVENTS, EngineState } from '../../constants';
 //import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 export const REPORT_REASONS = {
@@ -60,7 +60,7 @@ export default class AnomalyBloodhound {
     nextState,
   }: { prevState?; nextState? } = {}) {
     switch (nextState) {
-      case STATES.LOAD_STARTED:
+      case EngineState.LOAD_STARTED:
         if (
           this._engine.isAutoPlayAvailable ||
           this._engine.isPreloadAvailable
@@ -72,7 +72,7 @@ export default class AnomalyBloodhound {
         }
         break;
 
-      case STATES.METADATA_LOADED:
+      case EngineState.METADATA_LOADED:
         if (this.isDelayedReportExist(DELAYED_REPORT_TYPES.METADATA_LOADING)) {
           this.stopDelayedReport(DELAYED_REPORT_TYPES.METADATA_LOADING);
 
@@ -85,7 +85,7 @@ export default class AnomalyBloodhound {
         }
         break;
 
-      case STATES.READY_TO_PLAY:
+      case EngineState.READY_TO_PLAY:
         if (
           this.isDelayedReportExist(
             DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING,
@@ -100,8 +100,8 @@ export default class AnomalyBloodhound {
         }
         break;
 
-      case STATES.SEEK_IN_PROGRESS:
-        if (prevState === STATES.PAUSED) {
+      case EngineState.SEEK_IN_PROGRESS:
+        if (prevState === EngineState.PAUSED) {
           this.startDelayedReport(
             DELAYED_REPORT_TYPES.RUNTIME_LOADING,
             REPORT_REASONS.LONG_SEEK_PROCESSING,
@@ -109,9 +109,9 @@ export default class AnomalyBloodhound {
         }
         break;
 
-      case STATES.WAITING:
+      case EngineState.WAITING:
         switch (prevState) {
-          case STATES.PLAYING: {
+          case EngineState.PLAYING: {
             // This check is for problem with dash.js and mpd manifest in WixVOD
             // Somehow native video tag triggers that buffer is empty for current segment
             // but when you checking it, you can see, that it's not empty and there still
@@ -134,7 +134,7 @@ export default class AnomalyBloodhound {
             break;
           }
 
-          case STATES.PLAY_REQUESTED:
+          case EngineState.PLAY_REQUESTED:
             if (
               !this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)
             ) {
@@ -151,7 +151,7 @@ export default class AnomalyBloodhound {
         }
         break;
 
-      case STATES.PLAYING:
+      case EngineState.PLAYING:
         if (this.isDelayedReportExist(DELAYED_REPORT_TYPES.RUNTIME_LOADING)) {
           this.stopDelayedReport(DELAYED_REPORT_TYPES.RUNTIME_LOADING);
         }

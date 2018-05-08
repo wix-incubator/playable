@@ -1,9 +1,9 @@
 enum LiveState {
-  NONE = 'none',
-  INITIAL = 'initial',
-  NOT_SYNC = 'not-sync',
-  SYNC = 'sync',
-  ENDED = 'ended',
+  NONE = 'live-state/none',
+  INITIAL = 'live-state/initial',
+  NOT_SYNC = 'live-state/not-sync',
+  SYNC = 'live-state/sync',
+  ENDED = 'live-state/ended',
 }
 
 export default LiveState;

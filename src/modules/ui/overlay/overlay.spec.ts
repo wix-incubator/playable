@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 
 describe('Overlay', () => {
   let testkit;
@@ -66,7 +66,7 @@ describe('Overlay', () => {
       overlay._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-        nextState: STATES.PLAY_REQUESTED,
+        nextState: EngineState.PLAY_REQUESTED,
       });
 
       expect(callback.called).to.be.true;
@@ -79,7 +79,7 @@ describe('Overlay', () => {
       overlay._bindEvents();
 
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-        nextState: STATES.ENDED,
+        nextState: EngineState.ENDED,
       });
 
       expect(callback.called).to.be.true;

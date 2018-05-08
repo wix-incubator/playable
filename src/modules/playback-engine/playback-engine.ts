@@ -11,7 +11,7 @@ import {
   isAndroid,
 } from '../../utils/device-detection';
 
-import { VIDEO_EVENTS, STATES } from '../../constants';
+import { VIDEO_EVENTS, EngineState } from '../../constants';
 import { IPlaybackAdapter } from './adapters/types';
 
 import { IDebugInfo, MediaSource } from './types';
@@ -164,7 +164,7 @@ export default class Engine {
     this._currentSrc = src;
     this._adapterStrategy.connectAdapter(this._currentSrc);
 
-    this._stateEngine.setState(STATES.SRC_SET);
+    this._stateEngine.setState(EngineState.SRC_SET);
   }
 
   /**
@@ -539,7 +539,7 @@ export default class Engine {
    */
   @playerAPI('getCurrentPlaybackState')
   getCurrentState() {
-    return this._stateEngine.getState();
+    return this._stateEngine.state;
   }
 
   /**
@@ -592,7 +592,7 @@ export default class Engine {
       viewDimensions: this._getViewDimensions(),
       currentTime,
       duration,
-      loadingStateTimestamps: this._stateEngine.getStateTimestamps(),
+      loadingStateTimestamps: this._stateEngine.stateTimestamps,
     };
   }
 

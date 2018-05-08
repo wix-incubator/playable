@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 
 import playerAPI from '../../../core/player-api-decorator';
 
@@ -57,17 +57,17 @@ export default class LoadingCover {
 
   private _checkForWaitingState({ nextState }) {
     switch (nextState) {
-      case STATES.LOAD_STARTED:
+      case EngineState.LOAD_STARTED:
         if (this._engine.isPreloadAvailable) {
           this.show();
         }
         break;
-      case STATES.WAITING:
+      case EngineState.WAITING:
         if (!this._engine.isMetadataLoaded) {
           this.show();
         }
         break;
-      case STATES.READY_TO_PLAY:
+      case EngineState.READY_TO_PLAY:
         this.hide();
         break;
 

@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import MainUIBlockView from './main-ui-block.view';
@@ -164,22 +164,22 @@ export default class MainUIBlock {
 
   private _updatePlayingStatus({ nextState }) {
     switch (nextState) {
-      case STATES.PLAY_REQUESTED: {
+      case EngineState.PLAY_REQUESTED: {
         this._shouldShowContent = false;
         this._startHideBlockTimeout();
         break;
       }
-      case STATES.ENDED: {
+      case EngineState.ENDED: {
         this._shouldShowContent = true;
         this._tryShowContent();
         break;
       }
-      case STATES.PAUSED: {
+      case EngineState.PAUSED: {
         this._shouldShowContent = true;
         this._tryShowContent();
         break;
       }
-      case STATES.SRC_SET: {
+      case EngineState.SRC_SET: {
         this._shouldShowContent = true;
         this._tryShowContent();
         break;

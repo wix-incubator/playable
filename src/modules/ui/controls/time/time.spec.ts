@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import { VIDEO_EVENTS, STATES } from '../../../../constants';
+import { VIDEO_EVENTS, EngineState } from '../../../../constants';
 
 describe('TimeControl', () => {
   let testkit;
@@ -74,7 +74,7 @@ describe('TimeControl', () => {
       const spy = sinon.spy(control, '_updateCurrentTime');
       control._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-        nextState: STATES.SEEK_IN_PROGRESS,
+        nextState: EngineState.SEEK_IN_PROGRESS,
       });
       expect(spy.called).to.be.true;
     });
@@ -90,11 +90,11 @@ describe('TimeControl', () => {
   describe('internal methods', () => {
     it('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
-      control._toggleIntervalUpdates({ nextState: STATES.PLAYING });
+      control._toggleIntervalUpdates({ nextState: EngineState.PLAYING });
       expect(startSpy.called).to.be.true;
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
-      control._toggleIntervalUpdates({ nextState: STATES.PAUSED });
+      control._toggleIntervalUpdates({ nextState: EngineState.PAUSED });
       expect(stopSpy.called).to.be.true;
     });
 

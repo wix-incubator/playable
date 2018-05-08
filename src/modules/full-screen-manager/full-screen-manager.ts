@@ -3,7 +3,7 @@ import playerAPI from '../../core/player-api-decorator';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../constants';
 import { IFullScreenConfig } from './types';
 
 const DEFAULT_CONFIG: IFullScreenConfig = {
@@ -113,11 +113,11 @@ export default class FullScreenManager {
 
   private _processNextStateFromEngine({ nextState }) {
     switch (nextState) {
-      case STATES.ENDED: {
+      case EngineState.ENDED: {
         this._exitOnEnd();
         break;
       }
-      case STATES.PAUSED: {
+      case EngineState.PAUSED: {
         this._exitOnPauseRequested();
         break;
       }

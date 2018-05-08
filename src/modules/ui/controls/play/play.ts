@@ -6,7 +6,7 @@ import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../../constants';
 
 export default class PlayControl {
   static moduleName = 'playControl';
@@ -98,14 +98,14 @@ export default class PlayControl {
   }
 
   private _updatePlayingStatus({ nextState }) {
-    if (nextState === STATES.SRC_SET) {
+    if (nextState === EngineState.SRC_SET) {
       this.reset();
-    } else if (nextState === STATES.PLAYING) {
+    } else if (nextState === EngineState.PLAYING) {
       this.setControlStatus(true);
     } else if (
-      nextState === STATES.PAUSED ||
-      nextState === STATES.ENDED ||
-      nextState === STATES.SEEK_IN_PROGRESS
+      nextState === EngineState.PAUSED ||
+      nextState === EngineState.ENDED ||
+      nextState === EngineState.SEEK_IN_PROGRESS
     ) {
       this.setControlStatus(false);
     }

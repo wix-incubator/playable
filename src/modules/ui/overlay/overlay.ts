@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, UI_EVENTS, STATES } from '../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 
 import playerAPI from '../../../core/player-api-decorator';
 
@@ -65,11 +65,11 @@ export default class Overlay {
   }
 
   private _updatePlayingStatus({ nextState }) {
-    if (nextState === STATES.PLAY_REQUESTED) {
+    if (nextState === EngineState.PLAY_REQUESTED) {
       this._hideContent();
     } else if (
-      nextState === STATES.ENDED ||
-      (nextState === STATES.SRC_SET && !this._engine.isPlaying)
+      nextState === EngineState.ENDED ||
+      (nextState === EngineState.SRC_SET && !this._engine.isPlaying)
     ) {
       this._showContent();
     }

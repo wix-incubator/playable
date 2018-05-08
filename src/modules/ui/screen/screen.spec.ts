@@ -2,7 +2,7 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import { STATES } from '../../../constants';
+import { EngineState } from '../../../constants';
 
 import createPlayerTestkit from '../../../testkit';
 
@@ -102,7 +102,7 @@ describe('Loader', () => {
       const playSpy = sinon.spy();
       const pauseSpy = sinon.spy();
       screen._engine = {
-        getCurrentState: () => STATES.PLAYING,
+        getCurrentState: () => EngineState.PLAYING,
         play: playSpy,
         pause: pauseSpy,
       };

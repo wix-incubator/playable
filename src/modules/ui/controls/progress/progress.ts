@@ -10,7 +10,7 @@ import {
 import {
   VIDEO_EVENTS,
   UI_EVENTS,
-  STATES,
+  EngineState,
   LiveState,
 } from '../../../../constants';
 import { AMOUNT_TO_SKIP_SECONDS } from '../../../keyboard-control/keyboard-control';
@@ -243,10 +243,10 @@ export default class ProgressControl {
 
   private _processStateChange({ nextState }) {
     switch (nextState) {
-      case STATES.SRC_SET:
+      case EngineState.SRC_SET:
         this.reset();
         break;
-      case STATES.METADATA_LOADED:
+      case EngineState.METADATA_LOADED:
         this._initTimeIndicators();
 
         if (this._engine.isSeekAvailable) {
@@ -256,14 +256,14 @@ export default class ProgressControl {
         }
 
         break;
-      case STATES.PLAYING:
-        if (this._liveStateEngine.getState() === LiveState.SYNC) {
+      case EngineState.PLAYING:
+        if (this._liveStateEngine.state === LiveState.SYNC) {
           this.view.setPlayed(100);
         } else {
           this._startIntervalUpdates();
         }
         break;
-      case STATES.SEEK_IN_PROGRESS:
+      case EngineState.SEEK_IN_PROGRESS:
         this._updatePlayedIndicator();
         this._updateBufferIndicator();
         break;
@@ -297,7 +297,7 @@ export default class ProgressControl {
         this.view.hideSyncWithLive();
 
         // ensure progress indicators show latest info
-        if (this._engine.getCurrentState() === STATES.PLAYING) {
+        if (this._engine.getCurrentState() === EngineState.PLAYING) {
           this._startIntervalUpdates();
         } else {
           this._updatePlayedIndicator();
@@ -322,8 +322,8 @@ export default class ProgressControl {
     const currentState = this._engine.getCurrentState();
 
     if (
-      currentState === STATES.PLAYING ||
-      currentState === STATES.PLAY_REQUESTED
+      currentState === EngineState.PLAYING ||
+      currentState === EngineState.PLAY_REQUESTED
     ) {
       this._shouldPlayAfterManipulationEnd = true;
       this._engine.pause();
@@ -352,7 +352,7 @@ export default class ProgressControl {
   }
 
   private _updatePlayedIndicator() {
-    if (this._liveStateEngine.getState() === LiveState.SYNC) {
+    if (this._liveStateEngine.state === LiveState.SYNC) {
       // TODO: mb use this.updatePlayed(100) here?
       return;
     }

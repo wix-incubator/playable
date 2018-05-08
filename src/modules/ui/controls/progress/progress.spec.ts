@@ -6,7 +6,7 @@ import createPlayerTestkit from '../../../../testkit';
 
 import ProgressControl from './progress';
 
-import { VIDEO_EVENTS, STATES } from '../../../../constants';
+import { VIDEO_EVENTS, EngineState } from '../../../../constants';
 
 describe('ProgressControl', () => {
   let testkit;
@@ -108,7 +108,7 @@ describe('ProgressControl', () => {
           ).to.equal(0);
 
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.METADATA_LOADED,
+            nextState: EngineState.METADATA_LOADED,
           });
 
           expect(
@@ -132,7 +132,7 @@ describe('ProgressControl', () => {
           ).to.equal(0);
 
           eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-            nextState: STATES.METADATA_LOADED,
+            nextState: EngineState.METADATA_LOADED,
           });
 
           expect(
@@ -240,7 +240,7 @@ describe('ProgressControl', () => {
       const spyBuffered = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
-        nextState: STATES.SEEK_IN_PROGRESS,
+        nextState: EngineState.SEEK_IN_PROGRESS,
       });
       expect(spyPlayed.called).to.be.true;
       expect(spyBuffered.called).to.be.true;
@@ -272,11 +272,11 @@ describe('ProgressControl', () => {
 
     it('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
-      control._processStateChange({ nextState: STATES.PLAYING });
+      control._processStateChange({ nextState: EngineState.PLAYING });
       expect(startSpy.called).to.be.true;
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
-      control._processStateChange({ nextState: STATES.PAUSED });
+      control._processStateChange({ nextState: EngineState.PAUSED });
       expect(stopSpy.called).to.be.true;
     });
 

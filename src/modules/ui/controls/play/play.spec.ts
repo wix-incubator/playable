@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import { VIDEO_EVENTS, STATES } from '../../../../constants';
+import { VIDEO_EVENTS, EngineState } from '../../../../constants';
 
 describe('PlayControl', () => {
   let testkit;
@@ -54,9 +54,9 @@ describe('PlayControl', () => {
   describe('internal methods', () => {
     it('should change view based on playback status', () => {
       const spy = sinon.spy(control, 'setControlStatus');
-      control._updatePlayingStatus({ nextState: STATES.PLAYING });
+      control._updatePlayingStatus({ nextState: EngineState.PLAYING });
       expect(spy.calledWith(true)).to.be.true;
-      control._updatePlayingStatus({ nextState: STATES.PAUSED });
+      control._updatePlayingStatus({ nextState: EngineState.PAUSED });
       expect(spy.calledWith(false)).to.be.true;
     });
 
