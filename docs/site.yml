@@ -32,3 +32,5 @@ navigation:
     title: Player events
   - path: /adapters
     title: Playback adapters
+  - path: /localization
+    title: Localization
