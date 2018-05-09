@@ -66,6 +66,8 @@ export default class DebugPanel {
       currentTime,
       duration,
       loadingStateTimestamps,
+      bitrates,
+      bwEstimate,
     } = this._engine.getDebugInfo();
 
     return {
@@ -79,6 +81,8 @@ export default class DebugPanel {
       currentTime,
       duration,
       loadingStateTimestamps,
+      bitrates,
+      bwEstimate,
     };
   }
 

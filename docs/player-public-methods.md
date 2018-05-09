@@ -1227,11 +1227,15 @@ player.getDebugInfo();
     "ready-to-play": 67
   },
   "bitrates": [
-    // Different for different type of streams
-    { ... },
-    { ... }
+    // Available bitrates
+    "100000",
+    "200000",
+    ...
   ],
-  "currentBitrate": { ... },
+  // One of available bitrates, that used right now
+  "currentBitrate": "100000",
+  // Raw estimation of bandwidth, that could be used without playback stall
+  "bwEstimate": "120000"
   "overallBufferLength": 60.139683,
   "nearestBufferSegInfo": {
     "start": 0,
@@ -1310,7 +1314,7 @@ Return object with internal debug info
           <code>bitrates</code>
         </td>
         <td>
-            <div class="type">Array&#x3C;Object></div>
+            <div class="type">Array&#x3C;string></div>
             <p>List of all available bitrates. Internal structure different for different type of streams</p>
         </td>
       </tr>
@@ -1319,8 +1323,17 @@ Return object with internal debug info
           <code>currentBitrate</code>
         </td>
         <td>
-            <div class="type">Object</div>
+            <div class="type">string</div>
             <p>Current bitrate. Internal structure different for different type of streams</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="param">
+          <code>bwEstimate</code>
+        </td>
+        <td>
+            <div class="type">number</div>
+            <p>Estimation of bandwidth</p>
         </td>
       </tr>
       <tr>

@@ -76,7 +76,9 @@ export default class DashAdapter implements IPlaybackAdapter {
       currentTime = this.dashPlayer.time(currentStream.getId());
     }
 
-    const bitrates = this.dashPlayer.getBitrateInfoListFor('video');
+    const bitrates = this.dashPlayer
+      .getBitrateInfoListFor('video')
+      .map(bitrates => bitrates.bitrate);
     let currentBitrate = null;
     if (this.dashPlayer.getQualityFor('video') && bitrates) {
       currentBitrate = bitrates[this.dashPlayer.getQualityFor('video')];
@@ -88,9 +90,11 @@ export default class DashAdapter implements IPlaybackAdapter {
       this.dashPlayer.getVideoElement().buffered,
       currentTime,
     );
+    const bwEstimate = this.dashPlayer.getAverageThroughput('video');
 
     return {
       ...this.mediaStream,
+      bwEstimate,
       deliveryPriority: this.mediaStreamDeliveryPriority,
       bitrates,
       currentBitrate,

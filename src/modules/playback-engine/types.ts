@@ -20,6 +20,7 @@ type MediaSource = string | IMediaSource | Array<string | IMediaSource>;
  * @property loadingStateTimestamps - Object with time spend for different initial phases
  * @property bitrates - List of all available bitrates. Internal structure different for different type of streams
  * @property currentBitrate - Current bitrate. Internal structure different for different type of streams
+ * @property bwEstimate - Estimation of bandwidth
  * @property overallBufferLength - Overall length of buffer
  * @property nearestBufferSegInfo - Object with start and end for current buffer segment
  */
@@ -30,8 +31,9 @@ interface IDebugInfo {
   currentTime: number;
   duration: number;
   loadingStateTimestamps: Object;
-  bitrates: Array<Object>;
-  currentBitrate: Object;
+  bitrates: string[];
+  currentBitrate: string;
+  bwEstimate: number;
   overallBufferLength: number;
   nearestBufferSegInfo: Object;
 }
