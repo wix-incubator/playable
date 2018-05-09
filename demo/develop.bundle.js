@@ -36274,6 +36274,7 @@
         DASH: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
         HLS: 'https://files.wixstatic.com/files/video/64b2fa_039e5c16db504dbaad166ba28d377744/repackage/hls',
         MP4: 'https://wixmp-01bd43eabd844aac9eab64f5.wixmp.com/videos/output/720p/Highest Peak.mp4',
+        'MP4-VERTICAL': 'https://storage.googleapis.com/video-player-media-server-static/videoplayback.mp4',
     };
     Playable.registerModule('subtitles', Subtitles);
     Playable.registerPlaybackAdapter(HlsAdapter);
@@ -36310,7 +36311,16 @@
             if (!type) {
                 return;
             }
-            selectVideo(type);
+            if (type === 'MP4-VERTICAL') {
+                player.setSrc({
+                    type: 'MP4',
+                    url: DEFAULT_URLS[type],
+                });
+                player.setTitle("" + type);
+            }
+            else {
+                selectVideo(type);
+            }
         });
         document.getElementById('theme-switcher').addEventListener('click', function (event) {
             var color = event.target.dataset.color;
@@ -36320,6 +36330,7 @@
             player.updateTheme({ progressColor: color });
         });
         player.attachToElement(document.getElementById('player-wrapper'));
+        player._defaultModules.screen.view.startUpdatingBackground();
     });
 
     Object.defineProperty(exports, '__esModule', { value: true });
