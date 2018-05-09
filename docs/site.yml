@@ -30,7 +30,7 @@ navigation:
     title: Modules
   - path: /events
     title: Player events
+  - path: /player-texts
+    title: Player texts
   - path: /adapters
     title: Playback adapters
-  - path: /localization
-    title: Localization
