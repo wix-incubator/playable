@@ -1,5 +1,3 @@
-import ResizeObserver from 'resize-observer-polyfill';
-
 import { UI_EVENTS, EngineState } from '../../../constants';
 
 import { IScreenConfig, IScreenViewConfig } from './types';
@@ -33,7 +31,6 @@ export default class Screen {
 
   private _isClickProcessingDisabled: boolean;
   private _isInFullScreen: boolean;
-  private _observer: any;
 
   view: View;
   isHidden: boolean;
@@ -68,15 +65,6 @@ export default class Screen {
     this._bindEvents();
 
     rootContainer.appendComponentNode(this.node);
-
-    this._observer = new ResizeObserver(([entry]) => {
-      this.view.setCanvasWidth(entry.contentRect.width);
-      this.view.setCanvasHeight(entry.contentRect.height);
-    });
-
-    this._observer.observe(this.node);
-
-    this.view.startUpdatingBackground();
   }
 
   get node() {
@@ -113,8 +101,10 @@ export default class Screen {
       this.view.focusOnNode,
       this.view,
     );
+    this._eventEmitter.on(UI_EVENTS.RESIZE, this._updateBackgroundSize, this);
+    this._eventEmitter.on(EngineState.SRC_SET, this.view.reset, this.view);
     this._eventEmitter.on(
-      STATES.READY_TO_PLAY,
+      EngineState.READY_TO_PLAY,
       this._updateWidthHeightRation,
       this,
     );
@@ -131,15 +121,20 @@ export default class Screen {
       this.view.focusOnNode,
       this.view,
     );
+    this._eventEmitter.off(UI_EVENTS.RESIZE, this._updateBackgroundSize, this);
+    this._eventEmitter.off(EngineState.SRC_SET, this.view.reset, this.view);
     this._eventEmitter.off(
-      STATES.READY_TO_PLAY,
+      EngineState.READY_TO_PLAY,
       this._updateWidthHeightRation,
       this,
     );
   }
 
+  private _updateBackgroundSize({ width, height }) {
+    this.view.setCanvasSize(width, height);
+  }
+
   private _updateWidthHeightRation() {
-    console.log(this._engine.getVideoWidth() / this._engine.getVideoHeight());
     this.view.updateVideoAspectRatio(
       this._engine.getVideoWidth() / this._engine.getVideoHeight(),
     );

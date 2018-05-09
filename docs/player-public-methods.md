@@ -54,7 +54,7 @@ Getter for DOM node with player UI element
         <td class="param">
         </td>
         <td>
-            <div class="type">Node</div>
+            <div class="type">Element</div>
         </td>
       </tr>
     </tbody>
@@ -86,10 +86,10 @@ It's important to call this methods after `DOMContentLoaded` event!
     <tbody>
       <tr>
         <td class="param">
-          <code>node</code>
+          <code>element</code>
         </td>
         <td>
-            <div class="type">Node</div>
+            <div class="type">Element</div>
         </td>
       </tr>
     </tbody>
