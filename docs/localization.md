@@ -55,3 +55,11 @@ const texts = {
 };
 ```
 
+Text key shows how this text is used:
+
+| Example                              | Type      | Description                                                                                                                                        |
+| ------------------------------------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TEXT_LABELS.PROGRESS_CONTROL_LABEL` | `LABEL`   | element [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute) value         |
+| `TEXT_LABELS.PROGRESS_CONTROL_VALUE` | `VALUE`   | element [aria-valuetext](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-valuetext_attribute) value |
+| `TEXT_LABELS.LIVE_SYNC_TOOLTIP`      | `TOOLTIP` | element tooltip text                                                                                                                               |
+| `TEXT_LABELS.LIVE_INDICATOR_TEXT`    | `TEXT`    | element text                                                                                                                                       |
