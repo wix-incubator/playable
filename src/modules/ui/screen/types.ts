@@ -5,6 +5,8 @@ type IScreenViewStyles = {
   hidden: string;
   visible: string;
   hiddenCursor: string;
+  horizontalVideo: string;
+  verticalVideo: string;
 };
 
 type IScreenViewCallbacks = {
