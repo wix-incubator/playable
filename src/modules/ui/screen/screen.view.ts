@@ -58,7 +58,7 @@ class ScreenView extends View<IScreenViewStyles>
       playbackViewNode.setAttribute('controls', 'true');
     }
 
-    playbackViewNode.setAttribute('tabindex', String(-1));
+    playbackViewNode.setAttribute('tabindex', '-1');
 
     this._$playbackNode = playbackViewNode as HTMLVideoElement;
     this._$node.appendChild(playbackViewNode);
@@ -100,6 +100,10 @@ class ScreenView extends View<IScreenViewStyles>
     }
   }
 
+  private _clearBackground() {
+    this._ctx.clearRect(0, 0, this._$canvas.width, this._$canvas.height);
+  }
+
   focusOnNode() {
     this._$node.focus();
   }
@@ -128,6 +132,11 @@ class ScreenView extends View<IScreenViewStyles>
     this._$node.classList.remove(this.styleNames.hiddenCursor);
   }
 
+  setCanvasSize(width: number, height: number) {
+    this.setCanvasWidth(width);
+    this.setCanvasHeight(height);
+  }
+
   setCanvasWidth(width: number) {
     this._$canvas.width = width + 2 * CANVAS_BACKGROUND_PADDING_HORIZONTAL;
   }
@@ -137,11 +146,20 @@ class ScreenView extends View<IScreenViewStyles>
   }
 
   startUpdatingBackground() {
-    this._updateBackground();
+    if (!this._requestAnimationFrameID) {
+      this._updateBackground();
+    }
   }
 
   stopUpdatingBackground() {
-    cancelAnimationFrame(this._requestAnimationFrameID);
+    if (this._requestAnimationFrameID) {
+      cancelAnimationFrame(this._requestAnimationFrameID);
+      this._requestAnimationFrameID = null;
+    }
+  }
+
+  reset() {
+    this._clearBackground();
   }
 
   private _updatePortraitBackground() {

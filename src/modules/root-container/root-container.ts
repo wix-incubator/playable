@@ -1,3 +1,5 @@
+import ResizeObserver from 'resize-observer-polyfill';
+
 import focusSource from './utils/focus-source';
 import focusWithin from './utils/focus-within';
 
@@ -20,8 +22,11 @@ class RootContainer {
   private _engine;
 
   private _elementQueries: ElementQueries;
+  private _resizeObserver: ResizeObserver;
   private _disengageFocusWithin: Function;
   private _disengageFocusSource: Function;
+  private _realWidth: number;
+  private _realHeight: number;
 
   // TODO: check if props should be `private`
   view: View;
@@ -43,7 +48,7 @@ class RootContainer {
    * (use it only for debug, if you need attach player to your document use `attachToElement` method)
    */
   @playerAPI()
-  get node(): Node {
+  get node(): Element {
     return this.view.getNode();
   }
 
@@ -82,6 +87,10 @@ class RootContainer {
       width: sizeConfig.width || null,
       height: sizeConfig.height || null,
       fillAllSpace: config.fillAllSpace || DEFAULT_CONFIG.fillAllSpace,
+    });
+
+    this._elementQueries = new ElementQueries(this.node, {
+      prefix: '',
     });
   }
 
@@ -124,6 +133,16 @@ class RootContainer {
     }
   }
 
+  private _onResized(contentRect: DOMRectReadOnly) {
+    const { width, height } = contentRect;
+    this._realWidth = width;
+    this._realHeight = height;
+
+    this._elementQueries.setWidth(width);
+
+    this._eventEmitter.emit(UI_EVENTS.RESIZE, { width, height });
+  }
+
   /**
    * Method for attaching player node to your container
    * It's important to call this methods after `DOMContentLoaded` event!
@@ -137,16 +156,18 @@ class RootContainer {
    * });
    */
   @playerAPI()
-  attachToElement(node: Node) {
+  attachToElement(element: Element) {
     this._enableFocusInterceptors();
 
-    node.appendChild(this.node);
+    element.appendChild(this.node);
 
-    if (!this._elementQueries) {
+    if (!this._resizeObserver) {
       // NOTE: required for valid work of player "media queries"
-      this._elementQueries = new ElementQueries(this.node, {
-        prefix: '',
+      this._resizeObserver = new ResizeObserver(([entry]) => {
+        this._onResized(entry.contentRect);
       });
+
+      this._resizeObserver.observe(this.node);
     }
   }
 
@@ -169,7 +190,7 @@ class RootContainer {
    */
   @playerAPI()
   getWidth(): number {
-    return this.view.getWidth();
+    return this._realWidth;
   }
 
   /**
@@ -191,7 +212,7 @@ class RootContainer {
    */
   @playerAPI()
   getHeight(): number {
-    return this.view.getHeight();
+    return this._realHeight;
   }
 
   /**
@@ -231,10 +252,13 @@ class RootContainer {
     this._unbindEvents();
     this._disableFocusInterceptors();
 
-    if (this._elementQueries) {
-      this._elementQueries.destroy();
-      delete this._elementQueries;
+    if (this._resizeObserver) {
+      this._resizeObserver.unobserve(this.node);
+      this._resizeObserver = null;
     }
+
+    this._elementQueries.destroy();
+    delete this._elementQueries;
 
     this.view.destroy();
     delete this.view;
