@@ -136,7 +136,7 @@ const player = Playable.create(config, theme);
 
 `config.loader: Boolean` Pass `false` to hide loader
 
-`config.texts: ITextMapConfig` Gives you ability to override texts, that are used in player
+`config.texts: ITextMapConfig` Gives you ability to override texts, that are used in player. Could be used for [localization](/localization).
 
 `config.disableControlWithKeyboard: Boolean` Pass `false` to disable ability to control player through keyboard
 
