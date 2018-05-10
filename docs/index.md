@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const player = Playable.create(config);
 
-  playable.attachToElement(document.getElementById('content'));
+  player.attachToElement(document.getElementById('content'));
 });
 ```
 
