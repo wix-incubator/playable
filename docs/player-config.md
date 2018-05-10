@@ -124,7 +124,7 @@ const player = Playable.create(config, theme);
 
 `config.logo.src: String` URL to image that would be used as logo
 
-`config.logo.showAlways: Boolean` Pass `true` to alow logo be visible no matter or what
+`config.logo.showAlways: Boolean` Pass `true` to allow logo be visible no matter or what
 
 ### Other
 
