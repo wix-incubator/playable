@@ -13,6 +13,7 @@ import {
 } from './constants';
 import { Tooltip } from './modules/ui/core/tooltip';
 import { IPlaybackAdapter } from './modules/playback-engine/adapters/types';
+import { VideoViewMode as VIDEO_VIEW_MODES } from './modules/ui/screen/types';
 
 export {
   ERRORS,
@@ -23,6 +24,7 @@ export {
   MEDIA_STREAM_DELIVERY_PRIORITY,
   ENGINE_STATES,
   LIVE_STATES,
+  VIDEO_VIEW_MODES,
   Tooltip,
   playerAPIDecorator,
   DefaultModules,
@@ -40,6 +42,7 @@ export default {
   MEDIA_STREAM_DELIVERY_PRIORITY,
   ENGINE_STATES,
   LIVE_STATES,
+  VIDEO_VIEW_MODES,
   Tooltip,
   playerAPIDecorator,
   DefaultModules,

@@ -39,10 +39,6 @@ class ElementQueries {
   }
 
   setWidth(width: number) {
-    this._onResized(width);
-  }
-
-  private _onResized(width: number) {
     this._setQueryAttribute('min', width);
     this._setQueryAttribute('max', width);
   }

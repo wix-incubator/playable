@@ -15,17 +15,40 @@
   background-color: black;
 
   justify-content: center;
+  align-items: center;
 
-  &.verticalVideo {
-    flex-direction: row;
+  &.regularMode {
     video {
+      width: 100%;
       height: 100%;
     }
   }
+
+  &.verticalVideo {
+    flex-direction: row;
+    &.fillMode {
+      video {
+        width: 100%;
+      }
+    }
+    &.blurMode {
+      video {
+        height: 100%;
+      }
+    }
+  }
+
   &.horizontalVideo {
     flex-direction: column;
-    video {
-      width: 100%;
+    &.fillMode {
+      video {
+        height: 100%;
+      }
+    }
+    &.blurMode {
+      video {
+        width: 100%;
+      }
     }
   }
 
@@ -41,16 +64,13 @@
   }
 }
 
-$canvas-padding-vertical: 20px;
-$canvas-padding-horizontal: 20px;
-
 .backgroundCanvas {
   position: absolute;
   z-index: 0;
-  top: -$canvas-padding-vertical;
+  top: 0;
   right: 0;
   bottom: 0;
-  left: -$canvas-padding-horizontal;
+  left: 0;
 
   filter: blur(14px);
 }

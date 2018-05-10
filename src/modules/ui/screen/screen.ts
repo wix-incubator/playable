@@ -1,7 +1,11 @@
 import { UI_EVENTS, EngineState } from '../../../constants';
 
-import { IScreenConfig, IScreenViewConfig } from './types';
 import View from './screen.view';
+
+import playerAPI from '../../../core/player-api-decorator';
+
+import { IEventEmitter } from '../../event-emitter/types';
+import { VideoViewMode, IScreenConfig, IScreenViewConfig } from './types';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
@@ -22,7 +26,7 @@ export default class Screen {
     'rootContainer',
   ];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _engine;
   private _fullScreenManager;
   private _interactionIndicator;
@@ -31,6 +35,8 @@ export default class Screen {
 
   private _isClickProcessingDisabled: boolean;
   private _isInFullScreen: boolean;
+
+  private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
@@ -91,53 +97,20 @@ export default class Screen {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this._setFullScreenStatus,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.PLAY_OVERLAY_TRIGGERED,
-      this.view.focusOnNode,
-      this.view,
-    );
-    this._eventEmitter.on(UI_EVENTS.RESIZE, this._updateBackgroundSize, this);
-    this._eventEmitter.on(EngineState.SRC_SET, this.view.reset, this.view);
-    this._eventEmitter.on(
-      EngineState.READY_TO_PLAY,
-      this._updateWidthHeightRation,
-      this,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this._setFullScreenStatus,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.PLAY_OVERLAY_TRIGGERED,
-      this.view.focusOnNode,
-      this.view,
-    );
-    this._eventEmitter.off(UI_EVENTS.RESIZE, this._updateBackgroundSize, this);
-    this._eventEmitter.off(EngineState.SRC_SET, this.view.reset, this.view);
-    this._eventEmitter.off(
-      EngineState.READY_TO_PLAY,
-      this._updateWidthHeightRation,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus],
+        [UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view],
+        [UI_EVENTS.RESIZE, this._updateBackgroundSize],
+        [EngineState.SRC_SET, this.view.resetBackground, this.view],
+        [EngineState.METADATA_LOADED, this.view.resetAspectRatio, this.view],
+      ],
       this,
     );
   }
 
   private _updateBackgroundSize({ width, height }) {
-    this.view.setCanvasSize(width, height);
-  }
-
-  private _updateWidthHeightRation() {
-    this.view.updateVideoAspectRatio(
-      this._engine.getVideoWidth() / this._engine.getVideoHeight(),
-    );
+    this.view.setBackgroundSize(width, height);
   }
 
   showCursor() {
@@ -253,6 +226,11 @@ export default class Screen {
       this.view.show();
       this.isHidden = false;
     }
+  }
+
+  @playerAPI()
+  setVideoViewMode(viewMode: VideoViewMode) {
+    this.view.setViewMode(viewMode);
   }
 
   private _enterFullScreen() {

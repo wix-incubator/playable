@@ -24,7 +24,6 @@
     "documentation:site": "okidoc-site develop ./docs/site.yml",
     "documentation:site:build": "npm run documentation && okidoc-site build ./docs/site.yml",
     "documentation:site:deploy": "npm run documentation:site:build && gh-pages -d sitedist",
-    "deploy-demo": "haste-playable bundle develop=./develop.ts --copy-assets && gh-pages -d dist/statics --dest demo",
     "version": "node scripts/npm-version.js && conventional-changelog -p angular",
     "postversion": "git push && git push --tags",
     "release": "node scripts/npm-release.js",
