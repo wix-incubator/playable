@@ -76,5 +76,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   player.attachToElement(document.getElementById('player-wrapper'));
-  player._defaultModules.screen.view.startUpdatingBackground();
 });

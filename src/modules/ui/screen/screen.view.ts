@@ -8,12 +8,14 @@ import getElementByHook from '../core/getElementByHook';
 import toggleNodeClass from '../core/toggleNodeClass';
 
 import {
+  ViewMode,
   IScreenViewStyles,
   IScreenViewCallbacks,
   IScreenViewConfig,
 } from './types';
 
 import styles from './screen.scss';
+
 
 const CANVAS_BACKGROUND_PADDING_VERTICAL = 20;
 const CANVAS_BACKGROUND_PADDING_HORIZONTAL = 20;
@@ -27,8 +29,11 @@ class ScreenView extends View<IScreenViewStyles>
   private _$canvas: HTMLCanvasElement;
   private _$playbackNode: HTMLVideoElement;
   private _ctx: CanvasRenderingContext2D;
+
   private _widthHeightRatio: number;
   private _requestAnimationFrameID: number;
+  private _currentMode: string;
+  private _viewModeStyleNames: any;
 
   constructor(config: IScreenViewConfig) {
     super();
@@ -37,10 +42,16 @@ class ScreenView extends View<IScreenViewStyles>
     this._isNativeControls = nativeControls;
     this._callbacks = callbacks;
 
+    this._viewModeStyleNames = {
+      [ViewMode.REGULAR]: this.styleNames.regularMode,
+      [ViewMode.BLUR]: this.styleNames.blurMode,
+      [ViewMode.FILL]: this.styleNames.fillMode,
+    };
+
     this._bindCallbacks();
     this._initDOM(playbackViewNode);
     this._bindEvents();
-    this.updateVideoAspectRatio(2);
+    this.setViewMode(ViewMode.REGULAR);
   }
 
   private _bindCallbacks() {
@@ -91,17 +102,9 @@ class ScreenView extends View<IScreenViewStyles>
 
   updateVideoAspectRatio(widthHeightRatio) {
     this._widthHeightRatio = widthHeightRatio;
-    if (this._widthHeightRatio > 1) {
-      toggleNodeClass(this._$node, this.styleNames.horizontalVideo, true);
-      toggleNodeClass(this._$node, this.styleNames.verticalVideo, false);
-    } else {
-      toggleNodeClass(this._$node, this.styleNames.horizontalVideo, false);
-      toggleNodeClass(this._$node, this.styleNames.verticalVideo, true);
-    }
-  }
-
-  private _clearBackground() {
-    this._ctx.clearRect(0, 0, this._$canvas.width, this._$canvas.height);
+    const isHorizontal = this._widthHeightRatio > 1;
+    toggleNodeClass(this._$node, this.styleNames.horizontalVideo, isHorizontal);
+    toggleNodeClass(this._$node, this.styleNames.verticalVideo, !isHorizontal);
   }
 
   focusOnNode() {
@@ -125,33 +128,53 @@ class ScreenView extends View<IScreenViewStyles>
   }
 
   hideCursor() {
-    this._$node.classList.add(this.styleNames.hiddenCursor);
+    toggleNodeClass(this._$node, this.styleNames.hiddenCursor, true);
   }
 
   showCursor() {
-    this._$node.classList.remove(this.styleNames.hiddenCursor);
+    toggleNodeClass(this._$node, this.styleNames.hiddenCursor, false);
   }
 
-  setCanvasSize(width: number, height: number) {
-    this.setCanvasWidth(width);
-    this.setCanvasHeight(height);
+  setViewMode(viewMode: ViewMode) {
+    if (this._viewModeStyleNames[viewMode]) {
+      this.reset();
+
+      Object.keys(this._viewModeStyleNames).forEach(mode => {
+        toggleNodeClass(this._$node, this.styleNames[this._viewModeStyleNames[mode]], false);
+      });
+
+      toggleNodeClass(this._$node, this.styleNames[this._viewModeStyleNames[viewMode]], true);
+
+      if (viewMode === ViewMode.BLUR) {
+        this._startUpdatingBackground();
+      } else {
+        this._stopUpdatingBackground();
+      }
+
+      this._currentMode = viewMode;
+    }
   }
 
-  setCanvasWidth(width: number) {
+  setBackgroundSize(width: number, height: number) {
+    this.setBackgroundWidth(width);
+    this.setBackgroundHeight(height);
+  }
+
+  setBackgroundWidth(width: number) {
     this._$canvas.width = width + 2 * CANVAS_BACKGROUND_PADDING_HORIZONTAL;
   }
 
-  setCanvasHeight(height: number) {
+  setBackgroundHeight(height: number) {
     this._$canvas.height = height + 2 * CANVAS_BACKGROUND_PADDING_VERTICAL;
   }
 
-  startUpdatingBackground() {
+  private _startUpdatingBackground() {
     if (!this._requestAnimationFrameID) {
       this._updateBackground();
     }
   }
 
-  stopUpdatingBackground() {
+  private _stopUpdatingBackground() {
     if (this._requestAnimationFrameID) {
       cancelAnimationFrame(this._requestAnimationFrameID);
       this._requestAnimationFrameID = null;
@@ -159,7 +182,9 @@ class ScreenView extends View<IScreenViewStyles>
   }
 
   reset() {
-    this._clearBackground();
+    if (this._currentMode === ViewMode.BLUR) {
+      this._clearBackground();
+    }
   }
 
   private _updatePortraitBackground() {
@@ -238,16 +263,23 @@ class ScreenView extends View<IScreenViewStyles>
     }
   }
 
+  private _clearBackground() {
+    this._ctx.clearRect(0, 0, this._$canvas.width, this._$canvas.height);
+  }
+
   destroy() {
-    this.stopUpdatingBackground();
+    this._stopUpdatingBackground();
     this._unbindEvents();
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
+    this._$node = null;
+    this._$playbackNode = null;
+    this._$canvas = null;
+    this._ctx = null;
 
-    delete this._callbacks;
+    this._callbacks = null;
   }
 }
 

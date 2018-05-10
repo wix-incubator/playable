@@ -1,7 +1,9 @@
 import { UI_EVENTS, EngineState } from '../../../constants';
 
-import { IScreenConfig, IScreenViewConfig } from './types';
+import { ViewMode, IScreenConfig, IScreenViewConfig } from './types';
 import View from './screen.view';
+
+import playerAPI from '../../../core/player-api-decorator';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
@@ -131,7 +133,7 @@ export default class Screen {
   }
 
   private _updateBackgroundSize({ width, height }) {
-    this.view.setCanvasSize(width, height);
+    this.view.setBackgroundSize(width, height);
   }
 
   private _updateWidthHeightRation() {
@@ -253,6 +255,11 @@ export default class Screen {
       this.view.show();
       this.isHidden = false;
     }
+  }
+
+  @playerAPI()
+  setVideoViewMode(viewMode: ViewMode) {
+    this.view.setViewMode(viewMode);
   }
 
   private _enterFullScreen() {

@@ -15,17 +15,40 @@
   background-color: black;
 
   justify-content: center;
+  align-items: center;
 
-  &.verticalVideo {
-    flex-direction: row;
+  &.regularMode {
     video {
+      width: 100%;
       height: 100%;
     }
   }
+
+  &.verticalVideo {
+    flex-direction: row;
+    &.fillMode {
+      video {
+        width: 100%;
+      }
+    }
+    &.blurMode {
+      video {
+        height: 100%;
+      }
+    }
+  }
+
   &.horizontalVideo {
     flex-direction: column;
-    video {
-      width: 100%;
+    &.fillMode {
+      video {
+        height: 100%;
+      }
+    }
+    &.blurMode {
+      video {
+        width: 100%;
+      }
     }
   }
 

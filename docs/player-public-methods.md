@@ -1403,6 +1403,29 @@ Return true if player is in full screen
   </table>
 </div>
 
+## setVideoViewMode()
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>viewMode</code>
+        </td>
+        <td>
+            <div class="type">ViewMode</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 ## setPoster()
 
 ```javascript
