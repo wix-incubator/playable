@@ -1,9 +1,10 @@
-import { UI_EVENTS, EngineState } from '../../../constants';
+import { UI_EVENTS, EngineState, VideoViewMode } from '../../../constants';
 
-import { ViewMode, IScreenConfig, IScreenViewConfig } from './types';
+import { VideoOrientation, IScreenConfig, IScreenViewConfig } from './types';
 import View from './screen.view';
 
 import playerAPI from '../../../core/player-api-decorator';
+import VideoBackground from './video-background';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
@@ -34,6 +35,11 @@ export default class Screen {
   private _isClickProcessingDisabled: boolean;
   private _isInFullScreen: boolean;
 
+  private _videoViewMode: VideoViewMode;
+  private _videoOrientation: VideoOrientation;
+  private _videoBackground: VideoBackground;
+  private _isVideoReady: boolean;
+
   view: View;
   isHidden: boolean;
 
@@ -50,6 +56,8 @@ export default class Screen {
     this._fullScreenManager = fullScreenManager;
     this._interactionIndicator = interactionIndicator;
 
+    this._videoBackground = new VideoBackground(this._engine.getNode());
+
     this._isInFullScreen = false;
     this.isHidden = false;
 
@@ -65,6 +73,8 @@ export default class Screen {
     this._bindCallbacks();
     this._initUI(screenConfig.nativeControls);
     this._bindEvents();
+
+    this.setVideoViewMode(VideoViewMode.REGULAR);
 
     rootContainer.appendComponentNode(this.node);
   }
@@ -87,6 +97,7 @@ export default class Screen {
         onWrapperMouseDblClick: this._processNodeDblClick,
       },
       playbackViewNode: this._engine.getNode(),
+      videoBackgroundNode: this._videoBackground.getNode(),
     };
 
     this.view = new View(config);
@@ -103,11 +114,11 @@ export default class Screen {
       this.view.focusOnNode,
       this.view,
     );
-    this._eventEmitter.on(UI_EVENTS.RESIZE, this._updateBackgroundSize, this);
-    this._eventEmitter.on(EngineState.SRC_SET, this.view.reset, this.view);
+    this._eventEmitter.on(UI_EVENTS.RESIZE, this._onResize, this);
+    this._eventEmitter.on(EngineState.SRC_SET, this._onSrcSet, this);
     this._eventEmitter.on(
-      EngineState.READY_TO_PLAY,
-      this._updateWidthHeightRation,
+      EngineState.METADATA_LOADED,
+      this._onVideoReady,
       this,
     );
   }
@@ -123,23 +134,38 @@ export default class Screen {
       this.view.focusOnNode,
       this.view,
     );
-    this._eventEmitter.off(UI_EVENTS.RESIZE, this._updateBackgroundSize, this);
-    this._eventEmitter.off(EngineState.SRC_SET, this.view.reset, this.view);
+    this._eventEmitter.off(UI_EVENTS.RESIZE, this._onResize, this);
+    this._eventEmitter.off(EngineState.SRC_SET, this._onSrcSet, this);
     this._eventEmitter.off(
-      EngineState.READY_TO_PLAY,
-      this._updateWidthHeightRation,
+      EngineState.METADATA_LOADED,
+      this._onVideoReady,
       this,
     );
   }
 
-  private _updateBackgroundSize({ width, height }) {
-    this.view.setBackgroundSize(width, height);
+  private _onResize({ width, height }) {
+    this._videoBackground.setSize(width, height);
   }
 
-  private _updateWidthHeightRation() {
-    this.view.updateVideoAspectRatio(
-      this._engine.getVideoWidth() / this._engine.getVideoHeight(),
-    );
+  private _onSrcSet() {
+    this._isVideoReady = false;
+    this._videoBackground.stopSync();
+  }
+
+  private _onVideoReady() {
+    this._isVideoReady = true;
+    // TODO: mb move to engine?
+    this._videoOrientation =
+      this._engine.getVideoWidth() / this._engine.getVideoHeight() > 1
+        ? VideoOrientation.LANDSCAPE
+        : VideoOrientation.PORTRAIT;
+
+    this.view.setVideoOrientation(this._videoOrientation);
+    this._videoBackground.setVideoOrientation(this._videoOrientation);
+
+    if (this._videoViewMode === VideoViewMode.BLUR) {
+      this._videoBackground.startSync();
+    }
   }
 
   showCursor() {
@@ -258,8 +284,16 @@ export default class Screen {
   }
 
   @playerAPI()
-  setVideoViewMode(viewMode: ViewMode) {
+  setVideoViewMode(viewMode: VideoViewMode) {
     this.view.setViewMode(viewMode);
+
+    if (viewMode === VideoViewMode.BLUR && this._isVideoReady) {
+      this._videoBackground.startSync();
+    } else {
+      this._videoBackground.stopSync();
+    }
+
+    this._videoViewMode = viewMode;
   }
 
   private _enterFullScreen() {
@@ -274,9 +308,11 @@ export default class Screen {
     this._unbindEvents();
 
     this._clearDelayedPlaybackToggle();
+    this._videoBackground.destroy();
     this.view.destroy();
     delete this.view;
 
+    delete this._videoBackground;
     delete this._interactionIndicator;
     delete this._eventEmitter;
     delete this._engine;

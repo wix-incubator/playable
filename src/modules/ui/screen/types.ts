@@ -19,7 +19,8 @@ type IScreenViewCallbacks = {
 
 type IScreenViewConfig = {
   callbacks: IScreenViewCallbacks;
-  playbackViewNode: HTMLElement;
+  playbackViewNode: HTMLVideoElement;
+  videoBackgroundNode: HTMLCanvasElement;
   nativeControls: boolean;
 };
 
@@ -28,14 +29,13 @@ interface IScreenConfig {
   nativeControls?: boolean;
 }
 
-enum ViewMode {
-  REGULAR = 'REGULAR',
-  BLUR = 'BLUR',
-  FILL = 'FILL',
+enum VideoOrientation {
+  PORTRAIT = 'PORTRAIT',
+  LANDSCAPE = 'LANDSCAPE',
 }
 
 export {
-  ViewMode,
+  VideoOrientation,
   IScreenConfig,
   IScreenViewStyles,
   IScreenViewCallbacks,

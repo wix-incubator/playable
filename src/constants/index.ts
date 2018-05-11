@@ -5,6 +5,7 @@ import ERRORS from './errors';
 import TEXT_LABELS from './text-labels';
 import EngineState from './engine-state';
 import LiveState from './live-state';
+import VideoViewMode from './video-view-mode';
 
 export {
   MediaStreamTypes,
@@ -15,4 +16,5 @@ export {
   ERRORS,
   EngineState,
   LiveState,
+  VideoViewMode,
 };

@@ -63,17 +63,3 @@
     cursor: none;
   }
 }
-
-$canvas-padding-vertical: 20px;
-$canvas-padding-horizontal: 20px;
-
-.backgroundCanvas {
-  position: absolute;
-  z-index: 0;
-  top: -$canvas-padding-vertical;
-  right: 0;
-  bottom: 0;
-  left: -$canvas-padding-horizontal;
-
-  filter: blur(14px);
-}

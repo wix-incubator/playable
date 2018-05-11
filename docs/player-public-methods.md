@@ -1419,7 +1419,7 @@ Return true if player is in full screen
           <code>viewMode</code>
         </td>
         <td>
-            <div class="type">ViewMode</div>
+            <div class="type">VideoViewMode</div>
         </td>
       </tr>
     </tbody>
