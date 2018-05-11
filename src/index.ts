@@ -10,10 +10,10 @@ import {
   MediaStreamDeliveryPriority as MEDIA_STREAM_DELIVERY_PRIORITY,
   EngineState as ENGINE_STATES,
   LiveState as LIVE_STATES,
+  VideoViewMode as VIDEO_VIEW_MODES,
 } from './constants';
 import { Tooltip } from './modules/ui/core/tooltip';
 import { IPlaybackAdapter } from './modules/playback-engine/adapters/types';
-import { ViewMode as VIDEO_VIEW_MODES } from './modules/ui/screen/types';
 
 export {
   ERRORS,

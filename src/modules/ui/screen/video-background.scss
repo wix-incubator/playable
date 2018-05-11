@@ -1,0 +1,9 @@
+$canvas-padding-vertical: 20px;
+$canvas-padding-horizontal: 20px;
+
+.videoBackgroundCanvas {
+  position: absolute;
+  z-index: 0;
+
+  filter: blur(14px);
+}

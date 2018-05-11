@@ -1,7 +1,4 @@
 <div
   class="${props.styles.screen}"
   data-hook="screen-block">
-  <canvas
-    class="${props.styles.backgroundCanvas}"
-    data-hook="background-canvas"/>
 </div>
