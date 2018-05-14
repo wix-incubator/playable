@@ -1,13 +1,14 @@
 import { UI_EVENTS } from '../../../../constants';
 
-import { IFullScreenViewConfig } from './types';
-
 import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 
-import { ITooltipService } from '../../core/tooltip';
 import View from './full-screen.view';
+
+import { IEventEmitter } from '../../../event-emitter/types';
+import { ITooltipService } from '../../core/tooltip';
+import { IFullScreenViewConfig } from './types';
 
 export default class FullScreenControl {
   static moduleName = 'fullScreenControl';
@@ -20,7 +21,7 @@ export default class FullScreenControl {
     'theme',
   ];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _fullScreenManager;
   private _textMap;
   private _interceptor;
@@ -28,6 +29,8 @@ export default class FullScreenControl {
   private _theme;
 
   private _isInFullScreen: boolean;
+
+  private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
@@ -71,9 +74,8 @@ export default class FullScreenControl {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.setControlStatus,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [[UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus]],
       this,
     );
   }
@@ -137,14 +139,6 @@ export default class FullScreenControl {
   show() {
     this.isHidden = false;
     this.view.show();
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.setControlStatus,
-      this,
-    );
   }
 
   destroy() {

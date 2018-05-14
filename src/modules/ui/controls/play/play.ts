@@ -8,18 +8,22 @@ import KeyboardInterceptor, {
 
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../../constants';
 
+import { IEventEmitter } from '../../../event-emitter/types';
+
 export default class PlayControl {
   static moduleName = 'playControl';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'theme'];
 
   private _engine;
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _textMap;
   private _theme;
 
   private _interceptor;
   private _isPlaying: boolean;
+
+  private _unbindEvents: Function;
 
   view: View;
 
@@ -70,9 +74,8 @@ export default class PlayControl {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._updatePlayingStatus,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [[VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus]],
       this,
     );
   }
@@ -126,14 +129,6 @@ export default class PlayControl {
   setControlStatus(isPlaying) {
     this._isPlaying = isPlaying;
     this.view.setState({ isPlaying: this._isPlaying });
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._updatePlayingStatus,
-      this,
-    );
   }
 
   reset() {

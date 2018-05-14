@@ -129,7 +129,6 @@ const player = Playable.create(config, theme);
 ### Other
 
 `config.videoElement: HTMLVideoElement` You can pass your own HTMLVideoElement to player and we gonna use it.
-Attributes from passed `videoElement` would be overridden by the player.
 
 `config.showInteractionIndicator: Boolean` Pass `false` to disable indication of user interaction with player
 

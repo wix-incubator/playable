@@ -1,14 +1,15 @@
 import playerAPI from '../../../../core/player-api-decorator';
 
-import { ILogoViewConfig } from './types';
-
 import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 
 import { UI_EVENTS } from '../../../../constants';
-import { ITooltipService } from '../../core/tooltip';
 import View from './logo.view';
+
+import { IEventEmitter } from '../../../event-emitter/types';
+import { ITooltipService } from '../../core/tooltip';
+import { ILogoViewConfig } from './types';
 
 export default class Logo {
   static moduleName = 'logo';
@@ -21,7 +22,7 @@ export default class Logo {
     'tooltipService',
   ];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _engine;
   private _textMap;
   private _tooltipService: ITooltipService;

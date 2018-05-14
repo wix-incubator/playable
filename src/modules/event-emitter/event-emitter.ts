@@ -2,7 +2,10 @@ import { EventEmitter, ListenerFn } from 'eventemitter3';
 
 import playerAPI from '../../core/player-api-decorator';
 
-export default class EventEmitterModule extends EventEmitter {
+import { IEventEmitter, IEventMap } from './types';
+
+export default class EventEmitterModule extends EventEmitter
+  implements IEventEmitter {
   static moduleName = 'eventEmitter';
   /**
    * Method for adding listeners of events inside player.
@@ -57,6 +60,45 @@ export default class EventEmitterModule extends EventEmitter {
   @playerAPI()
   off(event: string, fn?: ListenerFn, context?: any, once?: boolean) {
     return super.off(event, fn, context, once);
+  }
+
+  /**
+   * Method for binding array of listeners with events inside player.
+   *
+   * @example
+   *
+   * this._unbindEvents = this._eventEmitter.bindEvents([
+   *     [VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
+   *     [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
+   *     [VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator],
+   *     [VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators],
+   *   ],
+   *   this,
+   * );
+   *
+   * //...
+   *
+   * this._unbindEvents()
+   *
+   * @param eventsMap
+   * @param defaultFnContext
+   * @returns unbindEvents
+   */
+  bindEvents(eventsMap: IEventMap[], defaultFnContext?): Function {
+    const events: Function[] = [];
+
+    eventsMap.forEach(([eventName, fn, fnContext = defaultFnContext]) => {
+      this.on(eventName, fn, fnContext);
+      events.push(() => {
+        this.off(eventName, fn, fnContext);
+      });
+    });
+
+    return function unbindEvents() {
+      events.forEach(unbindEvent => {
+        unbindEvent();
+      });
+    };
   }
 
   destroy() {
