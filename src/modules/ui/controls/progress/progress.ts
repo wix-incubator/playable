@@ -1,4 +1,3 @@
-import { IProgressViewConfig } from './types';
 import View from './progress.view';
 
 import {
@@ -19,7 +18,10 @@ import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 import playerAPI from '../../../../core/player-api-decorator';
+
+import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
+import { IProgressViewConfig } from './types';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -37,7 +39,7 @@ export default class ProgressControl {
 
   private _engine;
   private _liveStateEngine;
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _textMap;
   private _tooltipService: ITooltipService;
   private _theme;
@@ -48,6 +50,8 @@ export default class ProgressControl {
   private _interceptor;
   private _updateControlInterval;
   private _timeIndicatorsToAdd: number[];
+
+  private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
@@ -86,24 +90,13 @@ export default class ProgressControl {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._processStateChange,
-      this,
-    );
-    this._eventEmitter.on(
-      VIDEO_EVENTS.LIVE_STATE_CHANGED,
-      this._processLiveStateChange,
-      this,
-    );
-    this._eventEmitter.on(
-      VIDEO_EVENTS.CHUNK_LOADED,
-      this._updateBufferIndicator,
-      this,
-    );
-    this._eventEmitter.on(
-      VIDEO_EVENTS.DURATION_UPDATED,
-      this._updateAllIndicators,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
+        [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
+        [VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator],
+        [VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators],
+      ],
       this,
     );
   }
@@ -439,29 +432,6 @@ export default class ProgressControl {
   show() {
     this.isHidden = false;
     this.view.show();
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.DURATION_UPDATED,
-      this._updateAllIndicators,
-      this,
-    );
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._processStateChange,
-      this,
-    );
-    this._eventEmitter.off(
-      VIDEO_EVENTS.LIVE_STATE_CHANGED,
-      this._processLiveStateChange,
-      this,
-    );
-    this._eventEmitter.off(
-      VIDEO_EVENTS.CHUNK_LOADED,
-      this._updateBufferIndicator,
-      this,
-    );
   }
 
   reset() {

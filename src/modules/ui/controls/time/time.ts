@@ -1,8 +1,9 @@
-import { ITimeViewConfig } from './types';
-
 import View from './time.view';
 
 import { VIDEO_EVENTS, EngineState, LiveState } from '../../../../constants';
+
+import { IEventEmitter } from '../../../event-emitter/types';
+import { ITimeViewConfig } from './types';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -11,11 +12,12 @@ export default class TimeControl {
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'theme'];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _engine;
   private _theme;
 
   private _updateControlInterval;
+  private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
@@ -43,19 +45,12 @@ export default class TimeControl {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._toggleIntervalUpdates,
-      this,
-    );
-    this._eventEmitter.on(
-      VIDEO_EVENTS.DURATION_UPDATED,
-      this._updateDurationTime,
-      this,
-    );
-    this._eventEmitter.on(
-      VIDEO_EVENTS.LIVE_STATE_CHANGED,
-      this._processLiveStateChange,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates],
+        [VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime],
+        [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
+      ],
       this,
     );
   }
@@ -150,19 +145,6 @@ export default class TimeControl {
     this.view.showDuration();
     this.view.setCurrentTimeBackward(false);
     this.show();
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._toggleIntervalUpdates,
-      this,
-    );
-    this._eventEmitter.off(
-      VIDEO_EVENTS.DURATION_UPDATED,
-      this._updateDurationTime,
-      this,
-    );
   }
 
   destroy() {

@@ -1,6 +1,3 @@
-import { ITooltipService } from '../../core/tooltip';
-import { IVolumeViewConfig } from './types';
-
 import View from './volume.view';
 
 import KeyboardInterceptor, {
@@ -9,6 +6,10 @@ import KeyboardInterceptor, {
 
 import { AMOUNT_TO_CHANGE_VOLUME } from '../../../keyboard-control/keyboard-control';
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
+
+import { IEventEmitter } from '../../../event-emitter/types';
+import { ITooltipService } from '../../core/tooltip';
+import { IVolumeViewConfig } from './types';
 
 export default class VolumeControl {
   static moduleName = 'volumeControl';
@@ -22,7 +23,7 @@ export default class VolumeControl {
   ];
 
   private _engine;
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _textMap;
   private _tooltipService: ITooltipService;
   private _theme;
@@ -32,6 +33,8 @@ export default class VolumeControl {
 
   private _buttonInterceptor;
   private _inputInterceptor;
+
+  private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
@@ -138,9 +141,8 @@ export default class VolumeControl {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.VOLUME_STATUS_CHANGED,
-      this._updateVolumeStatus,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [[VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus]],
       this,
     );
   }
@@ -224,14 +226,6 @@ export default class VolumeControl {
   show() {
     this.isHidden = false;
     this.view.show();
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.VOLUME_STATUS_CHANGED,
-      this._updateVolumeStatus,
-      this,
-    );
   }
 
   destroy() {
