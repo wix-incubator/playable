@@ -39,6 +39,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private _isDynamicContent: boolean;
   private _isDynamicContentEnded: boolean;
   private _isAttached: boolean;
+  private _times: any;
 
   constructor(eventEmitter) {
     this.eventEmitter = eventEmitter;
@@ -50,6 +51,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this._isDynamicContentEnded = null;
 
     this._bindCallbacks();
+    this._resetTimes();
   }
 
   private _bindCallbacks() {
@@ -271,6 +273,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
       return;
     }
 
+    this._resetTimes();
+
     const config: any = {
       ...HlsAdapter.DEFAULT_HLS_CONFIG,
     };
@@ -290,6 +294,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
     this.hls.loadSource(this.mediaStream.url);
     this.hls.attachMedia(this.videoElement);
+    this._startStoringTime();
     this._isAttached = true;
   }
 
@@ -306,6 +311,32 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
       this.eventEmitter.emit(VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED);
     }
+  }
+
+  private _startStoringTime() {
+    this.hls.on(HlsJs.Events.FRAG_LOADED, (_, { frag, stats }) => {
+      this._times.loading.push({
+        size: stats.loaded,
+        url: frag.relurl,
+        bitrate: this.hls.levels[frag.level].bitrate,
+        time: stats.tload - stats.trequest,
+      });
+    });
+    this.hls.on(HlsJs.Events.FRAG_BUFFERED, (_, { frag, stats }) => {
+      this._times.buffering.push({
+        size: stats.loaded,
+        url: frag.relurl,
+        bitrate: this.hls.levels[frag.level].bitrate,
+        time: stats.tbuffered - stats.tload,
+      });
+    });
+  }
+
+  private _resetTimes() {
+    this._times = {
+      loading: [],
+      buffering: [],
+    };
   }
 
   detach() {
