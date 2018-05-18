@@ -63,12 +63,13 @@ $color-sync-pointer-background: #ea492e;
       .seekTo {
         opacity: 1;
       }
-      .played:after {
-        transform: scale(1);
-      }
       .timeIndicator:after {
         transform: scale(1);
       }
+    }
+
+    .seekButton {
+      transform: scale(1);
     }
 
     .syncButton {
@@ -82,6 +83,34 @@ $color-sync-pointer-background: #ea492e;
         background-color: $color-played;
       }
     }
+  }
+}
+
+.seekButton {
+  position: absolute;
+  z-index: 7;
+  top: -$seek-pointer-height / 4;
+  left: 0;
+
+  width: $seek-pointer-width;
+  height: $seek-pointer-height;
+  margin-left: -$seek-pointer-width / 2;
+
+  content: '';
+  cursor: pointer;
+  transition: transform .1s cubic-bezier(.0,.0,.2,1);
+  transform: scale(0);
+
+  border-radius: 50%;
+  background-color: #fff;
+
+  @include in-full-screen() {
+    top: -$progress-bar-height-full-screen / 2;
+    left: 0;
+
+    width: $seek-pointer-width-full-screen;
+    height: $seek-pointer-height-full-screen;
+    margin-left: -$seek-pointer-width-full-screen / 2;
   }
 }
 
@@ -146,30 +175,6 @@ $color-sync-pointer-background: #ea492e;
 
 .played {
   background-color: $color-played;
-
-  &:after {
-    position: absolute;
-    top: -$seek-pointer-height / 4;
-    right: -$seek-pointer-width / 2;
-
-    width: $seek-pointer-width;
-    height: $seek-pointer-height;
-
-    content: '';
-    transition: transform .1s cubic-bezier(.0,.0,.2,1);
-    transform: scale(0);
-
-    border-radius: 50%;
-    background-color: #fff;
-
-    @include in-full-screen() {
-      top: -$progress-bar-height-full-screen / 2;
-      right: -$seek-pointer-width-full-screen / 2;
-
-      width: $seek-pointer-width-full-screen;
-      height: $seek-pointer-height-full-screen;
-    }
-  }
 }
 
 .buffered {

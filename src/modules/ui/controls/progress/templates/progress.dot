@@ -28,6 +28,10 @@
     class="${props.styles.hitbox}">
   </div>
   <div
+    data-hook="progress-seek-button"
+    class="${props.styles.seekButton} ${props.themeStyles.progressSeekBtn}">
+  </div>
+  <div
     data-hook="progress-sync-button"
     class="${props.styles.syncButton} ${props.themeStyles.progressSyncBtn}">
   </div>

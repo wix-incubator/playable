@@ -10,6 +10,7 @@ import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
+import toggleNodeClass from '../../core/toggleNodeClass';
 
 import {
   IProgressViewStyles,
@@ -55,6 +56,7 @@ class ProgressView extends View<IProgressViewStyles>
   private _$buffered: HTMLElement;
   private _$seekTo: HTMLElement;
   private _$timeIndicators: HTMLElement;
+  private _$seekButton: HTMLElement;
   private _$syncButton: HTMLElement;
 
   constructor(config: IProgressViewConfig) {
@@ -90,6 +92,7 @@ class ProgressView extends View<IProgressViewStyles>
       this._$node,
       'progress-time-indicators',
     );
+    this._$seekButton = getElementByHook(this._$node, 'progress-seek-button');
     this._$syncButton = getElementByHook(this._$node, 'progress-sync-button');
     this._syncButtonTooltipReference = this._tooltipService.createReference(
       this._$syncButton,
@@ -110,6 +113,10 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   private _bindEvents() {
+    this._$seekButton.addEventListener('mousedown', this._startDragOnMouseDown);
+    this._$seekButton.addEventListener('mousemove', this._startSeekToByMouse);
+    this._$seekButton.addEventListener('mouseout', this._stopSeekToByMouse);
+
     this._$hitbox.addEventListener('mousedown', this._startDragOnMouseDown);
     this._$hitbox.addEventListener('mousemove', this._startSeekToByMouse);
     this._$hitbox.addEventListener('mouseout', this._stopSeekToByMouse);
@@ -121,13 +128,24 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   private _unbindEvents() {
+    this._$seekButton.removeEventListener(
+      'mousedown',
+      this._startDragOnMouseDown,
+    );
+    this._$seekButton.removeEventListener(
+      'mousemove',
+      this._startSeekToByMouse,
+    );
+    this._$seekButton.removeEventListener('mouseout', this._stopSeekToByMouse);
+
     this._$hitbox.removeEventListener('mousedown', this._startDragOnMouseDown);
     this._$hitbox.removeEventListener('mousemove', this._startSeekToByMouse);
     this._$hitbox.removeEventListener('mouseout', this._stopSeekToByMouse);
-    this._$syncButton.removeEventListener('click', this._syncWithLive);
 
     window.removeEventListener('mousemove', this._setPlayedByDrag);
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
+
+    this._$syncButton.removeEventListener('click', this._syncWithLive);
   }
 
   private _startDragOnMouseDown(event: MouseEvent) {
@@ -196,6 +214,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._$node.setAttribute('aria-valuenow', String(percent));
     this._$node.setAttribute(DATA_PLAYED, String(percent));
     this._$played.setAttribute('style', `width:${percent}%;`);
+    this._$seekButton.setAttribute('style', `left:${percent}%;`);
   }
 
   private _setBufferedDOMAttributes(percent: number) {
@@ -215,11 +234,14 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   setLiveSyncStatus(isSync) {
+    toggleNodeClass(this._$syncButton, this.styleNames.liveSync, isSync);
+
     if (isSync) {
-      this._$syncButton.classList.add(this.styleNames.liveSync);
+      this._syncButtonTooltipReference.disable();
       this._$played.setAttribute('style', `width:100%;`);
+      this._$seekButton.setAttribute('style', `left:100%;`);
     } else {
-      this._$syncButton.classList.remove(this.styleNames.liveSync);
+      this._syncButtonTooltipReference.enable();
     }
   }
 
@@ -299,6 +321,7 @@ class ProgressView extends View<IProgressViewStyles>
     delete this._$hitbox;
     delete this._$played;
     delete this._$seekTo;
+    delete this._$seekButton;
     delete this._$syncButton;
     delete this._$timeIndicators;
 
