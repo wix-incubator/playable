@@ -73,6 +73,13 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
 
   toggleActive(shouldActivate: boolean) {
     toggleNodeClass(this._$node, this.styleNames.active, shouldActivate);
+
+    // NOTE: disable tooltip while video is sync with live
+    if (shouldActivate) {
+      this._tooltipReference.disable();
+    } else {
+      this._tooltipReference.enable();
+    }
   }
 
   toggleEnded(isEnded: boolean) {

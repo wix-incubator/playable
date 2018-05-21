@@ -176,7 +176,7 @@ export default class ProgressControl {
     }
 
     this._currentProgress = value;
-    this._changeCurrentTimeOfVideo(this._currentProgress / 100);
+    this._changeCurrentTimeOfVideo(value / 100);
   }
 
   private _startIntervalUpdates() {
@@ -306,7 +306,11 @@ export default class ProgressControl {
   private _changeCurrentTimeOfVideo(percent) {
     const duration = this._engine.getDurationTime();
 
-    this._engine.setCurrentTime(duration * percent);
+    if (this._engine.isDynamicContent && percent === 1) {
+      this._engine.syncWithLive();
+    } else {
+      this._engine.setCurrentTime(duration * percent);
+    }
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
   }
