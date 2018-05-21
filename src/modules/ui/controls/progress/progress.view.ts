@@ -125,6 +125,14 @@ class ProgressView extends View<IProgressViewStyles>
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
 
     this._$syncButton.addEventListener('click', this._syncWithLive);
+    this._$syncButton.addEventListener(
+      'mouseenter',
+      this._callbacks.onSyncWithLiveMouseEnter,
+    );
+    this._$syncButton.addEventListener(
+      'mouseleave',
+      this._callbacks.onSyncWithLiveMouseLeave,
+    );
   }
 
   private _unbindEvents() {
@@ -146,6 +154,14 @@ class ProgressView extends View<IProgressViewStyles>
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
 
     this._$syncButton.removeEventListener('click', this._syncWithLive);
+    this._$syncButton.removeEventListener(
+      'mouseenter',
+      this._callbacks.onSyncWithLiveMouseEnter,
+    );
+    this._$syncButton.removeEventListener(
+      'mouseleave',
+      this._callbacks.onSyncWithLiveMouseLeave,
+    );
   }
 
   private _startDragOnMouseDown(event: MouseEvent) {

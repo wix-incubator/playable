@@ -6,6 +6,8 @@ const UI_EVENTS = {
   VOLUME_CHANGE_TRIGGERED: 'ui-volume-change-triggered',
   MUTE_STATUS_TRIGGERED: 'ui-mute-status-triggered',
   FULLSCREEN_STATUS_CHANGED: 'ui-fullscreen-status-changed',
+
+  // TODO: follow ENTITY_EVENT_TRIGGERED or ENTITY_EVENT format
   MOUSE_ENTER_ON_PLAYER_TRIGGERED: 'ui-mouse-enter-on-player-triggered',
   MOUSE_MOVE_ON_PLAYER_TRIGGERED: 'ui-mouse-move-on-player-triggered',
   MOUSE_LEAVE_ON_PLAYER_TRIGGERED: 'ui-mouse-leave-on-player-triggered',
@@ -31,14 +33,22 @@ const UI_EVENTS = {
     'ui-unmute-sound-with-keyboard-triggered',
   HIDE_INTERACTION_INDICATOR_TRIGGERED:
     'ui-hide-interaction-indicator-triggered',
+  // TODO: get rid of WIDTH/HEIGHT change events in favour of RESIZE
   PLAYER_WIDTH_CHANGE_TRIGGERED: 'ui-player-width-change-triggered',
   PLAYER_HEIGHT_CHANGE_TRIGGERED: 'ui-player-height-change-triggered',
+
   PLAY_WITH_SCREEN_CLICK_TRIGGERED: 'ui-play-with-screen-click-triggered',
   PAUSE_WITH_SCREEN_CLICK_TRIGGERED: 'ui-pause-with-screen-click-triggered',
+
+  // TODO: review CONTROL_DRAG_START vs CONTROL_DRAG_START_TRIGGERED format
   CONTROL_DRAG_START: 'ui-control-drag-start',
   CONTROL_DRAG_END: 'ui-control-drag-end',
   MAIN_BLOCK_HIDE_TRIGGERED: 'ui-main-block-hide-triggered',
   MAIN_BLOCK_SHOW_TRIGGERED: 'ui-main-block-show-triggered',
+  PROGRESS_SYNC_BUTTON_MOUSE_ENTER_TRIGGERED:
+    'ui-progress-sync-button-mouse-enter-triggered',
+  PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED:
+    'ui-progress-sync-button-mouse-leave-triggered',
   RESIZE: 'ui-resize',
 };
 

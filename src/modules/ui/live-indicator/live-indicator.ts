@@ -1,6 +1,6 @@
 import { ITooltipService } from '../core/tooltip';
 import LiveIndicatorView from './live-indicator.view';
-import { VIDEO_EVENTS, LiveState } from '../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';
 
 export default class LiveIndicator {
@@ -67,7 +67,22 @@ export default class LiveIndicator {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processStateChange]],
+      [
+        [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processStateChange],
+        [
+          UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER_TRIGGERED,
+          () => {
+            this.view.toggleActive(true);
+          },
+        ],
+        [
+          UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED,
+          () => {
+            // NOTE: restore state before mouse enter
+            this.view.toggleActive(this._isActive);
+          },
+        ],
+      ],
       this,
     );
   }
