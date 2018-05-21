@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/wix/playable.svg?branch=master)](https://travis-ci.org/wix/playable)
+[![npm](https://img.shields.io/npm/v/playable.svg?style=flat)](https://npmjs.org/package/playable)
+
 # playable
 
 You can play with demo here: [https://jsfiddle.net/bodia/to0r65f4/](https://jsfiddle.net/bodia/to0r65f4/)
@@ -41,3 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 
 You can find documentation here: [https://wix.github.io/playable/](https://wix.github.io/playable/)
+
+
+## Big thanks!
+
+Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs][homepage]
+
+[homepage]: https://saucelabs.com

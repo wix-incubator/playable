@@ -68,3 +68,9 @@ It will return instance of player. You can later modify the instance (for exampl
 To place it somewhere in your structure, just call [`attachToElement`](/api#attachtoelement)
 
 It's really important to call `attachToElement` after `DOMContentLoaded` event due to [css-element-query](https://github.com/marcj/css-element-queries)
+
+## Big thanks!
+
+Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs][homepage]
+
+[homepage]: https://saucelabs.com
