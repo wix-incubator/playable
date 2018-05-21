@@ -1,6 +1,7 @@
 import { ITooltipService } from '../core/tooltip';
 import LiveIndicatorView from './live-indicator.view';
 import { VIDEO_EVENTS, LiveState } from '../../../constants';
+import { IEventEmitter } from '../../event-emitter/types';
 
 export default class LiveIndicator {
   static moduleName = 'liveIndicator';
@@ -8,12 +9,14 @@ export default class LiveIndicator {
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];
 
   private _engine;
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _textMap;
   private _tooltipService: ITooltipService;
   private _isHidden: boolean = true;
   private _isActive: boolean = false;
   private _isEnded: boolean = false;
+
+  private _unbindEvents: Function;
 
   view: LiveIndicatorView;
 
@@ -63,17 +66,8 @@ export default class LiveIndicator {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.LIVE_STATE_CHANGED,
-      this._processStateChange,
-      this,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.LIVE_STATE_CHANGED,
-      this._processStateChange,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [[VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processStateChange]],
       this,
     );
   }
