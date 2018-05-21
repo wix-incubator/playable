@@ -105,6 +105,8 @@ export default class ProgressControl {
     const config: IProgressViewConfig = {
       callbacks: {
         onSyncWithLiveClick: this._syncWithLive,
+        onSyncWithLiveMouseEnter: this._onSyncWithLiveMouseEnter,
+        onSyncWithLiveMouseLeave: this._onSyncWithLiveMouseLeave,
         onChangePlayedProgress: this._changePlayedProgress,
         onSeekToByMouseStart: this._onSeekToByMouseStart,
         onSeekToByMouseEnd: this._onSeekToByMouseEnd,
@@ -158,6 +160,8 @@ export default class ProgressControl {
 
   private _bindCallbacks() {
     this._syncWithLive = this._syncWithLive.bind(this);
+    this._onSyncWithLiveMouseEnter = this._onSyncWithLiveMouseEnter.bind(this);
+    this._onSyncWithLiveMouseLeave = this._onSyncWithLiveMouseLeave.bind(this);
     this._updateControlOnInterval = this._updateControlOnInterval.bind(this);
     this._changePlayedProgress = this._changePlayedProgress.bind(this);
     this._onSeekToByMouseStart = this._onSeekToByMouseStart.bind(this);
@@ -385,6 +389,18 @@ export default class ProgressControl {
 
   private _syncWithLive() {
     this._engine.syncWithLive();
+  }
+
+  private _onSyncWithLiveMouseEnter() {
+    this._eventEmitter.emit(
+      UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER_TRIGGERED,
+    );
+  }
+
+  private _onSyncWithLiveMouseLeave() {
+    this._eventEmitter.emit(
+      UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED,
+    );
   }
 
   /**

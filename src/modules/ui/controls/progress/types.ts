@@ -23,6 +23,8 @@ type IProgressViewCallbacks = {
   onSeekToByMouseStart: Function;
   onSeekToByMouseEnd: Function;
   onSyncWithLiveClick: Function;
+  onSyncWithLiveMouseEnter: EventListenerOrEventListenerObject;
+  onSyncWithLiveMouseLeave: EventListenerOrEventListenerObject;
   onDragStart: Function;
   onDragEnd: Function;
 };
