@@ -5,6 +5,11 @@ type IScreenViewStyles = {
   hidden: string;
   visible: string;
   hiddenCursor: string;
+  horizontalVideo: string;
+  verticalVideo: string;
+  fillMode: string;
+  blurMode: string;
+  regularMode: string;
 };
 
 type IScreenViewCallbacks = {
@@ -23,7 +28,14 @@ interface IScreenConfig {
   nativeControls?: boolean;
 }
 
+enum VideoViewMode {
+  REGULAR = 'REGULAR',
+  BLUR = 'BLUR',
+  FILL = 'FILL',
+}
+
 export {
+  VideoViewMode,
   IScreenConfig,
   IScreenViewStyles,
   IScreenViewCallbacks,

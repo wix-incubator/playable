@@ -49,29 +49,12 @@ describe('RootContainer', () => {
       });
     });
 
-    it('should have method for getting width', () => {
-      ui.setWidth(340);
-      expect(ui.getWidth()).to.be.equal(340);
-    });
-
-    it('should have method for getting width', () => {
-      ui.setHeight(350);
-      expect(ui.getHeight()).to.be.equal(350);
-    });
-
     it('should have method for setting width', () => {
       expect(ui.setWidth).to.exist;
     });
 
     it('should have method for setting height', () => {
       expect(ui.setHeight).to.exist;
-    });
-
-    it('should have method for attaching player to node', () => {
-      const node: any = document.createElement('div');
-      sinon.spy(node, 'appendChild');
-      ui.attachToElement(node);
-      expect(node.appendChild.calledWith(ui.node)).to.be.true;
     });
 
     it('should have method for setting setFillAllSpace', () => {
@@ -93,10 +76,7 @@ describe('RootContainer', () => {
     });
 
     it('should have method for destroy', () => {
-      const node = document.createElement('div');
       expect(ui.destroy).to.exist;
-      ui._disengageFocusWithin = () => {};
-      ui.attachToElement(node);
       ui.destroy();
     });
   });

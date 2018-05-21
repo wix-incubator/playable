@@ -15,8 +15,6 @@ import styles from './root-container.scss';
 
 class RootContainerView extends View<IRootContainerViewStyles>
   implements IView<IRootContainerViewStyles> {
-  private _width: number;
-  private _height: number;
   private _$node: HTMLElement;
   private _callbacks: IRootContainerViewCallbacks;
 
@@ -51,9 +49,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
       return;
     }
 
-    this._width = width;
-
-    this._$node.style.width = `${this._width}px`;
+    this._$node.style.width = `${width}px`;
   }
 
   setHeight(height) {
@@ -61,17 +57,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
       return;
     }
 
-    this._height = height;
-
-    this._$node.style.height = `${this._height}px`;
-  }
-
-  getWidth() {
-    return this._width;
-  }
-
-  getHeight() {
-    return this._height;
+    this._$node.style.height = `${height}px`;
   }
 
   show() {

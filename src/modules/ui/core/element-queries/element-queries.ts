@@ -1,4 +1,3 @@
-import ResizeObserver from 'resize-observer-polyfill';
 import getQueriesForElement from './getQueriesForElement';
 
 const DEFAULT_QUERY_PREFIX = 'data';
@@ -7,20 +6,11 @@ class ElementQueries {
   private _element: Element;
   private _queryPrefix: string;
   private _queries: { mode: string; width: number }[];
-  private _observer: ResizeObserver;
 
   constructor(element, { prefix = DEFAULT_QUERY_PREFIX } = {}) {
     this._element = element;
     this._queryPrefix = prefix;
     this._queries = getQueriesForElement(element, prefix);
-
-    if (this._queries.length) {
-      this._observer = new ResizeObserver(([entry]) => {
-        this._onResized(entry.contentRect.width);
-      });
-
-      this._observer.observe(element);
-    }
   }
 
   private _getQueryAttributeValue(mode, elementWidth) {
@@ -35,7 +25,7 @@ class ElementQueries {
       .join(' ');
   }
 
-  private _setQueryAttribute(mode, elementWidth) {
+  private _setQueryAttribute(mode: string, elementWidth: number) {
     const attributeName = this._queryPrefix
       ? `${this._queryPrefix}-${mode}-width`
       : `${mode}-width`;
@@ -48,16 +38,13 @@ class ElementQueries {
     }
   }
 
-  private _onResized(width) {
+  setWidth(width: number) {
     this._setQueryAttribute('min', width);
     this._setQueryAttribute('max', width);
   }
 
   destroy() {
-    if (this._observer) {
-      this._observer.unobserve(this._element);
-      this._observer = null;
-    }
+    this._element = null;
   }
 }
 

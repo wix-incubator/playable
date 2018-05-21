@@ -6,17 +6,57 @@
   bottom: 0;
   left: 0;
 
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
   height: 100%;
 
   background-color: black;
 
+  justify-content: center;
+  align-items: center;
+
+  &.regularMode {
+    video {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &.verticalVideo {
+    flex-direction: row;
+    &.fillMode {
+      video {
+        width: 100%;
+      }
+    }
+    &.blurMode {
+      video {
+        height: 100%;
+      }
+    }
+  }
+
+  &.horizontalVideo {
+    flex-direction: column;
+    &.fillMode {
+      video {
+        height: 100%;
+      }
+    }
+    &.blurMode {
+      video {
+        width: 100%;
+      }
+    }
+  }
+
   video {
     position: relative;
-    z-index: 0;
+    z-index: 1;
 
-    width: 100%;
-    height: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
   }
 
   &.hiddenCursor {
@@ -24,53 +64,13 @@
   }
 }
 
-.screenTopBackground,
-.screenBottomBackground {
+.backgroundCanvas {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
+  top: 0;
   right: 0;
+  bottom: 0;
   left: 0;
 
-  display: none;
-  visibility: hidden;
-
-  height: 182px;
-
-  transition: opacity .2s, visibility .2s;
-
-  opacity: 0;
-  background-size: 100% 182px;
-
-  &.visible {
-    display: block;
-    visibility: visible;
-
-    opacity: 1;
-  }
-}
-
-.screenTopBackground {
-  top: 0;
-
-  background-image: linear-gradient(
-  to top,
-  rgba(0, 0, 0, .0),
-  rgba(0, 0, 0, .03) 24%,
-  rgba(0, 0, 0, .15) 50%,
-  rgba(0, 0, 0, .3) 75%,
-  rgba(0, 0, 0, .4)
-  );
-}
-
-.screenBottomBackground {
-  bottom: 0;
-
-  background-image: linear-gradient(
-  to bottom,
-  rgba(0, 0, 0, .0),
-  rgba(0, 0, 0, .03) 24%,
-  rgba(0, 0, 0, .15) 50%,
-  rgba(0, 0, 0, .3) 75%,
-  rgba(0, 0, 0, .4)
-  );
+  filter: blur(14px);
 }

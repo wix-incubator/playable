@@ -39,6 +39,7 @@ const UI_EVENTS = {
   CONTROL_DRAG_END: 'ui-control-drag-end',
   MAIN_BLOCK_HIDE_TRIGGERED: 'ui-main-block-hide-triggered',
   MAIN_BLOCK_SHOW_TRIGGERED: 'ui-main-block-show-triggered',
+  RESIZE: 'ui-resize',
 };
 
 export default UI_EVENTS;
