@@ -6,13 +6,11 @@ import * as sinon from 'sinon';
 import { EventEmitter } from 'eventemitter3';
 
 import RootContainer from './root-container';
-import Engine from '../playback-engine/playback-engine';
 
 (global as any).requestAnimationFrame = () => {};
 
 describe('RootContainer', () => {
   let ui: any = {};
-  let engine: any = {};
   let eventEmitter: any = {};
   let config: any = {};
 
@@ -21,13 +19,8 @@ describe('RootContainer', () => {
       ui: {},
     };
     eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-    });
 
     ui = new RootContainer({
-      engine,
       eventEmitter,
       config,
     });
@@ -43,7 +36,6 @@ describe('RootContainer', () => {
   describe('API', () => {
     beforeEach(() => {
       ui = new RootContainer({
-        engine,
         eventEmitter,
         config,
       });

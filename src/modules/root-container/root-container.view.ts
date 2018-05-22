@@ -44,7 +44,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
     this._$node.removeEventListener('mouseleave', this._callbacks.onMouseLeave);
   }
 
-  setWidth(width) {
+  setWidth(width: number) {
     if (!width) {
       return;
     }
@@ -52,12 +52,20 @@ class RootContainerView extends View<IRootContainerViewStyles>
     this._$node.style.width = `${width}px`;
   }
 
-  setHeight(height) {
+  setHeight(height: number) {
     if (!height) {
       return;
     }
 
     this._$node.style.height = `${height}px`;
+  }
+
+  getWidth(): number {
+    return this._$node.offsetWidth;
+  }
+
+  getHeight(): number {
+    return this._$node.offsetHeight;
   }
 
   show() {
@@ -72,11 +80,11 @@ class RootContainerView extends View<IRootContainerViewStyles>
     this._$node.appendChild(node);
   }
 
-  getNode() {
+  getNode(): HTMLElement {
     return this._$node;
   }
 
-  setFullScreenStatus(isFullScreen) {
+  setFullScreenStatus(isFullScreen: boolean) {
     if (isFullScreen) {
       this._$node.setAttribute('data-in-full-screen', 'true');
       this._$node.classList.add(this.styleNames.fullScreen);

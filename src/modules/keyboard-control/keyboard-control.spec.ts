@@ -38,7 +38,6 @@ describe('KeyboardControl', () => {
     };
     rootContainer = new RootContainer({
       eventEmitter,
-      engine,
       config,
     });
     keyboardControl = new KeyboardControl({
