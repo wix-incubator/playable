@@ -1,15 +1,37 @@
 {
   "name": "playable",
   "version": "1.12.0",
+  "description": "Video player based on HTML5Video",
+  "keywords": [
+    "adaptive",
+    "dash",
+    "hls",
+    "html5",
+    "media",
+    "mpeg",
+    "mse",
+    "player",
+    "video"
+  ],
+  "homepage": "https://wix.github.io/playable/",
+  "bugs": {
+    "url": "https://github.com/wix/playable/issues",
+    "email": "oleksiim@wix.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wix/playable.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Oleksii Makodzeba",
     "email": "oleksiim@wix.com"
   },
-  "main": "dist/statics/playable.bundle.js",
   "files": [
     "dist",
     "src"
   ],
+  "main": "dist/statics/playable.bundle.js",
   "scripts": {
     "start": "haste-playable start",
     "lint": "npm run tslint:all",
@@ -35,21 +57,6 @@
     "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-with-adapters",
     "test:playback": "haste-playable test --karma dev-env/karma.conf.js && haste-playable test --karma dev-env/karma-with-adapters.conf.js",
     "precommit": "lint-staged && npm run test:unit && npm run test:playback && npm run documentation:gitadd"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.ts": [
-      "prettier --write",
-      "npm run tslint --",
-      "git add"
-    ],
-    "*.scss": [
-      "csscomb -tty-mode --",
-      "git add"
-    ]
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -85,6 +92,10 @@
     "tslint-eslint-rules": "^5.1.0",
     "typescript": "^2.8.1"
   },
+  "publishConfig": {
+    "logLevel": "verbose",
+    "registry": "https://registry.npmjs.org/"
+  },
   "haste": {
     "preset": "playable",
     "presetConfig": {
@@ -95,23 +106,19 @@
       }
     }
   },
-  "keywords": [
-    "player",
-    "video",
-    "media",
-    "html5",
-    "mse",
-    "adaptive",
-    "hls",
-    "dash",
-    "mpeg"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:wix/playable.git"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "logLevel": "verbose"
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.ts": [
+      "prettier --write",
+      "npm run tslint --",
+      "git add"
+    ],
+    "*.scss": [
+      "csscomb -tty-mode --",
+      "git add"
+    ]
   }
 }
