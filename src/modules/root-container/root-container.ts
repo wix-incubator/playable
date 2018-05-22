@@ -16,25 +16,21 @@ const DEFAULT_CONFIG = {
 
 class RootContainer {
   static moduleName = 'rootContainer';
-  static dependencies = ['eventEmitter', 'config', 'engine'];
+  static dependencies = ['eventEmitter', 'config'];
 
   private _eventEmitter;
-  private _engine;
 
   private _elementQueries: ElementQueries;
   private _resizeObserver: ResizeObserver;
   private _disengageFocusWithin: Function;
   private _disengageFocusSource: Function;
-  private _realWidth: number;
-  private _realHeight: number;
 
   // TODO: check if props should be `private`
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, config, engine }) {
+  constructor({ eventEmitter, config }) {
     this._eventEmitter = eventEmitter;
-    this._engine = engine;
     this.isHidden = false;
 
     this._bindCallbacks();
@@ -53,6 +49,7 @@ class RootContainer {
   }
 
   private _bindCallbacks() {
+    this._onResized = this._onResized.bind(this);
     this._broadcastMouseEnter = this._broadcastMouseEnter.bind(this);
     this._broadcastMouseMove = this._broadcastMouseMove.bind(this);
     this._broadcastMouseLeave = this._broadcastMouseLeave.bind(this);
@@ -133,10 +130,9 @@ class RootContainer {
     }
   }
 
-  private _onResized(contentRect: DOMRectReadOnly) {
-    const { width, height } = contentRect;
-    this._realWidth = width;
-    this._realHeight = height;
+  private _onResized() {
+    const width = this.view.getWidth();
+    const height = this.view.getHeight();
 
     this._elementQueries.setWidth(width);
 
@@ -163,9 +159,7 @@ class RootContainer {
 
     if (!this._resizeObserver) {
       // NOTE: required for valid work of player "media queries"
-      this._resizeObserver = new ResizeObserver(([entry]) => {
-        this._onResized(entry.contentRect);
-      });
+      this._resizeObserver = new ResizeObserver(this._onResized);
 
       this._resizeObserver.observe(this.node);
     }
@@ -190,7 +184,7 @@ class RootContainer {
    */
   @playerAPI()
   getWidth(): number {
-    return this._realWidth;
+    return this.view.getWidth();
   }
 
   /**
@@ -212,7 +206,7 @@ class RootContainer {
    */
   @playerAPI()
   getHeight(): number {
-    return this._realHeight;
+    return this.view.getHeight();
   }
 
   /**
@@ -258,13 +252,12 @@ class RootContainer {
     }
 
     this._elementQueries.destroy();
-    delete this._elementQueries;
+    this._elementQueries = null;
 
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._engine;
-    delete this._eventEmitter;
+    this._eventEmitter = null;
   }
 }
 

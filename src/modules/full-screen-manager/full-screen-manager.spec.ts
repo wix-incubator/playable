@@ -46,7 +46,6 @@ describe('FullScreenManager', () => {
     });
     rootContainer = new RootContainer({
       config,
-      engine,
       eventEmitter,
     });
     fullScreenManager = new FullScreenManager({
