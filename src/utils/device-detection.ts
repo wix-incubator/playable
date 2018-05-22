@@ -3,9 +3,11 @@ declare const window: {
   MSStream: any;
 };
 
-const IPHONE_PATTERN = /iPhone/;
-const IPOD_PATTERN = /iPod/;
-const IPAD_PATTERN = /iPad/;
+const IPHONE_PATTERN = /iphone/i;
+const IPOD_PATTERN = /ipod/i;
+const IPAD_PATTERN = /ipad/i;
+const ANDROID_PATTERN = /(android)/i;
+const SAFARI_PATTERN = /^((?!chrome|android).)*safari/i;
 const DESKTOP_SAFARI_PATTERN = /^((?!chrome|android|iphone|ipod|ipad).)*safari/i;
 
 // There is some iPhone/iPad/iPod in Windows Phone...
@@ -22,8 +24,18 @@ const isIPad = () => !isIE() && IPAD_PATTERN.test(getUserAgent());
 
 const isIOS = () => isIPhone() || isIPod() || isIPad();
 
-const isAndroid = () => /(android)/i.test(getUserAgent());
+const isAndroid = () => ANDROID_PATTERN.test(getUserAgent());
 
 const isDesktopSafari = () => DESKTOP_SAFARI_PATTERN.test(getUserAgent());
 
-export { isIPhone, isIPod, isIPad, isIOS, isAndroid, isDesktopSafari };
+const isSafari = () => SAFARI_PATTERN.test(getUserAgent());
+
+export {
+  isIPhone,
+  isIPod,
+  isIPad,
+  isIOS,
+  isAndroid,
+  isDesktopSafari,
+  isSafari,
+};

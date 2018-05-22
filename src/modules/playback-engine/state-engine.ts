@@ -1,3 +1,5 @@
+import { isSafari } from '../../utils/device-detection';
+
 import { VIDEO_EVENTS, EngineState } from '../../constants';
 
 export const NATIVE_VIDEO_EVENTS_TO_STATE = [
@@ -94,8 +96,12 @@ export default class StateEngine {
         break;
       }
       case 'playing': {
-        // Event 'playing' also triggers even when play request aborted by browser. So we need to check if video is actualy playing
-        if (!videoEl.paused) {
+        // Safari triggers event 'playing' even when play request aborted by browser. So we need to check if video is actualy playing
+        if (isSafari()) {
+          if (!videoEl.paused) {
+            this.setState(EngineState.PLAYING);
+          }
+        } else {
           this.setState(EngineState.PLAYING);
         }
         break;
@@ -105,8 +111,12 @@ export default class StateEngine {
         break;
       }
       case 'pause': {
-        // No need to set state PAUSED since there was no actual playing of any parts of video
-        if (videoEl.played.length) {
+        // Safari triggers event 'pause' even when playing was aborted buy autoplay policies, emit pause event even if there wasn't any real playback
+        if (isSafari()) {
+          if (videoEl.played.length) {
+            this.setState(EngineState.PAUSED);
+          }
+        } else {
           this.setState(EngineState.PAUSED);
         }
         break;
