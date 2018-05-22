@@ -35,12 +35,12 @@ export default class KeyboardControl {
     }
 
     this._initInterceptor();
-    this._attachDefaultControls();
   }
 
   private _initInterceptor() {
     if (this._isEnabled) {
       this._keyboardInterceptor = new KeyboardInterceptor(this._rootNode);
+      this._attachDefaultControls();
     }
   }
 
