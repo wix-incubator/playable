@@ -5,6 +5,8 @@ import * as sinon from 'sinon';
 
 import DesktopFullScreen from './desktop';
 
+import { setProperty, resetProperty } from '../../testkit';
+
 declare const navigator: any;
 
 describe('DesktopFullScreen', () => {
@@ -64,24 +66,11 @@ describe('DesktopFullScreen', () => {
           beforeEach(() => {
             element[fullScreenFn.requestFullscreen] = sinon.spy();
 
-            Reflect.defineProperty(navigator, 'userAgent', {
-              ...Reflect.getOwnPropertyDescriptor(
-                navigator.constructor.prototype,
-                'userAgent',
-              ),
-              get() {
-                return this.____navigator;
-              },
-              set(v) {
-                this.____navigator = v;
-              },
-            });
-
-            navigator.userAgent = '5.1 Safari';
+            setProperty(navigator, 'userAgent', '5.1 Safari');
           });
 
           afterEach(() => {
-            Reflect.deleteProperty(navigator, 'userAgent');
+            resetProperty(navigator, 'userAgent');
           });
 
           it('should call it without arguments', () => {

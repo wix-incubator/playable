@@ -3,25 +3,12 @@ import { expect } from 'chai';
 
 import convertToDeviceRelatedConfig from './config';
 
+import { setProperty, resetProperty } from '../testkit';
+
 declare const navigator: any;
 describe('getUIConfig function', () => {
-  beforeEach(() => {
-    Reflect.defineProperty(navigator, 'userAgent', {
-      ...Reflect.getOwnPropertyDescriptor(
-        navigator.constructor.prototype,
-        'userAgent',
-      ),
-      get() {
-        return this.____navigator;
-      },
-      set(v) {
-        this.____navigator = v;
-      },
-    });
-  });
-
   afterEach(() => {
-    Reflect.deleteProperty(navigator, 'userAgent');
+    resetProperty(navigator, 'userAgent');
   });
 
   it('should convert config if iPod', () => {
@@ -38,7 +25,7 @@ describe('getUIConfig function', () => {
       },
     };
 
-    navigator.userAgent = 'iPod';
+    setProperty(navigator, 'userAgent', 'iPod');
 
     expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
       expectedConfig,
@@ -58,7 +45,7 @@ describe('getUIConfig function', () => {
         nativeControls: true,
       },
     };
-    navigator.userAgent = 'iPhone';
+    setProperty(navigator, 'userAgent', 'iPhone');
 
     expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
       expectedConfig,
@@ -78,7 +65,8 @@ describe('getUIConfig function', () => {
         nativeControls: true,
       },
     };
-    navigator.userAgent = 'iPad';
+
+    setProperty(navigator, 'userAgent', 'iPad');
 
     expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
       expectedConfig,
@@ -86,7 +74,7 @@ describe('getUIConfig function', () => {
   });
 
   it('should convert config if Android', () => {
-    navigator.userAgent = 'Android';
+    setProperty(navigator, 'userAgent', 'Android');
 
     const params = {
       title: 'test',

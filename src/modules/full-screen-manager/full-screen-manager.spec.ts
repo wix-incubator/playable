@@ -10,6 +10,8 @@ import Engine from '../playback-engine/playback-engine';
 import EventEmitter from '../event-emitter/event-emitter';
 import RootContainer from '../root-container/root-container';
 
+import { setProperty, resetProperty } from '../../testkit';
+
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../constants';
 
 declare const navigator: any;
@@ -63,27 +65,12 @@ describe('FullScreenManager', () => {
   });
 
   describe('chosen helper', () => {
-    beforeEach(() => {
-      Reflect.defineProperty(navigator, 'userAgent', {
-        ...Reflect.getOwnPropertyDescriptor(
-          navigator.constructor.prototype,
-          'userAgent',
-        ),
-        get() {
-          return this.____navigator;
-        },
-        set(v) {
-          this.____navigator = v;
-        },
-      });
-    });
-
     afterEach(() => {
-      Reflect.deleteProperty(navigator, 'userAgent');
+      resetProperty(navigator, 'userAgent');
     });
 
     it('should be for desktop if not on iOS', () => {
-      navigator.userAgent = 'Computer';
+      setProperty(navigator, 'userAgent', 'Computer');
 
       fullScreenManager = new FullScreenManager({
         eventEmitter,
@@ -96,7 +83,7 @@ describe('FullScreenManager', () => {
     });
 
     it('should be for iPhone', () => {
-      navigator.userAgent = 'iPhone';
+      setProperty(navigator, 'userAgent', 'iPhone');
 
       fullScreenManager = new FullScreenManager({
         eventEmitter,
@@ -109,7 +96,7 @@ describe('FullScreenManager', () => {
     });
 
     it('should be for iPod', () => {
-      navigator.userAgent = 'iPod';
+      setProperty(navigator, 'userAgent', 'iPod');
 
       fullScreenManager = new FullScreenManager({
         eventEmitter,
@@ -122,7 +109,7 @@ describe('FullScreenManager', () => {
     });
 
     it('should be for iPad', () => {
-      navigator.userAgent = 'iPad';
+      setProperty(navigator, 'userAgent', 'iPad');
 
       fullScreenManager = new FullScreenManager({
         eventEmitter,

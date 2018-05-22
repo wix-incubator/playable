@@ -5,6 +5,8 @@ import { EventEmitter } from 'eventemitter3';
 import { VIDEO_EVENTS, EngineState } from '../../constants';
 import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE } from './state-engine';
 
+import { setProperty, resetProperty } from '../../testkit';
+
 declare const navigator: any;
 
 const NATIVE_EVENTS = {
@@ -26,19 +28,6 @@ describe('NativeEventsBroadcaster', () => {
   let eventEmitter;
 
   beforeEach(() => {
-    Reflect.defineProperty(navigator, 'userAgent', {
-      ...Reflect.getOwnPropertyDescriptor(
-        navigator.constructor.prototype,
-        'userAgent',
-      ),
-      get() {
-        return this.____navigator;
-      },
-      set(v) {
-        this.____navigator = v;
-      },
-    });
-
     video = {
       addEventListener: sinon.spy(),
       removeEventListener: sinon.spy(),
@@ -54,7 +43,7 @@ describe('NativeEventsBroadcaster', () => {
   });
 
   afterEach(() => {
-    Reflect.deleteProperty(navigator, 'userAgent');
+    resetProperty(navigator, 'userAgent');
 
     eventEmitter.emit.restore();
     engine.setState.restore();
@@ -130,7 +119,7 @@ describe('NativeEventsBroadcaster', () => {
   });
 
   it('should not set state on playing event if video is not actually playing', () => {
-    navigator.userAgent = 'safari';
+    setProperty(navigator, 'userAgent', 'safari');
     video.paused = true;
     engine._processEventFromVideo(NATIVE_EVENTS.PLAYING);
     expect(engine.setState.calledWith(EngineState.PLAYING)).to.be.false;
@@ -147,7 +136,7 @@ describe('NativeEventsBroadcaster', () => {
   });
 
   it('should not set state on pause event if there is no played chunks', () => {
-    navigator.userAgent = 'safari';
+    setProperty(navigator, 'userAgent', 'safari');
     video.played.length = 0;
     engine._processEventFromVideo(NATIVE_EVENTS.PAUSE);
     expect(engine.setState.calledWith(EngineState.PAUSED)).to.be.false;
