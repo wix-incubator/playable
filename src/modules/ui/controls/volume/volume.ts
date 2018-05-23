@@ -11,6 +11,8 @@ import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
 import { IVolumeViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
+import { IPlaybackEngine } from '../../../playback-engine/types';
+import { IThemeService } from '../../core/theme';
 
 export default class VolumeControl {
   static moduleName = 'volumeControl';
@@ -23,11 +25,11 @@ export default class VolumeControl {
     'theme',
   ];
 
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
-  private _theme;
+  private _theme: IThemeService;
 
   private _isMuted: boolean;
   private _volume: number;

@@ -10,6 +10,7 @@ import {
   IFullScreenConfig,
 } from './types';
 import { IEventEmitter } from '../event-emitter/types';
+import { IPlaybackEngine } from '../playback-engine/types';
 
 const DEFAULT_CONFIG: IFullScreenConfig = {
   exitFullScreenOnEnd: true,
@@ -23,7 +24,7 @@ export default class FullScreenManager implements IFullScreenManager {
   static dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _helper: IFullScreenHelper;
 
   private _exitFullScreenOnEnd: boolean = false;

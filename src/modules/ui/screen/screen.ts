@@ -6,6 +6,7 @@ import playerAPI from '../../../core/player-api-decorator';
 
 import { IEventEmitter } from '../../event-emitter/types';
 import { IFullScreenManager } from '../../full-screen-manager/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
 import { VideoViewMode, IScreenConfig, IScreenViewConfig } from './types';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
@@ -28,7 +29,7 @@ export default class Screen {
   ];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _fullScreenManager: IFullScreenManager;
   private _interactionIndicator;
 

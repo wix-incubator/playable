@@ -11,6 +11,7 @@ import { ITooltipService } from '../../core/tooltip';
 import { IFullScreenViewConfig } from './types';
 import { IFullScreenManager } from '../../../full-screen-manager/types';
 import { ITextMap } from '../../../text-map/types';
+import { IThemeService } from '../../core/theme';
 
 export default class FullScreenControl {
   static moduleName = 'fullScreenControl';
@@ -28,7 +29,7 @@ export default class FullScreenControl {
   private _textMap: ITextMap;
   private _interceptor;
   private _tooltipService: ITooltipService;
-  private _theme;
+  private _theme: IThemeService;
 
   private _isInFullScreen: boolean;
 

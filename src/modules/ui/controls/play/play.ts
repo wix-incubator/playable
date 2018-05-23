@@ -9,6 +9,9 @@ import KeyboardInterceptor, {
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
+import { IPlaybackEngine } from '../../../playback-engine/types';
+import { IThemeService } from '../../core/theme';
+
 import { ITextMap } from '../../../text-map/types';
 
 export default class PlayControl {
@@ -16,10 +19,10 @@ export default class PlayControl {
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'theme'];
 
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
   private _textMap: ITextMap;
-  private _theme;
+  private _theme: IThemeService;
 
   private _interceptor;
   private _isPlaying: boolean;

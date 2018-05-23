@@ -2,6 +2,7 @@ import { VIDEO_EVENTS, EngineState } from '../../constants';
 //import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 import { IEventEmitter } from '../event-emitter/types';
+import { IPlaybackEngine } from '../playback-engine/types';
 
 export const REPORT_REASONS = {
   LONG_INITIAL_VIDEO_PARTS_LOADING: 'long-initial-video-parts-loading',
@@ -24,10 +25,10 @@ export default class AnomalyBloodhound {
   static moduleName = 'anomalyBloodhound';
   static dependencies = ['eventEmitter', 'engine', 'config'];
 
-  private _config;
-  private _engine;
+  private _config: any;
+  private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
-  private _timeoutContainer;
+  private _timeoutContainer: any;
 
   private _unbindEvents: Function;
 

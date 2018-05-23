@@ -3,6 +3,8 @@ import View from './debug-panel.view';
 
 import { KEYCODES } from '../../../utils/keyboard-interceptor';
 
+import { IPlaybackEngine } from '../../playback-engine/types';
+
 const UPDATE_TIME = 1000;
 
 export default class DebugPanel {
@@ -10,7 +12,7 @@ export default class DebugPanel {
   static View = View;
   static dependencies = ['engine', 'rootContainer', 'keyboardControl'];
 
-  private _engine;
+  private _engine: IPlaybackEngine;
 
   private _interval;
 

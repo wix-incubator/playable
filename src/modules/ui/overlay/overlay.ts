@@ -5,6 +5,8 @@ import playerAPI from '../../../core/player-api-decorator';
 import View from './overlay.view';
 import { IOverlayViewConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
+import { IThemeService } from '../core/theme';
 
 export default class Overlay {
   static moduleName = 'overlay';
@@ -18,8 +20,8 @@ export default class Overlay {
   ];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
-  private _theme;
+  private _engine: IPlaybackEngine;
+  private _theme: IThemeService;
 
   private _unbindEvents: Function;
 
@@ -69,7 +71,7 @@ export default class Overlay {
       this._hideContent();
     } else if (
       nextState === EngineState.ENDED ||
-      (nextState === EngineState.SRC_SET && !this._engine.isPlaying)
+      (nextState === EngineState.SRC_SET && this._engine.isVideoPaused)
     ) {
       this._showContent();
     }

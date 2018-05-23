@@ -23,6 +23,8 @@ import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
 import { IProgressViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
+import { IPlaybackEngine } from '../../../playback-engine/types';
+import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -38,12 +40,12 @@ export default class ProgressControl {
     'theme',
   ];
 
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _liveStateEngine;
   private _eventEmitter: IEventEmitter;
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
-  private _theme;
+  private _theme: IThemeService;
 
   private _isUserInteracting: boolean;
   private _shouldPlayAfterManipulationEnd: boolean;

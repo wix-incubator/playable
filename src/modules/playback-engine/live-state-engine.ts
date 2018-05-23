@@ -4,9 +4,9 @@ import {
   LiveState,
   UI_EVENTS,
 } from '../../constants';
-import Engine from './playback-engine';
 
 import { IEventEmitter, IEventMap } from '../event-emitter/types';
+import { IPlaybackEngine } from '../playback-engine/types';
 
 const SEEK_BY_UI_EVENTS = [
   UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
@@ -19,7 +19,7 @@ class LiveStateEngine {
   static dependencies = ['eventEmitter', 'engine'];
 
   private _eventEmitter: IEventEmitter;
-  private _engine: Engine;
+  private _engine: IPlaybackEngine;
   private _state: LiveState;
 
   private _isSeekedByUIWhilePlaying: boolean;

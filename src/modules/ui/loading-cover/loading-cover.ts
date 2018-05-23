@@ -4,6 +4,7 @@ import playerAPI from '../../../core/player-api-decorator';
 
 import View from './loading-cover.view';
 import { IEventEmitter } from '../../event-emitter/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
 
 export default class LoadingCover {
   static moduleName = 'loadingCover';
@@ -17,7 +18,7 @@ export default class LoadingCover {
   ];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _bottomBlock;
   private _url;
 

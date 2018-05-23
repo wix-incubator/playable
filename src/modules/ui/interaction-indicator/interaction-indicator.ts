@@ -3,6 +3,7 @@ import { UI_EVENTS, EngineState } from '../../../constants';
 import View from './interaction-indicator.view';
 
 import { IEventEmitter } from '../../event-emitter/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
 
 export default class InteractionIndicator {
   static moduleName = 'interactionIndicator';
@@ -10,7 +11,7 @@ export default class InteractionIndicator {
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
+  private _engine: IPlaybackEngine;
 
   private _unbindEvents: Function;
 

@@ -11,6 +11,7 @@ import KeyboardInterceptor, {
 } from '../../utils/keyboard-interceptor';
 
 import { IEventEmitter } from '../event-emitter/types';
+import { IPlaybackEngine } from '../playback-engine/types';
 
 export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
@@ -21,7 +22,7 @@ export default class KeyboardControl {
 
   private _isEnabled: boolean;
   private _eventEmitter: IEventEmitter;
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _rootNode: HTMLElement;
   private _keyboardInterceptor;
 

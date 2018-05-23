@@ -3,13 +3,14 @@ import LiveIndicatorView from './live-indicator.view';
 import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';
 import { ITextMap } from '../../text-map/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
 
 export default class LiveIndicator {
   static moduleName = 'liveIndicator';
   static View = LiveIndicatorView;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];
 
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
