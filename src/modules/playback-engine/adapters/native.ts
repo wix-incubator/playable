@@ -120,6 +120,10 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
 
     private _broadcastError() {
       const error = this.videoElement.error;
+      if (!error) {
+        this._logError(ERRORS.UNKNOWN, null);
+        return;
+      }
 
       switch (error.code) {
         case NATIVE_ERROR_CODES.ABORTED:
