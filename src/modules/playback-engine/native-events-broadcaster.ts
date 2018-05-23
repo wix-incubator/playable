@@ -1,3 +1,5 @@
+import { IEventEmitter } from '../event-emitter/types';
+
 import { VIDEO_EVENTS } from '../../constants';
 
 export const NATIVE_VIDEO_TO_BROADCAST = [
@@ -12,12 +14,12 @@ export const NATIVE_VIDEO_TO_BROADCAST = [
 ];
 
 export default class NativeEventsBroadcaster {
-  private _eventEmitter;
-  private _video;
+  private _eventEmitter: IEventEmitter;
+  private _video: HTMLVideoElement;
   private _currentVolume: number;
   private _currentMute: boolean;
 
-  constructor(eventEmitter, video) {
+  constructor(eventEmitter: IEventEmitter, video: HTMLVideoElement) {
     this._eventEmitter = eventEmitter;
     this._video = video;
 

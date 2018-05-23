@@ -1,8 +1,10 @@
+import { IFullScreenHelper } from './types';
+
 const HAVE_METADATA = 1;
 
 let isFullScreenRequested = false;
 
-export default class IOSFullScreen {
+export default class IOSFullScreen implements IFullScreenHelper {
   private _elem;
   private _callback;
 
@@ -85,7 +87,7 @@ export default class IOSFullScreen {
   destroy() {
     this._unbindEvents();
 
-    delete this._elem;
-    delete this._callback;
+    this._elem = null;
+    this._callback = null;
   }
 }

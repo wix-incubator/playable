@@ -13,6 +13,7 @@ import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
 import { IPlayViewStyles, IPlayViewCallbacks, IPlayViewConfig } from './types';
+import { ITextMap } from '../../../text-map/types';
 
 import playViewTheme from './play.theme';
 import styles from './play.scss';
@@ -21,7 +22,7 @@ const DATA_IS_PLAYING = 'data-is-playing';
 
 class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
   private _callbacks: IPlayViewCallbacks;
-  private _textMap;
+  private _textMap: ITextMap;
 
   private _$node: HTMLElement;
   private _$playbackControl: HTMLElement;
@@ -104,14 +105,15 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
 
   destroy() {
     this._unbindEvents();
+    this._callbacks = null;
 
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$playbackControl;
-    delete this._$node;
-    delete this._textMap;
+    this._$playbackControl = null;
+    this._$node = null;
+    this._textMap = null;
   }
 }
 

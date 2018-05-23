@@ -23,8 +23,23 @@ interface IPlayerSize {
   height: number;
 }
 
+interface IRootContainer {
+  node: Element;
+  appendComponentNode(node: Element): void;
+  attachToElement(element: Element): void;
+  setWidth(width: number): void;
+  getWidth(): number;
+  setHeight(height: number): void;
+  getHeight(): number;
+  setFillAllSpace(flag: boolean): void;
+  hide(): void;
+  show(): void;
+  destroy(): void;
+}
+
 export {
   IPlayerSize,
+  IRootContainer,
   IRootContainerViewStyles,
   IRootContainerViewCallbacks,
   IRootContainerViewConfig,

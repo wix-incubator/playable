@@ -22,6 +22,7 @@ import playerAPI from '../../../../core/player-api-decorator';
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
 import { IProgressViewConfig } from './types';
+import { ITextMap } from '../../../text-map/types';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -40,7 +41,7 @@ export default class ProgressControl {
   private _engine;
   private _liveStateEngine;
   private _eventEmitter: IEventEmitter;
-  private _textMap;
+  private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
   private _theme;
 
@@ -48,7 +49,7 @@ export default class ProgressControl {
   private _shouldPlayAfterManipulationEnd: boolean;
   private _currentProgress: number;
   private _interceptor;
-  private _updateControlInterval;
+  private _updateControlInterval: any;
   private _timeIndicatorsToAdd: number[];
 
   private _unbindEvents: Function;
@@ -212,7 +213,7 @@ export default class ProgressControl {
 
   private _stopIntervalUpdates() {
     clearInterval(this._updateControlInterval);
-    this._updateControlInterval = false;
+    this._updateControlInterval = null;
   }
 
   private _onUserInteractionStarts() {
@@ -465,11 +466,12 @@ export default class ProgressControl {
     this._stopIntervalUpdates();
     this._unbindEvents();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._eventEmitter;
-    delete this._engine;
-    delete this._liveStateEngine;
-    delete this._timeIndicatorsToAdd;
+    this._eventEmitter = null;
+    this._engine = null;
+    this._liveStateEngine = null;
+    this._timeIndicatorsToAdd = null;
+    this._textMap = null;
   }
 }

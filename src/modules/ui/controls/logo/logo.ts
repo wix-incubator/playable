@@ -10,21 +10,15 @@ import View from './logo.view';
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
 import { ILogoViewConfig } from './types';
+import { ITextMap } from '../../../text-map/types';
 
 export default class Logo {
   static moduleName = 'logo';
   static View = View;
-  static dependencies = [
-    'engine',
-    'config',
-    'eventEmitter',
-    'textMap',
-    'tooltipService',
-  ];
+  static dependencies = ['config', 'eventEmitter', 'textMap', 'tooltipService'];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
-  private _textMap;
+  private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
 
   private _interceptor;
@@ -33,9 +27,8 @@ export default class Logo {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, config, textMap, tooltipService }) {
+  constructor({ eventEmitter, config, textMap, tooltipService }) {
     this._eventEmitter = eventEmitter;
-    this._engine = engine;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
 
@@ -140,12 +133,9 @@ export default class Logo {
   destroy() {
     this._destroyInterceptor();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._engine;
-    delete this._eventEmitter;
-    delete this._textMap;
-
-    delete this.isHidden;
+    this._eventEmitter = null;
+    this._textMap = null;
   }
 }

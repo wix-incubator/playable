@@ -13,6 +13,7 @@ import {
   ILiveIndicatorViewCallbacks,
   ILiveIndicatorViewConfig,
 } from './types';
+import { ITextMap } from '../../text-map/types';
 
 import styles from './live-indicator.scss';
 
@@ -21,7 +22,7 @@ import { TEXT_LABELS } from '../../../constants';
 class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   implements IView<ILiveIndicatorViewStyles> {
   private _callbacks: ILiveIndicatorViewCallbacks;
-  private _textMap;
+  private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
   private _tooltipReference: ITooltipReference;
 
@@ -119,16 +120,19 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
 
   destroy() {
     this._unbindEvents();
+    this._callbacks = null;
+
     this._tooltipReference.destroy();
+    this._tooltipReference = null;
 
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
-    delete this._$liveIndicatorText;
-    delete this._callbacks;
-    delete this._textMap;
+    this._$node = null;
+    this._$liveIndicatorText = null;
+    this._callbacks = null;
+    this._textMap = null;
   }
 }
 

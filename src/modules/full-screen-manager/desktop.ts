@@ -1,3 +1,5 @@
+import { IFullScreenHelper } from './types';
+
 const fnMap = [
   [
     'requestFullscreen',
@@ -59,7 +61,7 @@ function getFullScreenFn() {
   return false;
 }
 
-export default class DesktopFullScreen {
+export default class DesktopFullScreen implements IFullScreenHelper {
   private _elem;
   private _callback;
   private _fullscreenFn;
@@ -128,7 +130,7 @@ export default class DesktopFullScreen {
   destroy() {
     this._unbindEvents();
 
-    delete this._elem;
-    delete this._callback;
+    this._elem = null;
+    this._callback = null;
   }
 }

@@ -1,3 +1,5 @@
+import { IEventEmitter } from '../event-emitter/types';
+
 import { isSafari } from '../../utils/device-detection';
 
 import { VIDEO_EVENTS, EngineState } from '../../constants';
@@ -16,14 +18,14 @@ export const NATIVE_VIDEO_EVENTS_TO_STATE = [
 ];
 
 export default class StateEngine {
-  private _eventEmitter;
-  private _video;
-  private _currentState;
+  private _eventEmitter: IEventEmitter;
+  private _video: HTMLVideoElement;
+  private _currentState: EngineState;
   private _statesTimestamps;
-  private _initialTimeStamp;
+  private _initialTimeStamp: number;
   private _isMetadataLoaded: boolean;
 
-  constructor(eventEmitter, video) {
+  constructor(eventEmitter: IEventEmitter, video) {
     this._eventEmitter = eventEmitter;
     this._video = video;
 

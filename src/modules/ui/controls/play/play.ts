@@ -9,6 +9,7 @@ import KeyboardInterceptor, {
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
+import { ITextMap } from '../../../text-map/types';
 
 export default class PlayControl {
   static moduleName = 'playControl';
@@ -17,7 +18,7 @@ export default class PlayControl {
 
   private _engine;
   private _eventEmitter: IEventEmitter;
-  private _textMap;
+  private _textMap: ITextMap;
   private _theme;
 
   private _interceptor;
@@ -139,10 +140,10 @@ export default class PlayControl {
     this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._eventEmitter;
-    delete this._engine;
-    delete this._textMap;
+    this._eventEmitter = null;
+    this._engine = null;
+    this._textMap = null;
   }
 }

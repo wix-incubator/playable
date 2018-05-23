@@ -1,5 +1,12 @@
+type TextResolver = (args: any) => string;
+
 interface ITextMapConfig {
-  [index: string]: string | Function;
+  [index: string]: string | TextResolver;
 }
 
-export { ITextMapConfig };
+interface ITextMap {
+  get(id: string, args?: any): string;
+  destroy(): void;
+}
+
+export { TextResolver, ITextMap, ITextMapConfig };

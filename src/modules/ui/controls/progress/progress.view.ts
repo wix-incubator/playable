@@ -17,6 +17,7 @@ import {
   IProgressViewCallbacks,
   IProgressViewConfig,
 } from './types';
+import { ITextMap } from '../../../text-map/types';
 
 import progressViewTheme from './progress.theme';
 import styles from './progress.scss';
@@ -44,7 +45,7 @@ const getPercentBasedOnXPosition = (
 class ProgressView extends View<IProgressViewStyles>
   implements IView<IProgressViewStyles> {
   private _callbacks: IProgressViewCallbacks;
-  private _textMap;
+  private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
   private _syncButtonTooltipReference: ITooltipReference;
 
@@ -326,22 +327,25 @@ class ProgressView extends View<IProgressViewStyles>
 
   destroy() {
     this._unbindEvents();
+    this._callbacks = null;
+
     this._syncButtonTooltipReference.destroy();
+    this._syncButtonTooltipReference = null;
 
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
-    delete this._$buffered;
-    delete this._$hitbox;
-    delete this._$played;
-    delete this._$seekTo;
-    delete this._$seekButton;
-    delete this._$syncButton;
-    delete this._$timeIndicators;
+    this._$node = null;
+    this._$buffered = null;
+    this._$hitbox = null;
+    this._$played = null;
+    this._$seekTo = null;
+    this._$seekButton = null;
+    this._$syncButton = null;
+    this._$timeIndicators = null;
 
-    delete this._textMap;
+    this._textMap = null;
   }
 }
 

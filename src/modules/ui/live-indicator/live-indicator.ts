@@ -2,6 +2,7 @@ import { ITooltipService } from '../core/tooltip';
 import LiveIndicatorView from './live-indicator.view';
 import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';
+import { ITextMap } from '../../text-map/types';
 
 export default class LiveIndicator {
   static moduleName = 'liveIndicator';
@@ -10,7 +11,7 @@ export default class LiveIndicator {
 
   private _engine;
   private _eventEmitter: IEventEmitter;
-  private _textMap;
+  private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
   private _isHidden: boolean = true;
   private _isActive: boolean = false;
@@ -142,10 +143,10 @@ export default class LiveIndicator {
     this._unbindEvents();
     this.view.destroy();
 
-    delete this.view;
+    this.view = null;
 
-    delete this._engine;
-    delete this._eventEmitter;
-    delete this._textMap;
+    this._engine = null;
+    this._eventEmitter = null;
+    this._textMap = null;
   }
 }
