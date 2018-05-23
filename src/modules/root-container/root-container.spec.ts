@@ -3,8 +3,7 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import { EventEmitter } from 'eventemitter3';
-
+import EventEmitter from '../event-emitter/event-emitter';
 import RootContainer from './root-container';
 
 (global as any).requestAnimationFrame = () => {};

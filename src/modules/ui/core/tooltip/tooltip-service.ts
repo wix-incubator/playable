@@ -3,10 +3,12 @@ import TooltipReference, {
   ITooltipReferenceOptions,
 } from './tooltip-reference';
 import TooltipContainer from './tooltip-container';
-import { ITooltipShowOptions } from './types';
 import Tooltip from './tooltip';
 
 import { UI_EVENTS } from '../../../../constants';
+
+import { ITooltipShowOptions } from './types';
+import { IEventEmitter } from '../../../event-emitter/types';
 
 interface ITooltipService {
   isHidden: boolean;
@@ -26,7 +28,9 @@ class TooltipService implements ITooltipService {
   static dependencies = ['eventEmitter'];
   private _tooltip: Tooltip;
   private _tooltipContainer: TooltipContainer;
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
+
+  private _unbindEvents: Function;
 
   constructor({ eventEmitter }) {
     this._eventEmitter = eventEmitter;
@@ -44,13 +48,8 @@ class TooltipService implements ITooltipService {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.hide, this);
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.hide,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [[UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.hide]],
       this,
     );
   }

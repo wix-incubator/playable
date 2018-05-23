@@ -1,8 +1,9 @@
 import { UI_EVENTS } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
-import { ISubtitleConfig } from './types';
 import SubtitlesView from './subtitles.view';
+import { ISubtitleConfig } from './types';
+import { IEventEmitter } from '../../event-emitter/types';
 
 export default class Subtitles {
   static moduleName = 'subtitle';
@@ -12,10 +13,12 @@ export default class Subtitles {
   isHidden: boolean;
   view: SubtitlesView;
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _video: HTMLVideoElement;
   private _activeSubtitleIndex: number | null = null;
   private _trackList: Array<TextTrack> = [];
+
+  private _unbindEvents: Function;
 
   constructor({ rootContainer, engine, eventEmitter }) {
     this._eventEmitter = eventEmitter;
@@ -135,28 +138,20 @@ export default class Subtitles {
   }
 
   private _bindEvents(): void {
-    this._eventEmitter.on(
-      UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
-      this.view.moveSubtitlesUp,
-      this.view,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
-      this.view.moveSubtitlesDown,
-      this.view,
-    );
-  }
-
-  private _unbindEvents(): void {
-    this._eventEmitter.off(
-      UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
-      this.view.moveSubtitlesUp,
-      this.view,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
-      this.view.moveSubtitlesDown,
-      this.view,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [
+          UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
+          this.view.moveSubtitlesUp,
+          this.view,
+        ],
+        [
+          UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
+          this.view.moveSubtitlesDown,
+          this.view,
+        ],
+      ],
+      this,
     );
   }
 

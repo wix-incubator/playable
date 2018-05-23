@@ -2,13 +2,17 @@ import { UI_EVENTS, EngineState } from '../../../constants';
 
 import View from './interaction-indicator.view';
 
+import { IEventEmitter } from '../../event-emitter/types';
+
 export default class InteractionIndicator {
   static moduleName = 'interactionIndicator';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _engine;
+
+  private _unbindEvents: Function;
 
   view: View;
 
@@ -35,39 +39,28 @@ export default class InteractionIndicator {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
-      this._showPlaybackChangeIndicator,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
-      this.showRewind,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
-      this.showForward,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-      this.showIncreaseVolume,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-      this.showDecreaseVolume,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
-      this.showMute,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
-      this.showIncreaseVolume,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [
+          UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+          this._showPlaybackChangeIndicator,
+        ],
+        [UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.showRewind],
+        [UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.showForward],
+        [
+          UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+          this.showIncreaseVolume,
+        ],
+        [
+          UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+          this.showDecreaseVolume,
+        ],
+        [UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showMute],
+        [
+          UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+          this.showIncreaseVolume,
+        ],
+      ],
       this,
     );
   }
@@ -111,44 +104,6 @@ export default class InteractionIndicator {
 
   hide() {
     this.view.show();
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
-      this._showPlaybackChangeIndicator,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
-      this.showRewind,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
-      this.showForward,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-      this.showIncreaseVolume,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-      this.showDecreaseVolume,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
-      this.showMute,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
-      this.showIncreaseVolume,
-      this,
-    );
   }
 
   private _showPlaybackChangeIndicator() {

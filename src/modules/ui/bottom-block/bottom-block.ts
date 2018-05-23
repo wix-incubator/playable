@@ -1,9 +1,10 @@
 import playerAPI from '../../../core/player-api-decorator';
 
-import { IBottomBlockViewConfig, IBottomBlockViewElements } from './types';
-
 import View from './bottom-block.view';
 import { UI_EVENTS } from '../../../constants';
+
+import { IEventEmitter } from '../../event-emitter/types';
+import { IBottomBlockViewConfig, IBottomBlockViewElements } from './types';
 
 export default class BottomBlock {
   static moduleName = 'bottomBlock';
@@ -20,9 +21,11 @@ export default class BottomBlock {
     'eventEmitter',
   ];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
 
   private _isBlockFocused: boolean = false;
+
+  private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean = false;
@@ -74,16 +77,9 @@ export default class BottomBlock {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this._removeFocusState,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this._removeFocusState,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [[UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._removeFocusState]],
+      this,
     );
   }
 

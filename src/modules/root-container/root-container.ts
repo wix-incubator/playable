@@ -10,6 +10,8 @@ import { UI_EVENTS } from '../../constants';
 import View from './root-container.view';
 import ElementQueries from '../ui/core/element-queries';
 
+import { IEventEmitter } from '../event-emitter/types';
+
 const DEFAULT_CONFIG = {
   fillAllSpace: false,
 };
@@ -18,12 +20,14 @@ class RootContainer {
   static moduleName = 'rootContainer';
   static dependencies = ['eventEmitter', 'config'];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
 
   private _elementQueries: ElementQueries;
   private _resizeObserver: ResizeObserver;
   private _disengageFocusWithin: Function;
   private _disengageFocusSource: Function;
+
+  private _unbindEvents: Function;
 
   // TODO: check if props should be `private`
   view: View;
@@ -56,18 +60,15 @@ class RootContainer {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.view.setFullScreenStatus,
-      this.view,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-      this.view.setFullScreenStatus,
-      this.view,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [
+          UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+          this.view.setFullScreenStatus,
+          this.view,
+        ],
+      ],
+      this,
     );
   }
 

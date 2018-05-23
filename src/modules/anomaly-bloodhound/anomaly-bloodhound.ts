@@ -1,6 +1,8 @@
 import { VIDEO_EVENTS, EngineState } from '../../constants';
 //import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
+import { IEventEmitter } from '../event-emitter/types';
+
 export const REPORT_REASONS = {
   LONG_INITIAL_VIDEO_PARTS_LOADING: 'long-initial-video-parts-loading',
   LONG_METADATA_LOADING: 'long-metadata-loading',
@@ -24,8 +26,10 @@ export default class AnomalyBloodhound {
 
   private _config;
   private _engine;
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _timeoutContainer;
+
+  private _unbindEvents: Function;
 
   constructor({ engine, eventEmitter, config }) {
     this._config = {
@@ -40,17 +44,8 @@ export default class AnomalyBloodhound {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._processStateChange,
-      this,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._processStateChange,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [[VIDEO_EVENTS.STATE_CHANGED, this._processStateChange]],
       this,
     );
   }
