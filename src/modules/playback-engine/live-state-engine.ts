@@ -6,6 +6,8 @@ import {
 } from '../../constants';
 import Engine from './playback-engine';
 
+import { IEventEmitter, IEventMap } from '../event-emitter/types';
+
 const SEEK_BY_UI_EVENTS = [
   UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
   UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
@@ -16,11 +18,13 @@ class LiveStateEngine {
   static moduleName = 'liveStateEngine';
   static dependencies = ['eventEmitter', 'engine'];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _engine: Engine;
   private _state: LiveState;
 
   private _isSeekedByUIWhilePlaying: boolean;
+
+  private _unbindEvents: Function;
 
   constructor({ eventEmitter, engine }) {
     this._eventEmitter = eventEmitter;
@@ -37,33 +41,16 @@ class LiveStateEngine {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._processStateChange,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
+        ...SEEK_BY_UI_EVENTS.map(
+          eventName => [eventName, this._processSeekByUI] as IEventMap,
+        ),
+        [VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED, this._onDynamicContentEnded],
+      ],
       this,
     );
-
-    SEEK_BY_UI_EVENTS.forEach(event => {
-      this._eventEmitter.on(event, this._processSeekByUI, this);
-    });
-
-    this._eventEmitter.on(
-      VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED,
-      this._onDynamicContentEnded,
-      this,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._processStateChange,
-      this,
-    );
-
-    SEEK_BY_UI_EVENTS.forEach(event => {
-      this._eventEmitter.on(event, this._processSeekByUI, this);
-    });
   }
 
   private _processStateChange({ prevState, nextState }) {

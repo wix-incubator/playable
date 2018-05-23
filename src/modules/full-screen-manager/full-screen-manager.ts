@@ -5,6 +5,7 @@ import IOSFullScreen from './ios';
 
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../constants';
 import { IFullScreenConfig } from './types';
+import { IEventEmitter } from '../event-emitter/types';
 
 const DEFAULT_CONFIG: IFullScreenConfig = {
   exitFullScreenOnEnd: true,
@@ -17,7 +18,7 @@ export default class FullScreenManager {
   static moduleName = 'fullScreenManager';
   static dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _engine;
   private _helper;
 
@@ -27,6 +28,8 @@ export default class FullScreenManager {
   private _pauseVideoOnFullScreenExit: boolean = false;
 
   private _isEnabled: boolean;
+
+  private _unbindEvents: Function;
 
   constructor({ eventEmitter, engine, rootContainer, config }) {
     this._eventEmitter = eventEmitter;
@@ -68,27 +71,11 @@ export default class FullScreenManager {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._processNextStateFromEngine,
-      this,
-    );
-    this._eventEmitter.on(
-      VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
-      this._enterOnPlayRequested,
-      this,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._processNextStateFromEngine,
-      this,
-    );
-    this._eventEmitter.off(
-      VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
-      this._enterOnPlayRequested,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine],
+        [VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested],
+      ],
       this,
     );
   }

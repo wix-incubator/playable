@@ -4,6 +4,7 @@ import playerAPI from '../../../core/player-api-decorator';
 import MainUIBlockView from './main-ui-block.view';
 
 import { IMainUIBlockConfig } from './types';
+import { IEventEmitter } from '../../event-emitter/types';
 
 const HIDE_BLOCK_TIMEOUT = 2000;
 
@@ -24,7 +25,7 @@ export default class MainUIBlock {
     'bottomBlock',
   ];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _bottomBlock;
   private _topBlock;
   private _screen;
@@ -36,6 +37,8 @@ export default class MainUIBlock {
   private _shouldShowContent: boolean = true;
   private _shouldAlwaysShow: boolean = false;
   private _isDragging: boolean = false;
+
+  private _unbindEvents: Function;
 
   view: MainUIBlockView;
   isHidden: boolean;
@@ -95,69 +98,16 @@ export default class MainUIBlock {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED,
-      this._tryHideContent,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.LOADER_HIDE_TRIGGERED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._updatePlayingStatus,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.CONTROL_DRAG_START,
-      this._onControlDragStart,
-      this,
-    );
-    this._eventEmitter.on(
-      UI_EVENTS.CONTROL_DRAG_END,
-      this._onControlDragEnd,
-      this,
-    );
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED,
-      this._tryHideContent,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.LOADER_HIDE_TRIGGERED,
-      this._startHideBlockTimeout,
-    );
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._updatePlayingStatus,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.CONTROL_DRAG_START,
-      this._onControlDragStart,
-      this,
-    );
-    this._eventEmitter.off(
-      UI_EVENTS.CONTROL_DRAG_END,
-      this._onControlDragEnd,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideBlockTimeout],
+        [UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent],
+        [UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout],
+        [UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideBlockTimeout],
+        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus],
+        [UI_EVENTS.CONTROL_DRAG_START, this._onControlDragStart],
+        [UI_EVENTS.CONTROL_DRAG_END, this._onControlDragEnd],
+      ],
       this,
     );
   }

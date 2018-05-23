@@ -3,6 +3,7 @@ import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import View from './loading-cover.view';
+import { IEventEmitter } from '../../event-emitter/types';
 
 export default class LoadingCover {
   static moduleName = 'loadingCover';
@@ -15,10 +16,12 @@ export default class LoadingCover {
     'rootContainer',
   ];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _engine;
   private _bottomBlock;
   private _url;
+
+  private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
@@ -47,12 +50,13 @@ export default class LoadingCover {
   }
 
   private _bindEvents() {
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._checkForWaitingState,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [
+        [VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState],
+        [VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide],
+      ],
       this,
     );
-    this._eventEmitter.on(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
   private _checkForWaitingState({ nextState }) {
@@ -98,15 +102,6 @@ export default class LoadingCover {
       this.view.show();
       this.isHidden = false;
     }
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._checkForWaitingState,
-      this,
-    );
-    this._eventEmitter.off(VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
   }
 
   /**

@@ -4,6 +4,7 @@ import playerAPI from '../../../core/player-api-decorator';
 
 import View from './overlay.view';
 import { IOverlayViewConfig } from './types';
+import { IEventEmitter } from '../../event-emitter/types';
 
 export default class Overlay {
   static moduleName = 'overlay';
@@ -16,9 +17,11 @@ export default class Overlay {
     'theme',
   ];
 
-  private _eventEmitter;
+  private _eventEmitter: IEventEmitter;
   private _engine;
   private _theme;
+
+  private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean = false;
@@ -45,7 +48,7 @@ export default class Overlay {
   private _initUI(poster) {
     const config: IOverlayViewConfig = {
       callbacks: {
-        onPlayClick: this._playVideo,
+        onPlayClick: this._playVideo.bind(this),
       },
       src: poster,
       theme: this._theme,
@@ -55,11 +58,8 @@ export default class Overlay {
   }
 
   private _bindEvents() {
-    this._playVideo = this._playVideo.bind(this);
-
-    this._eventEmitter.on(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._updatePlayingStatus,
+    this._unbindEvents = this._eventEmitter.bindEvents(
+      [[VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus]],
       this,
     );
   }
@@ -109,14 +109,6 @@ export default class Overlay {
   @playerAPI()
   setPoster(src: string) {
     this.view.setPoster(src);
-  }
-
-  private _unbindEvents() {
-    this._eventEmitter.off(
-      VIDEO_EVENTS.STATE_CHANGED,
-      this._updatePlayingStatus,
-      this,
-    );
   }
 
   destroy() {
