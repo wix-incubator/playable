@@ -5,6 +5,8 @@ import View from './screen.view';
 import playerAPI from '../../../core/player-api-decorator';
 
 import { IEventEmitter } from '../../event-emitter/types';
+import { IFullScreenManager } from '../../full-screen-manager/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
 import { VideoViewMode, IScreenConfig, IScreenViewConfig } from './types';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
@@ -27,11 +29,11 @@ export default class Screen {
   ];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
-  private _fullScreenManager;
+  private _engine: IPlaybackEngine;
+  private _fullScreenManager: IFullScreenManager;
   private _interactionIndicator;
 
-  private _delayedToggleVideoPlaybackTimeout;
+  private _delayedToggleVideoPlaybackTimeout: any;
 
   private _isClickProcessingDisabled: boolean;
   private _isInFullScreen: boolean;
@@ -132,10 +134,7 @@ export default class Screen {
 
     this._showPlaybackChangeIndicator();
 
-    if (
-      !this._fullScreenManager.isEnabled ||
-      this._fullScreenManager._enterFullScreenOnPlay
-    ) {
+    if (!this._fullScreenManager.isEnabled) {
       this._toggleVideoPlayback();
     } else {
       this._setDelayedPlaybackToggle();
@@ -147,10 +146,7 @@ export default class Screen {
       return;
     }
 
-    if (
-      this._fullScreenManager.isEnabled ||
-      !this._fullScreenManager._enterFullScreenOnPlay
-    ) {
+    if (this._fullScreenManager.isEnabled) {
       if (this._isDelayedPlaybackToggleExist) {
         this._clearDelayedPlaybackToggle();
         this._hideDelayedPlaybackChangeIndicator();

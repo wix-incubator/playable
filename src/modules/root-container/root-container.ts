@@ -11,12 +11,13 @@ import View from './root-container.view';
 import ElementQueries from '../ui/core/element-queries';
 
 import { IEventEmitter } from '../event-emitter/types';
+import { IRootContainer } from './types';
 
 const DEFAULT_CONFIG = {
   fillAllSpace: false,
 };
 
-class RootContainer {
+class RootContainer implements IRootContainer {
   static moduleName = 'rootContainer';
   static dependencies = ['eventEmitter', 'config'];
 
@@ -92,7 +93,7 @@ class RootContainer {
     });
   }
 
-  appendComponentNode(node) {
+  appendComponentNode(node: HTMLElement) {
     this.view.appendComponentNode(node);
   }
 

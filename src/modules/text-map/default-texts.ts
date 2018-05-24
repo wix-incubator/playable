@@ -1,6 +1,7 @@
 import { TEXT_LABELS } from '../../constants';
+import { ITextMapConfig } from './types';
 
-const map = {
+const map: ITextMapConfig = {
   [TEXT_LABELS.LOGO_LABEL]: 'Watch On Site',
   [TEXT_LABELS.LOGO_TOOLTIP]: 'Watch On Site',
   [TEXT_LABELS.LIVE_INDICATOR_TEXT]: ({ isEnded }) =>

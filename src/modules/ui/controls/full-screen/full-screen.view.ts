@@ -13,6 +13,8 @@ import {
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
+import { ITextMap } from '../../../text-map/types';
+
 import {
   IFullScreenViewStyles,
   IFullScreenViewCallbacks,
@@ -27,7 +29,7 @@ const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 class FullScreenView extends View<IFullScreenViewStyles>
   implements IView<IFullScreenViewStyles> {
   private _callbacks: IFullScreenViewCallbacks;
-  private _textMap;
+  private _textMap: ITextMap;
   private _tooltipReference: ITooltipReference;
 
   private _$node: HTMLElement;
@@ -139,15 +141,19 @@ class FullScreenView extends View<IFullScreenViewStyles>
 
   destroy() {
     this._unbindEvents();
+    this._callbacks = null;
+
     this._tooltipReference.destroy();
+    this._tooltipReference = null;
 
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
-    delete this._$toggleFullScreenControl;
-    delete this._$node;
 
-    delete this._textMap;
+    this._$toggleFullScreenControl = null;
+    this._$node = null;
+
+    this._textMap = null;
   }
 }
 

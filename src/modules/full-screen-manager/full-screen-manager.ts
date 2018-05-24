@@ -4,8 +4,13 @@ import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../constants';
-import { IFullScreenConfig } from './types';
+import {
+  IFullScreenManager,
+  IFullScreenHelper,
+  IFullScreenConfig,
+} from './types';
 import { IEventEmitter } from '../event-emitter/types';
+import { IPlaybackEngine } from '../playback-engine/types';
 
 const DEFAULT_CONFIG: IFullScreenConfig = {
   exitFullScreenOnEnd: true,
@@ -14,13 +19,13 @@ const DEFAULT_CONFIG: IFullScreenConfig = {
   pauseVideoOnFullScreenExit: false,
 };
 
-export default class FullScreenManager {
+export default class FullScreenManager implements IFullScreenManager {
   static moduleName = 'fullScreenManager';
   static dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
-  private _helper;
+  private _engine: IPlaybackEngine;
+  private _helper: IFullScreenHelper;
 
   private _exitFullScreenOnEnd: boolean = false;
   private _enterFullScreenOnPlay: boolean = false;
@@ -166,8 +171,9 @@ export default class FullScreenManager {
     this._unbindEvents();
 
     this._helper.destroy();
+    this._helper = null;
 
-    delete this._eventEmitter;
-    delete this._engine;
+    this._eventEmitter = null;
+    this._engine = null;
   }
 }

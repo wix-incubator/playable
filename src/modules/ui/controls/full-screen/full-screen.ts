@@ -9,6 +9,9 @@ import View from './full-screen.view';
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
 import { IFullScreenViewConfig } from './types';
+import { IFullScreenManager } from '../../../full-screen-manager/types';
+import { ITextMap } from '../../../text-map/types';
+import { IThemeService } from '../../core/theme';
 
 export default class FullScreenControl {
   static moduleName = 'fullScreenControl';
@@ -22,11 +25,11 @@ export default class FullScreenControl {
   ];
 
   private _eventEmitter: IEventEmitter;
-  private _fullScreenManager;
-  private _textMap;
+  private _fullScreenManager: IFullScreenManager;
+  private _textMap: ITextMap;
   private _interceptor;
   private _tooltipService: ITooltipService;
-  private _theme;
+  private _theme: IThemeService;
 
   private _isInFullScreen: boolean;
 
@@ -145,12 +148,10 @@ export default class FullScreenControl {
     this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._eventEmitter;
-    delete this._fullScreenManager;
-    delete this._textMap;
-
-    delete this.isHidden;
+    this._eventEmitter = null;
+    this._fullScreenManager = null;
+    this._textMap = null;
   }
 }

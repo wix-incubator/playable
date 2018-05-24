@@ -1,5 +1,6 @@
 import { IThemeService } from '../../core/theme';
 import { ITooltipService } from '../../core/tooltip';
+import { ITextMap } from '../../../text-map/types';
 
 type IProgressViewStyles = {
   seekBlock: string;
@@ -31,7 +32,7 @@ type IProgressViewCallbacks = {
 
 type IProgressViewConfig = {
   callbacks: IProgressViewCallbacks;
-  textMap: any;
+  textMap: ITextMap;
   theme: IThemeService;
   tooltipService: ITooltipService;
 };

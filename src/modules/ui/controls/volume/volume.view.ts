@@ -19,6 +19,7 @@ import {
   IVolumeViewCallbacks,
   IVolumeViewConfig,
 } from './types';
+import { ITextMap } from '../../../text-map/types';
 
 import volumeViewTheme from './volume.theme';
 import styles from './volume.scss';
@@ -49,7 +50,7 @@ const getPercentBasedOnXPosition = (
 class VolumeView extends View<IVolumeViewStyles>
   implements IView<IVolumeViewStyles> {
   private _callbacks: IVolumeViewCallbacks;
-  private _textMap;
+  private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
   private _muteButtonTooltipReference: ITooltipReference;
 
@@ -59,7 +60,7 @@ class VolumeView extends View<IVolumeViewStyles>
   private _$volume: HTMLElement;
   private _$hitbox: HTMLElement;
 
-  private _isDragging;
+  private _isDragging: boolean;
 
   constructor(config: IVolumeViewConfig) {
     const { callbacks, textMap, tooltipService, theme } = config;
@@ -267,16 +268,19 @@ class VolumeView extends View<IVolumeViewStyles>
 
   destroy() {
     this._unbindEvents();
+    this._callbacks = null;
+
     this._muteButtonTooltipReference.destroy();
+    this._muteButtonTooltipReference = null;
 
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$muteButton;
-    delete this._$node;
+    this._$muteButton = null;
+    this._$node = null;
 
-    delete this._textMap;
+    this._textMap = null;
   }
 }
 

@@ -1,10 +1,12 @@
 import DEFAULT_TEXTS from './default-texts';
 
-export default class TextMap {
+import { ITextMap, ITextMapConfig } from './types';
+
+export default class TextMap implements ITextMap {
   static moduleName = 'textMap';
   static dependencies = ['config'];
 
-  private _textMap;
+  private _textMap: ITextMapConfig;
 
   constructor({ config }) {
     this._textMap = {
@@ -13,7 +15,7 @@ export default class TextMap {
     };
   }
 
-  get(id, args) {
+  get(id: string, args: any): string {
     if (!this._textMap) {
       return;
     }
@@ -28,6 +30,6 @@ export default class TextMap {
   }
 
   destroy() {
-    delete this._textMap;
+    this._textMap = null;
   }
 }

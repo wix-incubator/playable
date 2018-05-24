@@ -1,4 +1,5 @@
 import { IThemeService } from '../../core/theme';
+import { ITextMap } from '../../../text-map/types';
 
 type IPlayViewStyles = {
   playControl: string;
@@ -14,7 +15,7 @@ type IPlayViewCallbacks = {
 
 type IPlayViewConfig = {
   callbacks: IPlayViewCallbacks;
-  textMap: any;
+  textMap: ITextMap;
   theme: IThemeService;
 };
 

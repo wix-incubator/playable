@@ -1,4 +1,5 @@
 import { ITooltipService } from '../core/tooltip';
+import { ITextMap } from '../../text-map/types';
 
 type ILiveIndicatorViewStyles = {
   liveIndicator: string;
@@ -14,7 +15,7 @@ type ILiveIndicatorViewCallbacks = {
 
 type ILiveIndicatorViewConfig = {
   callbacks: ILiveIndicatorViewCallbacks;
-  textMap: any;
+  textMap: ITextMap;
   tooltipService: ITooltipService;
 };
 

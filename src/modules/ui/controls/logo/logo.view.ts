@@ -9,12 +9,14 @@ import { logoTemplate } from './templates';
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
+import { ITextMap } from '../../../text-map/types';
+
 import styles from './logo.scss';
 
 class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   private _tooltipReference: ITooltipReference;
   private _callbacks: ILogoViewCallbacks;
-  private _textMap;
+  private _textMap: ITextMap;
 
   private _$node: HTMLElement;
   private _$logo: HTMLElement;
@@ -102,18 +104,21 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
 
   destroy() {
     this._unbindEvents();
+    this._callbacks = null;
+
     this._tooltipReference.destroy();
+    this._tooltipReference = null;
 
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
-    delete this._$logo;
-    delete this._$placeholder;
+    this._$node = null;
+    this._$logo = null;
+    this._$placeholder = null;
 
-    delete this._tooltipReference;
-    delete this._textMap;
+    this._tooltipReference = null;
+    this._textMap = null;
   }
 }
 

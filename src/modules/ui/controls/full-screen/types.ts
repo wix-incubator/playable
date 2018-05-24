@@ -1,5 +1,6 @@
 import { IThemeService } from '../../core/theme';
 import { ITooltipService } from '../../core/tooltip';
+import { ITextMap } from '../../../text-map/types';
 
 type IFullScreenViewStyles = {
   fullScreenControl: string;
@@ -15,7 +16,7 @@ type IFullScreenViewCallbacks = {
 
 type IFullScreenViewConfig = {
   callbacks: IFullScreenViewCallbacks;
-  textMap: any;
+  textMap: ITextMap;
   theme: IThemeService;
   tooltipService: ITooltipService;
 };

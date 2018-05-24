@@ -3,6 +3,7 @@ import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 import View from './loader.view';
 
 import { IEventEmitter } from '../../event-emitter/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
 
 export const DELAYED_SHOW_TIMEOUT = 100;
 
@@ -12,7 +13,7 @@ export default class Loader {
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
 
   private _eventEmitter: IEventEmitter;
-  private _engine;
+  private _engine: IPlaybackEngine;
 
   private _delayedShowTimeout;
   private _unbindEvents: Function;

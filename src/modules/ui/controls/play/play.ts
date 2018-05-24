@@ -9,16 +9,20 @@ import KeyboardInterceptor, {
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
+import { IPlaybackEngine } from '../../../playback-engine/types';
+import { IThemeService } from '../../core/theme';
+
+import { ITextMap } from '../../../text-map/types';
 
 export default class PlayControl {
   static moduleName = 'playControl';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'theme'];
 
-  private _engine;
+  private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
-  private _textMap;
-  private _theme;
+  private _textMap: ITextMap;
+  private _theme: IThemeService;
 
   private _interceptor;
   private _isPlaying: boolean;
@@ -139,10 +143,10 @@ export default class PlayControl {
     this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._eventEmitter;
-    delete this._engine;
-    delete this._textMap;
+    this._eventEmitter = null;
+    this._engine = null;
+    this._textMap = null;
   }
 }
