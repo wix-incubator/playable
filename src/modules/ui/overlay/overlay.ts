@@ -116,9 +116,9 @@ export default class Overlay implements IOverlay {
   destroy() {
     this._unbindEvents();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._eventEmitter;
-    delete this._engine;
+    this._eventEmitter = null;
+    this._engine = null;
   }
 }

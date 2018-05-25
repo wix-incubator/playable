@@ -102,8 +102,8 @@ export default class TitleControl implements ITitle {
 
   destroy() {
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this.isHidden;
+    this.isHidden = null;
   }
 }

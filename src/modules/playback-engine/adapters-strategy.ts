@@ -92,10 +92,10 @@ export default class AdaptersStrategy {
   destroy() {
     this._detachCurrentAdapter();
 
-    delete this._attachedAdapter;
-    delete this._availableAdapters;
-    delete this._playableAdapters;
+    this._attachedAdapter = null;
+    this._availableAdapters = null;
+    this._playableAdapters = null;
 
-    delete this._video;
+    this._video = null;
   }
 }

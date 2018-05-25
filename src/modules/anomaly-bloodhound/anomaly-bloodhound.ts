@@ -215,9 +215,9 @@ export default class AnomalyBloodhound {
 
     this._unbindEvents();
 
-    delete this._eventEmitter;
-    delete this._engine;
-    delete this._timeoutContainer;
-    delete this._config;
+    this._eventEmitter = null;
+    this._engine = null;
+    this._timeoutContainer = null;
+    this._config = null;
   }
 }

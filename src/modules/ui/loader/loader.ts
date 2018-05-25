@@ -142,10 +142,9 @@ export default class Loader {
     this.stopDelayedShow();
 
     this.view.destroy();
+    this.view = null;
 
-    delete this.view;
-
-    delete this._eventEmitter;
-    delete this._engine;
+    this._eventEmitter = null;
+    this._engine = null;
   }
 }

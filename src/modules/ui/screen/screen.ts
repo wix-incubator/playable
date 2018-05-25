@@ -248,11 +248,11 @@ export default class Screen implements IScreen {
 
     this._clearDelayedPlaybackToggle();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._interactionIndicator;
-    delete this._eventEmitter;
-    delete this._engine;
-    delete this._fullScreenManager;
+    this._interactionIndicator = null;
+    this._eventEmitter = null;
+    this._engine = null;
+    this._fullScreenManager = null;
   }
 }

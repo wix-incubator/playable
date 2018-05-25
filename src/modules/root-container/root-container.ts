@@ -123,12 +123,12 @@ class RootContainer implements IRootContainer {
   private _disableFocusInterceptors() {
     if (this._disengageFocusSource) {
       this._disengageFocusSource();
-      delete this._disengageFocusSource;
+      this._disengageFocusSource = null;
     }
 
     if (this._disengageFocusWithin) {
       this._disengageFocusWithin();
-      delete this._disengageFocusWithin;
+      this._disengageFocusWithin = null;
     }
   }
 

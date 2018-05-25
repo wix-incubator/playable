@@ -64,7 +64,7 @@ class LoadingCoverView extends View<ILoadingCoverViewStyles>
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
+    this._$node = null;
   }
 }
 

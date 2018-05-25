@@ -3,9 +3,10 @@ import { PLAYER_API_PROPERTY } from '../core/player-api-decorator';
 import { IThemeConfig } from '../modules/ui/core/theme';
 
 export default class Player {
-  private _config;
-  private _defaultModules;
-  private _additionalModules;
+  //@ts-ignore
+  private _config: IPlayerConfig;
+  private _defaultModules: any;
+  private _additionalModules: any;
   private _destroyed: boolean;
 
   constructor(
@@ -154,9 +155,9 @@ export default class Player {
       }
     });
 
-    delete this._defaultModules;
-    delete this._additionalModules;
-    delete this._config;
+    this._defaultModules = null;
+    this._additionalModules = null;
+    this._config = null;
 
     this._destroyed = true;
   }

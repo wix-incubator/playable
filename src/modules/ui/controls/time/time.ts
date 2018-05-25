@@ -153,11 +153,9 @@ export default class TimeControl implements ITimeControl {
     this._stopIntervalUpdates();
     this._unbindEvents();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._eventEmitter;
-    delete this._engine;
-
-    this.isHidden = null;
+    this._eventEmitter = null;
+    this._engine = null;
   }
 }

@@ -176,7 +176,7 @@ export default class StateEngine {
   destroy() {
     this._unbindEvents();
 
-    delete this._eventEmitter;
-    delete this._video;
+    this._eventEmitter = null;
+    this._video = null;
   }
 }

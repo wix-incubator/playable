@@ -92,11 +92,11 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
-    delete this._$closeButton;
-    delete this._$infoContainer;
+    this._$node = null;
+    this._$closeButton = null;
+    this._$infoContainer = null;
 
-    delete this._callbacks;
+    this._callbacks = null;
   }
 }
 

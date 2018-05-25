@@ -66,7 +66,7 @@ class ThemeService implements IThemeService {
   }
 
   destroy() {
-    delete this._styleSheet;
+    this._styleSheet = null;
   }
 }
 

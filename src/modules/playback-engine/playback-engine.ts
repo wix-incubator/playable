@@ -607,10 +607,10 @@ export default class Engine implements IPlaybackEngine {
     this._adapterStrategy.destroy();
     this._video.parentNode && this._video.parentNode.removeChild(this._video);
 
-    delete this._stateEngine;
-    delete this._nativeEventsBroadcaster;
-    delete this._adapterStrategy;
-    delete this._eventEmitter;
-    delete this._video;
+    this._stateEngine = null;
+    this._nativeEventsBroadcaster = null;
+    this._adapterStrategy = null;
+    this._eventEmitter = null;
+    this._video = null;
   }
 }

@@ -48,7 +48,7 @@ class LoaderView extends View<ILoaderViewStyles>
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
+    this._$node = null;
   }
 }
 

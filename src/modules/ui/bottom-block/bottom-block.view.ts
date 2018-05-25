@@ -159,7 +159,7 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
-    delete this._$node;
+    this._$node = null;
   }
 }
 

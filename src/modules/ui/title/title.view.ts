@@ -81,8 +81,8 @@ class TitleView extends View<ITitleViewStyles>
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
-    delete this._$title;
+    this._$node = null;
+    this._$title = null;
   }
 }
 
