@@ -9,12 +9,12 @@ import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
-import { IVolumeViewConfig } from './types';
+import { IVolumeControl, IVolumeViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
 import { IThemeService } from '../../core/theme';
 
-export default class VolumeControl {
+export default class VolumeControl implements IVolumeControl {
   static moduleName = 'volumeControl';
   static View = View;
   static dependencies = [
@@ -34,8 +34,8 @@ export default class VolumeControl {
   private _isMuted: boolean;
   private _volume: number;
 
-  private _buttonInterceptor;
-  private _inputInterceptor;
+  private _buttonInterceptor: KeyboardInterceptor;
+  private _inputInterceptor: KeyboardInterceptor;
 
   private _unbindEvents: Function;
 

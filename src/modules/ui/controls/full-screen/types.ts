@@ -21,7 +21,19 @@ type IFullScreenViewConfig = {
   tooltipService: ITooltipService;
 };
 
+interface IFullScreenControl {
+  node: HTMLElement;
+
+  setControlStatus(isInFullScreen: boolean): void;
+
+  show(): void;
+  hide(): void;
+
+  destroy(): void;
+}
+
 export {
+  IFullScreenControl,
   IFullScreenViewStyles,
   IFullScreenViewCallbacks,
   IFullScreenViewConfig,

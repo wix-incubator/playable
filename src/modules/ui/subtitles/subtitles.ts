@@ -2,10 +2,10 @@ import { UI_EVENTS } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import SubtitlesView from './subtitles.view';
-import { ISubtitleConfig } from './types';
+import { ISubtitles, ISubtitleConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 
-export default class Subtitles {
+export default class Subtitles implements ISubtitles {
   static moduleName = 'subtitle';
   static dependencies = ['rootContainer', 'engine', 'eventEmitter'];
   static View = SubtitlesView;

@@ -13,7 +13,7 @@ import {
 
 class MainUIBlockView extends View<IMainUIBlockViewStyles>
   implements IView<IMainUIBlockViewStyles> {
-  private _$node;
+  private _$node: HTMLElement;
 
   constructor(config: IMainUIBlockViewConfig) {
     super();

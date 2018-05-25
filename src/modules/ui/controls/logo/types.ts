@@ -26,4 +26,22 @@ interface ILogoConfig {
   showAlways?: boolean;
 }
 
-export { ILogoConfig, ILogoViewStyles, ILogoViewConfig, ILogoViewCallbacks };
+interface ILogoControl {
+  node: HTMLElement;
+
+  setLogo(src: string): void;
+  setLogoClickCallback(callback?: Function): void;
+
+  show(): void;
+  hide(): void;
+
+  destroy(): void;
+}
+
+export {
+  ILogoControl,
+  ILogoConfig,
+  ILogoViewStyles,
+  ILogoViewConfig,
+  ILogoViewCallbacks,
+};

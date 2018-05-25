@@ -34,8 +34,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private videoElement: HTMLVideoElement;
   private mediaStream;
 
-  private _mediaRecoverTimeout: any;
-  private _networkRecoverTimeout: any;
+  private _mediaRecoverTimeout: number;
+  private _networkRecoverTimeout: number;
   private _isDynamicContent: boolean;
   private _isDynamicContentEnded: boolean;
   private _isAttached: boolean;
@@ -243,7 +243,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private _tryRecoverMediaError() {
     if (!this._mediaRecoverTimeout) {
       this.hls.recoverMediaError();
-      this._mediaRecoverTimeout = setTimeout(() => {
+      this._mediaRecoverTimeout = window.setTimeout(() => {
         this._mediaRecoverTimeout = null;
       }, MEDIA_ERROR_RECOVER_TIMEOUT);
     }
@@ -252,7 +252,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private _tryRecoverNetworkError() {
     if (!this._networkRecoverTimeout) {
       this.hls.startLoad();
-      this._networkRecoverTimeout = setTimeout(() => {
+      this._networkRecoverTimeout = window.setTimeout(() => {
         this._networkRecoverTimeout = null;
       }, NETWORK_ERROR_RECOVER_TIMEOUT);
     }
@@ -314,12 +314,12 @@ export default class HlsAdapter implements IPlaybackAdapter {
     }
 
     if (this._networkRecoverTimeout) {
-      clearTimeout(this._networkRecoverTimeout);
+      window.clearTimeout(this._networkRecoverTimeout);
       this._networkRecoverTimeout = null;
     }
 
     if (this._mediaRecoverTimeout) {
-      clearTimeout(this._mediaRecoverTimeout);
+      window.clearTimeout(this._mediaRecoverTimeout);
       this._mediaRecoverTimeout = null;
     }
 

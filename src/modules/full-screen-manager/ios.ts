@@ -5,8 +5,8 @@ const HAVE_METADATA = 1;
 let isFullScreenRequested = false;
 
 export default class IOSFullScreen implements IFullScreenHelper {
-  private _elem;
-  private _callback;
+  private _elem: HTMLVideoElement;
+  private _callback: EventListener;
 
   constructor(elem, callback) {
     this._elem = elem;

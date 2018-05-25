@@ -3,8 +3,18 @@ import playerAPI from '../../../core/player-api-decorator';
 
 import MainUIBlockView from './main-ui-block.view';
 
-import { IMainUIBlockConfig } from './types';
+import {
+  IMainBlock,
+  IMainUIBlockConfig,
+  IMainUIBlockViewElements,
+} from './types';
 import { IEventEmitter } from '../../event-emitter/types';
+import { IBottomBlock } from '../bottom-block/types';
+import { ITopBlock } from '../top-block/types';
+import { IScreen } from '../screen/types';
+import { IPlayerConfig } from '../../../core/config';
+import { IRootContainer } from '../../root-container/types';
+import { ITooltipService } from '../core/tooltip/tooltip-service';
 
 const HIDE_BLOCK_TIMEOUT = 2000;
 
@@ -12,7 +22,7 @@ const DEFAULT_CONFIG: IMainUIBlockConfig = {
   shouldAlwaysShow: false,
 };
 
-export default class MainUIBlock {
+export default class MainUIBlock implements IMainBlock {
   static moduleName = 'mainUIBlock';
   static View = MainUIBlockView;
   static dependencies = [
@@ -26,11 +36,11 @@ export default class MainUIBlock {
   ];
 
   private _eventEmitter: IEventEmitter;
-  private _bottomBlock;
-  private _topBlock;
-  private _screen;
+  private _bottomBlock: IBottomBlock;
+  private _topBlock: ITopBlock;
+  private _screen: IScreen;
 
-  private _hideTimeout = null;
+  private _hideTimeout: number = null;
 
   private _isContentShowingEnabled: boolean = true;
   private _isContentShown: boolean = false;
@@ -43,7 +53,15 @@ export default class MainUIBlock {
   view: MainUIBlockView;
   isHidden: boolean;
 
-  constructor(dependencies) {
+  constructor(dependencies: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+    rootContainer: IRootContainer;
+    tooltipService: ITooltipService;
+    topBlock: ITopBlock;
+    bottomBlock: IBottomBlock;
+    screen: IScreen;
+  }) {
     const {
       config,
       eventEmitter,
@@ -60,10 +78,9 @@ export default class MainUIBlock {
     this._screen = screen;
 
     this.isHidden = false;
-
     const mainBlockConfig = {
       ...DEFAULT_CONFIG,
-      ...config.controls,
+      ...(typeof config.controls === 'object' ? config.controls : null),
     };
 
     this._shouldAlwaysShow = mainBlockConfig.shouldAlwaysShow;
@@ -87,7 +104,7 @@ export default class MainUIBlock {
     return this.view.getNode();
   }
 
-  private _initUI(elements) {
+  private _initUI(elements: IMainUIBlockViewElements) {
     this.view = new MainUIBlock.View({ elements });
   }
 
@@ -112,7 +129,7 @@ export default class MainUIBlock {
     );
   }
 
-  private _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }: { nextState: string }) {
     switch (nextState) {
       case EngineState.PLAY_REQUESTED: {
         this._shouldShowContent = false;
@@ -148,12 +165,15 @@ export default class MainUIBlock {
 
     this._tryShowContent();
 
-    this._hideTimeout = setTimeout(this._tryHideContent, HIDE_BLOCK_TIMEOUT);
+    this._hideTimeout = window.setTimeout(
+      this._tryHideContent,
+      HIDE_BLOCK_TIMEOUT,
+    );
   }
 
   private _stopHideBlockTimeout() {
     if (this._hideTimeout) {
-      clearTimeout(this._hideTimeout);
+      window.clearTimeout(this._hideTimeout);
     }
   }
 

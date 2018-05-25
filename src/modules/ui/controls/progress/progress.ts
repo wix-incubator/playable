@@ -21,14 +21,14 @@ import playerAPI from '../../../../core/player-api-decorator';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
-import { IProgressViewConfig } from './types';
+import { IProgressControl, IProgressViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
 import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
-export default class ProgressControl {
+export default class ProgressControl implements IProgressControl {
   static moduleName = 'progressControl';
   static View = View;
   static dependencies = [
@@ -50,8 +50,8 @@ export default class ProgressControl {
   private _isUserInteracting: boolean;
   private _shouldPlayAfterManipulationEnd: boolean;
   private _currentProgress: number;
-  private _interceptor;
-  private _updateControlInterval: any;
+  private _interceptor: KeyboardInterceptor;
+  private _updateControlInterval: number;
   private _timeIndicatorsToAdd: number[];
 
   private _unbindEvents: Function;
@@ -193,7 +193,7 @@ export default class ProgressControl {
 
     this._updateControlOnInterval();
 
-    this._updateControlInterval = setInterval(
+    this._updateControlInterval = window.setInterval(
       this._updateControlOnInterval,
       UPDATE_INTERVAL_DELAY,
     );
@@ -214,7 +214,7 @@ export default class ProgressControl {
   }
 
   private _stopIntervalUpdates() {
-    clearInterval(this._updateControlInterval);
+    window.clearInterval(this._updateControlInterval);
     this._updateControlInterval = null;
   }
 

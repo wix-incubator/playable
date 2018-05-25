@@ -33,7 +33,7 @@ class ThemeService implements IThemeService {
     });
 
     // setTimeout here is for calling `attach` after all modules resolved.
-    setTimeout(() => {
+    window.setTimeout(() => {
       this._styleSheet && this._styleSheet.attach();
     }, 0);
   }

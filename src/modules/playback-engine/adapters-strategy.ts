@@ -5,12 +5,14 @@ import { VIDEO_EVENTS, ERRORS } from '../../constants';
 import { resolveAdapters } from './utils/adapters-resolver';
 import { getStreamType } from './utils/detect-stream-type';
 
+import { IPlaybackAdapter } from './adapters/types';
+
 export default class AdaptersStrategy {
   private _video: HTMLVideoElement;
   private _eventEmitter: IEventEmitter;
-  private _playableAdapters;
-  private _availableAdapters;
-  private _attachedAdapter;
+  private _playableAdapters: IPlaybackAdapter[];
+  private _availableAdapters: IPlaybackAdapter[];
+  private _attachedAdapter: IPlaybackAdapter;
 
   constructor(
     eventEmitter: IEventEmitter,
@@ -72,7 +74,7 @@ export default class AdaptersStrategy {
 
   private _detachCurrentAdapter() {
     if (this._attachedAdapter) {
-      this._attachedAdapter.detach(this._video);
+      this._attachedAdapter.detach();
       this._attachedAdapter = null;
     }
   }

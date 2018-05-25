@@ -1,10 +1,16 @@
 import { VIDEO_EVENTS, EngineState } from '../../constants';
-//import { getNearestBufferSegmentInfo } from '../../utils/video-data';
 
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
 
-export const REPORT_REASONS = {
+import {
+  IReportReasons,
+  ITimeoutContainer,
+  IReportTypes,
+  IReportType,
+} from './types';
+
+export const REPORT_REASONS: IReportReasons = {
   LONG_INITIAL_VIDEO_PARTS_LOADING: 'long-initial-video-parts-loading',
   LONG_METADATA_LOADING: 'long-metadata-loading',
   LONG_SEEK_PROCESSING: 'long-seek-processing',
@@ -12,13 +18,23 @@ export const REPORT_REASONS = {
   LONG_PLAY_REQUESTED_PROCESSING: 'long-play-requested-processing',
 };
 
-export const DELAYED_REPORT_TYPES = {
-  INITIAL_VIDEO_PARTS_LOADING: {
-    id: '_initialVideoPartsLoading',
-    timeoutTime: 5000,
-  },
-  METADATA_LOADING: { id: '_metadataLoading', timeoutTime: 5000 },
-  RUNTIME_LOADING: { id: '_runtimeLoading', timeoutTime: 5000 },
+const INITIAL_VIDEO_PARTS_LOADING: IReportType = {
+  id: '_initialVideoPartsLoading',
+  timeoutTime: 5000,
+};
+const METADATA_LOADING: IReportType = {
+  id: '_metadataLoading',
+  timeoutTime: 5000,
+};
+const RUNTIME_LOADING: IReportType = {
+  id: '_runtimeLoading',
+  timeoutTime: 5000,
+};
+
+export const DELAYED_REPORT_TYPES: IReportTypes = {
+  INITIAL_VIDEO_PARTS_LOADING,
+  METADATA_LOADING,
+  RUNTIME_LOADING,
 };
 
 export default class AnomalyBloodhound {
@@ -28,7 +44,7 @@ export default class AnomalyBloodhound {
   private _config: any;
   private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
-  private _timeoutContainer: any;
+  private _timeoutContainer: ITimeoutContainer;
 
   private _unbindEvents: Function;
 
@@ -108,24 +124,9 @@ export default class AnomalyBloodhound {
       case EngineState.WAITING:
         switch (prevState) {
           case EngineState.PLAYING: {
-            // This check is for problem with dash.js and mpd manifest in WixVOD
-            // Somehow native video tag triggers that buffer is empty for current segment
-            // but when you checking it, you can see, that it's not empty and there still
-            // couple milliseconds until end of buffer segment. It's happens only at last seconds of video
-            // that's why we manually triggering "end" but seeking to end of buffer.
-            /*
-            const nearestBufferSegment = getNearestBufferSegmentInfo(
-              this._engine._video.buffered,
-              this._engine.getCurrentTime()
-            );
-
-            if (nearestBufferSegment && nearestBufferSegment.end > this._engine.getCurrentTime()) {
-              this._engine.setCurrentTime(nearestBufferSegment.end);
-            } else { */
             this.reportDebugInfo({
               reason: REPORT_REASONS.BUFFER_EMPTY_FOR_CURRENT_SEGMENT,
             });
-            //*}
 
             break;
           }
@@ -157,17 +158,17 @@ export default class AnomalyBloodhound {
     }
   }
 
-  isDelayedReportExist(type) {
+  isDelayedReportExist(type: IReportType) {
     return Boolean(this._timeoutContainer[type.id]);
   }
 
-  startDelayedReport(type, reason) {
+  startDelayedReport(type: IReportType, reason: string) {
     if (this.isDelayedReportExist(type)) {
       this.stopDelayedReport(type);
     }
 
     const startTS = Date.now();
-    this._timeoutContainer[type.id] = setTimeout(() => {
+    this._timeoutContainer[type.id] = window.setTimeout(() => {
       const endTS = Date.now();
       delete this._timeoutContainer;
       this.reportDebugInfo({
@@ -178,19 +179,27 @@ export default class AnomalyBloodhound {
     }, type.timeoutTime);
   }
 
-  stopDelayedReport(type) {
-    clearTimeout(this._timeoutContainer[type.id]);
+  stopDelayedReport(type: IReportType) {
+    window.clearTimeout(this._timeoutContainer[type.id]);
     delete this._timeoutContainer[type.id];
   }
 
   stopAllDelayedReports() {
     Object.keys(this._timeoutContainer).forEach(key => {
-      clearTimeout(this._timeoutContainer[key]);
+      window.clearTimeout(this._timeoutContainer[key]);
       delete this._timeoutContainer[key];
     });
   }
 
-  reportDebugInfo({ reason, startTS, endTS }: { reason; startTS?; endTS? }) {
+  reportDebugInfo({
+    reason,
+    startTS,
+    endTS,
+  }: {
+    reason: string;
+    startTS?: number;
+    endTS?: number;
+  }) {
     if (typeof this._config.callback === 'function') {
       this._config.callback({
         reason,

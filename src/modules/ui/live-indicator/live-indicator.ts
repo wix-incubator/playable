@@ -4,8 +4,9 @@ import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';
 import { ITextMap } from '../../text-map/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
+import { ILiveIndicator } from './types';
 
-export default class LiveIndicator {
+export default class LiveIndicator implements ILiveIndicator {
   static moduleName = 'liveIndicator';
   static View = LiveIndicatorView;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];

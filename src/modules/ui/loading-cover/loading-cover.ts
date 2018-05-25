@@ -5,8 +5,10 @@ import playerAPI from '../../../core/player-api-decorator';
 import View from './loading-cover.view';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
+import { IBottomBlock } from '../bottom-block/types';
+import { ILoadingCover } from './types';
 
-export default class LoadingCover {
+export default class LoadingCover implements ILoadingCover {
   static moduleName = 'loadingCover';
   static View = View;
   static dependencies = [
@@ -19,8 +21,8 @@ export default class LoadingCover {
 
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
-  private _bottomBlock;
-  private _url;
+  private _bottomBlock: IBottomBlock;
+  private _url: string | boolean;
 
   private _unbindEvents: Function;
 
@@ -60,7 +62,7 @@ export default class LoadingCover {
     );
   }
 
-  private _checkForWaitingState({ nextState }) {
+  private _checkForWaitingState({ nextState }: { nextState: string }) {
     switch (nextState) {
       case EngineState.LOAD_STARTED:
         if (this._engine.isPreloadAvailable) {
@@ -122,10 +124,10 @@ export default class LoadingCover {
 
     this.view.destroy();
 
-    delete this.view;
+    this.view = null;
 
-    delete this._bottomBlock;
-    delete this._eventEmitter;
-    delete this._engine;
+    this._bottomBlock = null;
+    this._eventEmitter = null;
+    this._engine = null;
   }
 }

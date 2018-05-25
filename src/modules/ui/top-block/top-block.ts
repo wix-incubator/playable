@@ -1,8 +1,10 @@
 import View from './top-block.view';
 
-import { ITopBlockViewConfig, ITopBlockViewElements } from './types';
+import { ILiveIndicator } from '../live-indicator/types';
+import { ITitle } from '../title/types';
+import { ITopBlock, ITopBlockViewConfig, ITopBlockViewElements } from './types';
 
-export default class TopBlock {
+export default class TopBlock implements ITopBlock {
   static moduleName = 'topBlock';
   static View = View;
   static dependencies = ['config', 'title', 'liveIndicator'];
@@ -25,7 +27,10 @@ export default class TopBlock {
   }
 
   private _getElementsNodes(dependencies): ITopBlockViewElements {
-    const { title, liveIndicator } = dependencies;
+    const {
+      title,
+      liveIndicator,
+    }: { title: ITitle; liveIndicator: ILiveIndicator } = dependencies;
 
     return {
       title: title.node,

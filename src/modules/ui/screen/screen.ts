@@ -7,7 +7,13 @@ import playerAPI from '../../../core/player-api-decorator';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IFullScreenManager } from '../../full-screen-manager/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
-import { VideoViewMode, IScreenConfig, IScreenViewConfig } from './types';
+import { IInteractionIndicator } from '../interaction-indicator/types';
+import {
+  IScreen,
+  VideoViewMode,
+  IScreenConfig,
+  IScreenViewConfig,
+} from './types';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
@@ -16,7 +22,7 @@ const DEFAULT_CONFIG: IScreenConfig = {
   nativeControls: false,
 };
 
-export default class Screen {
+export default class Screen implements IScreen {
   static moduleName = 'screen';
   static View = View;
   static dependencies = [
@@ -31,9 +37,9 @@ export default class Screen {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
   private _fullScreenManager: IFullScreenManager;
-  private _interactionIndicator;
+  private _interactionIndicator: IInteractionIndicator;
 
-  private _delayedToggleVideoPlaybackTimeout: any;
+  private _delayedToggleVideoPlaybackTimeout: number;
 
   private _isClickProcessingDisabled: boolean;
   private _isInFullScreen: boolean;
@@ -173,14 +179,14 @@ export default class Screen {
   private _setDelayedPlaybackToggle() {
     this._clearDelayedPlaybackToggle();
 
-    this._delayedToggleVideoPlaybackTimeout = setTimeout(
+    this._delayedToggleVideoPlaybackTimeout = window.setTimeout(
       this._toggleVideoPlayback,
       PLAYBACK_CHANGE_TIMEOUT,
     );
   }
 
   private _clearDelayedPlaybackToggle() {
-    clearTimeout(this._delayedToggleVideoPlaybackTimeout);
+    window.clearTimeout(this._delayedToggleVideoPlaybackTimeout);
     this._delayedToggleVideoPlaybackTimeout = null;
   }
 

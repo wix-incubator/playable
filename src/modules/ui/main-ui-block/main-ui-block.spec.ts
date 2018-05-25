@@ -43,10 +43,10 @@ describe('BottomBlock', () => {
     });
 
     it('should have method for hiding controls on timeout', () => {
-      const timeoutSpy = sinon.spy(global, 'setTimeout');
-      const clearSpy = sinon.spy(global, 'clearTimeout');
+      const timeoutSpy = sinon.spy(window, 'setTimeout');
+      const clearSpy = sinon.spy(window, 'clearTimeout');
       mainBlock._startHideBlockTimeout();
-      expect(timeoutSpy.calledWith(mainBlock._tryHideContent)).to.be.true;
+      expect(timeoutSpy.calledWith(mainBlock._tryHideContent, 2000)).to.be.true;
       mainBlock._startHideBlockTimeout();
       expect(clearSpy.called).to.be.true;
 

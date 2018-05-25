@@ -216,7 +216,7 @@ describe('AnomalyBloodhound', () => {
           timeout: 5,
         };
 
-        setTimeout(() => {
+        window.setTimeout(() => {
           expect(callback.calledOnce).to.be.true;
           done();
         }, 10);

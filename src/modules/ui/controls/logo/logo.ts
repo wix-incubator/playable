@@ -9,10 +9,10 @@ import View from './logo.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
-import { ILogoViewConfig } from './types';
+import { ILogoControl, ILogoViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 
-export default class Logo {
+export default class Logo implements ILogoControl {
   static moduleName = 'logo';
   static View = View;
   static dependencies = ['config', 'eventEmitter', 'textMap', 'tooltipService'];
@@ -21,8 +21,8 @@ export default class Logo {
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
 
-  private _interceptor;
-  private _callback;
+  private _interceptor: KeyboardInterceptor;
+  private _callback: Function;
 
   view: View;
   isHidden: boolean;

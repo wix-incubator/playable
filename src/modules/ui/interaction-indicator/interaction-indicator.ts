@@ -4,8 +4,9 @@ import View from './interaction-indicator.view';
 
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
+import { IInteractionIndicator } from './types';
 
-export default class InteractionIndicator {
+export default class InteractionIndicator implements IInteractionIndicator {
   static moduleName = 'interactionIndicator';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];

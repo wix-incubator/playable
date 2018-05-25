@@ -3,12 +3,12 @@ import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import View from './overlay.view';
-import { IOverlayViewConfig } from './types';
+import { IOverlay, IOverlayViewConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IThemeService } from '../core/theme';
 
-export default class Overlay {
+export default class Overlay implements IOverlay {
   static moduleName = 'overlay';
   static View = View;
   static dependencies = [

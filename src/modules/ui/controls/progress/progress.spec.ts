@@ -281,7 +281,7 @@ describe('ProgressControl', () => {
     });
 
     it('should start interval updates', () => {
-      const spy = sinon.spy(global, 'setInterval');
+      const spy = sinon.spy(window, 'setInterval');
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
       expect(spy.calledWith(control._updateControlOnInterval)).to.be.true;

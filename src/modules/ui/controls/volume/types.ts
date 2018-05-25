@@ -30,4 +30,21 @@ type IVolumeViewConfig = {
   tooltipService: ITooltipService;
 };
 
-export { IVolumeViewStyles, IVolumeViewCallbacks, IVolumeViewConfig };
+interface IVolumeControl {
+  node: HTMLElement;
+
+  setVolumeLevel(level: number): void;
+  setMuteStatus(isMuted: boolean): void;
+
+  show(): void;
+  hide(): void;
+
+  destroy(): void;
+}
+
+export {
+  IVolumeControl,
+  IVolumeViewStyles,
+  IVolumeViewCallbacks,
+  IVolumeViewConfig,
+};

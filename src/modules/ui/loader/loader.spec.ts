@@ -61,7 +61,7 @@ describe('Loader', () => {
       });
 
       it('should have method for schedule delayed show', () => {
-        const setTimeoutSpy = sinon.spy(global, 'setTimeout');
+        const setTimeoutSpy = sinon.spy(window, 'setTimeout');
 
         loader.startDelayedShow();
         expect(
@@ -74,7 +74,7 @@ describe('Loader', () => {
 
       it('should have method for unschedule delayed show', () => {
         loader.startDelayedShow();
-        const clearTimeoutSpy = sinon.spy(global, 'clearTimeout');
+        const clearTimeoutSpy = sinon.spy(window, 'clearTimeout');
 
         loader.stopDelayedShow();
         expect(clearTimeoutSpy.called).to.be.true;

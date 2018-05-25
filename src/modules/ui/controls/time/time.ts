@@ -4,12 +4,12 @@ import { VIDEO_EVENTS, EngineState, LiveState } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
-import { ITimeViewConfig } from './types';
+import { ITimeControl, ITimeViewConfig } from './types';
 import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
-export default class TimeControl {
+export default class TimeControl implements ITimeControl {
   static moduleName = 'timeControl';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'theme'];
@@ -18,7 +18,7 @@ export default class TimeControl {
   private _engine: IPlaybackEngine;
   private _theme: IThemeService;
 
-  private _updateControlInterval;
+  private _updateControlInterval: number;
   private _unbindEvents: Function;
 
   view: View;
@@ -68,14 +68,14 @@ export default class TimeControl {
     if (this._updateControlInterval) {
       this._stopIntervalUpdates();
     }
-    this._updateControlInterval = setInterval(
+    this._updateControlInterval = window.setInterval(
       this._updateCurrentTime,
       UPDATE_INTERVAL_DELAY,
     );
   }
 
   private _stopIntervalUpdates() {
-    clearInterval(this._updateControlInterval);
+    window.clearInterval(this._updateControlInterval);
     this._updateControlInterval = null;
   }
 

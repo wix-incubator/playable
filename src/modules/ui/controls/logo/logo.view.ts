@@ -51,7 +51,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._bindEvents();
   }
 
-  setLogo(url) {
+  setLogo(url: string) {
     if (url) {
       this._$logo.classList.remove(this.styleNames.hidden);
       this._$placeholder.classList.add(this.styleNames.hidden);
@@ -63,7 +63,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     }
   }
 
-  setDisplayAsLink(flag) {
+  setDisplayAsLink(flag: boolean) {
     if (flag) {
       this._$node.classList.add(this.styleNames.link);
       this._tooltipReference.enable();

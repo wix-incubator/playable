@@ -4,14 +4,24 @@ import View from './bottom-block.view';
 import { UI_EVENTS } from '../../../constants';
 
 import { IEventEmitter } from '../../event-emitter/types';
-import { IBottomBlockViewConfig, IBottomBlockViewElements } from './types';
+import { IPlayControl } from '../controls/play/types';
+import { ITimeControl } from '../controls/time/types';
+import { IProgressControl } from '../controls/progress/types';
+import { IVolumeControl } from '../controls/volume/types';
+import { IFullScreenControl } from '../controls/full-screen/types';
+import { ILogoControl } from '../controls/logo/types';
 
-export default class BottomBlock {
+import {
+  IBottomBlock,
+  IBottomBlockViewConfig,
+  IBottomBlockViewElements,
+} from './types';
+
+export default class BottomBlock implements IBottomBlock {
   static moduleName = 'bottomBlock';
   static View = View;
   static dependencies = [
     'config',
-    'screen',
     'playControl',
     'progressControl',
     'timeControl',
@@ -48,6 +58,13 @@ export default class BottomBlock {
       volumeControl,
       fullScreenControl,
       logo,
+    }: {
+      playControl: IPlayControl;
+      progressControl: IProgressControl;
+      timeControl: ITimeControl;
+      volumeControl: IVolumeControl;
+      fullScreenControl: IFullScreenControl;
+      logo: ILogoControl;
     } = dependencies;
 
     return {

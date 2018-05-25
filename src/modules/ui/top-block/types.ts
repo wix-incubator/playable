@@ -16,4 +16,21 @@ type ITopBlockViewConfig = {
   elements: ITopBlockViewElements;
 };
 
-export { ITopBlockViewStyles, ITopBlockViewElements, ITopBlockViewConfig };
+interface ITopBlock {
+  node: HTMLElement;
+
+  show(): void;
+  hide(): void;
+
+  showContent(): void;
+  hideContent(): void;
+
+  destroy(): void;
+}
+
+export {
+  ITopBlock,
+  ITopBlockViewStyles,
+  ITopBlockViewElements,
+  ITopBlockViewConfig,
+};

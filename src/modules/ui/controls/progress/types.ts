@@ -37,4 +37,27 @@ type IProgressViewConfig = {
   tooltipService: ITooltipService;
 };
 
-export { IProgressViewStyles, IProgressViewCallbacks, IProgressViewConfig };
+interface IProgressControl {
+  node: HTMLElement;
+
+  addTimeIndicator(time: number): void;
+  addTimeIndicators(times: number[]): void;
+  clearTimeIndicators(): void;
+
+  updatePlayed(percent: number): void;
+  updateBuffered(percent: number): void;
+
+  reset(): void;
+
+  show(): void;
+  hide(): void;
+
+  destroy(): void;
+}
+
+export {
+  IProgressControl,
+  IProgressViewStyles,
+  IProgressViewCallbacks,
+  IProgressViewConfig,
+};

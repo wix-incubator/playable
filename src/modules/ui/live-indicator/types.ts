@@ -19,7 +19,20 @@ type ILiveIndicatorViewConfig = {
   tooltipService: ITooltipService;
 };
 
+interface ILiveIndicator {
+  node: HTMLElement;
+
+  isHidden: boolean;
+  isActive: boolean;
+
+  show(): void;
+  hide(): void;
+
+  destroy(): void;
+}
+
 export {
+  ILiveIndicator,
   ILiveIndicatorViewStyles,
   ILiveIndicatorViewCallbacks,
   ILiveIndicatorViewConfig,

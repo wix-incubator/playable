@@ -15,7 +15,7 @@ export default class Loader {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
 
-  private _delayedShowTimeout;
+  private _delayedShowTimeout: number;
   private _unbindEvents: Function;
 
   view: View;
@@ -122,14 +122,14 @@ export default class Loader {
     if (this.isDelayedShowScheduled) {
       this.stopDelayedShow();
     }
-    this._delayedShowTimeout = setTimeout(
+    this._delayedShowTimeout = window.setTimeout(
       this._showContent,
       DELAYED_SHOW_TIMEOUT,
     );
   }
 
   stopDelayedShow() {
-    clearTimeout(this._delayedShowTimeout);
+    window.clearTimeout(this._delayedShowTimeout);
     this._delayedShowTimeout = null;
   }
 

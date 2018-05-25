@@ -3,9 +3,9 @@ import View from './title.view';
 import playerAPI from '../../../core/player-api-decorator';
 
 import { IThemeService } from '../core/theme';
-import { ITitleViewConfig } from './types';
+import { ITitle, ITitleViewConfig } from './types';
 
-export default class TitleControl {
+export default class TitleControl implements ITitle {
   static moduleName = 'title';
   static View = View;
   static dependencies = ['config', 'theme'];
