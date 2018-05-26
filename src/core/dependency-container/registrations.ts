@@ -1,13 +1,16 @@
 import { __assign } from 'tslib';
 
-import Lifetime from './constants/Lifetime';
 import NotAFunctionError from './errors/NotAFunctionError';
 
-export const PROPERTY_FOR_DEPENDENCIES = 'dependencies';
-const makeOptions = (defaults, input) => __assign({}, defaults, input);
+import Lifetime from './constants/Lifetime';
+import { IOptions } from './types';
 
-export const makeFluidInterface = obj => {
-  const setLifetime = value => {
+import { Container } from './createContainer';
+
+export const PROPERTY_FOR_DEPENDENCIES = 'dependencies';
+
+export const makeFluidInterface = (obj: IOptions) => {
+  const setLifetime = (value: Lifetime) => {
     obj.lifetime = value;
     return obj;
   };
@@ -20,7 +23,7 @@ export const makeFluidInterface = obj => {
   };
 };
 
-export const asValue = value => {
+export const asValue = (value: any): any => {
   const resolve = () => value;
 
   return {
@@ -29,7 +32,7 @@ export const asValue = value => {
   };
 };
 
-export const asFunction: any = (fn, opts?) => {
+export const asFunction: any = (fn: Function, options?: IOptions): any => {
   if (typeof fn !== 'function') {
     throw new NotAFunctionError('asFunction', 'function', typeof fn);
   }
@@ -38,19 +41,23 @@ export const asFunction: any = (fn, opts?) => {
     lifetime: Lifetime.TRANSIENT,
   };
 
-  opts = makeOptions(defaults, opts);
+  options = __assign({}, defaults, options);
 
   const resolve = generateResolve(fn);
   const result = {
     resolve,
-    lifetime: opts.lifetime,
+    lifetime: options.lifetime,
   };
   result.resolve = resolve.bind(result);
   __assign(result, makeFluidInterface(result));
+
   return result;
 };
 
-export const asClass: any = (Type: FunctionConstructor, opts?) => {
+export const asClass: any = (
+  Type: FunctionConstructor,
+  options?: IOptions,
+): any => {
   if (typeof Type !== 'function') {
     throw new NotAFunctionError('asClass', 'class', typeof Type);
   }
@@ -59,15 +66,15 @@ export const asClass: any = (Type: FunctionConstructor, opts?) => {
     lifetime: Lifetime.TRANSIENT,
   };
 
-  opts = makeOptions(defaults, opts);
+  options = __assign({}, defaults, options);
 
   // A function to handle object construction for us, as to make the generateResolve more reusable
-  const newClass = (...args) => new Type(...args);
+  const newClass = (...args: any[]) => new Type(...args);
 
   const resolve = generateResolve(newClass, Type);
   const result = {
     resolve,
-    lifetime: opts.lifetime,
+    lifetime: options.lifetime,
   };
   result.resolve = resolve.bind(result);
   __assign(result, makeFluidInterface(result));
@@ -75,7 +82,7 @@ export const asClass: any = (Type: FunctionConstructor, opts?) => {
   return result;
 };
 
-function generateResolve(fn, dependencyParseTarget?) {
+function generateResolve(fn: Function, dependencyParseTarget?: any): any {
   // If the function used for dependency parsing is falsy, use the supplied function
   if (!dependencyParseTarget) {
     dependencyParseTarget = fn;
@@ -84,12 +91,15 @@ function generateResolve(fn, dependencyParseTarget?) {
   const dependencies = dependencyParseTarget[PROPERTY_FOR_DEPENDENCIES] || [];
 
   // Use a regular function instead of an arrow function to facilitate binding to the registration.
-  return function resolve(container) {
+  return function resolve(container: Container) {
     if (dependencies.length > 0) {
-      const wrapper = dependencies.reduce((wrapper, d) => {
-        wrapper[d] = container.resolve(d);
-        return wrapper;
-      }, {});
+      const wrapper: {} = dependencies.reduce(
+        (wrapper: {}, dependency: string) => {
+          wrapper[dependency] = container.resolve(dependency);
+          return wrapper;
+        },
+        {},
+      );
 
       return fn(wrapper, container);
     }

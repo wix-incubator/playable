@@ -12,6 +12,7 @@ let playbackAdapters = [...defaultPlaybackAdapters];
 
 export const container = DependencyContainer.createContainer();
 container.register(defaultModules);
+const defaultModulesNames = Object.keys(defaultModules);
 
 export function registerModule(id, config) {
   additionalModules[id] = config;
@@ -45,8 +46,8 @@ export function create(params: IPlayerConfig = {}, themeConfig?: IThemeConfig) {
   return new PlayerFacade(
     params,
     scope,
-    defaultModules,
-    additionalModules,
+    defaultModulesNames,
+    additionalModuleNames,
     themeConfig,
   );
 }

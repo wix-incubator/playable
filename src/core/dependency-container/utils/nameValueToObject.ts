@@ -1,10 +1,9 @@
 import { __assign } from 'tslib';
 
-export default function(name, value) {
-  let obj = name;
-  if (typeof obj !== 'object') {
-    obj = __assign({ [name]: value });
+export default function(name: Object | string, value: any): Object {
+  if (typeof name !== 'object') {
+    return __assign({ [name]: value });
   }
 
-  return obj;
+  return name;
 }

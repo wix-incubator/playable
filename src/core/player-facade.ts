@@ -1,3 +1,4 @@
+import { Container } from './dependency-container/createContainer';
 import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
 import { PLAYER_API_PROPERTY } from '../core/player-api-decorator';
 import { IThemeConfig } from '../modules/ui/core/theme';
@@ -5,15 +6,15 @@ import { IThemeConfig } from '../modules/ui/core/theme';
 export default class Player {
   //@ts-ignore
   private _config: IPlayerConfig;
-  private _defaultModules: any;
-  private _additionalModules: any;
+  private _defaultModules: {};
+  private _additionalModules: {};
   private _destroyed: boolean;
 
   constructor(
     params: IPlayerConfig,
-    scope,
-    defaultModules,
-    additionalModules = {},
+    scope: Container,
+    defaultModulesNames: string[] = [],
+    additionalModuleNames: string[] = [],
     themeConfig?: IThemeConfig,
   ) {
     scope.registerValue({
@@ -26,8 +27,8 @@ export default class Player {
 
     this._config = scope.resolve('config');
 
-    this._resolveDefaultModules(scope, defaultModules);
-    this._resolveAdditionalModules(scope, additionalModules);
+    this._resolveDefaultModules(scope, defaultModulesNames);
+    this._resolveAdditionalModules(scope, additionalModuleNames);
   }
 
   /*
@@ -36,32 +37,26 @@ export default class Player {
     could be abolished in future
   */
 
-  private _resolveDefaultModules(scope, modules) {
-    this._defaultModules = Object.keys(modules).reduce(
-      (modules, moduleName) => {
-        const resolvedModule = scope.resolve(moduleName);
+  private _resolveDefaultModules(scope: Container, modulesNames: string[]) {
+    this._defaultModules = modulesNames.reduce((modules, moduleName) => {
+      const resolvedModule = scope.resolve(moduleName);
 
-        this._addPlayerAPIFromModule(resolvedModule, moduleName);
+      this._addPlayerAPIFromModule(resolvedModule, moduleName);
 
-        modules[moduleName] = resolvedModule;
-        return modules;
-      },
-      {},
-    );
+      modules[moduleName] = resolvedModule;
+      return modules;
+    }, {});
   }
 
-  private _resolveAdditionalModules(scope, modules) {
-    this._additionalModules = Object.keys(modules).reduce(
-      (modules, moduleName) => {
-        const resolvedModule = scope.resolve(moduleName);
+  private _resolveAdditionalModules(scope: Container, modulesNames: string[]) {
+    this._additionalModules = modulesNames.reduce((modules, moduleName) => {
+      const resolvedModule = scope.resolve(moduleName);
 
-        this._addPlayerAPIFromModule(resolvedModule, moduleName);
+      this._addPlayerAPIFromModule(resolvedModule, moduleName);
 
-        modules[moduleName] = resolvedModule;
-        return modules;
-      },
-      {},
-    );
+      modules[moduleName] = resolvedModule;
+      return modules;
+    }, {});
   }
 
   private _getWrappedCallToModuleFunction(module, _moduleName, fn) {

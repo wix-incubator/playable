@@ -1,6 +1,10 @@
 import ExtendableError from './ExtendableError';
 
-const createErrorMessage = (name, resolutionStack, message?) => {
+const createErrorMessage = (
+  name: string,
+  resolutionStack: string[],
+  message?: string,
+) => {
   resolutionStack = resolutionStack.slice();
   resolutionStack.push(name);
   const resolutionPathString = resolutionStack.join(' -> ');
@@ -13,7 +17,7 @@ const createErrorMessage = (name, resolutionStack, message?) => {
 };
 
 export default class ResolutionError extends ExtendableError {
-  constructor(name, resolutionStack, message?) {
+  constructor(name: string, resolutionStack: string[], message?: string) {
     super(createErrorMessage(name, resolutionStack, message));
   }
 }

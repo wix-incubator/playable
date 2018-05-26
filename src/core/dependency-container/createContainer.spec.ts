@@ -6,7 +6,7 @@ import createContainer from './createContainer';
 import { asClass, asValue, asFunction } from './registrations';
 
 describe('container created by createContainer', () => {
-  let container;
+  let container: any;
   beforeEach(() => {
     container = createContainer();
   });

@@ -1,9 +1,7 @@
-const SINGLETON = 'SINGLETON';
-const TRANSIENT = 'TRANSIENT';
-const SCOPED = 'SCOPED';
+enum Lifetime {
+  SINGLETON = 'SINGLETON',
+  TRANSIENT = 'TRANSIENT',
+  SCOPED = 'SCOPED',
+}
 
-export default {
-  SINGLETON,
-  TRANSIENT,
-  SCOPED,
-};
+export default Lifetime;
