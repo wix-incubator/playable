@@ -7,6 +7,8 @@ import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IBottomBlock } from '../bottom-block/types';
 import { ILoadingCover } from './types';
+import { IPlayerConfig } from '../../../core/config';
+import { IRootContainer } from '../../root-container/types';
 
 export default class LoadingCover implements ILoadingCover {
   static moduleName = 'loadingCover';
@@ -29,7 +31,19 @@ export default class LoadingCover implements ILoadingCover {
   view: View;
   isHidden: boolean;
 
-  constructor({ config, eventEmitter, engine, bottomBlock, rootContainer }) {
+  constructor({
+    config,
+    eventEmitter,
+    engine,
+    bottomBlock,
+    rootContainer,
+  }: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    bottomBlock: IBottomBlock;
+    rootContainer: IRootContainer;
+  }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;

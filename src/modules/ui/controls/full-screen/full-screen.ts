@@ -44,6 +44,12 @@ export default class FullScreenControl implements IFullScreenControl {
     textMap,
     tooltipService,
     theme,
+  }: {
+    eventEmitter: IEventEmitter;
+    fullScreenManager: IFullScreenManager;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+    theme: IThemeService;
   }) {
     this._eventEmitter = eventEmitter;
     this._fullScreenManager = fullScreenManager;

@@ -1,6 +1,7 @@
 import DEFAULT_TEXTS from './default-texts';
 
 import { ITextMap, ITextMapConfig } from './types';
+import { IPlayerConfig } from '../../core/config';
 
 export default class TextMap implements ITextMap {
   static moduleName = 'textMap';
@@ -8,7 +9,7 @@ export default class TextMap implements ITextMap {
 
   private _textMap: ITextMapConfig;
 
-  constructor({ config }) {
+  constructor({ config }: { config: IPlayerConfig }) {
     this._textMap = {
       ...DEFAULT_TEXTS,
       ...config.texts,

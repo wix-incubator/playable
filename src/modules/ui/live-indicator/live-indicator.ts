@@ -23,7 +23,17 @@ export default class LiveIndicator implements ILiveIndicator {
 
   view: LiveIndicatorView;
 
-  constructor({ engine, eventEmitter, textMap, tooltipService }) {
+  constructor({
+    engine,
+    eventEmitter,
+    textMap,
+    tooltipService,
+  }: {
+    engine: IPlaybackEngine;
+    eventEmitter: IEventEmitter;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+  }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;

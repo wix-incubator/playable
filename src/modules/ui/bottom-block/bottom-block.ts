@@ -16,6 +16,7 @@ import {
   IBottomBlockViewConfig,
   IBottomBlockViewElements,
 } from './types';
+import { IPlayerConfig } from '../../../core/config';
 
 export default class BottomBlock implements IBottomBlock {
   static moduleName = 'bottomBlock';
@@ -41,7 +42,10 @@ export default class BottomBlock implements IBottomBlock {
   isHidden: boolean = false;
 
   constructor(dependencies) {
-    const { config, eventEmitter } = dependencies;
+    const {
+      config,
+      eventEmitter,
+    }: { config: IPlayerConfig; eventEmitter: IEventEmitter } = dependencies;
     this._eventEmitter = eventEmitter;
 
     this._bindViewCallbacks();

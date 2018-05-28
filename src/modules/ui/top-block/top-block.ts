@@ -7,12 +7,12 @@ import { ITopBlock, ITopBlockViewConfig, ITopBlockViewElements } from './types';
 export default class TopBlock implements ITopBlock {
   static moduleName = 'topBlock';
   static View = View;
-  static dependencies = ['config', 'title', 'liveIndicator'];
+  static dependencies = ['title', 'liveIndicator'];
 
   isHidden: boolean;
   view: View;
 
-  constructor(dependencies) {
+  constructor(dependencies: { title: ITitle; liveIndicator: ILiveIndicator }) {
     this.isHidden = false;
 
     this._initUI(this._getElementsNodes(dependencies));

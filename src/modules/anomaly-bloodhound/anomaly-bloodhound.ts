@@ -2,6 +2,7 @@ import { VIDEO_EVENTS, EngineState } from '../../constants';
 
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
+import { IPlayerConfig } from '../../core/config';
 
 import {
   IReportReasons,
@@ -48,7 +49,15 @@ export default class AnomalyBloodhound {
 
   private _unbindEvents: Function;
 
-  constructor({ engine, eventEmitter, config }) {
+  constructor({
+    engine,
+    eventEmitter,
+    config,
+  }: {
+    engine: IPlaybackEngine;
+    eventEmitter: IEventEmitter;
+    config: IPlayerConfig;
+  }) {
     this._config = {
       ...config.anomalyBloodhound,
     };

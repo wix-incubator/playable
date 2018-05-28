@@ -24,7 +24,15 @@ export default class TimeControl implements ITimeControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, engine, theme }) {
+  constructor({
+    eventEmitter,
+    engine,
+    theme,
+  }: {
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    theme: IThemeService;
+  }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._theme = theme;

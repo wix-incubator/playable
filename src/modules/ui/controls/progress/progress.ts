@@ -66,6 +66,13 @@ export default class ProgressControl implements IProgressControl {
     textMap,
     tooltipService,
     theme,
+  }: {
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    liveStateEngine: any;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+    theme: IThemeService;
   }) {
     this._engine = engine;
     this._liveStateEngine = liveStateEngine;

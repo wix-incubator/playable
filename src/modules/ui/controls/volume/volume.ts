@@ -42,7 +42,19 @@ export default class VolumeControl implements IVolumeControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, textMap, tooltipService, theme }) {
+  constructor({
+    engine,
+    eventEmitter,
+    textMap,
+    tooltipService,
+    theme,
+  }: {
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+    theme: IThemeService;
+  }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;

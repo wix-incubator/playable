@@ -11,6 +11,7 @@ import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
 import { ILogoControl, ILogoViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
+import { IPlayerConfig } from '../../../../core/config';
 
 export default class Logo implements ILogoControl {
   static moduleName = 'logo';
@@ -27,7 +28,17 @@ export default class Logo implements ILogoControl {
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, config, textMap, tooltipService }) {
+  constructor({
+    eventEmitter,
+    config,
+    textMap,
+    tooltipService,
+  }: {
+    eventEmitter: IEventEmitter;
+    config: IPlayerConfig;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+  }) {
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
@@ -38,7 +49,7 @@ export default class Logo implements ILogoControl {
     this._initInterceptor();
 
     const logoConfig = {
-      ...config.logo,
+      ...(typeof config.logo === 'object' ? config.logo : {}),
     };
 
     this.setLogo(logoConfig.src);

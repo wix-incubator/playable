@@ -54,7 +54,7 @@ Getter for DOM node with player UI element
         <td class="param">
         </td>
         <td>
-            <div class="type">Element</div>
+            <div class="type">HTMLElement</div>
         </td>
       </tr>
     </tbody>

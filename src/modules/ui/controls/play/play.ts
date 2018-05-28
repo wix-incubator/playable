@@ -31,7 +31,17 @@ export default class PlayControl implements IPlayControl {
 
   view: View;
 
-  constructor({ engine, eventEmitter, textMap, theme }) {
+  constructor({
+    engine,
+    eventEmitter,
+    textMap,
+    theme,
+  }: {
+    engine: IPlaybackEngine;
+    eventEmitter: IEventEmitter;
+    textMap: ITextMap;
+    theme: IThemeService;
+  }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;

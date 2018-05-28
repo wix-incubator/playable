@@ -12,6 +12,7 @@ import ElementQueries from '../ui/core/element-queries';
 
 import { IEventEmitter } from '../event-emitter/types';
 import { IRootContainer } from './types';
+import { IPlayerConfig } from '../../core/config';
 
 const DEFAULT_CONFIG = {
   fillAllSpace: false,
@@ -34,7 +35,13 @@ class RootContainer implements IRootContainer {
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, config }) {
+  constructor({
+    eventEmitter,
+    config,
+  }: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+  }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
 
@@ -49,7 +56,7 @@ class RootContainer implements IRootContainer {
    * (use it only for debug, if you need attach player to your document use `attachToElement` method)
    */
   @playerAPI()
-  get node(): Element {
+  get node(): HTMLElement {
     return this.view.getNode();
   }
 

@@ -4,6 +4,7 @@ import playerAPI from '../../../core/player-api-decorator';
 
 import { IThemeService } from '../core/theme';
 import { ITitle, ITitleViewConfig } from './types';
+import { IPlayerConfig } from '../../../core/config';
 
 export default class TitleControl implements ITitle {
   static moduleName = 'title';
@@ -16,12 +17,18 @@ export default class TitleControl implements ITitle {
   view: View;
   isHidden: boolean;
 
-  constructor({ config, theme }) {
+  constructor({
+    config,
+    theme,
+  }: {
+    config: IPlayerConfig;
+    theme: IThemeService;
+  }) {
     this._theme = theme;
 
     this._bindCallbacks();
     this._initUI();
-    if (config.title) {
+    if (typeof config.title === 'object') {
       this.setTitleClickCallback(config.title.callback || null);
       this.setTitle(config.title.text);
     } else if (config.title === false) {

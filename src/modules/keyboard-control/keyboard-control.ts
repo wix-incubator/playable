@@ -12,7 +12,9 @@ import KeyboardInterceptor, {
 
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
+import { IPlayerConfig } from '../../core/config';
 import { IKeyboardControl } from './types';
+import { IRootContainer } from '../root-container/types';
 
 export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
@@ -27,7 +29,17 @@ export default class KeyboardControl implements IKeyboardControl {
   private _rootNode: HTMLElement;
   private _keyboardInterceptor: KeyboardInterceptor;
 
-  constructor({ config, eventEmitter, rootContainer, engine }) {
+  constructor({
+    config,
+    eventEmitter,
+    rootContainer,
+    engine,
+  }: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+    rootContainer: IRootContainer;
+    engine: IPlaybackEngine;
+  }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._rootNode = rootContainer.node;

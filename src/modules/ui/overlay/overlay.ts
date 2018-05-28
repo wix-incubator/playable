@@ -7,6 +7,8 @@ import { IOverlay, IOverlayViewConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IThemeService } from '../core/theme';
+import { IPlayerConfig } from '../../../core/config';
+import { IRootContainer } from '../../root-container/types';
 
 export default class Overlay implements IOverlay {
   static moduleName = 'overlay';
@@ -28,13 +30,25 @@ export default class Overlay implements IOverlay {
   view: View;
   isHidden: boolean = false;
 
-  constructor({ config, eventEmitter, engine, rootContainer, theme }) {
+  constructor({
+    config,
+    eventEmitter,
+    engine,
+    rootContainer,
+    theme,
+  }: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    rootContainer: IRootContainer;
+    theme: IThemeService;
+  }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._theme = theme;
 
     this._bindEvents();
-    this._initUI(config.overlay && config.overlay.poster);
+    this._initUI(config.overlay);
 
     rootContainer.appendComponentNode(this.node);
 
@@ -47,8 +61,10 @@ export default class Overlay implements IOverlay {
     return this.view.getNode();
   }
 
-  private _initUI(poster) {
-    const config: IOverlayViewConfig = {
+  private _initUI(overlayConfig) {
+    const poster: string =
+      typeof overlayConfig === 'object' ? overlayConfig.poster : null;
+    const viewConfig: IOverlayViewConfig = {
       callbacks: {
         onPlayClick: this._playVideo.bind(this),
       },
@@ -56,7 +72,7 @@ export default class Overlay implements IOverlay {
       theme: this._theme,
     };
 
-    this.view = new Overlay.View(config);
+    this.view = new Overlay.View(viewConfig);
   }
 
   private _bindEvents() {

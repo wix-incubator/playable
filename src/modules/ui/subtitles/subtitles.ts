@@ -4,6 +4,8 @@ import playerAPI from '../../../core/player-api-decorator';
 import SubtitlesView from './subtitles.view';
 import { ISubtitles, ISubtitleConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
+import { IRootContainer } from '../../root-container/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
 
 export default class Subtitles implements ISubtitles {
   static moduleName = 'subtitle';
@@ -20,7 +22,15 @@ export default class Subtitles implements ISubtitles {
 
   private _unbindEvents: Function;
 
-  constructor({ rootContainer, engine, eventEmitter }) {
+  constructor({
+    rootContainer,
+    engine,
+    eventEmitter,
+  }: {
+    rootContainer: IRootContainer;
+    engine: IPlaybackEngine;
+    eventEmitter: IEventEmitter;
+  }) {
     this._eventEmitter = eventEmitter;
     this._video = engine.getNode();
 
