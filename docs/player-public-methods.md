@@ -1354,6 +1354,15 @@ Return object with internal debug info
             <p>Object with start and end for current buffer segment</p>
         </td>
       </tr>
+      <tr>
+        <td class="param">
+          <code>deliveryPriority</code>
+        </td>
+        <td>
+            <div class="type">MediaStreamDeliveryPriority</div>
+            <p>Priority of current adapter</p>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

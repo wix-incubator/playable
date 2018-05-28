@@ -62,7 +62,7 @@ export default class LoadingCover implements ILoadingCover {
     );
   }
 
-  private _checkForWaitingState({ nextState }: { nextState: string }) {
+  private _checkForWaitingState({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.LOAD_STARTED:
         if (this._engine.isPreloadAvailable) {

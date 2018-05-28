@@ -104,7 +104,7 @@ export default class PlayControl implements IPlayControl {
     this._eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
   }
 
-  private _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
     if (nextState === EngineState.SRC_SET) {
       this.reset();
     } else if (nextState === EngineState.PLAYING) {

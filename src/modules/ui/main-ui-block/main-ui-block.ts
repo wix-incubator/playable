@@ -129,7 +129,7 @@ export default class MainUIBlock implements IMainBlock {
     );
   }
 
-  private _updatePlayingStatus({ nextState }: { nextState: string }) {
+  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.PLAY_REQUESTED: {
         this._shouldShowContent = false;

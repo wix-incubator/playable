@@ -90,7 +90,7 @@ export default class LiveIndicator implements ILiveIndicator {
     );
   }
 
-  private _processStateChange({ nextState }) {
+  private _processStateChange({ nextState }: { nextState: LiveState }) {
     switch (nextState) {
       case LiveState.NONE:
         this._toggle(false);

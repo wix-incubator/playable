@@ -79,7 +79,7 @@ export default class TimeControl implements ITimeControl {
     this._updateControlInterval = null;
   }
 
-  private _processLiveStateChange({ nextState }) {
+  private _processLiveStateChange({ nextState }: { nextState: LiveState }) {
     switch (nextState) {
       case LiveState.NONE:
         this.show();
@@ -98,7 +98,7 @@ export default class TimeControl implements ITimeControl {
     }
   }
 
-  private _toggleIntervalUpdates({ nextState }) {
+  private _toggleIntervalUpdates({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.SRC_SET:
         this.reset();

@@ -66,7 +66,7 @@ export default class Overlay implements IOverlay {
     );
   }
 
-  private _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
     if (nextState === EngineState.PLAY_REQUESTED) {
       this._hideContent();
     } else if (

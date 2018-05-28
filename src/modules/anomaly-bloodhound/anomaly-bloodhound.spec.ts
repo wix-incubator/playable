@@ -41,7 +41,7 @@ describe('AnomalyBloodhound', () => {
     it('should be based on event', () => {
       const spy = sinon.spy(anomalyBloodhound, '_processStateChange');
       anomalyBloodhound._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
       anomalyBloodhound._processStateChange.restore();
     });

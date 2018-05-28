@@ -241,7 +241,7 @@ export default class ProgressControl implements IProgressControl {
     this._updateBufferIndicator();
   }
 
-  private _processStateChange({ nextState }) {
+  private _processStateChange({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.SRC_SET:
         this.reset();
@@ -273,7 +273,7 @@ export default class ProgressControl implements IProgressControl {
     }
   }
 
-  private _processLiveStateChange({ nextState }) {
+  private _processLiveStateChange({ nextState }: { nextState: LiveState }) {
     switch (nextState) {
       case LiveState.NONE:
         this.view.setLiveSyncStatus(false);

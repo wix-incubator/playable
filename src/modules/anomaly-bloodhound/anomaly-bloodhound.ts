@@ -70,7 +70,10 @@ export default class AnomalyBloodhound {
   private _processStateChange({
     prevState,
     nextState,
-  }: { prevState?; nextState? } = {}) {
+  }: {
+    prevState: EngineState;
+    nextState: EngineState;
+  }) {
     switch (nextState) {
       case EngineState.LOAD_STARTED:
         if (

@@ -103,7 +103,11 @@ export default class FullScreenManager implements IFullScreenManager {
     }
   }
 
-  private _processNextStateFromEngine({ nextState }) {
+  private _processNextStateFromEngine({
+    nextState,
+  }: {
+    nextState: EngineState;
+  }) {
     switch (nextState) {
       case EngineState.ENDED: {
         this._exitOnEnd();

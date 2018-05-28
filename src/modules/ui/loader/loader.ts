@@ -58,7 +58,7 @@ export default class Loader {
     );
   }
 
-  private _checkForWaitingState({ nextState }) {
+  private _checkForWaitingState({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.SEEK_IN_PROGRESS:
         this.startDelayedShow();
