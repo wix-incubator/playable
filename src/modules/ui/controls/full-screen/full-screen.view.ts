@@ -89,7 +89,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._callbacks.onButtonClick();
   }
 
-  setState({ isInFullScreen }) {
+  setState({ isInFullScreen }: { isInFullScreen: boolean }) {
     if (isInFullScreen) {
       this._$toggleFullScreenControl.classList.add(
         this.styleNames.inFullScreen,
@@ -124,7 +124,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
       );
     }
 
-    this._$node.setAttribute(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
+    this._$node.setAttribute(DATA_IS_IN_FULL_SCREEN, String(isInFullScreen));
   }
 
   hide() {

@@ -140,7 +140,7 @@ export default class PlayControl implements IPlayControl {
     this.view = new PlayControl.View(config);
   }
 
-  setControlStatus(isPlaying) {
+  setControlStatus(isPlaying: boolean) {
     this._isPlaying = isPlaying;
     this.view.setState({ isPlaying: this._isPlaying });
   }

@@ -41,7 +41,7 @@ export default class ProgressControl implements IProgressControl {
   ];
 
   private _engine: IPlaybackEngine;
-  private _liveStateEngine;
+  private _liveStateEngine: any;
   private _eventEmitter: IEventEmitter;
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
@@ -184,7 +184,7 @@ export default class ProgressControl implements IProgressControl {
     );
   }
 
-  private _changePlayedProgress(value) {
+  private _changePlayedProgress(value: number) {
     if (this._currentProgress === value) {
       return;
     }
@@ -206,7 +206,7 @@ export default class ProgressControl implements IProgressControl {
     );
   }
 
-  private _onSeekToByMouseStart(percent) {
+  private _onSeekToByMouseStart(percent: number) {
     const durationTime = this._engine.getDurationTime();
     const seekTime = durationTime * percent / 100;
     const time = this._engine.isDynamicContent
@@ -317,7 +317,7 @@ export default class ProgressControl implements IProgressControl {
     }
   }
 
-  private _changeCurrentTimeOfVideo(percent) {
+  private _changeCurrentTimeOfVideo(percent: number) {
     const duration = this._engine.getDurationTime();
 
     if (this._engine.isDynamicContent && percent === 1) {
@@ -386,7 +386,7 @@ export default class ProgressControl implements IProgressControl {
     this._timeIndicatorsToAdd = [];
   }
 
-  private _addTimeIndicator(time) {
+  private _addTimeIndicator(time: number) {
     const durationTime = this._engine.getDurationTime();
 
     if (time > durationTime) {
@@ -445,12 +445,12 @@ export default class ProgressControl implements IProgressControl {
     this.view.clearTimeIndicators();
   }
 
-  updatePlayed(percent) {
+  updatePlayed(percent: number) {
     this._currentProgress = percent;
     this.view.setPlayed(this._currentProgress);
   }
 
-  updateBuffered(percent) {
+  updateBuffered(percent: number) {
     this.view.setBuffered(percent);
   }
 

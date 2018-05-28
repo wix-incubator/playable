@@ -33,20 +33,20 @@ const focusEventName = supportsFocusIn ? 'focusin' : 'focus';
 const blurEventName = supportsFocusIn ? 'focusout' : 'blur';
 
 // interface to read interaction-type-listener state
-let interactionTypeHandler;
+let interactionTypeHandler: any;
 // keep track of last focus source
-let current = null;
+let current: any = null;
 // overwrite focus source for use with the every upcoming focus event
-let lock = null;
+let lock: any = null;
 // keep track of ever having used a particular input method to change focus
-const used = {
+const used: any = {
   pointer: false,
   key: false,
   script: false,
   initial: false,
 };
 
-function handleFocusEvent(event) {
+function handleFocusEvent(event: any) {
   let source = '';
   if (event.type === focusEventName) {
     const interactionType = interactionTypeHandler.get();
@@ -71,11 +71,11 @@ function getCurrentFocusSource() {
   return current;
 }
 
-function getUsedFocusSource(source) {
+function getUsedFocusSource(source: any) {
   return used[source];
 }
 
-function lockFocusSource(source) {
+function lockFocusSource(source: any) {
   lock = source;
 }
 

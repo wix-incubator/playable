@@ -30,6 +30,7 @@ describe('KeyboardControl', () => {
     engine = new Engine({
       eventEmitter,
       config,
+      availablePlaybackAdapters: [],
     });
     engine._adapterStrategy._attachedAdapter = {
       isSeekAvailable: true,

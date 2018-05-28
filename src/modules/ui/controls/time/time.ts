@@ -131,11 +131,11 @@ export default class TimeControl implements ITimeControl {
     this.setCurrentTime(this._engine.getCurrentTime());
   }
 
-  setDurationTime(time) {
+  setDurationTime(time: number) {
     this.view.setDurationTime(time);
   }
 
-  setCurrentTime(time) {
+  setCurrentTime(time: number) {
     this.view.setCurrentTime(time);
   }
 

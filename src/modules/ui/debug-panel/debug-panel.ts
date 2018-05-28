@@ -42,7 +42,7 @@ export default class DebugPanel {
     keyboardControl.addKeyControl(KEYCODES.DEBUG_KEY, this._keyControlCallback);
   }
 
-  private _keyControlCallback(e) {
+  private _keyControlCallback(e: KeyboardEvent) {
     if (e.ctrlKey && e.shiftKey) {
       this.show();
     }

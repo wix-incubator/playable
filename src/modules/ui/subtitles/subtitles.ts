@@ -100,8 +100,9 @@ export default class Subtitles implements ISubtitles {
       'track[kind="subtitles"]',
     );
 
-    Array.prototype.forEach.call(subtitleTracks, trackNode =>
-      this._video.removeChild(trackNode),
+    Array.prototype.forEach.call(
+      subtitleTracks,
+      (trackNode: HTMLTrackElement) => this._video.removeChild(trackNode),
     );
 
     this._trackList = [];
@@ -128,7 +129,10 @@ export default class Subtitles implements ISubtitles {
       textTrack.addEventListener('cuechange', this._showSubtitles);
       textTrack.activeCues &&
         this.view.showSubtitles(
-          Array.prototype.map.call(textTrack.activeCues, cue => cue.text),
+          Array.prototype.map.call(
+            textTrack.activeCues,
+            (cue: TextTrackCue) => cue.text,
+          ),
         );
     }
 
@@ -168,7 +172,10 @@ export default class Subtitles implements ISubtitles {
   private _showSubtitles(event: TrackEvent): void {
     const textTrack: TextTrack = event.target as TextTrack;
     this.view.showSubtitles(
-      Array.prototype.map.call(textTrack.activeCues, cue => cue.text),
+      Array.prototype.map.call(
+        textTrack.activeCues,
+        (cue: TextTrackCue) => cue.text,
+      ),
     );
   }
 

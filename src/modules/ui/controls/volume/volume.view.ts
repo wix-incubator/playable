@@ -224,7 +224,7 @@ class VolumeView extends View<IVolumeViewStyles>
     this._setMuteDOMAttributes(isMuted);
   }
 
-  private _setMuteDOMAttributes(isMuted) {
+  private _setMuteDOMAttributes(isMuted: boolean) {
     if (isMuted) {
       this._$muteButton.innerHTML = volume0IconTemplate({
         styles: this.styleNames,
@@ -232,7 +232,7 @@ class VolumeView extends View<IVolumeViewStyles>
       });
     }
 
-    this._$node.setAttribute(DATA_IS_MUTED, isMuted);
+    this._$node.setAttribute(DATA_IS_MUTED, String(isMuted));
     this._$muteButton.setAttribute(
       'aria-label',
       isMuted

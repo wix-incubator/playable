@@ -178,7 +178,7 @@ export default class VolumeControl implements IVolumeControl {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
   }
 
-  private _changeVolumeLevel(level) {
+  private _changeVolumeLevel(level: number) {
     this._engine.setVolume(level);
     this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
   }
@@ -188,18 +188,18 @@ export default class VolumeControl implements IVolumeControl {
     this._eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, !this._isMuted);
   }
 
-  private _getVolumeLevelFromWheel(delta) {
+  private _getVolumeLevelFromWheel(delta: number) {
     const adjustedVolume = this._volume + delta / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
 
     this._changeVolumeStatus(validatedVolume);
   }
 
-  private _getVolumeLevelFromInput(level) {
+  private _getVolumeLevelFromInput(level: number) {
     this._changeVolumeStatus(level);
   }
 
-  private _changeVolumeStatus(level) {
+  private _changeVolumeStatus(level: number) {
     this._changeVolumeLevel(level);
     if (this._isMuted) {
       this._toggleMuteStatus();
@@ -211,7 +211,7 @@ export default class VolumeControl implements IVolumeControl {
     this.setMuteStatus(this._engine.getMute());
   }
 
-  setVolumeLevel(level) {
+  setVolumeLevel(level: number) {
     if (level === this._volume) {
       return;
     }
@@ -222,7 +222,7 @@ export default class VolumeControl implements IVolumeControl {
     this.view.setMute(Boolean(!this._volume));
   }
 
-  setMuteStatus(isMuted) {
+  setMuteStatus(isMuted: boolean) {
     if (isMuted === this._isMuted) {
       return;
     }

@@ -5,7 +5,10 @@ type ITooltipCenterXfn = (
   tooltipReferenceWidth: number,
 ) => number;
 
-function calcTooltipCenterX(tooltipReferenceOffsetX, tooltipReferenceWidth) {
+function calcTooltipCenterX(
+  tooltipReferenceOffsetX: number,
+  tooltipReferenceWidth: number,
+) {
   return tooltipReferenceOffsetX + tooltipReferenceWidth / 2;
 }
 

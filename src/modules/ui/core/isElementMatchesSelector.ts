@@ -5,11 +5,11 @@ const ALIASES = [
   'msMatchesSelector',
 ];
 
-let matchesSelectorFn;
+let matchesSelectorFn: Function;
 
-if (typeof Element !== 'undefined') {
+if (typeof HTMLElement !== 'undefined') {
   for (let i = 0; i < ALIASES.length; i++) {
-    matchesSelectorFn = Element.prototype[ALIASES[i]];
+    matchesSelectorFn = (Element as any).prototype[ALIASES[i]] as Function;
 
     if (matchesSelectorFn) {
       break;
@@ -18,8 +18,9 @@ if (typeof Element !== 'undefined') {
 }
 
 const isElementMatchesSelector = matchesSelectorFn
-  ? (element, selector) => matchesSelectorFn.call(element, selector)
-  : (element, selector) =>
+  ? (element: HTMLElement, selector: string) =>
+      matchesSelectorFn.call(element, selector)
+  : (element: HTMLElement, selector: string) =>
       Array.prototype.indexOf.call(
         document.querySelectorAll(selector),
         element,

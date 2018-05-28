@@ -16,6 +16,7 @@ import { IPlaybackAdapter } from './adapters/types';
 
 import { IPlaybackEngine, IDebugInfo, MediaSource } from './types';
 import { IEventEmitter } from '../event-emitter/types';
+import { IPlayerConfig } from '../../core/config';
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 export default class Engine implements IPlaybackEngine {
@@ -24,14 +25,22 @@ export default class Engine implements IPlaybackEngine {
 
   private _eventEmitter: IEventEmitter;
   private _currentSrc: MediaSource;
-  private _stateEngine;
+  private _stateEngine: StateEngine;
   private _video: HTMLVideoElement;
-  private _nativeEventsBroadcaster;
-  private _adapterStrategy;
+  private _nativeEventsBroadcaster: NativeEventsBroadcaster;
+  private _adapterStrategy: AdapterStrategy;
   private _playPromise: Promise<any>;
   private _pauseRequested: boolean;
 
-  constructor({ eventEmitter, config, availablePlaybackAdapters = [] }) {
+  constructor({
+    eventEmitter,
+    config,
+    availablePlaybackAdapters = [],
+  }: {
+    eventEmitter: IEventEmitter;
+    config: IPlayerConfig;
+    availablePlaybackAdapters: any[];
+  }) {
     this._eventEmitter = eventEmitter;
 
     this._currentSrc = null;

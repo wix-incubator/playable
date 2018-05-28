@@ -77,15 +77,15 @@ describe('getUIConfig function', () => {
     setProperty(navigator, 'userAgent', 'Android');
 
     const params = {
-      title: 'test',
+      title: { text: 'test' },
       controls: {},
-      loader: {},
+      loader: true,
     };
 
     expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal({
-      title: 'test',
+      title: { text: 'test' },
       controls: {},
-      loader: {},
+      loader: true,
       screen: {
         disableClickProcessing: true,
       },

@@ -9,7 +9,7 @@ extensionsMap.ogg = MediaStreamTypes.OGG;
 extensionsMap.mkv = MediaStreamTypes.MKV;
 extensionsMap.mov = MediaStreamTypes.MOV;
 
-export function getStreamType(url) {
+export function getStreamType(url: string) {
   const anchorElement = document.createElement('a');
   anchorElement.href = url;
   const streamType = extensionsMap[getExtFromPath(anchorElement.pathname)];
@@ -17,7 +17,7 @@ export function getStreamType(url) {
   return streamType || false;
 }
 
-export function getExtFromPath(path) {
+export function getExtFromPath(path: string) {
   return path
     .split('.')
     .pop()

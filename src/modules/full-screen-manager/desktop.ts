@@ -87,7 +87,7 @@ export default class DesktopFullScreen implements IFullScreenHelper {
       return false;
     }
 
-    return Boolean(document[this._fullscreenFn.fullscreenElement]);
+    return Boolean((document as any)[this._fullscreenFn.fullscreenElement]);
   }
 
   get isEnabled() {
@@ -95,7 +95,9 @@ export default class DesktopFullScreen implements IFullScreenHelper {
       return false;
     }
 
-    return this.isAPIExist && document[this._fullscreenFn.fullscreenEnabled];
+    return (
+      this.isAPIExist && (document as any)[this._fullscreenFn.fullscreenEnabled]
+    );
   }
 
   private _bindEvents() {
@@ -133,9 +135,9 @@ export default class DesktopFullScreen implements IFullScreenHelper {
     // setTimeout is even worse.
 
     if (/5\.1[.\d]* Safari/.test(navigator.userAgent)) {
-      this._elem[request]();
+      (this._elem as any)[request]();
     } else {
-      this._elem[request]((Element as any).ALLOW_KEYBOARD_INPUT);
+      (this._elem as any)[request]((Element as any).ALLOW_KEYBOARD_INPUT);
     }
   }
 
@@ -144,7 +146,9 @@ export default class DesktopFullScreen implements IFullScreenHelper {
       return;
     }
 
-    document[(this._fullscreenFn as IFullScreenFnMap).exitFullscreen]();
+    (document as any)[
+      (this._fullscreenFn as IFullScreenFnMap).exitFullscreen
+    ]();
   }
 
   destroy() {

@@ -1,3 +1,6 @@
+interface ILoadingCoverConfig {
+  url: string | boolean;
+}
 type ILoadingCoverViewStyles = {
   loadingCover: string;
   loadingCoverImage: string;
@@ -15,4 +18,4 @@ interface ILoadingCover {
   destroy(): void;
 }
 
-export { ILoadingCover, ILoadingCoverViewStyles };
+export { ILoadingCoverConfig, ILoadingCover, ILoadingCoverViewStyles };

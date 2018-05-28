@@ -93,7 +93,7 @@ class ScreenView extends View<IScreenViewStyles>
     );
   }
 
-  updateVideoAspectRatio(widthHeightRatio) {
+  updateVideoAspectRatio(widthHeightRatio: number) {
     this._widthHeightRatio = widthHeightRatio;
     const isHorizontal = this._widthHeightRatio > 1;
     toggleNodeClass(this._$node, this.styleNames.horizontalVideo, isHorizontal);
@@ -116,7 +116,7 @@ class ScreenView extends View<IScreenViewStyles>
     return this._$node;
   }
 
-  appendComponentNode(node) {
+  appendComponentNode(node: HTMLElement) {
     this._$node.appendChild(node);
   }
 
@@ -204,7 +204,7 @@ class ScreenView extends View<IScreenViewStyles>
     return [[0, 0, width / 2, height], [width / 2, 0, width / 2, height]];
   }
 
-  private _drawAreaFromSource(source, area) {
+  private _drawAreaFromSource(source: number[], area: number[]) {
     const [sourceX, sourceY, sourceWidth, sourceHeight] = source;
     const [areaX, areaY, areaWidth, areaHeight] = area;
 

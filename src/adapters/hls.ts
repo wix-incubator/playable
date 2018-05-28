@@ -1,3 +1,4 @@
+//@ts-ignore
 import HlsJs from 'hls.js/dist/hls.light';
 
 import {
@@ -29,10 +30,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
     return NativeEnvironmentSupport.MSE && HlsJs.isSupported();
   }
 
-  private eventEmitter;
-  private hls;
+  private eventEmitter: any;
+  private hls: any;
   private videoElement: HTMLVideoElement;
-  private mediaStream;
+  private mediaStream: any;
 
   private _mediaRecoverTimeout: number;
   private _networkRecoverTimeout: number;
@@ -40,7 +41,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private _isDynamicContentEnded: boolean;
   private _isAttached: boolean;
 
-  constructor(eventEmitter) {
+  constructor(eventEmitter: any) {
     this.eventEmitter = eventEmitter;
     this.hls = null;
     this.videoElement = null;
@@ -121,7 +122,9 @@ export default class HlsAdapter implements IPlaybackAdapter {
     let bwEstimate = 0;
 
     if (this.hls.levelController) {
-      bitrates = this.hls.levelController.levels.map(level => level.bitrate);
+      bitrates = this.hls.levelController.levels.map(
+        (level: any) => level.bitrate,
+      );
       if (bitrates) {
         currentBitrate = bitrates[this.hls.levelController.level];
       }
@@ -153,11 +156,11 @@ export default class HlsAdapter implements IPlaybackAdapter {
     };
   }
 
-  canPlay(mediaType) {
+  canPlay(mediaType: MEDIA_STREAM_TYPES) {
     return mediaType === MEDIA_STREAM_TYPES.HLS;
   }
 
-  setMediaStreams(mediaStreams) {
+  setMediaStreams(mediaStreams: any) {
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {
@@ -169,7 +172,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     }
   }
 
-  private _logError(error, errorEvent) {
+  private _logError(error: string, errorEvent: any) {
     this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
       errorType: error,
       streamType: MEDIA_STREAM_TYPES.HLS,
@@ -178,7 +181,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     });
   }
 
-  private _broadcastError(_error, data) {
+  private _broadcastError(_error: any, data: any) {
     // TODO: `_error` argument is unused
     if (!data.fatal) {
       return;
@@ -266,7 +269,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.videoElement.removeEventListener('play', this._attachOnPlay);
   }
 
-  attach(videoElement) {
+  attach(videoElement: HTMLVideoElement) {
     if (!this.mediaStream) {
       return;
     }
@@ -293,7 +296,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this._isAttached = true;
   }
 
-  private _onLevelUpdated(_eventName, { details }) {
+  private _onLevelUpdated(_eventName: any, { details }: any) {
     this._isDynamicContent = details.live;
     this._isDynamicContentEnded = details.live ? false : null;
 

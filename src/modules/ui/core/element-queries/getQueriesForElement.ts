@@ -7,7 +7,7 @@ const CSS_SELECTOR_PATTERN = /,?[\s\t]*([^,\n]*?)((?:\[[\s\t]*?(?:[a-z-]+-)?(?:m
 const QUERY_ATTR_PATTERN = /\[[\s\t]*?(?:([a-z-]+)-)?(min|max)-width[\s\t]*?[~$\^]?=[\s\t]*?"([^"]*?)"[\s\t]*?]/gim;
 
 function getQueriesFromCssSelector(cssSelector: string) {
-  const results = [];
+  const results: any[] = [];
 
   if (
     cssSelector.indexOf('min-width') === -1 &&
@@ -18,11 +18,11 @@ function getQueriesFromCssSelector(cssSelector: string) {
 
   cssSelector = cssSelector.replace(/'/g, '"');
 
-  forEachMatch(cssSelector, CSS_SELECTOR_PATTERN, match => {
+  forEachMatch(cssSelector, CSS_SELECTOR_PATTERN, (match: RegExpMatchArray) => {
     const [selectorPart1, attribute, selectorPart2] = match.slice(1);
     const selector = selectorPart1 + selectorPart2;
 
-    forEachMatch(attribute, QUERY_ATTR_PATTERN, match => {
+    forEachMatch(attribute, QUERY_ATTR_PATTERN, (match: RegExpMatchArray) => {
       const [prefix = '', mode, width] = match.slice(1);
 
       results.push({
@@ -40,7 +40,7 @@ function getQueriesFromCssSelector(cssSelector: string) {
 function getQueriesFromRules(rules: CSSRuleList) {
   return reduce(
     rules,
-    (results, rule) => {
+    (results: any[], rule: any) => {
       // https://developer.mozilla.org/en-US/docs/Web/API/CSSRule
       // CSSRule.STYLE_RULE
       if (rule.type === 1) {
@@ -61,7 +61,7 @@ function getQueriesFromRules(rules: CSSRuleList) {
 function getQueries() {
   return reduce(
     document.styleSheets,
-    (results, styleSheet) => {
+    (results: any[], styleSheet: CSSStyleSheet) => {
       // NOTE: browser may not able to read rules for cross-domain stylesheets
       try {
         const rules = styleSheet.cssRules || styleSheet.rules;
@@ -81,11 +81,11 @@ function getQueries() {
   );
 }
 
-function getQueriesForElement(element, prefix = '') {
+function getQueriesForElement(element: HTMLElement, prefix = '') {
   const matchedSelectors = new Map();
-  const queries = [];
+  const queries: any[] = [];
 
-  getQueries().forEach(query => {
+  getQueries().forEach((query: any) => {
     if (!matchedSelectors.has(query.selector)) {
       matchedSelectors.set(
         query.selector,

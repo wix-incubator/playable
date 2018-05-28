@@ -45,6 +45,7 @@ describe('FullScreenManager', () => {
     engine = new Engine({
       config,
       eventEmitter,
+      availablePlaybackAdapters: [],
     });
     rootContainer = new RootContainer({
       config,

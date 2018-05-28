@@ -1,4 +1,4 @@
-import { EventEmitter } from 'eventemitter3';
+import { EventEmitter, ListenerFn } from 'eventemitter3';
 
 export const KEYCODES = {
   SPACE_BAR: 32,
@@ -11,11 +11,16 @@ export const KEYCODES = {
   DEBUG_KEY: 68,
 };
 
-export default class KeyboardInterceptorCore {
-  private _eventEmitter;
-  private _node;
+interface ICallbacks {
+  [keyCode: string]: ListenerFn;
+}
 
-  constructor(node, callbacks?) {
+export default class KeyboardInterceptorCore {
+  //TODO: Find how to set proper types here
+  private _eventEmitter: any;
+  private _node: HTMLElement;
+
+  constructor(node: HTMLElement, callbacks?: ICallbacks) {
     this._eventEmitter = new EventEmitter();
     this._node = node;
 
@@ -24,8 +29,8 @@ export default class KeyboardInterceptorCore {
     this._bindEvents();
   }
 
-  private _attachCallbacks(callbacks) {
-    Object.keys(callbacks).forEach(keyCode => {
+  private _attachCallbacks(callbacks: ICallbacks) {
+    Object.keys(callbacks).forEach((keyCode: string) => {
       const keyCodeCallbacks = callbacks[keyCode];
       if (Array.isArray(keyCodeCallbacks)) {
         keyCodeCallbacks.forEach(callback =>
@@ -57,11 +62,11 @@ export default class KeyboardInterceptorCore {
     );
   }
 
-  addCallbacks(callbacks) {
+  addCallbacks(callbacks: ICallbacks) {
     this._attachCallbacks(callbacks);
   }
 
-  private _processKeyboardInput(e) {
+  private _processKeyboardInput(e: KeyboardEvent) {
     this._eventEmitter.emit(e.keyCode, e);
   }
 

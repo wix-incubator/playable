@@ -1,3 +1,4 @@
+//@ts-ignore
 import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
 
 import { getNearestBufferSegmentInfo } from '../utils/video-data';
@@ -20,12 +21,12 @@ export default class DashAdapter implements IPlaybackAdapter {
     return NativeEnvironmentSupport.MSE;
   }
 
-  private eventEmitter;
-  private dashPlayer;
-  private mediaStream;
-  private videoElement;
+  private eventEmitter: any;
+  private dashPlayer: any;
+  private mediaStream: any;
+  private videoElement: HTMLVideoElement;
 
-  constructor(eventEmitter) {
+  constructor(eventEmitter: any) {
     this.eventEmitter = eventEmitter;
 
     this.dashPlayer = null;
@@ -35,7 +36,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     this._bindCallbacks();
   }
 
-  canPlay(mediaType) {
+  canPlay(mediaType: MEDIA_STREAM_TYPES) {
     return mediaType === MEDIA_STREAM_TYPES.DASH;
   }
 
@@ -46,7 +47,7 @@ export default class DashAdapter implements IPlaybackAdapter {
   get currentUrl() {
     return this.mediaStream.url;
   }
-
+  //@ts-ignore
   get syncWithLiveTime() {
     // TODO: implement syncWithLiveTime for `dash`
     return undefined;
@@ -78,7 +79,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
     const bitrates = this.dashPlayer
       .getBitrateInfoListFor('video')
-      .map(bitrates => bitrates.bitrate);
+      .map((bitrates: any) => bitrates.bitrate);
     let currentBitrate = null;
     if (this.dashPlayer.getQualityFor('video') && bitrates) {
       currentBitrate = bitrates[this.dashPlayer.getQualityFor('video')];
@@ -108,7 +109,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     this._broadcastError = this._broadcastError.bind(this);
   }
 
-  setMediaStreams(mediaStreams) {
+  setMediaStreams(mediaStreams: any) {
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {
@@ -120,7 +121,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     }
   }
 
-  private _logError(error, errorEvent) {
+  private _logError(error: string, errorEvent: any) {
     this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
       errorType: error,
       streamType: MEDIA_STREAM_TYPES.DASH,
@@ -129,7 +130,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     });
   }
 
-  private _broadcastError(errorEvent) {
+  private _broadcastError(errorEvent: any) {
     if (!errorEvent) {
       return;
     }
@@ -166,7 +167,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     }
   }
 
-  attach(videoElement) {
+  attach(videoElement: HTMLVideoElement) {
     if (!this.mediaStream) {
       return;
     }
@@ -203,7 +204,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     );
   }
 
-  private _initPlayer(forceAutoplay?) {
+  private _initPlayer(forceAutoplay?: boolean) {
     this.dashPlayer.initialize(
       this.videoElement,
       this.mediaStream.url,

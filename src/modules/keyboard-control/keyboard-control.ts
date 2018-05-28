@@ -15,6 +15,7 @@ import { IPlaybackEngine } from '../playback-engine/types';
 import { IPlayerConfig } from '../../core/config';
 import { IKeyboardControl } from './types';
 import { IRootContainer } from '../root-container/types';
+import { ListenerFn } from 'eventemitter3';
 
 export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
@@ -118,7 +119,7 @@ export default class KeyboardControl implements IKeyboardControl {
     }
   }
 
-  addKeyControl(key, callback) {
+  addKeyControl(key: number, callback: ListenerFn) {
     if (this._isEnabled) {
       this._keyboardInterceptor.addCallbacks({
         [key]: callback,

@@ -25,6 +25,7 @@ describe('AnomalyBloodhound', () => {
     engine = new Engine({
       config,
       eventEmitter,
+      availablePlaybackAdapters: [],
     });
     anomalyBloodhound = new AnomalyBloodhound({
       eventEmitter,

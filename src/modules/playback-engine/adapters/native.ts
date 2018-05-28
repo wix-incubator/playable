@@ -6,6 +6,7 @@ import {
 } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
 import { IPlaybackAdapter } from './types';
+import { IEventEmitter } from '../../event-emitter/types';
 
 const NATIVE_ERROR_CODES = {
   ABORTED: 1,
@@ -14,18 +15,26 @@ const NATIVE_ERROR_CODES = {
   SRC_NOT_SUPPORTED: 4,
 };
 
-export default function getNativeAdapterCreator(streamType, deliveryPriority) {
+import {
+  MediaStreamTypes,
+  MediaStreamDeliveryPriority,
+} from '../../../constants';
+
+export default function getNativeAdapterCreator(
+  streamType: MediaStreamTypes,
+  deliveryPriority: MediaStreamDeliveryPriority,
+) {
   class NativeAdapter implements IPlaybackAdapter {
-    static isSupported() {
+    static isSupported(): boolean {
       return NativeEnvironmentSupport[streamType];
     }
 
-    private mediaStreams;
-    private eventEmitter;
-    private currentLevel;
-    private videoElement;
+    private mediaStreams: any;
+    private eventEmitter: IEventEmitter;
+    private currentLevel: number;
+    private videoElement: HTMLVideoElement;
 
-    constructor(eventEmitter) {
+    constructor(eventEmitter: IEventEmitter) {
       this.mediaStreams = null;
       this.eventEmitter = eventEmitter;
       this.currentLevel = 0;
@@ -36,7 +45,7 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
     get currentUrl() {
       return this.mediaStreams[this.currentLevel].url;
     }
-
+    //@ts-ignore
     get syncWithLiveTime() {
       // TODO: implement syncWithLiveTime for `native`
       return undefined;
@@ -101,15 +110,15 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
       this._broadcastError = this._broadcastError.bind(this);
     }
 
-    canPlay(mediaType) {
+    canPlay(mediaType: MediaStreamTypes) {
       return mediaType === streamType;
     }
 
-    setMediaStreams(mediaStreams) {
+    setMediaStreams(mediaStreams: any) {
       this.mediaStreams = mediaStreams;
     }
 
-    private _logError(error, errorEvent) {
+    private _logError(error: string, errorEvent: MediaError) {
       this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
         errorType: error,
         streamType,
@@ -151,7 +160,7 @@ export default function getNativeAdapterCreator(streamType, deliveryPriority) {
       }
     }
 
-    attach(videoElement) {
+    attach(videoElement: HTMLVideoElement) {
       this.videoElement = videoElement;
       this.videoElement.addEventListener('error', this._broadcastError);
       this.videoElement.src = this.mediaStreams[this.currentLevel].url;

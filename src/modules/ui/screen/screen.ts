@@ -100,7 +100,7 @@ export default class Screen implements IScreen {
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
   }
 
-  private _initUI(isNativeControls) {
+  private _initUI(isNativeControls: boolean) {
     const config: IScreenViewConfig = {
       nativeControls: isNativeControls,
       callbacks: {
@@ -126,7 +126,13 @@ export default class Screen implements IScreen {
     );
   }
 
-  private _updateBackgroundSize({ width, height }) {
+  private _updateBackgroundSize({
+    width,
+    height,
+  }: {
+    width: number;
+    height: number;
+  }) {
     this.view.setBackgroundSize(width, height);
   }
 
@@ -138,7 +144,7 @@ export default class Screen implements IScreen {
     this.view.hideCursor();
   }
 
-  private _setFullScreenStatus(isInFullScreen) {
+  private _setFullScreenStatus(isInFullScreen: boolean) {
     this._isInFullScreen = isInFullScreen;
   }
 

@@ -32,7 +32,7 @@ class TooltipService implements ITooltipService {
 
   private _unbindEvents: Function;
 
-  constructor({ eventEmitter }) {
+  constructor({ eventEmitter }: { eventEmitter: IEventEmitter }) {
     this._eventEmitter = eventEmitter;
     this._tooltip = new Tooltip();
     this._tooltipContainer = new TooltipContainer(this._tooltip);

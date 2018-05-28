@@ -9,12 +9,12 @@ import { IOptions } from './types';
 const FAMILY_TREE = '__familyTree__';
 
 export class Container {
-  private _registrations: {} = {};
+  private _registrations: any = {};
   private _resolutionStack: string[] = [];
   private _parentContainer: Container;
 
   options: IOptions;
-  cache: {};
+  cache: any;
   [FAMILY_TREE]: Array<Container>;
 
   constructor(options?: IOptions, _parentContainer?: Container) {
@@ -26,7 +26,7 @@ export class Container {
     this.cache = {};
   }
 
-  get registrations(): {} {
+  get registrations(): any {
     return __assign(
       {},
       this._parentContainer && this._parentContainer.registrations,
@@ -41,7 +41,7 @@ export class Container {
     value?: any,
     options?: IOptions,
   ) {
-    const registrations: {} = nameValueToObject(name, value);
+    const registrations: any = nameValueToObject(name, value);
 
     Object.keys(registrations).forEach(key => {
       let valueToRegister = registrations[key];
@@ -68,7 +68,7 @@ export class Container {
   }
 
   register(name: Object | string, registration?: any): Container {
-    const obj: {} = nameValueToObject(name, registration);
+    const obj: any = nameValueToObject(name, registration);
     Object.keys(obj).forEach(key => {
       this._registrations[key] = obj[key];
     });

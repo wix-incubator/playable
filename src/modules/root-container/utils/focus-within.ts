@@ -1,12 +1,12 @@
 // inspired by https://gist.github.com/aFarkas/a7e0d85450f323d5e164
 const focusWithin = () => {
   const slice = [].slice;
-  const removeClass = elem => {
+  const removeClass = (elem: any) => {
     elem.classList.remove('focus-within');
   };
   const update = (() => {
-    let running;
-    let last;
+    let running: boolean;
+    let last: Element;
     const action = () => {
       let element: any = document.activeElement;
 

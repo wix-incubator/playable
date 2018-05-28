@@ -43,7 +43,7 @@ class TopBlockView extends View<ITopBlockViewStyles>
     $liveIndicatorContainer.appendChild(elements.liveIndicator);
   }
 
-  private _preventClickPropagation(e) {
+  private _preventClickPropagation(e: MouseEvent) {
     e.stopPropagation();
   }
 

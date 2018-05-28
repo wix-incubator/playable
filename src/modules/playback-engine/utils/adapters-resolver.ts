@@ -1,8 +1,9 @@
 import { IPlaybackAdapter } from '../adapters/types';
 import { MediaStreamTypes } from '../../../constants';
+import { IMediaSource } from '../types';
 
 export function resolveAdapters(
-  mediaStreams,
+  mediaStreams: IMediaSource[],
   availableAdapters: IPlaybackAdapter[],
 ): IPlaybackAdapter[] {
   const playableAdapters: IPlaybackAdapter[] = [];
@@ -32,9 +33,9 @@ export function resolveAdapters(
   return playableAdapters;
 }
 
-function groupStreamsByMediaType(mediaStreams) {
-  const typeMap = {};
-  mediaStreams.forEach(mediaStream => {
+function groupStreamsByMediaType(mediaStreams: IMediaSource[]) {
+  const typeMap: { [type: string]: IMediaSource[] } = {};
+  mediaStreams.forEach((mediaStream: IMediaSource) => {
     if (!mediaStream.type) {
       return;
     }

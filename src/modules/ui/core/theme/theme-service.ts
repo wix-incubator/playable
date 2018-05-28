@@ -12,7 +12,7 @@ const DEFAULT_THEME_CONFIG = {
 };
 
 interface IThemeService {
-  updateTheme(IThemeConfig): void;
+  updateTheme(config: IThemeConfig): void;
   registerModuleTheme(module: object, rules: ICSSRules): void;
   get(module: object): IStyles;
   destroy(): void;
@@ -24,7 +24,7 @@ class ThemeService implements IThemeService {
 
   private _styleSheet: StyleSheet;
 
-  constructor({ themeConfig }) {
+  constructor({ themeConfig }: { themeConfig: IThemeConfig }) {
     this._styleSheet = new StyleSheet();
 
     this._styleSheet.update({
@@ -61,7 +61,7 @@ class ThemeService implements IThemeService {
     this._styleSheet.registerModuleTheme(module, rules);
   }
 
-  get(module) {
+  get(module: any) {
     return this._styleSheet.getModuleClassNames(module);
   }
 

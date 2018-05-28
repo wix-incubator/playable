@@ -6,6 +6,7 @@ import { resolveAdapters } from './utils/adapters-resolver';
 import { getStreamType } from './utils/detect-stream-type';
 
 import { IPlaybackAdapter } from './adapters/types';
+import { MediaSource, IMediaSource } from './types';
 
 export default class AdaptersStrategy {
   private _video: HTMLVideoElement;
@@ -17,7 +18,7 @@ export default class AdaptersStrategy {
   constructor(
     eventEmitter: IEventEmitter,
     video: HTMLVideoElement,
-    playbackAdapters = [],
+    playbackAdapters: any[] = [],
   ) {
     this._video = video;
     this._eventEmitter = eventEmitter;
@@ -32,8 +33,10 @@ export default class AdaptersStrategy {
     );
   }
 
-  private _autoDetectSourceTypes(mediaSources) {
-    return mediaSources.map(mediaSource => {
+  private _autoDetectSourceTypes(
+    mediaSources: Array<IMediaSource | string>,
+  ): IMediaSource[] {
+    return mediaSources.map((mediaSource: IMediaSource | string) => {
       if (typeof mediaSource === 'string') {
         const type = getStreamType(mediaSource);
         if (!type) {
@@ -49,7 +52,7 @@ export default class AdaptersStrategy {
     });
   }
 
-  private _resolvePlayableAdapters(src) {
+  private _resolvePlayableAdapters(src: MediaSource) {
     if (!src) {
       this._playableAdapters = [];
       return;
@@ -83,7 +86,7 @@ export default class AdaptersStrategy {
     return this._attachedAdapter;
   }
 
-  connectAdapter(src) {
+  connectAdapter(src: MediaSource) {
     this._detachCurrentAdapter();
     this._resolvePlayableAdapters(src);
     this._connectAdapterToVideo();

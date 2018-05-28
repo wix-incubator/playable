@@ -36,7 +36,7 @@ function handleWindowBlurEvent() {
   _activeKeys = 0;
 }
 
-function handlePointerStartEvent(event) {
+function handlePointerStartEvent(event: PointerEvent) {
   if (event.isPrimary === false) {
     // ignore non-primary pointer events
     // https://w3c.github.io/pointerevents/#widl-PointerEvent-isPrimary
@@ -48,7 +48,7 @@ function handlePointerStartEvent(event) {
   _activePointers += 1;
 }
 
-function handlePointerEndEvent(event) {
+function handlePointerEndEvent(event: any) {
   if (event.isPrimary === false) {
     // ignore non-primary pointer events
     // https://w3c.github.io/pointerevents/#widl-PointerEvent-isPrimary
@@ -66,7 +66,7 @@ function handlePointerEndEvent(event) {
   });
 }
 
-function handleKeyStartEvent(event) {
+function handleKeyStartEvent(event: KeyboardEvent) {
   // ignore modifier keys
   switch (event.keyCode || event.which) {
     case 16: // space
@@ -84,7 +84,7 @@ function handleKeyStartEvent(event) {
   _activeKeys += 1;
 }
 
-function handleKeyEndEvent(event) {
+function handleKeyEndEvent(event: KeyboardEvent) {
   // ignore modifier keys
   switch (event.keyCode || event.which) {
     case 16: // space

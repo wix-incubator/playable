@@ -80,7 +80,7 @@ class RootContainer implements IRootContainer {
     );
   }
 
-  private _initUI(config) {
+  private _initUI(config: IPlayerConfig) {
     const sizeConfig = {
       ...config.size,
     };

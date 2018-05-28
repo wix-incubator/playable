@@ -4,6 +4,11 @@ import { ILiveIndicator } from '../live-indicator/types';
 import { ITitle } from '../title/types';
 import { ITopBlock, ITopBlockViewConfig, ITopBlockViewElements } from './types';
 
+interface IDependencies {
+  title: ITitle;
+  liveIndicator: ILiveIndicator;
+}
+
 export default class TopBlock implements ITopBlock {
   static moduleName = 'topBlock';
   static View = View;
@@ -12,7 +17,7 @@ export default class TopBlock implements ITopBlock {
   isHidden: boolean;
   view: View;
 
-  constructor(dependencies: { title: ITitle; liveIndicator: ILiveIndicator }) {
+  constructor(dependencies: IDependencies) {
     this.isHidden = false;
 
     this._initUI(this._getElementsNodes(dependencies));
@@ -26,11 +31,10 @@ export default class TopBlock implements ITopBlock {
     this.view = new TopBlock.View(config);
   }
 
-  private _getElementsNodes(dependencies): ITopBlockViewElements {
-    const {
-      title,
-      liveIndicator,
-    }: { title: ITitle; liveIndicator: ILiveIndicator } = dependencies;
+  private _getElementsNodes(
+    dependencies: IDependencies,
+  ): ITopBlockViewElements {
+    const { title, liveIndicator } = dependencies;
 
     return {
       title: title.node,

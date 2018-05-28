@@ -94,7 +94,7 @@ function generateResolve(fn: Function, dependencyParseTarget?: any): any {
   return function resolve(container: Container) {
     if (dependencies.length > 0) {
       const wrapper: {} = dependencies.reduce(
-        (wrapper: {}, dependency: string) => {
+        (wrapper: any, dependency: string) => {
           wrapper[dependency] = container.resolve(dependency);
           return wrapper;
         },
