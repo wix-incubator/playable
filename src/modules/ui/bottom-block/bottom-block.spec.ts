@@ -5,7 +5,7 @@ import createPlayerTestkit from '../../../testkit';
 
 describe('BottomBlock', () => {
   let testkit;
-  let controls;
+  let controls: any;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();

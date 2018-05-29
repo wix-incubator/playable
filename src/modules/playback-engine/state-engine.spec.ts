@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 import { EventEmitter } from 'eventemitter3';
 
@@ -23,9 +24,9 @@ const NATIVE_EVENTS = {
 };
 
 describe('NativeEventsBroadcaster', () => {
-  let video;
-  let engine;
-  let eventEmitter;
+  let video: any;
+  let engine: any;
+  let eventEmitter: any;
 
   beforeEach(() => {
     video = {
@@ -53,7 +54,7 @@ describe('NativeEventsBroadcaster', () => {
     expect(video.addEventListener.args.length).to.be.equal(
       NATIVE_VIDEO_EVENTS_TO_STATE.length,
     );
-    video.addEventListener.args.forEach(arg => {
+    video.addEventListener.args.forEach((arg: any) => {
       expect(NATIVE_VIDEO_EVENTS_TO_STATE.indexOf(arg[0]) !== -1).to.be.true;
       expect(arg[1] === engine._processEventFromVideo).to.be.true;
     });
@@ -64,7 +65,7 @@ describe('NativeEventsBroadcaster', () => {
     expect(video.removeEventListener.args.length).to.be.equal(
       NATIVE_VIDEO_EVENTS_TO_STATE.length,
     );
-    video.removeEventListener.args.forEach(arg => {
+    video.removeEventListener.args.forEach((arg: any) => {
       expect(NATIVE_VIDEO_EVENTS_TO_STATE.indexOf(arg[0]) !== -1).to.be.true;
       expect(arg[1] === engine._processEventFromVideo).to.be.true;
     });

@@ -12,7 +12,7 @@ describe('Decorator playerAPI', () => {
       b() {}
     }
 
-    expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'b'),
     });
@@ -24,7 +24,7 @@ describe('Decorator playerAPI', () => {
       a() {}
     }
 
-    expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });
@@ -37,7 +37,7 @@ describe('Decorator playerAPI', () => {
       }
     }
 
-    expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });
@@ -52,7 +52,7 @@ describe('Decorator playerAPI', () => {
       set a(_) {}
     }
 
-    expect(A.prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });

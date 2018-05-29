@@ -5,7 +5,7 @@ import TextMap from './text-map';
 import createPlayerTestkit from '../../testkit';
 
 describe('TextMap module', () => {
-  let testkit;
+  let testkit: any;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
@@ -26,7 +26,7 @@ describe('TextMap module', () => {
   it('should pass arguments to translate function', () => {
     testkit.setConfig({
       texts: {
-        testID: ({ arg }) => `Test:${arg}`,
+        testID: ({ arg }: { arg: any }) => `Test:${arg}`,
       },
     });
 

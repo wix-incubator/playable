@@ -42,7 +42,7 @@ export default class AnomalyBloodhound {
   static moduleName = 'anomalyBloodhound';
   static dependencies = ['eventEmitter', 'engine', 'config'];
 
-  private _config: any;
+  private _config: IPlayerConfig;
   private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
   private _timeoutContainer: ITimeoutContainer;

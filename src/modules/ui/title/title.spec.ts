@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
@@ -83,9 +84,9 @@ describe('Title', () => {
 
   describe('API', () => {
     describe('setTitle method', () => {
-      let titleViewSetTitleSpy;
-      let titleViewShowSpy;
-      let titleViewHideSpy;
+      let titleViewSetTitleSpy: any;
+      let titleViewShowSpy: any;
+      let titleViewHideSpy: any;
 
       beforeEach(() => {
         titleViewSetTitleSpy = sinon.spy(title.view, 'setTitle');
@@ -123,7 +124,7 @@ describe('Title', () => {
     });
 
     describe('setTitleClickCallback method', () => {
-      let setViewDisplayAsLinkSpy;
+      let setViewDisplayAsLinkSpy: any;
 
       beforeEach(() => {
         setViewDisplayAsLinkSpy = sinon.spy(title.view, 'setDisplayAsLink');

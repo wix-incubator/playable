@@ -1,5 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
@@ -8,11 +9,11 @@ import { DELAYED_SHOW_TIMEOUT } from './loader';
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 
 describe('Loader', () => {
-  let loader;
-  let testkit;
-  let engine;
-  let eventEmitter;
-  let emitSpy;
+  let loader: any;
+  let testkit: any;
+  let engine: any;
+  let eventEmitter: any;
+  let emitSpy: any;
 
   describe('constructor', () => {
     beforeEach(() => {
@@ -99,8 +100,8 @@ describe('Loader', () => {
       });
 
       describe('signifying state change', () => {
-        let delayedShowSpy;
-        let stopDelayedShowSpy;
+        let delayedShowSpy: any;
+        let stopDelayedShowSpy: any;
 
         beforeEach(() => {
           delayedShowSpy = sinon.spy(loader, 'startDelayedShow');

@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import { KEYCODES } from '../../utils/keyboard-interceptor';
@@ -19,10 +20,10 @@ describe('KeyboardControl', () => {
   keyDownEvent.preventDefault = sinon.spy();
 
   let config;
-  let engine;
-  let eventEmitter;
-  let rootContainer;
-  let keyboardControl;
+  let engine: any;
+  let eventEmitter: any;
+  let rootContainer: any;
+  let keyboardControl: any;
 
   beforeEach(() => {
     config = {};

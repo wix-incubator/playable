@@ -1,13 +1,14 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import IOSFullScreen from './ios';
 
 describe('IOSFullScreen', () => {
   const callback = sinon.spy();
-  let element;
-  let fullScreen;
+  let element: any;
+  let fullScreen: any;
 
   beforeEach(() => {
     element = document.createElement('div');

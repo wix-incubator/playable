@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import AnomalyBloodhound, { DELAYED_REPORT_TYPES } from './anomaly-bloodhound';
@@ -10,9 +11,9 @@ import EventEmitter from '../event-emitter/event-emitter';
 import { VIDEO_EVENTS, EngineState } from '../../constants';
 
 describe('AnomalyBloodhound', () => {
-  let anomalyBloodhound;
-  let eventEmitter;
-  let engine;
+  let anomalyBloodhound: any;
+  let eventEmitter: any;
+  let engine: any;
   const callback = sinon.spy();
   const config = {
     anomalyBloodhound: {
@@ -211,7 +212,7 @@ describe('AnomalyBloodhound', () => {
 
     (it as any)(
       'delayed report should be resolved',
-      done => {
+      (done: any) => {
         (DELAYED_REPORT_TYPES as any).___test = {
           id: '___test',
           timeout: 5,

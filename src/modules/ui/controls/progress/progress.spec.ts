@@ -1,5 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
@@ -10,9 +11,9 @@ import { VIDEO_EVENTS, EngineState } from '../../../../constants';
 
 describe('ProgressControl', () => {
   let testkit;
-  let control;
-  let engine;
-  let eventEmitter;
+  let control: any;
+  let engine: any;
+  let eventEmitter: any;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
@@ -70,7 +71,7 @@ describe('ProgressControl', () => {
 
     describe('for time indicators', () => {
       const VIDEO_DURATION_TIME = 1000;
-      let engineGetDurationTimeStub;
+      let engineGetDurationTimeStub: any;
 
       beforeEach(() => {
         engineGetDurationTimeStub = sinon

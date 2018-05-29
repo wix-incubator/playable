@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import DesktopFullScreen from './desktop';
@@ -11,8 +12,8 @@ declare const navigator: any;
 
 describe('DesktopFullScreen', () => {
   const callback = sinon.spy();
-  let element;
-  let fullScreen;
+  let element: any;
+  let fullScreen: any;
   const fullScreenFn = {
     requestFullscreen: 'requestFullscreen',
     exitFullscreen: 'exitFullscreen',
@@ -34,24 +35,24 @@ describe('DesktopFullScreen', () => {
 
   describe('enable status', () => {
     it('should return true in native status is true', () => {
-      document[fullScreenFn.fullscreenEnabled] = true;
+      (document as any)[fullScreenFn.fullscreenEnabled] = true;
       expect(fullScreen.isEnabled).to.be.true;
     });
 
     it('should return false in native status is false', () => {
-      document[fullScreenFn.fullscreenEnabled] = false;
+      (document as any)[fullScreenFn.fullscreenEnabled] = false;
       expect(fullScreen.isEnabled).to.be.false;
     });
   });
 
   describe('full screen status', () => {
     it('should return true in native status is true', () => {
-      document[fullScreenFn.fullscreenElement] = true;
+      (document as any)[fullScreenFn.fullscreenElement] = true;
       expect(fullScreen.isInFullScreen).to.be.true;
     });
 
     it('should return false in native status is false', () => {
-      document[fullScreenFn.fullscreenElement] = false;
+      (document as any)[fullScreenFn.fullscreenElement] = false;
       expect(fullScreen.isInFullScreen).to.be.false;
     });
   });
@@ -60,7 +61,7 @@ describe('DesktopFullScreen', () => {
     describe('with usage of native method', () => {
       describe('if it enabled', () => {
         beforeEach(() => {
-          document[fullScreenFn.fullscreenEnabled] = true;
+          (document as any)[fullScreenFn.fullscreenEnabled] = true;
         });
         describe('on Safari 5.1', () => {
           beforeEach(() => {
@@ -103,7 +104,7 @@ describe('DesktopFullScreen', () => {
       });
       describe('if it disabled', () => {
         beforeEach(() => {
-          document[fullScreenFn.fullscreenEnabled] = false;
+          (document as any)[fullScreenFn.fullscreenEnabled] = false;
           element[fullScreenFn.requestFullscreen] = sinon.spy();
         });
         it('should not call it', () => {
@@ -116,17 +117,17 @@ describe('DesktopFullScreen', () => {
 
   describe('method for exit full screen', () => {
     it('should use native method', () => {
-      document[fullScreenFn.fullscreenEnabled] = true;
-      document[fullScreenFn.exitFullscreen] = sinon.spy();
+      (document as any)[fullScreenFn.fullscreenEnabled] = true;
+      (document as any)[fullScreenFn.exitFullscreen] = sinon.spy();
       fullScreen.exit();
-      expect(document[fullScreenFn.exitFullscreen].called).to.be.true;
+      expect((document as any)[fullScreenFn.exitFullscreen].called).to.be.true;
     });
 
     it('should do nothing if not enabled', () => {
-      document[fullScreenFn.fullscreenEnabled] = false;
-      document[fullScreenFn.exitFullscreen] = sinon.spy();
+      (document as any)[fullScreenFn.fullscreenEnabled] = false;
+      (document as any)[fullScreenFn.exitFullscreen] = sinon.spy();
       fullScreen.exit();
-      expect(document[fullScreenFn.exitFullscreen].called).to.be.false;
+      expect((document as any)[fullScreenFn.exitFullscreen].called).to.be.false;
     });
   });
 
@@ -143,7 +144,7 @@ describe('DesktopFullScreen', () => {
     it('should clear on event listeners', () => {
       const changeEvent = new Event(fullScreenFn.fullscreenchange);
 
-      document[fullScreenFn.fullscreenEnabled] = true;
+      (document as any)[fullScreenFn.fullscreenEnabled] = true;
       fullScreen.destroy();
 
       element.dispatchEvent(changeEvent);

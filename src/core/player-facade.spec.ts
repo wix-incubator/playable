@@ -1,5 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import convertToDeviceRelatedConfig from './config';
@@ -9,10 +10,10 @@ import DependencyContainer from './dependency-container';
 import playerAPI from '../core/player-api-decorator';
 
 describe("Player's instance", () => {
-  let container;
-  let player;
-  let defaultModules;
-  let additionalModules;
+  let container: any;
+  let player: any;
+  let defaultModules: any;
+  let additionalModules: any;
 
   beforeEach(() => {
     container = DependencyContainer.createContainer();
@@ -107,11 +108,11 @@ describe("Player's instance", () => {
   });
 
   describe('public API', () => {
-    let ClassA;
-    let ClassB;
-    let ClassC;
-    let methodASpy;
-    let methodBSpy;
+    let ClassA: any;
+    let ClassB: any;
+    let ClassC: any;
+    let methodASpy: any;
+    let methodBSpy: any;
 
     beforeEach(() => {
       methodASpy = sinon.spy();

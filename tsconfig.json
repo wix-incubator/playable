@@ -4,7 +4,7 @@
     "sourceMap": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,

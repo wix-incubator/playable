@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import Lifetime from './constants/Lifetime';
@@ -13,7 +14,7 @@ import {
 
 describe('registration method', () => {
   const container = {
-    resolve: sinon.spy(name => name),
+    resolve: sinon.spy((name: any) => name),
   };
 
   afterEach(() => {

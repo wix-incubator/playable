@@ -66,7 +66,6 @@ export default class Player {
   }
 
   private _getWrappedCallToModuleFunction(module: any, fn: Function) {
-    // TODO: do we need `_moduleName` as second parameter?
     return (...args: any[]) => {
       if (this._destroyed) {
         throw new Error('Player instance is destroyed');
@@ -135,7 +134,7 @@ export default class Player {
   private _clearPlayerAPIForModule(module: any) {
     if (module[PLAYER_API_PROPERTY]) {
       Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
-        delete this[apiKey];
+        delete (this as any)[apiKey];
       });
     }
   }

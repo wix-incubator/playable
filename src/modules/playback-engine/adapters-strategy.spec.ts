@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 import { EventEmitter } from 'eventemitter3';
 
@@ -10,8 +11,8 @@ import { MediaStreamTypes, MediaStreamDeliveryPriority } from '../../constants';
 
 describe('AdapterStrategy', () => {
   const video = document.createElement('video');
-  let strategy;
-  let eventEmitter;
+  let strategy: any;
+  let eventEmitter: any;
   let playbackAdapters;
 
   beforeEach(() => {

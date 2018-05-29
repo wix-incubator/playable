@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import {
@@ -28,7 +29,7 @@ describe('registerModule', () => {
 });
 
 describe('Player', () => {
-  let player;
+  let player: any;
 
   beforeEach(() => {
     player = create();

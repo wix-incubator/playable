@@ -1,10 +1,11 @@
 import { expect } from 'chai';
+//@ts-ignore
 import classnames from 'classnames';
 
 import Stylable from './stylable';
 
 describe('Stylable', () => {
-  let stylable;
+  let stylable: any;
 
   beforeEach(() => {
     stylable = new Stylable();
