@@ -58,8 +58,6 @@ export default class Engine implements IPlaybackEngine {
     } else {
       this._video = document.createElement('video');
     }
-
-    this._video.setAttribute('crossorigin', 'anonymous');
   }
 
   private _applyConfig(config: any = {}) {

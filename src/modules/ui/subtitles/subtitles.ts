@@ -22,6 +22,7 @@ export default class Subtitles {
 
   constructor({ rootContainer, engine, eventEmitter }) {
     this._eventEmitter = eventEmitter;
+    //TODO: Think about crossorigin
     this._video = engine.getNode();
 
     this._initUI();
