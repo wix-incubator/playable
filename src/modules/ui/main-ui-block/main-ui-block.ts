@@ -4,7 +4,7 @@ import playerAPI from '../../../core/player-api-decorator';
 import MainUIBlockView from './main-ui-block.view';
 
 import {
-  IMainBlock,
+  IMainUIBlock,
   IMainUIBlockConfig,
   IMainUIBlockViewElements,
 } from './types';
@@ -22,7 +22,7 @@ const DEFAULT_CONFIG: IMainUIBlockConfig = {
   shouldAlwaysShow: false,
 };
 
-export default class MainUIBlock implements IMainBlock {
+export default class MainUIBlock implements IMainUIBlock {
   static moduleName = 'mainUIBlock';
   static View = MainUIBlockView;
   static dependencies = [

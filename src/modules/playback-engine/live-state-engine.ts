@@ -6,7 +6,7 @@ import {
 } from '../../constants';
 
 import { IEventEmitter, IEventMap } from '../event-emitter/types';
-import { IPlaybackEngine } from '../playback-engine/types';
+import { ILiveStateEngineDependencies, IPlaybackEngine } from './types';
 
 const SEEK_BY_UI_EVENTS = [
   UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
@@ -26,13 +26,7 @@ class LiveStateEngine {
 
   private _unbindEvents: Function;
 
-  constructor({
-    eventEmitter,
-    engine,
-  }: {
-    eventEmitter: IEventEmitter;
-    engine: IPlaybackEngine;
-  }) {
+  constructor({ eventEmitter, engine }: ILiveStateEngineDependencies) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._state = LiveState.NONE;

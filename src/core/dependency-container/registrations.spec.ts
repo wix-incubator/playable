@@ -26,7 +26,7 @@ describe('registration method', () => {
       const value = 10;
       const registeredValue = asValue(value);
 
-      expect(registeredValue.lifetime).to.be.equal(Lifetime.TRANSIENT);
+      expect(registeredValue.lifetime).to.be.equal(Lifetime.Transient);
       expect(registeredValue.resolve()).to.be.equal(value);
     });
   });
@@ -44,16 +44,16 @@ describe('registration method', () => {
       const func = () => {};
       const registeredFunction = asFunction(func);
 
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.TRANSIENT);
+      expect(registeredFunction.lifetime).to.be.equal(Lifetime.Transient);
       expect(registeredFunction.resolve).to.exist;
     });
 
     it('should except options', () => {
       const func = () => {};
       const registeredFunction = asFunction(func, {
-        lifetime: Lifetime.SCOPED,
+        lifetime: Lifetime.Scoped,
       });
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.SCOPED);
+      expect(registeredFunction.lifetime).to.be.equal(Lifetime.Scoped);
     });
 
     describe("returned object's resolve method", () => {
@@ -88,13 +88,13 @@ describe('registration method', () => {
       const func = () => {};
       const registeredFunction = asFunction(func);
       registeredFunction.transient();
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.TRANSIENT);
+      expect(registeredFunction.lifetime).to.be.equal(Lifetime.Transient);
       registeredFunction.scoped();
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.SCOPED);
+      expect(registeredFunction.lifetime).to.be.equal(Lifetime.Scoped);
       registeredFunction.singleton();
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.SINGLETON);
-      registeredFunction.setLifetime(Lifetime.SCOPED);
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.SCOPED);
+      expect(registeredFunction.lifetime).to.be.equal(Lifetime.Singelton);
+      registeredFunction.setLifetime(Lifetime.Scoped);
+      expect(registeredFunction.lifetime).to.be.equal(Lifetime.Scoped);
     });
   });
 
@@ -112,17 +112,17 @@ describe('registration method', () => {
       class Class {}
       const registeredClass = asClass(Class);
 
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.TRANSIENT);
+      expect(registeredClass.lifetime).to.be.equal(Lifetime.Transient);
       expect(registeredClass.resolve).to.exist;
     });
 
     it('should except options', () => {
       class Class {}
       const registeredClass = asClass(Class, {
-        lifetime: Lifetime.SCOPED,
+        lifetime: Lifetime.Scoped,
       });
 
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.SCOPED);
+      expect(registeredClass.lifetime).to.be.equal(Lifetime.Scoped);
     });
 
     describe("returned object's resolve method", () => {
@@ -162,13 +162,13 @@ describe('registration method', () => {
       const registeredClass = asClass(constructor);
 
       registeredClass.transient();
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.TRANSIENT);
+      expect(registeredClass.lifetime).to.be.equal(Lifetime.Transient);
       registeredClass.scoped();
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.SCOPED);
+      expect(registeredClass.lifetime).to.be.equal(Lifetime.Scoped);
       registeredClass.singleton();
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.SINGLETON);
-      registeredClass.setLifetime(Lifetime.SCOPED);
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.SCOPED);
+      expect(registeredClass.lifetime).to.be.equal(Lifetime.Singelton);
+      registeredClass.setLifetime(Lifetime.Scoped);
+      expect(registeredClass.lifetime).to.be.equal(Lifetime.Scoped);
     });
   });
 });

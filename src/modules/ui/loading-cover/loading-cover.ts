@@ -24,7 +24,7 @@ export default class LoadingCover implements ILoadingCover {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
   private _bottomBlock: IBottomBlock;
-  private _url: string | boolean;
+  private _url: string;
 
   private _unbindEvents: Function;
 
@@ -57,7 +57,8 @@ export default class LoadingCover implements ILoadingCover {
     this.hide();
     this._bindEvents();
 
-    if (this._url !== false) {
+    if (config.loadingCover && typeof config.loadingCover === 'string') {
+      this._url = config.loadingCover;
       rootContainer.appendComponentNode(this.node);
     }
   }

@@ -18,7 +18,7 @@ interface IMainUIBlockConfig {
   shouldAlwaysShow?: boolean;
 }
 
-interface IMainBlock {
+interface IMainUIBlock {
   node: HTMLElement;
 
   enableShowingContent(): void;
@@ -32,7 +32,7 @@ interface IMainBlock {
 }
 
 export {
-  IMainBlock,
+  IMainUIBlock,
   IMainUIBlockConfig,
   IMainUIBlockViewStyles,
   IMainUIBlockViewElements,
