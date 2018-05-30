@@ -76,7 +76,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
     this._$node.classList.remove(this.styleNames.hidden);
   }
 
-  appendComponentNode(node) {
+  appendComponentNode(node: HTMLElement) {
     this._$node.appendChild(node);
   }
 
@@ -110,7 +110,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
+    this._$node = null;
   }
 }
 

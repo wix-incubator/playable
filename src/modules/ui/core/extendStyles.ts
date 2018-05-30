@@ -1,3 +1,4 @@
+//@ts-ignore
 import classnames from 'classnames';
 import { IStyles } from './types';
 

@@ -7,7 +7,15 @@ import playerAPI from '../../../core/player-api-decorator';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IFullScreenManager } from '../../full-screen-manager/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
-import { VideoViewMode, IScreenConfig, IScreenViewConfig } from './types';
+import { IInteractionIndicator } from '../interaction-indicator/types';
+import { IPlayerConfig } from '../../../core/config';
+import { IRootContainer } from '../../root-container/types';
+import {
+  IScreen,
+  VideoViewMode,
+  IScreenConfig,
+  IScreenViewConfig,
+} from './types';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
@@ -16,7 +24,7 @@ const DEFAULT_CONFIG: IScreenConfig = {
   nativeControls: false,
 };
 
-export default class Screen {
+export default class Screen implements IScreen {
   static moduleName = 'screen';
   static View = View;
   static dependencies = [
@@ -31,9 +39,9 @@ export default class Screen {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
   private _fullScreenManager: IFullScreenManager;
-  private _interactionIndicator;
+  private _interactionIndicator: IInteractionIndicator;
 
-  private _delayedToggleVideoPlaybackTimeout: any;
+  private _delayedToggleVideoPlaybackTimeout: number;
 
   private _isClickProcessingDisabled: boolean;
   private _isInFullScreen: boolean;
@@ -50,6 +58,13 @@ export default class Screen {
     fullScreenManager,
     interactionIndicator,
     rootContainer,
+  }: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    fullScreenManager: IFullScreenManager;
+    interactionIndicator: IInteractionIndicator;
+    rootContainer: IRootContainer;
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
@@ -85,7 +100,7 @@ export default class Screen {
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
   }
 
-  private _initUI(isNativeControls) {
+  private _initUI(isNativeControls: boolean) {
     const config: IScreenViewConfig = {
       nativeControls: isNativeControls,
       callbacks: {
@@ -111,7 +126,13 @@ export default class Screen {
     );
   }
 
-  private _updateBackgroundSize({ width, height }) {
+  private _updateBackgroundSize({
+    width,
+    height,
+  }: {
+    width: number;
+    height: number;
+  }) {
     this.view.setBackgroundSize(width, height);
   }
 
@@ -123,7 +144,7 @@ export default class Screen {
     this.view.hideCursor();
   }
 
-  private _setFullScreenStatus(isInFullScreen) {
+  private _setFullScreenStatus(isInFullScreen: boolean) {
     this._isInFullScreen = isInFullScreen;
   }
 
@@ -173,14 +194,14 @@ export default class Screen {
   private _setDelayedPlaybackToggle() {
     this._clearDelayedPlaybackToggle();
 
-    this._delayedToggleVideoPlaybackTimeout = setTimeout(
+    this._delayedToggleVideoPlaybackTimeout = window.setTimeout(
       this._toggleVideoPlayback,
       PLAYBACK_CHANGE_TIMEOUT,
     );
   }
 
   private _clearDelayedPlaybackToggle() {
-    clearTimeout(this._delayedToggleVideoPlaybackTimeout);
+    window.clearTimeout(this._delayedToggleVideoPlaybackTimeout);
     this._delayedToggleVideoPlaybackTimeout = null;
   }
 
@@ -242,11 +263,11 @@ export default class Screen {
 
     this._clearDelayedPlaybackToggle();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._interactionIndicator;
-    delete this._eventEmitter;
-    delete this._engine;
-    delete this._fullScreenManager;
+    this._interactionIndicator = null;
+    this._eventEmitter = null;
+    this._engine = null;
+    this._fullScreenManager = null;
   }
 }

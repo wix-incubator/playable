@@ -250,7 +250,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._$syncButton.classList.add(this.styleNames.hidden);
   }
 
-  setLiveSyncStatus(isSync) {
+  setLiveSyncStatus(isSync: boolean) {
     toggleNodeClass(this._$syncButton, this.styleNames.liveSync, isSync);
 
     if (isSync) {
@@ -262,7 +262,13 @@ class ProgressView extends View<IProgressViewStyles>
     }
   }
 
-  showProgressTimeTooltip({ time, percent }) {
+  showProgressTimeTooltip({
+    time,
+    percent,
+  }: {
+    time: number;
+    percent: number;
+  }) {
     this._tooltipService.show({
       text: formatTime(time),
       position: tooltipContainerNode =>

@@ -1,14 +1,15 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import KeyboardInterceptor from './keyboard-interceptor';
 
 describe('KeyboardInterceptor', () => {
-  let node;
-  let callbacks;
-  let interceptor;
+  let node: any;
+  let callbacks: any;
+  let interceptor: any;
   const keydownEvent: any = new Event('keydown');
   const testKeyCode1 = 10;
   const testKeyCode2 = 20;

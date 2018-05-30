@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
@@ -11,8 +12,8 @@ import { VIDEO_EVENTS, LiveState } from '../../../constants';
 
 describe('LiveIndicator', () => {
   let testkit;
-  let engine;
-  let eventEmitter;
+  let engine: any;
+  let eventEmitter: any;
   let liveIndicator: LiveIndicator;
 
   beforeEach(() => {

@@ -13,7 +13,7 @@ export class StyleSheet {
   attach() {
     this._styleNode = this._styleNode || document.createElement('style');
 
-    const discoveredStyles = [];
+    const discoveredStyles: string[] = [];
     this._rulesByModule.forEach((_, module) => {
       discoveredStyles.push(this._getModuleCSS(module));
     });
@@ -44,11 +44,11 @@ export class StyleSheet {
     this._classNamesByModule.set(module, generateClassNames(rules));
   }
 
-  getModuleClassNames(module): IStyles {
+  getModuleClassNames(module: any): IStyles {
     return this._classNamesByModule.get(module);
   }
 
-  private _getModuleCSS(module): string {
+  private _getModuleCSS(module: any): string {
     const moduleRules = this._rulesByModule.get(module);
     const moduleClassNames = this._classNamesByModule.get(module);
 
@@ -88,7 +88,7 @@ export class StyleSheet {
     return `.${ruleClassName} {${this._getRuleStyles(rule)}} ${complexRules}`;
   }
 
-  private _getRuleStyles(rule) {
+  private _getRuleStyles(rule: any) {
     const simpleRuleNames: Array<string> = Object.keys(rule).filter(
       ruleName => typeof rule[ruleName] !== 'object',
     );

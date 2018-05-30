@@ -8,12 +8,12 @@ import View from './full-screen.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
-import { IFullScreenViewConfig } from './types';
+import { IFullScreenControl, IFullScreenViewConfig } from './types';
 import { IFullScreenManager } from '../../../full-screen-manager/types';
 import { ITextMap } from '../../../text-map/types';
 import { IThemeService } from '../../core/theme';
 
-export default class FullScreenControl {
+export default class FullScreenControl implements IFullScreenControl {
   static moduleName = 'fullScreenControl';
   static View = View;
   static dependencies = [
@@ -27,7 +27,7 @@ export default class FullScreenControl {
   private _eventEmitter: IEventEmitter;
   private _fullScreenManager: IFullScreenManager;
   private _textMap: ITextMap;
-  private _interceptor;
+  private _interceptor: KeyboardInterceptor;
   private _tooltipService: ITooltipService;
   private _theme: IThemeService;
 
@@ -44,6 +44,12 @@ export default class FullScreenControl {
     textMap,
     tooltipService,
     theme,
+  }: {
+    eventEmitter: IEventEmitter;
+    fullScreenManager: IFullScreenManager;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+    theme: IThemeService;
   }) {
     this._eventEmitter = eventEmitter;
     this._fullScreenManager = fullScreenManager;
@@ -98,11 +104,11 @@ export default class FullScreenControl {
 
   private _initInterceptor() {
     this._interceptor = new KeyboardInterceptor(this.node, {
-      [KEYCODES.SPACE_BAR]: e => {
+      [KEYCODES.SPACE_BAR]: (e: Event) => {
         e.stopPropagation();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
       },
-      [KEYCODES.ENTER]: e => {
+      [KEYCODES.ENTER]: (e: Event) => {
         e.stopPropagation();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
       },
@@ -129,7 +135,7 @@ export default class FullScreenControl {
     this._fullScreenManager.exitFullScreen();
   }
 
-  setControlStatus(isInFullScreen) {
+  setControlStatus(isInFullScreen: boolean) {
     this._isInFullScreen = isInFullScreen;
     this.view.setState({ isInFullScreen: this._isInFullScreen });
   }

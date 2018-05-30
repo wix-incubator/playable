@@ -13,7 +13,7 @@ import {
 
 class MainUIBlockView extends View<IMainUIBlockViewStyles>
   implements IView<IMainUIBlockViewStyles> {
-  private _$node;
+  private _$node: HTMLElement;
 
   constructor(config: IMainUIBlockViewConfig) {
     super();
@@ -47,7 +47,8 @@ class MainUIBlockView extends View<IMainUIBlockViewStyles>
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
-    delete this._$node;
+
+    this._$node = null;
   }
 }
 

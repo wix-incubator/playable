@@ -1,5 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
@@ -9,10 +10,10 @@ import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 
 describe('LoadingCover', () => {
   let testkit;
-  let loadingCover;
-  let engine;
-  let eventEmitter;
-  let emitSpy;
+  let loadingCover: any;
+  let engine: any;
+  let eventEmitter: any;
+  let emitSpy: any;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
@@ -79,8 +80,8 @@ describe('LoadingCover', () => {
       });
 
       describe('signifying state change', () => {
-        let showSpy;
-        let hideSpy;
+        let showSpy: any;
+        let hideSpy: any;
 
         beforeEach(() => {
           showSpy = sinon.spy(loadingCover, 'show');

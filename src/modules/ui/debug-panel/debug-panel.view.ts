@@ -74,7 +74,7 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
     toggleNodeClass(this._$node, this.styleNames.hidden, true);
   }
 
-  setInfo(info) {
+  setInfo(info: any) {
     this._$infoContainer.innerHTML = syntaxHighlight(
       JSON.stringify(info, undefined, 4),
       this.styleNames,
@@ -92,11 +92,11 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
-    delete this._$closeButton;
-    delete this._$infoContainer;
+    this._$node = null;
+    this._$closeButton = null;
+    this._$infoContainer = null;
 
-    delete this._callbacks;
+    this._callbacks = null;
   }
 }
 

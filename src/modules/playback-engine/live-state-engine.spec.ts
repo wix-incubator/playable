@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import {
@@ -11,9 +12,9 @@ import createPlayerTestkit, { setProperty, resetProperty } from '../../testkit';
 
 describe('LiveStateEngine', () => {
   let testkit;
-  let engine;
-  let liveStateEngine;
-  let eventEmitter;
+  let engine: any;
+  let liveStateEngine: any;
+  let eventEmitter: any;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();

@@ -59,7 +59,7 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     $progressBarContainer.appendChild(elements.progress);
   }
 
-  private _preventClickPropagation(e) {
+  private _preventClickPropagation(e: MouseEvent) {
     e.stopPropagation();
   }
 
@@ -159,7 +159,7 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     if (this._$node.parentNode) {
       this._$node.parentNode.removeChild(this._$node);
     }
-    delete this._$node;
+    this._$node = null;
   }
 }
 

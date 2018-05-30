@@ -46,8 +46,8 @@ const fnMap = [
 ];
 
 /* ignore coverage */
-function getFullScreenFn() {
-  const ret = {};
+function getFullScreenFn(): IFullScreenFnMap | boolean {
+  const ret: IFullScreenFnMap = {};
 
   for (let i = 0; i < fnMap.length; i += 1) {
     if (fnMap[i][1] in document) {
@@ -61,12 +61,16 @@ function getFullScreenFn() {
   return false;
 }
 
-export default class DesktopFullScreen implements IFullScreenHelper {
-  private _elem;
-  private _callback;
-  private _fullscreenFn;
+interface IFullScreenFnMap {
+  [fn: string]: string;
+}
 
-  constructor(elem, callback) {
+export default class DesktopFullScreen implements IFullScreenHelper {
+  private _elem: HTMLElement;
+  private _callback: EventListener;
+  private _fullscreenFn: IFullScreenFnMap | boolean;
+
+  constructor(elem: HTMLElement, callback: EventListener) {
     this._elem = elem;
     this._callback = callback;
     this._fullscreenFn = getFullScreenFn();
@@ -79,14 +83,28 @@ export default class DesktopFullScreen implements IFullScreenHelper {
   }
 
   get isInFullScreen() {
-    return Boolean(document[this._fullscreenFn.fullscreenElement]);
+    if (typeof this._fullscreenFn === 'boolean') {
+      return false;
+    }
+
+    return Boolean((document as any)[this._fullscreenFn.fullscreenElement]);
   }
 
   get isEnabled() {
-    return this.isAPIExist && document[this._fullscreenFn.fullscreenEnabled];
+    if (typeof this._fullscreenFn === 'boolean') {
+      return false;
+    }
+
+    return (
+      this.isAPIExist && (document as any)[this._fullscreenFn.fullscreenEnabled]
+    );
   }
 
   private _bindEvents() {
+    if (typeof this._fullscreenFn === 'boolean') {
+      return false;
+    }
+
     document.addEventListener(
       this._fullscreenFn.fullscreenchange,
       this._callback,
@@ -94,6 +112,10 @@ export default class DesktopFullScreen implements IFullScreenHelper {
   }
 
   private _unbindEvents() {
+    if (typeof this._fullscreenFn === 'boolean') {
+      return false;
+    }
+
     document.removeEventListener(
       this._fullscreenFn.fullscreenchange,
       this._callback,
@@ -105,7 +127,7 @@ export default class DesktopFullScreen implements IFullScreenHelper {
       return;
     }
 
-    const request = this._fullscreenFn.requestFullscreen;
+    const request = (this._fullscreenFn as IFullScreenFnMap).requestFullscreen;
 
     // Work around Safari 5.1 bug: reports support for
     // keyboard in fullscreen even though it doesn't.
@@ -113,9 +135,9 @@ export default class DesktopFullScreen implements IFullScreenHelper {
     // setTimeout is even worse.
 
     if (/5\.1[.\d]* Safari/.test(navigator.userAgent)) {
-      this._elem[request]();
+      (this._elem as any)[request]();
     } else {
-      this._elem[request]((Element as any).ALLOW_KEYBOARD_INPUT);
+      (this._elem as any)[request]((Element as any).ALLOW_KEYBOARD_INPUT);
     }
   }
 
@@ -124,7 +146,9 @@ export default class DesktopFullScreen implements IFullScreenHelper {
       return;
     }
 
-    document[this._fullscreenFn.exitFullscreen]();
+    (document as any)[
+      (this._fullscreenFn as IFullScreenFnMap).exitFullscreen
+    ]();
   }
 
   destroy() {

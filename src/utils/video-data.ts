@@ -7,9 +7,9 @@ export function getTimePercent(time: number, durationTime: number): number {
 }
 
 export function getOverallBufferedPercent(
-  buffered,
-  currentTime = 0,
-  duration = 0,
+  buffered: TimeRanges,
+  currentTime: number = 0,
+  duration: number = 0,
 ) {
   if (!buffered || !buffered.length || !duration) {
     return 0;
@@ -24,7 +24,7 @@ export function getOverallPlayedPercent(currentTime = 0, duration = 0) {
   return getTimePercent(currentTime, duration);
 }
 
-export function geOverallBufferLength(buffered) {
+export function geOverallBufferLength(buffered: TimeRanges) {
   let size = 0;
 
   if (!buffered || !buffered.length) {
@@ -38,7 +38,10 @@ export function geOverallBufferLength(buffered) {
   return size;
 }
 
-export function getNearestBufferSegmentInfo(buffered, currentTime?) {
+export function getNearestBufferSegmentInfo(
+  buffered: TimeRanges,
+  currentTime?: number,
+) {
   let i = 0;
 
   if (!buffered || !buffered.length) {

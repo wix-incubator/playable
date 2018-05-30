@@ -35,7 +35,7 @@ import { TooltipService } from '../modules/ui/core/tooltip';
 
 const { asClass } = DependencyContainer;
 
-export const modules = {
+export const modules: { [id: string]: any } = {
   RootContainer,
   EventEmitter,
   Engine,
@@ -71,14 +71,17 @@ export const modules = {
   TooltipService,
 };
 
-const DIModules = Object.keys(modules).reduce((DIModules, key) => {
-  const module = modules[key];
-  if (!module.moduleName) {
-    throw new Error(`No moduleName in module: ${key}`);
-  }
+const DIModules: { [id: string]: any } = Object.keys(modules).reduce(
+  (DIModules: { [id: string]: any }, key: string) => {
+    const module = modules[key] as any;
+    if (!module.moduleName) {
+      throw new Error(`No moduleName in module: ${key}`);
+    }
 
-  DIModules[module.moduleName] = asClass(module).scoped();
-  return DIModules;
-}, {});
+    DIModules[module.moduleName] = asClass(module).scoped();
+    return DIModules;
+  },
+  {},
+);
 
 export default DIModules;

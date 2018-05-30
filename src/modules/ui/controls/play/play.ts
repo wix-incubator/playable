@@ -1,4 +1,4 @@
-import { IPlayViewConfig } from './types';
+import { IPlayControl, IPlayViewConfig } from './types';
 
 import View from './play.view';
 
@@ -14,7 +14,7 @@ import { IThemeService } from '../../core/theme';
 
 import { ITextMap } from '../../../text-map/types';
 
-export default class PlayControl {
+export default class PlayControl implements IPlayControl {
   static moduleName = 'playControl';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'theme'];
@@ -24,14 +24,24 @@ export default class PlayControl {
   private _textMap: ITextMap;
   private _theme: IThemeService;
 
-  private _interceptor;
+  private _interceptor: KeyboardInterceptor;
   private _isPlaying: boolean;
 
   private _unbindEvents: Function;
 
   view: View;
 
-  constructor({ engine, eventEmitter, textMap, theme }) {
+  constructor({
+    engine,
+    eventEmitter,
+    textMap,
+    theme,
+  }: {
+    engine: IPlaybackEngine;
+    eventEmitter: IEventEmitter;
+    textMap: ITextMap;
+    theme: IThemeService;
+  }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
@@ -104,7 +114,7 @@ export default class PlayControl {
     this._eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
   }
 
-  private _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
     if (nextState === EngineState.SRC_SET) {
       this.reset();
     } else if (nextState === EngineState.PLAYING) {
@@ -130,7 +140,7 @@ export default class PlayControl {
     this.view = new PlayControl.View(config);
   }
 
-  setControlStatus(isPlaying) {
+  setControlStatus(isPlaying: boolean) {
     this._isPlaying = isPlaying;
     this.view.setState({ isPlaying: this._isPlaying });
   }

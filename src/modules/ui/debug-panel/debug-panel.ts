@@ -4,6 +4,8 @@ import View from './debug-panel.view';
 import { KEYCODES } from '../../../utils/keyboard-interceptor';
 
 import { IPlaybackEngine } from '../../playback-engine/types';
+import { IRootContainer } from '../../root-container/types';
+import { IKeyboardControl } from '../../keyboard-control/types';
 
 const UPDATE_TIME = 1000;
 
@@ -14,12 +16,20 @@ export default class DebugPanel {
 
   private _engine: IPlaybackEngine;
 
-  private _interval;
+  private _interval: number;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, rootContainer, keyboardControl }) {
+  constructor({
+    engine,
+    rootContainer,
+    keyboardControl,
+  }: {
+    engine: IPlaybackEngine;
+    rootContainer: IRootContainer;
+    keyboardControl: IKeyboardControl;
+  }) {
     this._engine = engine;
 
     this._bindCallbacks();
@@ -32,7 +42,7 @@ export default class DebugPanel {
     keyboardControl.addKeyControl(KEYCODES.DEBUG_KEY, this._keyControlCallback);
   }
 
-  private _keyControlCallback(e) {
+  private _keyControlCallback(e: KeyboardEvent) {
     if (e.ctrlKey && e.shiftKey) {
       this.show();
     }
@@ -94,11 +104,11 @@ export default class DebugPanel {
 
   setUpdateInterval() {
     this.clearUpdateInterval();
-    this._interval = setInterval(this.updateInfo, UPDATE_TIME);
+    this._interval = window.setInterval(this.updateInfo, UPDATE_TIME);
   }
 
   clearUpdateInterval() {
-    clearInterval(this._interval);
+    window.clearInterval(this._interval);
   }
 
   show() {

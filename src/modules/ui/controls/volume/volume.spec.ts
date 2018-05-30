@@ -1,5 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
@@ -10,8 +11,8 @@ import { VIDEO_EVENTS } from '../../../../constants';
 
 describe('VolumeControl', () => {
   let testkit;
-  let control;
-  let eventEmitter;
+  let control: any;
+  let eventEmitter: any;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();

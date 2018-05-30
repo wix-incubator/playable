@@ -37,9 +37,10 @@ export interface IPlayerConfig {
   showInteractionIndicator?: boolean;
   fillAllSpace?: boolean;
   disableControlWithKeyboard?: boolean;
+  [key: string]: any;
 }
 
-const convertUIConfigForIOS = params => ({
+const convertUIConfigForIOS = (params: IPlayerConfig): IPlayerConfig => ({
   ...params,
   showInteractionIndicator: false,
   screen: {
@@ -52,7 +53,7 @@ const convertUIConfigForIOS = params => ({
   controls: false,
 });
 
-const convertUIConfigForAndroid = params => ({
+const convertUIConfigForAndroid = (params: IPlayerConfig): IPlayerConfig => ({
   ...params,
   screen: {
     ...params.screen,
@@ -60,7 +61,7 @@ const convertUIConfigForAndroid = params => ({
   },
 });
 
-const convertToDeviceRelatedConfig = params => {
+const convertToDeviceRelatedConfig = (params: IPlayerConfig): IPlayerConfig => {
   if (isIOS()) {
     return convertUIConfigForIOS(params);
   }

@@ -12,11 +12,15 @@ import KeyboardInterceptor, {
 
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
+import { IPlayerConfig } from '../../core/config';
+import { IKeyboardControl } from './types';
+import { IRootContainer } from '../root-container/types';
+import { ListenerFn } from 'eventemitter3';
 
 export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
 
-export default class KeyboardControl {
+export default class KeyboardControl implements IKeyboardControl {
   static moduleName = 'keyboardControl';
   static dependencies = ['engine', 'eventEmitter', 'rootContainer', 'config'];
 
@@ -24,9 +28,19 @@ export default class KeyboardControl {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
   private _rootNode: HTMLElement;
-  private _keyboardInterceptor;
+  private _keyboardInterceptor: KeyboardInterceptor;
 
-  constructor({ config, eventEmitter, rootContainer, engine }) {
+  constructor({
+    config,
+    eventEmitter,
+    rootContainer,
+    engine,
+  }: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+    rootContainer: IRootContainer;
+    engine: IPlaybackEngine;
+  }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._rootNode = rootContainer.node;
@@ -105,7 +119,7 @@ export default class KeyboardControl {
     }
   }
 
-  addKeyControl(key, callback) {
+  addKeyControl(key: number, callback: ListenerFn) {
     if (this._isEnabled) {
       this._keyboardInterceptor.addCallbacks({
         [key]: callback,

@@ -1,5 +1,7 @@
 import { IPlaybackAdapter } from './adapters/types';
 import { EngineState, MediaStreamDeliveryPriority } from '../../constants';
+import { IEventEmitter } from '../event-emitter/types';
+import { IPlayerConfig } from '../../core/config';
 
 enum PreloadTypes {
   NONE = 'none',
@@ -106,4 +108,23 @@ interface IPlaybackEngine {
   destroy(): void;
 }
 
-export { IPlaybackEngine, IDebugInfo, IMediaSource, MediaSource, PreloadTypes };
+interface IPlaybackEngineDependencies {
+  eventEmitter: IEventEmitter;
+  config: IPlayerConfig;
+  availablePlaybackAdapters: any[];
+}
+
+interface ILiveStateEngineDependencies {
+  eventEmitter: IEventEmitter;
+  engine: IPlaybackEngine;
+}
+
+export {
+  ILiveStateEngineDependencies,
+  IPlaybackEngineDependencies,
+  IPlaybackEngine,
+  IDebugInfo,
+  IMediaSource,
+  MediaSource,
+  PreloadTypes,
+};

@@ -5,7 +5,7 @@ import {
 
 interface IPlaybackAdapter {
   canPlay(mediaType: MediaStreamTypes): boolean;
-  setMediaStreams(mediaStreams): void;
+  setMediaStreams(mediaStreams: any): void;
 
   attach(videoElement: HTMLVideoElement): void;
   detach(): void;

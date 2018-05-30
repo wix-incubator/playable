@@ -2,10 +2,12 @@ import { UI_EVENTS } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import SubtitlesView from './subtitles.view';
-import { ISubtitleConfig } from './types';
+import { ISubtitles, ISubtitleConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
+import { IRootContainer } from '../../root-container/types';
+import { IPlaybackEngine } from '../../playback-engine/types';
 
-export default class Subtitles {
+export default class Subtitles implements ISubtitles {
   static moduleName = 'subtitle';
   static dependencies = ['rootContainer', 'engine', 'eventEmitter'];
   static View = SubtitlesView;
@@ -20,7 +22,15 @@ export default class Subtitles {
 
   private _unbindEvents: Function;
 
-  constructor({ rootContainer, engine, eventEmitter }) {
+  constructor({
+    rootContainer,
+    engine,
+    eventEmitter,
+  }: {
+    rootContainer: IRootContainer;
+    engine: IPlaybackEngine;
+    eventEmitter: IEventEmitter;
+  }) {
     this._eventEmitter = eventEmitter;
     //TODO: Think about crossorigin
     this._video = engine.getNode();
@@ -91,8 +101,9 @@ export default class Subtitles {
       'track[kind="subtitles"]',
     );
 
-    Array.prototype.forEach.call(subtitleTracks, trackNode =>
-      this._video.removeChild(trackNode),
+    Array.prototype.forEach.call(
+      subtitleTracks,
+      (trackNode: HTMLTrackElement) => this._video.removeChild(trackNode),
     );
 
     this._trackList = [];
@@ -119,7 +130,10 @@ export default class Subtitles {
       textTrack.addEventListener('cuechange', this._showSubtitles);
       textTrack.activeCues &&
         this.view.showSubtitles(
-          Array.prototype.map.call(textTrack.activeCues, cue => cue.text),
+          Array.prototype.map.call(
+            textTrack.activeCues,
+            (cue: TextTrackCue) => cue.text,
+          ),
         );
     }
 
@@ -159,7 +173,10 @@ export default class Subtitles {
   private _showSubtitles(event: TrackEvent): void {
     const textTrack: TextTrack = event.target as TextTrack;
     this.view.showSubtitles(
-      Array.prototype.map.call(textTrack.activeCues, cue => cue.text),
+      Array.prototype.map.call(
+        textTrack.activeCues,
+        (cue: TextTrackCue) => cue.text,
+      ),
     );
   }
 

@@ -1,5 +1,5 @@
 export default {
   timeText: {
-    color: data => data.color,
+    color: (data: any) => data.color,
   },
 };

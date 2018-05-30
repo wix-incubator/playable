@@ -39,7 +39,31 @@ type IBottomBlockViewConfig = {
   elements: IBottomBlockViewElements;
 };
 
+interface IBottomBlock {
+  node: HTMLElement;
+  isFocused: boolean;
+  showContent(): void;
+  hideContent(): void;
+  show(): void;
+  hide(): void;
+  setLogoAlwaysShowFlag(flag: boolean): void;
+  showLogo(): void;
+  hideLogo(): void;
+  showPlayControl(): void;
+  hidePlayControl(): void;
+  showTimeControl(): void;
+  hideTimeControl(): void;
+  showProgressControl(): void;
+  hideProgressControl(): void;
+  showFullScreenControl(): void;
+  hideFullScreenControl(): void;
+  showVolumeControl(): void;
+  hideVolumeControl(): void;
+  destroy(): void;
+}
+
 export {
+  IBottomBlock,
   IBottomBlockViewStyles,
   IBottomBlockViewCallbacks,
   IBottomBlockViewConfig,

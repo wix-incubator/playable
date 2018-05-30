@@ -1,16 +1,23 @@
 import View from './top-block.view';
 
-import { ITopBlockViewConfig, ITopBlockViewElements } from './types';
+import { ILiveIndicator } from '../live-indicator/types';
+import { ITitle } from '../title/types';
+import { ITopBlock, ITopBlockViewConfig, ITopBlockViewElements } from './types';
 
-export default class TopBlock {
+interface IDependencies {
+  title: ITitle;
+  liveIndicator: ILiveIndicator;
+}
+
+export default class TopBlock implements ITopBlock {
   static moduleName = 'topBlock';
   static View = View;
-  static dependencies = ['config', 'title', 'liveIndicator'];
+  static dependencies = ['title', 'liveIndicator'];
 
   isHidden: boolean;
   view: View;
 
-  constructor(dependencies) {
+  constructor(dependencies: IDependencies) {
     this.isHidden = false;
 
     this._initUI(this._getElementsNodes(dependencies));
@@ -24,7 +31,9 @@ export default class TopBlock {
     this.view = new TopBlock.View(config);
   }
 
-  private _getElementsNodes(dependencies): ITopBlockViewElements {
+  private _getElementsNodes(
+    dependencies: IDependencies,
+  ): ITopBlockViewElements {
     const { title, liveIndicator } = dependencies;
 
     return {

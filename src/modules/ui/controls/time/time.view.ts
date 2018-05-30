@@ -97,9 +97,9 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$currentTime;
-    delete this._$durationTime;
-    delete this._$node;
+    this._$currentTime = null;
+    this._$durationTime = null;
+    this._$node = null;
   }
 }
 

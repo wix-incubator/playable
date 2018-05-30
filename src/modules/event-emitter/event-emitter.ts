@@ -84,7 +84,7 @@ export default class EventEmitterModule extends EventEmitter
    * @param defaultFnContext
    * @returns unbindEvents
    */
-  bindEvents(eventsMap: IEventMap[], defaultFnContext?): Function {
+  bindEvents(eventsMap: IEventMap[], defaultFnContext?: Object): Function {
     const events: Function[] = [];
 
     eventsMap.forEach(([eventName, fn, fnContext = defaultFnContext]) => {

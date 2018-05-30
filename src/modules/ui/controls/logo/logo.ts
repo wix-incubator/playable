@@ -9,10 +9,11 @@ import View from './logo.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
-import { ILogoViewConfig } from './types';
+import { ILogoControl, ILogoViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
+import { IPlayerConfig } from '../../../../core/config';
 
-export default class Logo {
+export default class Logo implements ILogoControl {
   static moduleName = 'logo';
   static View = View;
   static dependencies = ['config', 'eventEmitter', 'textMap', 'tooltipService'];
@@ -21,13 +22,23 @@ export default class Logo {
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
 
-  private _interceptor;
-  private _callback;
+  private _interceptor: KeyboardInterceptor;
+  private _callback: Function;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, config, textMap, tooltipService }) {
+  constructor({
+    eventEmitter,
+    config,
+    textMap,
+    tooltipService,
+  }: {
+    eventEmitter: IEventEmitter;
+    config: IPlayerConfig;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+  }) {
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
@@ -38,7 +49,7 @@ export default class Logo {
     this._initInterceptor();
 
     const logoConfig = {
-      ...config.logo,
+      ...(typeof config.logo === 'object' ? config.logo : {}),
     };
 
     this.setLogo(logoConfig.src);

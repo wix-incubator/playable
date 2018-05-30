@@ -1,5 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
@@ -8,8 +9,8 @@ import { VIDEO_EVENTS, EngineState } from '../../../../constants';
 
 describe('TimeControl', () => {
   let testkit;
-  let control;
-  let eventEmitter;
+  let control: any;
+  let eventEmitter: any;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
@@ -99,7 +100,7 @@ describe('TimeControl', () => {
     });
 
     it('should start interval updates', () => {
-      const spy = sinon.spy(global, 'setInterval');
+      const spy = sinon.spy(window, 'setInterval');
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
       expect(spy.calledWith(control._updateCurrentTime)).to.be.true;

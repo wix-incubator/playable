@@ -8,4 +8,22 @@ type IInteractionIndicatorViewStyles = {
   hidden: string;
 };
 
-export { IInteractionIndicatorViewStyles };
+interface IInteractionIndicator {
+  node: HTMLElement;
+
+  showPause(): void;
+  showPlay(): void;
+  showRewind(): void;
+  showForward(): void;
+  showMute(): void;
+  showIncreaseVolume(): void;
+  showDecreaseVolume(): void;
+  hideIcons(): void;
+
+  show(): void;
+  hide(): void;
+
+  destroy(): void;
+}
+
+export { IInteractionIndicator, IInteractionIndicatorViewStyles };

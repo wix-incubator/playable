@@ -5,7 +5,7 @@ import DependencyContainer from '../core/dependency-container';
 
 const { asClass } = DependencyContainer;
 
-function setProperty(target, propertyKey, propertyValue) {
+function setProperty(target: any, propertyKey: any, propertyValue: any) {
   Reflect.defineProperty(target, propertyKey, {
     ...Reflect.getOwnPropertyDescriptor(
       target.constructor.prototype,
@@ -15,13 +15,13 @@ function setProperty(target, propertyKey, propertyValue) {
   });
 }
 
-function resetProperty(target, propertyKey) {
+function resetProperty(target: any, propertyKey: any) {
   Reflect.deleteProperty(target, propertyKey);
 }
 
 export { setProperty, resetProperty };
 
-export default function createPlayerTestkit(config = {}, adapters = []) {
+export default function createPlayerTestkit(config = {}, adapters: any = []) {
   const _config = config;
 
   const scope = container.createScope();
@@ -31,7 +31,7 @@ export default function createPlayerTestkit(config = {}, adapters = []) {
   scope.registerValue('availablePlaybackAdapters', [...adapters]);
 
   return {
-    getModule(name) {
+    getModule(name: string) {
       return scope.resolve(name);
     },
     registerModule(name: string, fn: Function) {
@@ -45,7 +45,7 @@ export default function createPlayerTestkit(config = {}, adapters = []) {
         ...config,
       });
     },
-    setPlaybackAdapters(adapters) {
+    setPlaybackAdapters(adapters: any) {
       scope.registerValue('availablePlaybackAdapters', [...adapters]);
     },
   };

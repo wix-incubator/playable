@@ -12,4 +12,18 @@ type ISubtitlesViewStyles = {
   hidden: string;
 };
 
-export { ISubtitleConfig, ISubtitlesViewStyles };
+interface ISubtitles {
+  setSubtitles(
+    subtitles: string | ISubtitleConfig | Array<ISubtitleConfig>,
+  ): void;
+
+  setActiveSubtitle(index: number): void;
+
+  showSubtitles(): void;
+  hideSubtitles(): void;
+  removeSubtitles(): void;
+
+  destroy(): void;
+}
+
+export { ISubtitles, ISubtitleConfig, ISubtitlesViewStyles };

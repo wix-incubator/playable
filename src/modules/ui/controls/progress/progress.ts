@@ -21,14 +21,14 @@ import playerAPI from '../../../../core/player-api-decorator';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
-import { IProgressViewConfig } from './types';
+import { IProgressControl, IProgressViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
 import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
-export default class ProgressControl {
+export default class ProgressControl implements IProgressControl {
   static moduleName = 'progressControl';
   static View = View;
   static dependencies = [
@@ -41,7 +41,7 @@ export default class ProgressControl {
   ];
 
   private _engine: IPlaybackEngine;
-  private _liveStateEngine;
+  private _liveStateEngine: any;
   private _eventEmitter: IEventEmitter;
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
@@ -50,8 +50,8 @@ export default class ProgressControl {
   private _isUserInteracting: boolean;
   private _shouldPlayAfterManipulationEnd: boolean;
   private _currentProgress: number;
-  private _interceptor;
-  private _updateControlInterval: any;
+  private _interceptor: KeyboardInterceptor;
+  private _updateControlInterval: number;
   private _timeIndicatorsToAdd: number[];
 
   private _unbindEvents: Function;
@@ -66,6 +66,13 @@ export default class ProgressControl {
     textMap,
     tooltipService,
     theme,
+  }: {
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    liveStateEngine: any;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+    theme: IThemeService;
   }) {
     this._engine = engine;
     this._liveStateEngine = liveStateEngine;
@@ -177,7 +184,7 @@ export default class ProgressControl {
     );
   }
 
-  private _changePlayedProgress(value) {
+  private _changePlayedProgress(value: number) {
     if (this._currentProgress === value) {
       return;
     }
@@ -193,13 +200,13 @@ export default class ProgressControl {
 
     this._updateControlOnInterval();
 
-    this._updateControlInterval = setInterval(
+    this._updateControlInterval = window.setInterval(
       this._updateControlOnInterval,
       UPDATE_INTERVAL_DELAY,
     );
   }
 
-  private _onSeekToByMouseStart(percent) {
+  private _onSeekToByMouseStart(percent: number) {
     const durationTime = this._engine.getDurationTime();
     const seekTime = durationTime * percent / 100;
     const time = this._engine.isDynamicContent
@@ -214,7 +221,7 @@ export default class ProgressControl {
   }
 
   private _stopIntervalUpdates() {
-    clearInterval(this._updateControlInterval);
+    window.clearInterval(this._updateControlInterval);
     this._updateControlInterval = null;
   }
 
@@ -241,7 +248,7 @@ export default class ProgressControl {
     this._updateBufferIndicator();
   }
 
-  private _processStateChange({ nextState }) {
+  private _processStateChange({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.SRC_SET:
         this.reset();
@@ -273,7 +280,7 @@ export default class ProgressControl {
     }
   }
 
-  private _processLiveStateChange({ nextState }) {
+  private _processLiveStateChange({ nextState }: { nextState: LiveState }) {
     switch (nextState) {
       case LiveState.NONE:
         this.view.setLiveSyncStatus(false);
@@ -310,7 +317,7 @@ export default class ProgressControl {
     }
   }
 
-  private _changeCurrentTimeOfVideo(percent) {
+  private _changeCurrentTimeOfVideo(percent: number) {
     const duration = this._engine.getDurationTime();
 
     if (this._engine.isDynamicContent && percent === 1) {
@@ -379,7 +386,7 @@ export default class ProgressControl {
     this._timeIndicatorsToAdd = [];
   }
 
-  private _addTimeIndicator(time) {
+  private _addTimeIndicator(time: number) {
     const durationTime = this._engine.getDurationTime();
 
     if (time > durationTime) {
@@ -438,12 +445,12 @@ export default class ProgressControl {
     this.view.clearTimeIndicators();
   }
 
-  updatePlayed(percent) {
+  updatePlayed(percent: number) {
     this._currentProgress = percent;
     this.view.setPlayed(this._currentProgress);
   }
 
-  updateBuffered(percent) {
+  updateBuffered(percent: number) {
     this.view.setBuffered(percent);
   }
 

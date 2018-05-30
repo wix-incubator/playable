@@ -7,21 +7,19 @@ import {
   getNearestBufferSegmentInfo,
 } from './video-data';
 
-function getValidBuffer(seq) {
+function getValidBuffer(seq: any) {
   return {
-    start: i => seq[i][0],
-    end: i => seq[i][1],
+    start: (i: any) => seq[i][0],
+    end: (i: any) => seq[i][1],
     length: seq.length,
   };
 }
 
 describe('getNearestBufferSegmentInfo', () => {
   it('should return null if invalid buffer provided', () => {
-    const buffer1 = null;
-    const buffer2 = [];
+    const buffer: any = null;
 
-    expect(getNearestBufferSegmentInfo(buffer1)).to.be.equal(null);
-    expect(getNearestBufferSegmentInfo(buffer2)).to.be.equal(null);
+    expect(getNearestBufferSegmentInfo(buffer)).to.be.equal(null);
   });
 
   it('should return proper size of buffer', () => {
@@ -41,11 +39,9 @@ describe('getNearestBufferSegmentInfo', () => {
 
 describe('geOverallBufferLength', () => {
   it('should return 0 if invalid buffer provided', () => {
-    const buffer1 = null;
-    const buffer2 = [];
+    const buffer: any = null;
 
-    expect(geOverallBufferLength(buffer1)).to.be.equal(0);
-    expect(geOverallBufferLength(buffer2)).to.be.equal(0);
+    expect(geOverallBufferLength(buffer)).to.be.equal(0);
   });
 
   it('should return proper size of buffer', () => {
@@ -57,11 +53,9 @@ describe('geOverallBufferLength', () => {
 
 describe('getOverallBufferedPercent', () => {
   it('should return 0 if invalid buffer provided', () => {
-    const buffer1 = null;
-    const buffer2 = [];
+    const buffer: any = null;
 
-    expect(getOverallBufferedPercent(buffer1)).to.be.equal(0);
-    expect(getOverallBufferedPercent(buffer2)).to.be.equal(0);
+    expect(getOverallBufferedPercent(buffer)).to.be.equal(0);
   });
 
   it('should return 0 if invalid duration is 0', () => {

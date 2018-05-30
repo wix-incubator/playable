@@ -4,6 +4,8 @@ import View from './loader.view';
 
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
+import { IPlayerConfig } from '../../../core/config';
+import { IRootContainer } from '../../root-container/types';
 
 export const DELAYED_SHOW_TIMEOUT = 100;
 
@@ -15,13 +17,23 @@ export default class Loader {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
 
-  private _delayedShowTimeout;
+  private _delayedShowTimeout: number;
   private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ config, eventEmitter, engine, rootContainer }) {
+  constructor({
+    config,
+    eventEmitter,
+    engine,
+    rootContainer,
+  }: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    rootContainer: IRootContainer;
+  }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;
     this._engine = engine;
@@ -58,7 +70,7 @@ export default class Loader {
     );
   }
 
-  private _checkForWaitingState({ nextState }) {
+  private _checkForWaitingState({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.SEEK_IN_PROGRESS:
         this.startDelayedShow();
@@ -122,14 +134,14 @@ export default class Loader {
     if (this.isDelayedShowScheduled) {
       this.stopDelayedShow();
     }
-    this._delayedShowTimeout = setTimeout(
+    this._delayedShowTimeout = window.setTimeout(
       this._showContent,
       DELAYED_SHOW_TIMEOUT,
     );
   }
 
   stopDelayedShow() {
-    clearTimeout(this._delayedShowTimeout);
+    window.clearTimeout(this._delayedShowTimeout);
     this._delayedShowTimeout = null;
   }
 
@@ -142,10 +154,9 @@ export default class Loader {
     this.stopDelayedShow();
 
     this.view.destroy();
+    this.view = null;
 
-    delete this.view;
-
-    delete this._eventEmitter;
-    delete this._engine;
+    this._eventEmitter = null;
+    this._engine = null;
   }
 }

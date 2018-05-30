@@ -1,5 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import convertToDeviceRelatedConfig from './config';
@@ -9,10 +10,10 @@ import DependencyContainer from './dependency-container';
 import playerAPI from '../core/player-api-decorator';
 
 describe("Player's instance", () => {
-  let container;
-  let player;
-  let defaultModules;
-  let additionalModules;
+  let container: any;
+  let player: any;
+  let defaultModules: any;
+  let additionalModules: any;
 
   beforeEach(() => {
     container = DependencyContainer.createContainer();
@@ -23,7 +24,7 @@ describe("Player's instance", () => {
       const registerValueSpy = sinon.spy(container, 'registerValue');
       const params = {};
 
-      player = new Player({}, container, {});
+      player = new Player({}, container, []);
       expect(
         registerValueSpy.calledWith({
           config: convertToDeviceRelatedConfig(params),
@@ -34,7 +35,7 @@ describe("Player's instance", () => {
     it('should be resolved', () => {
       const resolveSpy = sinon.spy(container, 'resolve');
 
-      player = new Player({}, container, {});
+      player = new Player({}, container, []);
 
       expect(resolveSpy.args).to.deep.equal([['config']]);
     });
@@ -51,7 +52,7 @@ describe("Player's instance", () => {
 
       container.registerClass('ClassA', ClassA);
 
-      player = new Player({}, container, defaultModules);
+      player = new Player({}, container, Object.keys(defaultModules));
 
       expect(resolveSpy.calledWith('ClassA')).to.be.true;
     });
@@ -70,7 +71,7 @@ describe("Player's instance", () => {
 
       container.registerClass('ClassA', ClassA);
 
-      player = new Player({}, container, defaultModules);
+      player = new Player({}, container, Object.keys(defaultModules));
       player.destroy();
 
       expect(destroySpy.called).to.be.true;
@@ -84,7 +85,7 @@ describe("Player's instance", () => {
 
       container.registerClass('ClassB', ClassB);
 
-      player = new Player({}, container, {}, { ClassB });
+      player = new Player({}, container, [], ['ClassB']);
 
       expect(resolveSpy.calledWith('ClassB')).to.be.true;
     });
@@ -99,7 +100,7 @@ describe("Player's instance", () => {
 
       container.registerClass('ClassA', ClassA);
 
-      player = new Player({}, container, {}, { ClassA });
+      player = new Player({}, container, [], ['ClassA']);
       player.destroy();
 
       expect(destroySpy.called).to.be.true;
@@ -107,11 +108,11 @@ describe("Player's instance", () => {
   });
 
   describe('public API', () => {
-    let ClassA;
-    let ClassB;
-    let ClassC;
-    let methodASpy;
-    let methodBSpy;
+    let ClassA: any;
+    let ClassB: any;
+    let ClassC: any;
+    let methodASpy: any;
+    let methodBSpy: any;
 
     beforeEach(() => {
       methodASpy = sinon.spy();
@@ -159,7 +160,7 @@ describe("Player's instance", () => {
       defaultModules = {
         ClassA,
       };
-      player = new Player({}, container, defaultModules);
+      player = new Player({}, container, Object.keys(defaultModules));
 
       expect(Reflect.has(player, 'methodA')).to.be.true;
       expect(Reflect.has(player, 'methodB')).to.be.false;
@@ -171,7 +172,7 @@ describe("Player's instance", () => {
         ClassB,
       };
 
-      player = new Player({}, container, defaultModules);
+      player = new Player({}, container, Object.keys(defaultModules));
 
       expect(Reflect.has(player, 'methodA')).to.be.true;
       expect(Reflect.has(player, 'methodB')).to.be.true;
@@ -182,7 +183,7 @@ describe("Player's instance", () => {
       additionalModules = {
         ClassA,
       };
-      player = new Player({}, container, {}, additionalModules);
+      player = new Player({}, container, [], Object.keys(additionalModules));
 
       expect(Reflect.has(player, 'methodA')).to.be.true;
       expect(Reflect.has(player, 'methodC')).to.be.true;
@@ -198,7 +199,12 @@ describe("Player's instance", () => {
       container.registerClass('ClassA', ClassA);
       container.registerClass('ClassB', ClassB);
 
-      player = new Player({}, container, defaultModules, additionalModules);
+      player = new Player(
+        {},
+        container,
+        Object.keys(defaultModules),
+        Object.keys(additionalModules),
+      );
       player.methodA();
       player.methodB();
 
@@ -215,7 +221,7 @@ describe("Player's instance", () => {
       container.registerClass('ClassC', ClassC);
 
       const getDuplicateAPIMethodPlayer = () => {
-        return new Player({}, container, defaultModules);
+        return new Player({}, container, Object.keys(defaultModules));
       };
 
       expect(getDuplicateAPIMethodPlayer).to.throw(
@@ -230,7 +236,7 @@ describe("Player's instance", () => {
         };
         container.registerClass('ClassA', ClassA);
 
-        player = new Player({}, container, defaultModules);
+        player = new Player({}, container, Object.keys(defaultModules));
 
         player.destroy();
         expect(Reflect.has(player, 'methodA')).to.be.false;
@@ -242,7 +248,7 @@ describe("Player's instance", () => {
         };
         container.registerClass('ClassA', ClassA);
 
-        player = new Player({}, container, defaultModules);
+        player = new Player({}, container, Object.keys(defaultModules));
         const methodA = player.methodA;
 
         player.destroy();

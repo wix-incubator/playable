@@ -22,7 +22,7 @@ describe('engageInteractionTypeObserver', () => {
 
   const blurEvent = new Event('blur');
 
-  let get;
+  let get: any;
 
   describe('get function', () => {
     describe('for key', () => {

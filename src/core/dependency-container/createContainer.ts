@@ -4,130 +4,154 @@ import { asClass, asFunction, asValue } from './registrations';
 import ResolutionError from './errors/ResolutionError';
 import nameValueToObject from './utils/nameValueToObject';
 import Lifetime from './constants/Lifetime';
+import { IOptions } from './types';
 
 const FAMILY_TREE = '__familyTree__';
 
-export default function createContainer(options?, __parentContainer?) {
-  options = __assign({}, options);
+export class Container {
+  private _registrations: any = {};
+  private _resolutionStack: string[] = [];
+  private _parentContainer: Container;
 
-  // The resolution stack is used to keep track
-  // of what modules are being resolved, so when
-  // an error occurs, we have something to present
-  // to the poor developer who fucked up.
-  let resolutionStack = [];
+  options: IOptions;
+  cache: any;
+  [FAMILY_TREE]: Array<Container>;
 
-  // Internal registration store.
-  const registrations = {};
+  constructor(options?: IOptions, _parentContainer?: Container) {
+    this.options = __assign({}, options);
+    this._parentContainer = _parentContainer || null;
+    this[FAMILY_TREE] = this._parentContainer
+      ? [this].concat(this._parentContainer[FAMILY_TREE] as any)
+      : [this];
+    this.cache = {};
+  }
 
-  // The container being exposed.
-  const container: any = {
-    options,
-    get registrations() {
-      return __assign(
-        {},
-        __parentContainer && __parentContainer.registrations,
-        registrations,
-      );
-    },
-  };
+  get registrations(): any {
+    return __assign(
+      {},
+      this._parentContainer && this._parentContainer.registrations,
+      this._registrations,
+    );
+  }
 
-  // Track the family tree.
-  const familyTree = __parentContainer
-    ? [container].concat(__parentContainer[FAMILY_TREE])
-    : [container];
+  private _registerAs(
+    fn: Function,
+    verbatimValue: boolean,
+    name: Object | string,
+    value?: any,
+    options?: IOptions,
+  ) {
+    const registrations: any = nameValueToObject(name, value);
 
-  container[FAMILY_TREE] = familyTree;
-  container.cache = {};
-  container.createScope = () => createContainer(options, container);
-  container.register = (name, registration) => {
-    const obj = nameValueToObject(name, registration);
-    Object.keys(obj).forEach(key => {
-      registrations[key] = obj[key];
+    Object.keys(registrations).forEach(key => {
+      let valueToRegister = registrations[key];
+
+      // If we have options, copy them over.
+      options = __assign({}, options);
+
+      /* ignore coverage */
+      if (!verbatimValue && Array.isArray(valueToRegister)) {
+        // The ('name', [value, options]) style
+        options = __assign({}, options, valueToRegister[1]);
+        valueToRegister = valueToRegister[0];
+      }
+
+      this.register(key, fn(valueToRegister, options));
     });
 
-    return container;
-  };
+    // Chaining
+    return this;
+  }
 
-  const makeRegister = (fn, verbatimValue?) =>
-    function(name, value, opts) {
-      // This ensures that we can support name+value style and object style.
-      const obj = nameValueToObject(name, value);
+  createScope() {
+    return new Container(this.options, this);
+  }
 
-      Object.keys(obj).forEach(key => {
-        let valueToRegister = obj[key];
+  register(name: Object | string, registration?: any): Container {
+    const obj: any = nameValueToObject(name, registration);
+    Object.keys(obj).forEach(key => {
+      this._registrations[key] = obj[key];
+    });
 
-        // If we have options, copy them over.
-        opts = __assign({}, opts);
+    return this;
+  }
 
-        /* ignore coverage */
-        if (!verbatimValue && Array.isArray(valueToRegister)) {
-          // The ('name', [value, opts]) style
-          opts = __assign({}, opts, valueToRegister[1]);
-          valueToRegister = valueToRegister[0];
-        }
+  registerClass(
+    name: Object | string,
+    value?: any,
+    options?: IOptions,
+  ): Container {
+    return this._registerAs(asClass, false, name, value, options);
+  }
 
-        container.register(key, fn(valueToRegister, opts));
-      });
+  registerFunction(
+    name: Object | string,
+    value?: any,
+    options?: IOptions,
+  ): Container {
+    return this._registerAs(asFunction, false, name, value, options);
+  }
 
-      // Chaining
-      return container;
-    };
+  registerValue(
+    name: Object | string,
+    value?: any,
+    options?: IOptions,
+  ): Container {
+    return this._registerAs(asValue, true, name, value, options);
+  }
 
-  container.registerFunction = makeRegister(asFunction);
-  container.registerClass = makeRegister(asClass);
-  container.registerValue = makeRegister(asValue, /* verbatimValue: */ true);
-  container.resolve = name => {
+  resolve(name: string) {
     // We need a reference to the root container,
     // so we can retrieve and store singletons.
-    const root = familyTree[familyTree.length - 1];
+    const root: Container = this[FAMILY_TREE][this[FAMILY_TREE].length - 1];
 
     try {
       // Grab the registration by name.
-      const registration = container.registrations[name];
+      const registration = this.registrations[name];
 
-      if (resolutionStack.indexOf(name) > -1) {
+      if (this._resolutionStack.indexOf(name) > -1) {
         throw new ResolutionError(
           name,
-          resolutionStack,
+          this._resolutionStack,
           'Cyclic dependencies detected.',
         );
       }
 
       if (!registration) {
-        throw new ResolutionError(name, resolutionStack);
+        throw new ResolutionError(name, this._resolutionStack);
       }
 
       // Pushes the currently-resolving module name onto the stack
-      resolutionStack.push(name);
+      this._resolutionStack.push(name);
 
       // Do the thing
       let cached;
       let resolved;
 
       switch (registration.lifetime) {
-        case Lifetime.TRANSIENT:
+        case Lifetime.Transient:
           // Transient lifetime means resolve every time.
-          resolved = registration.resolve(container);
+          resolved = registration.resolve(this);
           break;
-        case Lifetime.SINGLETON:
+        case Lifetime.Singelton:
           // Singleton lifetime means cache at all times, regardless of scope.
           cached = root.cache[name];
           if (cached === undefined) {
-            resolved = registration.resolve(container);
+            resolved = registration.resolve(this);
             root.cache[name] = resolved;
           } else {
             resolved = cached;
           }
           break;
-        case Lifetime.SCOPED:
+        case Lifetime.Scoped:
           // Scoped lifetime means that the container
           // that resolves the registration also caches it.
           // When a registration is not found, we travel up
           // the family tree until we find one that is cached.
 
           // Note: The first element in the family tree is this container.
-          for (const c of familyTree) {
-            cached = c.cache[name];
+          for (const _containerFromFamiltyTree of this[FAMILY_TREE]) {
+            cached = _containerFromFamiltyTree.cache[name];
             if (cached !== undefined) {
               // We found one!
               resolved = cached;
@@ -137,27 +161,31 @@ export default function createContainer(options?, __parentContainer?) {
 
           // If we still have not found one, we need to resolve and cache it.
           if (cached === undefined) {
-            resolved = registration.resolve(container);
-            container.cache[name] = resolved;
+            resolved = registration.resolve(this);
+            this.cache[name] = resolved;
           }
           break;
         default:
           throw new ResolutionError(
             name,
-            resolutionStack,
+            this._resolutionStack,
             `Unknown lifetime "${registration.lifetime}"`,
           );
       }
       // Pop it from the stack again, ready for the next resolution
-      resolutionStack.pop();
+      this._resolutionStack.pop();
       return resolved;
     } catch (err) {
       // When we get an error we need to reset the stack.
-      resolutionStack = [];
+      this._resolutionStack = [];
       throw err;
     }
-  };
+  }
+}
 
-  // Finally return the container
-  return container;
+export default function createContainer(
+  options?: IOptions,
+  __parentContainer?: Container,
+): Container {
+  return new Container(options, __parentContainer);
 }

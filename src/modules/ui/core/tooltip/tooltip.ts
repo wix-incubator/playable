@@ -70,9 +70,9 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
     this._$tooltipInner.innerText = text;
   }
 
-  setStyle(style) {
+  setStyle(style: any) {
     Object.keys(style).forEach(styleKey => {
-      this._$node.style[styleKey] = style[styleKey];
+      (this._$node.style as any)[styleKey] = style[styleKey];
     });
   }
 

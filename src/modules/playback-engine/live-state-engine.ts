@@ -6,7 +6,7 @@ import {
 } from '../../constants';
 
 import { IEventEmitter, IEventMap } from '../event-emitter/types';
-import { IPlaybackEngine } from '../playback-engine/types';
+import { ILiveStateEngineDependencies, IPlaybackEngine } from './types';
 
 const SEEK_BY_UI_EVENTS = [
   UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
@@ -26,7 +26,7 @@ class LiveStateEngine {
 
   private _unbindEvents: Function;
 
-  constructor({ eventEmitter, engine }) {
+  constructor({ eventEmitter, engine }: ILiveStateEngineDependencies) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._state = LiveState.NONE;
@@ -53,7 +53,13 @@ class LiveStateEngine {
     );
   }
 
-  private _processStateChange({ prevState, nextState }) {
+  private _processStateChange({
+    prevState,
+    nextState,
+  }: {
+    prevState: EngineState;
+    nextState: EngineState;
+  }) {
     if (nextState === EngineState.SRC_SET) {
       this._setState(LiveState.NONE);
       return;
@@ -114,7 +120,7 @@ class LiveStateEngine {
     this._setState(LiveState.ENDED);
   }
 
-  private _setState(state) {
+  private _setState(state: LiveState) {
     if (this._state !== state) {
       const prevState = this._state;
       const nextState = state;

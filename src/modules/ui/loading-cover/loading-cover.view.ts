@@ -1,7 +1,7 @@
 import View from '../core/view';
 import { IView } from '../core/types';
 
-import { ILoadingCoverViewStyles } from './types';
+import { ILoadingCoverConfig, ILoadingCoverViewStyles } from './types';
 
 import { loadingCoverTemplate } from './templates';
 
@@ -15,7 +15,7 @@ class LoadingCoverView extends View<ILoadingCoverViewStyles>
   private _$node: HTMLElement;
   private _$image: HTMLElement;
 
-  constructor(config) {
+  constructor(config: ILoadingCoverConfig) {
     super();
 
     this._initDOM();
@@ -45,8 +45,8 @@ class LoadingCoverView extends View<ILoadingCoverViewStyles>
     this._$node.classList.remove(this.styleNames.hidden);
   }
 
-  setCover(url) {
-    if (url) {
+  setCover(url: string | boolean) {
+    if (url && typeof url === 'string') {
       this._$image.classList.add(this.styleNames.hidden);
 
       const onImageLoad = () => {
@@ -64,7 +64,7 @@ class LoadingCoverView extends View<ILoadingCoverViewStyles>
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
+    this._$node = null;
   }
 }
 

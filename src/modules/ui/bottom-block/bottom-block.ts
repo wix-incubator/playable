@@ -4,14 +4,36 @@ import View from './bottom-block.view';
 import { UI_EVENTS } from '../../../constants';
 
 import { IEventEmitter } from '../../event-emitter/types';
-import { IBottomBlockViewConfig, IBottomBlockViewElements } from './types';
+import { IPlayControl } from '../controls/play/types';
+import { ITimeControl } from '../controls/time/types';
+import { IProgressControl } from '../controls/progress/types';
+import { IVolumeControl } from '../controls/volume/types';
+import { IFullScreenControl } from '../controls/full-screen/types';
+import { ILogoControl, ILogoConfig } from '../controls/logo/types';
 
-export default class BottomBlock {
+import {
+  IBottomBlock,
+  IBottomBlockViewConfig,
+  IBottomBlockViewElements,
+} from './types';
+import { IPlayerConfig } from '../../../core/config';
+
+interface IDependencies {
+  config: IPlayerConfig;
+  eventEmitter: IEventEmitter;
+  playControl: IPlayControl;
+  progressControl: IProgressControl;
+  timeControl: ITimeControl;
+  volumeControl: IVolumeControl;
+  fullScreenControl: IFullScreenControl;
+  logo: ILogoControl;
+}
+
+export default class BottomBlock implements IBottomBlock {
   static moduleName = 'bottomBlock';
   static View = View;
   static dependencies = [
     'config',
-    'screen',
     'playControl',
     'progressControl',
     'timeControl',
@@ -30,7 +52,7 @@ export default class BottomBlock {
   view: View;
   isHidden: boolean = false;
 
-  constructor(dependencies) {
+  constructor(dependencies: IDependencies) {
     const { config, eventEmitter } = dependencies;
     this._eventEmitter = eventEmitter;
 
@@ -40,7 +62,9 @@ export default class BottomBlock {
     this._bindEvents();
   }
 
-  private _getElementsNodes(dependencies): IBottomBlockViewElements {
+  private _getElementsNodes(
+    dependencies: IDependencies,
+  ): IBottomBlockViewElements {
     const {
       playControl,
       progressControl,
@@ -83,7 +107,7 @@ export default class BottomBlock {
     );
   }
 
-  private _initLogo(logoConfig) {
+  private _initLogo(logoConfig: ILogoConfig | boolean) {
     if (logoConfig) {
       if (typeof logoConfig === 'object') {
         this.setLogoAlwaysShowFlag(logoConfig.showAlways);

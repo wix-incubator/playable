@@ -86,9 +86,9 @@ class OverlayView extends View<IOverlayViewStyles>
       this._$node.parentNode.removeChild(this._$node);
     }
 
-    delete this._$node;
-    delete this._$content;
-    delete this._$playButton;
+    this._$node = null;
+    this._$content = null;
+    this._$playButton = null;
   }
 }
 

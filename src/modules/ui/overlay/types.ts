@@ -21,7 +21,19 @@ interface IOverlayConfig {
   poster?: string;
 }
 
+interface IOverlay {
+  node: HTMLElement;
+
+  show(): void;
+  hide(): void;
+
+  setPoster(src: string): void;
+
+  destroy(): void;
+}
+
 export {
+  IOverlay,
   IOverlayConfig,
   IOverlayViewStyles,
   IOverlayViewCallbacks,

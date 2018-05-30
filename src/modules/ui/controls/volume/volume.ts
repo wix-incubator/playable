@@ -9,12 +9,12 @@ import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip';
-import { IVolumeViewConfig } from './types';
+import { IVolumeControl, IVolumeViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
 import { IThemeService } from '../../core/theme';
 
-export default class VolumeControl {
+export default class VolumeControl implements IVolumeControl {
   static moduleName = 'volumeControl';
   static View = View;
   static dependencies = [
@@ -34,15 +34,27 @@ export default class VolumeControl {
   private _isMuted: boolean;
   private _volume: number;
 
-  private _buttonInterceptor;
-  private _inputInterceptor;
+  private _buttonInterceptor: KeyboardInterceptor;
+  private _inputInterceptor: KeyboardInterceptor;
 
   private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ engine, eventEmitter, textMap, tooltipService, theme }) {
+  constructor({
+    engine,
+    eventEmitter,
+    textMap,
+    tooltipService,
+    theme,
+  }: {
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+    theme: IThemeService;
+  }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
@@ -166,7 +178,7 @@ export default class VolumeControl {
     this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
   }
 
-  private _changeVolumeLevel(level) {
+  private _changeVolumeLevel(level: number) {
     this._engine.setVolume(level);
     this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
   }
@@ -176,18 +188,18 @@ export default class VolumeControl {
     this._eventEmitter.emit(UI_EVENTS.MUTE_STATUS_TRIGGERED, !this._isMuted);
   }
 
-  private _getVolumeLevelFromWheel(delta) {
+  private _getVolumeLevelFromWheel(delta: number) {
     const adjustedVolume = this._volume + delta / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
 
     this._changeVolumeStatus(validatedVolume);
   }
 
-  private _getVolumeLevelFromInput(level) {
+  private _getVolumeLevelFromInput(level: number) {
     this._changeVolumeStatus(level);
   }
 
-  private _changeVolumeStatus(level) {
+  private _changeVolumeStatus(level: number) {
     this._changeVolumeLevel(level);
     if (this._isMuted) {
       this._toggleMuteStatus();
@@ -199,7 +211,7 @@ export default class VolumeControl {
     this.setMuteStatus(this._engine.getMute());
   }
 
-  setVolumeLevel(level) {
+  setVolumeLevel(level: number) {
     if (level === this._volume) {
       return;
     }
@@ -210,7 +222,7 @@ export default class VolumeControl {
     this.view.setMute(Boolean(!this._volume));
   }
 
-  setMuteStatus(isMuted) {
+  setMuteStatus(isMuted: boolean) {
     if (isMuted === this._isMuted) {
       return;
     }

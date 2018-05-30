@@ -11,6 +11,8 @@ import {
 } from './types';
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
+import { IPlayerConfig } from '../../core/config';
+import { IRootContainer } from '../root-container/types';
 
 const DEFAULT_CONFIG: IFullScreenConfig = {
   exitFullScreenOnEnd: true,
@@ -36,7 +38,17 @@ export default class FullScreenManager implements IFullScreenManager {
 
   private _unbindEvents: Function;
 
-  constructor({ eventEmitter, engine, rootContainer, config }) {
+  constructor({
+    eventEmitter,
+    engine,
+    rootContainer,
+    config,
+  }: {
+    engine: IPlaybackEngine;
+    eventEmitter: IEventEmitter;
+    rootContainer: IRootContainer;
+    config: IPlayerConfig;
+  }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
 
@@ -46,7 +58,7 @@ export default class FullScreenManager implements IFullScreenManager {
       this._isEnabled = true;
       const _config: IFullScreenConfig = {
         ...DEFAULT_CONFIG,
-        ...config.fullScreen,
+        ...(typeof config.fullScreen === 'object' ? config.fullScreen : {}),
       };
 
       this._exitFullScreenOnEnd = _config.exitFullScreenOnEnd;
@@ -103,7 +115,11 @@ export default class FullScreenManager implements IFullScreenManager {
     }
   }
 
-  private _processNextStateFromEngine({ nextState }) {
+  private _processNextStateFromEngine({
+    nextState,
+  }: {
+    nextState: EngineState;
+  }) {
     switch (nextState) {
       case EngineState.ENDED: {
         this._exitOnEnd();

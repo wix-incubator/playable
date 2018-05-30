@@ -1,18 +1,20 @@
+import { Container } from './dependency-container/createContainer';
 import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
 import { PLAYER_API_PROPERTY } from '../core/player-api-decorator';
 import { IThemeConfig } from '../modules/ui/core/theme';
 
 export default class Player {
-  private _config;
-  private _defaultModules;
-  private _additionalModules;
+  //@ts-ignore
+  private _config: IPlayerConfig;
+  private _defaultModules: { [id: string]: any };
+  private _additionalModules: { [id: string]: any };
   private _destroyed: boolean;
 
   constructor(
     params: IPlayerConfig,
-    scope,
-    defaultModules,
-    additionalModules = {},
+    scope: Container,
+    defaultModulesNames: string[] = [],
+    additionalModuleNames: string[] = [],
     themeConfig?: IThemeConfig,
   ) {
     scope.registerValue({
@@ -25,8 +27,8 @@ export default class Player {
 
     this._config = scope.resolve('config');
 
-    this._resolveDefaultModules(scope, defaultModules);
-    this._resolveAdditionalModules(scope, additionalModules);
+    this._resolveDefaultModules(scope, defaultModulesNames);
+    this._resolveAdditionalModules(scope, additionalModuleNames);
   }
 
   /*
@@ -35,12 +37,12 @@ export default class Player {
     could be abolished in future
   */
 
-  private _resolveDefaultModules(scope, modules) {
-    this._defaultModules = Object.keys(modules).reduce(
-      (modules, moduleName) => {
+  private _resolveDefaultModules(scope: Container, modulesNames: string[]) {
+    this._defaultModules = modulesNames.reduce(
+      (modules: { [id: string]: any }, moduleName: string) => {
         const resolvedModule = scope.resolve(moduleName);
 
-        this._addPlayerAPIFromModule(resolvedModule, moduleName);
+        this._addPlayerAPIFromModule(resolvedModule);
 
         modules[moduleName] = resolvedModule;
         return modules;
@@ -49,12 +51,12 @@ export default class Player {
     );
   }
 
-  private _resolveAdditionalModules(scope, modules) {
-    this._additionalModules = Object.keys(modules).reduce(
-      (modules, moduleName) => {
+  private _resolveAdditionalModules(scope: Container, modulesNames: string[]) {
+    this._additionalModules = modulesNames.reduce(
+      (modules: { [id: string]: any }, moduleName: string) => {
         const resolvedModule = scope.resolve(moduleName);
 
-        this._addPlayerAPIFromModule(resolvedModule, moduleName);
+        this._addPlayerAPIFromModule(resolvedModule);
 
         modules[moduleName] = resolvedModule;
         return modules;
@@ -63,9 +65,8 @@ export default class Player {
     );
   }
 
-  private _getWrappedCallToModuleFunction(module, _moduleName, fn) {
-    // TODO: do we need `_moduleName` as second parameter?
-    return (...args) => {
+  private _getWrappedCallToModuleFunction(module: any, fn: Function) {
+    return (...args: any[]) => {
       if (this._destroyed) {
         throw new Error('Player instance is destroyed');
       }
@@ -74,7 +75,10 @@ export default class Player {
     };
   }
 
-  private _getPlayerAPIMethodDescriptor(module, moduleName, descriptor) {
+  private _getPlayerAPIMethodDescriptor(
+    module: any,
+    descriptor: PropertyDescriptor,
+  ) {
     const playerMethodDescriptor: any = {
       enumerable: true,
       configurable: true,
@@ -85,7 +89,6 @@ export default class Player {
     if (get) {
       playerMethodDescriptor.get = this._getWrappedCallToModuleFunction(
         module,
-        moduleName,
         get,
       );
     }
@@ -93,7 +96,6 @@ export default class Player {
     if (set) {
       playerMethodDescriptor.set = this._getWrappedCallToModuleFunction(
         module,
-        moduleName,
         set,
       );
     }
@@ -101,7 +103,6 @@ export default class Player {
     if (value) {
       playerMethodDescriptor.value = this._getWrappedCallToModuleFunction(
         module,
-        moduleName,
         value,
       );
     }
@@ -109,10 +110,10 @@ export default class Player {
     return playerMethodDescriptor;
   }
 
-  private _addPlayerAPIFromModule(module, moduleName) {
+  private _addPlayerAPIFromModule(module: any) {
     if (module[PLAYER_API_PROPERTY]) {
       Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
-        if (this[apiKey]) {
+        if ((this as any)[apiKey]) {
           throw new Error(
             `API method ${apiKey} is already defined in Player facade`,
           );
@@ -123,7 +124,6 @@ export default class Player {
           apiKey,
           this._getPlayerAPIMethodDescriptor(
             module,
-            moduleName,
             module[PLAYER_API_PROPERTY][apiKey],
           ),
         );
@@ -131,10 +131,10 @@ export default class Player {
     }
   }
 
-  private _clearPlayerAPIForModule(module) {
+  private _clearPlayerAPIForModule(module: any) {
     if (module[PLAYER_API_PROPERTY]) {
       Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
-        delete this[apiKey];
+        delete (this as any)[apiKey];
       });
     }
   }
@@ -154,9 +154,9 @@ export default class Player {
       }
     });
 
-    delete this._defaultModules;
-    delete this._additionalModules;
-    delete this._config;
+    this._defaultModules = null;
+    this._additionalModules = null;
+    this._config = null;
 
     this._destroyed = true;
   }

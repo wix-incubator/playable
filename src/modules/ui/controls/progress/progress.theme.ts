@@ -2,18 +2,20 @@ import { transperentizeColor } from '../../core/theme';
 
 export default {
   progressPlayed: {
-    backgroundColor: data => data.progressColor,
+    backgroundColor: (data: any) => data.progressColor,
   },
   progressSeekTo: {
-    backgroundColor: data => transperentizeColor(data.progressColor, 0.5),
+    backgroundColor: (data: any) =>
+      transperentizeColor(data.progressColor, 0.5),
   },
   progressBackground: {
-    backgroundColor: data => transperentizeColor(data.progressColor, 0.25),
+    backgroundColor: (data: any) =>
+      transperentizeColor(data.progressColor, 0.25),
   },
   progressSeekBtn: {
-    backgroundColor: data => data.progressColor,
+    backgroundColor: (data: any) => data.progressColor,
   },
   progressSyncBtn: {
-    borderColor: data => data.progressColor,
+    borderColor: (data: any) => data.progressColor,
   },
 };

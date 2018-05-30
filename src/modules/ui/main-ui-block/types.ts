@@ -18,7 +18,21 @@ interface IMainUIBlockConfig {
   shouldAlwaysShow?: boolean;
 }
 
+interface IMainUIBlock {
+  node: HTMLElement;
+
+  enableShowingContent(): void;
+  disableShowingContent(): void;
+
+  show(): void;
+  hide(): void;
+
+  setShouldAlwaysShow(flag: boolean): void;
+  destroy(): void;
+}
+
 export {
+  IMainUIBlock,
   IMainUIBlockConfig,
   IMainUIBlockViewStyles,
   IMainUIBlockViewElements,

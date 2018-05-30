@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import AnomalyBloodhound, { DELAYED_REPORT_TYPES } from './anomaly-bloodhound';
@@ -10,9 +11,9 @@ import EventEmitter from '../event-emitter/event-emitter';
 import { VIDEO_EVENTS, EngineState } from '../../constants';
 
 describe('AnomalyBloodhound', () => {
-  let anomalyBloodhound;
-  let eventEmitter;
-  let engine;
+  let anomalyBloodhound: any;
+  let eventEmitter: any;
+  let engine: any;
   const callback = sinon.spy();
   const config = {
     anomalyBloodhound: {
@@ -25,6 +26,7 @@ describe('AnomalyBloodhound', () => {
     engine = new Engine({
       config,
       eventEmitter,
+      availablePlaybackAdapters: [],
     });
     anomalyBloodhound = new AnomalyBloodhound({
       eventEmitter,
@@ -41,7 +43,7 @@ describe('AnomalyBloodhound', () => {
     it('should be based on event', () => {
       const spy = sinon.spy(anomalyBloodhound, '_processStateChange');
       anomalyBloodhound._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED);
+      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
       anomalyBloodhound._processStateChange.restore();
     });
@@ -210,13 +212,13 @@ describe('AnomalyBloodhound', () => {
 
     (it as any)(
       'delayed report should be resolved',
-      done => {
+      (done: any) => {
         (DELAYED_REPORT_TYPES as any).___test = {
           id: '___test',
           timeout: 5,
         };
 
-        setTimeout(() => {
+        window.setTimeout(() => {
           expect(callback.calledOnce).to.be.true;
           done();
         }, 10);

@@ -1,5 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import { EngineState } from '../../../constants';
@@ -8,17 +9,17 @@ import createPlayerTestkit from '../../../testkit';
 
 import Screen from './screen';
 class FullScreenManagerMock {
-  enterFullScreen = _ => _;
-  exitFullScreen = _ => _;
+  enterFullScreen = (_: any) => _;
+  exitFullScreen = (_: any) => _;
   isEnabled = true;
   _config = {};
 }
 
 describe('Loader', () => {
-  let testkit;
-  let screen;
-  let engine;
-  let fullScreenManager;
+  let testkit: any;
+  let screen: any;
+  let engine: any;
+  let fullScreenManager: any;
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
@@ -50,9 +51,9 @@ describe('Loader', () => {
     });
 
     it('should remove timeout of delayed playback change on _processNodeClick and call _toggleFullScreen on _processNodeDblClick', () => {
-      const timeoutClearSpy = sinon.spy(global, 'clearTimeout');
+      const timeoutClearSpy = sinon.spy(window, 'clearTimeout');
       const toggleFullScreenSpy = sinon.spy(screen, '_toggleFullScreen');
-      const id = setTimeout(() => {}, 0);
+      const id = window.setTimeout(() => {}, 0);
       screen._delayedToggleVideoPlaybackTimeout = id;
 
       screen._processNodeClick();

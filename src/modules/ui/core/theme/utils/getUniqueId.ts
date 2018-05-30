@@ -2,7 +2,7 @@ import camelToKebab from './camelToKebab';
 
 const generatedIds: Map<string, number> = new Map();
 
-function getUniquePostfix(className): string {
+function getUniquePostfix(className: string): string {
   if (generatedIds.has(className)) {
     const newID: number = generatedIds.get(className) + 1;
     generatedIds.set(className, newID);

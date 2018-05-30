@@ -6,7 +6,7 @@ import { PLAYER_API_PROPERTY } from '../../core/player-api-decorator';
 import EventEmitterModule from './event-emitter';
 
 describe('EventEmitterModule', () => {
-  let eventEmitter;
+  let eventEmitter: any;
 
   beforeEach(() => {
     eventEmitter = new EventEmitterModule();

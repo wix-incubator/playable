@@ -24,7 +24,7 @@ interface IPlayerSize {
 }
 
 interface IRootContainer {
-  node: Element;
+  node: HTMLElement;
   appendComponentNode(node: Element): void;
   attachToElement(element: Element): void;
   setWidth(width: number): void;

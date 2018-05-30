@@ -3,12 +3,14 @@ import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import View from './overlay.view';
-import { IOverlayViewConfig } from './types';
+import { IOverlay, IOverlayConfig, IOverlayViewConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IThemeService } from '../core/theme';
+import { IPlayerConfig } from '../../../core/config';
+import { IRootContainer } from '../../root-container/types';
 
-export default class Overlay {
+export default class Overlay implements IOverlay {
   static moduleName = 'overlay';
   static View = View;
   static dependencies = [
@@ -28,13 +30,25 @@ export default class Overlay {
   view: View;
   isHidden: boolean = false;
 
-  constructor({ config, eventEmitter, engine, rootContainer, theme }) {
+  constructor({
+    config,
+    eventEmitter,
+    engine,
+    rootContainer,
+    theme,
+  }: {
+    config: IPlayerConfig;
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    rootContainer: IRootContainer;
+    theme: IThemeService;
+  }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._theme = theme;
 
     this._bindEvents();
-    this._initUI(config.overlay && config.overlay.poster);
+    this._initUI(config.overlay);
 
     rootContainer.appendComponentNode(this.node);
 
@@ -47,8 +61,10 @@ export default class Overlay {
     return this.view.getNode();
   }
 
-  private _initUI(poster) {
-    const config: IOverlayViewConfig = {
+  private _initUI(overlayConfig: IOverlayConfig | boolean) {
+    const poster: string =
+      typeof overlayConfig === 'object' ? overlayConfig.poster : null;
+    const viewConfig: IOverlayViewConfig = {
       callbacks: {
         onPlayClick: this._playVideo.bind(this),
       },
@@ -56,7 +72,7 @@ export default class Overlay {
       theme: this._theme,
     };
 
-    this.view = new Overlay.View(config);
+    this.view = new Overlay.View(viewConfig);
   }
 
   private _bindEvents() {
@@ -66,7 +82,7 @@ export default class Overlay {
     );
   }
 
-  private _updatePlayingStatus({ nextState }) {
+  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
     if (nextState === EngineState.PLAY_REQUESTED) {
       this._hideContent();
     } else if (
@@ -116,9 +132,9 @@ export default class Overlay {
   destroy() {
     this._unbindEvents();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._eventEmitter;
-    delete this._engine;
+    this._eventEmitter = null;
+    this._engine = null;
   }
 }

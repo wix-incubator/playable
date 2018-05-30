@@ -19,4 +19,13 @@ type IPlayViewConfig = {
   theme: IThemeService;
 };
 
-export { IPlayViewStyles, IPlayViewCallbacks, IPlayViewConfig };
+interface IPlayControl {
+  node: HTMLElement;
+
+  setControlStatus(isPlaying: boolean): void;
+  reset(): void;
+
+  destroy(): void;
+}
+
+export { IPlayControl, IPlayViewStyles, IPlayViewCallbacks, IPlayViewConfig };

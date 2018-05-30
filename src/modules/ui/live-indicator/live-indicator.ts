@@ -4,8 +4,9 @@ import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';
 import { ITextMap } from '../../text-map/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
+import { ILiveIndicator } from './types';
 
-export default class LiveIndicator {
+export default class LiveIndicator implements ILiveIndicator {
   static moduleName = 'liveIndicator';
   static View = LiveIndicatorView;
   static dependencies = ['engine', 'eventEmitter', 'textMap', 'tooltipService'];
@@ -22,7 +23,17 @@ export default class LiveIndicator {
 
   view: LiveIndicatorView;
 
-  constructor({ engine, eventEmitter, textMap, tooltipService }) {
+  constructor({
+    engine,
+    eventEmitter,
+    textMap,
+    tooltipService,
+  }: {
+    engine: IPlaybackEngine;
+    eventEmitter: IEventEmitter;
+    textMap: ITextMap;
+    tooltipService: ITooltipService;
+  }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
@@ -89,7 +100,7 @@ export default class LiveIndicator {
     );
   }
 
-  private _processStateChange({ nextState }) {
+  private _processStateChange({ nextState }: { nextState: LiveState }) {
     switch (nextState) {
       case LiveState.NONE:
         this._toggle(false);

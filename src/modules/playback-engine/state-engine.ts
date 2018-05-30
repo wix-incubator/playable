@@ -21,11 +21,11 @@ export default class StateEngine {
   private _eventEmitter: IEventEmitter;
   private _video: HTMLVideoElement;
   private _currentState: EngineState;
-  private _statesTimestamps;
+  private _statesTimestamps: { [state: string]: number };
   private _initialTimeStamp: number;
   private _isMetadataLoaded: boolean;
 
-  constructor(eventEmitter: IEventEmitter, video) {
+  constructor(eventEmitter: IEventEmitter, video: HTMLVideoElement) {
     this._eventEmitter = eventEmitter;
     this._video = video;
 
@@ -62,7 +62,7 @@ export default class StateEngine {
     this._initialTimeStamp = Date.now();
   }
 
-  private _setStateTimestamp(state) {
+  private _setStateTimestamp(state: EngineState) {
     if (!this._statesTimestamps[state]) {
       this._statesTimestamps[state] = Date.now() - this._initialTimeStamp;
       this._setInitialTimeStamp();
@@ -142,7 +142,7 @@ export default class StateEngine {
     }
   }
 
-  setState(state) {
+  setState(state: EngineState) {
     if (state === this._currentState) {
       return;
     }
@@ -176,7 +176,7 @@ export default class StateEngine {
   destroy() {
     this._unbindEvents();
 
-    delete this._eventEmitter;
-    delete this._video;
+    this._eventEmitter = null;
+    this._video = null;
   }
 }

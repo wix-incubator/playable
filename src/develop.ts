@@ -4,7 +4,7 @@ import DASHAdapter from './adapters/dash';
 import Subtitles from './modules/ui/subtitles/subtitles';
 import { PreloadTypes } from './modules/playback-engine/types';
 
-const DEFAULT_URLS = {
+const DEFAULT_URLS: any = {
   DASH: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
   HLS:
     'https://files.wixstatic.com/files/video/64b2fa_039e5c16db504dbaad166ba28d377744/repackage/hls',
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     value: player,
   });
 
-  const selectVideo = type => {
+  const selectVideo = (type: string) => {
     player.setSrc({
       type,
       url: DEFAULT_URLS[type],

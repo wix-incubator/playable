@@ -4,12 +4,12 @@ import { VIDEO_EVENTS, EngineState, LiveState } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
-import { ITimeViewConfig } from './types';
+import { ITimeControl, ITimeViewConfig } from './types';
 import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
-export default class TimeControl {
+export default class TimeControl implements ITimeControl {
   static moduleName = 'timeControl';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'theme'];
@@ -18,13 +18,21 @@ export default class TimeControl {
   private _engine: IPlaybackEngine;
   private _theme: IThemeService;
 
-  private _updateControlInterval;
+  private _updateControlInterval: number;
   private _unbindEvents: Function;
 
   view: View;
   isHidden: boolean;
 
-  constructor({ eventEmitter, engine, theme }) {
+  constructor({
+    eventEmitter,
+    engine,
+    theme,
+  }: {
+    eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
+    theme: IThemeService;
+  }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._theme = theme;
@@ -68,18 +76,18 @@ export default class TimeControl {
     if (this._updateControlInterval) {
       this._stopIntervalUpdates();
     }
-    this._updateControlInterval = setInterval(
+    this._updateControlInterval = window.setInterval(
       this._updateCurrentTime,
       UPDATE_INTERVAL_DELAY,
     );
   }
 
   private _stopIntervalUpdates() {
-    clearInterval(this._updateControlInterval);
+    window.clearInterval(this._updateControlInterval);
     this._updateControlInterval = null;
   }
 
-  private _processLiveStateChange({ nextState }) {
+  private _processLiveStateChange({ nextState }: { nextState: LiveState }) {
     switch (nextState) {
       case LiveState.NONE:
         this.show();
@@ -98,7 +106,7 @@ export default class TimeControl {
     }
   }
 
-  private _toggleIntervalUpdates({ nextState }) {
+  private _toggleIntervalUpdates({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.SRC_SET:
         this.reset();
@@ -123,11 +131,11 @@ export default class TimeControl {
     this.setCurrentTime(this._engine.getCurrentTime());
   }
 
-  setDurationTime(time) {
+  setDurationTime(time: number) {
     this.view.setDurationTime(time);
   }
 
-  setCurrentTime(time) {
+  setCurrentTime(time: number) {
     this.view.setCurrentTime(time);
   }
 
@@ -153,11 +161,9 @@ export default class TimeControl {
     this._stopIntervalUpdates();
     this._unbindEvents();
     this.view.destroy();
-    delete this.view;
+    this.view = null;
 
-    delete this._eventEmitter;
-    delete this._engine;
-
-    this.isHidden = null;
+    this._eventEmitter = null;
+    this._engine = null;
   }
 }

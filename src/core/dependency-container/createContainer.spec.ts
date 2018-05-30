@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createContainer from './createContainer';
@@ -6,7 +7,7 @@ import createContainer from './createContainer';
 import { asClass, asValue, asFunction } from './registrations';
 
 describe('container created by createContainer', () => {
-  let container;
+  let container: any;
   beforeEach(() => {
     container = createContainer();
   });

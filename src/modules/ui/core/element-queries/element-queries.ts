@@ -7,13 +7,13 @@ class ElementQueries {
   private _queryPrefix: string;
   private _queries: { mode: string; width: number }[];
 
-  constructor(element, { prefix = DEFAULT_QUERY_PREFIX } = {}) {
+  constructor(element: HTMLElement, { prefix = DEFAULT_QUERY_PREFIX } = {}) {
     this._element = element;
     this._queryPrefix = prefix;
     this._queries = getQueriesForElement(element, prefix);
   }
 
-  private _getQueryAttributeValue(mode, elementWidth) {
+  private _getQueryAttributeValue(mode: string, elementWidth: number) {
     return this._queries
       .filter(
         query =>

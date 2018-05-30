@@ -34,7 +34,21 @@ enum VideoViewMode {
   FILL = 'FILL',
 }
 
+interface IScreen {
+  node: HTMLElement;
+  showCursor(): void;
+  hideCursor(): void;
+
+  show(): void;
+  hide(): void;
+
+  setVideoViewMode(viewMode: VideoViewMode): void;
+
+  destroy(): void;
+}
+
 export {
+  IScreen,
   VideoViewMode,
   IScreenConfig,
   IScreenViewStyles,

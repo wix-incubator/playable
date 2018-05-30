@@ -4,9 +4,9 @@ import {
 } from '../../../core/tooltip';
 
 function calcProgressTimeTooltipCenterX(
-  progressPercent,
-  progressNodeOffsetX,
-  progressNodeWidth,
+  progressPercent: number,
+  progressNodeOffsetX: number,
+  progressNodeWidth: number,
 ) {
   return progressNodeOffsetX + progressPercent * progressNodeWidth / 100;
 }

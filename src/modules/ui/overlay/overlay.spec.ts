@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
@@ -8,7 +9,7 @@ import createPlayerTestkit from '../../../testkit';
 import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 
 describe('Overlay', () => {
-  let testkit;
+  let testkit: any;
   let overlay: any = {};
   let eventEmitter: any = {};
   let eventEmitterSpy: any = null;

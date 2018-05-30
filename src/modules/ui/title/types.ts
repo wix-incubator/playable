@@ -20,7 +20,19 @@ interface ITitleConfig {
   callback?: Function;
 }
 
+interface ITitle {
+  node: HTMLElement;
+  setTitle(title?: string): void;
+  setTitleClickCallback(callback?: Function): void;
+
+  show(): void;
+  hide(): void;
+
+  destroy(): void;
+}
+
 export {
+  ITitle,
   ITitleConfig,
   ITitleViewStyles,
   ITitleViewCallbacks,

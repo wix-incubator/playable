@@ -2,18 +2,18 @@ import { transperentizeColor } from '../../core/theme';
 
 export default {
   volumeSvgFill: {
-    fill: data => data.color,
+    fill: (data: any) => data.color,
   },
   volumeSvgStroke: {
-    stroke: data => data.color,
+    stroke: (data: any) => data.color,
   },
   volumeProgress: {
-    backgroundColor: data => data.color,
+    backgroundColor: (data: any) => data.color,
     '&:after': {
-      backgroundColor: data => data.color,
+      backgroundColor: (data: any) => data.color,
     },
   },
   volumeProgressBackground: {
-    backgroundColor: data => transperentizeColor(data.color, 0.25),
+    backgroundColor: (data: any) => transperentizeColor(data.color, 0.25),
   },
 };

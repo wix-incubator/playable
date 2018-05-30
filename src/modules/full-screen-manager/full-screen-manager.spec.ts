@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+//@ts-ignore
 import * as sinon from 'sinon';
 
 import FullScreenManager from './full-screen-manager';
@@ -33,10 +34,10 @@ const mockedFullscreenHelper = {
 };
 
 describe('FullScreenManager', () => {
-  let fullScreenManager;
-  let eventEmitter;
-  let engine;
-  let rootContainer;
+  let fullScreenManager: any;
+  let eventEmitter: any;
+  let engine: any;
+  let rootContainer: any;
 
   const config = {};
 
@@ -45,6 +46,7 @@ describe('FullScreenManager', () => {
     engine = new Engine({
       config,
       eventEmitter,
+      availablePlaybackAdapters: [],
     });
     rootContainer = new RootContainer({
       config,
