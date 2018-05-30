@@ -3,7 +3,7 @@ import { TEXT_LABELS } from '../../../../constants';
 import View from '../../core/view';
 
 import { IView } from '../../core/types';
-import { ITooltipReference, ITooltipService } from '../../core/tooltip';
+import { ITooltipReference, ITooltipService } from '../../core/tooltip/types';
 import formatTime from '../../core/utils/formatTime';
 import getProgressTimeTooltipPosition from './utils/getProgressTimeTooltipPosition';
 import { progressTemplate, progressTimeIndicatorTemplate } from './templates';

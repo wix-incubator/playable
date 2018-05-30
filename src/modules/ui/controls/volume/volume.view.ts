@@ -1,6 +1,6 @@
 import { TEXT_LABELS } from '../../../../constants';
 
-import { ITooltipReference, ITooltipService } from '../../core/tooltip';
+import { ITooltipReference, ITooltipService } from '../../core/tooltip/types';
 import {
   controlTemplate,
   volume0IconTemplate,

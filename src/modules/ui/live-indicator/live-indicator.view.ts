@@ -1,4 +1,4 @@
-import { ITooltipReference, ITooltipService } from '../core/tooltip';
+import { ITooltipReference, ITooltipService } from '../core/tooltip/types';
 import { IView } from '../core/types';
 import View from '../core/view';
 

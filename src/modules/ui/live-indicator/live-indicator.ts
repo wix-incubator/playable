@@ -1,4 +1,4 @@
-import { ITooltipService } from '../core/tooltip';
+import { ITooltipService } from '../core/tooltip/types';
 import LiveIndicatorView from './live-indicator.view';
 import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';

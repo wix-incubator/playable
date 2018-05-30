@@ -20,7 +20,7 @@ import KeyboardInterceptor, {
 import playerAPI from '../../../../core/player-api-decorator';
 
 import { IEventEmitter } from '../../../event-emitter/types';
-import { ITooltipService } from '../../core/tooltip';
+import { ITooltipService } from '../../core/tooltip/types';
 import { IProgressControl, IProgressViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
