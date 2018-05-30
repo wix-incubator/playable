@@ -3,23 +3,9 @@ import htmlToElement from '../htmlToElement';
 import getElementByHook from '../getElementByHook';
 import Stylable from '../stylable';
 
+import { ITooltip, ITooltipStyles } from './types';
+
 import styles from './tooltip.scss';
-
-type ITooltipStyles = {
-  tooltip: string;
-  tooltipVisible: string;
-  tooltipInner: string;
-};
-
-interface ITooltip {
-  node: HTMLElement;
-  isHidden: boolean;
-  show(): void;
-  hide(): void;
-  setText(text: string): void;
-  setStyle(style: { [key: string]: string | number }): void;
-  destroy(): void;
-}
 
 class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
   private _$node: HTMLElement;

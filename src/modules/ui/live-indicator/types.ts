@@ -1,4 +1,4 @@
-import { ITooltipService } from '../core/tooltip';
+import { ITooltipService } from '../core/tooltip/types';
 import { ITextMap } from '../../text-map/types';
 
 type ILiveIndicatorViewStyles = {

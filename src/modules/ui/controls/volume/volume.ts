@@ -8,7 +8,7 @@ import { AMOUNT_TO_CHANGE_VOLUME } from '../../../keyboard-control/keyboard-cont
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
-import { ITooltipService } from '../../core/tooltip';
+import { ITooltipService } from '../../core/tooltip/types';
 import { IVolumeControl, IVolumeViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';

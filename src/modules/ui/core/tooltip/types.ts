@@ -17,9 +17,58 @@ type ITooltipShowOptions = {
   position: ITooltipPosition | ITooltipPositionFunction;
 };
 
+type ITooltipStyles = {
+  tooltip: string;
+  tooltipVisible: string;
+  tooltipInner: string;
+};
+
+interface ITooltip {
+  node: HTMLElement;
+  isHidden: boolean;
+  show(): void;
+  hide(): void;
+  setText(text: string): void;
+  setStyle(style: { [key: string]: string | number }): void;
+  destroy(): void;
+}
+
+type ITooltipReferenceOptions = {
+  text: string;
+};
+
+interface ITooltipReference {
+  isHidden: boolean;
+  isDisabled: boolean;
+  show(): void;
+  hide(): void;
+  setText(text: string): void;
+  disable(): void;
+  enable(): void;
+  destroy(): void;
+}
+
+interface ITooltipService {
+  isHidden: boolean;
+  tooltipContainerNode: HTMLElement;
+  setText(text: string): void;
+  show(options: ITooltipShowOptions): void;
+  hide(): void;
+  createReference(
+    reference: HTMLElement,
+    options: ITooltipReferenceOptions,
+  ): ITooltipReference;
+  destroy(): void;
+}
+
 export {
   ITooltipPositionPlacement,
   ITooltipPosition,
   ITooltipPositionFunction,
   ITooltipShowOptions,
+  ITooltipStyles,
+  ITooltip,
+  ITooltipReference,
+  ITooltipReferenceOptions,
+  ITooltipService,
 };

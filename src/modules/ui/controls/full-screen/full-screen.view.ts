@@ -3,7 +3,7 @@ import { TEXT_LABELS } from '../../../../constants';
 import View from '../../core/view';
 import { IView } from '../../core/types';
 
-import { ITooltipReference } from '../../core/tooltip';
+import { ITooltipReference } from '../../core/tooltip/types';
 import {
   controlTemplate,
   enterFullScreenIconTemplate,

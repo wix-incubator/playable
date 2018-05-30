@@ -1,27 +1,15 @@
-import TooltipReference, {
-  ITooltipReference,
-  ITooltipReferenceOptions,
-} from './tooltip-reference';
+import TooltipReference from './tooltip-reference';
 import TooltipContainer from './tooltip-container';
 import Tooltip from './tooltip';
 
 import { UI_EVENTS } from '../../../../constants';
 
-import { ITooltipShowOptions } from './types';
+import {
+  ITooltipShowOptions,
+  ITooltipService,
+  ITooltipReferenceOptions,
+} from './types';
 import { IEventEmitter } from '../../../event-emitter/types';
-
-interface ITooltipService {
-  isHidden: boolean;
-  tooltipContainerNode: HTMLElement;
-  setText(text: string): void;
-  show(options: ITooltipShowOptions): void;
-  hide(): void;
-  createReference(
-    reference: HTMLElement,
-    options: ITooltipReferenceOptions,
-  ): ITooltipReference;
-  destroy(): void;
-}
 
 class TooltipService implements ITooltipService {
   static moduleName = 'tooltipService';

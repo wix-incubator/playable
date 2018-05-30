@@ -8,7 +8,7 @@ import { UI_EVENTS } from '../../../../constants';
 import View from './logo.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
-import { ITooltipService } from '../../core/tooltip';
+import { ITooltipService } from '../../core/tooltip/types';
 import { ILogoControl, ILogoViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlayerConfig } from '../../../../core/config';

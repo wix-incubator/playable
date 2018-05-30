@@ -1,7 +1,6 @@
-import {
-  getTooltipPositionByReferenceNode,
-  ITooltipPosition,
-} from '../../../core/tooltip';
+import { getTooltipPositionByReferenceNode } from '../../../core/tooltip';
+
+import { ITooltipPosition } from '../../../core/tooltip/types';
 
 function calcProgressTimeTooltipCenterX(
   progressPercent: number,

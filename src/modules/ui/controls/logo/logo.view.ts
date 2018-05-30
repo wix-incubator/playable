@@ -1,6 +1,6 @@
 import { TEXT_LABELS } from '../../../../constants';
 
-import { ITooltipReference } from '../../core/tooltip';
+import { ITooltipReference } from '../../core/tooltip/types';
 import View from '../../core/view';
 import { IView } from '../../core/types';
 import { ILogoViewStyles, ILogoViewCallbacks, ILogoViewConfig } from './types';

@@ -1,20 +1,9 @@
-import { ITooltipService } from './tooltip-service';
+import {
+  ITooltipService,
+  ITooltipReference,
+  ITooltipReferenceOptions,
+} from './types';
 import getTooltipPositionByReferenceNode from './utils/getTooltipPositionByReferenceNode';
-
-type ITooltipReferenceOptions = {
-  text: string;
-};
-
-interface ITooltipReference {
-  isHidden: boolean;
-  isDisabled: boolean;
-  show(): void;
-  hide(): void;
-  setText(text: string): void;
-  disable(): void;
-  enable(): void;
-  destroy(): void;
-}
 
 const SHOW_EVENTS = ['mouseenter', 'focus'];
 const HIDE_EVENTS = ['mouseleave', 'blur'];
@@ -109,7 +98,5 @@ class TooltipReference implements ITooltipReference {
     this._options = null;
   }
 }
-
-export { ITooltipReference, ITooltipReferenceOptions };
 
 export default TooltipReference;

@@ -7,7 +7,7 @@ import KeyboardInterceptor, {
 import View from './full-screen.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
-import { ITooltipService } from '../../core/tooltip';
+import { ITooltipService } from '../../core/tooltip/types';
 import { IFullScreenControl, IFullScreenViewConfig } from './types';
 import { IFullScreenManager } from '../../../full-screen-manager/types';
 import { ITextMap } from '../../../text-map/types';
