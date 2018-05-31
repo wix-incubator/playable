@@ -451,6 +451,8 @@ Return current source of video
   </table>
 </div>
 
+## reset()
+
 ## play()
 
 ```javascript

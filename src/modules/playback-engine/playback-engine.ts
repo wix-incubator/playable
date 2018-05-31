@@ -168,7 +168,6 @@ export default class Engine implements IPlaybackEngine {
     }
 
     this._stateEngine.clearTimestamps();
-
     this._currentSrc = src;
     this._adapterStrategy.connectAdapter(this._currentSrc);
 
@@ -183,6 +182,13 @@ export default class Engine implements IPlaybackEngine {
   @playerAPI()
   getSrc(): MediaSource {
     return this._currentSrc;
+  }
+
+  @playerAPI()
+  reset() {
+    this.pause();
+    this.setCurrentTime(0);
+    this._eventEmitter.emit(VIDEO_EVENTS.RESET);
   }
 
   /**
