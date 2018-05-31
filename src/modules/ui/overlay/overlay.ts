@@ -77,7 +77,10 @@ export default class Overlay implements IOverlay {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus]],
+      [
+        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus],
+        [VIDEO_EVENTS.RESET, this._tryShowContent],
+      ],
       this,
     );
   }
@@ -87,9 +90,9 @@ export default class Overlay implements IOverlay {
       this._hideContent();
     } else if (
       nextState === EngineState.ENDED ||
-      (nextState === EngineState.SRC_SET && this._engine.isVideoPaused)
+      nextState === EngineState.SRC_SET
     ) {
-      this._showContent();
+      this._tryShowContent();
     }
   }
 
@@ -97,6 +100,12 @@ export default class Overlay implements IOverlay {
     this._engine.play();
 
     this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
+  }
+
+  private _tryShowContent() {
+    if (this._engine.isVideoPaused) {
+      this._showContent();
+    }
   }
 
   private _hideContent() {
