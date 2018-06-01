@@ -475,6 +475,19 @@ player.togglePlayback();
 
 Method for toggling(play\\pause) playback of video
 
+## resetPlayback()
+
+```javascript
+player.play();
+console.log(player.isVideoPaused); // false
+...
+player.resetPlayback();
+console.log(player.isVideoPaused); // true;
+console.log(player.getCurrentTime()); //0;
+```
+
+Method for reseting playback of video
+
 ## isVideoPaused
 
 ```javascript
