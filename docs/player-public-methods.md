@@ -1213,6 +1213,63 @@ Get playInline flag
   </table>
 </div>
 
+## setCrossOrigin()
+
+```javascript
+player.setCrossOrigin('anonymous');
+```
+
+Set crossorigin attribute for video
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>crossOrigin</code>
+        </td>
+        <td>
+            Possible values are <code>"anonymous"</code>, <code>"use-credentials"</code>.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## getCrossOrigin()
+
+```javascript
+player.getCrossOrigin(); // 'anonymous'
+```
+
+Get crossorigin attribute value for video
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+        </td>
+        <td>
+            <div class="type">CrossOriginValue</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 ## getCurrentPlaybackState()
 
 Return current state of playback

@@ -14,11 +14,13 @@ import {
 import { VIDEO_EVENTS, EngineState } from '../../constants';
 import { IPlaybackAdapter } from './adapters/types';
 
+import { IPlayerConfig } from '../../core/config';
 import {
   IPlaybackEngine,
   IPlaybackEngineDependencies,
   IDebugInfo,
   MediaSource,
+  CrossOriginValue,
 } from './types';
 import { IEventEmitter } from '../event-emitter/types';
 
@@ -68,9 +70,17 @@ export default class Engine implements IPlaybackEngine {
       this._video = document.createElement('video');
     }
   }
-
-  private _applyConfig(config: any = {}) {
-    const { preload, autoPlay, loop, muted, volume, playInline, src } = config;
+  private _applyConfig(config: IPlayerConfig = {}) {
+    const {
+      preload,
+      autoPlay,
+      loop,
+      muted,
+      volume,
+      playInline,
+      crossOrigin,
+      src,
+    } = config;
 
     this.setPreload(preload);
     this.setAutoPlay(autoPlay);
@@ -78,6 +88,7 @@ export default class Engine implements IPlaybackEngine {
     this.setMute(muted);
     this.setVolume(volume);
     this.setPlayInline(playInline);
+    this.setCrossOrigin(crossOrigin);
 
     this.setSrc(src);
   }
@@ -556,6 +567,30 @@ export default class Engine implements IPlaybackEngine {
   @playerAPI()
   getPlayInline(): boolean {
     return this._video.getAttribute('playsInline') === 'true';
+  }
+
+  /**
+   * Set crossorigin attribute for video
+   * @example
+   * player.setCrossOrigin('anonymous');
+   */
+  @playerAPI()
+  setCrossOrigin(crossOrigin?: 'anonymous' | 'use-credentials') {
+    if (crossOrigin) {
+      this._video.setAttribute('crossorigin', crossOrigin);
+    } else {
+      this._video.removeAttribute('crossorigin');
+    }
+  }
+
+  /**
+   * Get crossorigin attribute value for video
+   * @example
+   * player.getCrossOrigin(); // 'anonymous'
+   */
+  @playerAPI()
+  getCrossOrigin(): CrossOriginValue {
+    return this._video.getAttribute('crossorigin') as CrossOriginValue;
   }
 
   /**
