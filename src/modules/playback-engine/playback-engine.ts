@@ -544,7 +544,9 @@ export default class Engine implements IPlaybackEngine {
   @playerAPI()
   setPlayInline(isPlayInline: boolean) {
     if (isPlayInline) {
-      this._video.setAttribute('playsInline', String(isPlayInline));
+      this._video.setAttribute('playsInline', 'true');
+    } else {
+      this._video.removeAttribute('playsInline');
     }
   }
 
