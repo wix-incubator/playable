@@ -1,4 +1,5 @@
 import { UI_EVENTS } from '../../../constants';
+import logger from '../../../utils/logger';
 import playerAPI from '../../../core/player-api-decorator';
 
 import SubtitlesView from './subtitles.view';
@@ -7,9 +8,18 @@ import { IEventEmitter } from '../../event-emitter/types';
 import { IRootContainer } from '../../root-container/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 
+function isSameOrigin(url: string): boolean {
+  const { protocol, hostname, port } = window.location;
+  const a = document.createElement('a');
+
+  a.setAttribute('href', url);
+
+  return a.protocol === protocol && a.hostname === hostname && a.port === port;
+}
+
 export default class Subtitles implements ISubtitles {
   static moduleName = 'subtitle';
-  static dependencies = ['rootContainer', 'engine', 'eventEmitter'];
+  static dependencies = ['rootContainer', 'engine', 'eventEmitter', 'log'];
   static View = SubtitlesView;
 
   isHidden: boolean;
@@ -32,7 +42,6 @@ export default class Subtitles implements ISubtitles {
     eventEmitter: IEventEmitter;
   }) {
     this._eventEmitter = eventEmitter;
-    //TODO: Think about crossorigin
     this._video = engine.getNode();
 
     this._initUI();
@@ -50,12 +59,23 @@ export default class Subtitles implements ISubtitles {
     if (!subtitles) {
       return;
     }
-    if (typeof subtitles === 'string') {
-      this._addSubtitle(subtitles);
-    } else if (Array.isArray(subtitles)) {
-      subtitles.forEach(subtitle => this._addSubtitle(subtitle));
-    } else {
-      this._addSubtitle(subtitles);
+
+    const hasCrossOriginAttribute = this._video.hasAttribute('crossorigin');
+    let hasCrossOriginTrack = false;
+
+    (Array.isArray(subtitles) ? subtitles : [subtitles]).forEach(subtitle => {
+      subtitle = typeof subtitle === 'string' ? { src: subtitle } : subtitle;
+
+      hasCrossOriginTrack = hasCrossOriginTrack || !isSameOrigin(subtitle.src);
+
+      this._addSubtitle(subtitle);
+    });
+
+    if (!hasCrossOriginAttribute && hasCrossOriginTrack) {
+      logger.warn(
+        "Subtitle are being loaded from another origin but video crossorigin attribute isn't used. " +
+          'This may prevent text tracks from loading.',
+      );
     }
   }
 
@@ -75,18 +95,18 @@ export default class Subtitles implements ISubtitles {
     this.view.hide();
   }
 
-  private _addSubtitle(subtitle: string | ISubtitleConfig): void {
+  private _addSubtitle(subtitle: ISubtitleConfig): void {
     const track = document.createElement('track');
 
-    if (typeof subtitle === 'string') {
-      track.setAttribute('src', subtitle);
-    } else {
-      track.setAttribute('src', subtitle.src);
-      subtitle.lang && track.setAttribute('srclang', subtitle.lang);
-      subtitle.label && track.setAttribute('label', subtitle.label);
-    }
-
+    track.setAttribute('src', subtitle.src);
     track.setAttribute('kind', 'subtitles');
+
+    if (subtitle.lang) {
+      track.setAttribute('srclang', subtitle.lang);
+    }
+    if (subtitle.label) {
+      track.setAttribute('label', subtitle.label);
+    }
 
     this._video.appendChild(track);
     this._trackList.push(
