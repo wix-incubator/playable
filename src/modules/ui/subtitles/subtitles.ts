@@ -19,7 +19,7 @@ function isSameOrigin(url: string): boolean {
 
 export default class Subtitles implements ISubtitles {
   static moduleName = 'subtitle';
-  static dependencies = ['rootContainer', 'engine', 'eventEmitter', 'log'];
+  static dependencies = ['rootContainer', 'engine', 'eventEmitter'];
   static View = SubtitlesView;
 
   isHidden: boolean;
