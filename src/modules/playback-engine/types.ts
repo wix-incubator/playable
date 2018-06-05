@@ -15,6 +15,7 @@ interface IMediaSource {
 }
 
 type MediaSource = string | IMediaSource | Array<string | IMediaSource>;
+type CrossOriginValue = 'anonymous' | 'use-credentials';
 
 /**
  * @property type - Name of current attached stream.
@@ -90,6 +91,9 @@ interface IPlaybackEngine {
   setPreload(preload: PreloadTypes): void;
   getPreload(): string;
 
+  setCrossOrigin(crossOrigin?: CrossOriginValue): void;
+  getCrossOrigin(): CrossOriginValue;
+
   getCurrentTime(): number;
   setCurrentTime(time: number): void;
   getDurationTime(): number;
@@ -127,4 +131,5 @@ export {
   IMediaSource,
   MediaSource,
   PreloadTypes,
+  CrossOriginValue,
 };

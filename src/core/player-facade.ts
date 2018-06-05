@@ -27,8 +27,8 @@ export default class Player {
 
     this._config = scope.resolve('config');
 
-    this._resolveDefaultModules(scope, defaultModulesNames);
     this._resolveAdditionalModules(scope, additionalModuleNames);
+    this._resolveDefaultModules(scope, defaultModulesNames);
   }
 
   /*
@@ -40,6 +40,10 @@ export default class Player {
   private _resolveDefaultModules(scope: Container, modulesNames: string[]) {
     this._defaultModules = modulesNames.reduce(
       (modules: { [id: string]: any }, moduleName: string) => {
+        if (this._additionalModules[moduleName]) {
+          return modules;
+        }
+
         const resolvedModule = scope.resolve(moduleName);
 
         this._addPlayerAPIFromModule(resolvedModule);

@@ -38,7 +38,9 @@ export function create(params: IPlayerConfig = {}, themeConfig?: IThemeConfig) {
 
   if (additionalModuleNames.length) {
     additionalModuleNames.forEach(moduleName =>
-      scope.registerClass(moduleName, additionalModules[moduleName]),
+      scope.registerClass(moduleName, additionalModules[moduleName], {
+        lifetime: DependencyContainer.Lifetime.Scoped,
+      }),
     );
   }
 

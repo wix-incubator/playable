@@ -180,10 +180,18 @@ describe("Player's instance", () => {
 
     it('should be constructed from additional modules', () => {
       container.registerClass('ClassA', ClassA);
+      defaultModules = {
+        ClassA,
+      };
       additionalModules = {
         ClassA,
       };
-      player = new Player({}, container, [], Object.keys(additionalModules));
+      player = new Player(
+        {},
+        container,
+        Object.keys(defaultModules),
+        Object.keys(additionalModules),
+      );
 
       expect(Reflect.has(player, 'methodA')).to.be.true;
       expect(Reflect.has(player, 'methodC')).to.be.true;

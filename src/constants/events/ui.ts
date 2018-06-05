@@ -1,5 +1,5 @@
 const UI_EVENTS = {
-  PLAY_TRIGGERED: 'ui-eventsplay-triggered',
+  PLAY_TRIGGERED: 'ui-events/play-triggered',
   PLAY_OVERLAY_TRIGGERED: 'ui-events/play-overlay-triggered',
   PAUSE_TRIGGERED: 'ui-events/pause-triggered',
   PROGRESS_CHANGE_TRIGGERED: 'ui-events/progress-change-triggered',

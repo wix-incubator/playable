@@ -477,6 +477,19 @@ player.togglePlayback();
 
 Method for toggling(play\\pause) playback of video
 
+## resetPlayback()
+
+```javascript
+player.play();
+console.log(player.isVideoPaused); // false
+...
+player.resetPlayback();
+console.log(player.isVideoPaused); // true;
+console.log(player.getCurrentTime()); //0;
+```
+
+Method for reseting playback of video
+
 ## isVideoPaused
 
 ```javascript
@@ -1202,6 +1215,63 @@ Get playInline flag
   </table>
 </div>
 
+## setCrossOrigin()
+
+```javascript
+player.setCrossOrigin('anonymous');
+```
+
+Set crossorigin attribute for video
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>crossOrigin</code>
+        </td>
+        <td>
+            Possible values are <code>"anonymous"</code>, <code>"use-credentials"</code>.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## getCrossOrigin()
+
+```javascript
+player.getCrossOrigin(); // 'anonymous'
+```
+
+Get crossorigin attribute value for video
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+        </td>
+        <td>
+            <div class="type">CrossOriginValue</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 ## getCurrentPlaybackState()
 
 Return current state of playback
@@ -1259,110 +1329,9 @@ Return object with internal debug info
     <tbody>
       <tr>
         <td class="param">
-          <code>type</code>
         </td>
         <td>
-            <p>Name of current attached stream.</p>
-            Possible values are <code>"HLS"</code>, <code>"DASH"</code>, <code>"MP4"</code>, <code>"WEBM"</code>.
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>viewDimensions</code>
-        </td>
-        <td>
-            <div class="type">Object</div>
-            <p>Current size of view port provided by engine (right now - actual size of video tag)</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>url</code>
-        </td>
-        <td>
-            <div class="type">string</div>
-            <p>Url of current source</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>currentTime</code>
-        </td>
-        <td>
-            <div class="type">number</div>
-            <p>Current time of playback</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>duration</code>
-        </td>
-        <td>
-            <div class="type">number</div>
-            <p>Duration of current video</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>loadingStateTimestamps</code>
-        </td>
-        <td>
-            <div class="type">Object</div>
-            <p>Object with time spend for different initial phases</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>bitrates</code>
-        </td>
-        <td>
-            <div class="type">Array&#x3C;string></div>
-            <p>List of all available bitrates. Internal structure different for different type of streams</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>currentBitrate</code>
-        </td>
-        <td>
-            <div class="type">string</div>
-            <p>Current bitrate. Internal structure different for different type of streams</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>bwEstimate</code>
-        </td>
-        <td>
-            <div class="type">number</div>
-            <p>Estimation of bandwidth</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>overallBufferLength</code>
-        </td>
-        <td>
-            <div class="type">number</div>
-            <p>Overall length of buffer</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>nearestBufferSegInfo</code>
-        </td>
-        <td>
-            <div class="type">Object</div>
-            <p>Object with start and end for current buffer segment</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>deliveryPriority</code>
-        </td>
-        <td>
-            <div class="type">MediaStreamDeliveryPriority</div>
-            <p>Priority of current adapter</p>
+            <div class="type">IDebugInfo</div>
         </td>
       </tr>
     </tbody>

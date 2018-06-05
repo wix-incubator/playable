@@ -7,7 +7,11 @@ import { IOverlayConfig } from '../modules/ui/overlay/types';
 import { ITextMapConfig } from '../modules/text-map/types';
 import { IScreenConfig } from '../modules/ui/screen/types';
 import { IMainUIBlockConfig } from '../modules/ui/main-ui-block/types';
-import { PreloadTypes, MediaSource } from '../modules/playback-engine/types';
+import {
+  PreloadTypes,
+  MediaSource,
+  CrossOriginValue,
+} from '../modules/playback-engine/types';
 import { IPlayerSize } from '../modules/root-container/types';
 
 export interface IPlayerConfig {
@@ -23,6 +27,7 @@ export interface IPlayerConfig {
   muted?: boolean;
   volume?: number;
   playInline?: boolean;
+  crossOrigin?: CrossOriginValue;
 
   title?: boolean | ITitleConfig;
   loader?: boolean;

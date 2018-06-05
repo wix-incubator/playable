@@ -15,7 +15,6 @@ const VIDEO_EVENTS = {
   PLAY_REQUEST_TRIGGERED: 'video-events/play-request-triggered',
   PLAY_ABORTED: 'video-events/play-aborted',
   RESET: 'video-events/reset-playback',
-  UNKNOWN: 'video-events/unknown',
 };
 
 export default VIDEO_EVENTS;
