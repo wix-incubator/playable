@@ -8,11 +8,8 @@ import { AMOUNT_TO_CHANGE_VOLUME } from '../../../keyboard-control/keyboard-cont
 import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
-import { ITooltipService } from '../../core/tooltip/types';
 import { IVolumeControl, IVolumeViewConfig } from './types';
-import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
-import { IThemeService } from '../../core/theme';
 
 export default class VolumeControl implements IVolumeControl {
   static moduleName = 'volumeControl';
@@ -27,9 +24,9 @@ export default class VolumeControl implements IVolumeControl {
 
   private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
-  private _textMap: ITextMap;
-  private _tooltipService: ITooltipService;
-  private _theme: IThemeService;
+  private _textMap: Playable.ITextMap;
+  private _tooltipService: Playable.ITooltipService;
+  private _theme: Playable.IThemeService;
 
   private _isMuted: boolean;
   private _volume: number;
@@ -51,9 +48,9 @@ export default class VolumeControl implements IVolumeControl {
   }: {
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
-    textMap: ITextMap;
-    tooltipService: ITooltipService;
-    theme: IThemeService;
+    textMap: Playable.ITextMap;
+    tooltipService: Playable.ITooltipService;
+    theme: Playable.IThemeService;
   }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;

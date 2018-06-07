@@ -3,11 +3,10 @@ import htmlToElement from '../htmlToElement';
 import getElementByHook from '../getElementByHook';
 import Stylable from '../stylable';
 
-import { ITooltip, ITooltipStyles } from './types';
-
 import styles from './tooltip.scss';
 
-class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
+class Tooltip extends Stylable<Playable.ITooltipStyles>
+  implements Playable.ITooltip {
   private _$node: HTMLElement;
   private _$tooltipInner: HTMLElement;
   private _isHidden: boolean;
@@ -69,7 +68,5 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
 }
 
 Tooltip.extendStyleNames(styles);
-
-export { ITooltip, ITooltipStyles };
 
 export default Tooltip;

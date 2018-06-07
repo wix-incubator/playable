@@ -6,7 +6,6 @@ import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IInteractionIndicator } from './types';
 import { IPlayerConfig } from '../../../core/config';
-import { IRootContainer } from '../../root-container/types';
 
 export default class InteractionIndicator implements IInteractionIndicator {
   static moduleName = 'interactionIndicator';
@@ -29,7 +28,7 @@ export default class InteractionIndicator implements IInteractionIndicator {
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
     config: IPlayerConfig;
-    rootContainer: IRootContainer;
+    rootContainer: Playable.IRootContainer;
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;

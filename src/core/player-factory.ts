@@ -4,8 +4,6 @@ import PlayerFacade from './player-facade';
 import defaultModules from './default-modules';
 import defaultPlaybackAdapters from '../modules/playback-engine/adapters/default-set';
 
-import { IThemeConfig } from '../modules/ui/core/theme';
-
 import { IPlayerConfig } from './config';
 
 let additionalModules: { [id: string]: any } = {};
@@ -31,7 +29,10 @@ export function clearPlaybackAdapters() {
   playbackAdapters = [...defaultPlaybackAdapters];
 }
 
-export function create(params: IPlayerConfig = {}, themeConfig?: IThemeConfig) {
+export function create(
+  params: IPlayerConfig = {},
+  themeConfig?: Playable.IThemeConfig,
+) {
   const scope = container.createScope();
 
   const additionalModuleNames = Object.keys(additionalModules);

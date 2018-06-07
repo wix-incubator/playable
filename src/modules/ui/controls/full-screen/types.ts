@@ -1,7 +1,3 @@
-import { IThemeService } from '../../core/theme';
-import { ITooltipService } from '../../core/tooltip/types';
-import { ITextMap } from '../../../text-map/types';
-
 type IFullScreenViewStyles = {
   fullScreenControl: string;
   fullScreenToggle: string;
@@ -16,9 +12,9 @@ type IFullScreenViewCallbacks = {
 
 type IFullScreenViewConfig = {
   callbacks: IFullScreenViewCallbacks;
-  textMap: ITextMap;
-  theme: IThemeService;
-  tooltipService: ITooltipService;
+  textMap: Playable.ITextMap;
+  theme: Playable.IThemeService;
+  tooltipService: Playable.ITooltipService;
 };
 
 interface IFullScreenControl {

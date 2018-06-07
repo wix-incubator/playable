@@ -1,6 +1,3 @@
-import { ITooltipService } from '../../core/tooltip/types';
-import { ITextMap } from '../../../text-map/types';
-
 type ILogoViewStyles = {
   logoWrapper: string;
   logoPlaceholder: string;
@@ -15,8 +12,8 @@ type ILogoViewCallbacks = {
 
 type ILogoViewConfig = {
   callbacks: ILogoViewCallbacks;
-  textMap: ITextMap;
-  tooltipService: ITooltipService;
+  textMap: Playable.ITextMap;
+  tooltipService: Playable.ITooltipService;
   logo?: string;
 };
 

@@ -5,7 +5,6 @@ import { VIDEO_EVENTS, EngineState, LiveState } from '../../../../constants';
 import { IEventEmitter } from '../../../event-emitter/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
 import { ITimeControl, ITimeViewConfig } from './types';
-import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -16,7 +15,7 @@ export default class TimeControl implements ITimeControl {
 
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
-  private _theme: IThemeService;
+  private _theme: Playable.IThemeService;
 
   private _updateControlInterval: number;
   private _unbindEvents: Function;
@@ -31,7 +30,7 @@ export default class TimeControl implements ITimeControl {
   }: {
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
-    theme: IThemeService;
+    theme: Playable.IThemeService;
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;

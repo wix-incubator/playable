@@ -2,8 +2,6 @@ import { TEXT_LABELS } from '../../../../constants';
 
 import View from '../../core/view';
 
-import { IView } from '../../core/types';
-import { ITooltipReference, ITooltipService } from '../../core/tooltip/types';
 import formatTime from '../../core/utils/formatTime';
 import getProgressTimeTooltipPosition from './utils/getProgressTimeTooltipPosition';
 import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
@@ -17,7 +15,6 @@ import {
   IProgressViewCallbacks,
   IProgressViewConfig,
 } from './types';
-import { ITextMap } from '../../../text-map/types';
 
 import progressViewTheme from './progress.theme';
 import styles from './progress.scss';
@@ -43,11 +40,11 @@ const getPercentBasedOnXPosition = (
 };
 
 class ProgressView extends View<IProgressViewStyles>
-  implements IView<IProgressViewStyles> {
+  implements Playable.IView<IProgressViewStyles> {
   private _callbacks: IProgressViewCallbacks;
-  private _textMap: ITextMap;
-  private _tooltipService: ITooltipService;
-  private _syncButtonTooltipReference: ITooltipReference;
+  private _textMap: Playable.ITextMap;
+  private _tooltipService: Playable.ITooltipService;
+  private _syncButtonTooltipReference: Playable.ITooltipReference;
 
   private _isDragging: boolean;
 

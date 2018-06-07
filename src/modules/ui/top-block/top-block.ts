@@ -1,11 +1,10 @@
 import View from './top-block.view';
 
 import { ILiveIndicator } from '../live-indicator/types';
-import { ITitle } from '../title/types';
 import { ITopBlock, ITopBlockViewConfig, ITopBlockViewElements } from './types';
 
 interface IDependencies {
-  title: ITitle;
+  title: Playable.ITitle;
   liveIndicator: ILiveIndicator;
 }
 

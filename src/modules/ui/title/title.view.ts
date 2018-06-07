@@ -5,24 +5,17 @@ import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
 import toggleNodeClass from '../core/toggleNodeClass';
 
-import {
-  ITitleViewStyles,
-  ITitleViewCallbacks,
-  ITitleViewConfig,
-} from './types';
-import { IView } from '../core/types';
-
 import titleViewTheme from './title.theme';
 import styles from './title.scss';
 
-class TitleView extends View<ITitleViewStyles>
-  implements IView<ITitleViewStyles> {
-  private _callbacks: ITitleViewCallbacks;
+class TitleView extends View<Playable.ITitleViewStyles>
+  implements Playable.IView<Playable.ITitleViewStyles> {
+  private _callbacks: Playable.ITitleViewCallbacks;
 
   private _$node: HTMLElement;
   _$title: HTMLElement;
 
-  constructor(config: ITitleViewConfig) {
+  constructor(config: Playable.ITitleViewConfig) {
     const { callbacks, theme } = config;
 
     super(theme);

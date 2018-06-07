@@ -1,4 +1,3 @@
-import { IView } from '../core/types';
 import View from '../core/view';
 
 import { loaderTemplate } from './templates';
@@ -10,7 +9,7 @@ import { ILoaderViewStyles } from './types';
 import styles from './loader.scss';
 
 class LoaderView extends View<ILoaderViewStyles>
-  implements IView<ILoaderViewStyles> {
+  implements Playable.IView<ILoaderViewStyles> {
   private _$node: HTMLElement;
 
   constructor() {

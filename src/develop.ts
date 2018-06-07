@@ -23,7 +23,7 @@ Object.defineProperty(window, 'Playable', {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const player: any = Playable.create({
+  const player: Playable.IPlayer = Playable.create({
     preload: PreloadTypes.METADATA,
     size: {
       width: 800,

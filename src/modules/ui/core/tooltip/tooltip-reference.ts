@@ -1,26 +1,21 @@
-import {
-  ITooltipService,
-  ITooltipReference,
-  ITooltipReferenceOptions,
-} from './types';
 import getTooltipPositionByReferenceNode from './utils/getTooltipPositionByReferenceNode';
 
 const SHOW_EVENTS = ['mouseenter', 'focus'];
 const HIDE_EVENTS = ['mouseleave', 'blur'];
 
-class TooltipReference implements ITooltipReference {
+class TooltipReference implements Playable.ITooltipReference {
   private _$reference: HTMLElement;
-  private _tooltipService: ITooltipService;
+  private _tooltipService: Playable.ITooltipService;
 
-  private _options: ITooltipReferenceOptions;
+  private _options: Playable.ITooltipReferenceOptions;
   private _eventListeners: any[];
 
   private _isDisabled: boolean;
 
   constructor(
     reference: HTMLElement,
-    tooltipService: ITooltipService,
-    options: ITooltipReferenceOptions,
+    tooltipService: Playable.ITooltipService,
+    options: Playable.ITooltipReferenceOptions,
   ) {
     this._$reference = reference;
     this._options = options;

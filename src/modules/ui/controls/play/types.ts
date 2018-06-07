@@ -1,6 +1,3 @@
-import { IThemeService } from '../../core/theme';
-import { ITextMap } from '../../../text-map/types';
-
 type IPlayViewStyles = {
   playControl: string;
   playbackToggle: string;
@@ -15,8 +12,8 @@ type IPlayViewCallbacks = {
 
 type IPlayViewConfig = {
   callbacks: IPlayViewCallbacks;
-  textMap: ITextMap;
-  theme: IThemeService;
+  textMap: Playable.ITextMap;
+  theme: Playable.IThemeService;
 };
 
 interface IPlayControl {

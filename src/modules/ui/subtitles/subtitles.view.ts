@@ -1,16 +1,13 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import { subtitlesTemplate, singleSubtitleTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
 
-import { ISubtitlesViewStyles } from './types';
-
 import styles from './subtitles.scss';
 
-class SubtitlesView extends View<ISubtitlesViewStyles>
-  implements IView<ISubtitlesViewStyles> {
+class SubtitlesView extends View<Playable.ISubtitlesViewStyles>
+  implements Playable.IView<Playable.ISubtitlesViewStyles> {
   private _$node: HTMLElement;
   private _$subtitles: HTMLElement;
 

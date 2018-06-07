@@ -1,7 +1,3 @@
-import { IThemeService } from '../../core/theme';
-import { ITooltipService } from '../../core/tooltip/types';
-import { ITextMap } from '../../../text-map/types';
-
 type IProgressViewStyles = {
   seekBlock: string;
   progressBarsWrapper: string;
@@ -32,9 +28,9 @@ type IProgressViewCallbacks = {
 
 type IProgressViewConfig = {
   callbacks: IProgressViewCallbacks;
-  textMap: ITextMap;
-  theme: IThemeService;
-  tooltipService: ITooltipService;
+  textMap: Playable.ITextMap;
+  theme: Playable.IThemeService;
+  tooltipService: Playable.ITooltipService;
 };
 
 interface IProgressControl {

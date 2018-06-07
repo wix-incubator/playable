@@ -13,8 +13,6 @@ import { IBottomBlock } from '../bottom-block/types';
 import { ITopBlock } from '../top-block/types';
 import { IScreen } from '../screen/types';
 import { IPlayerConfig } from '../../../core/config';
-import { IRootContainer } from '../../root-container/types';
-import { ITooltipService } from '../core/tooltip/tooltip-service';
 
 const HIDE_BLOCK_TIMEOUT = 2000;
 
@@ -56,8 +54,8 @@ export default class MainUIBlock implements IMainUIBlock {
   constructor(dependencies: {
     config: IPlayerConfig;
     eventEmitter: IEventEmitter;
-    rootContainer: IRootContainer;
-    tooltipService: ITooltipService;
+    rootContainer: Playable.IRootContainer;
+    tooltipService: Playable.ITooltipService;
     topBlock: ITopBlock;
     bottomBlock: IBottomBlock;
     screen: IScreen;

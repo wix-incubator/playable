@@ -11,14 +11,13 @@ import View from './root-container.view';
 import ElementQueries from '../ui/core/element-queries';
 
 import { IEventEmitter } from '../event-emitter/types';
-import { IRootContainer } from './types';
 import { IPlayerConfig } from '../../core/config';
 
 const DEFAULT_CONFIG = {
   fillAllSpace: false,
 };
 
-class RootContainer implements IRootContainer {
+class RootContainer implements Playable.IRootContainer {
   static moduleName = 'rootContainer';
   static dependencies = ['eventEmitter', 'config'];
 

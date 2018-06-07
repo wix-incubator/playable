@@ -1,5 +1,3 @@
-import { ITooltipReference, ITooltipService } from '../core/tooltip/types';
-import { IView } from '../core/types';
 import View from '../core/view';
 
 import { liveIndicatorTemplate } from './templates';
@@ -13,18 +11,17 @@ import {
   ILiveIndicatorViewCallbacks,
   ILiveIndicatorViewConfig,
 } from './types';
-import { ITextMap } from '../../text-map/types';
 
 import styles from './live-indicator.scss';
 
 import { TEXT_LABELS } from '../../../constants';
 
 class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
-  implements IView<ILiveIndicatorViewStyles> {
+  implements Playable.IView<ILiveIndicatorViewStyles> {
   private _callbacks: ILiveIndicatorViewCallbacks;
-  private _textMap: ITextMap;
-  private _tooltipService: ITooltipService;
-  private _tooltipReference: ITooltipReference;
+  private _textMap: Playable.ITextMap;
+  private _tooltipService: Playable.ITooltipService;
+  private _tooltipReference: Playable.ITooltipReference;
 
   private _$node: HTMLElement;
   private _$liveIndicatorText: HTMLElement;

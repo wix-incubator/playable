@@ -5,7 +5,6 @@ import View from './loader.view';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IPlayerConfig } from '../../../core/config';
-import { IRootContainer } from '../../root-container/types';
 
 export const DELAYED_SHOW_TIMEOUT = 100;
 
@@ -32,7 +31,7 @@ export default class Loader {
     config: IPlayerConfig;
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
-    rootContainer: IRootContainer;
+    rootContainer: Playable.IRootContainer;
   }) {
     this._eventEmitter = eventEmitter;
     this.isHidden = false;

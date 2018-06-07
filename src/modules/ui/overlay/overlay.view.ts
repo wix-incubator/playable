@@ -1,5 +1,4 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import { overlayTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
@@ -15,7 +14,7 @@ import overlayViewTheme from './overlay.theme';
 import styles from './overlay.scss';
 
 class OverlayView extends View<IOverlayViewStyles>
-  implements IView<IOverlayViewStyles> {
+  implements Playable.IView<IOverlayViewStyles> {
   private _callbacks: IOverlayViewCallbacks;
 
   private _$node: HTMLElement;

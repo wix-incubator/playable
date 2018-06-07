@@ -1,10 +1,8 @@
 import { isIOS, isAndroid } from '../utils/device-detection';
 
-import { ITitleConfig } from '../modules/ui/title/types';
 import { IFullScreenConfig } from '../modules/full-screen-manager/types';
 import { ILogoConfig } from '../modules/ui/controls/logo/types';
 import { IOverlayConfig } from '../modules/ui/overlay/types';
-import { ITextMapConfig } from '../modules/text-map/types';
 import { IScreenConfig } from '../modules/ui/screen/types';
 import { IMainUIBlockConfig } from '../modules/ui/main-ui-block/types';
 import {
@@ -12,12 +10,11 @@ import {
   MediaSource,
   CrossOriginValue,
 } from '../modules/playback-engine/types';
-import { IPlayerSize } from '../modules/root-container/types';
 
 export interface IPlayerConfig {
   src?: MediaSource;
 
-  size?: IPlayerSize;
+  size?: Playable.IPlayerSize;
 
   videoElement?: HTMLVideoElement;
 
@@ -29,7 +26,7 @@ export interface IPlayerConfig {
   playInline?: boolean;
   crossOrigin?: CrossOriginValue;
 
-  title?: boolean | ITitleConfig;
+  title?: boolean | Playable.ITitleConfig;
   loader?: boolean;
   screen?: IScreenConfig;
   controls?: boolean | IMainUIBlockConfig;
@@ -37,7 +34,7 @@ export interface IPlayerConfig {
   fullScreen?: boolean | IFullScreenConfig;
   logo?: boolean | ILogoConfig;
 
-  texts?: ITextMapConfig;
+  texts?: Playable.ITextMapConfig;
 
   showInteractionIndicator?: boolean;
   fillAllSpace?: boolean;

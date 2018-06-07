@@ -3,18 +3,14 @@ import htmlToElement from '../htmlToElement';
 import Tooltip from './tooltip';
 import Stylable from '../stylable';
 
-import {
-  ITooltipPosition,
-  ITooltipPositionFunction,
-  ITooltipPositionPlacement,
-} from './types';
+import { TooltipPositionPlacement } from './constants';
 
 import styles from './tooltip-container.scss';
 
 interface ITooltipContainer {
   node: HTMLElement;
   getTooltipPositionStyles(
-    position: ITooltipPosition,
+    position: Playable.ITooltipPosition,
   ): { [ket: string]: string | number };
   destroy(): void;
 }
@@ -44,13 +40,13 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
   }
 
   getTooltipPositionStyles(
-    position: ITooltipPosition | ITooltipPositionFunction,
+    position: Playable.ITooltipPosition | Playable.ITooltipPositionFunction,
   ) {
     if (typeof position === 'function') {
       position = position(this._$node);
     }
 
-    if (position.placement === ITooltipPositionPlacement.TOP) {
+    if (position.placement === TooltipPositionPlacement.TOP) {
       return {
         left: `${this._getTooltipLeftX(position.x)}px`,
         top: 0,

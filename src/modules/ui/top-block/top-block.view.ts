@@ -1,5 +1,4 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
@@ -15,7 +14,7 @@ import {
 import styles from './top-block.scss';
 
 class TopBlockView extends View<ITopBlockViewStyles>
-  implements IView<ITopBlockViewStyles> {
+  implements Playable.IView<ITopBlockViewStyles> {
   private _$node: HTMLElement;
 
   constructor(config: ITopBlockViewConfig) {

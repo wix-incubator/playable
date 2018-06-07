@@ -1,5 +1,4 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
@@ -17,7 +16,7 @@ import {
 import styles from './bottom-block.scss';
 
 class BottomBlockView extends View<IBottomBlockViewStyles>
-  implements IView<IBottomBlockViewStyles> {
+  implements Playable.IView<IBottomBlockViewStyles> {
   private _callbacks: IBottomBlockViewCallbacks;
   private _$node: HTMLElement;
 

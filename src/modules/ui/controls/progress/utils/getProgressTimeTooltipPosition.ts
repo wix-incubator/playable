@@ -1,7 +1,5 @@
 import { getTooltipPositionByReferenceNode } from '../../../core/tooltip';
 
-import { ITooltipPosition } from '../../../core/tooltip/types';
-
 function calcProgressTimeTooltipCenterX(
   progressPercent: number,
   progressNodeOffsetX: number,
@@ -14,7 +12,7 @@ function getProgressTimeTooltipPosition(
   progressPercent: number,
   progressNode: HTMLElement,
   tooltipContainerNode: HTMLElement,
-): ITooltipPosition {
+): Playable.ITooltipPosition {
   return getTooltipPositionByReferenceNode(
     progressNode,
     tooltipContainerNode,

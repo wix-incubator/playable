@@ -20,11 +20,8 @@ import KeyboardInterceptor, {
 import playerAPI from '../../../../core/player-api-decorator';
 
 import { IEventEmitter } from '../../../event-emitter/types';
-import { ITooltipService } from '../../core/tooltip/types';
 import { IProgressControl, IProgressViewConfig } from './types';
-import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
-import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
@@ -43,9 +40,9 @@ export default class ProgressControl implements IProgressControl {
   private _engine: IPlaybackEngine;
   private _liveStateEngine: any;
   private _eventEmitter: IEventEmitter;
-  private _textMap: ITextMap;
-  private _tooltipService: ITooltipService;
-  private _theme: IThemeService;
+  private _textMap: Playable.ITextMap;
+  private _tooltipService: Playable.ITooltipService;
+  private _theme: Playable.IThemeService;
 
   private _isUserInteracting: boolean;
   private _shouldPlayAfterManipulationEnd: boolean;
@@ -70,9 +67,9 @@ export default class ProgressControl implements IProgressControl {
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
     liveStateEngine: any;
-    textMap: ITextMap;
-    tooltipService: ITooltipService;
-    theme: IThemeService;
+    textMap: Playable.ITextMap;
+    tooltipService: Playable.ITooltipService;
+    theme: Playable.IThemeService;
   }) {
     this._engine = engine;
     this._liveStateEngine = liveStateEngine;

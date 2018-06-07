@@ -6,9 +6,7 @@ import View from './overlay.view';
 import { IOverlay, IOverlayConfig, IOverlayViewConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
-import { IThemeService } from '../core/theme';
 import { IPlayerConfig } from '../../../core/config';
-import { IRootContainer } from '../../root-container/types';
 
 export default class Overlay implements IOverlay {
   static moduleName = 'overlay';
@@ -23,7 +21,7 @@ export default class Overlay implements IOverlay {
 
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
-  private _theme: IThemeService;
+  private _theme: Playable.IThemeService;
 
   private _unbindEvents: Function;
 
@@ -40,8 +38,8 @@ export default class Overlay implements IOverlay {
     config: IPlayerConfig;
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
-    rootContainer: IRootContainer;
-    theme: IThemeService;
+    rootContainer: Playable.IRootContainer;
+    theme: Playable.IThemeService;
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;

@@ -1,8 +1,10 @@
 //@ts-ignore
 import classnames from 'classnames';
-import { IStyles } from './types';
 
-function extendStyles(sourceStyles: IStyles, partialStyles: IStyles) {
+function extendStyles(
+  sourceStyles: Playable.IStyles,
+  partialStyles: Playable.IStyles,
+) {
   const styles = {
     ...sourceStyles,
   };

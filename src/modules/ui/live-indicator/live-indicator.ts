@@ -1,8 +1,6 @@
-import { ITooltipService } from '../core/tooltip/types';
 import LiveIndicatorView from './live-indicator.view';
 import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';
-import { ITextMap } from '../../text-map/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { ILiveIndicator } from './types';
 
@@ -13,8 +11,8 @@ export default class LiveIndicator implements ILiveIndicator {
 
   private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
-  private _textMap: ITextMap;
-  private _tooltipService: ITooltipService;
+  private _textMap: Playable.ITextMap;
+  private _tooltipService: Playable.ITooltipService;
   private _isHidden: boolean = true;
   private _isActive: boolean = false;
   private _isEnded: boolean = false;
@@ -31,8 +29,8 @@ export default class LiveIndicator implements ILiveIndicator {
   }: {
     engine: IPlaybackEngine;
     eventEmitter: IEventEmitter;
-    textMap: ITextMap;
-    tooltipService: ITooltipService;
+    textMap: Playable.ITextMap;
+    tooltipService: Playable.ITooltipService;
   }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;

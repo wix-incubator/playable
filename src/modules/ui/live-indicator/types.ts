@@ -1,6 +1,3 @@
-import { ITooltipService } from '../core/tooltip/types';
-import { ITextMap } from '../../text-map/types';
-
 type ILiveIndicatorViewStyles = {
   liveIndicator: string;
   liveIndicatorText: string;
@@ -15,8 +12,8 @@ type ILiveIndicatorViewCallbacks = {
 
 type ILiveIndicatorViewConfig = {
   callbacks: ILiveIndicatorViewCallbacks;
-  textMap: ITextMap;
-  tooltipService: ITooltipService;
+  textMap: Playable.ITextMap;
+  tooltipService: Playable.ITooltipService;
 };
 
 interface ILiveIndicator {

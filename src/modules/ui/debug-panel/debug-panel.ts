@@ -4,7 +4,6 @@ import View from './debug-panel.view';
 import { KEYCODES } from '../../../utils/keyboard-interceptor';
 
 import { IPlaybackEngine } from '../../playback-engine/types';
-import { IRootContainer } from '../../root-container/types';
 import { IKeyboardControl } from '../../keyboard-control/types';
 
 const UPDATE_TIME = 1000;
@@ -27,7 +26,7 @@ export default class DebugPanel {
     keyboardControl,
   }: {
     engine: IPlaybackEngine;
-    rootContainer: IRootContainer;
+    rootContainer: Playable.IRootContainer;
     keyboardControl: IKeyboardControl;
   }) {
     this._engine = engine;

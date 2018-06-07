@@ -1,18 +1,18 @@
-type IMainUIBlockViewStyles = {
+interface IMainUIBlockViewStyles {
   mainUiBlock: string;
   tooltipContainerWrapper: string;
   hidden: string;
-};
+}
 
-type IMainUIBlockViewElements = {
+interface IMainUIBlockViewElements {
   tooltipContainer: HTMLElement;
   topBlock: HTMLElement;
   bottomBlock: HTMLElement;
-};
+}
 
-type IMainUIBlockViewConfig = {
+interface IMainUIBlockViewConfig {
   elements: IMainUIBlockViewElements;
-};
+}
 
 interface IMainUIBlockConfig {
   shouldAlwaysShow?: boolean;

@@ -2,17 +2,15 @@ import View from './title.view';
 
 import playerAPI from '../../../core/player-api-decorator';
 
-import { IThemeService } from '../core/theme';
-import { ITitle, ITitleViewConfig } from './types';
 import { IPlayerConfig } from '../../../core/config';
 
-export default class TitleControl implements ITitle {
+export default class TitleControl implements Playable.ITitle {
   static moduleName = 'title';
   static View = View;
   static dependencies = ['config', 'theme'];
 
   private _callback: Function;
-  private _theme: IThemeService;
+  private _theme: Playable.IThemeService;
 
   view: View;
   isHidden: boolean;
@@ -22,7 +20,7 @@ export default class TitleControl implements ITitle {
     theme,
   }: {
     config: IPlayerConfig;
-    theme: IThemeService;
+    theme: Playable.IThemeService;
   }) {
     this._theme = theme;
 
@@ -45,7 +43,7 @@ export default class TitleControl implements ITitle {
   }
 
   private _initUI() {
-    const config: ITitleViewConfig = {
+    const config: Playable.ITitleViewConfig = {
       theme: this._theme,
       callbacks: {
         onClick: this._triggerCallback,

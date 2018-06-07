@@ -3,22 +3,15 @@ import htmlToElement from '../ui/core/htmlToElement';
 import { containerTemplate } from './templates';
 
 import View from '../ui/core/view';
-import { IView } from '../ui/core/types';
-
-import {
-  IRootContainerViewStyles,
-  IRootContainerViewConfig,
-  IRootContainerViewCallbacks,
-} from './types';
 
 import styles from './root-container.scss';
 
-class RootContainerView extends View<IRootContainerViewStyles>
-  implements IView<IRootContainerViewStyles> {
+class RootContainerView extends View<Playable.IRootContainerViewStyles>
+  implements Playable.IView<Playable.IRootContainerViewStyles> {
   private _$node: HTMLElement;
-  private _callbacks: IRootContainerViewCallbacks;
+  private _callbacks: Playable.IRootContainerViewCallbacks;
 
-  constructor(config: IRootContainerViewConfig) {
+  constructor(config: Playable.IRootContainerViewConfig) {
     super();
     const { width, height, fillAllSpace, callbacks } = config;
     this._callbacks = callbacks;

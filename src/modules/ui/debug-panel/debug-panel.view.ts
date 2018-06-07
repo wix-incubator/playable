@@ -1,5 +1,4 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import { debugPanelTemplate } from './templates';
 
@@ -18,7 +17,7 @@ import {
 import styles from './debug-panel.scss';
 
 class DebugPanelView extends View<IDebugPanelViewStyles>
-  implements IView<IDebugPanelViewStyles> {
+  implements Playable.IView<IDebugPanelViewStyles> {
   private _callbacks: IDebugPanelViewCallbacks;
 
   private _$node: HTMLElement;

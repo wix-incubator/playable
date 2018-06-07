@@ -1,7 +1,6 @@
 import { TEXT_LABELS } from '../../../../constants';
 
 import View from '../../core/view';
-import { IView } from '../../core/types';
 
 import {
   controlTemplate,
@@ -13,16 +12,16 @@ import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
 import { IPlayViewStyles, IPlayViewCallbacks, IPlayViewConfig } from './types';
-import { ITextMap } from '../../../text-map/types';
 
 import playViewTheme from './play.theme';
 import styles from './play.scss';
 
 const DATA_IS_PLAYING = 'data-is-playing';
 
-class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
+class PlayView extends View<IPlayViewStyles>
+  implements Playable.IView<IPlayViewStyles> {
   private _callbacks: IPlayViewCallbacks;
-  private _textMap: ITextMap;
+  private _textMap: Playable.ITextMap;
 
   private _$node: HTMLElement;
   private _$playbackControl: HTMLElement;

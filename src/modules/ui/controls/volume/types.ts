@@ -1,7 +1,3 @@
-import { IThemeService } from '../../core/theme';
-import { ITooltipService } from '../../core/tooltip/types';
-import { ITextMap } from '../../../text-map/types';
-
 type IVolumeViewStyles = {
   volumeControl: string;
   volumeInputBlock: string;
@@ -25,9 +21,9 @@ type IVolumeViewCallbacks = {
 
 type IVolumeViewConfig = {
   callbacks: IVolumeViewCallbacks;
-  textMap: ITextMap;
-  theme: IThemeService;
-  tooltipService: ITooltipService;
+  textMap: Playable.ITextMap;
+  theme: Playable.IThemeService;
+  tooltipService: Playable.ITooltipService;
 };
 
 interface IVolumeControl {

@@ -1,14 +1,13 @@
 import extendStyles from './extendStyles';
-import { IThemeService, ICSSRules } from './theme';
-import { IStyles, IStylable } from './types';
 
-class Stylable<TStyles = IStyles> implements IStylable<TStyles> {
-  private static _moduleTheme: ICSSRules;
-  private static _styles: IStyles = {};
+class Stylable<TStyles = Playable.IStyles>
+  implements Playable.IStylable<TStyles> {
+  private static _moduleTheme: Playable.ICSSRules;
+  private static _styles: Playable.IStyles = {};
 
-  private _themeStyles: IStyles = {};
+  private _themeStyles: Playable.IStyles = {};
 
-  constructor(theme?: IThemeService) {
+  constructor(theme?: Playable.IThemeService) {
     const moduleTheme = (<typeof Stylable>this.constructor)._moduleTheme;
     if (theme && moduleTheme) {
       theme.registerModuleTheme(this, moduleTheme);
@@ -16,11 +15,11 @@ class Stylable<TStyles = IStyles> implements IStylable<TStyles> {
     }
   }
 
-  static setTheme(theme: ICSSRules) {
+  static setTheme(theme: Playable.ICSSRules) {
     this._moduleTheme = theme;
   }
 
-  static extendStyleNames(styles: IStyles) {
+  static extendStyleNames(styles: Playable.IStyles) {
     this._styles = extendStyles(this._styles, styles);
   }
 
@@ -28,7 +27,7 @@ class Stylable<TStyles = IStyles> implements IStylable<TStyles> {
     this._styles = {};
   }
 
-  get themeStyles(): IStyles {
+  get themeStyles(): Playable.IStyles {
     return this._themeStyles;
   }
 

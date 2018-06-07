@@ -8,9 +8,7 @@ import { UI_EVENTS } from '../../../../constants';
 import View from './logo.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
-import { ITooltipService } from '../../core/tooltip/types';
 import { ILogoControl, ILogoViewConfig } from './types';
-import { ITextMap } from '../../../text-map/types';
 import { IPlayerConfig } from '../../../../core/config';
 
 export default class Logo implements ILogoControl {
@@ -19,8 +17,8 @@ export default class Logo implements ILogoControl {
   static dependencies = ['config', 'eventEmitter', 'textMap', 'tooltipService'];
 
   private _eventEmitter: IEventEmitter;
-  private _textMap: ITextMap;
-  private _tooltipService: ITooltipService;
+  private _textMap: Playable.ITextMap;
+  private _tooltipService: Playable.ITooltipService;
 
   private _interceptor: KeyboardInterceptor;
   private _callback: Function;
@@ -36,8 +34,8 @@ export default class Logo implements ILogoControl {
   }: {
     eventEmitter: IEventEmitter;
     config: IPlayerConfig;
-    textMap: ITextMap;
-    tooltipService: ITooltipService;
+    textMap: Playable.ITextMap;
+    tooltipService: Playable.ITooltipService;
   }) {
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;

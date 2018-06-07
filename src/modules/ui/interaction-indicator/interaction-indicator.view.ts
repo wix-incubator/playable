@@ -1,5 +1,4 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import {
   containerTemplate,
@@ -21,7 +20,7 @@ import styles from './interaction-indicator.scss';
 const SECONDS_COUNT = 5;
 
 class InteractionIndicatorView extends View<IInteractionIndicatorViewStyles>
-  implements IView<IInteractionIndicatorViewStyles> {
+  implements Playable.IView<IInteractionIndicatorViewStyles> {
   private _$node: HTMLElement;
 
   private _playIcon: string;

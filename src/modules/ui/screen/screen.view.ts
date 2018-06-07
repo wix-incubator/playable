@@ -1,5 +1,4 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import { screenTemplate } from './templates';
 
@@ -17,7 +16,7 @@ import {
 import styles from './screen.scss';
 
 class ScreenView extends View<IScreenViewStyles>
-  implements IView<IScreenViewStyles> {
+  implements Playable.IView<IScreenViewStyles> {
   private _callbacks: IScreenViewCallbacks;
 
   private _$node: HTMLElement;

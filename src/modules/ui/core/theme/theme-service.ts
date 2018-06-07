@@ -2,29 +2,19 @@ import { StyleSheet } from './style-sheet';
 
 import playerAPI from '../../../../core/player-api-decorator';
 
-import { IStyles } from '../types';
-import { ICSSRules, IThemeConfig } from './types';
-
 const DEFAULT_THEME_CONFIG = {
   color: '#FFF',
   liveColor: '#ea492e',
   progressColor: '#FFF',
 };
 
-interface IThemeService {
-  updateTheme(config: IThemeConfig): void;
-  registerModuleTheme(module: object, rules: ICSSRules): void;
-  get(module: object): IStyles;
-  destroy(): void;
-}
-
-class ThemeService implements IThemeService {
+class ThemeService implements Playable.IThemeService {
   static moduleName = 'theme';
   static dependencies = ['themeConfig'];
 
   private _styleSheet: StyleSheet;
 
-  constructor({ themeConfig }: { themeConfig: IThemeConfig }) {
+  constructor({ themeConfig }: { themeConfig: Playable.IThemeConfig }) {
     this._styleSheet = new StyleSheet();
 
     this._styleSheet.update({
@@ -53,11 +43,11 @@ class ThemeService implements IThemeService {
    *
    */
   @playerAPI()
-  updateTheme(themeConfig: IThemeConfig) {
+  updateTheme(themeConfig: Playable.IThemeConfig) {
     this._styleSheet.update(themeConfig);
   }
 
-  registerModuleTheme(module: object, rules: ICSSRules) {
+  registerModuleTheme(module: object, rules: Playable.ICSSRules) {
     this._styleSheet.registerModuleTheme(module, rules);
   }
 
@@ -70,6 +60,6 @@ class ThemeService implements IThemeService {
   }
 }
 
-export { DEFAULT_THEME_CONFIG, IThemeService };
+export { DEFAULT_THEME_CONFIG };
 
 export default ThemeService;

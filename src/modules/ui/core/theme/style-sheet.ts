@@ -1,12 +1,9 @@
 import camelToKebab from './utils/camelToKebab';
 import generateClassNames from './utils/generateClassNames';
 
-import { IStyles } from '../types';
-import { ICSSRuleFunction, ICSSRules, ICSSRule } from './types';
-
 export class StyleSheet {
-  private _rulesByModule: Map<object, ICSSRules> = new Map();
-  private _classNamesByModule: Map<object, IStyles> = new Map();
+  private _rulesByModule: Map<object, Playable.ICSSRules> = new Map();
+  private _classNamesByModule: Map<object, Playable.IStyles> = new Map();
   private _data: any = {};
   private _styleNode: Element;
 
@@ -34,7 +31,7 @@ export class StyleSheet {
     }
   }
 
-  registerModuleTheme(module: object, rules: ICSSRules) {
+  registerModuleTheme(module: object, rules: Playable.ICSSRules) {
     //todo maybe we would like to update overrides for module? Or at least show warning instead of Error
     if (this._rulesByModule.get(module)) {
       throw new Error('can`t register multiple themes for one module');
@@ -44,7 +41,7 @@ export class StyleSheet {
     this._classNamesByModule.set(module, generateClassNames(rules));
   }
 
-  getModuleClassNames(module: any): IStyles {
+  getModuleClassNames(module: any): Playable.IStyles {
     return this._classNamesByModule.get(module);
   }
 
@@ -66,7 +63,7 @@ export class StyleSheet {
       .join(' ');
   }
 
-  private _getRuleCSS(rule: ICSSRule, ruleClassName: string): string {
+  private _getRuleCSS(rule: Playable.ICSSRule, ruleClassName: string): string {
     if (!rule || !ruleClassName) {
       return '';
     }
@@ -98,7 +95,7 @@ export class StyleSheet {
         ruleName =>
           `${camelToKebab(ruleName)}: ${
             typeof rule[ruleName] === 'function'
-              ? (rule[ruleName] as ICSSRuleFunction)(this._data)
+              ? (rule[ruleName] as Playable.ICSSRuleFunction)(this._data)
               : rule[ruleName]
           }`,
       )

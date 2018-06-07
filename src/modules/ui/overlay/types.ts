@@ -1,5 +1,3 @@
-import { IThemeService } from '../core/theme';
-
 type IOverlayViewStyles = {
   overlay: string;
   poster: string;
@@ -13,7 +11,7 @@ type IOverlayViewCallbacks = {
 
 type IOverlayViewConfig = {
   callbacks: IOverlayViewCallbacks;
-  theme: IThemeService;
+  theme: Playable.IThemeService;
   src: string;
 };
 

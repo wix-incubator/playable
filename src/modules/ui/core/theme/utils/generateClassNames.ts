@@ -1,13 +1,10 @@
 import getUniqueId from './getUniqueId';
 
-import { IStyles } from '../../types';
-import { ICSSRules } from '../types';
-
 function getUniqueClassName(classImportName: string) {
   return `wix-playable--${getUniqueId(classImportName)}`;
 }
 
-function generateClassNames(rules: ICSSRules): IStyles {
+function generateClassNames(rules: Playable.ICSSRules): Playable.IStyles {
   return Object.keys(rules).reduce(
     (acc, classImportName) => ({
       ...acc,

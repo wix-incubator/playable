@@ -9,7 +9,6 @@ import { IFullScreenManager } from '../../full-screen-manager/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IInteractionIndicator } from '../interaction-indicator/types';
 import { IPlayerConfig } from '../../../core/config';
-import { IRootContainer } from '../../root-container/types';
 import {
   IScreen,
   VideoViewMode,
@@ -64,7 +63,7 @@ export default class Screen implements IScreen {
     engine: IPlaybackEngine;
     fullScreenManager: IFullScreenManager;
     interactionIndicator: IInteractionIndicator;
-    rootContainer: IRootContainer;
+    rootContainer: Playable.IRootContainer;
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;

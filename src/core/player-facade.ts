@@ -1,9 +1,8 @@
 import { Container } from './dependency-container/createContainer';
 import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
 import { PLAYER_API_PROPERTY } from '../core/player-api-decorator';
-import { IThemeConfig } from '../modules/ui/core/theme';
 
-export default class Player {
+export default class Player implements Playable.IPlayer {
   //@ts-ignore
   private _config: IPlayerConfig;
   private _defaultModules: { [id: string]: any };
@@ -15,7 +14,7 @@ export default class Player {
     scope: Container,
     defaultModulesNames: string[] = [],
     additionalModuleNames: string[] = [],
-    themeConfig?: IThemeConfig,
+    themeConfig?: Playable.IThemeConfig,
   ) {
     scope.registerValue({
       config: convertToDeviceRelatedConfig(params),

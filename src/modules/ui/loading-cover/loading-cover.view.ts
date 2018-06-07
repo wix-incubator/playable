@@ -1,5 +1,4 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import { ILoadingCoverConfig, ILoadingCoverViewStyles } from './types';
 
@@ -11,7 +10,7 @@ import htmlToElement from '../core/htmlToElement';
 import styles from './loading-cover.scss';
 
 class LoadingCoverView extends View<ILoadingCoverViewStyles>
-  implements IView<ILoadingCoverViewStyles> {
+  implements Playable.IView<ILoadingCoverViewStyles> {
   private _$node: HTMLElement;
   private _$image: HTMLElement;
 

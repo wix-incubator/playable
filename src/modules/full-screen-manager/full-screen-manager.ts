@@ -12,7 +12,6 @@ import {
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
 import { IPlayerConfig } from '../../core/config';
-import { IRootContainer } from '../root-container/types';
 
 const DEFAULT_CONFIG: IFullScreenConfig = {
   exitFullScreenOnEnd: true,
@@ -46,7 +45,7 @@ export default class FullScreenManager implements IFullScreenManager {
   }: {
     engine: IPlaybackEngine;
     eventEmitter: IEventEmitter;
-    rootContainer: IRootContainer;
+    rootContainer: Playable.IRootContainer;
     config: IPlayerConfig;
   }) {
     this._eventEmitter = eventEmitter;

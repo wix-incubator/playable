@@ -4,14 +4,9 @@ import Tooltip from './tooltip';
 
 import { UI_EVENTS } from '../../../../constants';
 
-import {
-  ITooltipShowOptions,
-  ITooltipService,
-  ITooltipReferenceOptions,
-} from './types';
 import { IEventEmitter } from '../../../event-emitter/types';
 
-class TooltipService implements ITooltipService {
+class TooltipService implements Playable.ITooltipService {
   static moduleName = 'tooltipService';
   static dependencies = ['eventEmitter'];
   private _tooltip: Tooltip;
@@ -52,7 +47,7 @@ class TooltipService implements ITooltipService {
   /**
    * Show tooltip with title
    */
-  show(options: ITooltipShowOptions) {
+  show(options: Playable.ITooltipShowOptions) {
     // NOTE: its important to set tooltip text before update tooltip position styles
     this._tooltip.setText(options.text);
     this._tooltip.setStyle(
@@ -76,7 +71,7 @@ class TooltipService implements ITooltipService {
    */
   createReference(
     reference: HTMLElement,
-    options: ITooltipReferenceOptions,
+    options: Playable.ITooltipReferenceOptions,
   ): TooltipReference {
     return new TooltipReference(reference, this, options);
   }
@@ -92,7 +87,5 @@ class TooltipService implements ITooltipService {
     this._eventEmitter = null;
   }
 }
-
-export { ITooltipService };
 
 export default TooltipService;

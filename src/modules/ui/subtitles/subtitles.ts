@@ -3,9 +3,7 @@ import logger from '../../../utils/logger';
 import playerAPI from '../../../core/player-api-decorator';
 
 import SubtitlesView from './subtitles.view';
-import { ISubtitles, ISubtitleConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
-import { IRootContainer } from '../../root-container/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 
 function isSameOrigin(url: string): boolean {
@@ -17,7 +15,7 @@ function isSameOrigin(url: string): boolean {
   return a.protocol === protocol && a.hostname === hostname && a.port === port;
 }
 
-export default class Subtitles implements ISubtitles {
+export default class Subtitles implements Playable.ISubtitles {
   static moduleName = 'subtitle';
   static dependencies = ['rootContainer', 'engine', 'eventEmitter'];
   static View = SubtitlesView;
@@ -37,7 +35,7 @@ export default class Subtitles implements ISubtitles {
     engine,
     eventEmitter,
   }: {
-    rootContainer: IRootContainer;
+    rootContainer: Playable.IRootContainer;
     engine: IPlaybackEngine;
     eventEmitter: IEventEmitter;
   }) {
@@ -53,7 +51,10 @@ export default class Subtitles implements ISubtitles {
 
   @playerAPI()
   setSubtitles(
-    subtitles: string | ISubtitleConfig | Array<ISubtitleConfig>,
+    subtitles:
+      | string
+      | Playable.ISubtitleConfig
+      | Array<Playable.ISubtitleConfig>,
   ): void {
     this.removeSubtitles();
     if (!subtitles) {
@@ -95,7 +96,7 @@ export default class Subtitles implements ISubtitles {
     this.view.hide();
   }
 
-  private _addSubtitle(subtitle: ISubtitleConfig): void {
+  private _addSubtitle(subtitle: Playable.ISubtitleConfig): void {
     const track = document.createElement('track');
 
     track.setAttribute('src', subtitle.src);

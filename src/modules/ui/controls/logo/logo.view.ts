@@ -1,22 +1,19 @@
 import { TEXT_LABELS } from '../../../../constants';
 
-import { ITooltipReference } from '../../core/tooltip/types';
 import View from '../../core/view';
-import { IView } from '../../core/types';
 import { ILogoViewStyles, ILogoViewCallbacks, ILogoViewConfig } from './types';
 import { logoTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
 
-import { ITextMap } from '../../../text-map/types';
-
 import styles from './logo.scss';
 
-class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
-  private _tooltipReference: ITooltipReference;
+class LogoView extends View<ILogoViewStyles>
+  implements Playable.IView<ILogoViewStyles> {
+  private _tooltipReference: Playable.ITooltipReference;
   private _callbacks: ILogoViewCallbacks;
-  private _textMap: ITextMap;
+  private _textMap: Playable.ITextMap;
 
   private _$node: HTMLElement;
   private _$logo: HTMLElement;

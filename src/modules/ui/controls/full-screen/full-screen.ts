@@ -7,11 +7,8 @@ import KeyboardInterceptor, {
 import View from './full-screen.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
-import { ITooltipService } from '../../core/tooltip/types';
 import { IFullScreenControl, IFullScreenViewConfig } from './types';
 import { IFullScreenManager } from '../../../full-screen-manager/types';
-import { ITextMap } from '../../../text-map/types';
-import { IThemeService } from '../../core/theme';
 
 export default class FullScreenControl implements IFullScreenControl {
   static moduleName = 'fullScreenControl';
@@ -26,10 +23,10 @@ export default class FullScreenControl implements IFullScreenControl {
 
   private _eventEmitter: IEventEmitter;
   private _fullScreenManager: IFullScreenManager;
-  private _textMap: ITextMap;
+  private _textMap: Playable.ITextMap;
   private _interceptor: KeyboardInterceptor;
-  private _tooltipService: ITooltipService;
-  private _theme: IThemeService;
+  private _tooltipService: Playable.ITooltipService;
+  private _theme: Playable.IThemeService;
 
   private _isInFullScreen: boolean;
 
@@ -47,9 +44,9 @@ export default class FullScreenControl implements IFullScreenControl {
   }: {
     eventEmitter: IEventEmitter;
     fullScreenManager: IFullScreenManager;
-    textMap: ITextMap;
-    tooltipService: ITooltipService;
-    theme: IThemeService;
+    textMap: Playable.ITextMap;
+    tooltipService: Playable.ITooltipService;
+    theme: Playable.IThemeService;
   }) {
     this._eventEmitter = eventEmitter;
     this._fullScreenManager = fullScreenManager;

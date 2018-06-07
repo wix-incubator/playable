@@ -1,6 +1,5 @@
 import { TEXT_LABELS } from '../../../../constants';
 
-import { ITooltipReference, ITooltipService } from '../../core/tooltip/types';
 import {
   controlTemplate,
   volume0IconTemplate,
@@ -9,7 +8,6 @@ import {
 } from './templates';
 
 import View from '../../core/view';
-import { IView } from '../../core/types';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
@@ -19,7 +17,6 @@ import {
   IVolumeViewCallbacks,
   IVolumeViewConfig,
 } from './types';
-import { ITextMap } from '../../../text-map/types';
 
 import volumeViewTheme from './volume.theme';
 import styles from './volume.scss';
@@ -48,11 +45,11 @@ const getPercentBasedOnXPosition = (
 };
 
 class VolumeView extends View<IVolumeViewStyles>
-  implements IView<IVolumeViewStyles> {
+  implements Playable.IView<IVolumeViewStyles> {
   private _callbacks: IVolumeViewCallbacks;
-  private _textMap: ITextMap;
-  private _tooltipService: ITooltipService;
-  private _muteButtonTooltipReference: ITooltipReference;
+  private _textMap: Playable.ITextMap;
+  private _tooltipService: Playable.ITooltipService;
+  private _muteButtonTooltipReference: Playable.ITooltipReference;
 
   private _$node: HTMLElement;
   private _$muteButton: HTMLElement;

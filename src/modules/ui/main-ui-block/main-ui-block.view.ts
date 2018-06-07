@@ -1,5 +1,4 @@
 import View from '../core/view';
-import { IView } from '../core/types';
 
 import { mainUIBlockTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
@@ -12,7 +11,7 @@ import {
 } from './types';
 
 class MainUIBlockView extends View<IMainUIBlockViewStyles>
-  implements IView<IMainUIBlockViewStyles> {
+  implements Playable.IView<IMainUIBlockViewStyles> {
   private _$node: HTMLElement;
 
   constructor(config: IMainUIBlockViewConfig) {

@@ -1,9 +1,7 @@
 import { TEXT_LABELS } from '../../../../constants';
 
 import View from '../../core/view';
-import { IView } from '../../core/types';
 
-import { ITooltipReference } from '../../core/tooltip/types';
 import {
   controlTemplate,
   enterFullScreenIconTemplate,
@@ -12,8 +10,6 @@ import {
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
-
-import { ITextMap } from '../../../text-map/types';
 
 import {
   IFullScreenViewStyles,
@@ -27,10 +23,10 @@ import styles from './full-screen.scss';
 const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
 
 class FullScreenView extends View<IFullScreenViewStyles>
-  implements IView<IFullScreenViewStyles> {
+  implements Playable.IView<IFullScreenViewStyles> {
   private _callbacks: IFullScreenViewCallbacks;
-  private _textMap: ITextMap;
-  private _tooltipReference: ITooltipReference;
+  private _textMap: Playable.ITextMap;
+  private _tooltipReference: Playable.ITooltipReference;
 
   private _$node: HTMLElement;
   private _$toggleFullScreenControl: HTMLElement;

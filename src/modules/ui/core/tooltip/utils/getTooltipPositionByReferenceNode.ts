@@ -1,4 +1,4 @@
-import { ITooltipPosition, ITooltipPositionPlacement } from '../types';
+import { TooltipPositionPlacement } from '../constants';
 
 type ITooltipCenterXfn = (
   tooltipReferenceOffsetX: number,
@@ -16,14 +16,14 @@ function getTooltipPositionByReferenceNode(
   tooltipReferenceNode: HTMLElement,
   tooltipContainerNode: HTMLElement,
   tooltipCenterXfn: ITooltipCenterXfn = calcTooltipCenterX,
-): ITooltipPosition {
+): Playable.ITooltipPosition {
   const tooltipReferenceRect = tooltipReferenceNode.getBoundingClientRect();
   const tooltipContainerRect = tooltipContainerNode.getBoundingClientRect();
 
   const tooltipPlacement =
     tooltipReferenceRect.top > tooltipContainerRect.top
-      ? ITooltipPositionPlacement.BOTTOM
-      : ITooltipPositionPlacement.TOP;
+      ? TooltipPositionPlacement.BOTTOM
+      : TooltipPositionPlacement.TOP;
   const tooltipReferenceOffsetX =
     tooltipReferenceRect.left - tooltipContainerRect.left;
   const tooltipCenterX = tooltipCenterXfn(

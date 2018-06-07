@@ -1,5 +1,4 @@
 import View from '../../core/view';
-import { IView } from '../../core/types';
 
 import formatTime from '../../core/utils/formatTime';
 
@@ -12,7 +11,8 @@ import { ITimeViewStyles, ITimeViewConfig } from './types';
 import timeViewTheme from './time.theme';
 import styles from './time.scss';
 
-class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
+class TimeView extends View<ITimeViewStyles>
+  implements Playable.IView<ITimeViewStyles> {
   private _$node: HTMLElement;
   private _$currentTime: HTMLElement;
   private _$durationTime: HTMLElement;

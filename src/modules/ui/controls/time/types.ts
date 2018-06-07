@@ -1,5 +1,3 @@
-import { IThemeService } from '../../core/theme';
-
 type ITimeViewStyles = {
   timeWrapper: string;
   time: string;
@@ -10,7 +8,7 @@ type ITimeViewStyles = {
 };
 
 type ITimeViewConfig = {
-  theme: IThemeService;
+  theme: Playable.IThemeService;
 };
 
 interface ITimeControl {

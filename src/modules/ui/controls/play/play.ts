@@ -10,9 +10,6 @@ import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
-import { IThemeService } from '../../core/theme';
-
-import { ITextMap } from '../../../text-map/types';
 
 export default class PlayControl implements IPlayControl {
   static moduleName = 'playControl';
@@ -21,8 +18,8 @@ export default class PlayControl implements IPlayControl {
 
   private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
-  private _textMap: ITextMap;
-  private _theme: IThemeService;
+  private _textMap: Playable.ITextMap;
+  private _theme: Playable.IThemeService;
 
   private _interceptor: KeyboardInterceptor;
   private _isPlaying: boolean;
@@ -39,8 +36,8 @@ export default class PlayControl implements IPlayControl {
   }: {
     engine: IPlaybackEngine;
     eventEmitter: IEventEmitter;
-    textMap: ITextMap;
-    theme: IThemeService;
+    textMap: Playable.ITextMap;
+    theme: Playable.IThemeService;
   }) {
     this._engine = engine;
     this._eventEmitter = eventEmitter;

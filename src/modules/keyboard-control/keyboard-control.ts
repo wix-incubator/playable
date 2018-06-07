@@ -14,7 +14,6 @@ import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
 import { IPlayerConfig } from '../../core/config';
 import { IKeyboardControl } from './types';
-import { IRootContainer } from '../root-container/types';
 import { ListenerFn } from 'eventemitter3';
 
 export const AMOUNT_TO_SKIP_SECONDS = 5;
@@ -38,7 +37,7 @@ export default class KeyboardControl implements IKeyboardControl {
   }: {
     config: IPlayerConfig;
     eventEmitter: IEventEmitter;
-    rootContainer: IRootContainer;
+    rootContainer: Playable.IRootContainer;
     engine: IPlaybackEngine;
   }) {
     this._eventEmitter = eventEmitter;
