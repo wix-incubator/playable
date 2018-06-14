@@ -182,6 +182,10 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   private _broadcastError(_error: any, data: any) {
+    // TODO: Investigate why this callback is called after hls is destroyed
+    if (!this.hls) {
+      return;
+    }
     // TODO: `_error` argument is unused
     if (!data.fatal) {
       return;

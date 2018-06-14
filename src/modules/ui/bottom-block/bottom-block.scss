@@ -223,8 +223,10 @@
   left: 0;
 
   visibility: hidden;
+  //height less then background by 1px 'cause of strange problem on chrome, when visible size of background is 181px
+  //maybe it's 'cause of linear-gradient
 
-  height: 182px;
+  height: 181px;
 
   transition: opacity .2s, visibility .2s;
   pointer-events: none;
