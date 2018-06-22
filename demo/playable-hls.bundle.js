@@ -151,15 +151,15 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".modules-root-container-root-container__controlButton__Iw8mx {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-root-container-root-container__controlButton__Iw8mx:hover {\n    opacity: .7; }\n\n.modules-root-container-root-container__hidden__UaLKv {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-root-container-root-container__videoWrapper__110zB {\n  font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-45Ligh,Helvetica Neue,Helvetica,Arial,\\\\30E1\\30A4\\30EA\\30AA,meiryo,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 pro w3,hiragino kaku gothic pro;\n  line-height: 0;\n  position: relative;\n  z-index: 0;\n  display: block;\n  overflow: hidden;\n  height: inherit;\n  outline: none;\n  /**\n * 1. Change the font styles in all browsers.\n * 2. Show the overflow in IE.\n * 3. Remove the margin in Firefox and Safari.\n * 4. Remove the inheritance of text transform in Edge, Firefox, and IE.\n * 5. Correct the inability to style clickable types in iOS and Safari.\n */\n  /**\n * Remove the inner border and padding in Firefox.\n */\n  /**\n * Restore the focus styles unset by the previous rule.\n */ }\n  .modules-root-container-root-container__videoWrapper__110zB *,\n  .modules-root-container-root-container__videoWrapper__110zB *:before,\n  .modules-root-container-root-container__videoWrapper__110zB *:after {\n    -webkit-box-sizing: content-box;\n            box-sizing: content-box;\n    outline: none; }\n  .modules-root-container-root-container__videoWrapper__110zB button {\n    font-family: inherit;\n    /* 1 */\n    font-size: 100%;\n    /* 1 */\n    line-height: 1.15;\n    /* 1 */\n    overflow: visible;\n    /* 2 */\n    margin: 0;\n    /* 3 */\n    text-transform: none;\n    /* 4 */\n    -webkit-appearance: button;\n    /* 5 */ }\n  .modules-root-container-root-container__videoWrapper__110zB button::-moz-focus-inner {\n    padding: 0;\n    border-style: none; }\n  .modules-root-container-root-container__videoWrapper__110zB button:-moz-focusring {\n    outline: 1px dotted ButtonText; }\n\n.modules-root-container-root-container__fillAllSpace__3xRxA,\n.modules-root-container-root-container__fullScreen__3te3h {\n  width: 100% !important;\n  height: 100% !important; }\n\n[data-focus-source='key'] [data-hook='player-container'] button.focus-within,\n[data-focus-source='key'] [data-hook='player-container'] input.focus-within,\n[data-focus-source='key'] [data-hook='player-container'] img.focus-within,\n[data-focus-source='script'] [data-hook='player-container'] button.focus-within,\n[data-focus-source='script'] [data-hook='player-container'] input.focus-within,\n[data-focus-source='script'] [data-hook='player-container'] img.focus-within {\n  -webkit-box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8);\n          box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8); }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/root-container/root-container.scss","/Users/oleksiim/projects/wix/playable/src/modules/root-container/normalize/_button.scss","/Users/oleksiim/projects/wix/playable/src/modules/root-container/normalize/_universal.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACtCD;EACE,iNAAgN;EAChN,eAAc;EAEd,mBAAkB;EAClB,WAAU;EAEV,eAAc;EACd,iBAAgB;EAEhB,gBAAe;EAEf,cAAa;ECbf;;;;;;GAMG;EAgBH;;GAEG;EAQH;;GAEG,EDjBF;EAhBD;;;IEAE,gCAAuB;YAAvB,wBAAuB;IAEvB,cAAa,EACd;EFHD;ICQE,qBAAoB;IAAE,OAAO;IAC7B,gBAAe;IAAE,OAAO;IACxB,kBAAiB;IAAE,OAAO;IAE1B,kBAAiB;IAAE,OAAO;IAE1B,UAAS;IAAE,OAAO;IAElB,qBAAoB;IAAE,OAAO;IAE7B,2BAA0B;IAAE,OAAO,EACpC;EDnBD;IC0BE,WAAU;IAEV,mBAAkB,EACnB;ED7BD;ICoCE,+BAA8B,EAC/B;;ADnBD;;EAEE,uBAAqB;EACrB,wBAAsB,EACvB;;AAGD;;;;;;EAMM,sDAA4C;UAA5C,8CAA4C,EAC7C","file":"root-container.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../ui/shared';\n\n\n.videoWrapper {\n  font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-45Ligh,Helvetica Neue,Helvetica,Arial,\\\\30E1\\30A4\\30EA\\30AA,meiryo,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 pro w3,hiragino kaku gothic pro;\n  line-height: 0;\n\n  position: relative;\n  z-index: 0;\n\n  display: block;\n  overflow: hidden;\n\n  height: inherit;\n\n  outline: none;\n\n  @import './normalize/universal';\n  @import './normalize/button';\n}\n\n.fillAllSpace,\n.fullScreen {\n  width: 100%!important;\n  height: 100%!important;\n}\n\n\n:global {\n  [data-focus-source='key'] [data-hook='player-container'],\n  [data-focus-source='script'] [data-hook='player-container'] {\n    button.focus-within,\n    input.focus-within,\n    img.focus-within {\n      box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);\n    }\n  }\n}\n","// https://github.com/necolas/normalize.css/blob/8.0.0/normalize.css#L147-L215\n\n/**\n * 1. Change the font styles in all browsers.\n * 2. Show the overflow in IE.\n * 3. Remove the margin in Firefox and Safari.\n * 4. Remove the inheritance of text transform in Edge, Firefox, and IE.\n * 5. Correct the inability to style clickable types in iOS and Safari.\n */\n\nbutton {\n  font-family: inherit; /* 1 */\n  font-size: 100%; /* 1 */\n  line-height: 1.15; /* 1 */\n\n  overflow: visible; /* 2 */\n\n  margin: 0; /* 3 */\n\n  text-transform: none; /* 4 */\n\n  -webkit-appearance: button; /* 5 */\n}\n\n/**\n * Remove the inner border and padding in Firefox.\n */\n\nbutton::-moz-focus-inner {\n  padding: 0;\n\n  border-style: none;\n}\n\n/**\n * Restore the focus styles unset by the previous rule.\n */\n\nbutton:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n","*,\n*:before,\n*:after {\n  box-sizing: content-box;\n\n  outline: none;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-root-container-root-container__controlButton__1RiVG {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-root-container-root-container__controlButton__1RiVG:hover {\n    opacity: .7; }\n\n.modules-root-container-root-container__hidden__arZ2j {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-root-container-root-container__videoWrapper__1hrS9 {\n  font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-45Ligh,Helvetica Neue,Helvetica,Arial,\\\\30E1\\30A4\\30EA\\30AA,meiryo,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 pro w3,hiragino kaku gothic pro;\n  line-height: 0;\n  position: relative;\n  z-index: 0;\n  display: block;\n  overflow: hidden;\n  height: inherit;\n  outline: none;\n  /**\r\n * 1. Change the font styles in all browsers.\r\n * 2. Show the overflow in IE.\r\n * 3. Remove the margin in Firefox and Safari.\r\n * 4. Remove the inheritance of text transform in Edge, Firefox, and IE.\r\n * 5. Correct the inability to style clickable types in iOS and Safari.\r\n */\n  /**\r\n * Remove the inner border and padding in Firefox.\r\n */\n  /**\r\n * Restore the focus styles unset by the previous rule.\r\n */ }\n  .modules-root-container-root-container__videoWrapper__1hrS9 *,\n  .modules-root-container-root-container__videoWrapper__1hrS9 *:before,\n  .modules-root-container-root-container__videoWrapper__1hrS9 *:after {\n    -webkit-box-sizing: content-box;\n            box-sizing: content-box;\n    outline: none; }\n  .modules-root-container-root-container__videoWrapper__1hrS9 button {\n    font-family: inherit;\n    /* 1 */\n    font-size: 100%;\n    /* 1 */\n    line-height: 1.15;\n    /* 1 */\n    overflow: visible;\n    /* 2 */\n    margin: 0;\n    /* 3 */\n    text-transform: none;\n    /* 4 */\n    -webkit-appearance: button;\n    /* 5 */ }\n  .modules-root-container-root-container__videoWrapper__1hrS9 button::-moz-focus-inner {\n    padding: 0;\n    border-style: none; }\n  .modules-root-container-root-container__videoWrapper__1hrS9 button:-moz-focusring {\n    outline: 1px dotted ButtonText; }\n\n.modules-root-container-root-container__fillAllSpace__1p9C5,\n.modules-root-container-root-container__fullScreen__3tx0t {\n  width: 100% !important;\n  height: 100% !important; }\n\n[data-focus-source='key'] [data-hook='player-container'] button.focus-within,\n[data-focus-source='key'] [data-hook='player-container'] input.focus-within,\n[data-focus-source='key'] [data-hook='player-container'] img.focus-within,\n[data-focus-source='script'] [data-hook='player-container'] button.focus-within,\n[data-focus-source='script'] [data-hook='player-container'] input.focus-within,\n[data-focus-source='script'] [data-hook='player-container'] img.focus-within {\n  -webkit-box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8);\n          box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8); }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/root-container/D:/projects/wix/playable/src/modules/root-container/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/root-container/D:/projects/wix/playable/src/modules/root-container/D:/projects/wix/playable/src/modules/root-container/root-container.scss","D:/projects/wix/playable/src/modules/root-container/D:/projects/wix/playable/src/modules/root-container/D:/projects/wix/playable/src/modules/root-container/normalize/_button.scss","D:/projects/wix/playable/src/modules/root-container/D:/projects/wix/playable/src/modules/root-container/D:/projects/wix/playable/src/modules/root-container/normalize/_universal.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACtCD;EACE,iNAAgN;EAChN,eAAc;EAEd,mBAAkB;EAClB,WAAU;EAEV,eAAc;EACd,iBAAgB;EAEhB,gBAAe;EAEf,cAAa;ECbf;;;;;;GAMG;EAgBH;;GAEG;EAQH;;GAEG,EDjBF;EAhBD;;;IEAE,gCAAuB;YAAvB,wBAAuB;IAEvB,cAAa,EACd;EFHD;ICQE,qBAAoB;IAAE,OAAO;IAC7B,gBAAe;IAAE,OAAO;IACxB,kBAAiB;IAAE,OAAO;IAE1B,kBAAiB;IAAE,OAAO;IAE1B,UAAS;IAAE,OAAO;IAElB,qBAAoB;IAAE,OAAO;IAE7B,2BAA0B;IAAE,OAAO,EACpC;EDnBD;IC0BE,WAAU;IAEV,mBAAkB,EACnB;ED7BD;ICoCE,+BAA8B,EAC/B;;ADnBD;;EAEE,uBAAqB;EACrB,wBAAsB,EACvB;;AAGD;;;;;;EAMM,sDAA4C;UAA5C,8CAA4C,EAC7C","file":"root-container.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../ui/shared';\r\n\r\n\r\n.videoWrapper {\r\n  font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-45Ligh,Helvetica Neue,Helvetica,Arial,\\\\30E1\\30A4\\30EA\\30AA,meiryo,\\\\30D2\\30E9\\30AE\\30CE\\89D2\\30B4 pro w3,hiragino kaku gothic pro;\r\n  line-height: 0;\r\n\r\n  position: relative;\r\n  z-index: 0;\r\n\r\n  display: block;\r\n  overflow: hidden;\r\n\r\n  height: inherit;\r\n\r\n  outline: none;\r\n\r\n  @import './normalize/universal';\r\n  @import './normalize/button';\r\n}\r\n\r\n.fillAllSpace,\r\n.fullScreen {\r\n  width: 100%!important;\r\n  height: 100%!important;\r\n}\r\n\r\n\r\n:global {\r\n  [data-focus-source='key'] [data-hook='player-container'],\r\n  [data-focus-source='script'] [data-hook='player-container'] {\r\n    button.focus-within,\r\n    input.focus-within,\r\n    img.focus-within {\r\n      box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);\r\n    }\r\n  }\r\n}\r\n","// https://github.com/necolas/normalize.css/blob/8.0.0/normalize.css#L147-L215\r\n\r\n/**\r\n * 1. Change the font styles in all browsers.\r\n * 2. Show the overflow in IE.\r\n * 3. Remove the margin in Firefox and Safari.\r\n * 4. Remove the inheritance of text transform in Edge, Firefox, and IE.\r\n * 5. Correct the inability to style clickable types in iOS and Safari.\r\n */\r\n\r\nbutton {\r\n  font-family: inherit; /* 1 */\r\n  font-size: 100%; /* 1 */\r\n  line-height: 1.15; /* 1 */\r\n\r\n  overflow: visible; /* 2 */\r\n\r\n  margin: 0; /* 3 */\r\n\r\n  text-transform: none; /* 4 */\r\n\r\n  -webkit-appearance: button; /* 5 */\r\n}\r\n\r\n/**\r\n * Remove the inner border and padding in Firefox.\r\n */\r\n\r\nbutton::-moz-focus-inner {\r\n  padding: 0;\r\n\r\n  border-style: none;\r\n}\r\n\r\n/**\r\n * Restore the focus styles unset by the previous rule.\r\n */\r\n\r\nbutton:-moz-focusring {\r\n  outline: 1px dotted ButtonText;\r\n}\r\n","*,\r\n*:before,\r\n*:after {\r\n  box-sizing: content-box;\r\n\r\n  outline: none;\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-root-container-root-container__controlButton__Iw8mx",
-	"hidden": "modules-root-container-root-container__hidden__UaLKv",
-	"videoWrapper": "modules-root-container-root-container__videoWrapper__110zB",
-	"fillAllSpace": "modules-root-container-root-container__fillAllSpace__3xRxA",
-	"fullScreen": "modules-root-container-root-container__fullScreen__3te3h"
+	"controlButton": "modules-root-container-root-container__controlButton__1RiVG",
+	"hidden": "modules-root-container-root-container__hidden__arZ2j",
+	"videoWrapper": "modules-root-container-root-container__videoWrapper__1hrS9",
+	"fillAllSpace": "modules-root-container-root-container__fillAllSpace__1p9C5",
+	"fullScreen": "modules-root-container-root-container__fullScreen__3tx0t"
 };
 
 /***/ }),
@@ -176,33 +176,33 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-bottom-block-bottom-block__controlButton__3CTD7 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-bottom-block-bottom-block__controlButton__3CTD7:hover {\n    opacity: .7; }\n\n.modules-ui-bottom-block-bottom-block__hidden__1zRVY {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y {\n  z-index: 60;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y::-moz-focus-inner {\n    border: 0; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__activated__ChTSn .modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__activated__ChTSn .modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__activated__ChTSn .modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__activated__ChTSn .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D, .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__focus-within__3JWUE .modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__focus-within__3JWUE .modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__focus-within__3JWUE .modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__focus-within__3JWUE .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    visibility: visible;\n    opacity: 1; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__activated__ChTSn .modules-ui-bottom-block-bottom-block__background__2_78O, .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__focus-within__3JWUE .modules-ui-bottom-block-bottom-block__background__2_78O {\n    visibility: visible;\n    opacity: 1; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__showLogoAlways__l6YY7 .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    opacity: 1; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__logoHidden__z2wa2 .modules-ui-bottom-block-bottom-block__fullScreenContainer__2Me_2 {\n    margin-right: 14px; }\n    div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__logoHidden__z2wa2 .modules-ui-bottom-block-bottom-block__fullScreenContainer__2Me_2 {\n      margin-right: 7px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__logoHidden__z2wa2 .modules-ui-bottom-block-bottom-block__fullScreenContainer__2Me_2 {\n      margin-right: 25px; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__logoHidden__z2wa2 .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__playControlHidden__3j6MK .modules-ui-bottom-block-bottom-block__playContainer__RqBlN {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__timeControlHidden__1OLQf .modules-ui-bottom-block-bottom-block__timeContainer__2eFKA {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__volumeControlHidden__15ipO .modules-ui-bottom-block-bottom-block__volumeContainer__1LiYX {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__fullScreenControlHidden__1T2Wg .modules-ui-bottom-block-bottom-block__fullScreenContainer__2Me_2 {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y.modules-ui-bottom-block-bottom-block__progressControlHidden__iuNZS .modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5 {\n    display: none; }\n\n.modules-ui-bottom-block-bottom-block__elementsContainer__Qt5Hh {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  width: 100%;\n  -webkit-box-flex: 2;\n      -ms-flex-positive: 2;\n          flex-grow: 2; }\n\n.modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5 {\n  position: relative;\n  top: 2px;\n  padding: 0 20px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5 {\n    top: 3px;\n    padding: 0 30px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5 {\n    padding: 0 15px; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5 {\n    padding: 0 12px; }\n\n.modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5,\n.modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2,\n.modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH,\n.modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n  visibility: hidden;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  opacity: 0; }\n\n.modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH,\n.modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2 {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  max-width: 100%;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH {\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end; }\n\n.modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH,\n.modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2,\n.modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n  height: 54px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH, div[data-hook='player-container'][data-in-full-screen='true']\n  .modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2, div[data-hook='player-container'][data-in-full-screen='true']\n  .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    height: 80px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH, div[data-hook='player-container'][max-width~=\"550px\"]\n  .modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2, div[data-hook='player-container'][max-width~=\"550px\"]\n  .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    height: 42px; }\n  div[data-hook='player-container'][max-width~=\"350px\"] .modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH, div[data-hook='player-container'][max-width~=\"350px\"]\n  .modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2, div[data-hook='player-container'][max-width~=\"350px\"]\n  .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    height: 36px; }\n\n.modules-ui-bottom-block-bottom-block__playContainer__RqBlN {\n  margin-right: 9px;\n  margin-left: 13px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__playContainer__RqBlN {\n    margin-right: 20px;\n    margin-left: 20px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__playContainer__RqBlN {\n    margin-left: 7px; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-bottom-block-bottom-block__playContainer__RqBlN {\n    margin-left: 4px; }\n\n.modules-ui-bottom-block-bottom-block__volumeContainer__1LiYX {\n  margin-right: 15px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__volumeContainer__1LiYX {\n    margin-right: 20px; }\n\n.modules-ui-bottom-block-bottom-block__timeContainer__2eFKA {\n  margin-right: 18px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__timeContainer__2eFKA {\n    margin-right: 30px; }\n  div[data-hook='player-container'][max-width~=\"400px\"] .modules-ui-bottom-block-bottom-block__timeContainer__2eFKA {\n    display: none; }\n\n.modules-ui-bottom-block-bottom-block__fullScreenContainer__2Me_2 {\n  margin-right: 8px;\n  margin-left: 5px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__fullScreenContainer__2Me_2 {\n    margin-right: 1px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__fullScreenContainer__2Me_2 {\n    margin-right: 18px;\n    margin-left: 0; }\n\n.modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin-right: 14px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    margin-right: 9px;\n    margin-left: 1px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    margin-right: 23px;\n    margin-left: 0; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-bottom-block-bottom-block__logoContainer__3wT0D {\n    margin-right: 12px; }\n\n.modules-ui-bottom-block-bottom-block__background__2_78O {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  visibility: hidden;\n  height: 182px;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  pointer-events: none;\n  opacity: 0;\n  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), color-stop(24%, rgba(0, 0, 0, 0.03)), color-stop(50%, rgba(0, 0, 0, 0.15)), color-stop(75%, rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.4)));\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.03) 24%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.4));\n  background-size: 100% 182px; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/bottom-block/bottom-block.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,YAAW;EAEX,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,6BAAsB;EAAtB,8BAAsB;MAAtB,2BAAsB;UAAtB,uBAAsB,EAuEvB;EA3ED;IAOI,UAAS,EACV;EARH;;;;;;;IAgBM,oBAAmB;IAEnB,WAAU,EACX;EAnBL;IAsBM,oBAAmB;IAEnB,WAAU,EACX;EAzBL;IA8BM,WAAU,EACX;EA/BL;IAoCM,mBAAkB,EAQnB;ICvCH;MDkCM,kBAAiB,EChCtB;IARD;MD2CM,mBAAkB,ECzCvB;EDDH;IA8CM,cAAa,EACd;EA/CL;IAoDM,cAAa,EACd;EArDL;IAyDM,cAAa,EACd;EA1DL;IA8DM,cAAa,EACd;EA/DL;IAmEM,cAAa,EACd;EApEL;IAwEM,cAAa,EACd;;AAIL;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,YAAW;EAEX,oBAAY;MAAZ,qBAAY;UAAZ,aAAY,EACb;;AAED;EACE,mBAAkB;EAClB,SAAQ;EAER,gBAAe,EAahB;ECzGC;ID+FE,SAAQ;IAER,gBAAe,EC/FhB;EAID;ID8FE,gBAAe,EC5FhB;EAFD;IDiGE,gBAAe,EC/FhB;;ADmGH;;;;EAIE,mBAAkB;EAElB,gDAAuC;EAAvC,wCAAuC;EAEvC,WAAU,EACX;;AAED;;EAEE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,oBAAO;MAAP,YAAO;UAAP,QAAO;EAEP,YAAW;EACX,gBAAe;EAEf,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EACpB;;AAED;EACE,sBAAyB;MAAzB,mBAAyB;UAAzB,0BAAyB,EAC1B;;AAED;;;EAGE,aAAY,EAWb;ECrJC;;;ID6IE,aAAY,EC3Ib;EAID;;;ID0IE,aAAY,ECxIb;EAFD;;;ID6IE,aAAY,EC3Ib;;AD+IH;EACE,kBAAiB;EACjB,kBAAiB,EAYlB;ECrKC;ID4JE,mBAAkB;IAClB,kBAAiB,EC3JlB;EAID;ID0JE,iBAAgB,ECxJjB;EAFD;ID6JE,iBAAgB,EC3JjB;;AD+JH;EACE,mBAAkB,EAKnB;EC7KC;ID2KE,mBAAkB,ECzKnB;;AD6KH;EACE,mBAAkB,EAQnB;ECxLC;IDmLE,mBAAkB,ECjLnB;EAID;IDgLE,cAAa,EC9Kd;;ADkLH;EACE,kBAAiB;EACjB,iBAAgB,EASjB;EC/LC;IDyLE,kBAAiB,ECvLlB;EARD;IDkME,mBAAkB;IAClB,eAAc,ECjMf;;ADqMH;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,mBAAkB,EAanB;ECjNC;IDuME,kBAAiB;IACjB,iBAAgB,ECtMjB;EARD;IDiNE,mBAAkB;IAClB,eAAc,EChNf;EAID;ID+ME,mBAAkB,EC7MnB;;ADiNH;EACE,mBAAkB;EAClB,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,mBAAkB;EAElB,cAAa;EAEb,gDAAuC;EAAvC,wCAAuC;EACvC,qBAAoB;EAEpB,WAAU;EACV,mOAOC;EAPD,6JAOC;EACD,4BAA2B,EAC5B","file":"bottom-block.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../shared';\n\n.bottomBlock {\n  z-index: 60;\n\n  display: flex;\n  flex-direction: column;\n\n  &::-moz-focus-inner {\n    border: 0;\n  }\n\n  &.activated,\n  &.focus-within {\n    .progressBarContainer,\n    .controlsContainerLeft,\n    .controlsContainerRight,\n    .logoContainer {\n      visibility: visible;\n\n      opacity: 1;\n    }\n\n    .background {\n      visibility: visible;\n\n      opacity: 1;\n    }\n  }\n\n  &.showLogoAlways {\n    .logoContainer {\n      opacity: 1;\n    }\n  }\n\n  &.logoHidden {\n    .fullScreenContainer {\n      margin-right: 14px;\n\n      @include max-width-550() {\n        margin-right: 7px;\n      }\n      @include in-full-screen() {\n        margin-right: 25px;\n      }\n    }\n    .logoContainer {\n      display: none;\n    }\n  }\n\n  &.playControlHidden {\n    .playContainer {\n      display: none;\n    }\n  }\n  &.timeControlHidden {\n    .timeContainer {\n      display: none;\n    }\n  }\n  &.volumeControlHidden {\n    .volumeContainer {\n      display: none;\n    }\n  }\n  &.fullScreenControlHidden {\n    .fullScreenContainer {\n      display: none;\n    }\n  }\n  &.progressControlHidden {\n    .progressBarContainer {\n      display: none;\n    }\n  }\n}\n\n.elementsContainer {\n  position: relative;\n\n  display: flex;\n\n  width: 100%;\n\n  flex-grow: 2;\n}\n\n.progressBarContainer {\n  position: relative;\n  top: 2px;\n\n  padding: 0 20px;\n\n  @include in-full-screen() {\n    top: 3px;\n\n    padding: 0 30px;\n  }\n  @include max-width-550() {\n    padding: 0 15px;\n  }\n  @include max-width-280() {\n    padding: 0 12px;\n  }\n}\n\n.progressBarContainer,\n.controlsContainerLeft,\n.controlsContainerRight,\n.logoContainer {\n  visibility: hidden;\n\n  transition: opacity .2s, visibility .2s;\n\n  opacity: 0;\n}\n\n.controlsContainerRight,\n.controlsContainerLeft {\n  position: relative;\n\n  display: flex;\n  flex: 1;\n\n  width: 100%;\n  max-width: 100%;\n\n  align-items: center;\n}\n\n.controlsContainerRight {\n  justify-content: flex-end;\n}\n\n.controlsContainerRight,\n.controlsContainerLeft,\n.logoContainer {\n  height: 54px;\n\n  @include in-full-screen() {\n    height: 80px;\n  }\n  @include max-width-550() {\n    height: 42px;\n  }\n  @include max-width-350() {\n    height: 36px;\n  }\n}\n\n.playContainer {\n  margin-right: 9px;\n  margin-left: 13px;\n\n  @include in-full-screen() {\n    margin-right: 20px;\n    margin-left: 20px;\n  }\n  @include max-width-550() {\n    margin-left: 7px;\n  }\n  @include max-width-280() {\n    margin-left: 4px;\n  }\n}\n\n.volumeContainer {\n  margin-right: 15px;\n\n  @include in-full-screen() {\n    margin-right: 20px;\n  }\n}\n\n.timeContainer {\n  margin-right: 18px;\n\n  @include in-full-screen() {\n    margin-right: 30px;\n  }\n  @include max-width-400() {\n    display: none;\n  }\n}\n\n.fullScreenContainer {\n  margin-right: 8px;\n  margin-left: 5px;\n\n  @include max-width-550() {\n    margin-right: 1px;\n  }\n  @include in-full-screen() {\n    margin-right: 18px;\n    margin-left: 0;\n  }\n}\n\n.logoContainer {\n  display: flex;\n\n  margin-right: 14px;\n\n  @include max-width-550() {\n    margin-right: 9px;\n    margin-left: 1px;\n  }\n  @include in-full-screen() {\n    margin-right: 23px;\n    margin-left: 0;\n  }\n  @include max-width-280() {\n    margin-right: 12px;\n  }\n}\n\n.background {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  left: 0;\n\n  visibility: hidden;\n\n  height: 182px;\n\n  transition: opacity .2s, visibility .2s;\n  pointer-events: none;\n\n  opacity: 0;\n  background-image: linear-gradient(\n  to bottom,\n  rgba(0, 0, 0, .0),\n  rgba(0, 0, 0, .03) 24%,\n  rgba(0, 0, 0, .15) 50%,\n  rgba(0, 0, 0, .3) 75%,\n  rgba(0, 0, 0, .4)\n  );\n  background-size: 100% 182px;\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-bottom-block-bottom-block__controlButton__3409T {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-bottom-block-bottom-block__controlButton__3409T:hover {\n    opacity: .7; }\n\n.modules-ui-bottom-block-bottom-block__hidden__Fd7oP {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-bottom-block-bottom-block__bottomBlock__3qAic {\n  z-index: 60;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic::-moz-focus-inner {\n    border: 0; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__activated__1chYh .modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__activated__1chYh .modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__activated__1chYh .modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__activated__1chYh .modules-ui-bottom-block-bottom-block__logoContainer__1UGew, .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__focus-within__WPqmW .modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__focus-within__WPqmW .modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__focus-within__WPqmW .modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL,\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__focus-within__WPqmW .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    visibility: visible;\n    opacity: 1; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__activated__1chYh .modules-ui-bottom-block-bottom-block__background__1ad-m, .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__focus-within__WPqmW .modules-ui-bottom-block-bottom-block__background__1ad-m {\n    visibility: visible;\n    opacity: 1; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__showLogoAlways__stONI .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    opacity: 1; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__logoHidden__lM3Ho .modules-ui-bottom-block-bottom-block__fullScreenContainer__NZRTv {\n    margin-right: 14px; }\n    div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__logoHidden__lM3Ho .modules-ui-bottom-block-bottom-block__fullScreenContainer__NZRTv {\n      margin-right: 7px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__logoHidden__lM3Ho .modules-ui-bottom-block-bottom-block__fullScreenContainer__NZRTv {\n      margin-right: 25px; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__logoHidden__lM3Ho .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__playControlHidden__2oD52 .modules-ui-bottom-block-bottom-block__playContainer__1zm15 {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__timeControlHidden__5p1fQ .modules-ui-bottom-block-bottom-block__timeContainer__2L9PX {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__volumeControlHidden__3m63Z .modules-ui-bottom-block-bottom-block__volumeContainer__2UXED {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__fullScreenControlHidden__1bIS5 .modules-ui-bottom-block-bottom-block__fullScreenContainer__NZRTv {\n    display: none; }\n  .modules-ui-bottom-block-bottom-block__bottomBlock__3qAic.modules-ui-bottom-block-bottom-block__progressControlHidden__1B77a .modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_ {\n    display: none; }\n\n.modules-ui-bottom-block-bottom-block__elementsContainer__FB9NS {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  width: 100%;\n  -webkit-box-flex: 2;\n      -ms-flex-positive: 2;\n          flex-grow: 2; }\n\n.modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_ {\n  position: relative;\n  top: 2px;\n  padding: 0 20px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_ {\n    top: 3px;\n    padding: 0 30px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_ {\n    padding: 0 15px; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_ {\n    padding: 0 12px; }\n\n.modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_,\n.modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju,\n.modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL,\n.modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n  visibility: hidden;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  opacity: 0; }\n\n.modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL,\n.modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  max-width: 100%;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL {\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end; }\n\n.modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL,\n.modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju,\n.modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n  height: 54px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL, div[data-hook='player-container'][data-in-full-screen='true']\n  .modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju, div[data-hook='player-container'][data-in-full-screen='true']\n  .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    height: 80px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL, div[data-hook='player-container'][max-width~=\"550px\"]\n  .modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju, div[data-hook='player-container'][max-width~=\"550px\"]\n  .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    height: 42px; }\n  div[data-hook='player-container'][max-width~=\"350px\"] .modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL, div[data-hook='player-container'][max-width~=\"350px\"]\n  .modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju, div[data-hook='player-container'][max-width~=\"350px\"]\n  .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    height: 36px; }\n\n.modules-ui-bottom-block-bottom-block__playContainer__1zm15 {\n  margin-right: 9px;\n  margin-left: 13px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__playContainer__1zm15 {\n    margin-right: 20px;\n    margin-left: 20px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__playContainer__1zm15 {\n    margin-left: 7px; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-bottom-block-bottom-block__playContainer__1zm15 {\n    margin-left: 4px; }\n\n.modules-ui-bottom-block-bottom-block__volumeContainer__2UXED {\n  margin-right: 15px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__volumeContainer__2UXED {\n    margin-right: 20px; }\n\n.modules-ui-bottom-block-bottom-block__timeContainer__2L9PX {\n  margin-right: 18px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__timeContainer__2L9PX {\n    margin-right: 30px; }\n  div[data-hook='player-container'][max-width~=\"400px\"] .modules-ui-bottom-block-bottom-block__timeContainer__2L9PX {\n    display: none; }\n\n.modules-ui-bottom-block-bottom-block__fullScreenContainer__NZRTv {\n  margin-right: 8px;\n  margin-left: 5px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__fullScreenContainer__NZRTv {\n    margin-right: 1px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__fullScreenContainer__NZRTv {\n    margin-right: 18px;\n    margin-left: 0; }\n\n.modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin-right: 14px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    margin-right: 9px;\n    margin-left: 1px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    margin-right: 23px;\n    margin-left: 0; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-bottom-block-bottom-block__logoContainer__1UGew {\n    margin-right: 12px; }\n\n.modules-ui-bottom-block-bottom-block__background__1ad-m {\n  position: absolute;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  visibility: hidden;\n  height: 182px;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  pointer-events: none;\n  opacity: 0;\n  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), color-stop(24%, rgba(0, 0, 0, 0.03)), color-stop(50%, rgba(0, 0, 0, 0.15)), color-stop(75%, rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.4)));\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.03) 24%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.4));\n  background-size: 100% 182px; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/bottom-block/D:/projects/wix/playable/src/modules/ui/bottom-block/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/bottom-block/D:/projects/wix/playable/src/modules/ui/bottom-block/D:/projects/wix/playable/src/modules/ui/bottom-block/bottom-block.scss","D:/projects/wix/playable/src/modules/ui/bottom-block/D:/projects/wix/playable/src/modules/ui/bottom-block/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,YAAW;EAEX,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,6BAAsB;EAAtB,8BAAsB;MAAtB,2BAAsB;UAAtB,uBAAsB,EAuEvB;EA3ED;IAOI,UAAS,EACV;EARH;;;;;;;IAgBM,oBAAmB;IAEnB,WAAU,EACX;EAnBL;IAsBM,oBAAmB;IAEnB,WAAU,EACX;EAzBL;IA8BM,WAAU,EACX;EA/BL;IAoCM,mBAAkB,EAQnB;ICvCH;MDkCM,kBAAiB,EChCtB;IARD;MD2CM,mBAAkB,ECzCvB;EDDH;IA8CM,cAAa,EACd;EA/CL;IAoDM,cAAa,EACd;EArDL;IAyDM,cAAa,EACd;EA1DL;IA8DM,cAAa,EACd;EA/DL;IAmEM,cAAa,EACd;EApEL;IAwEM,cAAa,EACd;;AAIL;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,YAAW;EAEX,oBAAY;MAAZ,qBAAY;UAAZ,aAAY,EACb;;AAED;EACE,mBAAkB;EAClB,SAAQ;EAER,gBAAe,EAahB;ECzGC;ID+FE,SAAQ;IAER,gBAAe,EC/FhB;EAID;ID8FE,gBAAe,EC5FhB;EAFD;IDiGE,gBAAe,EC/FhB;;ADmGH;;;;EAIE,mBAAkB;EAElB,gDAAuC;EAAvC,wCAAuC;EAEvC,WAAU,EACX;;AAED;;EAEE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,oBAAO;MAAP,YAAO;UAAP,QAAO;EAEP,YAAW;EACX,gBAAe;EAEf,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EACpB;;AAED;EACE,sBAAyB;MAAzB,mBAAyB;UAAzB,0BAAyB,EAC1B;;AAED;;;EAGE,aAAY,EAWb;ECrJC;;;ID6IE,aAAY,EC3Ib;EAID;;;ID0IE,aAAY,ECxIb;EAFD;;;ID6IE,aAAY,EC3Ib;;AD+IH;EACE,kBAAiB;EACjB,kBAAiB,EAYlB;ECrKC;ID4JE,mBAAkB;IAClB,kBAAiB,EC3JlB;EAID;ID0JE,iBAAgB,ECxJjB;EAFD;ID6JE,iBAAgB,EC3JjB;;AD+JH;EACE,mBAAkB,EAKnB;EC7KC;ID2KE,mBAAkB,ECzKnB;;AD6KH;EACE,mBAAkB,EAQnB;ECxLC;IDmLE,mBAAkB,ECjLnB;EAID;IDgLE,cAAa,EC9Kd;;ADkLH;EACE,kBAAiB;EACjB,iBAAgB,EASjB;EC/LC;IDyLE,kBAAiB,ECvLlB;EARD;IDkME,mBAAkB;IAClB,eAAc,ECjMf;;ADqMH;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,mBAAkB,EAanB;ECjNC;IDuME,kBAAiB;IACjB,iBAAgB,ECtMjB;EARD;IDiNE,mBAAkB;IAClB,eAAc,EChNf;EAID;ID+ME,mBAAkB,EC7MnB;;ADiNH;EACE,mBAAkB;EAClB,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,mBAAkB;EAElB,cAAa;EAEb,gDAAuC;EAAvC,wCAAuC;EACvC,qBAAoB;EAEpB,WAAU;EACV,mOAOC;EAPD,6JAOC;EACD,4BAA2B,EAC5B","file":"bottom-block.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../shared';\r\n\r\n.bottomBlock {\r\n  z-index: 60;\r\n\r\n  display: flex;\r\n  flex-direction: column;\r\n\r\n  &::-moz-focus-inner {\r\n    border: 0;\r\n  }\r\n\r\n  &.activated,\r\n  &.focus-within {\r\n    .progressBarContainer,\r\n    .controlsContainerLeft,\r\n    .controlsContainerRight,\r\n    .logoContainer {\r\n      visibility: visible;\r\n\r\n      opacity: 1;\r\n    }\r\n\r\n    .background {\r\n      visibility: visible;\r\n\r\n      opacity: 1;\r\n    }\r\n  }\r\n\r\n  &.showLogoAlways {\r\n    .logoContainer {\r\n      opacity: 1;\r\n    }\r\n  }\r\n\r\n  &.logoHidden {\r\n    .fullScreenContainer {\r\n      margin-right: 14px;\r\n\r\n      @include max-width-550() {\r\n        margin-right: 7px;\r\n      }\r\n      @include in-full-screen() {\r\n        margin-right: 25px;\r\n      }\r\n    }\r\n    .logoContainer {\r\n      display: none;\r\n    }\r\n  }\r\n\r\n  &.playControlHidden {\r\n    .playContainer {\r\n      display: none;\r\n    }\r\n  }\r\n  &.timeControlHidden {\r\n    .timeContainer {\r\n      display: none;\r\n    }\r\n  }\r\n  &.volumeControlHidden {\r\n    .volumeContainer {\r\n      display: none;\r\n    }\r\n  }\r\n  &.fullScreenControlHidden {\r\n    .fullScreenContainer {\r\n      display: none;\r\n    }\r\n  }\r\n  &.progressControlHidden {\r\n    .progressBarContainer {\r\n      display: none;\r\n    }\r\n  }\r\n}\r\n\r\n.elementsContainer {\r\n  position: relative;\r\n\r\n  display: flex;\r\n\r\n  width: 100%;\r\n\r\n  flex-grow: 2;\r\n}\r\n\r\n.progressBarContainer {\r\n  position: relative;\r\n  top: 2px;\r\n\r\n  padding: 0 20px;\r\n\r\n  @include in-full-screen() {\r\n    top: 3px;\r\n\r\n    padding: 0 30px;\r\n  }\r\n  @include max-width-550() {\r\n    padding: 0 15px;\r\n  }\r\n  @include max-width-280() {\r\n    padding: 0 12px;\r\n  }\r\n}\r\n\r\n.progressBarContainer,\r\n.controlsContainerLeft,\r\n.controlsContainerRight,\r\n.logoContainer {\r\n  visibility: hidden;\r\n\r\n  transition: opacity .2s, visibility .2s;\r\n\r\n  opacity: 0;\r\n}\r\n\r\n.controlsContainerRight,\r\n.controlsContainerLeft {\r\n  position: relative;\r\n\r\n  display: flex;\r\n  flex: 1;\r\n\r\n  width: 100%;\r\n  max-width: 100%;\r\n\r\n  align-items: center;\r\n}\r\n\r\n.controlsContainerRight {\r\n  justify-content: flex-end;\r\n}\r\n\r\n.controlsContainerRight,\r\n.controlsContainerLeft,\r\n.logoContainer {\r\n  height: 54px;\r\n\r\n  @include in-full-screen() {\r\n    height: 80px;\r\n  }\r\n  @include max-width-550() {\r\n    height: 42px;\r\n  }\r\n  @include max-width-350() {\r\n    height: 36px;\r\n  }\r\n}\r\n\r\n.playContainer {\r\n  margin-right: 9px;\r\n  margin-left: 13px;\r\n\r\n  @include in-full-screen() {\r\n    margin-right: 20px;\r\n    margin-left: 20px;\r\n  }\r\n  @include max-width-550() {\r\n    margin-left: 7px;\r\n  }\r\n  @include max-width-280() {\r\n    margin-left: 4px;\r\n  }\r\n}\r\n\r\n.volumeContainer {\r\n  margin-right: 15px;\r\n\r\n  @include in-full-screen() {\r\n    margin-right: 20px;\r\n  }\r\n}\r\n\r\n.timeContainer {\r\n  margin-right: 18px;\r\n\r\n  @include in-full-screen() {\r\n    margin-right: 30px;\r\n  }\r\n  @include max-width-400() {\r\n    display: none;\r\n  }\r\n}\r\n\r\n.fullScreenContainer {\r\n  margin-right: 8px;\r\n  margin-left: 5px;\r\n\r\n  @include max-width-550() {\r\n    margin-right: 1px;\r\n  }\r\n  @include in-full-screen() {\r\n    margin-right: 18px;\r\n    margin-left: 0;\r\n  }\r\n}\r\n\r\n.logoContainer {\r\n  display: flex;\r\n\r\n  margin-right: 14px;\r\n\r\n  @include max-width-550() {\r\n    margin-right: 9px;\r\n    margin-left: 1px;\r\n  }\r\n  @include in-full-screen() {\r\n    margin-right: 23px;\r\n    margin-left: 0;\r\n  }\r\n  @include max-width-280() {\r\n    margin-right: 12px;\r\n  }\r\n}\r\n\r\n.background {\r\n  position: absolute;\r\n  right: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n\r\n  visibility: hidden;\r\n\r\n  height: 182px;\r\n\r\n  transition: opacity .2s, visibility .2s;\r\n  pointer-events: none;\r\n\r\n  opacity: 0;\r\n  background-image: linear-gradient(\r\n  to bottom,\r\n  rgba(0, 0, 0, .0),\r\n  rgba(0, 0, 0, .03) 24%,\r\n  rgba(0, 0, 0, .15) 50%,\r\n  rgba(0, 0, 0, .3) 75%,\r\n  rgba(0, 0, 0, .4)\r\n  );\r\n  background-size: 100% 182px;\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-bottom-block-bottom-block__controlButton__3CTD7",
-	"hidden": "modules-ui-bottom-block-bottom-block__hidden__1zRVY",
-	"bottomBlock": "modules-ui-bottom-block-bottom-block__bottomBlock__2o0_Y",
-	"activated": "modules-ui-bottom-block-bottom-block__activated__ChTSn",
-	"progressBarContainer": "modules-ui-bottom-block-bottom-block__progressBarContainer__1xiN5",
-	"controlsContainerLeft": "modules-ui-bottom-block-bottom-block__controlsContainerLeft__1fBE2",
-	"controlsContainerRight": "modules-ui-bottom-block-bottom-block__controlsContainerRight__20yDH",
-	"logoContainer": "modules-ui-bottom-block-bottom-block__logoContainer__3wT0D",
-	"focus-within": "modules-ui-bottom-block-bottom-block__focus-within__3JWUE",
-	"focusWithin": "modules-ui-bottom-block-bottom-block__focus-within__3JWUE",
-	"background": "modules-ui-bottom-block-bottom-block__background__2_78O",
-	"showLogoAlways": "modules-ui-bottom-block-bottom-block__showLogoAlways__l6YY7",
-	"logoHidden": "modules-ui-bottom-block-bottom-block__logoHidden__z2wa2",
-	"fullScreenContainer": "modules-ui-bottom-block-bottom-block__fullScreenContainer__2Me_2",
-	"playControlHidden": "modules-ui-bottom-block-bottom-block__playControlHidden__3j6MK",
-	"playContainer": "modules-ui-bottom-block-bottom-block__playContainer__RqBlN",
-	"timeControlHidden": "modules-ui-bottom-block-bottom-block__timeControlHidden__1OLQf",
-	"timeContainer": "modules-ui-bottom-block-bottom-block__timeContainer__2eFKA",
-	"volumeControlHidden": "modules-ui-bottom-block-bottom-block__volumeControlHidden__15ipO",
-	"volumeContainer": "modules-ui-bottom-block-bottom-block__volumeContainer__1LiYX",
-	"fullScreenControlHidden": "modules-ui-bottom-block-bottom-block__fullScreenControlHidden__1T2Wg",
-	"progressControlHidden": "modules-ui-bottom-block-bottom-block__progressControlHidden__iuNZS",
-	"elementsContainer": "modules-ui-bottom-block-bottom-block__elementsContainer__Qt5Hh"
+	"controlButton": "modules-ui-bottom-block-bottom-block__controlButton__3409T",
+	"hidden": "modules-ui-bottom-block-bottom-block__hidden__Fd7oP",
+	"bottomBlock": "modules-ui-bottom-block-bottom-block__bottomBlock__3qAic",
+	"activated": "modules-ui-bottom-block-bottom-block__activated__1chYh",
+	"progressBarContainer": "modules-ui-bottom-block-bottom-block__progressBarContainer__2cY1_",
+	"controlsContainerLeft": "modules-ui-bottom-block-bottom-block__controlsContainerLeft__3ucju",
+	"controlsContainerRight": "modules-ui-bottom-block-bottom-block__controlsContainerRight__3X2xL",
+	"logoContainer": "modules-ui-bottom-block-bottom-block__logoContainer__1UGew",
+	"focus-within": "modules-ui-bottom-block-bottom-block__focus-within__WPqmW",
+	"focusWithin": "modules-ui-bottom-block-bottom-block__focus-within__WPqmW",
+	"background": "modules-ui-bottom-block-bottom-block__background__1ad-m",
+	"showLogoAlways": "modules-ui-bottom-block-bottom-block__showLogoAlways__stONI",
+	"logoHidden": "modules-ui-bottom-block-bottom-block__logoHidden__lM3Ho",
+	"fullScreenContainer": "modules-ui-bottom-block-bottom-block__fullScreenContainer__NZRTv",
+	"playControlHidden": "modules-ui-bottom-block-bottom-block__playControlHidden__2oD52",
+	"playContainer": "modules-ui-bottom-block-bottom-block__playContainer__1zm15",
+	"timeControlHidden": "modules-ui-bottom-block-bottom-block__timeControlHidden__5p1fQ",
+	"timeContainer": "modules-ui-bottom-block-bottom-block__timeContainer__2L9PX",
+	"volumeControlHidden": "modules-ui-bottom-block-bottom-block__volumeControlHidden__3m63Z",
+	"volumeContainer": "modules-ui-bottom-block-bottom-block__volumeContainer__2UXED",
+	"fullScreenControlHidden": "modules-ui-bottom-block-bottom-block__fullScreenControlHidden__1bIS5",
+	"progressControlHidden": "modules-ui-bottom-block-bottom-block__progressControlHidden__1B77a",
+	"elementsContainer": "modules-ui-bottom-block-bottom-block__elementsContainer__FB9NS"
 };
 
 /***/ }),
@@ -219,16 +219,16 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".modules-ui-controls-full-screen-full-screen__controlButton__GCKyD {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-full-screen-full-screen__controlButton__GCKyD:hover {\n    opacity: .7; }\n\n.modules-ui-controls-full-screen-full-screen__hidden__1VRAr {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-full-screen-full-screen__fullScreenControl__2WX3Y {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n\n.modules-ui-controls-full-screen-full-screen__fullScreenToggle__D87jg {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n  -webkit-transition: -webkit-transform .2s;\n  transition: -webkit-transform .2s;\n  transition: transform .2s;\n  transition: transform .2s, -webkit-transform .2s; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-full-screen-full-screen__fullScreenToggle__D87jg {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 21px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-full-screen-full-screen__fullScreenToggle__D87jg .modules-ui-controls-full-screen-full-screen__icon__2cv4g {\n      width: 21px;\n      height: 21px; }\n  .modules-ui-controls-full-screen-full-screen__fullScreenToggle__D87jg .modules-ui-controls-full-screen-full-screen__icon__2cv4g {\n    width: 14px;\n    min-width: 14px;\n    height: 14px;\n    min-height: 14px; }\n  .modules-ui-controls-full-screen-full-screen__fullScreenToggle__D87jg:hover {\n    -webkit-transform: scale(1.18);\n            transform: scale(1.18); }\n  .modules-ui-controls-full-screen-full-screen__fullScreenToggle__D87jg.modules-ui-controls-full-screen-full-screen__inFullScreen__3_FA7:hover {\n    -webkit-transform: scale(0.8);\n            transform: scale(0.8); }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/controls/full-screen/full-screen.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB;EACnB,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB,EACxB;;AAGD;EACE,YAAW;EACX,gBAAe;EACf,aAAY;EACZ,iBAAgB;EAEhB,0CAAyB;EAAzB,kCAAyB;EAAzB,0BAAyB;EAAzB,iDAAyB,EA8B1B;EC/CC;IDoBE,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,ECrBjB;IDuBC;MACE,YAAW;MACX,aAAY,EACb;EAjBL;IAqBI,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,EACjB;EAzBH;IA4BI,+BAAsB;YAAtB,uBAAsB,EACvB;EA7BH;IAiCM,8BAAoB;YAApB,sBAAoB,EACrB","file":"full-screen.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../../shared';\n\n.fullScreenControl {\n  position: relative;\n\n  display: flex;\n\n  align-items: center;\n  justify-content: center;\n}\n\n\n.fullScreenToggle {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n\n  transition: transform .2s;\n\n  @include in-full-screen() {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 21px;\n\n    .icon {\n      width: 21px;\n      height: 21px;\n    }\n  }\n\n  .icon {\n    width: 14px;\n    min-width: 14px;\n    height: 14px;\n    min-height: 14px;\n  }\n\n  &:hover {\n    transform: scale(1.18);\n  }\n\n  &.inFullScreen {\n    &:hover {\n      transform: scale(.8);\n    }\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-controls-full-screen-full-screen__controlButton__3Oimw {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-full-screen-full-screen__controlButton__3Oimw:hover {\n    opacity: .7; }\n\n.modules-ui-controls-full-screen-full-screen__hidden__7-nej {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-full-screen-full-screen__fullScreenControl__7cKGG {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n\n.modules-ui-controls-full-screen-full-screen__fullScreenToggle__3sXs8 {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n  -webkit-transition: -webkit-transform .2s;\n  transition: -webkit-transform .2s;\n  transition: transform .2s;\n  transition: transform .2s, -webkit-transform .2s; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-full-screen-full-screen__fullScreenToggle__3sXs8 {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 21px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-full-screen-full-screen__fullScreenToggle__3sXs8 .modules-ui-controls-full-screen-full-screen__icon__1RjyX {\n      width: 21px;\n      height: 21px; }\n  .modules-ui-controls-full-screen-full-screen__fullScreenToggle__3sXs8 .modules-ui-controls-full-screen-full-screen__icon__1RjyX {\n    width: 14px;\n    min-width: 14px;\n    height: 14px;\n    min-height: 14px; }\n  .modules-ui-controls-full-screen-full-screen__fullScreenToggle__3sXs8:hover {\n    -webkit-transform: scale(1.18);\n            transform: scale(1.18); }\n  .modules-ui-controls-full-screen-full-screen__fullScreenToggle__3sXs8.modules-ui-controls-full-screen-full-screen__inFullScreen__3utb4:hover {\n    -webkit-transform: scale(0.8);\n            transform: scale(0.8); }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/controls/full-screen/D:/projects/wix/playable/src/modules/ui/controls/full-screen/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/controls/full-screen/D:/projects/wix/playable/src/modules/ui/controls/full-screen/D:/projects/wix/playable/src/modules/ui/controls/full-screen/full-screen.scss","D:/projects/wix/playable/src/modules/ui/controls/full-screen/D:/projects/wix/playable/src/modules/ui/controls/full-screen/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB;EACnB,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB,EACxB;;AAGD;EACE,YAAW;EACX,gBAAe;EACf,aAAY;EACZ,iBAAgB;EAEhB,0CAAyB;EAAzB,kCAAyB;EAAzB,0BAAyB;EAAzB,iDAAyB,EA8B1B;EC/CC;IDoBE,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,ECrBjB;IDuBC;MACE,YAAW;MACX,aAAY,EACb;EAjBL;IAqBI,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,EACjB;EAzBH;IA4BI,+BAAsB;YAAtB,uBAAsB,EACvB;EA7BH;IAiCM,8BAAoB;YAApB,sBAAoB,EACrB","file":"full-screen.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../../shared';\r\n\r\n.fullScreenControl {\r\n  position: relative;\r\n\r\n  display: flex;\r\n\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n\r\n.fullScreenToggle {\r\n  width: 26px;\r\n  min-width: 26px;\r\n  height: 26px;\r\n  min-height: 26px;\r\n\r\n  transition: transform .2s;\r\n\r\n  @include in-full-screen() {\r\n    width: 35px;\r\n    min-width: 35px;\r\n    height: 35px;\r\n    min-height: 21px;\r\n\r\n    .icon {\r\n      width: 21px;\r\n      height: 21px;\r\n    }\r\n  }\r\n\r\n  .icon {\r\n    width: 14px;\r\n    min-width: 14px;\r\n    height: 14px;\r\n    min-height: 14px;\r\n  }\r\n\r\n  &:hover {\r\n    transform: scale(1.18);\r\n  }\r\n\r\n  &.inFullScreen {\r\n    &:hover {\r\n      transform: scale(.8);\r\n    }\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-controls-full-screen-full-screen__controlButton__GCKyD",
-	"hidden": "modules-ui-controls-full-screen-full-screen__hidden__1VRAr",
-	"fullScreenControl": "modules-ui-controls-full-screen-full-screen__fullScreenControl__2WX3Y",
-	"fullScreenToggle": "modules-ui-controls-full-screen-full-screen__fullScreenToggle__D87jg",
-	"icon": "modules-ui-controls-full-screen-full-screen__icon__2cv4g",
-	"inFullScreen": "modules-ui-controls-full-screen-full-screen__inFullScreen__3_FA7"
+	"controlButton": "modules-ui-controls-full-screen-full-screen__controlButton__3Oimw",
+	"hidden": "modules-ui-controls-full-screen-full-screen__hidden__7-nej",
+	"fullScreenControl": "modules-ui-controls-full-screen-full-screen__fullScreenControl__7cKGG",
+	"fullScreenToggle": "modules-ui-controls-full-screen-full-screen__fullScreenToggle__3sXs8",
+	"icon": "modules-ui-controls-full-screen-full-screen__icon__1RjyX",
+	"inFullScreen": "modules-ui-controls-full-screen-full-screen__inFullScreen__3utb4"
 };
 
 /***/ }),
@@ -245,17 +245,17 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".modules-ui-controls-logo-logo__controlButton__1346k {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-logo-logo__controlButton__1346k:hover {\n    opacity: .7; }\n\n.modules-ui-controls-logo-logo__hidden__Ubwtb {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-logo-logo__logoWrapper__-iNci {\n  position: relative;\n  z-index: 3;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  opacity: 1;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-logo-logo__logoWrapper__-iNci.modules-ui-controls-logo-logo__link__ZH6jD {\n    cursor: pointer; }\n    .modules-ui-controls-logo-logo__logoWrapper__-iNci.modules-ui-controls-logo-logo__link__ZH6jD:hover .modules-ui-controls-logo-logo__logoPlaceholder__3tEBs,\n    .modules-ui-controls-logo-logo__logoWrapper__-iNci.modules-ui-controls-logo-logo__link__ZH6jD:hover img {\n      opacity: .7; }\n\n.modules-ui-controls-logo-logo__companyLogo__1AWVC {\n  max-width: 125px;\n  max-height: 26px;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-controls-logo-logo__companyLogo__1AWVC {\n    max-width: 90px;\n    max-height: 20px; }\n  div[data-hook='player-container'][max-width~=\"350px\"] .modules-ui-controls-logo-logo__companyLogo__1AWVC {\n    max-width: 70px;\n    max-height: 18px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-logo-logo__companyLogo__1AWVC {\n    max-width: 450px;\n    max-height: 36px; }\n\n.modules-ui-controls-logo-logo__logoPlaceholder__3tEBs {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n  -webkit-transition: -webkit-transform .2s;\n  transition: -webkit-transform .2s;\n  transition: transform .2s;\n  transition: transform .2s, -webkit-transform .2s; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-logo-logo__logoPlaceholder__3tEBs {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-logo-logo__logoPlaceholder__3tEBs .modules-ui-controls-logo-logo__icon__a2TNd {\n      width: 21px;\n      min-width: 21px;\n      height: 21px;\n      min-height: 21px; }\n  .modules-ui-controls-logo-logo__logoPlaceholder__3tEBs .modules-ui-controls-logo-logo__icon__a2TNd {\n    width: 14px;\n    min-width: 14px;\n    height: 14px;\n    min-height: 14px; }\n  .modules-ui-controls-logo-logo__logoPlaceholder__3tEBs:hover {\n    -webkit-transform: scale(1.2);\n            transform: scale(1.2); }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/controls/logo/logo.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACtCD;EACE,mBAAkB;EAClB,WAAU;EAEV,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,gDAAuC;EAAvC,wCAAuC;EACvC,iCAAwB;UAAxB,yBAAwB;EAExB,WAAU;EAEV,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAYpB;EAxBD;IAeI,gBAAe,EAQhB;IAvBH;;MAoBQ,YAAW,EACZ;;AAKP;EACE,iBAAgB;EAChB,iBAAgB;EAEhB,gDAAuC;EAAvC,wCAAuC,EAcxC;ECxCC;ID6BE,gBAAe;IACf,iBAAgB,EC5BjB;EAFD;IDiCE,gBAAe;IACf,iBAAgB,EChCjB;EARD;ID2CE,iBAAgB;IAChB,iBAAgB,EC1CjB;;AD8CH;EACE,YAAW;EACX,gBAAe;EACf,aAAY;EACZ,iBAAgB;EAEhB,0CAAyB;EAAzB,kCAAyB;EAAzB,0BAAyB;EAAzB,iDAAyB,EA0B1B;EChFC;IDyDE,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,EC1DjB;ID4DC;MACE,YAAW;MACX,gBAAe;MACf,aAAY;MACZ,iBAAgB,EACjB;EAnBL;IAuBI,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,EACjB;EA3BH;IA8BI,8BAAsB;YAAtB,sBAAsB,EACvB","file":"logo.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../../media-query-mixins';\n@import '../../shared';\n\n.logoWrapper {\n  position: relative;\n  z-index: 3;\n\n  display: flex;\n\n  transition: opacity .2s, visibility .2s;\n  transition-duration: .2s;\n\n  opacity: 1;\n\n  justify-content: center;\n  align-items: center;\n\n  &.link {\n    cursor: pointer;\n\n    &:hover {\n      .logoPlaceholder,\n      img {\n        opacity: .7;\n      }\n    }\n  }\n}\n\n.companyLogo {\n  max-width: 125px;\n  max-height: 26px;\n\n  transition: opacity .2s, visibility .2s;\n\n  @include max-width-550() {\n    max-width: 90px;\n    max-height: 20px;\n  }\n  @include max-width-350() {\n    max-width: 70px;\n    max-height: 18px;\n  }\n  @include in-full-screen() {\n    max-width: 450px;\n    max-height: 36px;\n  }\n}\n\n.logoPlaceholder {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n\n  transition: transform .2s;\n\n  @include in-full-screen() {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px;\n\n    .icon {\n      width: 21px;\n      min-width: 21px;\n      height: 21px;\n      min-height: 21px;\n    }\n  }\n\n  .icon {\n    width: 14px;\n    min-width: 14px;\n    height: 14px;\n    min-height: 14px;\n  }\n\n  &:hover {\n    transform: scale(1.20);\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-controls-logo-logo__controlButton__3ba0u {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-logo-logo__controlButton__3ba0u:hover {\n    opacity: .7; }\n\n.modules-ui-controls-logo-logo__hidden__QU1Mm {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-logo-logo__logoWrapper__2Nco2 {\n  position: relative;\n  z-index: 3;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  opacity: 1;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-logo-logo__logoWrapper__2Nco2.modules-ui-controls-logo-logo__link__1e0Ff {\n    cursor: pointer; }\n    .modules-ui-controls-logo-logo__logoWrapper__2Nco2.modules-ui-controls-logo-logo__link__1e0Ff:hover .modules-ui-controls-logo-logo__logoPlaceholder__3RWSY,\n    .modules-ui-controls-logo-logo__logoWrapper__2Nco2.modules-ui-controls-logo-logo__link__1e0Ff:hover img {\n      opacity: .7; }\n\n.modules-ui-controls-logo-logo__companyLogo__1SWDW {\n  max-width: 125px;\n  max-height: 26px;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-controls-logo-logo__companyLogo__1SWDW {\n    max-width: 90px;\n    max-height: 20px; }\n  div[data-hook='player-container'][max-width~=\"350px\"] .modules-ui-controls-logo-logo__companyLogo__1SWDW {\n    max-width: 70px;\n    max-height: 18px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-logo-logo__companyLogo__1SWDW {\n    max-width: 450px;\n    max-height: 36px; }\n\n.modules-ui-controls-logo-logo__logoPlaceholder__3RWSY {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n  -webkit-transition: -webkit-transform .2s;\n  transition: -webkit-transform .2s;\n  transition: transform .2s;\n  transition: transform .2s, -webkit-transform .2s; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-logo-logo__logoPlaceholder__3RWSY {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-logo-logo__logoPlaceholder__3RWSY .modules-ui-controls-logo-logo__icon__3-ZB5 {\n      width: 21px;\n      min-width: 21px;\n      height: 21px;\n      min-height: 21px; }\n  .modules-ui-controls-logo-logo__logoPlaceholder__3RWSY .modules-ui-controls-logo-logo__icon__3-ZB5 {\n    width: 14px;\n    min-width: 14px;\n    height: 14px;\n    min-height: 14px; }\n  .modules-ui-controls-logo-logo__logoPlaceholder__3RWSY:hover {\n    -webkit-transform: scale(1.2);\n            transform: scale(1.2); }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/controls/logo/D:/projects/wix/playable/src/modules/ui/controls/logo/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/controls/logo/D:/projects/wix/playable/src/modules/ui/controls/logo/D:/projects/wix/playable/src/modules/ui/controls/logo/logo.scss","D:/projects/wix/playable/src/modules/ui/controls/logo/D:/projects/wix/playable/src/modules/ui/controls/logo/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACtCD;EACE,mBAAkB;EAClB,WAAU;EAEV,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,gDAAuC;EAAvC,wCAAuC;EACvC,iCAAwB;UAAxB,yBAAwB;EAExB,WAAU;EAEV,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAYpB;EAxBD;IAeI,gBAAe,EAQhB;IAvBH;;MAoBQ,YAAW,EACZ;;AAKP;EACE,iBAAgB;EAChB,iBAAgB;EAEhB,gDAAuC;EAAvC,wCAAuC,EAcxC;ECxCC;ID6BE,gBAAe;IACf,iBAAgB,EC5BjB;EAFD;IDiCE,gBAAe;IACf,iBAAgB,EChCjB;EARD;ID2CE,iBAAgB;IAChB,iBAAgB,EC1CjB;;AD8CH;EACE,YAAW;EACX,gBAAe;EACf,aAAY;EACZ,iBAAgB;EAEhB,0CAAyB;EAAzB,kCAAyB;EAAzB,0BAAyB;EAAzB,iDAAyB,EA0B1B;EChFC;IDyDE,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,EC1DjB;ID4DC;MACE,YAAW;MACX,gBAAe;MACf,aAAY;MACZ,iBAAgB,EACjB;EAnBL;IAuBI,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,EACjB;EA3BH;IA8BI,8BAAsB;YAAtB,sBAAsB,EACvB","file":"logo.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../../media-query-mixins';\r\n@import '../../shared';\r\n\r\n.logoWrapper {\r\n  position: relative;\r\n  z-index: 3;\r\n\r\n  display: flex;\r\n\r\n  transition: opacity .2s, visibility .2s;\r\n  transition-duration: .2s;\r\n\r\n  opacity: 1;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &.link {\r\n    cursor: pointer;\r\n\r\n    &:hover {\r\n      .logoPlaceholder,\r\n      img {\r\n        opacity: .7;\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n.companyLogo {\r\n  max-width: 125px;\r\n  max-height: 26px;\r\n\r\n  transition: opacity .2s, visibility .2s;\r\n\r\n  @include max-width-550() {\r\n    max-width: 90px;\r\n    max-height: 20px;\r\n  }\r\n  @include max-width-350() {\r\n    max-width: 70px;\r\n    max-height: 18px;\r\n  }\r\n  @include in-full-screen() {\r\n    max-width: 450px;\r\n    max-height: 36px;\r\n  }\r\n}\r\n\r\n.logoPlaceholder {\r\n  width: 26px;\r\n  min-width: 26px;\r\n  height: 26px;\r\n  min-height: 26px;\r\n\r\n  transition: transform .2s;\r\n\r\n  @include in-full-screen() {\r\n    width: 35px;\r\n    min-width: 35px;\r\n    height: 35px;\r\n    min-height: 35px;\r\n\r\n    .icon {\r\n      width: 21px;\r\n      min-width: 21px;\r\n      height: 21px;\r\n      min-height: 21px;\r\n    }\r\n  }\r\n\r\n  .icon {\r\n    width: 14px;\r\n    min-width: 14px;\r\n    height: 14px;\r\n    min-height: 14px;\r\n  }\r\n\r\n  &:hover {\r\n    transform: scale(1.20);\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-controls-logo-logo__controlButton__1346k",
-	"hidden": "modules-ui-controls-logo-logo__hidden__Ubwtb",
-	"logoWrapper": "modules-ui-controls-logo-logo__logoWrapper__-iNci",
-	"link": "modules-ui-controls-logo-logo__link__ZH6jD",
-	"logoPlaceholder": "modules-ui-controls-logo-logo__logoPlaceholder__3tEBs",
-	"companyLogo": "modules-ui-controls-logo-logo__companyLogo__1AWVC",
-	"icon": "modules-ui-controls-logo-logo__icon__a2TNd"
+	"controlButton": "modules-ui-controls-logo-logo__controlButton__3ba0u",
+	"hidden": "modules-ui-controls-logo-logo__hidden__QU1Mm",
+	"logoWrapper": "modules-ui-controls-logo-logo__logoWrapper__2Nco2",
+	"link": "modules-ui-controls-logo-logo__link__1e0Ff",
+	"logoPlaceholder": "modules-ui-controls-logo-logo__logoPlaceholder__3RWSY",
+	"companyLogo": "modules-ui-controls-logo-logo__companyLogo__1SWDW",
+	"icon": "modules-ui-controls-logo-logo__icon__3-ZB5"
 };
 
 /***/ }),
@@ -272,16 +272,16 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".modules-ui-controls-play-play__controlButton__2ieIG {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-play-play__controlButton__2ieIG:hover {\n    opacity: .7; }\n\n.modules-ui-controls-play-play__hidden__3ZSQ_ {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-play-play__playControl__3D-9F {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start; }\n\n.modules-ui-controls-play-play__playbackToggle__2l8Q5 {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-play-play__playbackToggle__2l8Q5 {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px;\n    background-size: 15px 21px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-play-play__playbackToggle__2l8Q5 .modules-ui-controls-play-play__icon__3tYqa {\n      width: 15px;\n      height: 21px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-play-play__playbackToggle__2l8Q5.modules-ui-controls-play-play__paused__1cy3g {\n      background-size: 16px 21px; }\n  .modules-ui-controls-play-play__playbackToggle__2l8Q5 .modules-ui-controls-play-play__icon__3tYqa {\n    width: 11px;\n    height: 14px; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/controls/play/play.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,+BAAsB;UAAtB,uBAAsB;EAEtB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB;EACnB,wBAA2B;MAA3B,qBAA2B;UAA3B,4BAA2B,EAC5B;;AAED;EACE,YAAW;EACX,gBAAe;EACf,aAAY;EACZ,iBAAgB,EAwBjB;ECxCC;IDmBE,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB;IAEhB,2BAA0B,ECtB3B;IDwBC;MACE,YAAW;MACX,aAAY,EACb;IAED;MACE,2BAA0B,EAC3B;EArBL;IAyBI,YAAW;IACX,aAAY,EACb","file":"play.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../../shared';\n\n.playControl {\n  position: relative;\n\n  display: flex;\n\n  box-sizing: border-box;\n\n  align-items: center;\n  justify-content: flex-start;\n}\n\n.playbackToggle {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n\n  @include in-full-screen() {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px;\n\n    background-size: 15px 21px;\n\n    .icon {\n      width: 15px;\n      height: 21px;\n    }\n\n    &.paused {\n      background-size: 16px 21px;\n    }\n  }\n\n  .icon {\n    width: 11px;\n    height: 14px;\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-controls-play-play__controlButton__39li7 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-play-play__controlButton__39li7:hover {\n    opacity: .7; }\n\n.modules-ui-controls-play-play__hidden__-yoOv {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-play-play__playControl__1QVLv {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start; }\n\n.modules-ui-controls-play-play__playbackToggle__tmiVC {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-play-play__playbackToggle__tmiVC {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px;\n    background-size: 15px 21px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-play-play__playbackToggle__tmiVC .modules-ui-controls-play-play__icon__TNrkl {\n      width: 15px;\n      height: 21px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-play-play__playbackToggle__tmiVC.modules-ui-controls-play-play__paused__8f4c7 {\n      background-size: 16px 21px; }\n  .modules-ui-controls-play-play__playbackToggle__tmiVC .modules-ui-controls-play-play__icon__TNrkl {\n    width: 11px;\n    height: 14px; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/controls/play/D:/projects/wix/playable/src/modules/ui/controls/play/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/controls/play/D:/projects/wix/playable/src/modules/ui/controls/play/D:/projects/wix/playable/src/modules/ui/controls/play/play.scss","D:/projects/wix/playable/src/modules/ui/controls/play/D:/projects/wix/playable/src/modules/ui/controls/play/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,+BAAsB;UAAtB,uBAAsB;EAEtB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB;EACnB,wBAA2B;MAA3B,qBAA2B;UAA3B,4BAA2B,EAC5B;;AAED;EACE,YAAW;EACX,gBAAe;EACf,aAAY;EACZ,iBAAgB,EAwBjB;ECxCC;IDmBE,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB;IAEhB,2BAA0B,ECtB3B;IDwBC;MACE,YAAW;MACX,aAAY,EACb;IAED;MACE,2BAA0B,EAC3B;EArBL;IAyBI,YAAW;IACX,aAAY,EACb","file":"play.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../../shared';\r\n\r\n.playControl {\r\n  position: relative;\r\n\r\n  display: flex;\r\n\r\n  box-sizing: border-box;\r\n\r\n  align-items: center;\r\n  justify-content: flex-start;\r\n}\r\n\r\n.playbackToggle {\r\n  width: 26px;\r\n  min-width: 26px;\r\n  height: 26px;\r\n  min-height: 26px;\r\n\r\n  @include in-full-screen() {\r\n    width: 35px;\r\n    min-width: 35px;\r\n    height: 35px;\r\n    min-height: 35px;\r\n\r\n    background-size: 15px 21px;\r\n\r\n    .icon {\r\n      width: 15px;\r\n      height: 21px;\r\n    }\r\n\r\n    &.paused {\r\n      background-size: 16px 21px;\r\n    }\r\n  }\r\n\r\n  .icon {\r\n    width: 11px;\r\n    height: 14px;\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-controls-play-play__controlButton__2ieIG",
-	"hidden": "modules-ui-controls-play-play__hidden__3ZSQ_",
-	"playControl": "modules-ui-controls-play-play__playControl__3D-9F",
-	"playbackToggle": "modules-ui-controls-play-play__playbackToggle__2l8Q5",
-	"icon": "modules-ui-controls-play-play__icon__3tYqa",
-	"paused": "modules-ui-controls-play-play__paused__1cy3g"
+	"controlButton": "modules-ui-controls-play-play__controlButton__39li7",
+	"hidden": "modules-ui-controls-play-play__hidden__-yoOv",
+	"playControl": "modules-ui-controls-play-play__playControl__1QVLv",
+	"playbackToggle": "modules-ui-controls-play-play__playbackToggle__tmiVC",
+	"icon": "modules-ui-controls-play-play__icon__TNrkl",
+	"paused": "modules-ui-controls-play-play__paused__8f4c7"
 };
 
 /***/ }),
@@ -298,26 +298,27 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".modules-ui-controls-progress-progress__controlButton__7ptpz {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-progress-progress__controlButton__7ptpz:hover {\n    opacity: .7; }\n\n.modules-ui-controls-progress-progress__hidden__27tby {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-progress-progress__seekBlock__21vod {\n  position: relative;\n  display: block;\n  width: 100%;\n  height: 6px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  -ms-touch-action: none;\n      touch-action: none; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__21vod {\n    height: 8px; }\n  .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__inLive__uJvq6 .modules-ui-controls-progress-progress__played__3Jp1e {\n    background-color: #ea492e; }\n  .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__inLive__uJvq6 .modules-ui-controls-progress-progress__seekTo__2KPWi {\n    background-color: rgba(234, 73, 46, 0.5); }\n  .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__inLive__uJvq6 .modules-ui-controls-progress-progress__syncButton__28E-s {\n    display: initial; }\n  .modules-ui-controls-progress-progress__seekBlock__21vod:hover .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H, .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__isDragging__RMzZe .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H {\n    -webkit-transform: scaleY(1);\n            transform: scaleY(1); }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__21vod:hover .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H, div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__isDragging__RMzZe .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H {\n      -webkit-transform: scaleY(1);\n              transform: scaleY(1); }\n    .modules-ui-controls-progress-progress__seekBlock__21vod:hover .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H .modules-ui-controls-progress-progress__seekTo__2KPWi, .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__isDragging__RMzZe .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H .modules-ui-controls-progress-progress__seekTo__2KPWi {\n      opacity: 1; }\n    .modules-ui-controls-progress-progress__seekBlock__21vod:hover .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H .modules-ui-controls-progress-progress__played__3Jp1e:after, .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__isDragging__RMzZe .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H .modules-ui-controls-progress-progress__played__3Jp1e:after {\n      -webkit-transform: scale(1);\n              transform: scale(1); }\n    .modules-ui-controls-progress-progress__seekBlock__21vod:hover .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H .modules-ui-controls-progress-progress__timeIndicator__3SFPQ:after, .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__isDragging__RMzZe .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H .modules-ui-controls-progress-progress__timeIndicator__3SFPQ:after {\n      -webkit-transform: scale(1);\n              transform: scale(1); }\n  .modules-ui-controls-progress-progress__seekBlock__21vod:hover .modules-ui-controls-progress-progress__syncButton__28E-s, .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__isDragging__RMzZe .modules-ui-controls-progress-progress__syncButton__28E-s {\n    top: -4px;\n    right: -7px;\n    width: 8px;\n    height: 8px;\n    border-width: 3px;\n    border-color: #fff;\n    background-color: #ea492e; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__21vod:hover .modules-ui-controls-progress-progress__syncButton__28E-s, div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__isDragging__RMzZe .modules-ui-controls-progress-progress__syncButton__28E-s {\n      top: -4px;\n      right: -8px;\n      width: 10px;\n      height: 10px; }\n    .modules-ui-controls-progress-progress__seekBlock__21vod:hover .modules-ui-controls-progress-progress__syncButton__28E-s.modules-ui-controls-progress-progress__liveSync__24FPX, .modules-ui-controls-progress-progress__seekBlock__21vod.modules-ui-controls-progress-progress__isDragging__RMzZe .modules-ui-controls-progress-progress__syncButton__28E-s.modules-ui-controls-progress-progress__liveSync__24FPX {\n      background-color: #fff; }\n\n.modules-ui-controls-progress-progress__syncButton__28E-s {\n  position: absolute;\n  z-index: 6;\n  top: -2px;\n  right: -5px;\n  display: none;\n  width: 6px;\n  height: 6px;\n  cursor: pointer;\n  -webkit-transition: width 0.1s cubic-bezier(0, 0, 0.2, 1), height 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: width 0.1s cubic-bezier(0, 0, 0.2, 1), height 0.1s cubic-bezier(0, 0, 0.2, 1);\n  border: 2px solid #bababa;\n  border-radius: 50%;\n  background-color: #9e1110; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__syncButton__28E-s {\n    top: -2px;\n    right: -6px;\n    width: 8px;\n    height: 8px; }\n  .modules-ui-controls-progress-progress__syncButton__28E-s:hover {\n    background-color: #fff; }\n  .modules-ui-controls-progress-progress__syncButton__28E-s.modules-ui-controls-progress-progress__hidden__27tby {\n    display: none; }\n\n.modules-ui-controls-progress-progress__progressBarsWrapper__33i6H {\n  height: 6px;\n  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  -webkit-transform: scaleY(0.34);\n          transform: scaleY(0.34); }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__progressBarsWrapper__33i6H {\n    height: 8px;\n    -webkit-transform: scaleY(0.25);\n            transform: scaleY(0.25); }\n\n.modules-ui-controls-progress-progress__progressBar__2O03d {\n  position: absolute;\n  height: 6px;\n  padding: 0; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__progressBar__2O03d {\n    height: 8px; }\n\n.modules-ui-controls-progress-progress__played__3Jp1e {\n  background-color: #fff; }\n  .modules-ui-controls-progress-progress__played__3Jp1e:after {\n    position: absolute;\n    top: -3px;\n    right: -6px;\n    width: 12px;\n    height: 12px;\n    content: '';\n    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    border-radius: 50%;\n    background-color: #fff; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__played__3Jp1e:after {\n      top: -4px;\n      right: -8px;\n      width: 16px;\n      height: 16px; }\n\n.modules-ui-controls-progress-progress__buffered__1TKwE {\n  -webkit-transition: width .2s ease;\n  transition: width .2s ease;\n  background-color: rgba(255, 255, 255, 0.25); }\n\n.modules-ui-controls-progress-progress__background__3a95z {\n  width: 100%; }\n\n.modules-ui-controls-progress-progress__seekTo__2KPWi {\n  -webkit-transition: opacity .2s;\n  transition: opacity .2s;\n  background-color: rgba(255, 255, 255, 0.5); }\n\n.modules-ui-controls-progress-progress__timeIndicators__1omMG {\n  position: absolute;\n  overflow-x: hidden;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.modules-ui-controls-progress-progress__timeIndicator__3SFPQ {\n  position: absolute; }\n  .modules-ui-controls-progress-progress__timeIndicator__3SFPQ:after {\n    position: absolute;\n    right: -3px;\n    width: 6px;\n    height: 6px;\n    content: '';\n    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    opacity: .6;\n    border-radius: 50%;\n    background-color: #fff; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__timeIndicator__3SFPQ:after {\n      right: -4px;\n      width: 8px;\n      height: 8px; }\n    .modules-ui-controls-progress-progress__timeIndicator__3SFPQ:after:hover {\n      opacity: 1; }\n\n.modules-ui-controls-progress-progress__hitbox__2p2jj {\n  position: relative;\n  z-index: 5;\n  top: -11px;\n  display: block;\n  width: 100%;\n  height: 16px;\n  cursor: pointer;\n  opacity: 0; }\n\n[data-focus-source='key'] [data-hook='progress-control'].focus-within,\n[data-focus-source='script'] [data-hook='progress-control'].focus-within {\n  opacity: 1;\n  -webkit-box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8);\n          box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8); }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/controls/progress/progress.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACRD;EACE,mBAAkB;EAElB,eAAc;EAEd,YAAW;EACX,YArCuB;EAuCvB,0BAAiB;KAAjB,uBAAiB;MAAjB,sBAAiB;UAAjB,kBAAiB;EACjB,gDAAuC;EAAvC,wCAAuC;EAKvC,uBAAkB;MAAlB,mBAAkB,EA0DnB;ECxGC;ID4CE,YA1CiC,ECAlC;ED8BH;IAkBM,0BA1BqB,EA2BtB;EAnBL;IAqBM,yCA5BkC,EA6BnC;EAtBL;IAwBM,iBAAgB,EACjB;EAzBL;IA+BM,6BAAoB;YAApB,qBAAoB,EAcrB;IC7EH;MDkEM,6BAAoB;cAApB,qBAAoB,EChEzB;ID8BH;MAqCQ,WAAU,EACX;IAtCP;MAwCQ,4BAAmB;cAAnB,oBAAmB,EACpB;IAzCP;MA2CQ,4BAAmB;cAAnB,oBAAmB,EACpB;EA5CP;IAgDM,UAA8F;IAC9F,YAAwE;IAExE,WAtEwB;IAuExB,YAxEyB;IA0EzB,kBAvEyB;IAwEzB,mBAjEa;IAmEb,0BA5DuC,EAyExC;ICtGH;MD4FM,UAA0C;MAC1C,YAAkF;MAElF,YA3EmC;MA4EnC,aA7EoC,ECjBzC;ID8BH;MAoEQ,uBA9EW,EA+EZ;;AAKP;EACE,mBAAkB;EAClB,WAAU;EACV,UAAkF;EAClF,YAA4D;EAE5D,cAAa;EAEb,WAvGsB;EAwGtB,YAzGuB;EA2GvB,gBAAe;EACf,kGAAmF;EAAnF,0FAAmF;EAEnF,0BA5FiC;EA6FjC,mBAAkB;EAClB,0BA/FqC,EAgHtC;EC3IC;ID6HE,UAA0C;IAC1C,YAAwE;IAExE,WA9GgC;IA+GhC,YAhHiC,ECflC;EDwGH;IA2BI,uBA/Ge,EAgHhB;EA5BH;IA+BI,cAAa,EACd;;AAGH;EACE,YA7IuB;EA+IvB,sEAAkD;EAAlD,8DAAkD;EAAlD,sDAAkD;EAAlD,yGAAkD;EAClD,gCAAsB;UAAtB,wBAAsB,EAOvB;ECxJC;IDoJE,YAlJiC;IAoJjC,gCAAsB;YAAtB,wBAAsB,ECpJvB;;ADwJH;EACE,mBAAkB;EAElB,YA5JuB;EA6JvB,WAAU,EAKX;ECnKC;IDiKE,YA/JiC,ECAlC;;ADmKH;EACE,uBAhJiB,EAyKlB;EA1BD;IAII,mBAAkB;IAClB,UAA8B;IAC9B,YAA+B;IAE/B,YAxKqB;IAyKrB,aA1KsB;IA4KtB,YAAW;IACX,sEAAkD;IAAlD,8DAAkD;IAAlD,sDAAkD;IAAlD,yGAAkD;IAClD,4BAAmB;YAAnB,oBAAmB;IAEnB,mBAAkB;IAClB,uBAAsB,EASvB;IC9LD;MDwLI,UAA0C;MAC1C,YAA2C;MAE3C,YAnL+B;MAoL/B,aArLgC,ECLnC;;AD+LH;EACE,mCAA0B;EAA1B,2BAA0B;EAE1B,4CAA2C,EAC5C;;AAED;EACE,YAAW,EACZ;;AAED;EACE,gCAAuB;EAAvB,wBAAuB;EAEvB,2CAvLqC,EAwLtC;;AAED;EACE,mBAAkB;EAElB,mBAAkB;EAElB,YAAW;EACX,aAAY;EAEZ,8BAA6B,EAC9B;;AAED;EACE,mBAAkB,EA4BnB;EA7BD;IAII,mBAAkB;IAClB,YAAgC;IAEhC,WAlOqB;IAmOrB,YAnOqB;IAqOrB,YAAW;IACX,sEAAqD;IAArD,8DAAqD;IAArD,sDAAqD;IAArD,yGAAqD;IACrD,4BAAmB;YAAnB,oBAAmB;IAEnB,YAAW;IACX,mBAAkB;IAClB,uBAAsB,EAYvB;ICxPD;MD+OI,YAA4C;MAE5C,WA/O+B;MAgP/B,YAhP+B,ECAlC;ID0NH;MA0BM,WAAU,EACX;;AAIL;EACE,mBAAkB;EAClB,WAAU;EACV,WAAU;EAEV,eAAc;EAEd,YAAW;EACX,aAAY;EAEZ,gBAAe;EAEf,WAAU,EACX;;AAED;;EAGI,WAAU;EACV,sDAA4C;UAA5C,8CAA4C,EAC7C","file":"progress.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../../shared';\n\n$progress-bar-height: 6px;\n$progress-bar-height-full-screen: 8px;\n\n$seek-pointer-height: 12px;\n$seek-pointer-width: 12px;\n\n$seek-pointer-height-full-screen: 16px;\n$seek-pointer-width-full-screen: 16px;\n\n$sync-pointer-height: 6px;\n$sync-pointer-width: 6px;\n$sync-pointer-hover-height: 8px;\n$sync-pointer-hover-width: 8px;\n$sync-pointer-border: 2px;\n$sync-pointer-hover-border: 3px;\n\n$sync-pointer-height-full-screen: 8px;\n$sync-pointer-width-full-screen: 8px;\n$sync-pointer-height-hover-full-screen: 10px;\n$sync-pointer-width-hover-full-screen: 10px;\n\n$color-played: #fff;\n$color-seek-to: rgba(255, 255, 255, .5);\n$color-played-live: #ea492e;\n$color-seek-to-live: rgba(234,73,46, .5);\n\n$color-sync-pointer-background: #9e1110;\n$color-sync-pointer-border: #bababa;\n$color-sync-pointer-hover-background: #ea492e;\n$color-sync-pointer-hover-border: #fff;\n\n.seekBlock {\n  position: relative;\n\n  display: block;\n\n  width: 100%;\n  height: $progress-bar-height;\n\n  user-select: none;\n  transition: opacity .2s, visibility .2s;\n\n  @include in-full-screen() {\n    height: $progress-bar-height-full-screen;\n  }\n  touch-action: none;\n\n  &.inLive {\n    .played {\n      background-color: $color-played-live;\n    }\n    .seekTo {\n      background-color: $color-seek-to-live;\n    }\n    .syncButton {\n      display: initial;\n    }\n  }\n\n  &:hover,\n  &.isDragging {\n    .progressBarsWrapper {\n      transform: scaleY(1);\n\n      @include in-full-screen() {\n        transform: scaleY(1);\n      }\n      .seekTo {\n        opacity: 1;\n      }\n      .played:after {\n        transform: scale(1);\n      }\n      .timeIndicator:after {\n        transform: scale(1);\n      }\n    }\n\n    .syncButton {\n      top: -($sync-pointer-hover-height + 2 * $sync-pointer-hover-border - $progress-bar-height) / 2;\n      right: -($sync-pointer-hover-width + 2 * $sync-pointer-hover-border) / 2;\n\n      width: $sync-pointer-hover-width;\n      height: $sync-pointer-hover-height;\n\n      border-width: $sync-pointer-hover-border;\n      border-color: $color-played;\n      //opacity: 1;\n      background-color: $color-sync-pointer-hover-background;\n\n      @include in-full-screen() {\n        top: -$progress-bar-height-full-screen / 2;\n        right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-hover-border) / 2 - 1;\n\n        width: $sync-pointer-width-hover-full-screen;\n        height: $sync-pointer-height-hover-full-screen;\n      }\n\n      &.liveSync {\n        background-color: $color-played;\n      }\n    }\n  }\n}\n\n.syncButton {\n  position: absolute;\n  z-index: 6;\n  top: -($sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height) / 2;\n  right: -($sync-pointer-width + 2 * $sync-pointer-border) / 2;\n\n  display: none;\n\n  width: $sync-pointer-width;\n  height: $sync-pointer-height;\n\n  cursor: pointer;\n  transition: width .1s cubic-bezier(.0,.0,.2,1), height .1s cubic-bezier(.0,.0,.2,1);\n\n  border: $sync-pointer-border solid $color-sync-pointer-border;\n  border-radius: 50%;\n  background-color: $color-sync-pointer-background;\n\n  @include in-full-screen() {\n    top: -$progress-bar-height-full-screen / 4;\n    right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-border) / 2;\n\n    width: $sync-pointer-width-full-screen;\n    height: $sync-pointer-height-full-screen;\n  }\n\n  &:hover {\n    background-color: $color-played;\n  }\n\n  &.hidden {\n    display: none;\n  }\n}\n\n.progressBarsWrapper {\n  height: $progress-bar-height;\n\n  transition: transform .1s cubic-bezier(.0,.0,.2,1);\n  transform: scaleY(.34);\n\n  @include in-full-screen() {\n    height: $progress-bar-height-full-screen;\n\n    transform: scaleY(.25);\n  }\n}\n\n.progressBar {\n  position: absolute;\n\n  height: $progress-bar-height;\n  padding: 0;\n\n  @include in-full-screen() {\n    height: $progress-bar-height-full-screen;\n  }\n}\n\n.played {\n  background-color: $color-played;\n\n  &:after {\n    position: absolute;\n    top: -$seek-pointer-height / 4;\n    right: -$seek-pointer-width / 2;\n\n    width: $seek-pointer-width;\n    height: $seek-pointer-height;\n\n    content: '';\n    transition: transform .1s cubic-bezier(.0,.0,.2,1);\n    transform: scale(0);\n\n    border-radius: 50%;\n    background-color: #fff;\n\n    @include in-full-screen() {\n      top: -$progress-bar-height-full-screen / 2;\n      right: -$seek-pointer-width-full-screen / 2;\n\n      width: $seek-pointer-width-full-screen;\n      height: $seek-pointer-height-full-screen;\n    }\n  }\n}\n\n.buffered {\n  transition: width .2s ease;\n\n  background-color: transparentize(#fff, .75);\n}\n\n.background {\n  width: 100%;\n}\n\n.seekTo {\n  transition: opacity .2s;\n\n  background-color: $color-seek-to;\n}\n\n.timeIndicators {\n  position: absolute;\n\n  overflow-x: hidden;\n\n  width: 100%;\n  height: 100%;\n\n  background-color: transparent;\n}\n\n.timeIndicator {\n  position: absolute;\n\n  &:after {\n    position: absolute;\n    right: -$progress-bar-height / 2;\n\n    width: $progress-bar-height;\n    height: $progress-bar-height;\n\n    content: '';\n    transition: transform .1s cubic-bezier(.0, .0, .2, 1);\n    transform: scale(0);\n\n    opacity: .6;\n    border-radius: 50%;\n    background-color: #fff;\n\n    @include in-full-screen() {\n      right: -$progress-bar-height-full-screen / 2;\n\n      width: $progress-bar-height-full-screen;\n      height: $progress-bar-height-full-screen;\n    }\n\n    &:hover {\n      opacity: 1;\n    }\n  }\n}\n\n.hitbox {\n  position: relative;\n  z-index: 5;\n  top: -11px;\n\n  display: block;\n\n  width: 100%;\n  height: 16px;\n\n  cursor: pointer;\n\n  opacity: 0;\n}\n\n:global {\n  [data-focus-source='key'] [data-hook='progress-control'].focus-within,\n  [data-focus-source='script'] [data-hook='progress-control'].focus-within {\n    opacity: 1;\n    box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-controls-progress-progress__controlButton__3YEzt {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-progress-progress__controlButton__3YEzt:hover {\n    opacity: .7; }\n\n.modules-ui-controls-progress-progress__hidden__1w5-0 {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-progress-progress__seekBlock__2K9lG {\n  position: relative;\n  display: block;\n  width: 100%;\n  height: 6px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  -ms-touch-action: none;\n      touch-action: none; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__2K9lG {\n    height: 8px; }\n  .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__inLive__1Rrjw .modules-ui-controls-progress-progress__played__c2ZWJ {\n    background-color: #ea492e; }\n  .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__inLive__1Rrjw .modules-ui-controls-progress-progress__seekTo__3Mi22 {\n    background-color: rgba(234, 73, 46, 0.5); }\n  .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__inLive__1Rrjw .modules-ui-controls-progress-progress__syncButton__1sv47 {\n    display: initial; }\n  .modules-ui-controls-progress-progress__seekBlock__2K9lG:hover .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR, .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__isDragging__3I-gD .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR {\n    -webkit-transform: scaleY(1);\n            transform: scaleY(1); }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__2K9lG:hover .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR, div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__isDragging__3I-gD .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR {\n      -webkit-transform: scaleY(1);\n              transform: scaleY(1); }\n    .modules-ui-controls-progress-progress__seekBlock__2K9lG:hover .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR .modules-ui-controls-progress-progress__seekTo__3Mi22, .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__isDragging__3I-gD .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR .modules-ui-controls-progress-progress__seekTo__3Mi22 {\n      opacity: 1; }\n    .modules-ui-controls-progress-progress__seekBlock__2K9lG:hover .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR .modules-ui-controls-progress-progress__timeIndicator__2Cs0b:after, .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__isDragging__3I-gD .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR .modules-ui-controls-progress-progress__timeIndicator__2Cs0b:after {\n      -webkit-transform: scale(1);\n              transform: scale(1); }\n  .modules-ui-controls-progress-progress__seekBlock__2K9lG:hover .modules-ui-controls-progress-progress__seekButton__2V42j, .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__isDragging__3I-gD .modules-ui-controls-progress-progress__seekButton__2V42j {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  .modules-ui-controls-progress-progress__seekBlock__2K9lG:hover .modules-ui-controls-progress-progress__syncButton__1sv47, .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__isDragging__3I-gD .modules-ui-controls-progress-progress__syncButton__1sv47 {\n    -webkit-transform: scale(1.4);\n            transform: scale(1.4); }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__2K9lG:hover .modules-ui-controls-progress-progress__syncButton__1sv47, div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__isDragging__3I-gD .modules-ui-controls-progress-progress__syncButton__1sv47 {\n      -webkit-transform: scale(1.33);\n              transform: scale(1.33); }\n    .modules-ui-controls-progress-progress__seekBlock__2K9lG:hover .modules-ui-controls-progress-progress__syncButton__1sv47.modules-ui-controls-progress-progress__liveSync__2n_Zk, .modules-ui-controls-progress-progress__seekBlock__2K9lG.modules-ui-controls-progress-progress__isDragging__3I-gD .modules-ui-controls-progress-progress__syncButton__1sv47.modules-ui-controls-progress-progress__liveSync__2n_Zk {\n      background-color: #fff; }\n\n.modules-ui-controls-progress-progress__seekButton__2V42j {\n  position: absolute;\n  z-index: 7;\n  top: -3px;\n  left: 0;\n  width: 12px;\n  height: 12px;\n  margin-left: -6px;\n  content: '';\n  cursor: pointer;\n  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  -webkit-transform: scale(0);\n          transform: scale(0);\n  border-radius: 50%;\n  background-color: #fff; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__seekButton__2V42j {\n    top: -4px;\n    left: 0;\n    width: 16px;\n    height: 16px;\n    margin-left: -8px; }\n\n.modules-ui-controls-progress-progress__syncButton__1sv47 {\n  position: absolute;\n  z-index: 6;\n  top: -2px;\n  right: -5px;\n  display: none;\n  width: 6px;\n  height: 6px;\n  cursor: pointer;\n  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  border: 2px solid #bababa;\n  border-radius: 50%;\n  background-color: #ea492e; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__syncButton__1sv47 {\n    top: -2px;\n    right: -6px;\n    width: 8px;\n    height: 8px; }\n  .modules-ui-controls-progress-progress__syncButton__1sv47:hover {\n    background-color: #fff; }\n  .modules-ui-controls-progress-progress__syncButton__1sv47.modules-ui-controls-progress-progress__hidden__1w5-0 {\n    display: none; }\n\n.modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR {\n  height: 6px;\n  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n  -webkit-transform: scaleY(0.34);\n          transform: scaleY(0.34); }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR {\n    height: 8px;\n    -webkit-transform: scaleY(0.25);\n            transform: scaleY(0.25); }\n\n.modules-ui-controls-progress-progress__progressBar__2WaNx {\n  position: absolute;\n  height: 6px;\n  padding: 0; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__progressBar__2WaNx {\n    height: 8px; }\n\n.modules-ui-controls-progress-progress__played__c2ZWJ {\n  background-color: #fff; }\n\n.modules-ui-controls-progress-progress__buffered__3eAeT {\n  -webkit-transition: width .2s ease;\n  transition: width .2s ease;\n  background-color: rgba(255, 255, 255, 0.25); }\n\n.modules-ui-controls-progress-progress__background__2ZAQQ {\n  width: 100%; }\n\n.modules-ui-controls-progress-progress__seekTo__3Mi22 {\n  -webkit-transition: opacity .2s;\n  transition: opacity .2s;\n  background-color: rgba(255, 255, 255, 0.5); }\n\n.modules-ui-controls-progress-progress__timeIndicators__1yFmN {\n  position: absolute;\n  overflow-x: hidden;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.modules-ui-controls-progress-progress__timeIndicator__2Cs0b {\n  position: absolute; }\n  .modules-ui-controls-progress-progress__timeIndicator__2Cs0b:after {\n    position: absolute;\n    right: -3px;\n    width: 6px;\n    height: 6px;\n    content: '';\n    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    transition: transform 0.1s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    opacity: .6;\n    border-radius: 50%;\n    background-color: #fff; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-progress-progress__timeIndicator__2Cs0b:after {\n      right: -4px;\n      width: 8px;\n      height: 8px; }\n    .modules-ui-controls-progress-progress__timeIndicator__2Cs0b:after:hover {\n      opacity: 1; }\n\n.modules-ui-controls-progress-progress__hitbox__2u2Hc {\n  position: relative;\n  z-index: 5;\n  top: -11px;\n  display: block;\n  width: 100%;\n  height: 16px;\n  cursor: pointer;\n  opacity: 0; }\n\n[data-focus-source='key'] [data-hook='progress-control'].focus-within,\n[data-focus-source='script'] [data-hook='progress-control'].focus-within {\n  opacity: 1;\n  -webkit-box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8);\n          box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8); }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/controls/progress/D:/projects/wix/playable/src/modules/ui/controls/progress/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/controls/progress/D:/projects/wix/playable/src/modules/ui/controls/progress/D:/projects/wix/playable/src/modules/ui/controls/progress/progress.scss","D:/projects/wix/playable/src/modules/ui/controls/progress/D:/projects/wix/playable/src/modules/ui/controls/progress/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACfD;EACE,mBAAkB;EAElB,eAAc;EAEd,YAAW;EACX,YA9BuB;EAgCvB,0BAAiB;KAAjB,uBAAiB;MAAjB,sBAAiB;UAAjB,kBAAiB;EACjB,gDAAuC;EAAvC,wCAAuC;EAKvC,uBAAkB;MAAlB,mBAAkB,EA8CnB;ECrFC;IDqCE,YAnCiC,ECAlC;EDuBH;IAkBM,0BAxBqB,EAyBtB;EAnBL;IAqBM,yCA1BkC,EA2BnC;EAtBL;IAwBM,iBAAgB,EACjB;EAzBL;IA+BM,6BAAoB;YAApB,qBAAoB,EAWrB;ICnEH;MD2DM,6BAAoB;cAApB,qBAAoB,ECzDzB;IDuBH;MAqCQ,WAAU,EACX;IAtCP;MAwCQ,4BAAmB;cAAnB,oBAAmB,EACpB;EAzCP;IA6CM,4BAAmB;YAAnB,oBAAmB,EACpB;EA9CL;IAiDM,8BAAqB;YAArB,sBAAqB,EAStB;ICnFH;MD6EM,+BAAsB;cAAtB,uBAAsB,EC3E3B;IDuBH;MAwDQ,uBAhEW,EAiEZ;;AAKP;EACE,mBAAkB;EAClB,WAAU;EACV,UAA8B;EAC9B,QAAO;EAEP,YAxFuB;EAyFvB,aA1FwB;EA2FxB,kBAAqC;EAErC,YAAW;EACX,gBAAe;EACf,sEAAkD;EAAlD,8DAAkD;EAAlD,sDAAkD;EAAlD,yGAAkD;EAClD,4BAAmB;UAAnB,oBAAmB;EAEnB,mBAAkB;EAClB,uBAAsB,EAUvB;ECjHC;ID0GE,UAA0C;IAC1C,QAAO;IAEP,YArGiC;IAsGjC,aAvGkC;IAwGlC,kBAAiD,EC7GlD;;ADiHH;EACE,mBAAkB;EAClB,WAAU;EACV,UAAkF;EAClF,YAA4D;EAE5D,cAAa;EAEb,WAhHsB;EAiHtB,YAlHuB;EAoHvB,gBAAe;EACf,sEAAkD;EAAlD,8DAAkD;EAAlD,sDAAkD;EAAlD,yGAAkD;EAElD,0BA3GiC;EA4GjC,mBAAkB;EAClB,0BA5GqC,EA6HtC;ECpJC;IDsIE,UAA0C;IAC1C,YAAwE;IAExE,WA1HgC;IA2HhC,YA5HiC,ECZlC;EDiHH;IA2BI,uBA7He,EA8HhB;EA5BH;IA+BI,cAAa,EACd;;AAGH;EACE,YAtJuB;EAwJvB,sEAAkD;EAAlD,8DAAkD;EAAlD,sDAAkD;EAAlD,yGAAkD;EAClD,gCAAsB;UAAtB,wBAAsB,EAOvB;ECjKC;ID6JE,YA3JiC;IA6JjC,gCAAsB;YAAtB,wBAAsB,EC7JvB;;ADiKH;EACE,mBAAkB;EAElB,YArKuB;EAsKvB,WAAU,EAKX;EC5KC;ID0KE,YAxKiC,ECAlC;;AD4KH;EACE,uBA9JiB,EA+JlB;;AAED;EACE,mCAA0B;EAA1B,2BAA0B;EAE1B,4CAA2C,EAC5C;;AAED;EACE,YAAW,EACZ;;AAED;EACE,gCAAuB;EAAvB,wBAAuB;EAEvB,2CA7KqC,EA8KtC;;AAED;EACE,mBAAkB;EAElB,mBAAkB;EAElB,YAAW;EACX,aAAY;EAEZ,8BAA6B,EAC9B;;AAED;EACE,mBAAkB,EA4BnB;EA7BD;IAII,mBAAkB;IAClB,YAAgC;IAEhC,WAnNqB;IAoNrB,YApNqB;IAsNrB,YAAW;IACX,sEAAqD;IAArD,8DAAqD;IAArD,sDAAqD;IAArD,yGAAqD;IACrD,4BAAmB;YAAnB,oBAAmB;IAEnB,YAAW;IACX,mBAAkB;IAClB,uBAAsB,EAYvB;ICzOD;MDgOI,YAA4C;MAE5C,WAhO+B;MAiO/B,YAjO+B,ECAlC;ID2MH;MA0BM,WAAU,EACX;;AAIL;EACE,mBAAkB;EAClB,WAAU;EACV,WAAU;EAEV,eAAc;EAEd,YAAW;EACX,aAAY;EAEZ,gBAAe;EAEf,WAAU,EACX;;AAED;;EAGI,WAAU;EACV,sDAA4C;UAA5C,8CAA4C,EAC7C","file":"progress.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../../shared';\r\n\r\n$progress-bar-height: 6px;\r\n$progress-bar-height-full-screen: 8px;\r\n\r\n$seek-pointer-height: 12px;\r\n$seek-pointer-width: 12px;\r\n\r\n$seek-pointer-height-full-screen: 16px;\r\n$seek-pointer-width-full-screen: 16px;\r\n\r\n$sync-pointer-height: 6px;\r\n$sync-pointer-width: 6px;\r\n$sync-pointer-border: 2px;\r\n\r\n$sync-pointer-height-full-screen: 8px;\r\n$sync-pointer-width-full-screen: 8px;\r\n\r\n$color-played: #fff;\r\n$color-seek-to: rgba(255, 255, 255, .5);\r\n$color-played-live: #ea492e;\r\n$color-seek-to-live: rgba(234,73,46, .5);\r\n\r\n$color-sync-pointer-border: #bababa;\r\n$color-sync-pointer-background: #ea492e;\r\n\r\n.seekBlock {\r\n  position: relative;\r\n\r\n  display: block;\r\n\r\n  width: 100%;\r\n  height: $progress-bar-height;\r\n\r\n  user-select: none;\r\n  transition: opacity .2s, visibility .2s;\r\n\r\n  @include in-full-screen() {\r\n    height: $progress-bar-height-full-screen;\r\n  }\r\n  touch-action: none;\r\n\r\n  &.inLive {\r\n    .played {\r\n      background-color: $color-played-live;\r\n    }\r\n    .seekTo {\r\n      background-color: $color-seek-to-live;\r\n    }\r\n    .syncButton {\r\n      display: initial;\r\n    }\r\n  }\r\n\r\n  &:hover,\r\n  &.isDragging {\r\n    .progressBarsWrapper {\r\n      transform: scaleY(1);\r\n\r\n      @include in-full-screen() {\r\n        transform: scaleY(1);\r\n      }\r\n      .seekTo {\r\n        opacity: 1;\r\n      }\r\n      .timeIndicator:after {\r\n        transform: scale(1);\r\n      }\r\n    }\r\n\r\n    .seekButton {\r\n      transform: scale(1);\r\n    }\r\n\r\n    .syncButton {\r\n      transform: scale(1.4);\r\n\r\n      @include in-full-screen() {\r\n        transform: scale(1.33);\r\n      }\r\n\r\n      &.liveSync {\r\n        background-color: $color-played;\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n.seekButton {\r\n  position: absolute;\r\n  z-index: 7;\r\n  top: -$seek-pointer-height / 4;\r\n  left: 0;\r\n\r\n  width: $seek-pointer-width;\r\n  height: $seek-pointer-height;\r\n  margin-left: -$seek-pointer-width / 2;\r\n\r\n  content: '';\r\n  cursor: pointer;\r\n  transition: transform .1s cubic-bezier(.0,.0,.2,1);\r\n  transform: scale(0);\r\n\r\n  border-radius: 50%;\r\n  background-color: #fff;\r\n\r\n  @include in-full-screen() {\r\n    top: -$progress-bar-height-full-screen / 2;\r\n    left: 0;\r\n\r\n    width: $seek-pointer-width-full-screen;\r\n    height: $seek-pointer-height-full-screen;\r\n    margin-left: -$seek-pointer-width-full-screen / 2;\r\n  }\r\n}\r\n\r\n.syncButton {\r\n  position: absolute;\r\n  z-index: 6;\r\n  top: -($sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height) / 2;\r\n  right: -($sync-pointer-width + 2 * $sync-pointer-border) / 2;\r\n\r\n  display: none;\r\n\r\n  width: $sync-pointer-width;\r\n  height: $sync-pointer-height;\r\n\r\n  cursor: pointer;\r\n  transition: transform .1s cubic-bezier(.0,.0,.2,1);\r\n\r\n  border: $sync-pointer-border solid $color-sync-pointer-border;\r\n  border-radius: 50%;\r\n  background-color: $color-sync-pointer-background;\r\n\r\n  @include in-full-screen() {\r\n    top: -$progress-bar-height-full-screen / 4;\r\n    right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-border) / 2;\r\n\r\n    width: $sync-pointer-width-full-screen;\r\n    height: $sync-pointer-height-full-screen;\r\n  }\r\n\r\n  &:hover {\r\n    background-color: $color-played;\r\n  }\r\n\r\n  &.hidden {\r\n    display: none;\r\n  }\r\n}\r\n\r\n.progressBarsWrapper {\r\n  height: $progress-bar-height;\r\n\r\n  transition: transform .1s cubic-bezier(.0,.0,.2,1);\r\n  transform: scaleY(.34);\r\n\r\n  @include in-full-screen() {\r\n    height: $progress-bar-height-full-screen;\r\n\r\n    transform: scaleY(.25);\r\n  }\r\n}\r\n\r\n.progressBar {\r\n  position: absolute;\r\n\r\n  height: $progress-bar-height;\r\n  padding: 0;\r\n\r\n  @include in-full-screen() {\r\n    height: $progress-bar-height-full-screen;\r\n  }\r\n}\r\n\r\n.played {\r\n  background-color: $color-played;\r\n}\r\n\r\n.buffered {\r\n  transition: width .2s ease;\r\n\r\n  background-color: transparentize(#fff, .75);\r\n}\r\n\r\n.background {\r\n  width: 100%;\r\n}\r\n\r\n.seekTo {\r\n  transition: opacity .2s;\r\n\r\n  background-color: $color-seek-to;\r\n}\r\n\r\n.timeIndicators {\r\n  position: absolute;\r\n\r\n  overflow-x: hidden;\r\n\r\n  width: 100%;\r\n  height: 100%;\r\n\r\n  background-color: transparent;\r\n}\r\n\r\n.timeIndicator {\r\n  position: absolute;\r\n\r\n  &:after {\r\n    position: absolute;\r\n    right: -$progress-bar-height / 2;\r\n\r\n    width: $progress-bar-height;\r\n    height: $progress-bar-height;\r\n\r\n    content: '';\r\n    transition: transform .1s cubic-bezier(.0, .0, .2, 1);\r\n    transform: scale(0);\r\n\r\n    opacity: .6;\r\n    border-radius: 50%;\r\n    background-color: #fff;\r\n\r\n    @include in-full-screen() {\r\n      right: -$progress-bar-height-full-screen / 2;\r\n\r\n      width: $progress-bar-height-full-screen;\r\n      height: $progress-bar-height-full-screen;\r\n    }\r\n\r\n    &:hover {\r\n      opacity: 1;\r\n    }\r\n  }\r\n}\r\n\r\n.hitbox {\r\n  position: relative;\r\n  z-index: 5;\r\n  top: -11px;\r\n\r\n  display: block;\r\n\r\n  width: 100%;\r\n  height: 16px;\r\n\r\n  cursor: pointer;\r\n\r\n  opacity: 0;\r\n}\r\n\r\n:global {\r\n  [data-focus-source='key'] [data-hook='progress-control'].focus-within,\r\n  [data-focus-source='script'] [data-hook='progress-control'].focus-within {\r\n    opacity: 1;\r\n    box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-controls-progress-progress__controlButton__7ptpz",
-	"hidden": "modules-ui-controls-progress-progress__hidden__27tby",
-	"seekBlock": "modules-ui-controls-progress-progress__seekBlock__21vod",
-	"inLive": "modules-ui-controls-progress-progress__inLive__uJvq6",
-	"played": "modules-ui-controls-progress-progress__played__3Jp1e",
-	"seekTo": "modules-ui-controls-progress-progress__seekTo__2KPWi",
-	"syncButton": "modules-ui-controls-progress-progress__syncButton__28E-s",
-	"progressBarsWrapper": "modules-ui-controls-progress-progress__progressBarsWrapper__33i6H",
-	"isDragging": "modules-ui-controls-progress-progress__isDragging__RMzZe",
-	"timeIndicator": "modules-ui-controls-progress-progress__timeIndicator__3SFPQ",
-	"liveSync": "modules-ui-controls-progress-progress__liveSync__24FPX",
-	"progressBar": "modules-ui-controls-progress-progress__progressBar__2O03d",
-	"buffered": "modules-ui-controls-progress-progress__buffered__1TKwE",
-	"background": "modules-ui-controls-progress-progress__background__3a95z",
-	"timeIndicators": "modules-ui-controls-progress-progress__timeIndicators__1omMG",
-	"hitbox": "modules-ui-controls-progress-progress__hitbox__2p2jj"
+	"controlButton": "modules-ui-controls-progress-progress__controlButton__3YEzt",
+	"hidden": "modules-ui-controls-progress-progress__hidden__1w5-0",
+	"seekBlock": "modules-ui-controls-progress-progress__seekBlock__2K9lG",
+	"inLive": "modules-ui-controls-progress-progress__inLive__1Rrjw",
+	"played": "modules-ui-controls-progress-progress__played__c2ZWJ",
+	"seekTo": "modules-ui-controls-progress-progress__seekTo__3Mi22",
+	"syncButton": "modules-ui-controls-progress-progress__syncButton__1sv47",
+	"progressBarsWrapper": "modules-ui-controls-progress-progress__progressBarsWrapper__2LMgR",
+	"isDragging": "modules-ui-controls-progress-progress__isDragging__3I-gD",
+	"timeIndicator": "modules-ui-controls-progress-progress__timeIndicator__2Cs0b",
+	"seekButton": "modules-ui-controls-progress-progress__seekButton__2V42j",
+	"liveSync": "modules-ui-controls-progress-progress__liveSync__2n_Zk",
+	"progressBar": "modules-ui-controls-progress-progress__progressBar__2WaNx",
+	"buffered": "modules-ui-controls-progress-progress__buffered__3eAeT",
+	"background": "modules-ui-controls-progress-progress__background__2ZAQQ",
+	"timeIndicators": "modules-ui-controls-progress-progress__timeIndicators__1yFmN",
+	"hitbox": "modules-ui-controls-progress-progress__hitbox__2u2Hc"
 };
 
 /***/ }),
@@ -334,17 +335,17 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".modules-ui-controls-time-time__controlButton__3n-WN {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-time-time__controlButton__3n-WN:hover {\n    opacity: .7; }\n\n.modules-ui-controls-time-time__hidden__YJQIL {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-time-time__timeWrapper__jfYcx {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 0;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n  height: 25px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.modules-ui-controls-time-time__time__2DxX4 {\n  font-size: 12px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-time-time__time__2DxX4 {\n    font-size: 14px; }\n\n.modules-ui-controls-time-time__duration__20iUu {\n  margin-left: 5px; }\n  .modules-ui-controls-time-time__duration__20iUu:before {\n    margin-right: 4px;\n    content: '/'; }\n\n.modules-ui-controls-time-time__liveMode__2Q5tD .modules-ui-controls-time-time__separator__2QQ-o {\n  display: none; }\n\n.modules-ui-controls-time-time__liveMode__2Q5tD .modules-ui-controls-time-time__duration__20iUu {\n  display: none; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/controls/time/time.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,oBAAc;MAAd,mBAAc;UAAd,eAAc;EAEd,aAAY;EAEZ,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EACpB;;AAED;EACE,gBAAe,EAKhB;EChBC;IDcE,gBAAe,ECZhB;;ADgBH;EACE,iBAAgB,EAOjB;EARD;IAII,kBAAiB;IAEjB,aAAY,EACb;;AAGH;EAEI,cAAa,EACd;;AAHH;EAMI,cAAa,EACd","file":"time.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../../shared';\n\n.timeWrapper {\n  display: flex;\n  flex: 0 0 auto;\n\n  height: 25px;\n\n  align-items: center;\n}\n\n.time {\n  font-size: 12px;\n\n  @include in-full-screen() {\n    font-size: 14px;\n  }\n}\n\n.duration {\n  margin-left: 5px;\n\n  &:before {\n    margin-right: 4px;\n\n    content: '/';\n  }\n}\n\n.liveMode {\n  .separator {\n    display: none;\n  }\n\n  .duration {\n    display: none;\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-controls-time-time__controlButton__ypgF6 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-time-time__controlButton__ypgF6:hover {\n    opacity: .7; }\n\n.modules-ui-controls-time-time__hidden__3543R {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-time-time__timeWrapper__-jSyx {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 0;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n  height: 25px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.modules-ui-controls-time-time__time__2MwMY {\n  font-size: 12px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-time-time__time__2MwMY {\n    font-size: 14px; }\n\n.modules-ui-controls-time-time__duration__15kAc {\n  margin-left: 5px; }\n  .modules-ui-controls-time-time__duration__15kAc:before {\n    margin-right: 4px;\n    content: '/'; }\n\n.modules-ui-controls-time-time__liveMode__2DZZC .modules-ui-controls-time-time__separator__1qI7Z {\n  display: none; }\n\n.modules-ui-controls-time-time__liveMode__2DZZC .modules-ui-controls-time-time__duration__15kAc {\n  display: none; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/controls/time/D:/projects/wix/playable/src/modules/ui/controls/time/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/controls/time/D:/projects/wix/playable/src/modules/ui/controls/time/D:/projects/wix/playable/src/modules/ui/controls/time/time.scss","D:/projects/wix/playable/src/modules/ui/controls/time/D:/projects/wix/playable/src/modules/ui/controls/time/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,oBAAc;MAAd,mBAAc;UAAd,eAAc;EAEd,aAAY;EAEZ,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EACpB;;AAED;EACE,gBAAe,EAKhB;EChBC;IDcE,gBAAe,ECZhB;;ADgBH;EACE,iBAAgB,EAOjB;EARD;IAII,kBAAiB;IAEjB,aAAY,EACb;;AAGH;EAEI,cAAa,EACd;;AAHH;EAMI,cAAa,EACd","file":"time.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../../shared';\r\n\r\n.timeWrapper {\r\n  display: flex;\r\n  flex: 0 0 auto;\r\n\r\n  height: 25px;\r\n\r\n  align-items: center;\r\n}\r\n\r\n.time {\r\n  font-size: 12px;\r\n\r\n  @include in-full-screen() {\r\n    font-size: 14px;\r\n  }\r\n}\r\n\r\n.duration {\r\n  margin-left: 5px;\r\n\r\n  &:before {\r\n    margin-right: 4px;\r\n\r\n    content: '/';\r\n  }\r\n}\r\n\r\n.liveMode {\r\n  .separator {\r\n    display: none;\r\n  }\r\n\r\n  .duration {\r\n    display: none;\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-controls-time-time__controlButton__3n-WN",
-	"hidden": "modules-ui-controls-time-time__hidden__YJQIL",
-	"timeWrapper": "modules-ui-controls-time-time__timeWrapper__jfYcx",
-	"time": "modules-ui-controls-time-time__time__2DxX4",
-	"duration": "modules-ui-controls-time-time__duration__20iUu",
-	"liveMode": "modules-ui-controls-time-time__liveMode__2Q5tD",
-	"separator": "modules-ui-controls-time-time__separator__2QQ-o"
+	"controlButton": "modules-ui-controls-time-time__controlButton__ypgF6",
+	"hidden": "modules-ui-controls-time-time__hidden__3543R",
+	"timeWrapper": "modules-ui-controls-time-time__timeWrapper__-jSyx",
+	"time": "modules-ui-controls-time-time__time__2MwMY",
+	"duration": "modules-ui-controls-time-time__duration__15kAc",
+	"liveMode": "modules-ui-controls-time-time__liveMode__2DZZC",
+	"separator": "modules-ui-controls-time-time__separator__1qI7Z"
 };
 
 /***/ }),
@@ -361,21 +362,21 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".modules-ui-controls-volume-volume__controlButton__sQgHO {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-volume-volume__controlButton__sQgHO:hover {\n    opacity: .7; }\n\n.modules-ui-controls-volume-volume__hidden__2M2EV {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-volume-volume__volumeControl__1G8Wp {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  -webkit-transition: width .2s;\n  transition: width .2s;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volumeControl__1G8Wp {\n    height: 35px; }\n  .modules-ui-controls-volume-volume__volumeControl__1G8Wp:hover .modules-ui-controls-volume-volume__volumeInputBlock__39hrP, .modules-ui-controls-volume-volume__volumeControl__1G8Wp.modules-ui-controls-volume-volume__isDragging__1rl6A .modules-ui-controls-volume-volume__volumeInputBlock__39hrP {\n    width: 50px;\n    margin-right: 5px;\n    opacity: 1; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volumeControl__1G8Wp:hover .modules-ui-controls-volume-volume__volumeInputBlock__39hrP, div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volumeControl__1G8Wp.modules-ui-controls-volume-volume__isDragging__1rl6A .modules-ui-controls-volume-volume__volumeInputBlock__39hrP {\n      width: 90px;\n      margin-right: 10px; }\n\n.modules-ui-controls-volume-volume__muteButton__3H4lS {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n  padding: 0; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__muteButton__3H4lS {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__muteButton__3H4lS .modules-ui-controls-volume-volume__icon__3LErE {\n      width: 25px;\n      height: 21px; }\n  .modules-ui-controls-volume-volume__muteButton__3H4lS .modules-ui-controls-volume-volume__icon__3LErE {\n    width: 17px;\n    height: 14px; }\n\n.modules-ui-controls-volume-volume__volumeInputBlock__39hrP {\n  position: relative;\n  display: block;\n  width: 0;\n  height: 25px;\n  margin-left: 2px;\n  -webkit-transition: opacity .2s, width .2s;\n  transition: opacity .2s, width .2s;\n  opacity: 0; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volumeInputBlock__39hrP {\n    margin-left: 5px; }\n\n.modules-ui-controls-volume-volume__progressBar__1yf63 {\n  position: absolute;\n  top: 11.5px;\n  height: 2px;\n  padding: 0; }\n\n.modules-ui-controls-volume-volume__volume__kzGqH:after {\n  position: absolute;\n  top: -3px;\n  right: -4px;\n  width: 8px;\n  height: 8px;\n  content: '';\n  -webkit-transition: opacity .2s;\n  transition: opacity .2s;\n  border-radius: 50%; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volume__kzGqH:after {\n    top: -4px;\n    right: -5px;\n    width: 10px;\n    height: 10px; }\n\n.modules-ui-controls-volume-volume__background__3np8v {\n  width: 100%; }\n\n.modules-ui-controls-volume-volume__hitbox__3KRDS {\n  position: relative;\n  z-index: 5;\n  display: block;\n  width: 100%;\n  height: 25px;\n  cursor: pointer;\n  opacity: 0; }\n\n[data-focus-source='key'] [data-hook='volume-control'] .focus-within.modules-ui-controls-volume-volume__volumeInputBlock__39hrP,\n[data-focus-source='script'] [data-hook='volume-control'] .focus-within.modules-ui-controls-volume-volume__volumeInputBlock__39hrP {\n  width: 50px;\n  margin-right: 5px;\n  opacity: 1;\n  -webkit-box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8);\n          box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8); }\n  div[data-hook='player-container'][data-in-full-screen='true'] [data-focus-source='key'] [data-hook='volume-control'] .focus-within.modules-ui-controls-volume-volume__volumeInputBlock__39hrP, div[data-hook='player-container'][data-in-full-screen='true']\n  [data-focus-source='script'] [data-hook='volume-control'] .focus-within.modules-ui-controls-volume-volume__volumeInputBlock__39hrP {\n    width: 90px;\n    margin-right: 10px; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/controls/volume/volume.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACpCD;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,0BAAiB;KAAjB,uBAAiB;MAAjB,sBAAiB;UAAjB,kBAAiB;EACjB,8BAAqB;EAArB,sBAAqB;EAErB,wBAA2B;MAA3B,qBAA2B;UAA3B,4BAA2B;EAC3B,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAmBpB;EChCC;IDeE,aAAY,ECbb;EDEH;IAiBM,YAAW;IACX,kBAAiB;IAEjB,WAAU,EAMX;IC9BH;MD2BM,YAAW;MACX,mBAAkB,EC1BvB;;ADgCH;EACE,YAAW;EACX,gBAAe;EACf,aAAY;EACZ,iBAAgB;EAChB,WAAU,EAkBX;ECzDC;ID0CE,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,EC3CjB;ID6CC;MACE,YAAW;MACX,aAAY,EACb;EAhBL;IAoBI,YAAW;IACX,aAAY,EACb;;AAGH;EACE,mBAAkB;EAElB,eAAc;EAEd,SAAQ;EACR,aAAY;EACZ,iBAAgB;EAEhB,2CAAkC;EAAlC,mCAAkC;EAElC,WAAU,EAKX;EC3EC;IDyEE,iBAAgB,ECvEjB;;AD4EH;EACE,mBAAkB;EAClB,YAAW;EAEX,YAAW;EACX,WAAU,EACX;;AAED;EAEI,mBAAkB;EAClB,UAAS;EACT,YAAW;EAEX,WAAU;EACV,YAAW;EAEX,YAAW;EACX,gCAAuB;EAAvB,wBAAuB;EAEvB,mBAAkB,EASnB;EC3GD;IDqGI,UAAS;IACT,YAAW;IAEX,YAAW;IACX,aAAY,ECvGf;;AD4GH;EACE,YAAW,EACZ;;AAED;EACE,mBAAkB;EAClB,WAAU;EAEV,eAAc;EAEd,YAAW;EACX,aAAY;EAEZ,gBAAe;EAEf,WAAU,EACX;;AAED;;EAKQ,YAAW;EACX,kBAAiB;EAEjB,WAAU;EACV,sDAA4C;UAA5C,8CAA4C,EAM7C;EC/IL;;ID4IQ,YAAW;IACX,mBAAkB,EC3IzB","file":"volume.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../../shared';\n\n\n$color: white !default;\n\n.volumeControl {\n  position: relative;\n\n  display: flex;\n\n  user-select: none;\n  transition: width .2s;\n\n  justify-content: flex-start;\n  align-items: center;\n  @include in-full-screen() {\n    height: 35px;\n  }\n\n  &:hover,\n  &.isDragging {\n    .volumeInputBlock {\n      width: 50px;\n      margin-right: 5px;\n\n      opacity: 1;\n\n      @include in-full-screen() {\n        width: 90px;\n        margin-right: 10px;\n      }\n    }\n  }\n}\n\n.muteButton {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n  padding: 0;\n\n  @include in-full-screen() {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px;\n\n    .icon {\n      width: 25px;\n      height: 21px;\n    }\n  }\n\n  .icon {\n    width: 17px;\n    height: 14px;\n  }\n}\n\n.volumeInputBlock {\n  position: relative;\n\n  display: block;\n\n  width: 0;\n  height: 25px;\n  margin-left: 2px;\n\n  transition: opacity .2s, width .2s;\n\n  opacity: 0;\n\n  @include in-full-screen() {\n    margin-left: 5px;\n  }\n}\n\n\n.progressBar {\n  position: absolute;\n  top: 11.5px;\n\n  height: 2px;\n  padding: 0;\n}\n\n.volume {\n  &:after {\n    position: absolute;\n    top: -3px;\n    right: -4px;\n\n    width: 8px;\n    height: 8px;\n\n    content: '';\n    transition: opacity .2s;\n\n    border-radius: 50%;\n\n    @include in-full-screen() {\n      top: -4px;\n      right: -5px;\n\n      width: 10px;\n      height: 10px;\n    }\n  }\n}\n\n.background {\n  width: 100%;\n}\n\n.hitbox {\n  position: relative;\n  z-index: 5;\n\n  display: block;\n\n  width: 100%;\n  height: 25px;\n\n  cursor: pointer;\n\n  opacity: 0;\n}\n\n:global {\n  [data-focus-source='key'] [data-hook='volume-control'],\n  [data-focus-source='script'] [data-hook='volume-control'] {\n    .focus-within {\n      &:local.volumeInputBlock {\n        width: 50px;\n        margin-right: 5px;\n\n        opacity: 1;\n        box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);\n\n        @include in-full-screen() {\n          width: 90px;\n          margin-right: 10px;\n        }\n      }\n    }\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-controls-volume-volume__controlButton__vv2MN {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-controls-volume-volume__controlButton__vv2MN:hover {\n    opacity: .7; }\n\n.modules-ui-controls-volume-volume__hidden__3tdpb {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-controls-volume-volume__volumeControl__15PRJ {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  -webkit-transition: width .2s;\n  transition: width .2s;\n  -webkit-box-pack: start;\n      -ms-flex-pack: start;\n          justify-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volumeControl__15PRJ {\n    height: 35px; }\n  .modules-ui-controls-volume-volume__volumeControl__15PRJ:hover .modules-ui-controls-volume-volume__volumeInputBlock__31SUS, .modules-ui-controls-volume-volume__volumeControl__15PRJ.modules-ui-controls-volume-volume__isDragging__1tIHQ .modules-ui-controls-volume-volume__volumeInputBlock__31SUS {\n    width: 50px;\n    margin-right: 5px;\n    opacity: 1; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volumeControl__15PRJ:hover .modules-ui-controls-volume-volume__volumeInputBlock__31SUS, div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volumeControl__15PRJ.modules-ui-controls-volume-volume__isDragging__1tIHQ .modules-ui-controls-volume-volume__volumeInputBlock__31SUS {\n      width: 90px;\n      margin-right: 10px; }\n\n.modules-ui-controls-volume-volume__muteButton__35Tzm {\n  width: 26px;\n  min-width: 26px;\n  height: 26px;\n  min-height: 26px;\n  padding: 0; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__muteButton__35Tzm {\n    width: 35px;\n    min-width: 35px;\n    height: 35px;\n    min-height: 35px; }\n    div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__muteButton__35Tzm .modules-ui-controls-volume-volume__icon__3tKRe {\n      width: 25px;\n      height: 21px; }\n  .modules-ui-controls-volume-volume__muteButton__35Tzm .modules-ui-controls-volume-volume__icon__3tKRe {\n    width: 17px;\n    height: 14px; }\n\n.modules-ui-controls-volume-volume__volumeInputBlock__31SUS {\n  position: relative;\n  display: block;\n  width: 0;\n  height: 25px;\n  margin-left: 2px;\n  -webkit-transition: opacity .2s, width .2s;\n  transition: opacity .2s, width .2s;\n  opacity: 0; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volumeInputBlock__31SUS {\n    margin-left: 5px; }\n\n.modules-ui-controls-volume-volume__progressBar__3IUFc {\n  position: absolute;\n  top: 11.5px;\n  height: 2px;\n  padding: 0; }\n\n.modules-ui-controls-volume-volume__volume__1zznu:after {\n  position: absolute;\n  top: -3px;\n  right: -4px;\n  width: 8px;\n  height: 8px;\n  content: '';\n  -webkit-transition: opacity .2s;\n  transition: opacity .2s;\n  border-radius: 50%; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-controls-volume-volume__volume__1zznu:after {\n    top: -4px;\n    right: -5px;\n    width: 10px;\n    height: 10px; }\n\n.modules-ui-controls-volume-volume__background__1I4J8 {\n  width: 100%; }\n\n.modules-ui-controls-volume-volume__hitbox__1pb5A {\n  position: relative;\n  z-index: 5;\n  display: block;\n  width: 100%;\n  height: 25px;\n  cursor: pointer;\n  opacity: 0; }\n\n[data-focus-source='key'] [data-hook='volume-control'] .focus-within.modules-ui-controls-volume-volume__volumeInputBlock__31SUS,\n[data-focus-source='script'] [data-hook='volume-control'] .focus-within.modules-ui-controls-volume-volume__volumeInputBlock__31SUS {\n  width: 50px;\n  margin-right: 5px;\n  opacity: 1;\n  -webkit-box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8);\n          box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8); }\n  div[data-hook='player-container'][data-in-full-screen='true'] [data-focus-source='key'] [data-hook='volume-control'] .focus-within.modules-ui-controls-volume-volume__volumeInputBlock__31SUS, div[data-hook='player-container'][data-in-full-screen='true']\n  [data-focus-source='script'] [data-hook='volume-control'] .focus-within.modules-ui-controls-volume-volume__volumeInputBlock__31SUS {\n    width: 90px;\n    margin-right: 10px; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/controls/volume/D:/projects/wix/playable/src/modules/ui/controls/volume/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/controls/volume/D:/projects/wix/playable/src/modules/ui/controls/volume/D:/projects/wix/playable/src/modules/ui/controls/volume/volume.scss","D:/projects/wix/playable/src/modules/ui/controls/volume/D:/projects/wix/playable/src/modules/ui/controls/volume/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACpCD;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,0BAAiB;KAAjB,uBAAiB;MAAjB,sBAAiB;UAAjB,kBAAiB;EACjB,8BAAqB;EAArB,sBAAqB;EAErB,wBAA2B;MAA3B,qBAA2B;UAA3B,4BAA2B;EAC3B,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAmBpB;EChCC;IDeE,aAAY,ECbb;EDEH;IAiBM,YAAW;IACX,kBAAiB;IAEjB,WAAU,EAMX;IC9BH;MD2BM,YAAW;MACX,mBAAkB,EC1BvB;;ADgCH;EACE,YAAW;EACX,gBAAe;EACf,aAAY;EACZ,iBAAgB;EAChB,WAAU,EAkBX;ECzDC;ID0CE,YAAW;IACX,gBAAe;IACf,aAAY;IACZ,iBAAgB,EC3CjB;ID6CC;MACE,YAAW;MACX,aAAY,EACb;EAhBL;IAoBI,YAAW;IACX,aAAY,EACb;;AAGH;EACE,mBAAkB;EAElB,eAAc;EAEd,SAAQ;EACR,aAAY;EACZ,iBAAgB;EAEhB,2CAAkC;EAAlC,mCAAkC;EAElC,WAAU,EAKX;EC3EC;IDyEE,iBAAgB,ECvEjB;;AD4EH;EACE,mBAAkB;EAClB,YAAW;EAEX,YAAW;EACX,WAAU,EACX;;AAED;EAEI,mBAAkB;EAClB,UAAS;EACT,YAAW;EAEX,WAAU;EACV,YAAW;EAEX,YAAW;EACX,gCAAuB;EAAvB,wBAAuB;EAEvB,mBAAkB,EASnB;EC3GD;IDqGI,UAAS;IACT,YAAW;IAEX,YAAW;IACX,aAAY,ECvGf;;AD4GH;EACE,YAAW,EACZ;;AAED;EACE,mBAAkB;EAClB,WAAU;EAEV,eAAc;EAEd,YAAW;EACX,aAAY;EAEZ,gBAAe;EAEf,WAAU,EACX;;AAED;;EAKQ,YAAW;EACX,kBAAiB;EAEjB,WAAU;EACV,sDAA4C;UAA5C,8CAA4C,EAM7C;EC/IL;;ID4IQ,YAAW;IACX,mBAAkB,EC3IzB","file":"volume.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../../shared';\r\n\r\n\r\n$color: white !default;\r\n\r\n.volumeControl {\r\n  position: relative;\r\n\r\n  display: flex;\r\n\r\n  user-select: none;\r\n  transition: width .2s;\r\n\r\n  justify-content: flex-start;\r\n  align-items: center;\r\n  @include in-full-screen() {\r\n    height: 35px;\r\n  }\r\n\r\n  &:hover,\r\n  &.isDragging {\r\n    .volumeInputBlock {\r\n      width: 50px;\r\n      margin-right: 5px;\r\n\r\n      opacity: 1;\r\n\r\n      @include in-full-screen() {\r\n        width: 90px;\r\n        margin-right: 10px;\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n.muteButton {\r\n  width: 26px;\r\n  min-width: 26px;\r\n  height: 26px;\r\n  min-height: 26px;\r\n  padding: 0;\r\n\r\n  @include in-full-screen() {\r\n    width: 35px;\r\n    min-width: 35px;\r\n    height: 35px;\r\n    min-height: 35px;\r\n\r\n    .icon {\r\n      width: 25px;\r\n      height: 21px;\r\n    }\r\n  }\r\n\r\n  .icon {\r\n    width: 17px;\r\n    height: 14px;\r\n  }\r\n}\r\n\r\n.volumeInputBlock {\r\n  position: relative;\r\n\r\n  display: block;\r\n\r\n  width: 0;\r\n  height: 25px;\r\n  margin-left: 2px;\r\n\r\n  transition: opacity .2s, width .2s;\r\n\r\n  opacity: 0;\r\n\r\n  @include in-full-screen() {\r\n    margin-left: 5px;\r\n  }\r\n}\r\n\r\n\r\n.progressBar {\r\n  position: absolute;\r\n  top: 11.5px;\r\n\r\n  height: 2px;\r\n  padding: 0;\r\n}\r\n\r\n.volume {\r\n  &:after {\r\n    position: absolute;\r\n    top: -3px;\r\n    right: -4px;\r\n\r\n    width: 8px;\r\n    height: 8px;\r\n\r\n    content: '';\r\n    transition: opacity .2s;\r\n\r\n    border-radius: 50%;\r\n\r\n    @include in-full-screen() {\r\n      top: -4px;\r\n      right: -5px;\r\n\r\n      width: 10px;\r\n      height: 10px;\r\n    }\r\n  }\r\n}\r\n\r\n.background {\r\n  width: 100%;\r\n}\r\n\r\n.hitbox {\r\n  position: relative;\r\n  z-index: 5;\r\n\r\n  display: block;\r\n\r\n  width: 100%;\r\n  height: 25px;\r\n\r\n  cursor: pointer;\r\n\r\n  opacity: 0;\r\n}\r\n\r\n:global {\r\n  [data-focus-source='key'] [data-hook='volume-control'],\r\n  [data-focus-source='script'] [data-hook='volume-control'] {\r\n    .focus-within {\r\n      &:local.volumeInputBlock {\r\n        width: 50px;\r\n        margin-right: 5px;\r\n\r\n        opacity: 1;\r\n        box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);\r\n\r\n        @include in-full-screen() {\r\n          width: 90px;\r\n          margin-right: 10px;\r\n        }\r\n      }\r\n    }\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-controls-volume-volume__controlButton__sQgHO",
-	"hidden": "modules-ui-controls-volume-volume__hidden__2M2EV",
-	"volumeControl": "modules-ui-controls-volume-volume__volumeControl__1G8Wp",
-	"volumeInputBlock": "modules-ui-controls-volume-volume__volumeInputBlock__39hrP",
-	"isDragging": "modules-ui-controls-volume-volume__isDragging__1rl6A",
-	"muteButton": "modules-ui-controls-volume-volume__muteButton__3H4lS",
-	"icon": "modules-ui-controls-volume-volume__icon__3LErE",
-	"progressBar": "modules-ui-controls-volume-volume__progressBar__1yf63",
-	"volume": "modules-ui-controls-volume-volume__volume__kzGqH",
-	"background": "modules-ui-controls-volume-volume__background__3np8v",
-	"hitbox": "modules-ui-controls-volume-volume__hitbox__3KRDS"
+	"controlButton": "modules-ui-controls-volume-volume__controlButton__vv2MN",
+	"hidden": "modules-ui-controls-volume-volume__hidden__3tdpb",
+	"volumeControl": "modules-ui-controls-volume-volume__volumeControl__15PRJ",
+	"volumeInputBlock": "modules-ui-controls-volume-volume__volumeInputBlock__31SUS",
+	"isDragging": "modules-ui-controls-volume-volume__isDragging__1tIHQ",
+	"muteButton": "modules-ui-controls-volume-volume__muteButton__35Tzm",
+	"icon": "modules-ui-controls-volume-volume__icon__3tKRe",
+	"progressBar": "modules-ui-controls-volume-volume__progressBar__3IUFc",
+	"volume": "modules-ui-controls-volume-volume__volume__1zznu",
+	"background": "modules-ui-controls-volume-volume__background__1I4J8",
+	"hitbox": "modules-ui-controls-volume-volume__hitbox__1pb5A"
 };
 
 /***/ }),
@@ -392,11 +393,11 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".modules-ui-core-tooltip-tooltip-container__tooltipContainer__36PU9 {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 10px 10px 6px; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/core/tooltip/tooltip-container.scss"],"names":[],"mappings":"AAGA;EACE,mBAAkB;EAClB,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,sBAAyE,EAC1E","file":"tooltip-container.scss","sourcesContent":["$tooltipMargin: 10px;\n$progressBarOffset: 4px;\n\n.tooltipContainer {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n\n  display: flex;\n\n  margin: $tooltipMargin $tooltipMargin $tooltipMargin - $progressBarOffset;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-core-tooltip-tooltip-container__tooltipContainer__396Jp {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 10px 10px 6px; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/core/tooltip/D:/projects/wix/playable/src/modules/ui/core/tooltip/D:/projects/wix/playable/src/modules/ui/core/tooltip/tooltip-container.scss"],"names":[],"mappings":"AAGA;EACE,mBAAkB;EAClB,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,sBAAyE,EAC1E","file":"tooltip-container.scss","sourcesContent":["$tooltipMargin: 10px;\r\n$progressBarOffset: 4px;\r\n\r\n.tooltipContainer {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n\r\n  display: flex;\r\n\r\n  margin: $tooltipMargin $tooltipMargin $tooltipMargin - $progressBarOffset;\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"tooltipContainer": "modules-ui-core-tooltip-tooltip-container__tooltipContainer__36PU9"
+	"tooltipContainer": "modules-ui-core-tooltip-tooltip-container__tooltipContainer__396Jp"
 };
 
 /***/ }),
@@ -413,15 +414,15 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".modules-ui-core-tooltip-tooltip__controlButton__1DY7O {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-core-tooltip-tooltip__controlButton__1DY7O:hover {\n    opacity: .7; }\n\n.modules-ui-core-tooltip-tooltip__hidden__3vHSz {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-core-tooltip-tooltip__tooltip__16QyB {\n  position: absolute;\n  z-index: 100;\n  visibility: hidden;\n  padding: 4px 5px;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.5); }\n  .modules-ui-core-tooltip-tooltip__tooltip__16QyB.modules-ui-core-tooltip-tooltip__tooltipVisible__rLvTP {\n    visibility: visible;\n    opacity: 1; }\n\n.modules-ui-core-tooltip-tooltip__tooltipInner__15bA9 {\n  font-size: 11px;\n  line-height: 12px;\n  white-space: nowrap;\n  color: white; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/core/tooltip/tooltip.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAClB,aAAY;EAEZ,mBAAkB;EAElB,iBAAgB;EAEhB,gDAAuC;EAAvC,wCAAuC;EAEvC,WAAU;EACV,+BAA0B,EAM3B;EAjBD;IAaI,oBAAmB;IAEnB,WAAU,EACX;;AAGH;EACE,gBAAe;EACf,kBAAiB;EAEjB,oBAAmB;EAEnB,aAAY,EACb","file":"tooltip.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../../shared';\n\n.tooltip {\n  position: absolute;\n  z-index: 100;\n\n  visibility: hidden;\n\n  padding: 4px 5px;\n\n  transition: opacity .2s, visibility .2s;\n\n  opacity: 0;\n  background: rgba(0,0,0,.5);\n  &.tooltipVisible {\n    visibility: visible;\n\n    opacity: 1;\n  }\n}\n\n.tooltipInner {\n  font-size: 11px;\n  line-height: 12px;\n\n  white-space: nowrap;\n\n  color: white;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-core-tooltip-tooltip__controlButton__qd6V5 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-core-tooltip-tooltip__controlButton__qd6V5:hover {\n    opacity: .7; }\n\n.modules-ui-core-tooltip-tooltip__hidden__1lC3n {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-core-tooltip-tooltip__tooltip__OJeIF {\n  position: absolute;\n  z-index: 100;\n  visibility: hidden;\n  padding: 4px 5px;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  opacity: 0;\n  background: rgba(0, 0, 0, 0.5); }\n  .modules-ui-core-tooltip-tooltip__tooltip__OJeIF.modules-ui-core-tooltip-tooltip__tooltipVisible__3eX6Y {\n    visibility: visible;\n    opacity: 1; }\n\n.modules-ui-core-tooltip-tooltip__tooltipInner__tgZ8X {\n  font-size: 11px;\n  line-height: 12px;\n  white-space: nowrap;\n  color: white; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/core/tooltip/D:/projects/wix/playable/src/modules/ui/core/tooltip/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/core/tooltip/D:/projects/wix/playable/src/modules/ui/core/tooltip/D:/projects/wix/playable/src/modules/ui/core/tooltip/tooltip.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAClB,aAAY;EAEZ,mBAAkB;EAElB,iBAAgB;EAEhB,gDAAuC;EAAvC,wCAAuC;EAEvC,WAAU;EACV,+BAA0B,EAM3B;EAjBD;IAaI,oBAAmB;IAEnB,WAAU,EACX;;AAGH;EACE,gBAAe;EACf,kBAAiB;EAEjB,oBAAmB;EAEnB,aAAY,EACb","file":"tooltip.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../../shared';\r\n\r\n.tooltip {\r\n  position: absolute;\r\n  z-index: 100;\r\n\r\n  visibility: hidden;\r\n\r\n  padding: 4px 5px;\r\n\r\n  transition: opacity .2s, visibility .2s;\r\n\r\n  opacity: 0;\r\n  background: rgba(0,0,0,.5);\r\n  &.tooltipVisible {\r\n    visibility: visible;\r\n\r\n    opacity: 1;\r\n  }\r\n}\r\n\r\n.tooltipInner {\r\n  font-size: 11px;\r\n  line-height: 12px;\r\n\r\n  white-space: nowrap;\r\n\r\n  color: white;\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-core-tooltip-tooltip__controlButton__1DY7O",
-	"hidden": "modules-ui-core-tooltip-tooltip__hidden__3vHSz",
-	"tooltip": "modules-ui-core-tooltip-tooltip__tooltip__16QyB",
-	"tooltipVisible": "modules-ui-core-tooltip-tooltip__tooltipVisible__rLvTP",
-	"tooltipInner": "modules-ui-core-tooltip-tooltip__tooltipInner__15bA9"
+	"controlButton": "modules-ui-core-tooltip-tooltip__controlButton__qd6V5",
+	"hidden": "modules-ui-core-tooltip-tooltip__hidden__1lC3n",
+	"tooltip": "modules-ui-core-tooltip-tooltip__tooltip__OJeIF",
+	"tooltipVisible": "modules-ui-core-tooltip-tooltip__tooltipVisible__3eX6Y",
+	"tooltipInner": "modules-ui-core-tooltip-tooltip__tooltipInner__tgZ8X"
 };
 
 /***/ }),
@@ -438,20 +439,20 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-debug-panel-debug-panel__controlButton__1r2HL {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-debug-panel-debug-panel__controlButton__1r2HL:hover {\n    opacity: .7; }\n\n.modules-ui-debug-panel-debug-panel__hidden__1wE8N {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-debug-panel-debug-panel__debugPanel__1db00 {\n  position: absolute;\n  z-index: 10000;\n  top: 10px;\n  left: 10px;\n  overflow: scroll;\n  width: 400px;\n  height: 250px;\n  border-radius: 3px;\n  background-color: rgba(0, 0, 0, 0.95); }\n  .modules-ui-debug-panel-debug-panel__debugPanel__1db00 .modules-ui-debug-panel-debug-panel__closeButton__17K0Y {\n    position: absolute;\n    top: 10px;\n    right: 5px;\n    cursor: pointer;\n    color: white; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__1db00 .modules-ui-debug-panel-debug-panel__closeButton__17K0Y:hover {\n      opacity: .8; }\n  .modules-ui-debug-panel-debug-panel__debugPanel__1db00 .modules-ui-debug-panel-debug-panel__infoContainer__33g3y {\n    font-size: 8px;\n    line-height: 8px;\n    margin: 5px;\n    padding: 5px;\n    color: white; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__1db00 .modules-ui-debug-panel-debug-panel__infoContainer__33g3y .modules-ui-debug-panel-debug-panel__string__197ah {\n      color: green; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__1db00 .modules-ui-debug-panel-debug-panel__infoContainer__33g3y .modules-ui-debug-panel-debug-panel__number__2948d {\n      color: darkorange; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__1db00 .modules-ui-debug-panel-debug-panel__infoContainer__33g3y .modules-ui-debug-panel-debug-panel__boolean__3iMCd {\n      color: blue; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__1db00 .modules-ui-debug-panel-debug-panel__infoContainer__33g3y .modules-ui-debug-panel-debug-panel__null__8VUpe {\n      color: magenta; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__1db00 .modules-ui-debug-panel-debug-panel__infoContainer__33g3y .modules-ui-debug-panel-debug-panel__key__3qpif {\n      color: white; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/debug-panel/debug-panel.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAClB,eAAc;EACd,UAAS;EACT,WAAU;EAEV,iBAAgB;EAEhB,aAAY;EACZ,cAAa;EAEb,mBAAkB;EAClB,sCAAoC,EAyCrC;EArDD;IAeI,mBAAkB;IAClB,UAAS;IACT,WAAU;IAEV,gBAAe;IAEf,aAAY,EAKb;IA1BH;MAwBM,YAAW,EACZ;EAzBL;IA6BI,eAAc;IACd,iBAAgB;IAEhB,YAAW;IACX,aAAY;IAEZ,aAAY,EAiBb;IApDH;MAsCM,aAAY,EACb;IAvCL;MAyCM,kBAAiB,EAClB;IA1CL;MA4CM,YAAW,EACZ;IA7CL;MA+CM,eAAc,EACf;IAhDL;MAkDM,aAAY,EACb","file":"debug-panel.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../shared';\n\n.debugPanel {\n  position: absolute;\n  z-index: 10000;\n  top: 10px;\n  left: 10px;\n\n  overflow: scroll;\n\n  width: 400px;\n  height: 250px;\n\n  border-radius: 3px;\n  background-color: rgba(0, 0, 0, .95);\n\n  .closeButton {\n    position: absolute;\n    top: 10px;\n    right: 5px;\n\n    cursor: pointer;\n\n    color: white;\n\n    &:hover {\n      opacity: .8;\n    }\n  }\n\n  .infoContainer {\n    font-size: 8px;\n    line-height: 8px;\n\n    margin: 5px;\n    padding: 5px;\n\n    color: white;\n\n    .string {\n      color: green;\n    }\n    .number {\n      color: darkorange;\n    }\n    .boolean {\n      color: blue;\n    }\n    .null {\n      color: magenta;\n    }\n    .key {\n      color: white;\n    }\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-debug-panel-debug-panel__controlButton__1PJlx {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-debug-panel-debug-panel__controlButton__1PJlx:hover {\n    opacity: .7; }\n\n.modules-ui-debug-panel-debug-panel__hidden__157XT {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-debug-panel-debug-panel__debugPanel__hyx3A {\n  position: absolute;\n  z-index: 10000;\n  top: 10px;\n  left: 10px;\n  overflow: scroll;\n  width: 400px;\n  height: 250px;\n  border-radius: 3px;\n  background-color: rgba(0, 0, 0, 0.95); }\n  .modules-ui-debug-panel-debug-panel__debugPanel__hyx3A .modules-ui-debug-panel-debug-panel__closeButton__2C1zN {\n    position: absolute;\n    top: 10px;\n    right: 5px;\n    cursor: pointer;\n    color: white; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__hyx3A .modules-ui-debug-panel-debug-panel__closeButton__2C1zN:hover {\n      opacity: .8; }\n  .modules-ui-debug-panel-debug-panel__debugPanel__hyx3A .modules-ui-debug-panel-debug-panel__infoContainer__1-9mh {\n    font-size: 8px;\n    line-height: 8px;\n    margin: 5px;\n    padding: 5px;\n    color: white; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__hyx3A .modules-ui-debug-panel-debug-panel__infoContainer__1-9mh .modules-ui-debug-panel-debug-panel__string__2YEVK {\n      color: green; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__hyx3A .modules-ui-debug-panel-debug-panel__infoContainer__1-9mh .modules-ui-debug-panel-debug-panel__number__32VMw {\n      color: darkorange; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__hyx3A .modules-ui-debug-panel-debug-panel__infoContainer__1-9mh .modules-ui-debug-panel-debug-panel__boolean__2JqNY {\n      color: blue; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__hyx3A .modules-ui-debug-panel-debug-panel__infoContainer__1-9mh .modules-ui-debug-panel-debug-panel__null__zwxl7 {\n      color: magenta; }\n    .modules-ui-debug-panel-debug-panel__debugPanel__hyx3A .modules-ui-debug-panel-debug-panel__infoContainer__1-9mh .modules-ui-debug-panel-debug-panel__key__26We7 {\n      color: white; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/debug-panel/D:/projects/wix/playable/src/modules/ui/debug-panel/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/debug-panel/D:/projects/wix/playable/src/modules/ui/debug-panel/D:/projects/wix/playable/src/modules/ui/debug-panel/debug-panel.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAClB,eAAc;EACd,UAAS;EACT,WAAU;EAEV,iBAAgB;EAEhB,aAAY;EACZ,cAAa;EAEb,mBAAkB;EAClB,sCAAoC,EAyCrC;EArDD;IAeI,mBAAkB;IAClB,UAAS;IACT,WAAU;IAEV,gBAAe;IAEf,aAAY,EAKb;IA1BH;MAwBM,YAAW,EACZ;EAzBL;IA6BI,eAAc;IACd,iBAAgB;IAEhB,YAAW;IACX,aAAY;IAEZ,aAAY,EAiBb;IApDH;MAsCM,aAAY,EACb;IAvCL;MAyCM,kBAAiB,EAClB;IA1CL;MA4CM,YAAW,EACZ;IA7CL;MA+CM,eAAc,EACf;IAhDL;MAkDM,aAAY,EACb","file":"debug-panel.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../shared';\r\n\r\n.debugPanel {\r\n  position: absolute;\r\n  z-index: 10000;\r\n  top: 10px;\r\n  left: 10px;\r\n\r\n  overflow: scroll;\r\n\r\n  width: 400px;\r\n  height: 250px;\r\n\r\n  border-radius: 3px;\r\n  background-color: rgba(0, 0, 0, .95);\r\n\r\n  .closeButton {\r\n    position: absolute;\r\n    top: 10px;\r\n    right: 5px;\r\n\r\n    cursor: pointer;\r\n\r\n    color: white;\r\n\r\n    &:hover {\r\n      opacity: .8;\r\n    }\r\n  }\r\n\r\n  .infoContainer {\r\n    font-size: 8px;\r\n    line-height: 8px;\r\n\r\n    margin: 5px;\r\n    padding: 5px;\r\n\r\n    color: white;\r\n\r\n    .string {\r\n      color: green;\r\n    }\r\n    .number {\r\n      color: darkorange;\r\n    }\r\n    .boolean {\r\n      color: blue;\r\n    }\r\n    .null {\r\n      color: magenta;\r\n    }\r\n    .key {\r\n      color: white;\r\n    }\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-debug-panel-debug-panel__controlButton__1r2HL",
-	"hidden": "modules-ui-debug-panel-debug-panel__hidden__1wE8N",
-	"debugPanel": "modules-ui-debug-panel-debug-panel__debugPanel__1db00",
-	"closeButton": "modules-ui-debug-panel-debug-panel__closeButton__17K0Y",
-	"infoContainer": "modules-ui-debug-panel-debug-panel__infoContainer__33g3y",
-	"string": "modules-ui-debug-panel-debug-panel__string__197ah",
-	"number": "modules-ui-debug-panel-debug-panel__number__2948d",
-	"boolean": "modules-ui-debug-panel-debug-panel__boolean__3iMCd",
-	"null": "modules-ui-debug-panel-debug-panel__null__8VUpe",
-	"key": "modules-ui-debug-panel-debug-panel__key__3qpif"
+	"controlButton": "modules-ui-debug-panel-debug-panel__controlButton__1PJlx",
+	"hidden": "modules-ui-debug-panel-debug-panel__hidden__157XT",
+	"debugPanel": "modules-ui-debug-panel-debug-panel__debugPanel__hyx3A",
+	"closeButton": "modules-ui-debug-panel-debug-panel__closeButton__2C1zN",
+	"infoContainer": "modules-ui-debug-panel-debug-panel__infoContainer__1-9mh",
+	"string": "modules-ui-debug-panel-debug-panel__string__2YEVK",
+	"number": "modules-ui-debug-panel-debug-panel__number__32VMw",
+	"boolean": "modules-ui-debug-panel-debug-panel__boolean__2JqNY",
+	"null": "modules-ui-debug-panel-debug-panel__null__zwxl7",
+	"key": "modules-ui-debug-panel-debug-panel__key__26We7"
 };
 
 /***/ }),
@@ -468,18 +469,18 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-interaction-indicator-interaction-indicator__iconContainer__2HHvr {\n  position: absolute;\n  z-index: 100;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  pointer-events: none;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__2HHvr .modules-ui-interaction-indicator-interaction-indicator__icon__3qWkV {\n    font-size: 9px;\n    line-height: 9px;\n    position: relative;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-animation-name: modules-ui-interaction-indicator-interaction-indicator__fadeOut__2vHtj;\n            animation-name: modules-ui-interaction-indicator-interaction-indicator__fadeOut__2vHtj;\n    -webkit-animation-duration: .5s;\n            animation-duration: .5s;\n    opacity: 0;\n    border-radius: 100px;\n    background-color: rgba(0, 0, 0, 0.5);\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__2HHvr .modules-ui-interaction-indicator-interaction-indicator__animatedIcon__1RYJw {\n    -webkit-animation-name: modules-ui-interaction-indicator-interaction-indicator__iconSize__2fgiU;\n            animation-name: modules-ui-interaction-indicator-interaction-indicator__iconSize__2fgiU;\n    -webkit-animation-duration: .5s;\n            animation-duration: .5s; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__2HHvr .modules-ui-interaction-indicator-interaction-indicator__playIcon__2mGNk {\n    position: relative;\n    left: 3px; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__2HHvr .modules-ui-interaction-indicator-interaction-indicator__pauseIcon__3au0t {\n    margin: 5px 0; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__2HHvr .modules-ui-interaction-indicator-interaction-indicator__seconds__3AX6D {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    min-width: 5px;\n    min-height: 8px;\n    color: white;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center; }\n    .modules-ui-interaction-indicator-interaction-indicator__iconContainer__2HHvr .modules-ui-interaction-indicator-interaction-indicator__seconds__3AX6D span {\n      display: block; }\n\n@-webkit-keyframes modules-ui-interaction-indicator-interaction-indicator__iconSize__2fgiU {\n  from {\n    width: 22px;\n    height: 22px; }\n  to {\n    width: 30px;\n    height: 30px; } }\n\n@keyframes modules-ui-interaction-indicator-interaction-indicator__iconSize__2fgiU {\n  from {\n    width: 22px;\n    height: 22px; }\n  to {\n    width: 30px;\n    height: 30px; } }\n\n@-webkit-keyframes modules-ui-interaction-indicator-interaction-indicator__fadeOut__2vHtj {\n  from {\n    width: 22px;\n    height: 22px;\n    padding: 19px;\n    opacity: .9; }\n  to {\n    font-size: 14px;\n    line-height: 14px;\n    width: 30px;\n    height: 30px;\n    padding: 25px;\n    opacity: 0; } }\n\n@keyframes modules-ui-interaction-indicator-interaction-indicator__fadeOut__2vHtj {\n  from {\n    width: 22px;\n    height: 22px;\n    padding: 19px;\n    opacity: .9; }\n  to {\n    font-size: 14px;\n    line-height: 14px;\n    width: 30px;\n    height: 30px;\n    padding: 25px;\n    opacity: 0; } }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/interaction-indicator/interaction-indicator.scss"],"names":[],"mappings":"AAAA;EACE,mBAAkB;EAClB,aAAY;EACZ,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,qBAAoB;EAEpB,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAwDpB;EArED;IAgBI,eAAc;IACd,iBAAgB;IAEhB,mBAAkB;IAElB,qBAAa;IAAb,qBAAa;IAAb,cAAa;IAEb,+FAAuB;YAAvB,uFAAuB;IACvB,gCAAuB;YAAvB,wBAAuB;IAEvB,WAAU;IACV,qBAAoB;IACpB,qCAAiC;IAEjC,yBAAuB;QAAvB,sBAAuB;YAAvB,wBAAuB;IACvB,0BAAmB;QAAnB,uBAAmB;YAAnB,oBAAmB,EACpB;EAhCH;IAmCI,gGAAwB;YAAxB,wFAAwB;IACxB,gCAAuB;YAAvB,wBAAuB,EACxB;EArCH;IAwCI,mBAAkB;IAClB,UAAS,EACV;EA1CH;IA6CI,cAAa,EACd;EA9CH;IAiDI,mBAAkB;IAClB,OAAM;IACN,SAAQ;IACR,UAAS;IACT,QAAO;IAEP,qBAAa;IAAb,qBAAa;IAAb,cAAa;IAEb,eAAc;IACd,gBAAe;IAEf,aAAY;IAEZ,yBAAuB;QAAvB,sBAAuB;YAAvB,wBAAuB;IACvB,0BAAmB;QAAnB,uBAAmB;YAAnB,oBAAmB,EAKpB;IApEH;MAkEM,eAAc,EACf;;AAIL;EACE;IACE,YAAW;IACX,aAAY,EAAA;EAGd;IACE,YAAW;IACX,aAAY,EAAA,EAAA;;AARhB;EACE;IACE,YAAW;IACX,aAAY,EAAA;EAGd;IACE,YAAW;IACX,aAAY,EAAA,EAAA;;AAIhB;EACE;IACE,YAAW;IACX,aAAY;IACZ,cAAa;IAEb,YAAW,EAAA;EAGb;IACE,gBAAe;IACf,kBAAiB;IAEjB,YAAW;IACX,aAAY;IACZ,cAAa;IAEb,WAAU,EAAA,EAAA;;AAjBd;EACE;IACE,YAAW;IACX,aAAY;IACZ,cAAa;IAEb,YAAW,EAAA;EAGb;IACE,gBAAe;IACf,kBAAiB;IAEjB,YAAW;IACX,aAAY;IACZ,cAAa;IAEb,WAAU,EAAA,EAAA","file":"interaction-indicator.scss","sourcesContent":[".iconContainer {\n  position: absolute;\n  z-index: 100;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n\n  display: flex;\n\n  pointer-events: none;\n\n  justify-content: center;\n  align-items: center;\n\n  .icon {\n    font-size: 9px;\n    line-height: 9px;\n\n    position: relative;\n\n    display: flex;\n\n    animation-name: fadeOut;\n    animation-duration: .5s;\n\n    opacity: 0;\n    border-radius: 100px;\n    background-color: rgba(0,0,0, .5);\n\n    justify-content: center;\n    align-items: center;\n  }\n\n  .animatedIcon {\n    animation-name: iconSize;\n    animation-duration: .5s;\n  }\n\n  .playIcon {\n    position: relative;\n    left: 3px;\n  }\n\n  .pauseIcon {\n    margin: 5px 0;\n  }\n\n  .seconds {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n\n    display: flex;\n\n    min-width: 5px;\n    min-height: 8px;\n\n    color: white;\n\n    justify-content: center;\n    align-items: center;\n\n    span {\n      display: block;\n    }\n  }\n}\n\n@keyframes iconSize {\n  from {\n    width: 22px;\n    height: 22px;\n  }\n\n  to {\n    width: 30px;\n    height: 30px;\n  }\n}\n\n@keyframes fadeOut {\n  from {\n    width: 22px;\n    height: 22px;\n    padding: 19px;\n\n    opacity: .9;\n  }\n\n  to {\n    font-size: 14px;\n    line-height: 14px;\n\n    width: 30px;\n    height: 30px;\n    padding: 25px;\n\n    opacity: 0;\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-interaction-indicator-interaction-indicator__iconContainer__1plej {\n  position: absolute;\n  z-index: 100;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  pointer-events: none;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__1plej .modules-ui-interaction-indicator-interaction-indicator__icon__yGYO8 {\n    font-size: 9px;\n    line-height: 9px;\n    position: relative;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-animation-name: modules-ui-interaction-indicator-interaction-indicator__fadeOut__1r1gR;\n            animation-name: modules-ui-interaction-indicator-interaction-indicator__fadeOut__1r1gR;\n    -webkit-animation-duration: .5s;\n            animation-duration: .5s;\n    opacity: 0;\n    border-radius: 100px;\n    background-color: rgba(0, 0, 0, 0.5);\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__1plej .modules-ui-interaction-indicator-interaction-indicator__animatedIcon__18qr- {\n    -webkit-animation-name: modules-ui-interaction-indicator-interaction-indicator__iconSize__4SkTd;\n            animation-name: modules-ui-interaction-indicator-interaction-indicator__iconSize__4SkTd;\n    -webkit-animation-duration: .5s;\n            animation-duration: .5s; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__1plej .modules-ui-interaction-indicator-interaction-indicator__playIcon__2fV1I {\n    position: relative;\n    left: 3px; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__1plej .modules-ui-interaction-indicator-interaction-indicator__pauseIcon__2pPAH {\n    margin: 5px 0; }\n  .modules-ui-interaction-indicator-interaction-indicator__iconContainer__1plej .modules-ui-interaction-indicator-interaction-indicator__seconds__20oL4 {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    min-width: 5px;\n    min-height: 8px;\n    color: white;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center; }\n    .modules-ui-interaction-indicator-interaction-indicator__iconContainer__1plej .modules-ui-interaction-indicator-interaction-indicator__seconds__20oL4 span {\n      display: block; }\n\n@-webkit-keyframes modules-ui-interaction-indicator-interaction-indicator__iconSize__4SkTd {\n  from {\n    width: 22px;\n    height: 22px; }\n  to {\n    width: 30px;\n    height: 30px; } }\n\n@keyframes modules-ui-interaction-indicator-interaction-indicator__iconSize__4SkTd {\n  from {\n    width: 22px;\n    height: 22px; }\n  to {\n    width: 30px;\n    height: 30px; } }\n\n@-webkit-keyframes modules-ui-interaction-indicator-interaction-indicator__fadeOut__1r1gR {\n  from {\n    width: 22px;\n    height: 22px;\n    padding: 19px;\n    opacity: .9; }\n  to {\n    font-size: 14px;\n    line-height: 14px;\n    width: 30px;\n    height: 30px;\n    padding: 25px;\n    opacity: 0; } }\n\n@keyframes modules-ui-interaction-indicator-interaction-indicator__fadeOut__1r1gR {\n  from {\n    width: 22px;\n    height: 22px;\n    padding: 19px;\n    opacity: .9; }\n  to {\n    font-size: 14px;\n    line-height: 14px;\n    width: 30px;\n    height: 30px;\n    padding: 25px;\n    opacity: 0; } }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/interaction-indicator/D:/projects/wix/playable/src/modules/ui/interaction-indicator/D:/projects/wix/playable/src/modules/ui/interaction-indicator/interaction-indicator.scss"],"names":[],"mappings":"AAAA;EACE,mBAAkB;EAClB,aAAY;EACZ,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,qBAAoB;EAEpB,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAwDpB;EArED;IAgBI,eAAc;IACd,iBAAgB;IAEhB,mBAAkB;IAElB,qBAAa;IAAb,qBAAa;IAAb,cAAa;IAEb,+FAAuB;YAAvB,uFAAuB;IACvB,gCAAuB;YAAvB,wBAAuB;IAEvB,WAAU;IACV,qBAAoB;IACpB,qCAAiC;IAEjC,yBAAuB;QAAvB,sBAAuB;YAAvB,wBAAuB;IACvB,0BAAmB;QAAnB,uBAAmB;YAAnB,oBAAmB,EACpB;EAhCH;IAmCI,gGAAwB;YAAxB,wFAAwB;IACxB,gCAAuB;YAAvB,wBAAuB,EACxB;EArCH;IAwCI,mBAAkB;IAClB,UAAS,EACV;EA1CH;IA6CI,cAAa,EACd;EA9CH;IAiDI,mBAAkB;IAClB,OAAM;IACN,SAAQ;IACR,UAAS;IACT,QAAO;IAEP,qBAAa;IAAb,qBAAa;IAAb,cAAa;IAEb,eAAc;IACd,gBAAe;IAEf,aAAY;IAEZ,yBAAuB;QAAvB,sBAAuB;YAAvB,wBAAuB;IACvB,0BAAmB;QAAnB,uBAAmB;YAAnB,oBAAmB,EAKpB;IApEH;MAkEM,eAAc,EACf;;AAIL;EACE;IACE,YAAW;IACX,aAAY,EAAA;EAGd;IACE,YAAW;IACX,aAAY,EAAA,EAAA;;AARhB;EACE;IACE,YAAW;IACX,aAAY,EAAA;EAGd;IACE,YAAW;IACX,aAAY,EAAA,EAAA;;AAIhB;EACE;IACE,YAAW;IACX,aAAY;IACZ,cAAa;IAEb,YAAW,EAAA;EAGb;IACE,gBAAe;IACf,kBAAiB;IAEjB,YAAW;IACX,aAAY;IACZ,cAAa;IAEb,WAAU,EAAA,EAAA;;AAjBd;EACE;IACE,YAAW;IACX,aAAY;IACZ,cAAa;IAEb,YAAW,EAAA;EAGb;IACE,gBAAe;IACf,kBAAiB;IAEjB,YAAW;IACX,aAAY;IACZ,cAAa;IAEb,WAAU,EAAA,EAAA","file":"interaction-indicator.scss","sourcesContent":[".iconContainer {\r\n  position: absolute;\r\n  z-index: 100;\r\n  top: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n\r\n  display: flex;\r\n\r\n  pointer-events: none;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  .icon {\r\n    font-size: 9px;\r\n    line-height: 9px;\r\n\r\n    position: relative;\r\n\r\n    display: flex;\r\n\r\n    animation-name: fadeOut;\r\n    animation-duration: .5s;\r\n\r\n    opacity: 0;\r\n    border-radius: 100px;\r\n    background-color: rgba(0,0,0, .5);\r\n\r\n    justify-content: center;\r\n    align-items: center;\r\n  }\r\n\r\n  .animatedIcon {\r\n    animation-name: iconSize;\r\n    animation-duration: .5s;\r\n  }\r\n\r\n  .playIcon {\r\n    position: relative;\r\n    left: 3px;\r\n  }\r\n\r\n  .pauseIcon {\r\n    margin: 5px 0;\r\n  }\r\n\r\n  .seconds {\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n\r\n    display: flex;\r\n\r\n    min-width: 5px;\r\n    min-height: 8px;\r\n\r\n    color: white;\r\n\r\n    justify-content: center;\r\n    align-items: center;\r\n\r\n    span {\r\n      display: block;\r\n    }\r\n  }\r\n}\r\n\r\n@keyframes iconSize {\r\n  from {\r\n    width: 22px;\r\n    height: 22px;\r\n  }\r\n\r\n  to {\r\n    width: 30px;\r\n    height: 30px;\r\n  }\r\n}\r\n\r\n@keyframes fadeOut {\r\n  from {\r\n    width: 22px;\r\n    height: 22px;\r\n    padding: 19px;\r\n\r\n    opacity: .9;\r\n  }\r\n\r\n  to {\r\n    font-size: 14px;\r\n    line-height: 14px;\r\n\r\n    width: 30px;\r\n    height: 30px;\r\n    padding: 25px;\r\n\r\n    opacity: 0;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"iconContainer": "modules-ui-interaction-indicator-interaction-indicator__iconContainer__2HHvr",
-	"icon": "modules-ui-interaction-indicator-interaction-indicator__icon__3qWkV",
-	"fadeOut": "modules-ui-interaction-indicator-interaction-indicator__fadeOut__2vHtj",
-	"animatedIcon": "modules-ui-interaction-indicator-interaction-indicator__animatedIcon__1RYJw",
-	"iconSize": "modules-ui-interaction-indicator-interaction-indicator__iconSize__2fgiU",
-	"playIcon": "modules-ui-interaction-indicator-interaction-indicator__playIcon__2mGNk",
-	"pauseIcon": "modules-ui-interaction-indicator-interaction-indicator__pauseIcon__3au0t",
-	"seconds": "modules-ui-interaction-indicator-interaction-indicator__seconds__3AX6D"
+	"iconContainer": "modules-ui-interaction-indicator-interaction-indicator__iconContainer__1plej",
+	"icon": "modules-ui-interaction-indicator-interaction-indicator__icon__yGYO8",
+	"fadeOut": "modules-ui-interaction-indicator-interaction-indicator__fadeOut__1r1gR",
+	"animatedIcon": "modules-ui-interaction-indicator-interaction-indicator__animatedIcon__18qr-",
+	"iconSize": "modules-ui-interaction-indicator-interaction-indicator__iconSize__4SkTd",
+	"playIcon": "modules-ui-interaction-indicator-interaction-indicator__playIcon__2fV1I",
+	"pauseIcon": "modules-ui-interaction-indicator-interaction-indicator__pauseIcon__2pPAH",
+	"seconds": "modules-ui-interaction-indicator-interaction-indicator__seconds__20oL4"
 };
 
 /***/ }),
@@ -496,16 +497,16 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-live-indicator-live-indicator__controlButton__ldTCT {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-live-indicator-live-indicator__controlButton__ldTCT:hover {\n    opacity: .7; }\n\n.modules-ui-live-indicator-live-indicator__hidden__mzSsw {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-live-indicator-live-indicator__liveIndicator__3zHOM {\n  position: relative;\n  margin-right: 15px;\n  padding: 5px 6px;\n  cursor: pointer;\n  -webkit-transition: background-color .2s;\n  transition: background-color .2s;\n  color: #fff;\n  background-color: #959595; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-live-indicator-live-indicator__liveIndicator__3zHOM {\n    margin-right: 20px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-live-indicator-live-indicator__liveIndicator__3zHOM {\n    margin-right: 10px; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-live-indicator-live-indicator__liveIndicator__3zHOM {\n    margin-right: 10px;\n    padding: 2px 3px; }\n  .modules-ui-live-indicator-live-indicator__liveIndicator__3zHOM.modules-ui-live-indicator-live-indicator__ended__9tRwh {\n    cursor: default; }\n  .modules-ui-live-indicator-live-indicator__liveIndicator__3zHOM:hover:not(.modules-ui-live-indicator-live-indicator__ended__9tRwh), .modules-ui-live-indicator-live-indicator__liveIndicator__3zHOM.modules-ui-live-indicator-live-indicator__active__3iuus {\n    background-color: #ea492e; }\n\n.modules-ui-live-indicator-live-indicator__liveIndicatorText__2Yrhn {\n  font-size: 12px;\n  line-height: 14px;\n  text-transform: uppercase; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-live-indicator-live-indicator__liveIndicatorText__2Yrhn {\n    font-size: 10px;\n    line-height: 12px; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/live-indicator/live-indicator.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACpCD;EACE,mBAAkB;EAGlB,mBAAkB;EAElB,iBAAgB;EAEhB,gBAAe;EACf,yCAAgC;EAAhC,iCAAgC;EAEhC,YAAW;EACX,0BAdsB,EAmCvB;ECrCC;IDmBE,mBAAkB,ECjBnB;EAID;IDgBE,mBAAkB,ECdnB;EAFD;IDmBE,mBAAkB;IAClB,iBAAgB,EClBjB;EDJH;IA0BI,gBAAe,EAChB;EA3BH;IA+BI,0BAlCkB,EAmCnB;;AAGH;EACE,gBAAe;EACf,kBAAiB;EAEjB,0BAAyB,EAM1B;EC3CC;IDwCE,gBAAe;IACf,kBAAiB,ECvClB","file":"live-indicator.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../shared';\n\n$active-color: #ea492e;\n$inactive-color: #959595;\n\n.liveIndicator {\n  position: relative;\n  // position styles start\n\n  margin-right: 15px;\n  // position styles end\n  padding: 5px 6px;\n\n  cursor: pointer;\n  transition: background-color .2s;\n\n  color: #fff;\n  background-color: $inactive-color;\n\n  @include in-full-screen() {\n    margin-right: 20px;\n  }\n  @include max-width-550() {\n    margin-right: 10px;\n  }\n  @include max-width-280() {\n    margin-right: 10px;\n    padding: 2px 3px;\n  }\n\n  &.ended {\n    cursor: default;\n  }\n\n  &:hover:not(.ended),\n  &.active {\n    background-color: $active-color;\n  }\n}\n\n.liveIndicatorText {\n  font-size: 12px;\n  line-height: 14px;\n\n  text-transform: uppercase;\n\n  @include max-width-280() {\n    font-size: 10px;\n    line-height: 12px;\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-live-indicator-live-indicator__controlButton__2ONUR {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-live-indicator-live-indicator__controlButton__2ONUR:hover {\n    opacity: .7; }\n\n.modules-ui-live-indicator-live-indicator__hidden__2rZrN {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-live-indicator-live-indicator__liveIndicator__yWa08 {\n  position: relative;\n  margin-right: 15px;\n  padding: 5px 6px;\n  cursor: pointer;\n  -webkit-transition: background-color .2s;\n  transition: background-color .2s;\n  color: #fff;\n  background-color: #959595; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-live-indicator-live-indicator__liveIndicator__yWa08 {\n    margin-right: 20px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-live-indicator-live-indicator__liveIndicator__yWa08 {\n    margin-right: 10px; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-live-indicator-live-indicator__liveIndicator__yWa08 {\n    margin-right: 10px;\n    padding: 2px 3px; }\n  .modules-ui-live-indicator-live-indicator__liveIndicator__yWa08.modules-ui-live-indicator-live-indicator__ended__3ZBIV {\n    cursor: default; }\n  .modules-ui-live-indicator-live-indicator__liveIndicator__yWa08:hover:not(.modules-ui-live-indicator-live-indicator__ended__3ZBIV), .modules-ui-live-indicator-live-indicator__liveIndicator__yWa08.modules-ui-live-indicator-live-indicator__active__2ih5F {\n    background-color: #ea492e; }\n\n.modules-ui-live-indicator-live-indicator__liveIndicatorText__28rnz {\n  font-size: 12px;\n  line-height: 14px;\n  text-transform: uppercase; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-live-indicator-live-indicator__liveIndicatorText__28rnz {\n    font-size: 10px;\n    line-height: 12px; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/live-indicator/D:/projects/wix/playable/src/modules/ui/live-indicator/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/live-indicator/D:/projects/wix/playable/src/modules/ui/live-indicator/D:/projects/wix/playable/src/modules/ui/live-indicator/live-indicator.scss","D:/projects/wix/playable/src/modules/ui/live-indicator/D:/projects/wix/playable/src/modules/ui/live-indicator/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACpCD;EACE,mBAAkB;EAGlB,mBAAkB;EAElB,iBAAgB;EAEhB,gBAAe;EACf,yCAAgC;EAAhC,iCAAgC;EAEhC,YAAW;EACX,0BAdsB,EAmCvB;ECrCC;IDmBE,mBAAkB,ECjBnB;EAID;IDgBE,mBAAkB,ECdnB;EAFD;IDmBE,mBAAkB;IAClB,iBAAgB,EClBjB;EDJH;IA0BI,gBAAe,EAChB;EA3BH;IA+BI,0BAlCkB,EAmCnB;;AAGH;EACE,gBAAe;EACf,kBAAiB;EAEjB,0BAAyB,EAM1B;EC3CC;IDwCE,gBAAe;IACf,kBAAiB,ECvClB","file":"live-indicator.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../shared';\r\n\r\n$active-color: #ea492e;\r\n$inactive-color: #959595;\r\n\r\n.liveIndicator {\r\n  position: relative;\r\n  // position styles start\r\n\r\n  margin-right: 15px;\r\n  // position styles end\r\n  padding: 5px 6px;\r\n\r\n  cursor: pointer;\r\n  transition: background-color .2s;\r\n\r\n  color: #fff;\r\n  background-color: $inactive-color;\r\n\r\n  @include in-full-screen() {\r\n    margin-right: 20px;\r\n  }\r\n  @include max-width-550() {\r\n    margin-right: 10px;\r\n  }\r\n  @include max-width-280() {\r\n    margin-right: 10px;\r\n    padding: 2px 3px;\r\n  }\r\n\r\n  &.ended {\r\n    cursor: default;\r\n  }\r\n\r\n  &:hover:not(.ended),\r\n  &.active {\r\n    background-color: $active-color;\r\n  }\r\n}\r\n\r\n.liveIndicatorText {\r\n  font-size: 12px;\r\n  line-height: 14px;\r\n\r\n  text-transform: uppercase;\r\n\r\n  @include max-width-280() {\r\n    font-size: 10px;\r\n    line-height: 12px;\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-live-indicator-live-indicator__controlButton__ldTCT",
-	"hidden": "modules-ui-live-indicator-live-indicator__hidden__mzSsw",
-	"liveIndicator": "modules-ui-live-indicator-live-indicator__liveIndicator__3zHOM",
-	"ended": "modules-ui-live-indicator-live-indicator__ended__9tRwh",
-	"active": "modules-ui-live-indicator-live-indicator__active__3iuus",
-	"liveIndicatorText": "modules-ui-live-indicator-live-indicator__liveIndicatorText__2Yrhn"
+	"controlButton": "modules-ui-live-indicator-live-indicator__controlButton__2ONUR",
+	"hidden": "modules-ui-live-indicator-live-indicator__hidden__2rZrN",
+	"liveIndicator": "modules-ui-live-indicator-live-indicator__liveIndicator__yWa08",
+	"ended": "modules-ui-live-indicator-live-indicator__ended__3ZBIV",
+	"active": "modules-ui-live-indicator-live-indicator__active__2ih5F",
+	"liveIndicatorText": "modules-ui-live-indicator-live-indicator__liveIndicatorText__28rnz"
 };
 
 /***/ }),
@@ -522,18 +523,18 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-loader-loader__controlButton__3KVex {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-loader-loader__controlButton__3KVex:hover {\n    opacity: .7; }\n\n.modules-ui-loader-loader__hidden__3umRR {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-loader-loader__loader__QLQ4c {\n  position: absolute;\n  z-index: 90;\n  top: 50%;\n  left: 50%;\n  display: none;\n  clip: rect(0, 48px, 48px, 24px);\n  width: 42px;\n  height: 42px;\n  margin-top: -21px;\n  margin-left: -21px;\n  -webkit-animation: modules-ui-loader-loader__rotate__1nIZD 1s linear infinite;\n          animation: modules-ui-loader-loader__rotate__1nIZD 1s linear infinite;\n  color: white; }\n  .modules-ui-loader-loader__loader__QLQ4c.modules-ui-loader-loader__active__2IH6z {\n    display: block; }\n  .modules-ui-loader-loader__loader__QLQ4c::after {\n    clip: rect(4px, 48px, 48px, 24px);\n    -webkit-animation: modules-ui-loader-loader__clip__37htp 1s linear infinite;\n            animation: modules-ui-loader-loader__clip__37htp 1s linear infinite;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    content: '';\n    border: 3px solid currentColor;\n    border-radius: 50%; }\n  .modules-ui-loader-loader__loader__QLQ4c::before {\n    clip: rect(0, 48px, 48px, 24px);\n    -webkit-animation: modules-ui-loader-loader__clip-reverse__2QVRr 1s linear infinite;\n            animation: modules-ui-loader-loader__clip-reverse__2QVRr 1s linear infinite;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    content: '';\n    border: 3px solid currentColor;\n    border-radius: 50%; }\n\n@-webkit-keyframes modules-ui-loader-loader__clip__37htp {\n  50% {\n    clip: rect(42px, 48px, 48px, 24px);\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out; } }\n\n@keyframes modules-ui-loader-loader__clip__37htp {\n  50% {\n    clip: rect(42px, 48px, 48px, 24px);\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out; } }\n\n@-webkit-keyframes modules-ui-loader-loader__clip-reverse__2QVRr {\n  50% {\n    clip: rect(0, 48px, 9px, 24px);\n    -webkit-transform: rotate(135deg);\n            transform: rotate(135deg);\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out; } }\n\n@keyframes modules-ui-loader-loader__clip-reverse__2QVRr {\n  50% {\n    clip: rect(0, 48px, 9px, 24px);\n    -webkit-transform: rotate(135deg);\n            transform: rotate(135deg);\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out; } }\n\n@-webkit-keyframes modules-ui-loader-loader__rotate__1nIZD {\n  from {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n    -webkit-animation-timing-function: ease-out;\n            animation-timing-function: ease-out; }\n  45% {\n    -webkit-transform: rotate(18deg);\n            transform: rotate(18deg);\n    color: white; }\n  55% {\n    -webkit-transform: rotate(54deg);\n            transform: rotate(54deg); }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes modules-ui-loader-loader__rotate__1nIZD {\n  from {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n    -webkit-animation-timing-function: ease-out;\n            animation-timing-function: ease-out; }\n  45% {\n    -webkit-transform: rotate(18deg);\n            transform: rotate(18deg);\n    color: white; }\n  55% {\n    -webkit-transform: rotate(54deg);\n            transform: rotate(54deg); }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/loader/loader.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACjCD;EACE,mBAAkB;EAClB,YAAW;EACX,SAAQ;EACR,UAAS;EAET,cAAa;EACb,gCAAqD;EAErD,YAfa;EAgBb,aAhBa;EAiBb,kBAA2B;EAC3B,mBAA4B;EAE5B,8EAAyC;UAAzC,sEAAyC;EAEzC,aAAY,EAoEb;EApFD;IAmBI,eAAc,EACf;EApBH;IAoCI,kCAAuE;IAEvE,4EAAuC;YAAvC,oEAAuC;IAfvC,mBAAkB;IAClB,OAAM;IACN,SAAQ;IACR,UAAS;IACT,QAAO;IAEP,YAAW;IAEX,+BAAwC;IACxC,mBAAkB,EASnB;EAzCH;IA2CI,gCAAqD;IAErD,oFAA+C;YAA/C,4EAA+C;IAtB/C,mBAAkB;IAClB,OAAM;IACN,SAAQ;IACR,UAAS;IACT,QAAO;IAEP,YAAW;IAEX,+BAAwC;IACxC,mBAAkB,EAgBnB;;AAED;EACE;IACE,mCAA6D;IAE7D,+CAAsC;YAAtC,uCAAsC,EAAA,EAAA;;AAJ1C;EACE;IACE,mCAA6D;IAE7D,+CAAsC;YAAtC,uCAAsC,EAAA,EAAA;;AAI1C;EACE;IACE,+BAA4D;IAE5D,kCAAyB;YAAzB,0BAAyB;IACzB,+CAAsC;YAAtC,uCAAsC,EAAA,EAAA;;AAL1C;EACE;IACE,+BAA4D;IAE5D,kCAAyB;YAAzB,0BAAyB;IACzB,+CAAsC;YAAtC,uCAAsC,EAAA,EAAA;;AAI1C;EACE;IACE,6BAAoB;YAApB,qBAAoB;IACpB,4CAAmC;YAAnC,oCAAmC,EAAA;EAErC;IACE,iCAAwB;YAAxB,yBAAwB;IAExB,aAAY,EAAA;EAEd;IACE,iCAAwB;YAAxB,yBAAwB,EAAA;EAE1B;IACE,kCAAyB;YAAzB,0BAAyB,EAAA,EAAA;;AAd7B;EACE;IACE,6BAAoB;YAApB,qBAAoB;IACpB,4CAAmC;YAAnC,oCAAmC,EAAA;EAErC;IACE,iCAAwB;YAAxB,yBAAwB;IAExB,aAAY,EAAA;EAEd;IACE,iCAAwB;YAAxB,yBAAwB,EAAA;EAE1B;IACE,kCAAyB;YAAzB,0BAAyB,EAAA,EAAA","file":"loader.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../shared';\n\n$diameter: 42px;\n$border-width: 3px;\n$outer-dim: $diameter + ($border-width * 2);\n$timing: 1s;\n\n\n.loader {\n  position: absolute;\n  z-index: 90;\n  top: 50%;\n  left: 50%;\n\n  display: none;\n  clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);\n\n  width: $diameter;\n  height: $diameter;\n  margin-top: - $diameter / 2;\n  margin-left: - $diameter / 2;\n\n  animation: rotate $timing linear infinite;\n\n  color: white;\n\n  &.active {\n    display: block;\n  }\n\n  @mixin inner-circle() {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n\n    content: '';\n\n    border: $border-width solid currentColor;\n    border-radius: 50%;\n  }\n\n  &::after {\n    clip: rect($border-width + 1px, $outer-dim, $outer-dim, $outer-dim / 2);\n\n    animation: clip $timing linear infinite;\n\n    @include inner-circle();\n  }\n  &::before {\n    clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);\n\n    animation: clip-reverse $timing linear infinite;\n\n    @include inner-circle();\n  }\n\n  @keyframes clip {\n    50% {\n      clip: rect($diameter, $outer-dim, $outer-dim, $outer-dim / 2);\n\n      animation-timing-function: ease-in-out;\n    }\n  }\n\n  @keyframes clip-reverse {\n    50% {\n      clip: rect(0, $outer-dim, $border-width * 3, $outer-dim / 2);\n\n      transform: rotate(135deg);\n      animation-timing-function: ease-in-out;\n    }\n  }\n\n  @keyframes rotate {\n    from {\n      transform: rotate(0);\n      animation-timing-function: ease-out;\n    }\n    45% {\n      transform: rotate(18deg);\n\n      color: white;\n    }\n    55% {\n      transform: rotate(54deg);\n    }\n    to {\n      transform: rotate(360deg);\n    }\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-loader-loader__controlButton__12IUU {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-loader-loader__controlButton__12IUU:hover {\n    opacity: .7; }\n\n.modules-ui-loader-loader__hidden__3SK6K {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-loader-loader__loader__3PpVh {\n  position: absolute;\n  z-index: 90;\n  top: 50%;\n  left: 50%;\n  display: none;\n  clip: rect(0, 48px, 48px, 24px);\n  width: 42px;\n  height: 42px;\n  margin-top: -21px;\n  margin-left: -21px;\n  -webkit-animation: modules-ui-loader-loader__rotate__14Fyl 1s linear infinite;\n          animation: modules-ui-loader-loader__rotate__14Fyl 1s linear infinite;\n  color: white; }\n  .modules-ui-loader-loader__loader__3PpVh.modules-ui-loader-loader__active__2LHs0 {\n    display: block; }\n  .modules-ui-loader-loader__loader__3PpVh::after {\n    clip: rect(4px, 48px, 48px, 24px);\n    -webkit-animation: modules-ui-loader-loader__clip__2j-5- 1s linear infinite;\n            animation: modules-ui-loader-loader__clip__2j-5- 1s linear infinite;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    content: '';\n    border: 3px solid currentColor;\n    border-radius: 50%; }\n  .modules-ui-loader-loader__loader__3PpVh::before {\n    clip: rect(0, 48px, 48px, 24px);\n    -webkit-animation: modules-ui-loader-loader__clip-reverse__1LDSw 1s linear infinite;\n            animation: modules-ui-loader-loader__clip-reverse__1LDSw 1s linear infinite;\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    content: '';\n    border: 3px solid currentColor;\n    border-radius: 50%; }\n\n@-webkit-keyframes modules-ui-loader-loader__clip__2j-5- {\n  50% {\n    clip: rect(42px, 48px, 48px, 24px);\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out; } }\n\n@keyframes modules-ui-loader-loader__clip__2j-5- {\n  50% {\n    clip: rect(42px, 48px, 48px, 24px);\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out; } }\n\n@-webkit-keyframes modules-ui-loader-loader__clip-reverse__1LDSw {\n  50% {\n    clip: rect(0, 48px, 9px, 24px);\n    -webkit-transform: rotate(135deg);\n            transform: rotate(135deg);\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out; } }\n\n@keyframes modules-ui-loader-loader__clip-reverse__1LDSw {\n  50% {\n    clip: rect(0, 48px, 9px, 24px);\n    -webkit-transform: rotate(135deg);\n            transform: rotate(135deg);\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out; } }\n\n@-webkit-keyframes modules-ui-loader-loader__rotate__14Fyl {\n  from {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n    -webkit-animation-timing-function: ease-out;\n            animation-timing-function: ease-out; }\n  45% {\n    -webkit-transform: rotate(18deg);\n            transform: rotate(18deg);\n    color: white; }\n  55% {\n    -webkit-transform: rotate(54deg);\n            transform: rotate(54deg); }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes modules-ui-loader-loader__rotate__14Fyl {\n  from {\n    -webkit-transform: rotate(0);\n            transform: rotate(0);\n    -webkit-animation-timing-function: ease-out;\n            animation-timing-function: ease-out; }\n  45% {\n    -webkit-transform: rotate(18deg);\n            transform: rotate(18deg);\n    color: white; }\n  55% {\n    -webkit-transform: rotate(54deg);\n            transform: rotate(54deg); }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/loader/D:/projects/wix/playable/src/modules/ui/loader/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/loader/D:/projects/wix/playable/src/modules/ui/loader/D:/projects/wix/playable/src/modules/ui/loader/loader.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACjCD;EACE,mBAAkB;EAClB,YAAW;EACX,SAAQ;EACR,UAAS;EAET,cAAa;EACb,gCAAqD;EAErD,YAfa;EAgBb,aAhBa;EAiBb,kBAA2B;EAC3B,mBAA4B;EAE5B,8EAAyC;UAAzC,sEAAyC;EAEzC,aAAY,EAoEb;EApFD;IAmBI,eAAc,EACf;EApBH;IAoCI,kCAAuE;IAEvE,4EAAuC;YAAvC,oEAAuC;IAfvC,mBAAkB;IAClB,OAAM;IACN,SAAQ;IACR,UAAS;IACT,QAAO;IAEP,YAAW;IAEX,+BAAwC;IACxC,mBAAkB,EASnB;EAzCH;IA2CI,gCAAqD;IAErD,oFAA+C;YAA/C,4EAA+C;IAtB/C,mBAAkB;IAClB,OAAM;IACN,SAAQ;IACR,UAAS;IACT,QAAO;IAEP,YAAW;IAEX,+BAAwC;IACxC,mBAAkB,EAgBnB;;AAED;EACE;IACE,mCAA6D;IAE7D,+CAAsC;YAAtC,uCAAsC,EAAA,EAAA;;AAJ1C;EACE;IACE,mCAA6D;IAE7D,+CAAsC;YAAtC,uCAAsC,EAAA,EAAA;;AAI1C;EACE;IACE,+BAA4D;IAE5D,kCAAyB;YAAzB,0BAAyB;IACzB,+CAAsC;YAAtC,uCAAsC,EAAA,EAAA;;AAL1C;EACE;IACE,+BAA4D;IAE5D,kCAAyB;YAAzB,0BAAyB;IACzB,+CAAsC;YAAtC,uCAAsC,EAAA,EAAA;;AAI1C;EACE;IACE,6BAAoB;YAApB,qBAAoB;IACpB,4CAAmC;YAAnC,oCAAmC,EAAA;EAErC;IACE,iCAAwB;YAAxB,yBAAwB;IAExB,aAAY,EAAA;EAEd;IACE,iCAAwB;YAAxB,yBAAwB,EAAA;EAE1B;IACE,kCAAyB;YAAzB,0BAAyB,EAAA,EAAA;;AAd7B;EACE;IACE,6BAAoB;YAApB,qBAAoB;IACpB,4CAAmC;YAAnC,oCAAmC,EAAA;EAErC;IACE,iCAAwB;YAAxB,yBAAwB;IAExB,aAAY,EAAA;EAEd;IACE,iCAAwB;YAAxB,yBAAwB,EAAA;EAE1B;IACE,kCAAyB;YAAzB,0BAAyB,EAAA,EAAA","file":"loader.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../shared';\r\n\r\n$diameter: 42px;\r\n$border-width: 3px;\r\n$outer-dim: $diameter + ($border-width * 2);\r\n$timing: 1s;\r\n\r\n\r\n.loader {\r\n  position: absolute;\r\n  z-index: 90;\r\n  top: 50%;\r\n  left: 50%;\r\n\r\n  display: none;\r\n  clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);\r\n\r\n  width: $diameter;\r\n  height: $diameter;\r\n  margin-top: - $diameter / 2;\r\n  margin-left: - $diameter / 2;\r\n\r\n  animation: rotate $timing linear infinite;\r\n\r\n  color: white;\r\n\r\n  &.active {\r\n    display: block;\r\n  }\r\n\r\n  @mixin inner-circle() {\r\n    position: absolute;\r\n    top: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    left: 0;\r\n\r\n    content: '';\r\n\r\n    border: $border-width solid currentColor;\r\n    border-radius: 50%;\r\n  }\r\n\r\n  &::after {\r\n    clip: rect($border-width + 1px, $outer-dim, $outer-dim, $outer-dim / 2);\r\n\r\n    animation: clip $timing linear infinite;\r\n\r\n    @include inner-circle();\r\n  }\r\n  &::before {\r\n    clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);\r\n\r\n    animation: clip-reverse $timing linear infinite;\r\n\r\n    @include inner-circle();\r\n  }\r\n\r\n  @keyframes clip {\r\n    50% {\r\n      clip: rect($diameter, $outer-dim, $outer-dim, $outer-dim / 2);\r\n\r\n      animation-timing-function: ease-in-out;\r\n    }\r\n  }\r\n\r\n  @keyframes clip-reverse {\r\n    50% {\r\n      clip: rect(0, $outer-dim, $border-width * 3, $outer-dim / 2);\r\n\r\n      transform: rotate(135deg);\r\n      animation-timing-function: ease-in-out;\r\n    }\r\n  }\r\n\r\n  @keyframes rotate {\r\n    from {\r\n      transform: rotate(0);\r\n      animation-timing-function: ease-out;\r\n    }\r\n    45% {\r\n      transform: rotate(18deg);\r\n\r\n      color: white;\r\n    }\r\n    55% {\r\n      transform: rotate(54deg);\r\n    }\r\n    to {\r\n      transform: rotate(360deg);\r\n    }\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-loader-loader__controlButton__3KVex",
-	"hidden": "modules-ui-loader-loader__hidden__3umRR",
-	"loader": "modules-ui-loader-loader__loader__QLQ4c",
-	"rotate": "modules-ui-loader-loader__rotate__1nIZD",
-	"active": "modules-ui-loader-loader__active__2IH6z",
-	"clip": "modules-ui-loader-loader__clip__37htp",
-	"clip-reverse": "modules-ui-loader-loader__clip-reverse__2QVRr",
-	"clipReverse": "modules-ui-loader-loader__clip-reverse__2QVRr"
+	"controlButton": "modules-ui-loader-loader__controlButton__12IUU",
+	"hidden": "modules-ui-loader-loader__hidden__3SK6K",
+	"loader": "modules-ui-loader-loader__loader__3PpVh",
+	"rotate": "modules-ui-loader-loader__rotate__14Fyl",
+	"active": "modules-ui-loader-loader__active__2LHs0",
+	"clip": "modules-ui-loader-loader__clip__2j-5-",
+	"clip-reverse": "modules-ui-loader-loader__clip-reverse__1LDSw",
+	"clipReverse": "modules-ui-loader-loader__clip-reverse__1LDSw"
 };
 
 /***/ }),
@@ -550,12 +551,12 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-main-ui-block-main-ui-block__mainUiBlock__3FD7R {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  .modules-ui-main-ui-block-main-ui-block__mainUiBlock__3FD7R .modules-ui-main-ui-block-main-ui-block__tooltipContainerWrapper__1o4qz {\n    position: relative;\n    -webkit-box-flex: 2;\n        -ms-flex-positive: 2;\n            flex-grow: 2; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/main-ui-block/main-ui-block.scss"],"names":[],"mappings":"AAAA;EACE,mBAAkB;EAClB,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,6BAAsB;EAAtB,8BAAsB;MAAtB,2BAAsB;UAAtB,uBAAsB,EAOvB;EAfD;IAWI,mBAAkB;IAElB,oBAAY;QAAZ,qBAAY;YAAZ,aAAY,EACb","file":"main-ui-block.scss","sourcesContent":[".mainUiBlock {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n\n  display: flex;\n  flex-direction: column;\n\n  .tooltipContainerWrapper {\n    position: relative;\n\n    flex-grow: 2;\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-main-ui-block-main-ui-block__mainUiBlock__gZgC6 {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n  .modules-ui-main-ui-block-main-ui-block__mainUiBlock__gZgC6 .modules-ui-main-ui-block-main-ui-block__tooltipContainerWrapper__3e1rM {\n    position: relative;\n    -webkit-box-flex: 2;\n        -ms-flex-positive: 2;\n            flex-grow: 2; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/main-ui-block/D:/projects/wix/playable/src/modules/ui/main-ui-block/D:/projects/wix/playable/src/modules/ui/main-ui-block/main-ui-block.scss"],"names":[],"mappings":"AAAA;EACE,mBAAkB;EAClB,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,6BAAsB;EAAtB,8BAAsB;MAAtB,2BAAsB;UAAtB,uBAAsB,EAOvB;EAfD;IAWI,mBAAkB;IAElB,oBAAY;QAAZ,qBAAY;YAAZ,aAAY,EACb","file":"main-ui-block.scss","sourcesContent":[".mainUiBlock {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n\r\n  display: flex;\r\n  flex-direction: column;\r\n\r\n  .tooltipContainerWrapper {\r\n    position: relative;\r\n\r\n    flex-grow: 2;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"mainUiBlock": "modules-ui-main-ui-block-main-ui-block__mainUiBlock__3FD7R",
-	"tooltipContainerWrapper": "modules-ui-main-ui-block-main-ui-block__tooltipContainerWrapper__1o4qz"
+	"mainUiBlock": "modules-ui-main-ui-block-main-ui-block__mainUiBlock__gZgC6",
+	"tooltipContainerWrapper": "modules-ui-main-ui-block-main-ui-block__tooltipContainerWrapper__3e1rM"
 };
 
 /***/ }),
@@ -572,16 +573,16 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-overlay-overlay__controlButton__oIhJW {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-overlay-overlay__controlButton__oIhJW:hover {\n    opacity: .7; }\n\n.modules-ui-overlay-overlay__hidden__2qm1V {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-overlay-overlay__overlay__RT_tc {\n  position: absolute;\n  z-index: 100;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: none; }\n  .modules-ui-overlay-overlay__overlay__RT_tc.modules-ui-overlay-overlay__active__3-yQE {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center; }\n\n.modules-ui-overlay-overlay__poster__3AUPv {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: black no-repeat center;\n  background-size: cover;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.modules-ui-overlay-overlay__poster__3AUPv:before {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  content: '';\n  background-color: rgba(0, 0, 0, 0.35); }\n\n.modules-ui-overlay-overlay__icon__3NBG8 {\n  position: relative;\n  width: 71px;\n  height: 71px;\n  cursor: pointer;\n  opacity: 1; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-overlay-overlay__icon__3NBG8 {\n    width: 54px;\n    height: 54px; }\n  div[data-hook='player-container'][max-width~=\"400px\"] .modules-ui-overlay-overlay__icon__3NBG8 {\n    width: 36px;\n    height: 36px; }\n  .modules-ui-overlay-overlay__icon__3NBG8:hover {\n    opacity: .8; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/overlay/overlay.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAClB,aAAY;EACZ,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,cAAa,EAQd;EAhBD;IAWI,qBAAa;IAAb,qBAAa;IAAb,cAAa;IAEb,yBAAuB;QAAvB,sBAAuB;YAAvB,wBAAuB;IACvB,0BAAmB;QAAnB,uBAAmB;YAAnB,oBAAmB,EACpB;;AAGH;EACE,mBAAkB;EAClB,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,YAAW;EACX,aAAY;EAEZ,mCAAkC;EAClC,uBAAsB;EAEtB,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EACpB;;AAED;EACE,mBAAkB;EAClB,OAAM;EACN,QAAO;EAEP,YAAW;EACX,aAAY;EAEZ,YAAW;EAEX,sCAAoC,EACrC;;AAED;EACE,mBAAkB;EAElB,YAAW;EACX,aAAY;EAEZ,gBAAe;EAEf,WAAU,EAcX;ECjEC;IDsDE,YAAW;IACX,aAAY,ECrDb;EAFD;ID0DE,YAAW;IACX,aAAY,ECzDb;EDyCH;IAoBI,YAAW,EACZ","file":"overlay.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../shared';\n\n.overlay {\n  position: absolute;\n  z-index: 100;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n\n  display: none;\n\n  &.active {\n    display: flex;\n\n    justify-content: center;\n    align-items: center;\n  }\n}\n\n.poster {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n\n  width: 100%;\n  height: 100%;\n\n  background: black no-repeat center;\n  background-size: cover;\n\n  justify-content: center;\n  align-items: center;\n}\n\n.poster:before {\n  position: absolute;\n  top: 0;\n  left: 0;\n\n  width: 100%;\n  height: 100%;\n\n  content: '';\n\n  background-color: rgba(0, 0, 0, .35);\n}\n\n.icon {\n  position: relative;\n\n  width: 71px;\n  height: 71px;\n\n  cursor: pointer;\n\n  opacity: 1;\n\n  @include max-width-550() {\n    width: 54px;\n    height: 54px;\n  }\n  @include max-width-400() {\n    width: 36px;\n    height: 36px;\n  }\n\n  &:hover {\n    opacity: .8;\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-overlay-overlay__controlButton__2Nvr2 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-overlay-overlay__controlButton__2Nvr2:hover {\n    opacity: .7; }\n\n.modules-ui-overlay-overlay__hidden__3fUUK {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-overlay-overlay__overlay__2xZeZ {\n  position: absolute;\n  z-index: 100;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: none; }\n  .modules-ui-overlay-overlay__overlay__2xZeZ.modules-ui-overlay-overlay__active__2NBhg {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center; }\n\n.modules-ui-overlay-overlay__poster__3h8oA {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: black no-repeat center;\n  background-size: cover;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.modules-ui-overlay-overlay__poster__3h8oA:before {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  content: '';\n  background-color: rgba(0, 0, 0, 0.35); }\n\n.modules-ui-overlay-overlay__icon__2I4Cs {\n  position: relative;\n  width: 71px;\n  height: 71px;\n  cursor: pointer;\n  opacity: 1; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-overlay-overlay__icon__2I4Cs {\n    width: 54px;\n    height: 54px; }\n  div[data-hook='player-container'][max-width~=\"400px\"] .modules-ui-overlay-overlay__icon__2I4Cs {\n    width: 36px;\n    height: 36px; }\n  .modules-ui-overlay-overlay__icon__2I4Cs:hover {\n    opacity: .8; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/overlay/D:/projects/wix/playable/src/modules/ui/overlay/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/overlay/D:/projects/wix/playable/src/modules/ui/overlay/D:/projects/wix/playable/src/modules/ui/overlay/overlay.scss","D:/projects/wix/playable/src/modules/ui/overlay/D:/projects/wix/playable/src/modules/ui/overlay/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAClB,aAAY;EACZ,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,cAAa,EAQd;EAhBD;IAWI,qBAAa;IAAb,qBAAa;IAAb,cAAa;IAEb,yBAAuB;QAAvB,sBAAuB;YAAvB,wBAAuB;IACvB,0BAAmB;QAAnB,uBAAmB;YAAnB,oBAAmB,EACpB;;AAGH;EACE,mBAAkB;EAClB,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,YAAW;EACX,aAAY;EAEZ,mCAAkC;EAClC,uBAAsB;EAEtB,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EACpB;;AAED;EACE,mBAAkB;EAClB,OAAM;EACN,QAAO;EAEP,YAAW;EACX,aAAY;EAEZ,YAAW;EAEX,sCAAoC,EACrC;;AAED;EACE,mBAAkB;EAElB,YAAW;EACX,aAAY;EAEZ,gBAAe;EAEf,WAAU,EAcX;ECjEC;IDsDE,YAAW;IACX,aAAY,ECrDb;EAFD;ID0DE,YAAW;IACX,aAAY,ECzDb;EDyCH;IAoBI,YAAW,EACZ","file":"overlay.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../shared';\r\n\r\n.overlay {\r\n  position: absolute;\r\n  z-index: 100;\r\n  top: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n\r\n  display: none;\r\n\r\n  &.active {\r\n    display: flex;\r\n\r\n    justify-content: center;\r\n    align-items: center;\r\n  }\r\n}\r\n\r\n.poster {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n\r\n  width: 100%;\r\n  height: 100%;\r\n\r\n  background: black no-repeat center;\r\n  background-size: cover;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n\r\n.poster:before {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n\r\n  width: 100%;\r\n  height: 100%;\r\n\r\n  content: '';\r\n\r\n  background-color: rgba(0, 0, 0, .35);\r\n}\r\n\r\n.icon {\r\n  position: relative;\r\n\r\n  width: 71px;\r\n  height: 71px;\r\n\r\n  cursor: pointer;\r\n\r\n  opacity: 1;\r\n\r\n  @include max-width-550() {\r\n    width: 54px;\r\n    height: 54px;\r\n  }\r\n  @include max-width-400() {\r\n    width: 36px;\r\n    height: 36px;\r\n  }\r\n\r\n  &:hover {\r\n    opacity: .8;\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-overlay-overlay__controlButton__oIhJW",
-	"hidden": "modules-ui-overlay-overlay__hidden__2qm1V",
-	"overlay": "modules-ui-overlay-overlay__overlay__RT_tc",
-	"active": "modules-ui-overlay-overlay__active__3-yQE",
-	"poster": "modules-ui-overlay-overlay__poster__3AUPv",
-	"icon": "modules-ui-overlay-overlay__icon__3NBG8"
+	"controlButton": "modules-ui-overlay-overlay__controlButton__2Nvr2",
+	"hidden": "modules-ui-overlay-overlay__hidden__3fUUK",
+	"overlay": "modules-ui-overlay-overlay__overlay__2xZeZ",
+	"active": "modules-ui-overlay-overlay__active__2NBhg",
+	"poster": "modules-ui-overlay-overlay__poster__3h8oA",
+	"icon": "modules-ui-overlay-overlay__icon__2I4Cs"
 };
 
 /***/ }),
@@ -598,15 +599,18 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-screen-screen__screen__2It43 {\n  position: absolute;\n  z-index: 50;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  width: 100%;\n  height: 100%;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  background-color: black; }\n  .modules-ui-screen-screen__screen__2It43.modules-ui-screen-screen__verticalVideo__9b6SU {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row; }\n    .modules-ui-screen-screen__screen__2It43.modules-ui-screen-screen__verticalVideo__9b6SU video {\n      height: 100%; }\n  .modules-ui-screen-screen__screen__2It43.modules-ui-screen-screen__horizontalVideo__2w--q {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .modules-ui-screen-screen__screen__2It43.modules-ui-screen-screen__horizontalVideo__2w--q video {\n      width: 100%; }\n  .modules-ui-screen-screen__screen__2It43 video {\n    position: relative;\n    z-index: 1;\n    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);\n            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }\n  .modules-ui-screen-screen__screen__2It43.modules-ui-screen-screen__hiddenCursor__1OgH8 {\n    cursor: none; }\n\n.modules-ui-screen-screen__backgroundCanvas__1SvaO {\n  position: absolute;\n  z-index: 0;\n  top: -20px;\n  right: 0;\n  bottom: 0;\n  left: -20px;\n  -webkit-filter: blur(14px);\n          filter: blur(14px); }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/screen/screen.scss"],"names":[],"mappings":"AAAA;EACE,mBAAkB;EAClB,YAAW;EACX,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,6BAAsB;EAAtB,8BAAsB;MAAtB,2BAAsB;UAAtB,uBAAsB;EAEtB,YAAW;EACX,aAAY;EAEZ,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,wBAAuB,EAyBxB;EAxCD;IAkBI,+BAAmB;IAAnB,8BAAmB;QAAnB,wBAAmB;YAAnB,oBAAmB,EAIpB;IAtBH;MAoBM,aAAY,EACb;EArBL;IAwBI,6BAAsB;IAAtB,8BAAsB;QAAtB,2BAAsB;YAAtB,uBAAsB,EAIvB;IA5BH;MA0BM,YAAW,EACZ;EA3BL;IA+BI,mBAAkB;IAClB,WAAU;IAEV,gDAAsC;YAAtC,wCAAsC,EACvC;EAnCH;IAsCI,aAAY,EACb;;AAMH;EACE,mBAAkB;EAClB,WAAU;EACV,WAN4B;EAO5B,SAAQ;EACR,UAAS;EACT,YAR8B;EAU9B,2BAAkB;UAAlB,mBAAkB,EACnB","file":"screen.scss","sourcesContent":[".screen {\n  position: absolute;\n  z-index: 50;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n\n  display: flex;\n  flex-direction: column;\n\n  width: 100%;\n  height: 100%;\n\n  justify-content: center;\n  background-color: black;\n\n  &.verticalVideo {\n    flex-direction: row;\n    video {\n      height: 100%;\n    }\n  }\n  &.horizontalVideo {\n    flex-direction: column;\n    video {\n      width: 100%;\n    }\n  }\n\n  video {\n    position: relative;\n    z-index: 1;\n\n    box-shadow: 0 0 20px rgba(0, 0, 0, .2);\n  }\n\n  &.hiddenCursor {\n    cursor: none;\n  }\n}\n\n$canvas-padding-vertical: 20px;\n$canvas-padding-horizontal: 20px;\n\n.backgroundCanvas {\n  position: absolute;\n  z-index: 0;\n  top: -$canvas-padding-vertical;\n  right: 0;\n  bottom: 0;\n  left: -$canvas-padding-horizontal;\n\n  filter: blur(14px);\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-screen-screen__screen__3DOO- {\n  position: absolute;\n  z-index: 50;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  width: 100%;\n  height: 100%;\n  background-color: black;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-screen-screen__screen__3DOO-.modules-ui-screen-screen__regularMode__3D-e1 video {\n    width: 100%;\n    height: 100%; }\n  .modules-ui-screen-screen__screen__3DOO-.modules-ui-screen-screen__verticalVideo__2aDTZ {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: row;\n            flex-direction: row; }\n    .modules-ui-screen-screen__screen__3DOO-.modules-ui-screen-screen__verticalVideo__2aDTZ.modules-ui-screen-screen__fillMode__1wxej video {\n      width: 100%; }\n    .modules-ui-screen-screen__screen__3DOO-.modules-ui-screen-screen__verticalVideo__2aDTZ.modules-ui-screen-screen__blurMode__enIT6 video {\n      height: 100%; }\n  .modules-ui-screen-screen__screen__3DOO-.modules-ui-screen-screen__horizontalVideo__2-boC {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column; }\n    .modules-ui-screen-screen__screen__3DOO-.modules-ui-screen-screen__horizontalVideo__2-boC.modules-ui-screen-screen__fillMode__1wxej video {\n      height: 100%; }\n    .modules-ui-screen-screen__screen__3DOO-.modules-ui-screen-screen__horizontalVideo__2-boC.modules-ui-screen-screen__blurMode__enIT6 video {\n      width: 100%; }\n  .modules-ui-screen-screen__screen__3DOO- video {\n    position: relative;\n    z-index: 1;\n    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);\n            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); }\n  .modules-ui-screen-screen__screen__3DOO-.modules-ui-screen-screen__hiddenCursor__367ME {\n    cursor: none; }\n\n.modules-ui-screen-screen__backgroundCanvas__10UE4 {\n  position: absolute;\n  z-index: 0;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  -webkit-filter: blur(14px);\n          filter: blur(14px); }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/screen/D:/projects/wix/playable/src/modules/ui/screen/D:/projects/wix/playable/src/modules/ui/screen/screen.scss"],"names":[],"mappings":"AAAA;EACE,mBAAkB;EAClB,YAAW;EACX,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,6BAAsB;EAAtB,8BAAsB;MAAtB,2BAAsB;UAAtB,uBAAsB;EAEtB,YAAW;EACX,aAAY;EAEZ,wBAAuB;EAEvB,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EA+CpB;EAhED;IAqBM,YAAW;IACX,aAAY,EACb;EAvBL;IA2BI,+BAAmB;IAAnB,8BAAmB;QAAnB,wBAAmB;YAAnB,oBAAmB,EAWpB;IAtCH;MA8BQ,YAAW,EACZ;IA/BP;MAmCQ,aAAY,EACb;EApCP;IAyCI,6BAAsB;IAAtB,8BAAsB;QAAtB,2BAAsB;YAAtB,uBAAsB,EAWvB;IApDH;MA4CQ,aAAY,EACb;IA7CP;MAiDQ,YAAW,EACZ;EAlDP;IAuDI,mBAAkB;IAClB,WAAU;IAEV,gDAAsC;YAAtC,wCAAsC,EACvC;EA3DH;IA8DI,aAAY,EACb;;AAGH;EACE,mBAAkB;EAClB,WAAU;EACV,OAAM;EACN,SAAQ;EACR,UAAS;EACT,QAAO;EAEP,2BAAkB;UAAlB,mBAAkB,EACnB","file":"screen.scss","sourcesContent":[".screen {\r\n  position: absolute;\r\n  z-index: 50;\r\n  top: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n\r\n  display: flex;\r\n  flex-direction: column;\r\n\r\n  width: 100%;\r\n  height: 100%;\r\n\r\n  background-color: black;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &.regularMode {\r\n    video {\r\n      width: 100%;\r\n      height: 100%;\r\n    }\r\n  }\r\n\r\n  &.verticalVideo {\r\n    flex-direction: row;\r\n    &.fillMode {\r\n      video {\r\n        width: 100%;\r\n      }\r\n    }\r\n    &.blurMode {\r\n      video {\r\n        height: 100%;\r\n      }\r\n    }\r\n  }\r\n\r\n  &.horizontalVideo {\r\n    flex-direction: column;\r\n    &.fillMode {\r\n      video {\r\n        height: 100%;\r\n      }\r\n    }\r\n    &.blurMode {\r\n      video {\r\n        width: 100%;\r\n      }\r\n    }\r\n  }\r\n\r\n  video {\r\n    position: relative;\r\n    z-index: 1;\r\n\r\n    box-shadow: 0 0 20px rgba(0, 0, 0, .2);\r\n  }\r\n\r\n  &.hiddenCursor {\r\n    cursor: none;\r\n  }\r\n}\r\n\r\n.backgroundCanvas {\r\n  position: absolute;\r\n  z-index: 0;\r\n  top: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n\r\n  filter: blur(14px);\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"screen": "modules-ui-screen-screen__screen__2It43",
-	"verticalVideo": "modules-ui-screen-screen__verticalVideo__9b6SU",
-	"horizontalVideo": "modules-ui-screen-screen__horizontalVideo__2w--q",
-	"hiddenCursor": "modules-ui-screen-screen__hiddenCursor__1OgH8",
-	"backgroundCanvas": "modules-ui-screen-screen__backgroundCanvas__1SvaO"
+	"screen": "modules-ui-screen-screen__screen__3DOO-",
+	"regularMode": "modules-ui-screen-screen__regularMode__3D-e1",
+	"verticalVideo": "modules-ui-screen-screen__verticalVideo__2aDTZ",
+	"fillMode": "modules-ui-screen-screen__fillMode__1wxej",
+	"blurMode": "modules-ui-screen-screen__blurMode__enIT6",
+	"horizontalVideo": "modules-ui-screen-screen__horizontalVideo__2-boC",
+	"hiddenCursor": "modules-ui-screen-screen__hiddenCursor__367ME",
+	"backgroundCanvas": "modules-ui-screen-screen__backgroundCanvas__10UE4"
 };
 
 /***/ }),
@@ -623,14 +627,14 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-title-title__controlButton__Ru7Y2 {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-title-title__controlButton__Ru7Y2:hover {\n    opacity: .7; }\n\n.modules-ui-title-title__hidden__2b-ny {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-title-title__title__2oluF {\n  font-size: 16px;\n  line-height: 17px;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-title-title__title__2oluF {\n    font-size: 14px;\n    line-height: 15px; }\n  div[data-hook='player-container'][max-width~=\"300px\"] .modules-ui-title-title__title__2oluF {\n    font-size: 12px;\n    line-height: 13px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-title-title__title__2oluF {\n    font-size: 20px;\n    line-height: 20px; }\n  .modules-ui-title-title__title__2oluF.modules-ui-title-title__link__2ELt_ {\n    cursor: pointer; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/title/title.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,gBAAe;EACf,kBAAiB;EAEjB,iBAAgB;EAEhB,oBAAmB;EACnB,wBAAuB,EAkBxB;ECpBC;IDKE,gBAAe;IACf,kBAAiB,ECJlB;EAFD;IDSE,gBAAe;IACf,kBAAiB,ECRlB;EARD;IDmBE,gBAAe;IACf,kBAAiB,EClBlB;EDDH;IAuBI,gBAAe,EAChB","file":"title.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../shared';\n\n.title {\n  font-size: 16px;\n  line-height: 17px;\n\n  overflow: hidden;\n\n  white-space: nowrap;\n  text-overflow: ellipsis;\n\n  @include max-width-550() {\n    font-size: 14px;\n    line-height: 15px;\n  }\n  @include max-width-300 {\n    font-size: 12px;\n    line-height: 13px;;\n  }\n  @include in-full-screen {\n    font-size: 20px;\n    line-height: 20px;\n  }\n\n  &.link {\n    cursor: pointer;\n  }\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-title-title__controlButton__JPd7k {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-title-title__controlButton__JPd7k:hover {\n    opacity: .7; }\n\n.modules-ui-title-title__hidden__uBDES {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-title-title__title__2fXjO {\n  font-size: 16px;\n  line-height: 17px;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-title-title__title__2fXjO {\n    font-size: 14px;\n    line-height: 15px; }\n  div[data-hook='player-container'][max-width~=\"300px\"] .modules-ui-title-title__title__2fXjO {\n    font-size: 12px;\n    line-height: 13px; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-title-title__title__2fXjO {\n    font-size: 20px;\n    line-height: 20px; }\n  .modules-ui-title-title__title__2fXjO.modules-ui-title-title__link__1ZxLm {\n    cursor: pointer; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/title/D:/projects/wix/playable/src/modules/ui/title/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/title/D:/projects/wix/playable/src/modules/ui/title/D:/projects/wix/playable/src/modules/ui/title/title.scss","D:/projects/wix/playable/src/modules/ui/title/D:/projects/wix/playable/src/modules/ui/title/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,gBAAe;EACf,kBAAiB;EAEjB,iBAAgB;EAEhB,oBAAmB;EACnB,wBAAuB,EAkBxB;ECpBC;IDKE,gBAAe;IACf,kBAAiB,ECJlB;EAFD;IDSE,gBAAe;IACf,kBAAiB,ECRlB;EARD;IDmBE,gBAAe;IACf,kBAAiB,EClBlB;EDDH;IAuBI,gBAAe,EAChB","file":"title.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../shared';\r\n\r\n.title {\r\n  font-size: 16px;\r\n  line-height: 17px;\r\n\r\n  overflow: hidden;\r\n\r\n  white-space: nowrap;\r\n  text-overflow: ellipsis;\r\n\r\n  @include max-width-550() {\r\n    font-size: 14px;\r\n    line-height: 15px;\r\n  }\r\n  @include max-width-300 {\r\n    font-size: 12px;\r\n    line-height: 13px;;\r\n  }\r\n  @include in-full-screen {\r\n    font-size: 20px;\r\n    line-height: 20px;\r\n  }\r\n\r\n  &.link {\r\n    cursor: pointer;\r\n  }\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-title-title__controlButton__Ru7Y2",
-	"hidden": "modules-ui-title-title__hidden__2b-ny",
-	"title": "modules-ui-title-title__title__2oluF",
-	"link": "modules-ui-title-title__link__2ELt_"
+	"controlButton": "modules-ui-title-title__controlButton__JPd7k",
+	"hidden": "modules-ui-title-title__hidden__uBDES",
+	"title": "modules-ui-title-title__title__2fXjO",
+	"link": "modules-ui-title-title__link__1ZxLm"
 };
 
 /***/ }),
@@ -647,20 +651,20 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modules-ui-top-block-top-block__controlButton__2Y4HI {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-top-block-top-block__controlButton__2Y4HI:hover {\n    opacity: .7; }\n\n.modules-ui-top-block-top-block__hidden__2f9kv {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-top-block-top-block__topBlock__AuJ_X {\n  position: relative;\n  z-index: 60; }\n  .modules-ui-top-block-top-block__topBlock__AuJ_X::-moz-focus-inner {\n    border: 0; }\n  .modules-ui-top-block-top-block__topBlock__AuJ_X.modules-ui-top-block-top-block__activated__1qJke .modules-ui-top-block-top-block__titleContainer__1x21v, .modules-ui-top-block-top-block__topBlock__AuJ_X.modules-ui-top-block-top-block__focus-within__30IG_ .modules-ui-top-block-top-block__titleContainer__1x21v {\n    visibility: visible;\n    opacity: 1; }\n  .modules-ui-top-block-top-block__topBlock__AuJ_X.modules-ui-top-block-top-block__activated__1qJke .modules-ui-top-block-top-block__background__urn7n, .modules-ui-top-block-top-block__topBlock__AuJ_X.modules-ui-top-block-top-block__focus-within__30IG_ .modules-ui-top-block-top-block__background__urn7n {\n    visibility: visible;\n    opacity: 1; }\n\n.modules-ui-top-block-top-block__liveIndicatorContainer__C0I_R {\n  -webkit-box-flex: 0;\n      -ms-flex-positive: 0;\n          flex-grow: 0; }\n\n.modules-ui-top-block-top-block__elementsContainer__8Wc8r {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  margin-top: 20px;\n  margin-left: 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-top-block-top-block__elementsContainer__8Wc8r {\n    margin-top: 30px;\n    margin-left: 30px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-top-block-top-block__elementsContainer__8Wc8r {\n    margin-top: 15px;\n    margin-left: 15px; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-top-block-top-block__elementsContainer__8Wc8r {\n    margin-top: 12px;\n    margin-left: 12px; }\n\n.modules-ui-top-block-top-block__titleContainer__1x21v {\n  visibility: hidden;\n  max-width: calc(100% - 200px);\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  opacity: 0;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1; }\n\n.modules-ui-top-block-top-block__background__urn7n {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n  visibility: hidden;\n  height: 182px;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  pointer-events: none;\n  opacity: 0;\n  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0)), color-stop(24%, rgba(0, 0, 0, 0.03)), color-stop(50%, rgba(0, 0, 0, 0.15)), color-stop(75%, rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.4)));\n  background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.03) 24%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.4));\n  background-size: 100% 182px; }\n", "", {"version":3,"sources":["/Users/oleksiim/projects/wix/playable/src/modules/ui/shared.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/top-block/top-block.scss","/Users/oleksiim/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAClB,YAAW,EAmBZ;EArBD;IAKI,UAAS,EACV;EANH;IAWM,oBAAmB;IAEnB,WAAU,EACX;EAdL;IAgBM,oBAAmB;IAEnB,WAAU,EACX;;AAIL;EACE,oBAAY;MAAZ,qBAAY;UAAZ,aAAY,EACb;;AAED;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,+BAAmB;EAAnB,8BAAmB;MAAnB,wBAAmB;UAAnB,oBAAmB;EAEnB,iBAAgB;EAChB,kBAAiB;EAEjB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAapB;EClDC;IDuCE,iBAAgB;IAChB,kBAAiB,ECtClB;EAID;IDqCE,iBAAgB;IAChB,kBAAiB,ECpClB;EAFD;IDyCE,iBAAgB;IAChB,kBAAiB,ECxClB;;AD4CH;EACE,mBAAkB;EAElB,8BAA6B;EAE7B,gDAAuC;EAAvC,wCAAuC;EAEvC,WAAU;EAEV,oBAAY;MAAZ,qBAAY;UAAZ,aAAY,EACb;;AAED;EACE,mBAAkB;EAClB,OAAM;EACN,SAAQ;EACR,QAAO;EAEP,mBAAkB;EAElB,cAAa;EAEb,gDAAuC;EAAvC,wCAAuC;EACvC,qBAAoB;EAEpB,WAAU;EACV,mOAOC;EAPD,0JAOC;EACD,4BAA2B,EAC5B","file":"top-block.scss","sourcesContent":["@import 'media-query-mixins';\n\n\n.controlButton {\n  display: flex;\n\n  padding: 0;\n\n  cursor: pointer;\n  transition-duration: .2s;\n  transition-property: opacity;\n\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n\n  justify-content: center;\n  align-items: center;\n\n  &:hover {\n    opacity: .7;\n  }\n}\n\n@mixin hidden() {\n  visibility: hidden !important;\n\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\n  opacity: 0 !important;\n}\n\n.hidden {\n  @include hidden();\n}\n","@import '../shared';\n\n.topBlock {\n  position: relative;\n  z-index: 60;\n\n  &::-moz-focus-inner {\n    border: 0;\n  }\n\n  &.activated,\n  &.focus-within {\n    .titleContainer {\n      visibility: visible;\n\n      opacity: 1;\n    }\n    .background {\n      visibility: visible;\n\n      opacity: 1;\n    }\n  }\n}\n\n.liveIndicatorContainer {\n  flex-grow: 0;\n}\n\n.elementsContainer {\n  position: relative;\n\n  display: flex;\n  flex-direction: row;\n\n  margin-top: 20px;\n  margin-left: 20px;\n\n  align-items: center;\n  @include in-full-screen() {\n    margin-top: 30px;\n    margin-left: 30px;\n  }\n  @include max-width-550() {\n    margin-top: 15px;\n    margin-left: 15px;\n  }\n  @include max-width-280() {\n    margin-top: 12px;\n    margin-left: 12px;\n  }\n}\n\n.titleContainer {\n  visibility: hidden;\n\n  max-width: calc(100% - 200px);\n\n  transition: opacity .2s, visibility .2s;\n\n  opacity: 0;\n\n  flex-grow: 1;\n}\n\n.background {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n\n  visibility: hidden;\n\n  height: 182px;\n\n  transition: opacity .2s, visibility .2s;\n  pointer-events: none;\n\n  opacity: 0;\n  background-image: linear-gradient(\n  to top,\n  rgba(0, 0, 0, .0),\n  rgba(0, 0, 0, .03) 24%,\n  rgba(0, 0, 0, .15) 50%,\n  rgba(0, 0, 0, .3) 75%,\n  rgba(0, 0, 0, .4)\n  );\n  background-size: 100% 182px;\n}\n","@mixin in-full-screen() {\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\n    @content\n  }\n}\n\n@mixin query-basic($query, $value) {\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\n    @content\n  }\n}\n\n@mixin max-width-550() {\n  @include query-basic(max-width, 550px) {\n    @content\n  }\n}\n\n@mixin max-width-400() {\n  @include query-basic(max-width, 400px) {\n    @content\n  }\n}\n\n@mixin max-width-350() {\n  @include query-basic(max-width, 350px) {\n    @content\n  }\n}\n\n@mixin max-width-300() {\n  @include query-basic(max-width, 300px) {\n    @content\n  }\n}\n\n@mixin max-width-280() {\n  @include query-basic(max-width, 280px) {\n    @content\n  }\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, ".modules-ui-top-block-top-block__controlButton__21rNz {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 0;\n  cursor: pointer;\n  -webkit-transition-duration: .2s;\n          transition-duration: .2s;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n  opacity: 1;\n  border: 0;\n  border-radius: 0;\n  outline: none;\n  background-color: transparent;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  .modules-ui-top-block-top-block__controlButton__21rNz:hover {\n    opacity: .7; }\n\n.modules-ui-top-block-top-block__hidden__2jiyf {\n  visibility: hidden !important;\n  width: 0 !important;\n  min-width: 0 !important;\n  height: 0 !important;\n  min-height: 0 !important;\n  margin: 0 !important;\n  padding: 0 !important;\n  opacity: 0 !important; }\n\n.modules-ui-top-block-top-block__topBlock__3kr8I {\n  position: relative;\n  z-index: 60; }\n  .modules-ui-top-block-top-block__topBlock__3kr8I::-moz-focus-inner {\n    border: 0; }\n  .modules-ui-top-block-top-block__topBlock__3kr8I.modules-ui-top-block-top-block__activated__PAhGT .modules-ui-top-block-top-block__titleContainer__jzmCw, .modules-ui-top-block-top-block__topBlock__3kr8I.modules-ui-top-block-top-block__focus-within__2dEhj .modules-ui-top-block-top-block__titleContainer__jzmCw {\n    visibility: visible;\n    opacity: 1; }\n  .modules-ui-top-block-top-block__topBlock__3kr8I.modules-ui-top-block-top-block__activated__PAhGT .modules-ui-top-block-top-block__background__1_5ZK, .modules-ui-top-block-top-block__topBlock__3kr8I.modules-ui-top-block-top-block__focus-within__2dEhj .modules-ui-top-block-top-block__background__1_5ZK {\n    visibility: visible;\n    opacity: 1; }\n\n.modules-ui-top-block-top-block__liveIndicatorContainer__2QyyT {\n  -webkit-box-flex: 0;\n      -ms-flex-positive: 0;\n          flex-grow: 0; }\n\n.modules-ui-top-block-top-block__elementsContainer__3DotH {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  margin-top: 20px;\n  margin-left: 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  div[data-hook='player-container'][data-in-full-screen='true'] .modules-ui-top-block-top-block__elementsContainer__3DotH {\n    margin-top: 30px;\n    margin-left: 30px; }\n  div[data-hook='player-container'][max-width~=\"550px\"] .modules-ui-top-block-top-block__elementsContainer__3DotH {\n    margin-top: 15px;\n    margin-left: 15px; }\n  div[data-hook='player-container'][max-width~=\"280px\"] .modules-ui-top-block-top-block__elementsContainer__3DotH {\n    margin-top: 12px;\n    margin-left: 12px; }\n\n.modules-ui-top-block-top-block__titleContainer__jzmCw {\n  visibility: hidden;\n  max-width: calc(100% - 200px);\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  opacity: 0;\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1; }\n\n.modules-ui-top-block-top-block__background__1_5ZK {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n  visibility: hidden;\n  height: 182px;\n  -webkit-transition: opacity .2s, visibility .2s;\n  transition: opacity .2s, visibility .2s;\n  pointer-events: none;\n  opacity: 0;\n  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0)), color-stop(24%, rgba(0, 0, 0, 0.03)), color-stop(50%, rgba(0, 0, 0, 0.15)), color-stop(75%, rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.4)));\n  background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.03) 24%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.4));\n  background-size: 100% 182px; }\n", "", {"version":3,"sources":["D:/projects/wix/playable/src/modules/ui/top-block/D:/projects/wix/playable/src/modules/ui/top-block/D:/projects/wix/playable/src/modules/ui/shared.scss","D:/projects/wix/playable/src/modules/ui/top-block/D:/projects/wix/playable/src/modules/ui/top-block/D:/projects/wix/playable/src/modules/ui/top-block/top-block.scss","D:/projects/wix/playable/src/modules/ui/top-block/D:/projects/wix/playable/src/modules/ui/top-block/D:/projects/wix/playable/src/modules/ui/media-query-mixins.scss"],"names":[],"mappings":"AAGA;EACE,qBAAa;EAAb,qBAAa;EAAb,cAAa;EAEb,WAAU;EAEV,gBAAe;EACf,iCAAwB;UAAxB,yBAAwB;EACxB,qCAA4B;EAA5B,6BAA4B;EAE5B,WAAU;EACV,UAAS;EACT,iBAAgB;EAChB,cAAa;EACb,8BAA6B;EAE7B,yBAAuB;MAAvB,sBAAuB;UAAvB,wBAAuB;EACvB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAKpB;EArBD;IAmBI,YAAW,EACZ;;AAgBH;EAZE,8BAA6B;EAE7B,oBAAmB;EACnB,wBAAuB;EACvB,qBAAoB;EACpB,yBAAwB;EACxB,qBAAoB;EACpB,sBAAqB;EAErB,sBAAqB,EAKtB;;ACvCD;EACE,mBAAkB;EAClB,YAAW,EAmBZ;EArBD;IAKI,UAAS,EACV;EANH;IAWM,oBAAmB;IAEnB,WAAU,EACX;EAdL;IAgBM,oBAAmB;IAEnB,WAAU,EACX;;AAIL;EACE,oBAAY;MAAZ,qBAAY;UAAZ,aAAY,EACb;;AAED;EACE,mBAAkB;EAElB,qBAAa;EAAb,qBAAa;EAAb,cAAa;EACb,+BAAmB;EAAnB,8BAAmB;MAAnB,wBAAmB;UAAnB,oBAAmB;EAEnB,iBAAgB;EAChB,kBAAiB;EAEjB,0BAAmB;MAAnB,uBAAmB;UAAnB,oBAAmB,EAapB;EClDC;IDuCE,iBAAgB;IAChB,kBAAiB,ECtClB;EAID;IDqCE,iBAAgB;IAChB,kBAAiB,ECpClB;EAFD;IDyCE,iBAAgB;IAChB,kBAAiB,ECxClB;;AD4CH;EACE,mBAAkB;EAElB,8BAA6B;EAE7B,gDAAuC;EAAvC,wCAAuC;EAEvC,WAAU;EAEV,oBAAY;MAAZ,qBAAY;UAAZ,aAAY,EACb;;AAED;EACE,mBAAkB;EAClB,OAAM;EACN,SAAQ;EACR,QAAO;EAEP,mBAAkB;EAElB,cAAa;EAEb,gDAAuC;EAAvC,wCAAuC;EACvC,qBAAoB;EAEpB,WAAU;EACV,mOAOC;EAPD,0JAOC;EACD,4BAA2B,EAC5B","file":"top-block.scss","sourcesContent":["@import 'media-query-mixins';\r\n\r\n\r\n.controlButton {\r\n  display: flex;\r\n\r\n  padding: 0;\r\n\r\n  cursor: pointer;\r\n  transition-duration: .2s;\r\n  transition-property: opacity;\r\n\r\n  opacity: 1;\r\n  border: 0;\r\n  border-radius: 0;\r\n  outline: none;\r\n  background-color: transparent;\r\n\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &:hover {\r\n    opacity: .7;\r\n  }\r\n}\r\n\r\n@mixin hidden() {\r\n  visibility: hidden !important;\r\n\r\n  width: 0 !important;\r\n  min-width: 0 !important;\r\n  height: 0 !important;\r\n  min-height: 0 !important;\r\n  margin: 0 !important;\r\n  padding: 0 !important;\r\n\r\n  opacity: 0 !important;\r\n}\r\n\r\n.hidden {\r\n  @include hidden();\r\n}\r\n","@import '../shared';\r\n\r\n.topBlock {\r\n  position: relative;\r\n  z-index: 60;\r\n\r\n  &::-moz-focus-inner {\r\n    border: 0;\r\n  }\r\n\r\n  &.activated,\r\n  &.focus-within {\r\n    .titleContainer {\r\n      visibility: visible;\r\n\r\n      opacity: 1;\r\n    }\r\n    .background {\r\n      visibility: visible;\r\n\r\n      opacity: 1;\r\n    }\r\n  }\r\n}\r\n\r\n.liveIndicatorContainer {\r\n  flex-grow: 0;\r\n}\r\n\r\n.elementsContainer {\r\n  position: relative;\r\n\r\n  display: flex;\r\n  flex-direction: row;\r\n\r\n  margin-top: 20px;\r\n  margin-left: 20px;\r\n\r\n  align-items: center;\r\n  @include in-full-screen() {\r\n    margin-top: 30px;\r\n    margin-left: 30px;\r\n  }\r\n  @include max-width-550() {\r\n    margin-top: 15px;\r\n    margin-left: 15px;\r\n  }\r\n  @include max-width-280() {\r\n    margin-top: 12px;\r\n    margin-left: 12px;\r\n  }\r\n}\r\n\r\n.titleContainer {\r\n  visibility: hidden;\r\n\r\n  max-width: calc(100% - 200px);\r\n\r\n  transition: opacity .2s, visibility .2s;\r\n\r\n  opacity: 0;\r\n\r\n  flex-grow: 1;\r\n}\r\n\r\n.background {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  left: 0;\r\n\r\n  visibility: hidden;\r\n\r\n  height: 182px;\r\n\r\n  transition: opacity .2s, visibility .2s;\r\n  pointer-events: none;\r\n\r\n  opacity: 0;\r\n  background-image: linear-gradient(\r\n  to top,\r\n  rgba(0, 0, 0, .0),\r\n  rgba(0, 0, 0, .03) 24%,\r\n  rgba(0, 0, 0, .15) 50%,\r\n  rgba(0, 0, 0, .3) 75%,\r\n  rgba(0, 0, 0, .4)\r\n  );\r\n  background-size: 100% 182px;\r\n}\r\n","@mixin in-full-screen() {\r\n  div[data-hook='player-container'][data-in-full-screen='true'] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin query-basic($query, $value) {\r\n  div[data-hook='player-container'][#{$query}~=#{'\"' + $value + '\"'}] & {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-550() {\r\n  @include query-basic(max-width, 550px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-400() {\r\n  @include query-basic(max-width, 400px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-350() {\r\n  @include query-basic(max-width, 350px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-300() {\r\n  @include query-basic(max-width, 300px) {\r\n    @content\r\n  }\r\n}\r\n\r\n@mixin max-width-280() {\r\n  @include query-basic(max-width, 280px) {\r\n    @content\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"controlButton": "modules-ui-top-block-top-block__controlButton__2Y4HI",
-	"hidden": "modules-ui-top-block-top-block__hidden__2f9kv",
-	"topBlock": "modules-ui-top-block-top-block__topBlock__AuJ_X",
-	"activated": "modules-ui-top-block-top-block__activated__1qJke",
-	"titleContainer": "modules-ui-top-block-top-block__titleContainer__1x21v",
-	"focus-within": "modules-ui-top-block-top-block__focus-within__30IG_",
-	"focusWithin": "modules-ui-top-block-top-block__focus-within__30IG_",
-	"background": "modules-ui-top-block-top-block__background__urn7n",
-	"liveIndicatorContainer": "modules-ui-top-block-top-block__liveIndicatorContainer__C0I_R",
-	"elementsContainer": "modules-ui-top-block-top-block__elementsContainer__8Wc8r"
+	"controlButton": "modules-ui-top-block-top-block__controlButton__21rNz",
+	"hidden": "modules-ui-top-block-top-block__hidden__2jiyf",
+	"topBlock": "modules-ui-top-block-top-block__topBlock__3kr8I",
+	"activated": "modules-ui-top-block-top-block__activated__PAhGT",
+	"titleContainer": "modules-ui-top-block-top-block__titleContainer__jzmCw",
+	"focus-within": "modules-ui-top-block-top-block__focus-within__2dEhj",
+	"focusWithin": "modules-ui-top-block-top-block__focus-within__2dEhj",
+	"background": "modules-ui-top-block-top-block__background__1_5ZK",
+	"liveIndicatorContainer": "modules-ui-top-block-top-block__liveIndicatorContainer__2QyyT",
+	"elementsContainer": "modules-ui-top-block-top-block__elementsContainer__3DotH"
 };
 
 /***/ }),
@@ -15606,6 +15610,7 @@ module.exports = g;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+//@ts-ignore
 var hls_light_1 = tslib_1.__importDefault(__webpack_require__(/*! hls.js/dist/hls.light */ "../node_modules/hls.js/dist/hls.light.js"));
 var video_data_1 = __webpack_require__(/*! ../utils/video-data */ "./utils/video-data.ts");
 var environment_detection_1 = __webpack_require__(/*! ../utils/environment-detection */ "./utils/environment-detection.ts");
@@ -15712,8 +15717,9 @@ var HlsAdapter = /** @class */ (function () {
             var currentBitrate = null;
             var nearestBufferSegInfo = null;
             var overallBufferLength = null;
+            var bwEstimate = 0;
             if (this.hls.levelController) {
-                bitrates = this.hls.levelController.levels;
+                bitrates = this.hls.levelController.levels.map(function (level) { return level.bitrate; });
                 if (bitrates) {
                     currentBitrate = bitrates[this.hls.levelController.level];
                 }
@@ -15724,8 +15730,11 @@ var HlsAdapter = /** @class */ (function () {
                     overallBufferLength = video_data_1.geOverallBufferLength(this.hls.streamController.mediaBuffer.buffered);
                     nearestBufferSegInfo = video_data_1.getNearestBufferSegmentInfo(this.hls.streamController.mediaBuffer.buffered, currentTime);
                 }
+                if (this.hls.streamController.stats) {
+                    bwEstimate = this.hls.streamController.stats.bwEstimate;
+                }
             }
-            return tslib_1.__assign({}, this.mediaStream, { deliveryPriority: this.mediaStreamDeliveryPriority, bitrates: bitrates,
+            return tslib_1.__assign({}, this.mediaStream, { bwEstimate: bwEstimate, deliveryPriority: this.mediaStreamDeliveryPriority, bitrates: bitrates,
                 currentBitrate: currentBitrate,
                 overallBufferLength: overallBufferLength,
                 nearestBufferSegInfo: nearestBufferSegInfo });
@@ -15805,7 +15814,12 @@ var HlsAdapter = /** @class */ (function () {
                     this._logError(index_1.ERRORS.MEDIA, data);
                     break;
             }
-            this._tryRecoverMediaError();
+            // NOTE: when error is BUFFER_STALLED_ERROR
+            // video play successfully without recovering
+            // while recover breaks video playback
+            if (data.details !== ErrorDetails.BUFFER_STALLED_ERROR) {
+                this._tryRecoverMediaError();
+            }
         }
         else {
             this._logError(index_1.ERRORS.UNKNOWN, data);
@@ -15815,7 +15829,7 @@ var HlsAdapter = /** @class */ (function () {
         var _this = this;
         if (!this._mediaRecoverTimeout) {
             this.hls.recoverMediaError();
-            this._mediaRecoverTimeout = setTimeout(function () {
+            this._mediaRecoverTimeout = window.setTimeout(function () {
                 _this._mediaRecoverTimeout = null;
             }, MEDIA_ERROR_RECOVER_TIMEOUT);
         }
@@ -15824,7 +15838,7 @@ var HlsAdapter = /** @class */ (function () {
         var _this = this;
         if (!this._networkRecoverTimeout) {
             this.hls.startLoad();
-            this._networkRecoverTimeout = setTimeout(function () {
+            this._networkRecoverTimeout = window.setTimeout(function () {
                 _this._networkRecoverTimeout = null;
             }, NETWORK_ERROR_RECOVER_TIMEOUT);
         }
@@ -15871,11 +15885,11 @@ var HlsAdapter = /** @class */ (function () {
             return;
         }
         if (this._networkRecoverTimeout) {
-            clearTimeout(this._networkRecoverTimeout);
+            window.clearTimeout(this._networkRecoverTimeout);
             this._networkRecoverTimeout = null;
         }
         if (this._mediaRecoverTimeout) {
-            clearTimeout(this._mediaRecoverTimeout);
+            window.clearTimeout(this._mediaRecoverTimeout);
             this._mediaRecoverTimeout = null;
         }
         this.hls.off(hls_light_1.default.Events.ERROR, this._broadcastError);
@@ -15960,42 +15974,47 @@ exports.default = Errors;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var UI_EVENTS = {
-    PLAY_TRIGGERED: 'ui-play-triggered',
-    PLAY_OVERLAY_TRIGGERED: 'ui-play-overlay-triggered',
-    PAUSE_TRIGGERED: 'ui-pause-triggered',
-    PROGRESS_CHANGE_TRIGGERED: 'ui-progress-change-triggered',
-    VOLUME_CHANGE_TRIGGERED: 'ui-volume-change-triggered',
-    MUTE_STATUS_TRIGGERED: 'ui-mute-status-triggered',
-    FULLSCREEN_STATUS_CHANGED: 'ui-fullscreen-status-changed',
-    MOUSE_ENTER_ON_PLAYER_TRIGGERED: 'ui-mouse-enter-on-player-triggered',
-    MOUSE_MOVE_ON_PLAYER_TRIGGERED: 'ui-mouse-move-on-player-triggered',
-    MOUSE_LEAVE_ON_PLAYER_TRIGGERED: 'ui-mouse-leave-on-player-triggered',
-    CONTROL_BLOCK_HIDE_TRIGGERED: 'ui-control-block-hide-triggered',
-    CONTROL_BLOCK_SHOW_TRIGGERED: 'ui-control-block-show-triggered',
-    PROGRESS_MANIPULATION_STARTED: 'ui-progress-manipulation-started',
-    PROGRESS_MANIPULATION_ENDED: 'ui-progress-manipulation-ended',
-    KEYBOARD_KEYDOWN_INTERCEPTED: 'ui-keyboard-keydown-intercepted',
-    LOADER_SHOW_TRIGGERED: 'ui-loader-show-triggered',
-    LOADER_HIDE_TRIGGERED: 'ui-loader-hide-triggered',
-    LOADING_COVER_SHOW_TRIGGERED: 'ui-loading-cover-show-triggered',
-    LOADING_COVER_HIDE_TRIGGERED: 'ui-loading-cover-hide-triggered',
-    TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED: 'ui-toggle-playback-with-keyboard-triggered',
-    GO_BACKWARD_WITH_KEYBOARD_TRIGGERED: 'ui-go-backward-with-keyboard-triggered',
-    GO_FORWARD_WITH_KEYBOARD_TRIGGERED: 'ui-go-forward-with-keyboard-triggered',
-    INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-increase-volume-with-keyboard-triggered',
-    DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-decrease-volume-with-keyboard-triggered',
-    MUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-mute-sound-with-keyboard-triggered',
-    UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-unmute-sound-with-keyboard-triggered',
-    HIDE_INTERACTION_INDICATOR_TRIGGERED: 'ui-hide-interaction-indicator-triggered',
-    PLAYER_WIDTH_CHANGE_TRIGGERED: 'ui-player-width-change-triggered',
-    PLAYER_HEIGHT_CHANGE_TRIGGERED: 'ui-player-height-change-triggered',
-    PLAY_WITH_SCREEN_CLICK_TRIGGERED: 'ui-play-with-screen-click-triggered',
-    PAUSE_WITH_SCREEN_CLICK_TRIGGERED: 'ui-pause-with-screen-click-triggered',
-    CONTROL_DRAG_START: 'ui-control-drag-start',
-    CONTROL_DRAG_END: 'ui-control-drag-end',
-    MAIN_BLOCK_HIDE_TRIGGERED: 'ui-main-block-hide-triggered',
-    MAIN_BLOCK_SHOW_TRIGGERED: 'ui-main-block-show-triggered',
-    RESIZE: 'ui-resize',
+    PLAY_TRIGGERED: 'ui-events/play-triggered',
+    PLAY_OVERLAY_TRIGGERED: 'ui-events/play-overlay-triggered',
+    PAUSE_TRIGGERED: 'ui-events/pause-triggered',
+    PROGRESS_CHANGE_TRIGGERED: 'ui-events/progress-change-triggered',
+    VOLUME_CHANGE_TRIGGERED: 'ui-events/volume-change-triggered',
+    MUTE_STATUS_TRIGGERED: 'ui-events/mute-status-triggered',
+    FULLSCREEN_STATUS_CHANGED: 'ui-events/fullscreen-status-changed',
+    // TODO: follow ENTITY_EVENT_TRIGGERED or ENTITY_EVENT format
+    MOUSE_ENTER_ON_PLAYER_TRIGGERED: 'ui-events/mouse-enter-on-player-triggered',
+    MOUSE_MOVE_ON_PLAYER_TRIGGERED: 'ui-events/mouse-move-on-player-triggered',
+    MOUSE_LEAVE_ON_PLAYER_TRIGGERED: 'ui-events/mouse-leave-on-player-triggered',
+    CONTROL_BLOCK_HIDE_TRIGGERED: 'ui-events/control-block-hide-triggered',
+    CONTROL_BLOCK_SHOW_TRIGGERED: 'ui-events/control-block-show-triggered',
+    PROGRESS_MANIPULATION_STARTED: 'ui-events/progress-manipulation-started',
+    PROGRESS_MANIPULATION_ENDED: 'ui-events/progress-manipulation-ended',
+    KEYBOARD_KEYDOWN_INTERCEPTED: 'ui-events/keyboard-keydown-intercepted',
+    LOADER_SHOW_TRIGGERED: 'ui-events/loader-show-triggered',
+    LOADER_HIDE_TRIGGERED: 'ui-events/loader-hide-triggered',
+    LOADING_COVER_SHOW_TRIGGERED: 'ui-events/loading-cover-show-triggered',
+    LOADING_COVER_HIDE_TRIGGERED: 'ui-events/loading-cover-hide-triggered',
+    TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED: 'ui-events/toggle-playback-with-keyboard-triggered',
+    GO_BACKWARD_WITH_KEYBOARD_TRIGGERED: 'ui-events/go-backward-with-keyboard-triggered',
+    GO_FORWARD_WITH_KEYBOARD_TRIGGERED: 'ui-events/go-forward-with-keyboard-triggered',
+    INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-events/increase-volume-with-keyboard-triggered',
+    DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED: 'ui-events/decrease-volume-with-keyboard-triggered',
+    MUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-events/mute-sound-with-keyboard-triggered',
+    UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED: 'ui-events/unmute-sound-with-keyboard-triggered',
+    HIDE_INTERACTION_INDICATOR_TRIGGERED: 'ui-events/hide-interaction-indicator-triggered',
+    // TODO: get rid of WIDTH/HEIGHT change events in favour of RESIZE
+    PLAYER_WIDTH_CHANGE_TRIGGERED: 'ui-events/player-width-change-triggered',
+    PLAYER_HEIGHT_CHANGE_TRIGGERED: 'ui-events/player-height-change-triggered',
+    PLAY_WITH_SCREEN_CLICK_TRIGGERED: 'ui-events/play-with-screen-click-triggered',
+    PAUSE_WITH_SCREEN_CLICK_TRIGGERED: 'ui-events/pause-with-screen-click-triggered',
+    // TODO: review CONTROL_DRAG_START vs CONTROL_DRAG_START_TRIGGERED format
+    CONTROL_DRAG_START: 'ui-events/control-drag-start',
+    CONTROL_DRAG_END: 'ui-events/control-drag-end',
+    MAIN_BLOCK_HIDE_TRIGGERED: 'ui-events/main-block-hide-triggered',
+    MAIN_BLOCK_SHOW_TRIGGERED: 'ui-events/main-block-show-triggered',
+    PROGRESS_SYNC_BUTTON_MOUSE_ENTER_TRIGGERED: 'ui-events/progress-sync-button-mouse-enter-triggered',
+    PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED: 'ui-events/progress-sync-button-mouse-leave-triggered',
+    RESIZE: 'ui-events/resize',
 };
 exports.default = UI_EVENTS;
 
@@ -16013,22 +16032,22 @@ exports.default = UI_EVENTS;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var VIDEO_EVENTS = {
-    ERROR: 'error',
-    STATE_CHANGED: 'state-changed',
-    LIVE_STATE_CHANGED: 'live-state-changed',
-    DYNAMIC_CONTENT_ENDED: 'dynamic-content-ended',
-    CHUNK_LOADED: 'chunk-loaded',
-    CURRENT_TIME_UPDATED: 'current-time-updated',
-    DURATION_UPDATED: 'duration-updated',
-    VOLUME_STATUS_CHANGED: 'volume-status-changed',
-    VOLUME_CHANGED: 'volume-changed',
-    MUTE_CHANGED: 'mute-changed',
-    SEEK_IN_PROGRESS: 'seek-in-progress',
-    UPLOAD_STALLED: 'upload-stalled',
-    UPLOAD_SUSPEND: 'upload-suspend',
-    PLAY_REQUEST_TRIGGERED: 'play-request-triggered',
-    PLAY_ABORTED: 'play-aborted',
-    UNKNOWN: 'unknown',
+    ERROR: 'video-events/error',
+    STATE_CHANGED: 'video-events/state-changed',
+    LIVE_STATE_CHANGED: 'video-events/live-state-changed',
+    DYNAMIC_CONTENT_ENDED: 'video-events/dynamic-content-ended',
+    CHUNK_LOADED: 'video-events/chunk-loaded',
+    CURRENT_TIME_UPDATED: 'video-events/current-time-updated',
+    DURATION_UPDATED: 'video-events/duration-updated',
+    VOLUME_STATUS_CHANGED: 'video-events/volume-status-changed',
+    VOLUME_CHANGED: 'video-events/volume-changed',
+    MUTE_CHANGED: 'video-events/mute-changed',
+    SEEK_IN_PROGRESS: 'video-events/seek-in-progress',
+    UPLOAD_STALLED: 'video-events/upload-stalled',
+    UPLOAD_SUSPEND: 'video-events/upload-suspend',
+    PLAY_REQUEST_TRIGGERED: 'video-events/play-request-triggered',
+    PLAY_ABORTED: 'video-events/play-aborted',
+    RESET: 'video-events/reset-playback',
 };
 exports.default = VIDEO_EVENTS;
 
@@ -16193,33 +16212,35 @@ exports.default = convertToDeviceRelatedConfig;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var dependency_container_1 = tslib_1.__importDefault(__webpack_require__(/*! ./dependency-container */ "./core/dependency-container/index.ts"));
-var root_container_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/root-container/root-container */ "./modules/root-container/root-container.ts"));
-var event_emitter_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/event-emitter/event-emitter */ "./modules/event-emitter/event-emitter.ts"));
-var playback_engine_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/playback-engine/playback-engine */ "./modules/playback-engine/playback-engine.ts"));
-var theme_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/core/theme */ "./modules/ui/core/theme/index.ts"));
-var text_map_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/text-map/text-map */ "./modules/text-map/text-map.ts"));
-var full_screen_manager_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/full-screen-manager/full-screen-manager */ "./modules/full-screen-manager/full-screen-manager.ts"));
-var live_state_engine_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/playback-engine/live-state-engine */ "./modules/playback-engine/live-state-engine.ts"));
-var keyboard_control_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/keyboard-control/keyboard-control */ "./modules/keyboard-control/keyboard-control.ts"));
-var debug_panel_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/debug-panel/debug-panel */ "./modules/ui/debug-panel/debug-panel.ts"));
-var screen_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/screen/screen */ "./modules/ui/screen/screen.ts"));
-var interaction_indicator_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/interaction-indicator/interaction-indicator */ "./modules/ui/interaction-indicator/interaction-indicator.ts"));
-var overlay_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/overlay/overlay */ "./modules/ui/overlay/overlay.ts"));
-var loader_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/loader/loader */ "./modules/ui/loader/loader.ts"));
-var main_ui_block_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/main-ui-block/main-ui-block */ "./modules/ui/main-ui-block/main-ui-block.ts"));
-var top_block_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/top-block/top-block */ "./modules/ui/top-block/top-block.ts"));
-var title_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/title/title */ "./modules/ui/title/title.ts"));
-var live_indicator_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/live-indicator/live-indicator */ "./modules/ui/live-indicator/live-indicator.ts"));
-var bottom_block_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/bottom-block/bottom-block */ "./modules/ui/bottom-block/bottom-block.ts"));
-var progress_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/controls/progress/progress */ "./modules/ui/controls/progress/progress.ts"));
-var play_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/controls/play/play */ "./modules/ui/controls/play/play.ts"));
-var time_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/controls/time/time */ "./modules/ui/controls/time/time.ts"));
-var volume_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/controls/volume/volume */ "./modules/ui/controls/volume/volume.ts"));
-var full_screen_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/controls/full-screen/full-screen */ "./modules/ui/controls/full-screen/full-screen.ts"));
-var logo_1 = tslib_1.__importDefault(__webpack_require__(/*! ../modules/ui/controls/logo/logo */ "./modules/ui/controls/logo/logo.ts"));
+var dependency_container_1 = __importDefault(__webpack_require__(/*! ./dependency-container */ "./core/dependency-container/index.ts"));
+var root_container_1 = __importDefault(__webpack_require__(/*! ../modules/root-container/root-container */ "./modules/root-container/root-container.ts"));
+var event_emitter_1 = __importDefault(__webpack_require__(/*! ../modules/event-emitter/event-emitter */ "./modules/event-emitter/event-emitter.ts"));
+var playback_engine_1 = __importDefault(__webpack_require__(/*! ../modules/playback-engine/playback-engine */ "./modules/playback-engine/playback-engine.ts"));
+var theme_1 = __importDefault(__webpack_require__(/*! ../modules/ui/core/theme */ "./modules/ui/core/theme/index.ts"));
+var text_map_1 = __importDefault(__webpack_require__(/*! ../modules/text-map/text-map */ "./modules/text-map/text-map.ts"));
+var full_screen_manager_1 = __importDefault(__webpack_require__(/*! ../modules/full-screen-manager/full-screen-manager */ "./modules/full-screen-manager/full-screen-manager.ts"));
+var live_state_engine_1 = __importDefault(__webpack_require__(/*! ../modules/playback-engine/live-state-engine */ "./modules/playback-engine/live-state-engine.ts"));
+var keyboard_control_1 = __importDefault(__webpack_require__(/*! ../modules/keyboard-control/keyboard-control */ "./modules/keyboard-control/keyboard-control.ts"));
+var debug_panel_1 = __importDefault(__webpack_require__(/*! ../modules/ui/debug-panel/debug-panel */ "./modules/ui/debug-panel/debug-panel.ts"));
+var screen_1 = __importDefault(__webpack_require__(/*! ../modules/ui/screen/screen */ "./modules/ui/screen/screen.ts"));
+var interaction_indicator_1 = __importDefault(__webpack_require__(/*! ../modules/ui/interaction-indicator/interaction-indicator */ "./modules/ui/interaction-indicator/interaction-indicator.ts"));
+var overlay_1 = __importDefault(__webpack_require__(/*! ../modules/ui/overlay/overlay */ "./modules/ui/overlay/overlay.ts"));
+var loader_1 = __importDefault(__webpack_require__(/*! ../modules/ui/loader/loader */ "./modules/ui/loader/loader.ts"));
+var main_ui_block_1 = __importDefault(__webpack_require__(/*! ../modules/ui/main-ui-block/main-ui-block */ "./modules/ui/main-ui-block/main-ui-block.ts"));
+var top_block_1 = __importDefault(__webpack_require__(/*! ../modules/ui/top-block/top-block */ "./modules/ui/top-block/top-block.ts"));
+var title_1 = __importDefault(__webpack_require__(/*! ../modules/ui/title/title */ "./modules/ui/title/title.ts"));
+var live_indicator_1 = __importDefault(__webpack_require__(/*! ../modules/ui/live-indicator/live-indicator */ "./modules/ui/live-indicator/live-indicator.ts"));
+var bottom_block_1 = __importDefault(__webpack_require__(/*! ../modules/ui/bottom-block/bottom-block */ "./modules/ui/bottom-block/bottom-block.ts"));
+var progress_1 = __importDefault(__webpack_require__(/*! ../modules/ui/controls/progress/progress */ "./modules/ui/controls/progress/progress.ts"));
+var play_1 = __importDefault(__webpack_require__(/*! ../modules/ui/controls/play/play */ "./modules/ui/controls/play/play.ts"));
+var time_1 = __importDefault(__webpack_require__(/*! ../modules/ui/controls/time/time */ "./modules/ui/controls/time/time.ts"));
+var volume_1 = __importDefault(__webpack_require__(/*! ../modules/ui/controls/volume/volume */ "./modules/ui/controls/volume/volume.ts"));
+var full_screen_1 = __importDefault(__webpack_require__(/*! ../modules/ui/controls/full-screen/full-screen */ "./modules/ui/controls/full-screen/full-screen.ts"));
+var logo_1 = __importDefault(__webpack_require__(/*! ../modules/ui/controls/logo/logo */ "./modules/ui/controls/logo/logo.ts"));
 var tooltip_1 = __webpack_require__(/*! ../modules/ui/core/tooltip */ "./modules/ui/core/tooltip/index.ts");
 var asClass = dependency_container_1.default.asClass;
 exports.modules = {
@@ -16272,14 +16293,13 @@ exports.default = DIModules;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var SINGLETON = 'SINGLETON';
-var TRANSIENT = 'TRANSIENT';
-var SCOPED = 'SCOPED';
-exports.default = {
-    SINGLETON: SINGLETON,
-    TRANSIENT: TRANSIENT,
-    SCOPED: SCOPED,
-};
+var Lifetime;
+(function (Lifetime) {
+    Lifetime["Singelton"] = "Singelton";
+    Lifetime["Transient"] = "Transient";
+    Lifetime["Scoped"] = "Scoped";
+})(Lifetime || (Lifetime = {}));
+exports.default = Lifetime;
 
 
 /***/ }),
@@ -16301,102 +16321,105 @@ var ResolutionError_1 = tslib_1.__importDefault(__webpack_require__(/*! ./errors
 var nameValueToObject_1 = tslib_1.__importDefault(__webpack_require__(/*! ./utils/nameValueToObject */ "./core/dependency-container/utils/nameValueToObject.ts"));
 var Lifetime_1 = tslib_1.__importDefault(__webpack_require__(/*! ./constants/Lifetime */ "./core/dependency-container/constants/Lifetime.ts"));
 var FAMILY_TREE = '__familyTree__';
-function createContainer(options, __parentContainer) {
-    options = tslib_2.__assign({}, options);
-    // The resolution stack is used to keep track
-    // of what modules are being resolved, so when
-    // an error occurs, we have something to present
-    // to the poor developer who fucked up.
-    var resolutionStack = [];
-    // Internal registration store.
-    var registrations = {};
-    // The container being exposed.
-    var container = {
-        options: options,
-        get registrations() {
-            return tslib_2.__assign({}, __parentContainer && __parentContainer.registrations, registrations);
+var Container = /** @class */ (function () {
+    function Container(options, _parentContainer) {
+        this._registrations = {};
+        this._resolutionStack = [];
+        this.options = tslib_2.__assign({}, options);
+        this._parentContainer = _parentContainer || null;
+        this[FAMILY_TREE] = this._parentContainer
+            ? [this].concat(this._parentContainer[FAMILY_TREE])
+            : [this];
+        this.cache = {};
+    }
+    Object.defineProperty(Container.prototype, "registrations", {
+        get: function () {
+            return tslib_2.__assign({}, this._parentContainer && this._parentContainer.registrations, this._registrations);
         },
+        enumerable: true,
+        configurable: true
+    });
+    Container.prototype._registerAs = function (fn, verbatimValue, name, value, options) {
+        var _this = this;
+        var registrations = nameValueToObject_1.default(name, value);
+        Object.keys(registrations).forEach(function (key) {
+            var valueToRegister = registrations[key];
+            // If we have options, copy them over.
+            options = tslib_2.__assign({}, options);
+            /* ignore coverage */
+            if (!verbatimValue && Array.isArray(valueToRegister)) {
+                // The ('name', [value, options]) style
+                options = tslib_2.__assign({}, options, valueToRegister[1]);
+                valueToRegister = valueToRegister[0];
+            }
+            _this.register(key, fn(valueToRegister, options));
+        });
+        // Chaining
+        return this;
     };
-    // Track the family tree.
-    var familyTree = __parentContainer
-        ? [container].concat(__parentContainer[FAMILY_TREE])
-        : [container];
-    container[FAMILY_TREE] = familyTree;
-    container.cache = {};
-    container.createScope = function () { return createContainer(options, container); };
-    container.register = function (name, registration) {
+    Container.prototype.createScope = function () {
+        return new Container(this.options, this);
+    };
+    Container.prototype.register = function (name, registration) {
+        var _this = this;
         var obj = nameValueToObject_1.default(name, registration);
         Object.keys(obj).forEach(function (key) {
-            registrations[key] = obj[key];
+            _this._registrations[key] = obj[key];
         });
-        return container;
+        return this;
     };
-    var makeRegister = function (fn, verbatimValue) {
-        return function (name, value, opts) {
-            // This ensures that we can support name+value style and object style.
-            var obj = nameValueToObject_1.default(name, value);
-            Object.keys(obj).forEach(function (key) {
-                var valueToRegister = obj[key];
-                // If we have options, copy them over.
-                opts = tslib_2.__assign({}, opts);
-                /* ignore coverage */
-                if (!verbatimValue && Array.isArray(valueToRegister)) {
-                    // The ('name', [value, opts]) style
-                    opts = tslib_2.__assign({}, opts, valueToRegister[1]);
-                    valueToRegister = valueToRegister[0];
-                }
-                container.register(key, fn(valueToRegister, opts));
-            });
-            // Chaining
-            return container;
-        };
+    Container.prototype.registerClass = function (name, value, options) {
+        return this._registerAs(registrations_1.asClass, false, name, value, options);
     };
-    container.registerFunction = makeRegister(registrations_1.asFunction);
-    container.registerClass = makeRegister(registrations_1.asClass);
-    container.registerValue = makeRegister(registrations_1.asValue, /* verbatimValue: */ true);
-    container.resolve = function (name) {
+    Container.prototype.registerFunction = function (name, value, options) {
+        return this._registerAs(registrations_1.asFunction, false, name, value, options);
+    };
+    Container.prototype.registerValue = function (name, value, options) {
+        return this._registerAs(registrations_1.asValue, true, name, value, options);
+    };
+    Container.prototype.resolve = function (name) {
         // We need a reference to the root container,
         // so we can retrieve and store singletons.
-        var root = familyTree[familyTree.length - 1];
+        var root = this[FAMILY_TREE][this[FAMILY_TREE].length - 1];
         try {
             // Grab the registration by name.
-            var registration = container.registrations[name];
-            if (resolutionStack.indexOf(name) > -1) {
-                throw new ResolutionError_1.default(name, resolutionStack, 'Cyclic dependencies detected.');
+            var registration = this.registrations[name];
+            if (this._resolutionStack.indexOf(name) > -1) {
+                throw new ResolutionError_1.default(name, this._resolutionStack, 'Cyclic dependencies detected.');
             }
             if (!registration) {
-                throw new ResolutionError_1.default(name, resolutionStack);
+                throw new ResolutionError_1.default(name, this._resolutionStack);
             }
             // Pushes the currently-resolving module name onto the stack
-            resolutionStack.push(name);
+            this._resolutionStack.push(name);
             // Do the thing
             var cached = void 0;
             var resolved = void 0;
             switch (registration.lifetime) {
-                case Lifetime_1.default.TRANSIENT:
+                case Lifetime_1.default.Transient:
                     // Transient lifetime means resolve every time.
-                    resolved = registration.resolve(container);
+                    resolved = registration.resolve(this);
                     break;
-                case Lifetime_1.default.SINGLETON:
+                case Lifetime_1.default.Singelton:
                     // Singleton lifetime means cache at all times, regardless of scope.
                     cached = root.cache[name];
                     if (cached === undefined) {
-                        resolved = registration.resolve(container);
+                        resolved = registration.resolve(this);
                         root.cache[name] = resolved;
                     }
                     else {
                         resolved = cached;
                     }
                     break;
-                case Lifetime_1.default.SCOPED:
+                case Lifetime_1.default.Scoped:
                     // Scoped lifetime means that the container
                     // that resolves the registration also caches it.
                     // When a registration is not found, we travel up
                     // the family tree until we find one that is cached.
                     // Note: The first element in the family tree is this container.
-                    for (var _i = 0, familyTree_1 = familyTree; _i < familyTree_1.length; _i++) {
-                        var c = familyTree_1[_i];
-                        cached = c.cache[name];
+                    for (var _i = 0, _a = this[FAMILY_TREE]; _i < _a.length; _i++) {
+                        var _containerFromFamiltyTree = _a[_i];
+                        cached = _containerFromFamiltyTree.cache[name];
                         if (cached !== undefined) {
                             // We found one!
                             resolved = cached;
@@ -16405,25 +16428,28 @@ function createContainer(options, __parentContainer) {
                     }
                     // If we still have not found one, we need to resolve and cache it.
                     if (cached === undefined) {
-                        resolved = registration.resolve(container);
-                        container.cache[name] = resolved;
+                        resolved = registration.resolve(this);
+                        this.cache[name] = resolved;
                     }
                     break;
                 default:
-                    throw new ResolutionError_1.default(name, resolutionStack, "Unknown lifetime \"" + registration.lifetime + "\"");
+                    throw new ResolutionError_1.default(name, this._resolutionStack, "Unknown lifetime \"" + registration.lifetime + "\"");
             }
             // Pop it from the stack again, ready for the next resolution
-            resolutionStack.pop();
+            this._resolutionStack.pop();
             return resolved;
         }
         catch (err) {
             // When we get an error we need to reset the stack.
-            resolutionStack = [];
+            this._resolutionStack = [];
             throw err;
         }
     };
-    // Finally return the container
-    return container;
+    return Container;
+}());
+exports.Container = Container;
+function createContainer(options, __parentContainer) {
+    return new Container(options, __parentContainer);
 }
 exports.default = createContainer;
 
@@ -16553,10 +16579,9 @@ exports.default = tslib_1.__assign({ createContainer: createContainer_1.default,
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 var tslib_2 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var Lifetime_1 = tslib_1.__importDefault(__webpack_require__(/*! ./constants/Lifetime */ "./core/dependency-container/constants/Lifetime.ts"));
 var NotAFunctionError_1 = tslib_1.__importDefault(__webpack_require__(/*! ./errors/NotAFunctionError */ "./core/dependency-container/errors/NotAFunctionError.ts"));
+var Lifetime_1 = tslib_1.__importDefault(__webpack_require__(/*! ./constants/Lifetime */ "./core/dependency-container/constants/Lifetime.ts"));
 exports.PROPERTY_FOR_DEPENDENCIES = 'dependencies';
-var makeOptions = function (defaults, input) { return tslib_2.__assign({}, defaults, input); };
 exports.makeFluidInterface = function (obj) {
     var setLifetime = function (value) {
         obj.lifetime = value;
@@ -16564,43 +16589,43 @@ exports.makeFluidInterface = function (obj) {
     };
     return {
         setLifetime: setLifetime,
-        transient: function () { return setLifetime(Lifetime_1.default.TRANSIENT); },
-        scoped: function () { return setLifetime(Lifetime_1.default.SCOPED); },
-        singleton: function () { return setLifetime(Lifetime_1.default.SINGLETON); },
+        transient: function () { return setLifetime(Lifetime_1.default.Transient); },
+        scoped: function () { return setLifetime(Lifetime_1.default.Scoped); },
+        singleton: function () { return setLifetime(Lifetime_1.default.Singelton); },
     };
 };
 exports.asValue = function (value) {
     var resolve = function () { return value; };
     return {
         resolve: resolve,
-        lifetime: Lifetime_1.default.TRANSIENT,
+        lifetime: Lifetime_1.default.Transient,
     };
 };
-exports.asFunction = function (fn, opts) {
+exports.asFunction = function (fn, options) {
     if (typeof fn !== 'function') {
         throw new NotAFunctionError_1.default('asFunction', 'function', typeof fn);
     }
     var defaults = {
-        lifetime: Lifetime_1.default.TRANSIENT,
+        lifetime: Lifetime_1.default.Transient,
     };
-    opts = makeOptions(defaults, opts);
+    options = tslib_2.__assign({}, defaults, options);
     var resolve = generateResolve(fn);
     var result = {
         resolve: resolve,
-        lifetime: opts.lifetime,
+        lifetime: options.lifetime,
     };
     result.resolve = resolve.bind(result);
     tslib_2.__assign(result, exports.makeFluidInterface(result));
     return result;
 };
-exports.asClass = function (Type, opts) {
+exports.asClass = function (Type, options) {
     if (typeof Type !== 'function') {
         throw new NotAFunctionError_1.default('asClass', 'class', typeof Type);
     }
     var defaults = {
-        lifetime: Lifetime_1.default.TRANSIENT,
+        lifetime: Lifetime_1.default.Transient,
     };
-    opts = makeOptions(defaults, opts);
+    options = tslib_2.__assign({}, defaults, options);
     // A function to handle object construction for us, as to make the generateResolve more reusable
     var newClass = function () {
         var args = [];
@@ -16612,7 +16637,7 @@ exports.asClass = function (Type, opts) {
     var resolve = generateResolve(newClass, Type);
     var result = {
         resolve: resolve,
-        lifetime: opts.lifetime,
+        lifetime: options.lifetime,
     };
     result.resolve = resolve.bind(result);
     tslib_2.__assign(result, exports.makeFluidInterface(result));
@@ -16628,8 +16653,8 @@ function generateResolve(fn, dependencyParseTarget) {
     // Use a regular function instead of an arrow function to facilitate binding to the registration.
     return function resolve(container) {
         if (dependencies.length > 0) {
-            var wrapper = dependencies.reduce(function (wrapper, d) {
-                wrapper[d] = container.resolve(d);
+            var wrapper = dependencies.reduce(function (wrapper, dependency) {
+                wrapper[dependency] = container.resolve(dependency);
                 return wrapper;
             }, {});
             return fn(wrapper, container);
@@ -16658,11 +16683,10 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 function default_1(name, value) {
-    var obj = name;
-    if (typeof obj !== 'object') {
-        obj = tslib_1.__assign((_a = {}, _a[name] = value, _a));
+    if (typeof name !== 'object') {
+        return tslib_1.__assign((_a = {}, _a[name] = value, _a));
     }
-    return obj;
+    return name;
     var _a;
 }
 exports.default = default_1;
@@ -16712,13 +16736,16 @@ exports.default = playerAPI;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var config_1 = tslib_1.__importDefault(__webpack_require__(/*! ./config */ "./core/config.ts"));
+var config_1 = __importDefault(__webpack_require__(/*! ./config */ "./core/config.ts"));
 var player_api_decorator_1 = __webpack_require__(/*! ../core/player-api-decorator */ "./core/player-api-decorator.ts");
 var Player = /** @class */ (function () {
-    function Player(params, scope, defaultModules, additionalModules, themeConfig) {
-        if (additionalModules === void 0) { additionalModules = {}; }
+    function Player(params, scope, defaultModulesNames, additionalModuleNames, themeConfig) {
+        if (defaultModulesNames === void 0) { defaultModulesNames = []; }
+        if (additionalModuleNames === void 0) { additionalModuleNames = []; }
         scope.registerValue({
             config: config_1.default(params),
         });
@@ -16726,35 +16753,37 @@ var Player = /** @class */ (function () {
             themeConfig: themeConfig,
         });
         this._config = scope.resolve('config');
-        this._resolveDefaultModules(scope, defaultModules);
-        this._resolveAdditionalModules(scope, additionalModules);
+        this._resolveAdditionalModules(scope, additionalModuleNames);
+        this._resolveDefaultModules(scope, defaultModulesNames);
     }
     /*
       Separation for default and additional modules is needed
       for future implementation of public methods of resolved modules and
       could be abolished in future
     */
-    Player.prototype._resolveDefaultModules = function (scope, modules) {
+    Player.prototype._resolveDefaultModules = function (scope, modulesNames) {
         var _this = this;
-        this._defaultModules = Object.keys(modules).reduce(function (modules, moduleName) {
+        this._defaultModules = modulesNames.reduce(function (modules, moduleName) {
+            if (_this._additionalModules[moduleName]) {
+                return modules;
+            }
             var resolvedModule = scope.resolve(moduleName);
-            _this._addPlayerAPIFromModule(resolvedModule, moduleName);
+            _this._addPlayerAPIFromModule(resolvedModule);
             modules[moduleName] = resolvedModule;
             return modules;
         }, {});
     };
-    Player.prototype._resolveAdditionalModules = function (scope, modules) {
+    Player.prototype._resolveAdditionalModules = function (scope, modulesNames) {
         var _this = this;
-        this._additionalModules = Object.keys(modules).reduce(function (modules, moduleName) {
+        this._additionalModules = modulesNames.reduce(function (modules, moduleName) {
             var resolvedModule = scope.resolve(moduleName);
-            _this._addPlayerAPIFromModule(resolvedModule, moduleName);
+            _this._addPlayerAPIFromModule(resolvedModule);
             modules[moduleName] = resolvedModule;
             return modules;
         }, {});
     };
-    Player.prototype._getWrappedCallToModuleFunction = function (module, _moduleName, fn) {
+    Player.prototype._getWrappedCallToModuleFunction = function (module, fn) {
         var _this = this;
-        // TODO: do we need `_moduleName` as second parameter?
         return function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -16766,31 +16795,31 @@ var Player = /** @class */ (function () {
             return fn.apply(module, args);
         };
     };
-    Player.prototype._getPlayerAPIMethodDescriptor = function (module, moduleName, descriptor) {
+    Player.prototype._getPlayerAPIMethodDescriptor = function (module, descriptor) {
         var playerMethodDescriptor = {
             enumerable: true,
             configurable: true,
         };
         var get = descriptor.get, set = descriptor.set, value = descriptor.value;
         if (get) {
-            playerMethodDescriptor.get = this._getWrappedCallToModuleFunction(module, moduleName, get);
+            playerMethodDescriptor.get = this._getWrappedCallToModuleFunction(module, get);
         }
         if (set) {
-            playerMethodDescriptor.set = this._getWrappedCallToModuleFunction(module, moduleName, set);
+            playerMethodDescriptor.set = this._getWrappedCallToModuleFunction(module, set);
         }
         if (value) {
-            playerMethodDescriptor.value = this._getWrappedCallToModuleFunction(module, moduleName, value);
+            playerMethodDescriptor.value = this._getWrappedCallToModuleFunction(module, value);
         }
         return playerMethodDescriptor;
     };
-    Player.prototype._addPlayerAPIFromModule = function (module, moduleName) {
+    Player.prototype._addPlayerAPIFromModule = function (module) {
         var _this = this;
         if (module[player_api_decorator_1.PLAYER_API_PROPERTY]) {
             Object.keys(module[player_api_decorator_1.PLAYER_API_PROPERTY]).forEach(function (apiKey) {
                 if (_this[apiKey]) {
                     throw new Error("API method " + apiKey + " is already defined in Player facade");
                 }
-                Object.defineProperty(_this, apiKey, _this._getPlayerAPIMethodDescriptor(module, moduleName, module[player_api_decorator_1.PLAYER_API_PROPERTY][apiKey]));
+                Object.defineProperty(_this, apiKey, _this._getPlayerAPIMethodDescriptor(module, module[player_api_decorator_1.PLAYER_API_PROPERTY][apiKey]));
             });
         }
     };
@@ -16816,9 +16845,9 @@ var Player = /** @class */ (function () {
                 module.destroy();
             }
         });
-        delete this._defaultModules;
-        delete this._additionalModules;
-        delete this._config;
+        this._defaultModules = null;
+        this._additionalModules = null;
+        this._config = null;
         this._destroyed = true;
     };
     return Player;
@@ -16847,8 +16876,9 @@ var additionalModules = {};
 var playbackAdapters = default_set_1.default.slice();
 exports.container = dependency_container_1.default.createContainer();
 exports.container.register(default_modules_1.default);
-function registerModule(id, config) {
-    additionalModules[id] = config;
+var defaultModulesNames = Object.keys(default_modules_1.default);
+function registerModule(id, module) {
+    additionalModules[id] = module;
 }
 exports.registerModule = registerModule;
 function registerPlaybackAdapter(adapter) {
@@ -16869,11 +16899,13 @@ function create(params, themeConfig) {
     var additionalModuleNames = Object.keys(additionalModules);
     if (additionalModuleNames.length) {
         additionalModuleNames.forEach(function (moduleName) {
-            return scope.registerClass(moduleName, additionalModules[moduleName]);
+            return scope.registerClass(moduleName, additionalModules[moduleName], {
+                lifetime: dependency_container_1.default.Lifetime.Scoped,
+            });
         });
     }
     scope.registerValue('availablePlaybackAdapters', playbackAdapters);
-    return new player_facade_1.default(params, scope, default_modules_1.default, additionalModules, themeConfig);
+    return new player_facade_1.default(params, scope, defaultModulesNames, additionalModuleNames, themeConfig);
 }
 exports.create = create;
 
@@ -16907,6 +16939,8 @@ exports.ENGINE_STATES = constants_1.EngineState;
 exports.LIVE_STATES = constants_1.LiveState;
 var tooltip_1 = __webpack_require__(/*! ./modules/ui/core/tooltip */ "./modules/ui/core/tooltip/index.ts");
 exports.Tooltip = tooltip_1.Tooltip;
+var types_1 = __webpack_require__(/*! ./modules/ui/screen/types */ "./modules/ui/screen/types.ts");
+exports.VIDEO_VIEW_MODES = types_1.VideoViewMode;
 tslib_1.__exportStar(__webpack_require__(/*! ./core/player-factory */ "./core/player-factory.ts"), exports);
 exports.default = tslib_1.__assign({}, playerFactoryMethods, { UI_EVENTS: constants_1.UI_EVENTS,
     VIDEO_EVENTS: constants_1.VIDEO_EVENTS,
@@ -16915,6 +16949,7 @@ exports.default = tslib_1.__assign({}, playerFactoryMethods, { UI_EVENTS: consta
     MEDIA_STREAM_DELIVERY_PRIORITY: constants_1.MediaStreamDeliveryPriority,
     ENGINE_STATES: constants_1.EngineState,
     LIVE_STATES: constants_1.LiveState,
+    VIDEO_VIEW_MODES: types_1.VideoViewMode,
     Tooltip: tooltip_1.Tooltip,
     playerAPIDecorator: player_api_decorator_1.default,
     DefaultModules: default_modules_1.modules });
@@ -16990,6 +17025,44 @@ var EventEmitterModule = /** @class */ (function (_super) {
      */
     EventEmitterModule.prototype.off = function (event, fn, context, once) {
         return _super.prototype.off.call(this, event, fn, context, once);
+    };
+    /**
+     * Method for binding array of listeners with events inside player.
+     *
+     * @example
+     *
+     * this._unbindEvents = this._eventEmitter.bindEvents([
+     *     [VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
+     *     [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
+     *     [VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator],
+     *     [VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators],
+     *   ],
+     *   this,
+     * );
+     *
+     * //...
+     *
+     * this._unbindEvents()
+     *
+     * @param eventsMap
+     * @param defaultFnContext
+     * @returns unbindEvents
+     */
+    EventEmitterModule.prototype.bindEvents = function (eventsMap, defaultFnContext) {
+        var _this = this;
+        var events = [];
+        eventsMap.forEach(function (_a) {
+            var eventName = _a[0], fn = _a[1], _b = _a[2], fnContext = _b === void 0 ? defaultFnContext : _b;
+            _this.on(eventName, fn, fnContext);
+            events.push(function () {
+                _this.off(eventName, fn, fnContext);
+            });
+        });
+        return function unbindEvents() {
+            events.forEach(function (unbindEvent) {
+                unbindEvent();
+            });
+        };
     };
     EventEmitterModule.prototype.destroy = function () {
         this.removeAllListeners();
@@ -17091,6 +17164,9 @@ var DesktopFullScreen = /** @class */ (function () {
     });
     Object.defineProperty(DesktopFullScreen.prototype, "isInFullScreen", {
         get: function () {
+            if (typeof this._fullscreenFn === 'boolean') {
+                return false;
+            }
             return Boolean(document[this._fullscreenFn.fullscreenElement]);
         },
         enumerable: true,
@@ -17098,15 +17174,24 @@ var DesktopFullScreen = /** @class */ (function () {
     });
     Object.defineProperty(DesktopFullScreen.prototype, "isEnabled", {
         get: function () {
-            return this.isAPIExist && document[this._fullscreenFn.fullscreenEnabled];
+            if (typeof this._fullscreenFn === 'boolean') {
+                return false;
+            }
+            return (this.isAPIExist && document[this._fullscreenFn.fullscreenEnabled]);
         },
         enumerable: true,
         configurable: true
     });
     DesktopFullScreen.prototype._bindEvents = function () {
+        if (typeof this._fullscreenFn === 'boolean') {
+            return false;
+        }
         document.addEventListener(this._fullscreenFn.fullscreenchange, this._callback);
     };
     DesktopFullScreen.prototype._unbindEvents = function () {
+        if (typeof this._fullscreenFn === 'boolean') {
+            return false;
+        }
         document.removeEventListener(this._fullscreenFn.fullscreenchange, this._callback);
     };
     DesktopFullScreen.prototype.request = function () {
@@ -17133,8 +17218,8 @@ var DesktopFullScreen = /** @class */ (function () {
     };
     DesktopFullScreen.prototype.destroy = function () {
         this._unbindEvents();
-        delete this._elem;
-        delete this._callback;
+        this._elem = null;
+        this._callback = null;
     };
     return DesktopFullScreen;
 }());
@@ -17179,7 +17264,7 @@ var FullScreenManager = /** @class */ (function () {
         }
         else {
             this._isEnabled = true;
-            var _config = tslib_1.__assign({}, DEFAULT_CONFIG, config.fullScreen);
+            var _config = tslib_1.__assign({}, DEFAULT_CONFIG, (typeof config.fullScreen === 'object' ? config.fullScreen : {}));
             this._exitFullScreenOnEnd = _config.exitFullScreenOnEnd;
             this._enterFullScreenOnPlay = _config.enterFullScreenOnPlay;
             this._exitFullScreenOnPause = _config.exitFullScreenOnPause;
@@ -17201,12 +17286,10 @@ var FullScreenManager = /** @class */ (function () {
         this._eventEmitter.emit(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._helper.isInFullScreen);
     };
     FullScreenManager.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine, this);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested, this);
-    };
-    FullScreenManager.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine, this);
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine],
+            [constants_1.VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested],
+        ], this);
     };
     FullScreenManager.prototype._exitOnEnd = function () {
         if (this._exitFullScreenOnEnd && this.isInFullScreen) {
@@ -17287,8 +17370,9 @@ var FullScreenManager = /** @class */ (function () {
     FullScreenManager.prototype.destroy = function () {
         this._unbindEvents();
         this._helper.destroy();
-        delete this._eventEmitter;
-        delete this._engine;
+        this._helper = null;
+        this._eventEmitter = null;
+        this._engine = null;
     };
     FullScreenManager.moduleName = 'fullScreenManager';
     FullScreenManager.dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
@@ -17387,8 +17471,8 @@ var IOSFullScreen = /** @class */ (function () {
     };
     IOSFullScreen.prototype.destroy = function () {
         this._unbindEvents();
-        delete this._elem;
-        delete this._callback;
+        this._elem = null;
+        this._callback = null;
     };
     return IOSFullScreen;
 }());
@@ -17426,11 +17510,11 @@ var KeyboardControl = /** @class */ (function () {
             this._isEnabled = config.disableControlWithKeyboard !== false;
         }
         this._initInterceptor();
-        this._attachDefaultControls();
     }
     KeyboardControl.prototype._initInterceptor = function () {
         if (this._isEnabled) {
             this._keyboardInterceptor = new keyboard_interceptor_1.default(this._rootNode);
+            this._attachDefaultControls();
         }
     };
     KeyboardControl.prototype._attachDefaultControls = function () {
@@ -17568,7 +17652,7 @@ var AdaptersStrategy = /** @class */ (function () {
     };
     AdaptersStrategy.prototype._detachCurrentAdapter = function () {
         if (this._attachedAdapter) {
-            this._attachedAdapter.detach(this._video);
+            this._attachedAdapter.detach();
             this._attachedAdapter = null;
         }
     };
@@ -17586,10 +17670,10 @@ var AdaptersStrategy = /** @class */ (function () {
     };
     AdaptersStrategy.prototype.destroy = function () {
         this._detachCurrentAdapter();
-        delete this._attachedAdapter;
-        delete this._availableAdapters;
-        delete this._playableAdapters;
-        delete this._video;
+        this._attachedAdapter = null;
+        this._availableAdapters = null;
+        this._playableAdapters = null;
+        this._video = null;
     };
     return AdaptersStrategy;
 }());
@@ -17607,9 +17691,11 @@ exports.default = AdaptersStrategy;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var native_1 = tslib_1.__importDefault(__webpack_require__(/*! ./native */ "./modules/playback-engine/adapters/native.ts"));
+var native_1 = __importDefault(__webpack_require__(/*! ./native */ "./modules/playback-engine/adapters/native.ts"));
 var constants_1 = __webpack_require__(/*! ../../../constants */ "./constants/index.ts");
 var defaultPlaybackAdapters = [
     native_1.default(constants_1.MediaStreamTypes.DASH, constants_1.MediaStreamDeliveryPriority.NATIVE_ADAPTIVE),
@@ -17664,6 +17750,7 @@ function getNativeAdapterCreator(streamType, deliveryPriority) {
             configurable: true
         });
         Object.defineProperty(NativeAdapter.prototype, "syncWithLiveTime", {
+            //@ts-ignore
             get: function () {
                 // TODO: implement syncWithLiveTime for `native`
                 return undefined;
@@ -17756,6 +17843,10 @@ function getNativeAdapterCreator(streamType, deliveryPriority) {
         };
         NativeAdapter.prototype._broadcastError = function () {
             var error = this.videoElement.error;
+            if (!error) {
+                this._logError(constants_1.ERRORS.UNKNOWN, null);
+                return;
+            }
             switch (error.code) {
                 case NATIVE_ERROR_CODES.ABORTED:
                     //No need for broadcasting
@@ -17831,18 +17922,11 @@ var LiveStateEngine = /** @class */ (function () {
     });
     LiveStateEngine.prototype._bindEvents = function () {
         var _this = this;
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
-        SEEK_BY_UI_EVENTS.forEach(function (event) {
-            _this._eventEmitter.on(event, _this._processSeekByUI, _this);
-        });
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED, this._onDynamicContentEnded, this);
-    };
-    LiveStateEngine.prototype._unbindEvents = function () {
-        var _this = this;
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
-        SEEK_BY_UI_EVENTS.forEach(function (event) {
-            _this._eventEmitter.on(event, _this._processSeekByUI, _this);
-        });
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processStateChange]
+        ].concat(SEEK_BY_UI_EVENTS.map(function (eventName) { return [eventName, _this._processSeekByUI]; }), [
+            [constants_1.VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED, this._onDynamicContentEnded],
+        ]), this);
     };
     LiveStateEngine.prototype._processStateChange = function (_a) {
         var prevState = _a.prevState, nextState = _a.nextState;
@@ -18011,8 +18095,8 @@ var NativeEventsBroadcaster = /** @class */ (function () {
     };
     NativeEventsBroadcaster.prototype.destroy = function () {
         this._unbindEvents();
-        delete this._video;
-        delete this._eventEmitter;
+        this._video = null;
+        this._eventEmitter = null;
     };
     return NativeEventsBroadcaster;
 }());
@@ -18057,17 +18141,17 @@ var Engine = /** @class */ (function () {
         else {
             this._video = document.createElement('video');
         }
-        this._video.setAttribute('crossorigin', 'anonymous');
     };
     Engine.prototype._applyConfig = function (config) {
         if (config === void 0) { config = {}; }
-        var preload = config.preload, autoPlay = config.autoPlay, loop = config.loop, muted = config.muted, volume = config.volume, playInline = config.playInline, src = config.src;
+        var preload = config.preload, autoPlay = config.autoPlay, loop = config.loop, muted = config.muted, volume = config.volume, playInline = config.playInline, crossOrigin = config.crossOrigin, src = config.src;
         this.setPreload(preload);
         this.setAutoPlay(autoPlay);
         this.setLoop(loop);
         this.setMute(muted);
         this.setVolume(volume);
         this.setPlayInline(playInline);
+        this.setCrossOrigin(crossOrigin);
         this.setSrc(src);
     };
     Engine.prototype.getNode = function () {
@@ -18182,6 +18266,11 @@ var Engine = /** @class */ (function () {
     Engine.prototype.getSrc = function () {
         return this._currentSrc;
     };
+    Engine.prototype.reset = function () {
+        this.pause();
+        this.setCurrentTime(0);
+        this._eventEmitter.emit(constants_1.VIDEO_EVENTS.RESET);
+    };
     /**
      * Method for starting playback of video
      * @example
@@ -18235,6 +18324,21 @@ var Engine = /** @class */ (function () {
         else {
             this.pause();
         }
+    };
+    /**
+     * Method for reseting playback of video
+     * @example
+     * player.play();
+     * console.log(player.isVideoPaused); // false
+     * ...
+     * player.resetPlayback();
+     * console.log(player.isVideoPaused); // true;
+     * console.log(player.getCurrentTime()); //0;
+     */
+    Engine.prototype.resetPlayback = function () {
+        this.pause();
+        this.setCurrentTime(0);
+        this._eventEmitter.emit(constants_1.VIDEO_EVENTS.RESET);
     };
     Object.defineProperty(Engine.prototype, "isVideoPaused", {
         /**
@@ -18472,7 +18576,10 @@ var Engine = /** @class */ (function () {
      */
     Engine.prototype.setPlayInline = function (isPlayInline) {
         if (isPlayInline) {
-            this._video.setAttribute('playsInline', String(isPlayInline));
+            this._video.setAttribute('playsInline', 'true');
+        }
+        else {
+            this._video.removeAttribute('playsInline');
         }
     };
     /**
@@ -18482,6 +18589,27 @@ var Engine = /** @class */ (function () {
      */
     Engine.prototype.getPlayInline = function () {
         return this._video.getAttribute('playsInline') === 'true';
+    };
+    /**
+     * Set crossorigin attribute for video
+     * @example
+     * player.setCrossOrigin('anonymous');
+     */
+    Engine.prototype.setCrossOrigin = function (crossOrigin) {
+        if (crossOrigin) {
+            this._video.setAttribute('crossorigin', crossOrigin);
+        }
+        else {
+            this._video.removeAttribute('crossorigin');
+        }
+    };
+    /**
+     * Get crossorigin attribute value for video
+     * @example
+     * player.getCrossOrigin(); // 'anonymous'
+     */
+    Engine.prototype.getCrossOrigin = function () {
+        return this._video.getAttribute('crossorigin');
     };
     /**
      * Return current state of playback
@@ -18513,11 +18641,15 @@ var Engine = /** @class */ (function () {
      *     "ready-to-play": 67
      *   },
      *   "bitrates": [
-     *     // Different for different type of streams
-     *     { ... },
-     *     { ... }
+     *     // Available bitrates
+     *     "100000",
+     *     "200000",
+     *     ...
      *   ],
-     *   "currentBitrate": { ... },
+     *   // One of available bitrates, that used right now
+     *   "currentBitrate": "100000",
+     *   // Raw estimation of bandwidth, that could be used without playback stall
+     *   "bwEstimate": "120000"
      *   "overallBufferLength": 60.139683,
      *   "nearestBufferSegInfo": {
      *     "start": 0,
@@ -18539,11 +18671,11 @@ var Engine = /** @class */ (function () {
         this._nativeEventsBroadcaster.destroy();
         this._adapterStrategy.destroy();
         this._video.parentNode && this._video.parentNode.removeChild(this._video);
-        delete this._stateEngine;
-        delete this._nativeEventsBroadcaster;
-        delete this._adapterStrategy;
-        delete this._eventEmitter;
-        delete this._video;
+        this._stateEngine = null;
+        this._nativeEventsBroadcaster = null;
+        this._adapterStrategy = null;
+        this._eventEmitter = null;
+        this._video = null;
     };
     Engine.moduleName = 'engine';
     Engine.dependencies = ['eventEmitter', 'config', 'availablePlaybackAdapters'];
@@ -18555,6 +18687,9 @@ var Engine = /** @class */ (function () {
     ], Engine.prototype, "getSrc", null);
     tslib_1.__decorate([
         player_api_decorator_1.default()
+    ], Engine.prototype, "reset", null);
+    tslib_1.__decorate([
+        player_api_decorator_1.default()
     ], Engine.prototype, "play", null);
     tslib_1.__decorate([
         player_api_decorator_1.default()
@@ -18562,6 +18697,9 @@ var Engine = /** @class */ (function () {
     tslib_1.__decorate([
         player_api_decorator_1.default()
     ], Engine.prototype, "togglePlayback", null);
+    tslib_1.__decorate([
+        player_api_decorator_1.default()
+    ], Engine.prototype, "resetPlayback", null);
     tslib_1.__decorate([
         player_api_decorator_1.default()
     ], Engine.prototype, "isVideoPaused", null);
@@ -18641,6 +18779,12 @@ var Engine = /** @class */ (function () {
         player_api_decorator_1.default()
     ], Engine.prototype, "getPlayInline", null);
     tslib_1.__decorate([
+        player_api_decorator_1.default()
+    ], Engine.prototype, "setCrossOrigin", null);
+    tslib_1.__decorate([
+        player_api_decorator_1.default()
+    ], Engine.prototype, "getCrossOrigin", null);
+    tslib_1.__decorate([
         player_api_decorator_1.default('getCurrentPlaybackState')
     ], Engine.prototype, "getCurrentState", null);
     tslib_1.__decorate([
@@ -18663,6 +18807,7 @@ exports.default = Engine;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var device_detection_1 = __webpack_require__(/*! ../../utils/device-detection */ "./utils/device-detection.ts");
 var constants_1 = __webpack_require__(/*! ../../constants */ "./constants/index.ts");
 exports.NATIVE_VIDEO_EVENTS_TO_STATE = [
     'loadstart',
@@ -18745,8 +18890,13 @@ var StateEngine = /** @class */ (function () {
                 break;
             }
             case 'playing': {
-                // Event 'playing' also triggers even when play request aborted by browser. So we need to check if video is actualy playing
-                if (!videoEl.paused) {
+                // Safari triggers event 'playing' even when play request aborted by browser. So we need to check if video is actualy playing
+                if (device_detection_1.isSafari()) {
+                    if (!videoEl.paused) {
+                        this.setState(constants_1.EngineState.PLAYING);
+                    }
+                }
+                else {
                     this.setState(constants_1.EngineState.PLAYING);
                 }
                 break;
@@ -18756,8 +18906,13 @@ var StateEngine = /** @class */ (function () {
                 break;
             }
             case 'pause': {
-                // No need to set state PAUSED since there was no actual playing of any parts of video
-                if (videoEl.played.length) {
+                // Safari triggers event 'pause' even when playing was aborted buy autoplay policies, emit pause event even if there wasn't any real playback
+                if (device_detection_1.isSafari()) {
+                    if (videoEl.played.length) {
+                        this.setState(constants_1.EngineState.PAUSED);
+                    }
+                }
+                else {
                     this.setState(constants_1.EngineState.PAUSED);
                 }
                 break;
@@ -18812,8 +18967,8 @@ var StateEngine = /** @class */ (function () {
     });
     StateEngine.prototype.destroy = function () {
         this._unbindEvents();
-        delete this._eventEmitter;
-        delete this._video;
+        this._eventEmitter = null;
+        this._video = null;
     };
     return StateEngine;
 }());
@@ -18961,9 +19116,8 @@ var DEFAULT_CONFIG = {
 };
 var RootContainer = /** @class */ (function () {
     function RootContainer(_a) {
-        var eventEmitter = _a.eventEmitter, config = _a.config, engine = _a.engine;
+        var eventEmitter = _a.eventEmitter, config = _a.config;
         this._eventEmitter = eventEmitter;
-        this._engine = engine;
         this.isHidden = false;
         this._bindCallbacks();
         this._initUI(config);
@@ -18981,15 +19135,19 @@ var RootContainer = /** @class */ (function () {
         configurable: true
     });
     RootContainer.prototype._bindCallbacks = function () {
+        this._onResized = this._onResized.bind(this);
         this._broadcastMouseEnter = this._broadcastMouseEnter.bind(this);
         this._broadcastMouseMove = this._broadcastMouseMove.bind(this);
         this._broadcastMouseLeave = this._broadcastMouseLeave.bind(this);
     };
     RootContainer.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.view.setFullScreenStatus, this.view);
-    };
-    RootContainer.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.view.setFullScreenStatus, this.view);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [
+                constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+                this.view.setFullScreenStatus,
+                this.view,
+            ],
+        ], this);
     };
     RootContainer.prototype._initUI = function (config) {
         var sizeConfig = tslib_1.__assign({}, config.size);
@@ -19031,17 +19189,16 @@ var RootContainer = /** @class */ (function () {
     RootContainer.prototype._disableFocusInterceptors = function () {
         if (this._disengageFocusSource) {
             this._disengageFocusSource();
-            delete this._disengageFocusSource;
+            this._disengageFocusSource = null;
         }
         if (this._disengageFocusWithin) {
             this._disengageFocusWithin();
-            delete this._disengageFocusWithin;
+            this._disengageFocusWithin = null;
         }
     };
-    RootContainer.prototype._onResized = function (contentRect) {
-        var width = contentRect.width, height = contentRect.height;
-        this._realWidth = width;
-        this._realHeight = height;
+    RootContainer.prototype._onResized = function () {
+        var width = this.view.getWidth();
+        var height = this.view.getHeight();
         this._elementQueries.setWidth(width);
         this._eventEmitter.emit(constants_1.UI_EVENTS.RESIZE, { width: width, height: height });
     };
@@ -19058,15 +19215,11 @@ var RootContainer = /** @class */ (function () {
      * });
      */
     RootContainer.prototype.attachToElement = function (element) {
-        var _this = this;
         this._enableFocusInterceptors();
         element.appendChild(this.node);
         if (!this._resizeObserver) {
             // NOTE: required for valid work of player "media queries"
-            this._resizeObserver = new resize_observer_polyfill_1.default(function (_a) {
-                var entry = _a[0];
-                _this._onResized(entry.contentRect);
-            });
+            this._resizeObserver = new resize_observer_polyfill_1.default(this._onResized);
             this._resizeObserver.observe(this.node);
         }
     };
@@ -19086,7 +19239,7 @@ var RootContainer = /** @class */ (function () {
      * player.getWidth(); // 400
      */
     RootContainer.prototype.getWidth = function () {
-        return this._realWidth;
+        return this.view.getWidth();
     };
     /**
      * Method for setting width of player
@@ -19104,7 +19257,7 @@ var RootContainer = /** @class */ (function () {
      * player.getHeight(); // 225
      */
     RootContainer.prototype.getHeight = function () {
-        return this._realHeight;
+        return this.view.getHeight();
     };
     /**
      * Method for allowing player fill all available space
@@ -19141,14 +19294,13 @@ var RootContainer = /** @class */ (function () {
             this._resizeObserver = null;
         }
         this._elementQueries.destroy();
-        delete this._elementQueries;
+        this._elementQueries = null;
         this.view.destroy();
-        delete this.view;
-        delete this._engine;
-        delete this._eventEmitter;
+        this.view = null;
+        this._eventEmitter = null;
     };
     RootContainer.moduleName = 'rootContainer';
-    RootContainer.dependencies = ['eventEmitter', 'config', 'engine'];
+    RootContainer.dependencies = ['eventEmitter', 'config'];
     tslib_1.__decorate([
         player_api_decorator_1.default()
     ], RootContainer.prototype, "node", null);
@@ -19233,6 +19385,12 @@ var RootContainerView = /** @class */ (function (_super) {
         }
         this._$node.style.height = height + "px";
     };
+    RootContainerView.prototype.getWidth = function () {
+        return this._$node.offsetWidth;
+    };
+    RootContainerView.prototype.getHeight = function () {
+        return this._$node.offsetHeight;
+    };
     RootContainerView.prototype.show = function () {
         this._$node.classList.add(this.styleNames.hidden);
     };
@@ -19270,7 +19428,7 @@ var RootContainerView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
+        this._$node = null;
     };
     return RootContainerView;
 }(view_1.default));
@@ -19702,7 +19860,7 @@ var TextMap = /** @class */ (function () {
         return text;
     };
     TextMap.prototype.destroy = function () {
-        delete this._textMap;
+        this._textMap = null;
     };
     TextMap.moduleName = 'textMap';
     TextMap.dependencies = ['config'];
@@ -19797,10 +19955,7 @@ var BottomBlock = /** @class */ (function () {
         this.view = new BottomBlock.View(config);
     };
     BottomBlock.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._removeFocusState);
-    };
-    BottomBlock.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._removeFocusState);
+        this._unbindEvents = this._eventEmitter.bindEvents([[constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._removeFocusState]], this);
     };
     BottomBlock.prototype._initLogo = function (logoConfig) {
         if (logoConfig) {
@@ -19959,7 +20114,6 @@ var BottomBlock = /** @class */ (function () {
     BottomBlock.View = bottom_block_view_1.default;
     BottomBlock.dependencies = [
         'config',
-        'screen',
         'playControl',
         'progressControl',
         'timeControl',
@@ -20131,7 +20285,7 @@ var BottomBlockView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
+        this._$node = null;
     };
     return BottomBlockView;
 }(view_1.default));
@@ -20266,7 +20420,7 @@ var FullScreenControl = /** @class */ (function () {
         this._toggleFullScreen = this._toggleFullScreen.bind(this);
     };
     FullScreenControl.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([[constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus]], this);
     };
     FullScreenControl.prototype._initUI = function () {
         var config = {
@@ -20322,18 +20476,14 @@ var FullScreenControl = /** @class */ (function () {
         this.isHidden = false;
         this.view.show();
     };
-    FullScreenControl.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus, this);
-    };
     FullScreenControl.prototype.destroy = function () {
         this._destroyInterceptor();
         this._unbindEvents();
         this.view.destroy();
-        delete this.view;
-        delete this._eventEmitter;
-        delete this._fullScreenManager;
-        delete this._textMap;
-        delete this.isHidden;
+        this.view = null;
+        this._eventEmitter = null;
+        this._fullScreenManager = null;
+        this._textMap = null;
     };
     FullScreenControl.moduleName = 'fullScreenControl';
     FullScreenControl.View = full_screen_view_1.default;
@@ -20423,7 +20573,7 @@ var FullScreenView = /** @class */ (function (_super) {
             this._$toggleFullScreenControl.setAttribute('aria-label', this._textMap.get(constants_1.TEXT_LABELS.ENTER_FULL_SCREEN_LABEL));
             this._tooltipReference.setText(this._textMap.get(constants_1.TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP));
         }
-        this._$node.setAttribute(DATA_IS_IN_FULL_SCREEN, isInFullScreen);
+        this._$node.setAttribute(DATA_IS_IN_FULL_SCREEN, String(isInFullScreen));
     };
     FullScreenView.prototype.hide = function () {
         this._$node.classList.add(this.styleNames.hidden);
@@ -20436,13 +20586,15 @@ var FullScreenView = /** @class */ (function (_super) {
     };
     FullScreenView.prototype.destroy = function () {
         this._unbindEvents();
+        this._callbacks = null;
         this._tooltipReference.destroy();
+        this._tooltipReference = null;
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$toggleFullScreenControl;
-        delete this._$node;
-        delete this._textMap;
+        this._$toggleFullScreenControl = null;
+        this._$node = null;
+        this._textMap = null;
     };
     return FullScreenView;
 }(view_1.default));
@@ -20571,15 +20723,14 @@ var constants_1 = __webpack_require__(/*! ../../../../constants */ "./constants/
 var logo_view_1 = tslib_1.__importDefault(__webpack_require__(/*! ./logo.view */ "./modules/ui/controls/logo/logo.view.ts"));
 var Logo = /** @class */ (function () {
     function Logo(_a) {
-        var engine = _a.engine, eventEmitter = _a.eventEmitter, config = _a.config, textMap = _a.textMap, tooltipService = _a.tooltipService;
+        var eventEmitter = _a.eventEmitter, config = _a.config, textMap = _a.textMap, tooltipService = _a.tooltipService;
         this._eventEmitter = eventEmitter;
-        this._engine = engine;
         this._textMap = textMap;
         this._tooltipService = tooltipService;
         this._bindCallbacks();
         this._initUI();
         this._initInterceptor();
-        var logoConfig = tslib_1.__assign({}, config.logo);
+        var logoConfig = tslib_1.__assign({}, (typeof config.logo === 'object' ? config.logo : {}));
         this.setLogo(logoConfig.src);
         this.setLogoClickCallback(logoConfig.callback);
     }
@@ -20664,21 +20815,13 @@ var Logo = /** @class */ (function () {
     Logo.prototype.destroy = function () {
         this._destroyInterceptor();
         this.view.destroy();
-        delete this.view;
-        delete this._engine;
-        delete this._eventEmitter;
-        delete this._textMap;
-        delete this.isHidden;
+        this.view = null;
+        this._eventEmitter = null;
+        this._textMap = null;
     };
     Logo.moduleName = 'logo';
     Logo.View = logo_view_1.default;
-    Logo.dependencies = [
-        'engine',
-        'config',
-        'eventEmitter',
-        'textMap',
-        'tooltipService',
-    ];
+    Logo.dependencies = ['config', 'eventEmitter', 'textMap', 'tooltipService'];
     tslib_1.__decorate([
         player_api_decorator_1.default()
     ], Logo.prototype, "setLogo", null);
@@ -20778,15 +20921,17 @@ var LogoView = /** @class */ (function (_super) {
     };
     LogoView.prototype.destroy = function () {
         this._unbindEvents();
+        this._callbacks = null;
         this._tooltipReference.destroy();
+        this._tooltipReference = null;
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
-        delete this._$logo;
-        delete this._$placeholder;
-        delete this._tooltipReference;
-        delete this._textMap;
+        this._$node = null;
+        this._$logo = null;
+        this._$placeholder = null;
+        this._tooltipReference = null;
+        this._textMap = null;
     };
     return LogoView;
 }(view_1.default));
@@ -20887,10 +21032,12 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var play_view_1 = tslib_1.__importDefault(__webpack_require__(/*! ./play.view */ "./modules/ui/controls/play/play.view.ts"));
-var keyboard_interceptor_1 = tslib_1.__importDefault(__webpack_require__(/*! ../../../../utils/keyboard-interceptor */ "./utils/keyboard-interceptor.ts"));
+var play_view_1 = __importDefault(__webpack_require__(/*! ./play.view */ "./modules/ui/controls/play/play.view.ts"));
+var keyboard_interceptor_1 = __importDefault(__webpack_require__(/*! ../../../../utils/keyboard-interceptor */ "./utils/keyboard-interceptor.ts"));
 var constants_1 = __webpack_require__(/*! ../../../../constants */ "./constants/index.ts");
 var PlayControl = /** @class */ (function () {
     function PlayControl(_a) {
@@ -20934,7 +21081,7 @@ var PlayControl = /** @class */ (function () {
         this._togglePlayback = this._togglePlayback.bind(this);
     };
     PlayControl.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([[constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus]], this);
     };
     PlayControl.prototype._togglePlayback = function () {
         if (this._isPlaying) {
@@ -20980,9 +21127,6 @@ var PlayControl = /** @class */ (function () {
         this._isPlaying = isPlaying;
         this.view.setState({ isPlaying: this._isPlaying });
     };
-    PlayControl.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
-    };
     PlayControl.prototype.reset = function () {
         this.setControlStatus(false);
     };
@@ -20990,10 +21134,10 @@ var PlayControl = /** @class */ (function () {
         this._destroyInterceptor();
         this._unbindEvents();
         this.view.destroy();
-        delete this.view;
-        delete this._eventEmitter;
-        delete this._engine;
-        delete this._textMap;
+        this.view = null;
+        this._eventEmitter = null;
+        this._engine = null;
+        this._textMap = null;
     };
     PlayControl.moduleName = 'playControl';
     PlayControl.View = play_view_1.default;
@@ -21072,7 +21216,7 @@ var PlayView = /** @class */ (function (_super) {
             });
             this._$playbackControl.setAttribute('aria-label', this._textMap.get(constants_1.TEXT_LABELS.PLAY_CONTROL_LABEL));
         }
-        this._$node.setAttribute(DATA_IS_PLAYING, isPlaying);
+        this._$node.setAttribute(DATA_IS_PLAYING, String(isPlaying));
     };
     PlayView.prototype.show = function () {
         this._$node.classList.remove(this.styleNames.hidden);
@@ -21085,12 +21229,13 @@ var PlayView = /** @class */ (function (_super) {
     };
     PlayView.prototype.destroy = function () {
         this._unbindEvents();
+        this._callbacks = null;
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$playbackControl;
-        delete this._$node;
-        delete this._textMap;
+        this._$playbackControl = null;
+        this._$node = null;
+        this._textMap = null;
     };
     return PlayView;
 }(view_1.default));
@@ -21216,15 +21361,19 @@ var theme_1 = __webpack_require__(/*! ../../core/theme */ "./modules/ui/core/the
 exports.default = {
     progressPlayed: {
         backgroundColor: function (data) { return data.progressColor; },
-        '&:after': {
-            backgroundColor: function (data) { return data.progressColor; },
-        },
     },
     progressSeekTo: {
-        backgroundColor: function (data) { return theme_1.transperentizeColor(data.progressColor, 0.5); },
+        backgroundColor: function (data) {
+            return theme_1.transperentizeColor(data.progressColor, 0.5);
+        },
     },
     progressBackground: {
-        backgroundColor: function (data) { return theme_1.transperentizeColor(data.progressColor, 0.25); },
+        backgroundColor: function (data) {
+            return theme_1.transperentizeColor(data.progressColor, 0.25);
+        },
+    },
+    progressSeekBtn: {
+        backgroundColor: function (data) { return data.progressColor; },
     },
     progressSyncBtn: {
         borderColor: function (data) { return data.progressColor; },
@@ -21279,15 +21428,19 @@ var ProgressControl = /** @class */ (function () {
         configurable: true
     });
     ProgressControl.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange, this);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
+            [constants_1.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
+            [constants_1.VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator],
+            [constants_1.VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators],
+        ], this);
     };
     ProgressControl.prototype._initUI = function () {
         var config = {
             callbacks: {
                 onSyncWithLiveClick: this._syncWithLive,
+                onSyncWithLiveMouseEnter: this._onSyncWithLiveMouseEnter,
+                onSyncWithLiveMouseLeave: this._onSyncWithLiveMouseLeave,
                 onChangePlayedProgress: this._changePlayedProgress,
                 onSeekToByMouseStart: this._onSeekToByMouseStart,
                 onSeekToByMouseEnd: this._onSeekToByMouseEnd,
@@ -21339,6 +21492,8 @@ var ProgressControl = /** @class */ (function () {
     };
     ProgressControl.prototype._bindCallbacks = function () {
         this._syncWithLive = this._syncWithLive.bind(this);
+        this._onSyncWithLiveMouseEnter = this._onSyncWithLiveMouseEnter.bind(this);
+        this._onSyncWithLiveMouseLeave = this._onSyncWithLiveMouseLeave.bind(this);
         this._updateControlOnInterval = this._updateControlOnInterval.bind(this);
         this._changePlayedProgress = this._changePlayedProgress.bind(this);
         this._onSeekToByMouseStart = this._onSeekToByMouseStart.bind(this);
@@ -21353,14 +21508,14 @@ var ProgressControl = /** @class */ (function () {
             return;
         }
         this._currentProgress = value;
-        this._changeCurrentTimeOfVideo(this._currentProgress / 100);
+        this._changeCurrentTimeOfVideo(value / 100);
     };
     ProgressControl.prototype._startIntervalUpdates = function () {
         if (this._updateControlInterval) {
             this._stopIntervalUpdates();
         }
         this._updateControlOnInterval();
-        this._updateControlInterval = setInterval(this._updateControlOnInterval, UPDATE_INTERVAL_DELAY);
+        this._updateControlInterval = window.setInterval(this._updateControlOnInterval, UPDATE_INTERVAL_DELAY);
     };
     ProgressControl.prototype._onSeekToByMouseStart = function (percent) {
         var durationTime = this._engine.getDurationTime();
@@ -21374,8 +21529,8 @@ var ProgressControl = /** @class */ (function () {
         this.view.hideProgressTimeTooltip();
     };
     ProgressControl.prototype._stopIntervalUpdates = function () {
-        clearInterval(this._updateControlInterval);
-        this._updateControlInterval = false;
+        window.clearInterval(this._updateControlInterval);
+        this._updateControlInterval = null;
     };
     ProgressControl.prototype._onUserInteractionStarts = function () {
         if (!this._isUserInteracting) {
@@ -21461,7 +21616,12 @@ var ProgressControl = /** @class */ (function () {
     };
     ProgressControl.prototype._changeCurrentTimeOfVideo = function (percent) {
         var duration = this._engine.getDurationTime();
-        this._engine.setCurrentTime(duration * percent);
+        if (this._engine.isDynamicContent && percent === 1) {
+            this._engine.syncWithLive();
+        }
+        else {
+            this._engine.setCurrentTime(duration * percent);
+        }
         this._eventEmitter.emit(constants_1.UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
     };
     ProgressControl.prototype._pauseVideoOnProgressManipulationStart = function () {
@@ -21517,6 +21677,12 @@ var ProgressControl = /** @class */ (function () {
     ProgressControl.prototype._syncWithLive = function () {
         this._engine.syncWithLive();
     };
+    ProgressControl.prototype._onSyncWithLiveMouseEnter = function () {
+        this._eventEmitter.emit(constants_1.UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER_TRIGGERED);
+    };
+    ProgressControl.prototype._onSyncWithLiveMouseLeave = function () {
+        this._eventEmitter.emit(constants_1.UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED);
+    };
     /**
      * Add time indicator to progress bar
      */
@@ -21559,12 +21725,6 @@ var ProgressControl = /** @class */ (function () {
         this.isHidden = false;
         this.view.show();
     };
-    ProgressControl.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators, this);
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._processStateChange, this);
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange, this);
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator, this);
-    };
     ProgressControl.prototype.reset = function () {
         this.updatePlayed(0);
         this.updateBuffered(0);
@@ -21575,11 +21735,12 @@ var ProgressControl = /** @class */ (function () {
         this._stopIntervalUpdates();
         this._unbindEvents();
         this.view.destroy();
-        delete this.view;
-        delete this._eventEmitter;
-        delete this._engine;
-        delete this._liveStateEngine;
-        delete this._timeIndicatorsToAdd;
+        this.view = null;
+        this._eventEmitter = null;
+        this._engine = null;
+        this._liveStateEngine = null;
+        this._timeIndicatorsToAdd = null;
+        this._textMap = null;
     };
     ProgressControl.moduleName = 'progressControl';
     ProgressControl.View = progress_view_1.default;
@@ -21625,6 +21786,7 @@ var getProgressTimeTooltipPosition_1 = tslib_1.__importDefault(__webpack_require
 var templates_1 = __webpack_require__(/*! ./templates */ "./modules/ui/controls/progress/templates/index.ts");
 var htmlToElement_1 = tslib_1.__importDefault(__webpack_require__(/*! ../../core/htmlToElement */ "./modules/ui/core/htmlToElement.ts"));
 var getElementByHook_1 = tslib_1.__importDefault(__webpack_require__(/*! ../../core/getElementByHook */ "./modules/ui/core/getElementByHook.ts"));
+var toggleNodeClass_1 = tslib_1.__importDefault(__webpack_require__(/*! ../../core/toggleNodeClass */ "./modules/ui/core/toggleNodeClass.ts"));
 var progress_theme_1 = tslib_1.__importDefault(__webpack_require__(/*! ./progress.theme */ "./modules/ui/controls/progress/progress.theme.ts"));
 var progress_scss_1 = tslib_1.__importDefault(__webpack_require__(/*! ./progress.scss */ "./modules/ui/controls/progress/progress.scss"));
 var DATA_PLAYED = 'data-played-percent';
@@ -21665,6 +21827,7 @@ var ProgressView = /** @class */ (function (_super) {
         this._$buffered = getElementByHook_1.default(this._$node, 'progress-buffered');
         this._$seekTo = getElementByHook_1.default(this._$node, 'progress-seek-to');
         this._$timeIndicators = getElementByHook_1.default(this._$node, 'progress-time-indicators');
+        this._$seekButton = getElementByHook_1.default(this._$node, 'progress-seek-button');
         this._$syncButton = getElementByHook_1.default(this._$node, 'progress-sync-button');
         this._syncButtonTooltipReference = this._tooltipService.createReference(this._$syncButton, {
             text: this._textMap.get(constants_1.TEXT_LABELS.LIVE_SYNC_TOOLTIP),
@@ -21680,20 +21843,30 @@ var ProgressView = /** @class */ (function (_super) {
         this._syncWithLive = this._syncWithLive.bind(this);
     };
     ProgressView.prototype._bindEvents = function () {
+        this._$seekButton.addEventListener('mousedown', this._startDragOnMouseDown);
+        this._$seekButton.addEventListener('mousemove', this._startSeekToByMouse);
+        this._$seekButton.addEventListener('mouseout', this._stopSeekToByMouse);
         this._$hitbox.addEventListener('mousedown', this._startDragOnMouseDown);
         this._$hitbox.addEventListener('mousemove', this._startSeekToByMouse);
         this._$hitbox.addEventListener('mouseout', this._stopSeekToByMouse);
         window.addEventListener('mousemove', this._setPlayedByDrag);
         window.addEventListener('mouseup', this._stopDragOnMouseUp);
         this._$syncButton.addEventListener('click', this._syncWithLive);
+        this._$syncButton.addEventListener('mouseenter', this._callbacks.onSyncWithLiveMouseEnter);
+        this._$syncButton.addEventListener('mouseleave', this._callbacks.onSyncWithLiveMouseLeave);
     };
     ProgressView.prototype._unbindEvents = function () {
+        this._$seekButton.removeEventListener('mousedown', this._startDragOnMouseDown);
+        this._$seekButton.removeEventListener('mousemove', this._startSeekToByMouse);
+        this._$seekButton.removeEventListener('mouseout', this._stopSeekToByMouse);
         this._$hitbox.removeEventListener('mousedown', this._startDragOnMouseDown);
         this._$hitbox.removeEventListener('mousemove', this._startSeekToByMouse);
         this._$hitbox.removeEventListener('mouseout', this._stopSeekToByMouse);
-        this._$syncButton.removeEventListener('click', this._syncWithLive);
         window.removeEventListener('mousemove', this._setPlayedByDrag);
         window.removeEventListener('mouseup', this._stopDragOnMouseUp);
+        this._$syncButton.removeEventListener('click', this._syncWithLive);
+        this._$syncButton.removeEventListener('mouseenter', this._callbacks.onSyncWithLiveMouseEnter);
+        this._$syncButton.removeEventListener('mouseleave', this._callbacks.onSyncWithLiveMouseLeave);
     };
     ProgressView.prototype._startDragOnMouseDown = function (event) {
         if (event.button > 1) {
@@ -21746,6 +21919,7 @@ var ProgressView = /** @class */ (function (_super) {
         this._$node.setAttribute('aria-valuenow', String(percent));
         this._$node.setAttribute(DATA_PLAYED, String(percent));
         this._$played.setAttribute('style', "width:" + percent + "%;");
+        this._$seekButton.setAttribute('style', "left:" + percent + "%;");
     };
     ProgressView.prototype._setBufferedDOMAttributes = function (percent) {
         this._$buffered.setAttribute('style', "width:" + percent + "%;");
@@ -21760,12 +21934,14 @@ var ProgressView = /** @class */ (function (_super) {
         this._$syncButton.classList.add(this.styleNames.hidden);
     };
     ProgressView.prototype.setLiveSyncStatus = function (isSync) {
+        toggleNodeClass_1.default(this._$syncButton, this.styleNames.liveSync, isSync);
         if (isSync) {
-            this._$syncButton.classList.add(this.styleNames.liveSync);
+            this._syncButtonTooltipReference.disable();
             this._$played.setAttribute('style', "width:100%;");
+            this._$seekButton.setAttribute('style', "left:100%;");
         }
         else {
-            this._$syncButton.classList.remove(this.styleNames.liveSync);
+            this._syncButtonTooltipReference.enable();
         }
     };
     ProgressView.prototype.showProgressTimeTooltip = function (_a) {
@@ -21815,18 +21991,21 @@ var ProgressView = /** @class */ (function (_super) {
     };
     ProgressView.prototype.destroy = function () {
         this._unbindEvents();
+        this._callbacks = null;
         this._syncButtonTooltipReference.destroy();
+        this._syncButtonTooltipReference = null;
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
-        delete this._$buffered;
-        delete this._$hitbox;
-        delete this._$played;
-        delete this._$seekTo;
-        delete this._$syncButton;
-        delete this._$timeIndicators;
-        delete this._textMap;
+        this._$node = null;
+        this._$buffered = null;
+        this._$hitbox = null;
+        this._$played = null;
+        this._$seekTo = null;
+        this._$seekButton = null;
+        this._$syncButton = null;
+        this._$timeIndicators = null;
+        this._textMap = null;
     };
     return ProgressView;
 }(view_1.default));
@@ -21867,7 +22046,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return anonymous; });
 function anonymous(props
 /*``*/) {
-var out='<div data-hook="progress-control" class="'+(props.styles.seekBlock)+'" tabindex="0"> <div class="'+(props.styles.progressBarsWrapper)+'"> <div class="'+(props.styles.progressBar)+' '+(props.styles.background)+' '+(props.themeStyles.progressBackground)+'"> </div> <div data-hook="progress-buffered" class="'+(props.styles.progressBar)+' '+(props.styles.buffered)+'"> </div> <div data-hook="progress-seek-to" class="'+(props.styles.progressBar)+' '+(props.styles.seekTo)+' '+(props.themeStyles.progressSeekTo)+'"> </div> <div data-hook="progress-played" class="'+(props.styles.progressBar)+' '+(props.styles.played)+' '+(props.themeStyles.progressPlayed)+'"> </div> <div data-hook="progress-time-indicators" class="'+(props.styles.timeIndicators)+'"> </div> </div> <div data-hook="progress-hitbox" class="'+(props.styles.hitbox)+'"> </div> <div data-hook="progress-sync-button" class="'+(props.styles.syncButton)+' '+(props.themeStyles.progressSyncBtn)+'"> </div></div>';return out;
+var out='<div data-hook="progress-control" class="'+(props.styles.seekBlock)+'" tabindex="0"> <div class="'+(props.styles.progressBarsWrapper)+'"> <div class="'+(props.styles.progressBar)+' '+(props.styles.background)+' '+(props.themeStyles.progressBackground)+'"> </div> <div data-hook="progress-buffered" class="'+(props.styles.progressBar)+' '+(props.styles.buffered)+'"> </div> <div data-hook="progress-seek-to" class="'+(props.styles.progressBar)+' '+(props.styles.seekTo)+' '+(props.themeStyles.progressSeekTo)+'"> </div> <div data-hook="progress-played" class="'+(props.styles.progressBar)+' '+(props.styles.played)+' '+(props.themeStyles.progressPlayed)+'"> </div> <div data-hook="progress-time-indicators" class="'+(props.styles.timeIndicators)+'"> </div> </div> <div data-hook="progress-hitbox" class="'+(props.styles.hitbox)+'"> </div> <div data-hook="progress-seek-button" class="'+(props.styles.seekButton)+' '+(props.themeStyles.progressSeekBtn)+'"> </div> <div data-hook="progress-sync-button" class="'+(props.styles.syncButton)+' '+(props.themeStyles.progressSyncBtn)+'"> </div></div>';return out;
 }
 
 /***/ }),
@@ -22004,9 +22183,11 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var time_view_1 = tslib_1.__importDefault(__webpack_require__(/*! ./time.view */ "./modules/ui/controls/time/time.view.ts"));
+var time_view_1 = __importDefault(__webpack_require__(/*! ./time.view */ "./modules/ui/controls/time/time.view.ts"));
 var constants_1 = __webpack_require__(/*! ../../../../constants */ "./constants/index.ts");
 var UPDATE_INTERVAL_DELAY = 1000 / 60;
 var TimeControl = /** @class */ (function () {
@@ -22033,9 +22214,11 @@ var TimeControl = /** @class */ (function () {
         this._updateDurationTime = this._updateDurationTime.bind(this);
     };
     TimeControl.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates],
+            [constants_1.VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime],
+            [constants_1.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
+        ], this);
     };
     TimeControl.prototype._initUI = function () {
         var config = {
@@ -22047,10 +22230,10 @@ var TimeControl = /** @class */ (function () {
         if (this._updateControlInterval) {
             this._stopIntervalUpdates();
         }
-        this._updateControlInterval = setInterval(this._updateCurrentTime, UPDATE_INTERVAL_DELAY);
+        this._updateControlInterval = window.setInterval(this._updateCurrentTime, UPDATE_INTERVAL_DELAY);
     };
     TimeControl.prototype._stopIntervalUpdates = function () {
-        clearInterval(this._updateControlInterval);
+        window.clearInterval(this._updateControlInterval);
         this._updateControlInterval = null;
     };
     TimeControl.prototype._processLiveStateChange = function (_a) {
@@ -22113,18 +22296,13 @@ var TimeControl = /** @class */ (function () {
         this.view.setCurrentTimeBackward(false);
         this.show();
     };
-    TimeControl.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates, this);
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime, this);
-    };
     TimeControl.prototype.destroy = function () {
         this._stopIntervalUpdates();
         this._unbindEvents();
         this.view.destroy();
-        delete this.view;
-        delete this._eventEmitter;
-        delete this._engine;
-        this.isHidden = null;
+        this.view = null;
+        this._eventEmitter = null;
+        this._engine = null;
     };
     TimeControl.moduleName = 'timeControl';
     TimeControl.View = time_view_1.default;
@@ -22214,9 +22392,9 @@ var TimeView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$currentTime;
-        delete this._$durationTime;
-        delete this._$node;
+        this._$currentTime = null;
+        this._$durationTime = null;
+        this._$node = null;
     };
     return TimeView;
 }(view_1.default));
@@ -22388,10 +22566,12 @@ exports.default = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var volume_view_1 = tslib_1.__importDefault(__webpack_require__(/*! ./volume.view */ "./modules/ui/controls/volume/volume.view.ts"));
-var keyboard_interceptor_1 = tslib_1.__importDefault(__webpack_require__(/*! ../../../../utils/keyboard-interceptor */ "./utils/keyboard-interceptor.ts"));
+var volume_view_1 = __importDefault(__webpack_require__(/*! ./volume.view */ "./modules/ui/controls/volume/volume.view.ts"));
+var keyboard_interceptor_1 = __importDefault(__webpack_require__(/*! ../../../../utils/keyboard-interceptor */ "./utils/keyboard-interceptor.ts"));
 var keyboard_control_1 = __webpack_require__(/*! ../../../keyboard-control/keyboard-control */ "./modules/keyboard-control/keyboard-control.ts");
 var constants_1 = __webpack_require__(/*! ../../../../constants */ "./constants/index.ts");
 var VolumeControl = /** @class */ (function () {
@@ -22476,7 +22656,7 @@ var VolumeControl = /** @class */ (function () {
         this._inputInterceptor.destroy();
     };
     VolumeControl.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([[constants_1.VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus]], this);
     };
     VolumeControl.prototype._bindCallbacks = function () {
         this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
@@ -22541,17 +22721,14 @@ var VolumeControl = /** @class */ (function () {
         this.isHidden = false;
         this.view.show();
     };
-    VolumeControl.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus, this);
-    };
     VolumeControl.prototype.destroy = function () {
         this._destroyInterceptor();
         this._unbindEvents();
         this.view.destroy();
-        delete this.view;
-        delete this._eventEmitter;
-        delete this._engine;
-        delete this._textMap;
+        this.view = null;
+        this._eventEmitter = null;
+        this._engine = null;
+        this._textMap = null;
     };
     VolumeControl.moduleName = 'volumeControl';
     VolumeControl.View = volume_view_1.default;
@@ -22736,7 +22913,7 @@ var VolumeView = /** @class */ (function (_super) {
                 themeStyles: this.themeStyles,
             });
         }
-        this._$node.setAttribute(DATA_IS_MUTED, isMuted);
+        this._$node.setAttribute(DATA_IS_MUTED, String(isMuted));
         this._$muteButton.setAttribute('aria-label', isMuted
             ? this._textMap.get(constants_1.TEXT_LABELS.UNMUTE_CONTROL_LABEL)
             : this._textMap.get(constants_1.TEXT_LABELS.MUTE_CONTROL_LABEL));
@@ -22761,13 +22938,15 @@ var VolumeView = /** @class */ (function (_super) {
     };
     VolumeView.prototype.destroy = function () {
         this._unbindEvents();
+        this._callbacks = null;
         this._muteButtonTooltipReference.destroy();
+        this._muteButtonTooltipReference = null;
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$muteButton;
-        delete this._$node;
-        delete this._textMap;
+        this._$muteButton = null;
+        this._$node = null;
+        this._textMap = null;
     };
     return VolumeView;
 }(view_1.default));
@@ -22821,9 +23000,6 @@ var ElementQueries = /** @class */ (function () {
         }
     };
     ElementQueries.prototype.setWidth = function (width) {
-        this._onResized(width);
-    };
-    ElementQueries.prototype._onResized = function (width) {
         this._setQueryAttribute('min', width);
         this._setQueryAttribute('max', width);
     };
@@ -22983,6 +23159,7 @@ exports.forEachMatch = forEachMatch;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+//@ts-ignore
 var classnames_1 = tslib_1.__importDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
 function extendStyles(sourceStyles, partialStyles) {
     var styles = tslib_1.__assign({}, sourceStyles);
@@ -23053,7 +23230,7 @@ var ALIASES = [
     'msMatchesSelector',
 ];
 var matchesSelectorFn;
-if (typeof Element !== 'undefined') {
+if (typeof HTMLElement !== 'undefined') {
     for (var i = 0; i < ALIASES.length; i++) {
         matchesSelectorFn = Element.prototype[ALIASES[i]];
         if (matchesSelectorFn) {
@@ -23062,7 +23239,9 @@ if (typeof Element !== 'undefined') {
     }
 }
 var isElementMatchesSelector = matchesSelectorFn
-    ? function (element, selector) { return matchesSelectorFn.call(element, selector); }
+    ? function (element, selector) {
+        return matchesSelectorFn.call(element, selector);
+    }
     : function (element, selector) {
         return Array.prototype.indexOf.call(document.querySelectorAll(selector), element) !== -1;
     };
@@ -23264,7 +23443,7 @@ var ThemeService = /** @class */ (function () {
         this._styleSheet = new style_sheet_1.StyleSheet();
         this._styleSheet.update(tslib_1.__assign({}, DEFAULT_THEME_CONFIG, themeConfig));
         // setTimeout here is for calling `attach` after all modules resolved.
-        setTimeout(function () {
+        window.setTimeout(function () {
             _this._styleSheet && _this._styleSheet.attach();
         }, 0);
     }
@@ -23292,7 +23471,7 @@ var ThemeService = /** @class */ (function () {
         return this._styleSheet.getModuleClassNames(module);
     };
     ThemeService.prototype.destroy = function () {
-        delete this._styleSheet;
+        this._styleSheet = null;
     };
     ThemeService.moduleName = 'theme';
     ThemeService.dependencies = ['themeConfig'];
@@ -23453,6 +23632,26 @@ exports.default = toggleNodeClass;
 
 /***/ }),
 
+/***/ "./modules/ui/core/tooltip/constants.ts":
+/*!**********************************************!*\
+  !*** ./modules/ui/core/tooltip/constants.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var TooltipPositionPlacement;
+(function (TooltipPositionPlacement) {
+    TooltipPositionPlacement["TOP"] = "top";
+    TooltipPositionPlacement["BOTTOM"] = "bottom";
+})(TooltipPositionPlacement || (TooltipPositionPlacement = {}));
+exports.TooltipPositionPlacement = TooltipPositionPlacement;
+
+
+/***/ }),
+
 /***/ "./modules/ui/core/tooltip/index.ts":
 /*!******************************************!*\
   !*** ./modules/ui/core/tooltip/index.ts ***!
@@ -23569,7 +23768,7 @@ var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.
 var templates_1 = __webpack_require__(/*! ./templates */ "./modules/ui/core/tooltip/templates/index.ts");
 var htmlToElement_1 = tslib_1.__importDefault(__webpack_require__(/*! ../htmlToElement */ "./modules/ui/core/htmlToElement.ts"));
 var stylable_1 = tslib_1.__importDefault(__webpack_require__(/*! ../stylable */ "./modules/ui/core/stylable.ts"));
-var types_1 = __webpack_require__(/*! ./types */ "./modules/ui/core/tooltip/types.ts");
+var constants_1 = __webpack_require__(/*! ./constants */ "./modules/ui/core/tooltip/constants.ts");
 var tooltip_container_scss_1 = tslib_1.__importDefault(__webpack_require__(/*! ./tooltip-container.scss */ "./modules/ui/core/tooltip/tooltip-container.scss"));
 var TooltipContainer = /** @class */ (function (_super) {
     tslib_1.__extends(TooltipContainer, _super);
@@ -23596,7 +23795,7 @@ var TooltipContainer = /** @class */ (function (_super) {
         if (typeof position === 'function') {
             position = position(this._$node);
         }
-        if (position.placement === types_1.ITooltipPositionPlacement.TOP) {
+        if (position.placement === constants_1.TooltipPositionPlacement.TOP) {
             return {
                 left: this._getTooltipLeftX(position.x) + "px",
                 top: 0,
@@ -23732,11 +23931,13 @@ exports.default = TooltipReference;
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var tooltip_reference_1 = tslib_1.__importDefault(__webpack_require__(/*! ./tooltip-reference */ "./modules/ui/core/tooltip/tooltip-reference.ts"));
-var tooltip_container_1 = tslib_1.__importDefault(__webpack_require__(/*! ./tooltip-container */ "./modules/ui/core/tooltip/tooltip-container.ts"));
-var tooltip_1 = tslib_1.__importDefault(__webpack_require__(/*! ./tooltip */ "./modules/ui/core/tooltip/tooltip.ts"));
+var tooltip_reference_1 = __importDefault(__webpack_require__(/*! ./tooltip-reference */ "./modules/ui/core/tooltip/tooltip-reference.ts"));
+var tooltip_container_1 = __importDefault(__webpack_require__(/*! ./tooltip-container */ "./modules/ui/core/tooltip/tooltip-container.ts"));
+var tooltip_1 = __importDefault(__webpack_require__(/*! ./tooltip */ "./modules/ui/core/tooltip/tooltip.ts"));
 var constants_1 = __webpack_require__(/*! ../../../../constants */ "./constants/index.ts");
 var TooltipService = /** @class */ (function () {
     function TooltipService(_a) {
@@ -23761,10 +23962,7 @@ var TooltipService = /** @class */ (function () {
         configurable: true
     });
     TooltipService.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.hide, this);
-    };
-    TooltipService.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.hide, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([[constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.hide]], this);
     };
     /**
      * Set new tooltip title
@@ -23922,26 +24120,6 @@ exports.default = Tooltip;
 
 /***/ }),
 
-/***/ "./modules/ui/core/tooltip/types.ts":
-/*!******************************************!*\
-  !*** ./modules/ui/core/tooltip/types.ts ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ITooltipPositionPlacement;
-(function (ITooltipPositionPlacement) {
-    ITooltipPositionPlacement["TOP"] = "top";
-    ITooltipPositionPlacement["BOTTOM"] = "bottom";
-})(ITooltipPositionPlacement || (ITooltipPositionPlacement = {}));
-exports.ITooltipPositionPlacement = ITooltipPositionPlacement;
-
-
-/***/ }),
-
 /***/ "./modules/ui/core/tooltip/utils/getTooltipPositionByReferenceNode.ts":
 /*!****************************************************************************!*\
   !*** ./modules/ui/core/tooltip/utils/getTooltipPositionByReferenceNode.ts ***!
@@ -23952,7 +24130,7 @@ exports.ITooltipPositionPlacement = ITooltipPositionPlacement;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(/*! ../types */ "./modules/ui/core/tooltip/types.ts");
+var constants_1 = __webpack_require__(/*! ../constants */ "./modules/ui/core/tooltip/constants.ts");
 function calcTooltipCenterX(tooltipReferenceOffsetX, tooltipReferenceWidth) {
     return tooltipReferenceOffsetX + tooltipReferenceWidth / 2;
 }
@@ -23961,8 +24139,8 @@ function getTooltipPositionByReferenceNode(tooltipReferenceNode, tooltipContaine
     var tooltipReferenceRect = tooltipReferenceNode.getBoundingClientRect();
     var tooltipContainerRect = tooltipContainerNode.getBoundingClientRect();
     var tooltipPlacement = tooltipReferenceRect.top > tooltipContainerRect.top
-        ? types_1.ITooltipPositionPlacement.BOTTOM
-        : types_1.ITooltipPositionPlacement.TOP;
+        ? constants_1.TooltipPositionPlacement.BOTTOM
+        : constants_1.TooltipPositionPlacement.TOP;
     var tooltipReferenceOffsetX = tooltipReferenceRect.left - tooltipContainerRect.left;
     var tooltipCenterX = tooltipCenterXfn(tooltipReferenceOffsetX, tooltipReferenceRect.width);
     return { placement: tooltipPlacement, x: tooltipCenterX };
@@ -24062,10 +24240,12 @@ if(false) {}
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 var constants_1 = __webpack_require__(/*! ../../../constants */ "./constants/index.ts");
-var debug_panel_view_1 = tslib_1.__importDefault(__webpack_require__(/*! ./debug-panel.view */ "./modules/ui/debug-panel/debug-panel.view.ts"));
+var debug_panel_view_1 = __importDefault(__webpack_require__(/*! ./debug-panel.view */ "./modules/ui/debug-panel/debug-panel.view.ts"));
 var keyboard_interceptor_1 = __webpack_require__(/*! ../../../utils/keyboard-interceptor */ "./utils/keyboard-interceptor.ts");
 var UPDATE_TIME = 1000;
 var DebugPanel = /** @class */ (function () {
@@ -24103,7 +24283,7 @@ var DebugPanel = /** @class */ (function () {
         this._keyControlCallback = this._keyControlCallback.bind(this);
     };
     DebugPanel.prototype.getDebugInfo = function () {
-        var _a = this._engine.getDebugInfo(), url = _a.url, type = _a.type, deliveryPriority = _a.deliveryPriority, currentBitrate = _a.currentBitrate, overallBufferLength = _a.overallBufferLength, nearestBufferSegInfo = _a.nearestBufferSegInfo, viewDimensions = _a.viewDimensions, currentTime = _a.currentTime, duration = _a.duration, loadingStateTimestamps = _a.loadingStateTimestamps;
+        var _a = this._engine.getDebugInfo(), url = _a.url, type = _a.type, deliveryPriority = _a.deliveryPriority, currentBitrate = _a.currentBitrate, overallBufferLength = _a.overallBufferLength, nearestBufferSegInfo = _a.nearestBufferSegInfo, viewDimensions = _a.viewDimensions, currentTime = _a.currentTime, duration = _a.duration, loadingStateTimestamps = _a.loadingStateTimestamps, bitrates = _a.bitrates, bwEstimate = _a.bwEstimate;
         return {
             url: url,
             type: type,
@@ -24115,6 +24295,8 @@ var DebugPanel = /** @class */ (function () {
             currentTime: currentTime,
             duration: duration,
             loadingStateTimestamps: loadingStateTimestamps,
+            bitrates: bitrates,
+            bwEstimate: bwEstimate,
         };
     };
     DebugPanel.prototype.updateInfo = function () {
@@ -24122,10 +24304,10 @@ var DebugPanel = /** @class */ (function () {
     };
     DebugPanel.prototype.setUpdateInterval = function () {
         this.clearUpdateInterval();
-        this._interval = setInterval(this.updateInfo, UPDATE_TIME);
+        this._interval = window.setInterval(this.updateInfo, UPDATE_TIME);
     };
     DebugPanel.prototype.clearUpdateInterval = function () {
-        clearInterval(this._interval);
+        window.clearInterval(this._interval);
     };
     DebugPanel.prototype.show = function () {
         if (this.isHidden) {
@@ -24215,10 +24397,10 @@ var DebugPanelView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
-        delete this._$closeButton;
-        delete this._$infoContainer;
-        delete this._callbacks;
+        this._$node = null;
+        this._$closeButton = null;
+        this._$infoContainer = null;
+        this._callbacks = null;
     };
     return DebugPanelView;
 }(view_1.default));
@@ -24366,13 +24548,27 @@ var InteractionIndicator = /** @class */ (function () {
         this.view = new interaction_indicator_view_1.default();
     };
     InteractionIndicator.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED, this._showPlaybackChangeIndicator, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.showRewind, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.showForward, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showDecreaseVolume, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showMute, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [
+                constants_1.UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
+                this._showPlaybackChangeIndicator,
+            ],
+            [constants_1.UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.showRewind],
+            [constants_1.UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.showForward],
+            [
+                constants_1.UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+                this.showIncreaseVolume,
+            ],
+            [
+                constants_1.UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
+                this.showDecreaseVolume,
+            ],
+            [constants_1.UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showMute],
+            [
+                constants_1.UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+                this.showIncreaseVolume,
+            ],
+        ], this);
     };
     InteractionIndicator.prototype.showPause = function () {
         this.view.activatePauseIcon();
@@ -24405,15 +24601,6 @@ var InteractionIndicator = /** @class */ (function () {
     InteractionIndicator.prototype.hide = function () {
         this.view.show();
     };
-    InteractionIndicator.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED, this._showPlaybackChangeIndicator, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED, this.showRewind, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED, this.showForward, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED, this.showDecreaseVolume, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showMute, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED, this.showIncreaseVolume, this);
-    };
     InteractionIndicator.prototype._showPlaybackChangeIndicator = function () {
         var state = this._engine.getCurrentState();
         if (state === constants_1.EngineState.PLAY_REQUESTED || state === constants_1.EngineState.PLAYING) {
@@ -24426,9 +24613,9 @@ var InteractionIndicator = /** @class */ (function () {
     InteractionIndicator.prototype.destroy = function () {
         this._unbindEvents();
         this.view.destroy();
-        delete this.view;
-        delete this._eventEmitter;
-        delete this._engine;
+        this.view = null;
+        this._eventEmitter = null;
+        this._engine = null;
     };
     InteractionIndicator.moduleName = 'interactionIndicator';
     InteractionIndicator.View = interaction_indicator_view_1.default;
@@ -24529,7 +24716,7 @@ var InteractionIndicatorView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
+        this._$node = null;
     };
     return InteractionIndicatorView;
 }(view_1.default));
@@ -24744,9 +24931,11 @@ if(false) {}
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var live_indicator_view_1 = tslib_1.__importDefault(__webpack_require__(/*! ./live-indicator.view */ "./modules/ui/live-indicator/live-indicator.view.ts"));
+var live_indicator_view_1 = __importDefault(__webpack_require__(/*! ./live-indicator.view */ "./modules/ui/live-indicator/live-indicator.view.ts"));
 var constants_1 = __webpack_require__(/*! ../../../constants */ "./constants/index.ts");
 var LiveIndicator = /** @class */ (function () {
     function LiveIndicator(_a) {
@@ -24802,10 +24991,23 @@ var LiveIndicator = /** @class */ (function () {
         this._syncWithLive = this._syncWithLive.bind(this);
     };
     LiveIndicator.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processStateChange, this);
-    };
-    LiveIndicator.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processStateChange, this);
+        var _this = this;
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processStateChange],
+            [
+                constants_1.UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER_TRIGGERED,
+                function () {
+                    _this.view.toggleActive(true);
+                },
+            ],
+            [
+                constants_1.UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED,
+                function () {
+                    // NOTE: restore state before mouse enter
+                    _this.view.toggleActive(_this._isActive);
+                },
+            ],
+        ], this);
     };
     LiveIndicator.prototype._processStateChange = function (_a) {
         var nextState = _a.nextState;
@@ -24852,10 +25054,10 @@ var LiveIndicator = /** @class */ (function () {
     LiveIndicator.prototype.destroy = function () {
         this._unbindEvents();
         this.view.destroy();
-        delete this.view;
-        delete this._engine;
-        delete this._eventEmitter;
-        delete this._textMap;
+        this.view = null;
+        this._engine = null;
+        this._eventEmitter = null;
+        this._textMap = null;
     };
     LiveIndicator.moduleName = 'liveIndicator';
     LiveIndicator.View = live_indicator_view_1.default;
@@ -24919,6 +25121,13 @@ var LiveIndicatorView = /** @class */ (function (_super) {
     };
     LiveIndicatorView.prototype.toggleActive = function (shouldActivate) {
         toggleNodeClass_1.default(this._$node, this.styleNames.active, shouldActivate);
+        // NOTE: disable tooltip while video is sync with live
+        if (shouldActivate) {
+            this._tooltipReference.disable();
+        }
+        else {
+            this._tooltipReference.enable();
+        }
     };
     LiveIndicatorView.prototype.toggleEnded = function (isEnded) {
         toggleNodeClass_1.default(this._$node, this.styleNames.ended, isEnded);
@@ -24945,14 +25154,16 @@ var LiveIndicatorView = /** @class */ (function (_super) {
     };
     LiveIndicatorView.prototype.destroy = function () {
         this._unbindEvents();
+        this._callbacks = null;
         this._tooltipReference.destroy();
+        this._tooltipReference = null;
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
-        delete this._$liveIndicatorText;
-        delete this._callbacks;
-        delete this._textMap;
+        this._$node = null;
+        this._$liveIndicatorText = null;
+        this._callbacks = null;
+        this._textMap = null;
     };
     return LiveIndicatorView;
 }(view_1.default));
@@ -25066,8 +25277,10 @@ var Loader = /** @class */ (function () {
         this._hideContent = this._hideContent.bind(this);
     };
     Loader.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState, this);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState],
+            [constants_1.VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide],
+        ], this);
     };
     Loader.prototype._checkForWaitingState = function (_a) {
         var nextState = _a.nextState;
@@ -25127,10 +25340,10 @@ var Loader = /** @class */ (function () {
         if (this.isDelayedShowScheduled) {
             this.stopDelayedShow();
         }
-        this._delayedShowTimeout = setTimeout(this._showContent, exports.DELAYED_SHOW_TIMEOUT);
+        this._delayedShowTimeout = window.setTimeout(this._showContent, exports.DELAYED_SHOW_TIMEOUT);
     };
     Loader.prototype.stopDelayedShow = function () {
-        clearTimeout(this._delayedShowTimeout);
+        window.clearTimeout(this._delayedShowTimeout);
         this._delayedShowTimeout = null;
     };
     Object.defineProperty(Loader.prototype, "isDelayedShowScheduled", {
@@ -25140,17 +25353,13 @@ var Loader = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Loader.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState, this);
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide, this);
-    };
     Loader.prototype.destroy = function () {
         this._unbindEvents();
         this.stopDelayedShow();
         this.view.destroy();
-        delete this.view;
-        delete this._eventEmitter;
-        delete this._engine;
+        this.view = null;
+        this._eventEmitter = null;
+        this._engine = null;
     };
     Loader.moduleName = 'loader';
     Loader.View = loader_view_1.default;
@@ -25205,7 +25414,7 @@ var LoaderView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
+        this._$node = null;
     };
     return LoaderView;
 }(view_1.default));
@@ -25310,7 +25519,7 @@ var MainUIBlock = /** @class */ (function () {
         this._bottomBlock = bottomBlock;
         this._screen = screen;
         this.isHidden = false;
-        var mainBlockConfig = tslib_1.__assign({}, DEFAULT_CONFIG, config.controls);
+        var mainBlockConfig = tslib_1.__assign({}, DEFAULT_CONFIG, (typeof config.controls === 'object' ? config.controls : null));
         this._shouldAlwaysShow = mainBlockConfig.shouldAlwaysShow;
         this._initUI({
             tooltipContainer: tooltipService.tooltipContainerNode,
@@ -25340,22 +25549,15 @@ var MainUIBlock = /** @class */ (function () {
         this._tryHideContent = this._tryHideContent.bind(this);
     };
     MainUIBlock.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideBlockTimeout);
-        this._eventEmitter.on(constants_1.UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent);
-        this._eventEmitter.on(constants_1.UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout);
-        this._eventEmitter.on(constants_1.UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideBlockTimeout);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.CONTROL_DRAG_START, this._onControlDragStart, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.CONTROL_DRAG_END, this._onControlDragEnd, this);
-    };
-    MainUIBlock.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideBlockTimeout);
-        this._eventEmitter.off(constants_1.UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent);
-        this._eventEmitter.off(constants_1.UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout);
-        this._eventEmitter.off(constants_1.UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideBlockTimeout);
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.CONTROL_DRAG_START, this._onControlDragStart, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.CONTROL_DRAG_END, this._onControlDragEnd, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideBlockTimeout],
+            [constants_1.UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent],
+            [constants_1.UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout],
+            [constants_1.UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideBlockTimeout],
+            [constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus],
+            [constants_1.UI_EVENTS.CONTROL_DRAG_START, this._onControlDragStart],
+            [constants_1.UI_EVENTS.CONTROL_DRAG_END, this._onControlDragEnd],
+        ], this);
     };
     MainUIBlock.prototype._updatePlayingStatus = function (_a) {
         var nextState = _a.nextState;
@@ -25394,11 +25596,11 @@ var MainUIBlock = /** @class */ (function () {
     MainUIBlock.prototype._startHideBlockTimeout = function () {
         this._stopHideBlockTimeout();
         this._tryShowContent();
-        this._hideTimeout = setTimeout(this._tryHideContent, HIDE_BLOCK_TIMEOUT);
+        this._hideTimeout = window.setTimeout(this._tryHideContent, HIDE_BLOCK_TIMEOUT);
     };
     MainUIBlock.prototype._stopHideBlockTimeout = function () {
         if (this._hideTimeout) {
-            clearTimeout(this._hideTimeout);
+            window.clearTimeout(this._hideTimeout);
         }
     };
     MainUIBlock.prototype._tryShowContent = function () {
@@ -25549,7 +25751,7 @@ var MainUIBlockView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
+        this._$node = null;
     };
     return MainUIBlockView;
 }(view_1.default));
@@ -25666,7 +25868,7 @@ var Overlay = /** @class */ (function () {
         this._engine = engine;
         this._theme = theme;
         this._bindEvents();
-        this._initUI(config.overlay && config.overlay.poster);
+        this._initUI(config.overlay);
         rootContainer.appendComponentNode(this.node);
         if (config.overlay === false) {
             this.hide();
@@ -25679,19 +25881,22 @@ var Overlay = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Overlay.prototype._initUI = function (poster) {
-        var config = {
+    Overlay.prototype._initUI = function (overlayConfig) {
+        var poster = typeof overlayConfig === 'object' ? overlayConfig.poster : null;
+        var viewConfig = {
             callbacks: {
-                onPlayClick: this._playVideo,
+                onPlayClick: this._playVideo.bind(this),
             },
             src: poster,
             theme: this._theme,
         };
-        this.view = new Overlay.View(config);
+        this.view = new Overlay.View(viewConfig);
     };
     Overlay.prototype._bindEvents = function () {
-        this._playVideo = this._playVideo.bind(this);
-        this._eventEmitter.on(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus],
+            [constants_1.VIDEO_EVENTS.RESET, this._tryShowContent],
+        ], this);
     };
     Overlay.prototype._updatePlayingStatus = function (_a) {
         var nextState = _a.nextState;
@@ -25699,13 +25904,18 @@ var Overlay = /** @class */ (function () {
             this._hideContent();
         }
         else if (nextState === constants_1.EngineState.ENDED ||
-            (nextState === constants_1.EngineState.SRC_SET && !this._engine.isPlaying)) {
-            this._showContent();
+            nextState === constants_1.EngineState.SRC_SET) {
+            this._tryShowContent();
         }
     };
     Overlay.prototype._playVideo = function () {
         this._engine.play();
         this._eventEmitter.emit(constants_1.UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
+    };
+    Overlay.prototype._tryShowContent = function () {
+        if (this._engine.isVideoPaused) {
+            this._showContent();
+        }
     };
     Overlay.prototype._hideContent = function () {
         this.view.hideContent();
@@ -25731,15 +25941,12 @@ var Overlay = /** @class */ (function () {
     Overlay.prototype.setPoster = function (src) {
         this.view.setPoster(src);
     };
-    Overlay.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus, this);
-    };
     Overlay.prototype.destroy = function () {
         this._unbindEvents();
         this.view.destroy();
-        delete this.view;
-        delete this._eventEmitter;
-        delete this._engine;
+        this.view = null;
+        this._eventEmitter = null;
+        this._engine = null;
     };
     Overlay.moduleName = 'overlay';
     Overlay.View = overlay_view_1.default;
@@ -25825,9 +26032,9 @@ var OverlayView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
-        delete this._$content;
-        delete this._$playButton;
+        this._$node = null;
+        this._$content = null;
+        this._$playButton = null;
     };
     return OverlayView;
 }(view_1.default));
@@ -25866,7 +26073,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return anonymous; });
 function anonymous(props
 /*``*/) {
-var out='<div class="'+(props.styles.overlay)+' '+(props.styles.active)+'" data-hook="overlay" > <div class="'+(props.styles.poster)+'" data-hook="overlay-content" > </div> <div class="'+(props.styles.icon)+'" data-hook="overlay-play-button" > <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" preserveAspectRatio="xMidYMin slice" width="100%" style="padding-bottom: 100%; height: 1px; overflow: visible" > <!-- padding-bottom: 100% * height/width --> <g         fill="none"         fill-rule="evenodd" > <circle           cx="18" cy="18" r="17" class="'+(props.themeStyles.overlayPlaySvgStroke)+'"           stroke-width="2" /> <path class="'+(props.themeStyles.overlayPlaySvgFill)+'" d="M23.935 17.708l-10.313 6.033V11.676z" /> </g> </svg> </div></div>';return out;
+var out='<div class="'+(props.styles.overlay)+' '+(props.styles.active)+'" data-hook="overlay" > <div class="'+(props.styles.poster)+'" data-hook="overlay-content" > </div> <div class="'+(props.styles.icon)+'" data-hook="overlay-play-button" > <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" preserveAspectRatio="xMidYMin slice" width="100%" style="padding-bottom: 100%; height: 1px; overflow: visible" > <!-- padding-bottom: 100% * height/width --> <g  fill="none"  fill-rule="evenodd" > <circle  cx="18" cy="18" r="17" class="'+(props.themeStyles.overlayPlaySvgStroke)+'"  stroke-width="2" /> <path class="'+(props.themeStyles.overlayPlaySvgFill)+'" d="M23.935 17.708l-10.313 6.033V11.676z" /> </g> </svg> </div></div>';return out;
 }
 
 /***/ }),
@@ -25914,6 +26121,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 var constants_1 = __webpack_require__(/*! ../../../constants */ "./constants/index.ts");
 var screen_view_1 = tslib_1.__importDefault(__webpack_require__(/*! ./screen.view */ "./modules/ui/screen/screen.view.ts"));
+var player_api_decorator_1 = tslib_1.__importDefault(__webpack_require__(/*! ../../../core/player-api-decorator */ "./core/player-api-decorator.ts"));
 var PLAYBACK_CHANGE_TIMEOUT = 300;
 var DEFAULT_CONFIG = {
     disableClickProcessing: false,
@@ -25960,25 +26168,17 @@ var Screen = /** @class */ (function () {
         this.view = new screen_view_1.default(config);
     };
     Screen.prototype._bindEvents = function () {
-        this._eventEmitter.on(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
-        this._eventEmitter.on(constants_1.UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
-        this._eventEmitter.on(constants_1.UI_EVENTS.RESIZE, this._updateBackgroundSize, this);
-        this._eventEmitter.on(constants_1.EngineState.SRC_SET, this.view.reset, this.view);
-        this._eventEmitter.on(constants_1.EngineState.READY_TO_PLAY, this._updateWidthHeightRation, this);
-    };
-    Screen.prototype._unbindEvents = function () {
-        this._eventEmitter.off(constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus, this);
-        this._eventEmitter.off(constants_1.UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view);
-        this._eventEmitter.off(constants_1.UI_EVENTS.RESIZE, this._updateBackgroundSize, this);
-        this._eventEmitter.off(constants_1.EngineState.SRC_SET, this.view.reset, this.view);
-        this._eventEmitter.off(constants_1.EngineState.READY_TO_PLAY, this._updateWidthHeightRation, this);
+        this._unbindEvents = this._eventEmitter.bindEvents([
+            [constants_1.UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus],
+            [constants_1.UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view],
+            [constants_1.UI_EVENTS.RESIZE, this._updateBackgroundSize],
+            [constants_1.EngineState.SRC_SET, this.view.resetBackground, this.view],
+            [constants_1.EngineState.METADATA_LOADED, this.view.resetAspectRatio, this.view],
+        ], this);
     };
     Screen.prototype._updateBackgroundSize = function (_a) {
         var width = _a.width, height = _a.height;
-        this.view.setCanvasSize(width, height);
-    };
-    Screen.prototype._updateWidthHeightRation = function () {
-        this.view.updateVideoAspectRatio(this._engine.getVideoWidth() / this._engine.getVideoHeight());
+        this.view.setBackgroundSize(width, height);
     };
     Screen.prototype.showCursor = function () {
         this.view.showCursor();
@@ -25994,8 +26194,7 @@ var Screen = /** @class */ (function () {
             return;
         }
         this._showPlaybackChangeIndicator();
-        if (!this._fullScreenManager.isEnabled ||
-            this._fullScreenManager._enterFullScreenOnPlay) {
+        if (!this._fullScreenManager.isEnabled) {
             this._toggleVideoPlayback();
         }
         else {
@@ -26006,8 +26205,7 @@ var Screen = /** @class */ (function () {
         if (this._isClickProcessingDisabled) {
             return;
         }
-        if (this._fullScreenManager.isEnabled ||
-            !this._fullScreenManager._enterFullScreenOnPlay) {
+        if (this._fullScreenManager.isEnabled) {
             if (this._isDelayedPlaybackToggleExist) {
                 this._clearDelayedPlaybackToggle();
                 this._hideDelayedPlaybackChangeIndicator();
@@ -26029,10 +26227,10 @@ var Screen = /** @class */ (function () {
     };
     Screen.prototype._setDelayedPlaybackToggle = function () {
         this._clearDelayedPlaybackToggle();
-        this._delayedToggleVideoPlaybackTimeout = setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
+        this._delayedToggleVideoPlaybackTimeout = window.setTimeout(this._toggleVideoPlayback, PLAYBACK_CHANGE_TIMEOUT);
     };
     Screen.prototype._clearDelayedPlaybackToggle = function () {
-        clearTimeout(this._delayedToggleVideoPlaybackTimeout);
+        window.clearTimeout(this._delayedToggleVideoPlaybackTimeout);
         this._delayedToggleVideoPlaybackTimeout = null;
     };
     Object.defineProperty(Screen.prototype, "_isDelayedPlaybackToggleExist", {
@@ -26074,6 +26272,9 @@ var Screen = /** @class */ (function () {
             this.isHidden = false;
         }
     };
+    Screen.prototype.setVideoViewMode = function (viewMode) {
+        this.view.setViewMode(viewMode);
+    };
     Screen.prototype._enterFullScreen = function () {
         this._fullScreenManager.enterFullScreen();
     };
@@ -26084,11 +26285,11 @@ var Screen = /** @class */ (function () {
         this._unbindEvents();
         this._clearDelayedPlaybackToggle();
         this.view.destroy();
-        delete this.view;
-        delete this._interactionIndicator;
-        delete this._eventEmitter;
-        delete this._engine;
-        delete this._fullScreenManager;
+        this.view = null;
+        this._interactionIndicator = null;
+        this._eventEmitter = null;
+        this._engine = null;
+        this._fullScreenManager = null;
     };
     Screen.moduleName = 'screen';
     Screen.View = screen_view_1.default;
@@ -26100,6 +26301,9 @@ var Screen = /** @class */ (function () {
         'interactionIndicator',
         'rootContainer',
     ];
+    tslib_1.__decorate([
+        player_api_decorator_1.default()
+    ], Screen.prototype, "setVideoViewMode", null);
     return Screen;
 }());
 exports.default = Screen;
@@ -26123,21 +26327,28 @@ var templates_1 = __webpack_require__(/*! ./templates */ "./modules/ui/screen/te
 var htmlToElement_1 = tslib_1.__importDefault(__webpack_require__(/*! ../core/htmlToElement */ "./modules/ui/core/htmlToElement.ts"));
 var getElementByHook_1 = tslib_1.__importDefault(__webpack_require__(/*! ../core/getElementByHook */ "./modules/ui/core/getElementByHook.ts"));
 var toggleNodeClass_1 = tslib_1.__importDefault(__webpack_require__(/*! ../core/toggleNodeClass */ "./modules/ui/core/toggleNodeClass.ts"));
+var types_1 = __webpack_require__(/*! ./types */ "./modules/ui/screen/types.ts");
 var screen_scss_1 = tslib_1.__importDefault(__webpack_require__(/*! ./screen.scss */ "./modules/ui/screen/screen.scss"));
-var CANVAS_BACKGROUND_PADDING_VERTICAL = 20;
-var CANVAS_BACKGROUND_PADDING_HORIZONTAL = 20;
 var ScreenView = /** @class */ (function (_super) {
     tslib_1.__extends(ScreenView, _super);
     function ScreenView(config) {
         var _this = _super.call(this) || this;
         var callbacks = config.callbacks, nativeControls = config.nativeControls, playbackViewNode = config.playbackViewNode;
-        _this._isNativeControls = nativeControls;
         _this._callbacks = callbacks;
+        _this._styleNamesByViewMode = (_a = {},
+            _a[types_1.VideoViewMode.REGULAR] = _this.styleNames.regularMode,
+            _a[types_1.VideoViewMode.BLUR] = _this.styleNames.blurMode,
+            _a[types_1.VideoViewMode.FILL] = _this.styleNames.fillMode,
+            _a);
         _this._bindCallbacks();
+        if (nativeControls) {
+            playbackViewNode.setAttribute('controls', 'true');
+        }
         _this._initDOM(playbackViewNode);
         _this._bindEvents();
-        _this.updateVideoAspectRatio(2);
+        _this.setViewMode(types_1.VideoViewMode.REGULAR);
         return _this;
+        var _a;
     }
     ScreenView.prototype._bindCallbacks = function () {
         this._updateBackground = this._updateBackground.bind(this);
@@ -26146,10 +26357,6 @@ var ScreenView = /** @class */ (function (_super) {
         this._$node = htmlToElement_1.default(templates_1.screenTemplate({
             styles: this.styleNames,
         }));
-        if (this._isNativeControls) {
-            playbackViewNode.setAttribute('controls', 'true');
-        }
-        playbackViewNode.setAttribute('tabindex', '-1');
         this._$playbackNode = playbackViewNode;
         this._$node.appendChild(playbackViewNode);
         this._$canvas = getElementByHook_1.default(this._$node, 'background-canvas');
@@ -26165,17 +26372,9 @@ var ScreenView = /** @class */ (function (_super) {
     };
     ScreenView.prototype.updateVideoAspectRatio = function (widthHeightRatio) {
         this._widthHeightRatio = widthHeightRatio;
-        if (this._widthHeightRatio > 1) {
-            toggleNodeClass_1.default(this._$node, this.styleNames.horizontalVideo, true);
-            toggleNodeClass_1.default(this._$node, this.styleNames.verticalVideo, false);
-        }
-        else {
-            toggleNodeClass_1.default(this._$node, this.styleNames.horizontalVideo, false);
-            toggleNodeClass_1.default(this._$node, this.styleNames.verticalVideo, true);
-        }
-    };
-    ScreenView.prototype._clearBackground = function () {
-        this._ctx.clearRect(0, 0, this._$canvas.width, this._$canvas.height);
+        var isHorizontal = this._widthHeightRatio > 1;
+        toggleNodeClass_1.default(this._$node, this.styleNames.horizontalVideo, isHorizontal);
+        toggleNodeClass_1.default(this._$node, this.styleNames.verticalVideo, !isHorizontal);
     };
     ScreenView.prototype.focusOnNode = function () {
         this._$node.focus();
@@ -26193,67 +26392,105 @@ var ScreenView = /** @class */ (function (_super) {
         this._$node.appendChild(node);
     };
     ScreenView.prototype.hideCursor = function () {
-        this._$node.classList.add(this.styleNames.hiddenCursor);
+        toggleNodeClass_1.default(this._$node, this.styleNames.hiddenCursor, true);
     };
     ScreenView.prototype.showCursor = function () {
-        this._$node.classList.remove(this.styleNames.hiddenCursor);
+        toggleNodeClass_1.default(this._$node, this.styleNames.hiddenCursor, false);
     };
-    ScreenView.prototype.setCanvasSize = function (width, height) {
-        this.setCanvasWidth(width);
-        this.setCanvasHeight(height);
+    ScreenView.prototype.setViewMode = function (viewMode) {
+        var _this = this;
+        if (this._styleNamesByViewMode[viewMode]) {
+            this.resetBackground();
+            Object.keys(this._styleNamesByViewMode).forEach(function (mode) {
+                toggleNodeClass_1.default(_this._$node, _this._styleNamesByViewMode[mode], false);
+            });
+            toggleNodeClass_1.default(this._$node, this._styleNamesByViewMode[viewMode], true);
+            if (viewMode === types_1.VideoViewMode.BLUR) {
+                this._startUpdatingBackground();
+            }
+            else {
+                this._stopUpdatingBackground();
+            }
+            this._currentMode = viewMode;
+        }
     };
-    ScreenView.prototype.setCanvasWidth = function (width) {
-        this._$canvas.width = width + 2 * CANVAS_BACKGROUND_PADDING_HORIZONTAL;
+    ScreenView.prototype.setBackgroundSize = function (width, height) {
+        this.setBackgroundWidth(width);
+        this.setBackgroundHeight(height);
     };
-    ScreenView.prototype.setCanvasHeight = function (height) {
-        this._$canvas.height = height + 2 * CANVAS_BACKGROUND_PADDING_VERTICAL;
+    ScreenView.prototype.setBackgroundWidth = function (width) {
+        this._$canvas.width = width;
     };
-    ScreenView.prototype.startUpdatingBackground = function () {
+    ScreenView.prototype.setBackgroundHeight = function (height) {
+        this._$canvas.height = height;
+    };
+    ScreenView.prototype._startUpdatingBackground = function () {
         if (!this._requestAnimationFrameID) {
             this._updateBackground();
         }
     };
-    ScreenView.prototype.stopUpdatingBackground = function () {
-        cancelAnimationFrame(this._requestAnimationFrameID);
-        this._requestAnimationFrameID = null;
+    ScreenView.prototype._stopUpdatingBackground = function () {
+        if (this._requestAnimationFrameID) {
+            cancelAnimationFrame(this._requestAnimationFrameID);
+            this._requestAnimationFrameID = null;
+        }
     };
-    ScreenView.prototype.reset = function () {
-        this._clearBackground();
+    ScreenView.prototype.resetAspectRatio = function () {
+        var _a = this._$playbackNode, videoWidth = _a.videoWidth, videoHeight = _a.videoHeight;
+        this._widthHeightRatio = videoHeight ? videoWidth / videoHeight : 0;
+        var isHorizontal = this._widthHeightRatio > 1;
+        toggleNodeClass_1.default(this._$node, this.styleNames.horizontalVideo, isHorizontal);
+        toggleNodeClass_1.default(this._$node, this.styleNames.verticalVideo, !isHorizontal);
     };
-    ScreenView.prototype._updatePortraitBackground = function () {
+    ScreenView.prototype.resetBackground = function () {
+        if (this._currentMode === types_1.VideoViewMode.BLUR) {
+            this._clearBackground();
+        }
+    };
+    ScreenView.prototype._getSourceAreas = function (width, height) {
+        if (this._widthHeightRatio > 1) {
+            return [[0, 0, width, 1], [0, height - 1, width, 1]];
+        }
+        return [[0, 0, 1, height], [width - 1, 0, 1, height]];
+    };
+    ScreenView.prototype._getCanvasAreas = function (width, height) {
+        if (this._widthHeightRatio > 1) {
+            return [[0, 0, width, height / 2], [0, height / 2, width, height / 2]];
+        }
+        return [[0, 0, width / 2, height], [width / 2, 0, width / 2, height]];
+    };
+    ScreenView.prototype._drawAreaFromSource = function (source, area) {
+        var sourceX = source[0], sourceY = source[1], sourceWidth = source[2], sourceHeight = source[3];
+        var areaX = area[0], areaY = area[1], areaWidth = area[2], areaHeight = area[3];
+        this._ctx.drawImage(this._$playbackNode, sourceX, sourceY, sourceWidth, sourceHeight, areaX, areaY, areaWidth, areaHeight);
+    };
+    ScreenView.prototype._drawBackground = function () {
         var _a = this._$playbackNode, videoWidth = _a.videoWidth, videoHeight = _a.videoHeight;
         var canvasWidth = this._$canvas.width;
         var canvasHeight = this._$canvas.height;
-        this._ctx.drawImage(this._$playbackNode, 0, 0, canvasWidth, canvasHeight);
-        this._ctx.drawImage(this._$playbackNode, 0, 0, 1, videoHeight, CANVAS_BACKGROUND_PADDING_HORIZONTAL, CANVAS_BACKGROUND_PADDING_VERTICAL, canvasWidth / 2 - CANVAS_BACKGROUND_PADDING_HORIZONTAL, canvasHeight - 2 * CANVAS_BACKGROUND_PADDING_VERTICAL);
-        this._ctx.drawImage(this._$playbackNode, videoWidth - 1, 0, 1, videoHeight, canvasWidth / 2, CANVAS_BACKGROUND_PADDING_VERTICAL, canvasWidth / 2 - CANVAS_BACKGROUND_PADDING_HORIZONTAL, canvasHeight - 2 * CANVAS_BACKGROUND_PADDING_VERTICAL);
-        this._requestAnimationFrameID = requestAnimationFrame(this._updateBackground);
-    };
-    ScreenView.prototype._updateLandscapeBackground = function () {
-        var _a = this._$playbackNode, videoWidth = _a.videoWidth, videoHeight = _a.videoHeight;
-        var canvasWidth = this._$canvas.width;
-        var canvasHeight = this._$canvas.height;
-        this._ctx.drawImage(this._$playbackNode, 0, 0, canvasWidth, canvasHeight);
-        this._ctx.drawImage(this._$playbackNode, 0, 0, videoWidth, 1, CANVAS_BACKGROUND_PADDING_HORIZONTAL, CANVAS_BACKGROUND_PADDING_VERTICAL, canvasWidth - 2 * CANVAS_BACKGROUND_PADDING_HORIZONTAL, canvasHeight / 2 - CANVAS_BACKGROUND_PADDING_VERTICAL);
-        this._ctx.drawImage(this._$playbackNode, 0, videoHeight - 1, videoWidth, 1, CANVAS_BACKGROUND_PADDING_HORIZONTAL, canvasHeight / 2, canvasWidth - 2 * CANVAS_BACKGROUND_PADDING_HORIZONTAL, canvasHeight / 2 - CANVAS_BACKGROUND_PADDING_VERTICAL);
-        this._requestAnimationFrameID = requestAnimationFrame(this._updateBackground);
+        var sourceAreas = this._getSourceAreas(videoWidth, videoHeight);
+        var canvasAreas = this._getCanvasAreas(canvasWidth, canvasHeight);
+        this._drawAreaFromSource(sourceAreas[0], canvasAreas[0]);
+        this._drawAreaFromSource(sourceAreas[1], canvasAreas[1]);
     };
     ScreenView.prototype._updateBackground = function () {
-        if (this._widthHeightRatio > 1) {
-            this._updateLandscapeBackground();
-        }
-        else {
-            this._updatePortraitBackground();
-        }
+        this._drawBackground();
+        this._requestAnimationFrameID = requestAnimationFrame(this._updateBackground);
+    };
+    ScreenView.prototype._clearBackground = function () {
+        this._ctx.clearRect(0, 0, this._$canvas.width, this._$canvas.height);
     };
     ScreenView.prototype.destroy = function () {
-        this.stopUpdatingBackground();
+        this._stopUpdatingBackground();
         this._unbindEvents();
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
-        delete this._callbacks;
+        this._$node = null;
+        this._$playbackNode = null;
+        this._$canvas = null;
+        this._ctx = null;
+        this._callbacks = null;
     };
     return ScreenView;
 }(view_1.default));
@@ -26293,6 +26530,27 @@ function anonymous(props
 /*``*/) {
 var out='<div class="'+(props.styles.screen)+'" data-hook="screen-block"> <canvas class="'+(props.styles.backgroundCanvas)+'" data-hook="background-canvas"/></div>';return out;
 }
+
+/***/ }),
+
+/***/ "./modules/ui/screen/types.ts":
+/*!************************************!*\
+  !*** ./modules/ui/screen/types.ts ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var VideoViewMode;
+(function (VideoViewMode) {
+    VideoViewMode["REGULAR"] = "REGULAR";
+    VideoViewMode["BLUR"] = "BLUR";
+    VideoViewMode["FILL"] = "FILL";
+})(VideoViewMode || (VideoViewMode = {}));
+exports.VideoViewMode = VideoViewMode;
+
 
 /***/ }),
 
@@ -26397,7 +26655,7 @@ var TitleControl = /** @class */ (function () {
         this._theme = theme;
         this._bindCallbacks();
         this._initUI();
-        if (config.title) {
+        if (typeof config.title === 'object') {
             this.setTitleClickCallback(config.title.callback || null);
             this.setTitle(config.title.text);
         }
@@ -26470,8 +26728,7 @@ var TitleControl = /** @class */ (function () {
     };
     TitleControl.prototype.destroy = function () {
         this.view.destroy();
-        delete this.view;
-        delete this.isHidden;
+        this.view = null;
     };
     TitleControl.moduleName = 'title';
     TitleControl.View = title_view_1.default;
@@ -26556,8 +26813,8 @@ var TitleView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
-        delete this._$title;
+        this._$node = null;
+        this._$title = null;
     };
     return TitleView;
 }(view_1.default));
@@ -26688,7 +26945,7 @@ var TopBlock = /** @class */ (function () {
     };
     TopBlock.moduleName = 'topBlock';
     TopBlock.View = top_block_view_1.default;
-    TopBlock.dependencies = ['config', 'title', 'liveIndicator'];
+    TopBlock.dependencies = ['title', 'liveIndicator'];
     return TopBlock;
 }());
 exports.default = TopBlock;
@@ -26759,7 +27016,7 @@ var TopBlockView = /** @class */ (function (_super) {
         if (this._$node.parentNode) {
             this._$node.parentNode.removeChild(this._$node);
         }
-        delete this._$node;
+        this._$node = null;
     };
     return TopBlockView;
 }(view_1.default));
@@ -26779,9 +27036,11 @@ exports.default = TopBlockView;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var IPHONE_PATTERN = /iPhone/;
-var IPOD_PATTERN = /iPod/;
-var IPAD_PATTERN = /iPad/;
+var IPHONE_PATTERN = /iphone/i;
+var IPOD_PATTERN = /ipod/i;
+var IPAD_PATTERN = /ipad/i;
+var ANDROID_PATTERN = /(android)/i;
+var SAFARI_PATTERN = /^((?!chrome|android).)*safari/i;
 var DESKTOP_SAFARI_PATTERN = /^((?!chrome|android|iphone|ipod|ipad).)*safari/i;
 // There is some iPhone/iPad/iPod in Windows Phone...
 // https://msdn.microsoft.com/en-us/library/hh869301(v=vs.85).aspx
@@ -26795,10 +27054,12 @@ var isIPad = function () { return !isIE() && IPAD_PATTERN.test(getUserAgent()); 
 exports.isIPad = isIPad;
 var isIOS = function () { return isIPhone() || isIPod() || isIPad(); };
 exports.isIOS = isIOS;
-var isAndroid = function () { return /(android)/i.test(getUserAgent()); };
+var isAndroid = function () { return ANDROID_PATTERN.test(getUserAgent()); };
 exports.isAndroid = isAndroid;
 var isDesktopSafari = function () { return DESKTOP_SAFARI_PATTERN.test(getUserAgent()); };
 exports.isDesktopSafari = isDesktopSafari;
+var isSafari = function () { return SAFARI_PATTERN.test(getUserAgent()); };
+exports.isSafari = isSafari;
 
 
 /***/ }),
