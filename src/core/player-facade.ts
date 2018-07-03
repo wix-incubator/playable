@@ -82,8 +82,8 @@ export default class Player {
   private _getPlayerAPIMethodDescriptor(
     module: any,
     descriptor: PropertyDescriptor,
-  ) {
-    const playerMethodDescriptor: any = {
+  ): PropertyDescriptor {
+    const playerMethodDescriptor: PropertyDescriptor = {
       enumerable: true,
       configurable: true,
     };
@@ -109,6 +109,7 @@ export default class Player {
         module,
         value,
       );
+      playerMethodDescriptor.writable = true;
     }
 
     return playerMethodDescriptor;
