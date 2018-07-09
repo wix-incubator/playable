@@ -11,12 +11,12 @@ import styles from './loader.scss';
 
 class LoaderView extends View<ILoaderViewStyles>
   implements IView<ILoaderViewStyles> {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
 
   constructor() {
     super();
 
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       loaderTemplate({
         styles: this.styleNames,
       }),
@@ -24,31 +24,31 @@ class LoaderView extends View<ILoaderViewStyles>
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   showContent() {
-    this._$node.classList.add(this.styleNames.active);
+    this._$rootElement.classList.add(this.styleNames.active);
   }
 
   hideContent() {
-    this._$node.classList.remove(this.styleNames.active);
+    this._$rootElement.classList.remove(this.styleNames.active);
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   destroy() {
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
   }
 }
 

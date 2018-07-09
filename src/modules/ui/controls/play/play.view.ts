@@ -24,7 +24,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
   private _callbacks: IPlayViewCallbacks;
   private _textMap: ITextMap;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$playbackControl: HTMLElement;
 
   constructor(config: IPlayViewConfig) {
@@ -35,7 +35,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
     this._callbacks = callbacks;
     this._textMap = textMap;
 
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       controlTemplate({
         styles: this.styleNames,
         texts: {
@@ -44,7 +44,10 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
       }),
     );
 
-    this._$playbackControl = getElementByHook(this._$node, 'playback-control');
+    this._$playbackControl = getElementByHook(
+      this._$rootElement,
+      'playback-control',
+    );
 
     this.setState({ isPlaying: false });
     this._bindEvents();
@@ -88,31 +91,31 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
       );
     }
 
-    this._$node.setAttribute(DATA_IS_PLAYING, String(isPlaying));
+    this._$rootElement.setAttribute(DATA_IS_PLAYING, String(isPlaying));
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
     this._unbindEvents();
     this._callbacks = null;
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
     this._$playbackControl = null;
-    this._$node = null;
+    this._$rootElement = null;
     this._textMap = null;
   }
 }

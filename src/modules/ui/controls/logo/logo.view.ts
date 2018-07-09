@@ -18,7 +18,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   private _callbacks: ILogoViewCallbacks;
   private _textMap: ITextMap;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$logo: HTMLElement;
   private _$placeholder: HTMLElement;
 
@@ -29,7 +29,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._callbacks = callbacks;
     this._textMap = textMap;
 
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       logoTemplate({
         styles: this.styleNames,
         texts: {
@@ -38,12 +38,18 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
       }),
     );
 
-    this._$logo = getElementByHook(this._$node, 'company-logo');
-    this._$placeholder = getElementByHook(this._$node, 'logo-placeholder');
+    this._$logo = getElementByHook(this._$rootElement, 'company-logo');
+    this._$placeholder = getElementByHook(
+      this._$rootElement,
+      'logo-placeholder',
+    );
 
-    this._tooltipReference = tooltipService.createReference(this._$node, {
-      text: this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
-    });
+    this._tooltipReference = tooltipService.createReference(
+      this._$rootElement,
+      {
+        text: this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
+      },
+    );
 
     this.setLogo(config.logo);
 
@@ -65,10 +71,10 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
 
   setDisplayAsLink(flag: boolean) {
     if (flag) {
-      this._$node.classList.add(this.styleNames.link);
+      this._$rootElement.classList.add(this.styleNames.link);
       this._tooltipReference.enable();
     } else {
-      this._$node.classList.remove(this.styleNames.link);
+      this._$rootElement.classList.remove(this.styleNames.link);
       this._tooltipReference.disable();
     }
   }
@@ -78,28 +84,28 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   }
 
   private _bindEvents() {
-    this._$node.addEventListener('click', this._onNodeClick);
+    this._$rootElement.addEventListener('click', this._onNodeClick);
   }
 
   private _unbindEvents() {
-    this._$node.removeEventListener('click', this._onNodeClick);
+    this._$rootElement.removeEventListener('click', this._onNodeClick);
   }
 
   private _onNodeClick() {
-    this._$node.focus();
+    this._$rootElement.focus();
     this._callbacks.onLogoClick();
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
@@ -109,11 +115,11 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._tooltipReference.destroy();
     this._tooltipReference = null;
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
     this._$logo = null;
     this._$placeholder = null;
 

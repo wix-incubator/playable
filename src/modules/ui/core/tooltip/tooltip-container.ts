@@ -21,7 +21,7 @@ interface ITooltipContainer {
 
 class TooltipContainer extends Stylable implements ITooltipContainer {
   private _tooltip: Tooltip;
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
 
   constructor(tooltip: Tooltip) {
     super();
@@ -31,23 +31,23 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
   }
 
   get node(): HTMLElement {
-    return this._$node;
+    return this._$rootElement;
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       tooltipContainerTemplate({
         styles: this.styleNames,
       }),
     );
-    this._$node.appendChild(this._tooltip.node);
+    this._$rootElement.appendChild(this._tooltip.node);
   }
 
   getTooltipPositionStyles(
     position: ITooltipPosition | ITooltipPositionFunction,
   ) {
     if (typeof position === 'function') {
-      position = position(this._$node);
+      position = position(this._$rootElement);
     }
 
     if (position.placement === ITooltipPositionPlacement.TOP) {
@@ -67,12 +67,12 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
 
   destroy() {
     this._tooltip = null;
-    this._$node = null;
+    this._$rootElement = null;
   }
 
   private _getTooltipLeftX(tooltipCenterX: number) {
     const tooltipRect = this._tooltip.node.getBoundingClientRect();
-    const tooltipContainerRect = this._$node.getBoundingClientRect();
+    const tooltipContainerRect = this._$rootElement.getBoundingClientRect();
 
     let tooltipLeftX = tooltipCenterX - tooltipRect.width / 2;
 

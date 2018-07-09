@@ -1,8 +1,9 @@
+import Chance from 'chance';
 import { expect } from 'chai';
-//@ts-ignore
-import classnames from 'classnames';
 
 import Stylable from './stylable';
+
+const chance = new Chance();
 
 describe('Stylable', () => {
   let stylable: any;
@@ -29,17 +30,19 @@ describe('Stylable', () => {
 
   it('method for extending styles should merge styleNames for same style', () => {
     const styleNames1 = {
-      name: 'value1',
+      name: chance.word(),
     };
 
     const styleNames2 = {
-      name: 'value2',
+      name: chance.word(),
     };
 
-    Stylable.extendStyleNames(styleNames1);
     Stylable.extendStyleNames(styleNames2);
-    expect(stylable.styleNames).to.be.deep.equal({
-      name: classnames(styleNames1.name, styleNames2.name),
-    });
+    Stylable.extendStyleNames(styleNames1);
+
+    expect(stylable.styleNames.name.split(' ')).to.include.members([
+      styleNames1.name,
+      styleNames2.name,
+    ]);
   });
 });

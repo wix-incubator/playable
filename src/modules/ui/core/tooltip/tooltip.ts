@@ -8,7 +8,7 @@ import { ITooltip, ITooltipStyles } from './types';
 import styles from './tooltip.scss';
 
 class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$tooltipInner: HTMLElement;
   private _isHidden: boolean;
 
@@ -20,16 +20,16 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       tooltipTemplate({
         styles: this.styleNames,
       }),
     );
-    this._$tooltipInner = getElementByHook(this._$node, 'tooltipInner');
+    this._$tooltipInner = getElementByHook(this._$rootElement, 'tooltipInner');
   }
 
   get node(): HTMLElement {
-    return this._$node;
+    return this._$rootElement;
   }
 
   get isHidden(): boolean {
@@ -41,7 +41,7 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
       return;
     }
     this._isHidden = false;
-    this._$node.classList.add(this.styleNames.tooltipVisible);
+    this._$rootElement.classList.add(this.styleNames.tooltipVisible);
   }
 
   hide() {
@@ -49,7 +49,7 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
       return;
     }
     this._isHidden = true;
-    this._$node.classList.remove(this.styleNames.tooltipVisible);
+    this._$rootElement.classList.remove(this.styleNames.tooltipVisible);
   }
 
   setText(text: string) {
@@ -58,12 +58,12 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
 
   setStyle(style: any) {
     Object.keys(style).forEach(styleKey => {
-      (this._$node.style as any)[styleKey] = style[styleKey];
+      (this._$rootElement.style as any)[styleKey] = style[styleKey];
     });
   }
 
   destroy() {
-    this._$node = null;
+    this._$rootElement = null;
     this._$tooltipInner = null;
   }
 }

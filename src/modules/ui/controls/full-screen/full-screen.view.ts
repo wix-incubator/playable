@@ -32,7 +32,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
   private _textMap: ITextMap;
   private _tooltipReference: ITooltipReference;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$toggleFullScreenControl: HTMLElement;
 
   constructor(config: IFullScreenViewConfig) {
@@ -43,7 +43,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._callbacks = callbacks;
     this._textMap = textMap;
 
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       controlTemplate({
         styles: this.styleNames,
         texts: {
@@ -53,7 +53,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     );
 
     this._$toggleFullScreenControl = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'full-screen-button',
     );
 
@@ -89,6 +89,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._callbacks.onButtonClick();
   }
 
+  //TODO: No need to create icons every tims on setState
   setState({ isInFullScreen }: { isInFullScreen: boolean }) {
     if (isInFullScreen) {
       this._$toggleFullScreenControl.classList.add(
@@ -124,19 +125,22 @@ class FullScreenView extends View<IFullScreenViewStyles>
       );
     }
 
-    this._$node.setAttribute(DATA_IS_IN_FULL_SCREEN, String(isInFullScreen));
+    this._$rootElement.setAttribute(
+      DATA_IS_IN_FULL_SCREEN,
+      String(isInFullScreen),
+    );
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
@@ -146,12 +150,12 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._tooltipReference.destroy();
     this._tooltipReference = null;
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
     this._$toggleFullScreenControl = null;
-    this._$node = null;
+    this._$rootElement = null;
 
     this._textMap = null;
   }

@@ -38,7 +38,7 @@ Method for setting theme for player instance
 
 ## node
 
-Getter for DOM node with player UI element
+Getter for DOM element with player UI
 (use it only for debug, if you need attach player to your document use `attachToElement` method)
 
 <div class="method-list">

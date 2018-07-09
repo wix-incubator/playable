@@ -22,7 +22,7 @@ const SECONDS_COUNT = 5;
 
 class InteractionIndicatorView extends View<IInteractionIndicatorViewStyles>
   implements IView<IInteractionIndicatorViewStyles> {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
 
   private _playIcon: string;
   private _pauseIcon: string;
@@ -35,7 +35,7 @@ class InteractionIndicatorView extends View<IInteractionIndicatorViewStyles>
   constructor() {
     super();
 
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       containerTemplate({
         styles: this.styleNames,
       }),
@@ -71,55 +71,55 @@ class InteractionIndicatorView extends View<IInteractionIndicatorViewStyles>
   }
 
   activatePlayIcon() {
-    this._$node.innerHTML = this._playIcon;
+    this._$rootElement.innerHTML = this._playIcon;
   }
 
   activatePauseIcon() {
-    this._$node.innerHTML = this._pauseIcon;
+    this._$rootElement.innerHTML = this._pauseIcon;
   }
 
   activateForwardIcon() {
-    this._$node.innerHTML = this._forwardIcon;
+    this._$rootElement.innerHTML = this._forwardIcon;
   }
 
   activateRewindIcon() {
-    this._$node.innerHTML = this._rewindIcon;
+    this._$rootElement.innerHTML = this._rewindIcon;
   }
 
   activateIncreaseVolumeIcon() {
-    this._$node.innerHTML = this._increaseVolumeIcon;
+    this._$rootElement.innerHTML = this._increaseVolumeIcon;
   }
 
   activateDecreaseVolumeIcon() {
-    this._$node.innerHTML = this._decreaseVolumeIcon;
+    this._$rootElement.innerHTML = this._decreaseVolumeIcon;
   }
 
   activateMuteVolumeIcon() {
-    this._$node.innerHTML = this._muteIcon;
+    this._$rootElement.innerHTML = this._muteIcon;
   }
 
   deactivateIcon() {
-    this._$node.innerHTML = '';
+    this._$rootElement.innerHTML = '';
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
   }
 }
 

@@ -15,14 +15,16 @@ import styles from './root-container.scss';
 
 class RootContainerView extends View<IRootContainerViewStyles>
   implements IView<IRootContainerViewStyles> {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _callbacks: IRootContainerViewCallbacks;
 
   constructor(config: IRootContainerViewConfig) {
     super();
     const { width, height, fillAllSpace, callbacks } = config;
     this._callbacks = callbacks;
-    this._$node = htmlToElement(containerTemplate({ styles: this.styleNames }));
+    this._$rootElement = htmlToElement(
+      containerTemplate({ styles: this.styleNames }),
+    );
 
     this.setFillAllSpaceFlag(fillAllSpace);
 
@@ -33,15 +35,33 @@ class RootContainerView extends View<IRootContainerViewStyles>
   }
 
   private _bindEvents() {
-    this._$node.addEventListener('mouseenter', this._callbacks.onMouseEnter);
-    this._$node.addEventListener('mousemove', this._callbacks.onMouseMove);
-    this._$node.addEventListener('mouseleave', this._callbacks.onMouseLeave);
+    this._$rootElement.addEventListener(
+      'mouseenter',
+      this._callbacks.onMouseEnter,
+    );
+    this._$rootElement.addEventListener(
+      'mousemove',
+      this._callbacks.onMouseMove,
+    );
+    this._$rootElement.addEventListener(
+      'mouseleave',
+      this._callbacks.onMouseLeave,
+    );
   }
 
   private _unbindEvents() {
-    this._$node.removeEventListener('mouseenter', this._callbacks.onMouseEnter);
-    this._$node.removeEventListener('mousemove', this._callbacks.onMouseMove);
-    this._$node.removeEventListener('mouseleave', this._callbacks.onMouseLeave);
+    this._$rootElement.removeEventListener(
+      'mouseenter',
+      this._callbacks.onMouseEnter,
+    );
+    this._$rootElement.removeEventListener(
+      'mousemove',
+      this._callbacks.onMouseMove,
+    );
+    this._$rootElement.removeEventListener(
+      'mouseleave',
+      this._callbacks.onMouseLeave,
+    );
   }
 
   setWidth(width: number) {
@@ -49,7 +69,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
       return;
     }
 
-    this._$node.style.width = `${width}px`;
+    this._$rootElement.style.width = `${width}px`;
   }
 
   setHeight(height: number) {
@@ -57,48 +77,48 @@ class RootContainerView extends View<IRootContainerViewStyles>
       return;
     }
 
-    this._$node.style.height = `${height}px`;
+    this._$rootElement.style.height = `${height}px`;
   }
 
   getWidth(): number {
-    return this._$node.offsetWidth;
+    return this._$rootElement.offsetWidth;
   }
 
   getHeight(): number {
-    return this._$node.offsetHeight;
+    return this._$rootElement.offsetHeight;
   }
 
   show() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   hide() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  appendComponentNode(node: HTMLElement) {
-    this._$node.appendChild(node);
+  appendComponentElement(element: HTMLElement) {
+    this._$rootElement.appendChild(element);
   }
 
   getNode(): HTMLElement {
-    return this._$node;
+    return this._$rootElement;
   }
 
   setFullScreenStatus(isFullScreen: boolean) {
     if (isFullScreen) {
-      this._$node.setAttribute('data-in-full-screen', 'true');
-      this._$node.classList.add(this.styleNames.fullScreen);
+      this._$rootElement.setAttribute('data-in-full-screen', 'true');
+      this._$rootElement.classList.add(this.styleNames.fullScreen);
     } else {
-      this._$node.setAttribute('data-in-full-screen', 'false');
-      this._$node.classList.remove(this.styleNames.fullScreen);
+      this._$rootElement.setAttribute('data-in-full-screen', 'false');
+      this._$rootElement.classList.remove(this.styleNames.fullScreen);
     }
   }
 
   setFillAllSpaceFlag(isFillAllSpace = false) {
     if (isFillAllSpace) {
-      this._$node.classList.add(this.styleNames.fillAllSpace);
+      this._$rootElement.classList.add(this.styleNames.fillAllSpace);
     } else {
-      this._$node.classList.remove(this.styleNames.fillAllSpace);
+      this._$rootElement.classList.remove(this.styleNames.fillAllSpace);
     }
   }
 
@@ -106,11 +126,11 @@ class RootContainerView extends View<IRootContainerViewStyles>
     this._unbindEvents();
     this._callbacks = null;
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
   }
 }
 

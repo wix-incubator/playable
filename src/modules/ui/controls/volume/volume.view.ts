@@ -54,7 +54,7 @@ class VolumeView extends View<IVolumeViewStyles>
   private _tooltipService: ITooltipService;
   private _muteButtonTooltipReference: ITooltipReference;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$muteButton: HTMLElement;
   private _$volumeNode: HTMLElement;
   private _$volume: HTMLElement;
@@ -78,7 +78,7 @@ class VolumeView extends View<IVolumeViewStyles>
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       controlTemplate({
         styles: this.styleNames,
         themeStyles: this.themeStyles,
@@ -89,10 +89,13 @@ class VolumeView extends View<IVolumeViewStyles>
       }),
     );
 
-    this._$muteButton = getElementByHook(this._$node, 'mute-button');
-    this._$volumeNode = getElementByHook(this._$node, 'volume-input-block');
-    this._$hitbox = getElementByHook(this._$node, 'volume-hitbox');
-    this._$volume = getElementByHook(this._$node, 'volume-input');
+    this._$muteButton = getElementByHook(this._$rootElement, 'mute-button');
+    this._$volumeNode = getElementByHook(
+      this._$rootElement,
+      'volume-input-block',
+    );
+    this._$hitbox = getElementByHook(this._$rootElement, 'volume-hitbox');
+    this._$volume = getElementByHook(this._$rootElement, 'volume-input');
 
     this._muteButtonTooltipReference = this._tooltipService.createReference(
       this._$muteButton,
@@ -172,14 +175,14 @@ class VolumeView extends View<IVolumeViewStyles>
 
   private _startDrag() {
     this._isDragging = true;
-    this._$node.classList.add(this.styleNames.isDragging);
+    this._$rootElement.classList.add(this.styleNames.isDragging);
     this._callbacks.onDragStart();
   }
 
   private _stopDrag() {
     if (this._isDragging) {
       this._isDragging = false;
-      this._$node.classList.remove(this.styleNames.isDragging);
+      this._$rootElement.classList.remove(this.styleNames.isDragging);
       this._callbacks.onDragEnd();
     }
   }
@@ -195,7 +198,7 @@ class VolumeView extends View<IVolumeViewStyles>
 
     this._$volume.setAttribute('style', `width:${percent}%;`);
 
-    this._$node.setAttribute(DATA_VOLUME, String(percent));
+    this._$rootElement.setAttribute(DATA_VOLUME, String(percent));
 
     const iconTemplateProps = {
       styles: this.styleNames,
@@ -232,7 +235,7 @@ class VolumeView extends View<IVolumeViewStyles>
       });
     }
 
-    this._$node.setAttribute(DATA_IS_MUTED, String(isMuted));
+    this._$rootElement.setAttribute(DATA_IS_MUTED, String(isMuted));
     this._$muteButton.setAttribute(
       'aria-label',
       isMuted
@@ -247,15 +250,15 @@ class VolumeView extends View<IVolumeViewStyles>
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   getButtonNode() {
@@ -273,12 +276,12 @@ class VolumeView extends View<IVolumeViewStyles>
     this._muteButtonTooltipReference.destroy();
     this._muteButtonTooltipReference = null;
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
     this._$muteButton = null;
-    this._$node = null;
+    this._$rootElement = null;
 
     this._textMap = null;
   }
