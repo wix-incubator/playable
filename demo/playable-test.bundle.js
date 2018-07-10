@@ -20,9 +20,12 @@
     ***************************************************************************** */
     /* global Reflect, Promise */
 
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
 
     function __extends(d, b) {
         extendStatics(d, b);
@@ -30,12 +33,15 @@
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
-    var __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
     };
 
     function __decorate(decorators, target, key, desc) {
@@ -185,11 +191,11 @@
     }(ExtendableError));
 
     function nameValueToObject (name, value) {
+        var _a;
         if (typeof name !== 'object') {
             return __assign((_a = {}, _a[name] = value, _a));
         }
         return name;
-        var _a;
     }
 
     var FAMILY_TREE = '__familyTree__';
@@ -440,6 +446,7 @@
             }
             if (value) {
                 playerMethodDescriptor.value = this._getWrappedCallToModuleFunction(module, value);
+                playerMethodDescriptor.writable = true;
             }
             return playerMethodDescriptor;
         };
@@ -1896,8 +1903,14 @@
     var LiveState$1 = LiveState;
 
     function htmlToElement(html) {
+        if (!html) {
+            throw new Error('HTML provided to htmlToElement is empty');
+        }
         var div = document.createElement('div');
         div.innerHTML = html.trim();
+        if (div.childElementCount > 1) {
+            throw new Error("HTML provided to htmlToElement doesn't have root element");
+        }
         return div.firstChild;
     }
 
@@ -1912,7 +1925,7 @@
 
     var classnames = createCommonjsModule(function (module) {
     /*!
-      Copyright (c) 2016 Jed Watson.
+      Copyright (c) 2017 Jed Watson.
       Licensed under the MIT License (MIT), see
       http://jedwatson.github.io/classnames
     */
@@ -1933,8 +1946,11 @@
 
     			if (argType === 'string' || argType === 'number') {
     				classes.push(arg);
-    			} else if (Array.isArray(arg)) {
-    				classes.push(classNames.apply(null, arg));
+    			} else if (Array.isArray(arg) && arg.length) {
+    				var inner = classNames.apply(null, arg);
+    				if (inner) {
+    					classes.push(inner);
+    				}
     			} else if (argType === 'object') {
     				for (var key in arg) {
     					if (hasOwn.call(arg, key) && arg[key]) {
@@ -1948,6 +1964,7 @@
     	}
 
     	if ('object' !== 'undefined' && module.exports) {
+    		classNames.default = classNames;
     		module.exports = classNames;
     	} else if (typeof undefined === 'function' && typeof undefined.amd === 'object' && undefined.amd) {
     		// register as 'classnames', consistent with npm package name
@@ -2052,7 +2069,7 @@
             var _this = _super.call(this) || this;
             var width = config.width, height = config.height, fillAllSpace = config.fillAllSpace, callbacks = config.callbacks;
             _this._callbacks = callbacks;
-            _this._$node = htmlToElement(anonymous({ styles: _this.styleNames }));
+            _this._$rootElement = htmlToElement(anonymous({ styles: _this.styleNames }));
             _this.setFillAllSpaceFlag(fillAllSpace);
             _this.setWidth(width);
             _this.setHeight(height);
@@ -2060,71 +2077,71 @@
             return _this;
         }
         RootContainerView.prototype._bindEvents = function () {
-            this._$node.addEventListener('mouseenter', this._callbacks.onMouseEnter);
-            this._$node.addEventListener('mousemove', this._callbacks.onMouseMove);
-            this._$node.addEventListener('mouseleave', this._callbacks.onMouseLeave);
+            this._$rootElement.addEventListener('mouseenter', this._callbacks.onMouseEnter);
+            this._$rootElement.addEventListener('mousemove', this._callbacks.onMouseMove);
+            this._$rootElement.addEventListener('mouseleave', this._callbacks.onMouseLeave);
         };
         RootContainerView.prototype._unbindEvents = function () {
-            this._$node.removeEventListener('mouseenter', this._callbacks.onMouseEnter);
-            this._$node.removeEventListener('mousemove', this._callbacks.onMouseMove);
-            this._$node.removeEventListener('mouseleave', this._callbacks.onMouseLeave);
+            this._$rootElement.removeEventListener('mouseenter', this._callbacks.onMouseEnter);
+            this._$rootElement.removeEventListener('mousemove', this._callbacks.onMouseMove);
+            this._$rootElement.removeEventListener('mouseleave', this._callbacks.onMouseLeave);
         };
         RootContainerView.prototype.setWidth = function (width) {
             if (!width) {
                 return;
             }
-            this._$node.style.width = width + "px";
+            this._$rootElement.style.width = width + "px";
         };
         RootContainerView.prototype.setHeight = function (height) {
             if (!height) {
                 return;
             }
-            this._$node.style.height = height + "px";
+            this._$rootElement.style.height = height + "px";
         };
         RootContainerView.prototype.getWidth = function () {
-            return this._$node.offsetWidth;
+            return this._$rootElement.offsetWidth;
         };
         RootContainerView.prototype.getHeight = function () {
-            return this._$node.offsetHeight;
+            return this._$rootElement.offsetHeight;
         };
         RootContainerView.prototype.show = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         RootContainerView.prototype.hide = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
-        RootContainerView.prototype.appendComponentNode = function (node) {
-            this._$node.appendChild(node);
+        RootContainerView.prototype.appendComponentElement = function (element) {
+            this._$rootElement.appendChild(element);
         };
         RootContainerView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         RootContainerView.prototype.setFullScreenStatus = function (isFullScreen) {
             if (isFullScreen) {
-                this._$node.setAttribute('data-in-full-screen', 'true');
-                this._$node.classList.add(this.styleNames.fullScreen);
+                this._$rootElement.setAttribute('data-in-full-screen', 'true');
+                this._$rootElement.classList.add(this.styleNames.fullScreen);
             }
             else {
-                this._$node.setAttribute('data-in-full-screen', 'false');
-                this._$node.classList.remove(this.styleNames.fullScreen);
+                this._$rootElement.setAttribute('data-in-full-screen', 'false');
+                this._$rootElement.classList.remove(this.styleNames.fullScreen);
             }
         };
         RootContainerView.prototype.setFillAllSpaceFlag = function (isFillAllSpace) {
             if (isFillAllSpace === void 0) { isFillAllSpace = false; }
             if (isFillAllSpace) {
-                this._$node.classList.add(this.styleNames.fillAllSpace);
+                this._$rootElement.classList.add(this.styleNames.fillAllSpace);
             }
             else {
-                this._$node.classList.remove(this.styleNames.fillAllSpace);
+                this._$rootElement.classList.remove(this.styleNames.fillAllSpace);
             }
         };
         RootContainerView.prototype.destroy = function () {
             this._unbindEvents();
             this._callbacks = null;
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
         };
         return RootContainerView;
     }(View));
@@ -2294,7 +2311,7 @@
         }
         Object.defineProperty(RootContainer.prototype, "node", {
             /**
-             * Getter for DOM node with player UI element
+             * Getter for DOM element with player UI
              * (use it only for debug, if you need attach player to your document use `attachToElement` method)
              */
             get: function () {
@@ -2335,7 +2352,7 @@
             });
         };
         RootContainer.prototype.appendComponentNode = function (node) {
-            this.view.appendComponentNode(node);
+            this.view.appendComponentElement(node);
         };
         RootContainer.prototype._broadcastMouseEnter = function () {
             this._eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED);
@@ -4016,6 +4033,7 @@
     }
 
     function transperentizeColor(color, alpha) {
+        if (alpha === void 0) { alpha = 1; }
         var _a = hexToRgb(color), r = _a.r, g = _a.g, b = _a.b;
         return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
     }
@@ -4044,8 +4062,8 @@
     }
     function generateClassNames(rules) {
         return Object.keys(rules).reduce(function (acc, classImportName) {
-            return (__assign({}, acc, (_a = {}, _a[classImportName] = getUniqueClassName(classImportName), _a)));
             var _a;
+            return (__assign({}, acc, (_a = {}, _a[classImportName] = getUniqueClassName(classImportName), _a)));
         }, {});
     }
 
@@ -4176,6 +4194,7 @@
         return ThemeService;
     }());
 
+    var _a;
     var map = (_a = {}, _a[TEXT_LABELS.LOGO_LABEL] = 'Watch On Site', _a[TEXT_LABELS.LOGO_TOOLTIP] = 'Watch On Site', _a[TEXT_LABELS.LIVE_INDICATOR_TEXT] = function (_a) {
             var isEnded = _a.isEnded;
             return !isEnded ? 'Live' : 'Live Ended';
@@ -4186,7 +4205,6 @@
             var volume = _a.volume;
             return "Volume is " + volume + "%";
         }, _a[TEXT_LABELS.ENTER_FULL_SCREEN_LABEL] = 'Enter full screen mode', _a[TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP] = 'Enter full screen mode', _a[TEXT_LABELS.EXIT_FULL_SCREEN_LABEL] = 'Exit full screen mode', _a[TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP] = 'Exit full screen mode', _a);
-    var _a;
 
     var TextMap = /** @class */ (function () {
         function TextMap(_a) {
@@ -4386,10 +4404,10 @@
         IOSFullScreen.prototype._enterWhenHasMetaData = function () {
             this._elem.removeEventListener('loadedmetadata', this._enterWhenHasMetaData);
             isFullScreenRequested = false;
-            this._elem.webkitEnterFullscreen();
+            this.request();
         };
         IOSFullScreen.prototype.request = function () {
-            if (!this.isEnabled || this.isInFullScreen) {
+            if (!this.isEnabled || this.isInFullScreen || isFullScreenRequested) {
                 return false;
             }
             try {
@@ -4397,9 +4415,6 @@
             }
             catch (e) {
                 if (this._elem.readyState < HAVE_METADATA) {
-                    if (isFullScreenRequested) {
-                        return;
-                    }
                     this._elem.addEventListener('loadedmetadata', this._enterWhenHasMetaData);
                     isFullScreenRequested = true;
                 }
@@ -4661,6 +4676,33 @@
         return LiveStateEngine;
     }());
 
+    var logger = {
+        info: function (message) {
+            var optionalParams = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                optionalParams[_i - 1] = arguments[_i];
+            }
+            var _a;
+            (_a = window.console).info.apply(_a, [message].concat(optionalParams));
+        },
+        warn: function (message) {
+            var optionalParams = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                optionalParams[_i - 1] = arguments[_i];
+            }
+            var _a;
+            (_a = window.console).warn.apply(_a, [message].concat(optionalParams));
+        },
+        error: function (name) {
+            var optionalParams = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                optionalParams[_i - 1] = arguments[_i];
+            }
+            var _a;
+            (_a = window.console).error.apply(_a, [name].concat(optionalParams));
+        },
+    };
+
     var KEYCODES = {
         SPACE_BAR: 32,
         ENTER: 13,
@@ -4711,11 +4753,24 @@
         KeyboardInterceptorCore.prototype._processKeyboardInput = function (e) {
             this._eventEmitter.emit(e.keyCode, e);
         };
+        Object.defineProperty(KeyboardInterceptorCore.prototype, "_isDestroyed", {
+            get: function () {
+                return !this._node && !this._eventEmitter;
+            },
+            enumerable: true,
+            configurable: true
+        });
         KeyboardInterceptorCore.prototype.destroy = function () {
-            this._unbindEvents();
-            this._unattachCallbacks();
-            this._eventEmitter = null;
-            this._node = null;
+            if (this._isDestroyed) {
+                logger.warn('KeyboardInterceptor.destroy called after already been destroyed');
+                return;
+            }
+            else {
+                this._unbindEvents();
+                this._node = null;
+                this._unattachCallbacks();
+                this._eventEmitter = null;
+            }
         };
         return KeyboardInterceptorCore;
     }());
@@ -4744,6 +4799,7 @@
         };
         KeyboardControl.prototype._attachDefaultControls = function () {
             var _this = this;
+            var _a;
             this._keyboardInterceptor.addCallbacks((_a = {}, _a[KEYCODES.TAB] = function () {
                     _this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
                 }, _a[KEYCODES.SPACE_BAR] = function (e) {
@@ -4778,7 +4834,6 @@
                     _this._engine.setMute(false);
                     _this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
                 }, _a));
-            var _a;
         };
         KeyboardControl.prototype._destroyInterceptor = function () {
             if (this._keyboardInterceptor) {
@@ -4786,10 +4841,10 @@
             }
         };
         KeyboardControl.prototype.addKeyControl = function (key, callback) {
+            var _a;
             if (this._isEnabled) {
                 this._keyboardInterceptor.addCallbacks((_a = {}, _a[key] = callback, _a));
             }
-            var _a;
         };
         KeyboardControl.prototype.destroy = function () {
             this._destroyInterceptor();
@@ -4836,12 +4891,12 @@
         return element.querySelector("[data-hook=\"" + hook + "\"]");
     }
 
-    function toggleNodeClass(node, className, shouldAdd) {
+    function toggleElementClass(element, className, shouldAdd) {
         if (shouldAdd) {
-            node.classList.add(className);
+            element.classList.add(className);
         }
         else {
-            node.classList.remove(className);
+            element.classList.remove(className);
         }
     }
 
@@ -4860,11 +4915,11 @@
             return _this;
         }
         DebugPanelView.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$1({
+            this._$rootElement = htmlToElement(anonymous$1({
                 styles: this.styleNames,
             }));
-            this._$closeButton = getElementByHook(this._$node, 'debug-panel-close-button');
-            this._$infoContainer = getElementByHook(this._$node, 'debug-panel-info-container');
+            this._$closeButton = getElementByHook(this._$rootElement, 'debug-panel-close-button');
+            this._$infoContainer = getElementByHook(this._$rootElement, 'debug-panel-info-container');
         };
         DebugPanelView.prototype._bindEvents = function () {
             this._$closeButton.addEventListener('click', this._callbacks.onCloseButtonClick);
@@ -4873,23 +4928,23 @@
             this._$closeButton.removeEventListener('click', this._callbacks.onCloseButtonClick);
         };
         DebugPanelView.prototype.show = function () {
-            toggleNodeClass(this._$node, this.styleNames.hidden, false);
+            toggleElementClass(this._$rootElement, this.styleNames.hidden, false);
         };
         DebugPanelView.prototype.hide = function () {
-            toggleNodeClass(this._$node, this.styleNames.hidden, true);
+            toggleElementClass(this._$rootElement, this.styleNames.hidden, true);
         };
         DebugPanelView.prototype.setInfo = function (info) {
             this._$infoContainer.innerHTML = syntaxHighlight(JSON.stringify(info, undefined, 4), this.styleNames);
         };
         DebugPanelView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         DebugPanelView.prototype.destroy = function () {
             this._unbindEvents();
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
             this._$closeButton = null;
             this._$infoContainer = null;
             this._callbacks = null;
@@ -5005,6 +5060,7 @@
     var ScreenView = /** @class */ (function (_super) {
         __extends(ScreenView, _super);
         function ScreenView(config) {
+            var _a;
             var _this = _super.call(this) || this;
             var callbacks = config.callbacks, nativeControls = config.nativeControls, playbackViewNode = config.playbackViewNode;
             _this._callbacks = callbacks;
@@ -5017,63 +5073,59 @@
             _this._bindEvents();
             _this.setViewMode(VideoViewMode.REGULAR);
             return _this;
-            var _a;
         }
         ScreenView.prototype._bindCallbacks = function () {
             this._updateBackground = this._updateBackground.bind(this);
         };
         ScreenView.prototype._initDOM = function (playbackViewNode) {
-            this._$node = htmlToElement(anonymous$2({
+            this._$rootElement = htmlToElement(anonymous$2({
                 styles: this.styleNames,
             }));
             this._$playbackNode = playbackViewNode;
-            this._$node.appendChild(playbackViewNode);
-            this._$canvas = getElementByHook(this._$node, 'background-canvas');
+            this._$rootElement.appendChild(playbackViewNode);
+            this._$canvas = getElementByHook(this._$rootElement, 'background-canvas');
             this._ctx = this._$canvas.getContext('2d');
         };
         ScreenView.prototype._bindEvents = function () {
-            this._$node.addEventListener('click', this._callbacks.onWrapperMouseClick);
-            this._$node.addEventListener('dblclick', this._callbacks.onWrapperMouseDblClick);
+            this._$rootElement.addEventListener('click', this._callbacks.onWrapperMouseClick);
+            this._$rootElement.addEventListener('dblclick', this._callbacks.onWrapperMouseDblClick);
         };
         ScreenView.prototype._unbindEvents = function () {
-            this._$node.removeEventListener('click', this._callbacks.onWrapperMouseClick);
-            this._$node.removeEventListener('dblclick', this._callbacks.onWrapperMouseDblClick);
+            this._$rootElement.removeEventListener('click', this._callbacks.onWrapperMouseClick);
+            this._$rootElement.removeEventListener('dblclick', this._callbacks.onWrapperMouseDblClick);
         };
         ScreenView.prototype.updateVideoAspectRatio = function (widthHeightRatio) {
             this._widthHeightRatio = widthHeightRatio;
             var isHorizontal = this._widthHeightRatio > 1;
-            toggleNodeClass(this._$node, this.styleNames.horizontalVideo, isHorizontal);
-            toggleNodeClass(this._$node, this.styleNames.verticalVideo, !isHorizontal);
+            toggleElementClass(this._$rootElement, this.styleNames.horizontalVideo, isHorizontal);
+            toggleElementClass(this._$rootElement, this.styleNames.verticalVideo, !isHorizontal);
         };
         ScreenView.prototype.focusOnNode = function () {
-            this._$node.focus();
+            this._$rootElement.focus();
         };
         ScreenView.prototype.show = function () {
-            toggleNodeClass(this._$node, this.styleNames.hidden, false);
+            toggleElementClass(this._$rootElement, this.styleNames.hidden, false);
         };
         ScreenView.prototype.hide = function () {
-            toggleNodeClass(this._$node, this.styleNames.hidden, true);
+            toggleElementClass(this._$rootElement, this.styleNames.hidden, true);
         };
         ScreenView.prototype.getNode = function () {
-            return this._$node;
-        };
-        ScreenView.prototype.appendComponentNode = function (node) {
-            this._$node.appendChild(node);
+            return this._$rootElement;
         };
         ScreenView.prototype.hideCursor = function () {
-            toggleNodeClass(this._$node, this.styleNames.hiddenCursor, true);
+            toggleElementClass(this._$rootElement, this.styleNames.hiddenCursor, true);
         };
         ScreenView.prototype.showCursor = function () {
-            toggleNodeClass(this._$node, this.styleNames.hiddenCursor, false);
+            toggleElementClass(this._$rootElement, this.styleNames.hiddenCursor, false);
         };
         ScreenView.prototype.setViewMode = function (viewMode) {
             var _this = this;
             if (this._styleNamesByViewMode[viewMode]) {
                 this.resetBackground();
                 Object.keys(this._styleNamesByViewMode).forEach(function (mode) {
-                    toggleNodeClass(_this._$node, _this._styleNamesByViewMode[mode], false);
+                    toggleElementClass(_this._$rootElement, _this._styleNamesByViewMode[mode], false);
                 });
-                toggleNodeClass(this._$node, this._styleNamesByViewMode[viewMode], true);
+                toggleElementClass(this._$rootElement, this._styleNamesByViewMode[viewMode], true);
                 if (viewMode === VideoViewMode.BLUR) {
                     this._startUpdatingBackground();
                 }
@@ -5108,8 +5160,8 @@
             var _a = this._$playbackNode, videoWidth = _a.videoWidth, videoHeight = _a.videoHeight;
             this._widthHeightRatio = videoHeight ? videoWidth / videoHeight : 0;
             var isHorizontal = this._widthHeightRatio > 1;
-            toggleNodeClass(this._$node, this.styleNames.horizontalVideo, isHorizontal);
-            toggleNodeClass(this._$node, this.styleNames.verticalVideo, !isHorizontal);
+            toggleElementClass(this._$rootElement, this.styleNames.horizontalVideo, isHorizontal);
+            toggleElementClass(this._$rootElement, this.styleNames.verticalVideo, !isHorizontal);
         };
         ScreenView.prototype.resetBackground = function () {
             if (this._currentMode === VideoViewMode.BLUR) {
@@ -5152,10 +5204,10 @@
         ScreenView.prototype.destroy = function () {
             this._stopUpdatingBackground();
             this._unbindEvents();
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
             this._$playbackNode = null;
             this._$canvas = null;
             this._ctx = null;
@@ -5399,7 +5451,7 @@
         __extends(InteractionIndicatorView, _super);
         function InteractionIndicatorView() {
             var _this = _super.call(this) || this;
-            _this._$node = htmlToElement(anonymous$3({
+            _this._$rootElement = htmlToElement(anonymous$3({
                 styles: _this.styleNames,
             }));
             _this._playIcon = anonymous$4({
@@ -5432,43 +5484,43 @@
             return _this;
         }
         InteractionIndicatorView.prototype.activatePlayIcon = function () {
-            this._$node.innerHTML = this._playIcon;
+            this._$rootElement.innerHTML = this._playIcon;
         };
         InteractionIndicatorView.prototype.activatePauseIcon = function () {
-            this._$node.innerHTML = this._pauseIcon;
+            this._$rootElement.innerHTML = this._pauseIcon;
         };
         InteractionIndicatorView.prototype.activateForwardIcon = function () {
-            this._$node.innerHTML = this._forwardIcon;
+            this._$rootElement.innerHTML = this._forwardIcon;
         };
         InteractionIndicatorView.prototype.activateRewindIcon = function () {
-            this._$node.innerHTML = this._rewindIcon;
+            this._$rootElement.innerHTML = this._rewindIcon;
         };
         InteractionIndicatorView.prototype.activateIncreaseVolumeIcon = function () {
-            this._$node.innerHTML = this._increaseVolumeIcon;
+            this._$rootElement.innerHTML = this._increaseVolumeIcon;
         };
         InteractionIndicatorView.prototype.activateDecreaseVolumeIcon = function () {
-            this._$node.innerHTML = this._decreaseVolumeIcon;
+            this._$rootElement.innerHTML = this._decreaseVolumeIcon;
         };
         InteractionIndicatorView.prototype.activateMuteVolumeIcon = function () {
-            this._$node.innerHTML = this._muteIcon;
+            this._$rootElement.innerHTML = this._muteIcon;
         };
         InteractionIndicatorView.prototype.deactivateIcon = function () {
-            this._$node.innerHTML = '';
+            this._$rootElement.innerHTML = '';
         };
         InteractionIndicatorView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         InteractionIndicatorView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         InteractionIndicatorView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         InteractionIndicatorView.prototype.destroy = function () {
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
         };
         return InteractionIndicatorView;
     }(View));
@@ -5602,12 +5654,12 @@
             return _this;
         }
         OverlayView.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$11({
+            this._$rootElement = htmlToElement(anonymous$11({
                 styles: this.styleNames,
                 themeStyles: this.themeStyles,
             }));
-            this._$content = getElementByHook(this._$node, 'overlay-content');
-            this._$playButton = getElementByHook(this._$node, 'overlay-play-button');
+            this._$content = getElementByHook(this._$rootElement, 'overlay-content');
+            this._$playButton = getElementByHook(this._$rootElement, 'overlay-play-button');
         };
         OverlayView.prototype._bindEvents = function () {
             this._$playButton.addEventListener('click', this._callbacks.onPlayClick);
@@ -5616,29 +5668,29 @@
             this._$playButton.removeEventListener('click', this._callbacks.onPlayClick);
         };
         OverlayView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         OverlayView.prototype.hideContent = function () {
-            this._$node.classList.remove(this.styleNames.active);
+            this._$rootElement.classList.remove(this.styleNames.active);
         };
         OverlayView.prototype.showContent = function () {
-            this._$node.classList.add(this.styleNames.active);
+            this._$rootElement.classList.add(this.styleNames.active);
         };
         OverlayView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         OverlayView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         OverlayView.prototype.setPoster = function (src) {
             this._$content.style.backgroundImage = src ? "url('" + src + "')" : 'none';
         };
         OverlayView.prototype.destroy = function () {
             this._unbindEvents();
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
             this._$content = null;
             this._$playButton = null;
         };
@@ -5763,31 +5815,31 @@
         __extends(LoaderView, _super);
         function LoaderView() {
             var _this = _super.call(this) || this;
-            _this._$node = htmlToElement(anonymous$12({
+            _this._$rootElement = htmlToElement(anonymous$12({
                 styles: _this.styleNames,
             }));
             return _this;
         }
         LoaderView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         LoaderView.prototype.showContent = function () {
-            this._$node.classList.add(this.styleNames.active);
+            this._$rootElement.classList.add(this.styleNames.active);
         };
         LoaderView.prototype.hideContent = function () {
-            this._$node.classList.remove(this.styleNames.active);
+            this._$rootElement.classList.remove(this.styleNames.active);
         };
         LoaderView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         LoaderView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         LoaderView.prototype.destroy = function () {
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
         };
         return LoaderView;
     }(View));
@@ -5928,24 +5980,24 @@
             return _this;
         }
         MainUIBlockView.prototype._initDOM = function (elements) {
-            this._$node = htmlToElement(anonymous$13({
+            this._$rootElement = htmlToElement(anonymous$13({
                 styles: this.styleNames,
             }));
             var $tooltipContainerWrapper = document.createElement('div');
             $tooltipContainerWrapper.classList.add(this.styleNames.tooltipContainerWrapper);
             $tooltipContainerWrapper.appendChild(elements.tooltipContainer);
-            this._$node.appendChild(elements.topBlock);
-            this._$node.appendChild($tooltipContainerWrapper);
-            this._$node.appendChild(elements.bottomBlock);
+            this._$rootElement.appendChild(elements.topBlock);
+            this._$rootElement.appendChild($tooltipContainerWrapper);
+            this._$rootElement.appendChild(elements.bottomBlock);
         };
         MainUIBlockView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         MainUIBlockView.prototype.destroy = function () {
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
         };
         return MainUIBlockView;
     }(View));
@@ -6176,11 +6228,11 @@
             return _this;
         }
         TopBlockView.prototype._initDOM = function (elements) {
-            this._$node = htmlToElement(anonymous$14({
+            this._$rootElement = htmlToElement(anonymous$14({
                 styles: this.styleNames,
             }));
-            var $titleContainer = getElementByHook(this._$node, 'title-container');
-            var $liveIndicatorContainer = getElementByHook(this._$node, 'live-indicator-container');
+            var $titleContainer = getElementByHook(this._$rootElement, 'title-container');
+            var $liveIndicatorContainer = getElementByHook(this._$rootElement, 'live-indicator-container');
             $titleContainer.appendChild(elements.title);
             $liveIndicatorContainer.appendChild(elements.liveIndicator);
         };
@@ -6188,32 +6240,32 @@
             e.stopPropagation();
         };
         TopBlockView.prototype._bindEvents = function () {
-            this._$node.addEventListener('click', this._preventClickPropagation);
+            this._$rootElement.addEventListener('click', this._preventClickPropagation);
         };
         TopBlockView.prototype._unbindEvents = function () {
-            this._$node.removeEventListener('click', this._preventClickPropagation);
+            this._$rootElement.removeEventListener('click', this._preventClickPropagation);
         };
         TopBlockView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         TopBlockView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         TopBlockView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         TopBlockView.prototype.showContent = function () {
-            this._$node.classList.add(this.styleNames.activated);
+            this._$rootElement.classList.add(this.styleNames.activated);
         };
         TopBlockView.prototype.hideContent = function () {
-            this._$node.classList.remove(this.styleNames.activated);
+            this._$rootElement.classList.remove(this.styleNames.activated);
         };
         TopBlockView.prototype.destroy = function () {
             this._unbindEvents();
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
         };
         return TopBlockView;
     }(View));
@@ -6295,8 +6347,8 @@
             return _this;
         }
         TitleView.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$15({ styles: this.styleNames, themeStyles: this.themeStyles }));
-            this._$title = getElementByHook(this._$node, 'video-title');
+            this._$rootElement = htmlToElement(anonymous$15({ styles: this.styleNames, themeStyles: this.themeStyles }));
+            this._$title = getElementByHook(this._$rootElement, 'video-title');
         };
         TitleView.prototype._bindEvents = function () {
             this._$title.addEventListener('click', this._callbacks.onClick);
@@ -6305,7 +6357,7 @@
             this._$title.removeEventListener('click', this._callbacks.onClick);
         };
         TitleView.prototype.setDisplayAsLink = function (flag) {
-            toggleNodeClass(this._$title, this.styleNames.link, flag);
+            toggleElementClass(this._$title, this.styleNames.link, flag);
         };
         TitleView.prototype.setTitle = function (title) {
             // TODO: mb move this logic to controller? title.isHidden is out of control of this method
@@ -6319,20 +6371,20 @@
             }
         };
         TitleView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         TitleView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         TitleView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         TitleView.prototype.destroy = function () {
             this._unbindEvents();
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
             this._$title = null;
         };
         return TitleView;
@@ -6454,13 +6506,13 @@
             return _this;
         }
         LiveIndicatorView.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$16({
+            this._$rootElement = htmlToElement(anonymous$16({
                 styles: this.styleNames,
                 themeStyles: this.themeStyles,
                 texts: {},
             }));
-            this._$liveIndicatorText = getElementByHook(this._$node, 'live-indicator-text');
-            this._tooltipReference = this._tooltipService.createReference(this._$node, {
+            this._$liveIndicatorText = getElementByHook(this._$rootElement, 'live-indicator-text');
+            this._tooltipReference = this._tooltipService.createReference(this._$rootElement, {
                 text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
             });
             // NOTE: LIVE indicator is hidden and inactive by default
@@ -6469,13 +6521,13 @@
             this.toggleEnded(false);
         };
         LiveIndicatorView.prototype._bindEvents = function () {
-            this._$node.addEventListener('click', this._callbacks.onClick);
+            this._$rootElement.addEventListener('click', this._callbacks.onClick);
         };
         LiveIndicatorView.prototype._unbindEvents = function () {
-            this._$node.removeEventListener('click', this._callbacks.onClick);
+            this._$rootElement.removeEventListener('click', this._callbacks.onClick);
         };
         LiveIndicatorView.prototype.toggleActive = function (shouldActivate) {
-            toggleNodeClass(this._$node, this.styleNames.active, shouldActivate);
+            toggleElementClass(this._$rootElement, this.styleNames.active, shouldActivate);
             // NOTE: disable tooltip while video is sync with live
             if (shouldActivate) {
                 this._tooltipReference.disable();
@@ -6485,7 +6537,7 @@
             }
         };
         LiveIndicatorView.prototype.toggleEnded = function (isEnded) {
-            toggleNodeClass(this._$node, this.styleNames.ended, isEnded);
+            toggleElementClass(this._$rootElement, this.styleNames.ended, isEnded);
             this._$liveIndicatorText.innerText = this._textMap.get(TEXT_LABELS.LIVE_INDICATOR_TEXT, { isEnded: isEnded });
             this._$liveIndicatorText.setAttribute('aria-label', !isEnded ? this._textMap.get(TEXT_LABELS.LIVE_SYNC_LABEL) : '');
             if (isEnded) {
@@ -6502,20 +6554,20 @@
             this.toggle(false);
         };
         LiveIndicatorView.prototype.toggle = function (shouldShow) {
-            toggleNodeClass(this._$node, this.styleNames.hidden, !shouldShow);
+            toggleElementClass(this._$rootElement, this.styleNames.hidden, !shouldShow);
         };
         LiveIndicatorView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         LiveIndicatorView.prototype.destroy = function () {
             this._unbindEvents();
             this._callbacks = null;
             this._tooltipReference.destroy();
             this._tooltipReference = null;
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
             this._$liveIndicatorText = null;
             this._callbacks = null;
             this._textMap = null;
@@ -6672,15 +6724,15 @@
             return _this;
         }
         BottomBlockView.prototype._initDOM = function (elements) {
-            this._$node = htmlToElement(anonymous$17({
+            this._$rootElement = htmlToElement(anonymous$17({
                 styles: this.styleNames,
             }));
-            var $playContainer = getElementByHook(this._$node, 'play-container');
-            var $volumeContainer = getElementByHook(this._$node, 'volume-container');
-            var $timeContainer = getElementByHook(this._$node, 'time-container');
-            var $fullScreenContainer = getElementByHook(this._$node, 'full-screen-container');
-            var $logoContainer = getElementByHook(this._$node, 'logo-container');
-            var $progressBarContainer = getElementByHook(this._$node, 'progress-bar-container');
+            var $playContainer = getElementByHook(this._$rootElement, 'play-container');
+            var $volumeContainer = getElementByHook(this._$rootElement, 'volume-container');
+            var $timeContainer = getElementByHook(this._$rootElement, 'time-container');
+            var $fullScreenContainer = getElementByHook(this._$rootElement, 'full-screen-container');
+            var $logoContainer = getElementByHook(this._$rootElement, 'logo-container');
+            var $progressBarContainer = getElementByHook(this._$rootElement, 'progress-bar-container');
             $playContainer.appendChild(elements.play);
             $volumeContainer.appendChild(elements.volume);
             $timeContainer.appendChild(elements.time);
@@ -6692,76 +6744,76 @@
             e.stopPropagation();
         };
         BottomBlockView.prototype._bindEvents = function () {
-            this._$node.addEventListener('click', this._preventClickPropagation);
-            this._$node.addEventListener('mousemove', this._callbacks.onBlockMouseMove);
-            this._$node.addEventListener('mouseleave', this._callbacks.onBlockMouseOut);
+            this._$rootElement.addEventListener('click', this._preventClickPropagation);
+            this._$rootElement.addEventListener('mousemove', this._callbacks.onBlockMouseMove);
+            this._$rootElement.addEventListener('mouseleave', this._callbacks.onBlockMouseOut);
         };
         BottomBlockView.prototype._unbindEvents = function () {
-            this._$node.removeEventListener('click', this._preventClickPropagation);
-            this._$node.removeEventListener('mousemove', this._callbacks.onBlockMouseMove);
-            this._$node.removeEventListener('mouseleave', this._callbacks.onBlockMouseOut);
+            this._$rootElement.removeEventListener('click', this._preventClickPropagation);
+            this._$rootElement.removeEventListener('mousemove', this._callbacks.onBlockMouseMove);
+            this._$rootElement.removeEventListener('mouseleave', this._callbacks.onBlockMouseOut);
         };
         BottomBlockView.prototype.setShouldLogoShowAlwaysFlag = function (isShowAlways) {
-            toggleNodeClass(this._$node, this.styleNames.showLogoAlways, isShowAlways);
+            toggleElementClass(this._$rootElement, this.styleNames.showLogoAlways, isShowAlways);
             this.showLogo();
         };
         BottomBlockView.prototype.showPlayControl = function () {
-            this._$node.classList.remove(this.styleNames.playControlHidden);
+            this._$rootElement.classList.remove(this.styleNames.playControlHidden);
         };
         BottomBlockView.prototype.hidePlayControl = function () {
-            this._$node.classList.add(this.styleNames.playControlHidden);
+            this._$rootElement.classList.add(this.styleNames.playControlHidden);
         };
         BottomBlockView.prototype.showTimeControl = function () {
-            this._$node.classList.remove(this.styleNames.timeControlHidden);
+            this._$rootElement.classList.remove(this.styleNames.timeControlHidden);
         };
         BottomBlockView.prototype.hideTimeControl = function () {
-            this._$node.classList.add(this.styleNames.timeControlHidden);
+            this._$rootElement.classList.add(this.styleNames.timeControlHidden);
         };
         BottomBlockView.prototype.showVolumeControl = function () {
-            this._$node.classList.remove(this.styleNames.volumeControlHidden);
+            this._$rootElement.classList.remove(this.styleNames.volumeControlHidden);
         };
         BottomBlockView.prototype.hideVolumeControl = function () {
-            this._$node.classList.add(this.styleNames.volumeControlHidden);
+            this._$rootElement.classList.add(this.styleNames.volumeControlHidden);
         };
         BottomBlockView.prototype.showFullScreenControl = function () {
-            this._$node.classList.remove(this.styleNames.fullScreenControlHidden);
+            this._$rootElement.classList.remove(this.styleNames.fullScreenControlHidden);
         };
         BottomBlockView.prototype.hideFullScreenControl = function () {
-            this._$node.classList.add(this.styleNames.fullScreenControlHidden);
+            this._$rootElement.classList.add(this.styleNames.fullScreenControlHidden);
         };
         BottomBlockView.prototype.showLogo = function () {
-            this._$node.classList.remove(this.styleNames.logoHidden);
+            this._$rootElement.classList.remove(this.styleNames.logoHidden);
         };
         BottomBlockView.prototype.hideLogo = function () {
-            this._$node.classList.add(this.styleNames.logoHidden);
+            this._$rootElement.classList.add(this.styleNames.logoHidden);
         };
         BottomBlockView.prototype.showProgressControl = function () {
-            this._$node.classList.remove(this.styleNames.progressControlHidden);
+            this._$rootElement.classList.remove(this.styleNames.progressControlHidden);
         };
         BottomBlockView.prototype.hideProgressControl = function () {
-            this._$node.classList.add(this.styleNames.progressControlHidden);
+            this._$rootElement.classList.add(this.styleNames.progressControlHidden);
         };
         BottomBlockView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         BottomBlockView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         BottomBlockView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         BottomBlockView.prototype.showContent = function () {
-            this._$node.classList.add(this.styleNames.activated);
+            this._$rootElement.classList.add(this.styleNames.activated);
         };
         BottomBlockView.prototype.hideContent = function () {
-            this._$node.classList.remove(this.styleNames.activated);
+            this._$rootElement.classList.remove(this.styleNames.activated);
         };
         BottomBlockView.prototype.destroy = function () {
             this._unbindEvents();
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
         };
         return BottomBlockView;
     }(View));
@@ -7052,14 +7104,14 @@
             return _this;
         }
         Tooltip.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$18({
+            this._$rootElement = htmlToElement(anonymous$18({
                 styles: this.styleNames,
             }));
-            this._$tooltipInner = getElementByHook(this._$node, 'tooltipInner');
+            this._$tooltipInner = getElementByHook(this._$rootElement, 'tooltipInner');
         };
         Object.defineProperty(Tooltip.prototype, "node", {
             get: function () {
-                return this._$node;
+                return this._$rootElement;
             },
             enumerable: true,
             configurable: true
@@ -7076,37 +7128,26 @@
                 return;
             }
             this._isHidden = false;
-            this._$node.classList.add(this.styleNames.tooltipVisible);
+            this._$rootElement.classList.add(this.styleNames.tooltipVisible);
         };
         Tooltip.prototype.hide = function () {
             if (this._isHidden) {
                 return;
             }
             this._isHidden = true;
-            this._$node.classList.remove(this.styleNames.tooltipVisible);
+            this._$rootElement.classList.remove(this.styleNames.tooltipVisible);
         };
         Tooltip.prototype.setText = function (text) {
-            this.clearElement();
             this._$tooltipInner.innerText = text;
-        };
-        Tooltip.prototype.clearElement = function () {
-            this._$tooltipInner.firstChild &&
-                this._$tooltipInner.removeChild(this._$tooltipInner.firstChild);
-        };
-        Tooltip.prototype.setElement = function (element) {
-            this.clearElement();
-            if (element) {
-                this._$tooltipInner.appendChild(element);
-            }
         };
         Tooltip.prototype.setStyle = function (style) {
             var _this = this;
             Object.keys(style).forEach(function (styleKey) {
-                _this._$node.style[styleKey] = style[styleKey];
+                _this._$rootElement.style[styleKey] = style[styleKey];
             });
         };
         Tooltip.prototype.destroy = function () {
-            this._$node = null;
+            this._$rootElement = null;
             this._$tooltipInner = null;
         };
         return Tooltip;
@@ -7181,7 +7222,6 @@
             }
             this._tooltipService.show({
                 text: this._options.text,
-                element: this._options.element,
                 position: getTooltipPositionByReferenceNode(this._$reference, this._tooltipService.tooltipContainerNode),
             });
         };
@@ -7226,20 +7266,20 @@
         }
         Object.defineProperty(TooltipContainer.prototype, "node", {
             get: function () {
-                return this._$node;
+                return this._$rootElement;
             },
             enumerable: true,
             configurable: true
         });
         TooltipContainer.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$19({
+            this._$rootElement = htmlToElement(anonymous$19({
                 styles: this.styleNames,
             }));
-            this._$node.appendChild(this._tooltip.node);
+            this._$rootElement.appendChild(this._tooltip.node);
         };
         TooltipContainer.prototype.getTooltipPositionStyles = function (position) {
             if (typeof position === 'function') {
-                position = position(this._$node);
+                position = position(this._$rootElement);
             }
             if (position.placement === ITooltipPositionPlacement.TOP) {
                 return {
@@ -7256,11 +7296,11 @@
         };
         TooltipContainer.prototype.destroy = function () {
             this._tooltip = null;
-            this._$node = null;
+            this._$rootElement = null;
         };
         TooltipContainer.prototype._getTooltipLeftX = function (tooltipCenterX) {
             var tooltipRect = this._tooltip.node.getBoundingClientRect();
-            var tooltipContainerRect = this._$node.getBoundingClientRect();
+            var tooltipContainerRect = this._$rootElement.getBoundingClientRect();
             var tooltipLeftX = tooltipCenterX - tooltipRect.width / 2;
             // ensure `x` is in range of placeholder rect
             tooltipLeftX = Math.max(tooltipLeftX, 0);
@@ -7307,17 +7347,9 @@
          */
         TooltipService.prototype.show = function (options) {
             // NOTE: its important to set tooltip text before update tooltip position styles
-            if (options.element) {
-                this._tooltip.setElement(options.element);
-            }
-            else {
-                this._tooltip.setText(options.text);
-            }
+            this._tooltip.setText(options.text);
             this._tooltip.setStyle(this._tooltipContainer.getTooltipPositionStyles(options.position));
             this._tooltip.show();
-        };
-        TooltipService.prototype.clearElement = function () {
-            this._tooltip.clearElement();
         };
         /**
          * Hide tooltip
@@ -7408,12 +7440,11 @@
         __extends(ProgressView, _super);
         function ProgressView(config) {
             var _this = this;
-            var callbacks = config.callbacks, textMap = config.textMap, tooltipService = config.tooltipService, theme = config.theme, thumbnails = config.thumbnails;
+            var callbacks = config.callbacks, textMap = config.textMap, tooltipService = config.tooltipService, theme = config.theme;
             _this = _super.call(this, theme) || this;
             _this._callbacks = callbacks;
             _this._textMap = textMap;
             _this._tooltipService = tooltipService;
-            _this._thumbnails = thumbnails;
             _this._initDOM();
             _this._bindCallbacks();
             _this._bindEvents();
@@ -7423,20 +7454,20 @@
             return _this;
         }
         ProgressView.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$20({
+            this._$rootElement = htmlToElement(anonymous$20({
                 styles: this.styleNames,
                 themeStyles: this.themeStyles,
             }));
-            this._$played = getElementByHook(this._$node, 'progress-played');
-            this._$buffered = getElementByHook(this._$node, 'progress-buffered');
-            this._$seekTo = getElementByHook(this._$node, 'progress-seek-to');
-            this._$timeIndicators = getElementByHook(this._$node, 'progress-time-indicators');
-            this._$seekButton = getElementByHook(this._$node, 'progress-seek-button');
-            this._$syncButton = getElementByHook(this._$node, 'progress-sync-button');
+            this._$played = getElementByHook(this._$rootElement, 'progress-played');
+            this._$buffered = getElementByHook(this._$rootElement, 'progress-buffered');
+            this._$seekTo = getElementByHook(this._$rootElement, 'progress-seek-to');
+            this._$timeIndicators = getElementByHook(this._$rootElement, 'progress-time-indicators');
+            this._$seekButton = getElementByHook(this._$rootElement, 'progress-seek-button');
+            this._$syncButton = getElementByHook(this._$rootElement, 'progress-sync-button');
             this._syncButtonTooltipReference = this._tooltipService.createReference(this._$syncButton, {
                 text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
             });
-            this._$hitbox = getElementByHook(this._$node, 'progress-hitbox');
+            this._$hitbox = getElementByHook(this._$rootElement, 'progress-hitbox');
         };
         ProgressView.prototype._bindCallbacks = function () {
             this._setPlayedByDrag = this._setPlayedByDrag.bind(this);
@@ -7490,12 +7521,10 @@
         ProgressView.prototype._startSeekToByMouse = function (event) {
             var percent = getPercentBasedOnXPosition(event, this._$hitbox);
             this._setSeekToDOMAttributes(percent);
-            this._thumbnails.showAtPercent(percent);
             this._callbacks.onSeekToByMouseStart(percent);
         };
         ProgressView.prototype._stopSeekToByMouse = function () {
             this._setSeekToDOMAttributes(0);
-            this._thumbnails.clear();
             this._callbacks.onSeekToByMouseEnd();
         };
         ProgressView.prototype._setPlayedByDrag = function (event) {
@@ -7508,22 +7537,22 @@
         ProgressView.prototype._startDrag = function () {
             this._isDragging = true;
             this._callbacks.onDragStart();
-            this._$node.classList.add(this.styleNames.isDragging);
+            this._$rootElement.classList.add(this.styleNames.isDragging);
         };
         ProgressView.prototype._stopDrag = function () {
             if (this._isDragging) {
                 this._isDragging = false;
                 this._callbacks.onDragEnd();
-                this._$node.classList.remove(this.styleNames.isDragging);
+                this._$rootElement.classList.remove(this.styleNames.isDragging);
             }
         };
         ProgressView.prototype._setSeekToDOMAttributes = function (percent) {
             this._$seekTo.setAttribute('style', "width:" + percent + "%;");
         };
         ProgressView.prototype._setPlayedDOMAttributes = function (percent) {
-            this._$node.setAttribute('aria-valuetext', this._textMap.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent: percent }));
-            this._$node.setAttribute('aria-valuenow', String(percent));
-            this._$node.setAttribute(DATA_PLAYED, String(percent));
+            this._$rootElement.setAttribute('aria-valuetext', this._textMap.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent: percent }));
+            this._$rootElement.setAttribute('aria-valuenow', String(percent));
+            this._$rootElement.setAttribute(DATA_PLAYED, String(percent));
             this._$played.setAttribute('style', "width:" + percent + "%;");
             this._$seekButton.setAttribute('style', "left:" + percent + "%;");
         };
@@ -7540,7 +7569,7 @@
             this._$syncButton.classList.add(this.styleNames.hidden);
         };
         ProgressView.prototype.setLiveSyncStatus = function (isSync) {
-            toggleNodeClass(this._$syncButton, this.styleNames.liveSync, isSync);
+            toggleElementClass(this._$syncButton, this.styleNames.liveSync, isSync);
             if (isSync) {
                 this._syncButtonTooltipReference.disable();
                 this._$played.setAttribute('style', "width:100%;");
@@ -7553,10 +7582,8 @@
         ProgressView.prototype.showProgressTimeTooltip = function (_a) {
             var _this = this;
             var time = _a.time, percent = _a.percent;
-            this._thumbnails.setTime(formatTime(time));
             this._tooltipService.show({
-                //text: formatTime(time),
-                element: this._thumbnails.node,
+                text: formatTime(time),
                 position: function (tooltipContainerNode) {
                     return getProgressTimeTooltipPosition(percent, _this._$hitbox, tooltipContainerNode);
                 },
@@ -7566,11 +7593,11 @@
             this._tooltipService.hide();
         };
         ProgressView.prototype.setLiveMode = function () {
-            this._$node.classList.add(this.styleNames.inLive);
+            this._$rootElement.classList.add(this.styleNames.inLive);
             this.showSyncWithLive();
         };
         ProgressView.prototype.setUsualMode = function () {
-            this._$node.classList.remove(this.styleNames.inLive);
+            this._$rootElement.classList.remove(this.styleNames.inLive);
             this.hideSyncWithLive();
         };
         ProgressView.prototype.setPlayed = function (percent) {
@@ -7589,23 +7616,23 @@
             this._$timeIndicators.innerHTML = '';
         };
         ProgressView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         ProgressView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         ProgressView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         ProgressView.prototype.destroy = function () {
             this._unbindEvents();
             this._callbacks = null;
             this._syncButtonTooltipReference.destroy();
             this._syncButtonTooltipReference = null;
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
             this._$buffered = null;
             this._$hitbox = null;
             this._$played = null;
@@ -7668,13 +7695,12 @@
     var UPDATE_INTERVAL_DELAY = 1000 / 60;
     var ProgressControl = /** @class */ (function () {
         function ProgressControl(_a) {
-            var engine = _a.engine, liveStateEngine = _a.liveStateEngine, eventEmitter = _a.eventEmitter, textMap = _a.textMap, tooltipService = _a.tooltipService, theme = _a.theme, thumbnails = _a.thumbnails;
+            var engine = _a.engine, liveStateEngine = _a.liveStateEngine, eventEmitter = _a.eventEmitter, textMap = _a.textMap, tooltipService = _a.tooltipService, theme = _a.theme;
             this._engine = engine;
             this._liveStateEngine = liveStateEngine;
             this._eventEmitter = eventEmitter;
             this._textMap = textMap;
             this._tooltipService = tooltipService;
-            this._thumbnails = thumbnails;
             this._isUserInteracting = false;
             this._currentProgress = 0;
             this._theme = theme;
@@ -7713,7 +7739,6 @@
                     onDragStart: this._onUserInteractionStarts,
                     onDragEnd: this._onUserInteractionEnds,
                 },
-                thumbnails: this._thumbnails,
                 theme: this._theme,
                 textMap: this._textMap,
                 tooltipService: this._tooltipService,
@@ -7722,6 +7747,7 @@
         };
         ProgressControl.prototype._initInterceptor = function () {
             var _this = this;
+            var _a;
             this._interceptor = new KeyboardInterceptorCore(this.view.getNode(), (_a = {}, _a[KEYCODES.UP_ARROW] = function (e) {
                     e.stopPropagation();
                     e.preventDefault();
@@ -7747,7 +7773,6 @@
                     _this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
                     _this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
                 }, _a));
-            var _a;
         };
         ProgressControl.prototype._destroyInterceptor = function () {
             this._interceptor.destroy();
@@ -7956,6 +7981,7 @@
          */
         ProgressControl.prototype.addTimeIndicators = function (times) {
             var _this = this;
+            var _a;
             if (!this._engine.isMetadataLoaded) {
                 // NOTE: Add indicator after metadata loaded
                 (_a = this._timeIndicatorsToAdd).push.apply(_a, times);
@@ -7964,7 +7990,6 @@
             times.forEach(function (time) {
                 _this._addTimeIndicator(time);
             });
-            var _a;
         };
         /**
          * Delete all time indicators from progress bar
@@ -8013,7 +8038,6 @@
             'textMap',
             'tooltipService',
             'theme',
-            'thumbnails',
         ];
         __decorate([
             playerAPI()
@@ -8061,13 +8085,13 @@
             _this = _super.call(this, theme) || this;
             _this._callbacks = callbacks;
             _this._textMap = textMap;
-            _this._$node = htmlToElement(anonymous$24({
+            _this._$rootElement = htmlToElement(anonymous$24({
                 styles: _this.styleNames,
                 texts: {
                     label: _this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
                 },
             }));
-            _this._$playbackControl = getElementByHook(_this._$node, 'playback-control');
+            _this._$playbackControl = getElementByHook(_this._$rootElement, 'playback-control');
             _this.setState({ isPlaying: false });
             _this._bindEvents();
             return _this;
@@ -8101,25 +8125,25 @@
                 });
                 this._$playbackControl.setAttribute('aria-label', this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL));
             }
-            this._$node.setAttribute(DATA_IS_PLAYING, String(isPlaying));
+            this._$rootElement.setAttribute(DATA_IS_PLAYING, String(isPlaying));
         };
         PlayView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         PlayView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         PlayView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         PlayView.prototype.destroy = function () {
             this._unbindEvents();
             this._callbacks = null;
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
             this._$playbackControl = null;
-            this._$node = null;
+            this._$rootElement = null;
             this._textMap = null;
         };
         return PlayView;
@@ -8150,6 +8174,7 @@
         });
         PlayControl.prototype._initInterceptor = function () {
             var _this = this;
+            var _a;
             this._interceptor = new KeyboardInterceptorCore(this.node, (_a = {}, _a[KEYCODES.SPACE_BAR] = function (e) {
                     e.stopPropagation();
                     _this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
@@ -8157,7 +8182,6 @@
                     e.stopPropagation();
                     _this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED);
                 }, _a));
-            var _a;
         };
         PlayControl.prototype._destroyInterceptor = function () {
             this._interceptor.destroy();
@@ -8255,9 +8279,9 @@
             return _this;
         }
         TimeView.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$25({ styles: this.styleNames, themeStyles: this.themeStyles }));
-            this._$currentTime = getElementByHook(this._$node, 'current-time-indicator');
-            this._$durationTime = getElementByHook(this._$node, 'duration-time-indicator');
+            this._$rootElement = htmlToElement(anonymous$25({ styles: this.styleNames, themeStyles: this.themeStyles }));
+            this._$currentTime = getElementByHook(this._$rootElement, 'current-time-indicator');
+            this._$durationTime = getElementByHook(this._$rootElement, 'duration-time-indicator');
         };
         TimeView.prototype.setDurationTime = function (duration) {
             if (duration !== this._duration) {
@@ -8293,21 +8317,21 @@
             this._$durationTime.classList.add(this.styleNames.hidden);
         };
         TimeView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         TimeView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         TimeView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         TimeView.prototype.destroy = function () {
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
             this._$currentTime = null;
             this._$durationTime = null;
-            this._$node = null;
+            this._$rootElement = null;
         };
         return TimeView;
     }(View));
@@ -8506,7 +8530,7 @@
             return _this;
         }
         VolumeView.prototype._initDOM = function () {
-            this._$node = htmlToElement(anonymous$29({
+            this._$rootElement = htmlToElement(anonymous$29({
                 styles: this.styleNames,
                 themeStyles: this.themeStyles,
                 texts: {
@@ -8514,10 +8538,10 @@
                     volumeLabel: this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
                 },
             }));
-            this._$muteButton = getElementByHook(this._$node, 'mute-button');
-            this._$volumeNode = getElementByHook(this._$node, 'volume-input-block');
-            this._$hitbox = getElementByHook(this._$node, 'volume-hitbox');
-            this._$volume = getElementByHook(this._$node, 'volume-input');
+            this._$muteButton = getElementByHook(this._$rootElement, 'mute-button');
+            this._$volumeNode = getElementByHook(this._$rootElement, 'volume-input-block');
+            this._$hitbox = getElementByHook(this._$rootElement, 'volume-hitbox');
+            this._$volume = getElementByHook(this._$rootElement, 'volume-input');
             this._muteButtonTooltipReference = this._tooltipService.createReference(this._$muteButton, {
                 text: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
             });
@@ -8578,13 +8602,13 @@
         };
         VolumeView.prototype._startDrag = function () {
             this._isDragging = true;
-            this._$node.classList.add(this.styleNames.isDragging);
+            this._$rootElement.classList.add(this.styleNames.isDragging);
             this._callbacks.onDragStart();
         };
         VolumeView.prototype._stopDrag = function () {
             if (this._isDragging) {
                 this._isDragging = false;
-                this._$node.classList.remove(this.styleNames.isDragging);
+                this._$rootElement.classList.remove(this.styleNames.isDragging);
                 this._callbacks.onDragEnd();
             }
         };
@@ -8594,7 +8618,7 @@
             this._$volumeNode.setAttribute('aria-valuenow', String(percent));
             this._$volumeNode.setAttribute(DATA_VOLUME, String(percent));
             this._$volume.setAttribute('style', "width:" + percent + "%;");
-            this._$node.setAttribute(DATA_VOLUME, String(percent));
+            this._$rootElement.setAttribute(DATA_VOLUME, String(percent));
             var iconTemplateProps = {
                 styles: this.styleNames,
                 themeStyles: this.themeStyles,
@@ -8626,7 +8650,7 @@
                     themeStyles: this.themeStyles,
                 });
             }
-            this._$node.setAttribute(DATA_IS_MUTED, String(isMuted));
+            this._$rootElement.setAttribute(DATA_IS_MUTED, String(isMuted));
             this._$muteButton.setAttribute('aria-label', isMuted
                 ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
                 : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL));
@@ -8635,13 +8659,13 @@
                 : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP));
         };
         VolumeView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         VolumeView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         VolumeView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         VolumeView.prototype.getButtonNode = function () {
             return this._$muteButton;
@@ -8654,11 +8678,11 @@
             this._callbacks = null;
             this._muteButtonTooltipReference.destroy();
             this._muteButtonTooltipReference = null;
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
             this._$muteButton = null;
-            this._$node = null;
+            this._$rootElement = null;
             this._textMap = null;
         };
         return VolumeView;
@@ -8707,6 +8731,7 @@
         };
         VolumeControl.prototype._initInterceptor = function () {
             var _this = this;
+            var _a, _b;
             this._buttonInterceptor = new KeyboardInterceptorCore(this.view.getButtonNode(), (_a = {}, _a[KEYCODES.SPACE_BAR] = function (e) {
                     e.stopPropagation();
                     _this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
@@ -8735,7 +8760,6 @@
                     _this._engine.setMute(false);
                     _this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
                 }, _b));
-            var _a, _b;
         };
         VolumeControl.prototype._destroyInterceptor = function () {
             this._buttonInterceptor.destroy();
@@ -8862,13 +8886,13 @@
             _this = _super.call(this, theme) || this;
             _this._callbacks = callbacks;
             _this._textMap = textMap;
-            _this._$node = htmlToElement(anonymous$32({
+            _this._$rootElement = htmlToElement(anonymous$32({
                 styles: _this.styleNames,
                 texts: {
                     label: _this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
                 },
             }));
-            _this._$toggleFullScreenControl = getElementByHook(_this._$node, 'full-screen-button');
+            _this._$toggleFullScreenControl = getElementByHook(_this._$rootElement, 'full-screen-button');
             _this._tooltipReference = tooltipService.createReference(_this._$toggleFullScreenControl, {
                 text: _this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
             });
@@ -8887,6 +8911,7 @@
             this._$toggleFullScreenControl.focus();
             this._callbacks.onButtonClick();
         };
+        //TODO: No need to create icons every tims on setState
         FullScreenView.prototype.setState = function (_a) {
             var isInFullScreen = _a.isInFullScreen;
             if (isInFullScreen) {
@@ -8907,27 +8932,27 @@
                 this._$toggleFullScreenControl.setAttribute('aria-label', this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL));
                 this._tooltipReference.setText(this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP));
             }
-            this._$node.setAttribute(DATA_IS_IN_FULL_SCREEN, String(isInFullScreen));
+            this._$rootElement.setAttribute(DATA_IS_IN_FULL_SCREEN, String(isInFullScreen));
         };
         FullScreenView.prototype.hide = function () {
-            this._$node.classList.add(this.styleNames.hidden);
+            this._$rootElement.classList.add(this.styleNames.hidden);
         };
         FullScreenView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         FullScreenView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         FullScreenView.prototype.destroy = function () {
             this._unbindEvents();
             this._callbacks = null;
             this._tooltipReference.destroy();
             this._tooltipReference = null;
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
             this._$toggleFullScreenControl = null;
-            this._$node = null;
+            this._$rootElement = null;
             this._textMap = null;
         };
         return FullScreenView;
@@ -8979,6 +9004,7 @@
         };
         FullScreenControl.prototype._initInterceptor = function () {
             var _this = this;
+            var _a;
             this._interceptor = new KeyboardInterceptorCore(this.node, (_a = {}, _a[KEYCODES.SPACE_BAR] = function (e) {
                     e.stopPropagation();
                     _this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
@@ -8986,7 +9012,6 @@
                     e.stopPropagation();
                     _this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
                 }, _a));
-            var _a;
         };
         FullScreenControl.prototype._destroyInterceptor = function () {
             this._interceptor.destroy();
@@ -9054,15 +9079,15 @@
             var callbacks = config.callbacks, textMap = config.textMap, tooltipService = config.tooltipService;
             _this._callbacks = callbacks;
             _this._textMap = textMap;
-            _this._$node = htmlToElement(anonymous$33({
+            _this._$rootElement = htmlToElement(anonymous$33({
                 styles: _this.styleNames,
                 texts: {
                     label: _this._textMap.get(TEXT_LABELS.LOGO_LABEL),
                 },
             }));
-            _this._$logo = getElementByHook(_this._$node, 'company-logo');
-            _this._$placeholder = getElementByHook(_this._$node, 'logo-placeholder');
-            _this._tooltipReference = tooltipService.createReference(_this._$node, {
+            _this._$logo = getElementByHook(_this._$rootElement, 'company-logo');
+            _this._$placeholder = getElementByHook(_this._$rootElement, 'logo-placeholder');
+            _this._tooltipReference = tooltipService.createReference(_this._$rootElement, {
                 text: _this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
             });
             _this.setLogo(config.logo);
@@ -9084,11 +9109,11 @@
         };
         LogoView.prototype.setDisplayAsLink = function (flag) {
             if (flag) {
-                this._$node.classList.add(this.styleNames.link);
+                this._$rootElement.classList.add(this.styleNames.link);
                 this._tooltipReference.enable();
             }
             else {
-                this._$node.classList.remove(this.styleNames.link);
+                this._$rootElement.classList.remove(this.styleNames.link);
                 this._tooltipReference.disable();
             }
         };
@@ -9096,33 +9121,33 @@
             this._onNodeClick = this._onNodeClick.bind(this);
         };
         LogoView.prototype._bindEvents = function () {
-            this._$node.addEventListener('click', this._onNodeClick);
+            this._$rootElement.addEventListener('click', this._onNodeClick);
         };
         LogoView.prototype._unbindEvents = function () {
-            this._$node.removeEventListener('click', this._onNodeClick);
+            this._$rootElement.removeEventListener('click', this._onNodeClick);
         };
         LogoView.prototype._onNodeClick = function () {
-            this._$node.focus();
+            this._$rootElement.focus();
             this._callbacks.onLogoClick();
         };
         LogoView.prototype.show = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         LogoView.prototype.hide = function () {
-            this._$node.classList.remove(this.styleNames.hidden);
+            this._$rootElement.classList.remove(this.styleNames.hidden);
         };
         LogoView.prototype.getNode = function () {
-            return this._$node;
+            return this._$rootElement;
         };
         LogoView.prototype.destroy = function () {
             this._unbindEvents();
             this._callbacks = null;
             this._tooltipReference.destroy();
             this._tooltipReference = null;
-            if (this._$node.parentNode) {
-                this._$node.parentNode.removeChild(this._$node);
+            if (this._$rootElement.parentNode) {
+                this._$rootElement.parentNode.removeChild(this._$rootElement);
             }
-            this._$node = null;
+            this._$rootElement = null;
             this._$logo = null;
             this._$placeholder = null;
             this._tooltipReference = null;
@@ -9167,6 +9192,7 @@
         };
         Logo.prototype._initInterceptor = function () {
             var _this = this;
+            var _a;
             this._interceptor = new KeyboardInterceptorCore(this.node, (_a = {}, _a[KEYCODES.SPACE_BAR] = function (e) {
                     e.stopPropagation();
                     _this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
@@ -9176,7 +9202,6 @@
                     _this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
                     _this._triggerCallback();
                 }, _a));
-            var _a;
         };
         Logo.prototype._destroyInterceptor = function () {
             this._interceptor.destroy();
@@ -9239,169 +9264,6 @@
         return Logo;
     }());
 
-    function anonymous$34(props
-    /*``*/) {
-    var out='<div class="'+(props.styles.container)+'"> <div class="'+(props.styles.highQualityThumb)+'" data-hook="high-quality-thumb" > </div> <div class="'+(props.styles.lowQualityThumb)+'" data-hook="low-quality-thumb"> </div> <img class="'+(props.styles.highQualityLoader)+'" data-hook="high-quality-loader" /> <img class="'+(props.styles.lowQualityLoader)+'" data-hook="low-quality-loader" /> <div class="'+(props.styles.thumbText)+'" data-hook="thumb-text-block"> </div></div>';return out;
-    }
-
-    var css$19 = ".thumbnails__container___3b5xi {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: reverse;\n      -ms-flex-direction: column-reverse;\n          flex-direction: column-reverse;\n  width: 180px;\n  height: 90px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.thumbnails__highQualityThumb___3lKoJ {\n  position: absolute;\n  z-index: 2;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n\n.thumbnails__lowQualityThumb___2w2SL {\n  position: absolute;\n  z-index: 1;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0; }\n\n.thumbnails__highQualityLoader___3MIiC {\n  width: 1px;\n  height: 1px;\n  opacity: .1; }\n\n.thumbnails__lowQualityLoader___2BIpo {\n  width: 1px;\n  height: 1px;\n  opacity: .1; }\n\n.thumbnails__thumbText___2uKEQ {\n  position: relative;\n  z-index: 3;\n  bottom: -5px;\n  padding: 2px 5px;\n  background-color: rgba(0, 0, 0, 0.8); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRodW1ibmFpbHMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHFCQUFjO0VBQWQscUJBQWM7RUFBZCxjQUFjO0VBQ2QsNkJBQStCO0VBQS9CLCtCQUErQjtNQUEvQixtQ0FBK0I7VUFBL0IsK0JBQStCO0VBQy9CLGFBQWE7RUFDYixhQUFhO0VBQ2IsMEJBQW9CO01BQXBCLHVCQUFvQjtVQUFwQixvQkFBb0IsRUFBRTs7QUFFeEI7RUFDRSxtQkFBbUI7RUFDbkIsV0FBVztFQUNYLE9BQU87RUFDUCxTQUFTO0VBQ1QsVUFBVTtFQUNWLFFBQVEsRUFBRTs7QUFFWjtFQUNFLG1CQUFtQjtFQUNuQixXQUFXO0VBQ1gsT0FBTztFQUNQLFNBQVM7RUFDVCxVQUFVO0VBQ1YsUUFBUSxFQUFFOztBQUVaO0VBQ0UsV0FBVztFQUNYLFlBQVk7RUFDWixZQUFZLEVBQUU7O0FBRWhCO0VBQ0UsV0FBVztFQUNYLFlBQVk7RUFDWixZQUFZLEVBQUU7O0FBRWhCO0VBQ0UsbUJBQW1CO0VBQ25CLFdBQVc7RUFDWCxhQUFhO0VBQ2IsaUJBQWlCO0VBQ2pCLHFDQUFxQyxFQUFFIiwiZmlsZSI6InRodW1ibmFpbHMuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uLXJldmVyc2U7XG4gIHdpZHRoOiAxODBweDtcbiAgaGVpZ2h0OiA5MHB4O1xuICBhbGlnbi1pdGVtczogY2VudGVyOyB9XG5cbi5oaWdoUXVhbGl0eVRodW1iIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB6LWluZGV4OiAyO1xuICB0b3A6IDA7XG4gIHJpZ2h0OiAwO1xuICBib3R0b206IDA7XG4gIGxlZnQ6IDA7IH1cblxuLmxvd1F1YWxpdHlUaHVtYiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgei1pbmRleDogMTtcbiAgdG9wOiAwO1xuICByaWdodDogMDtcbiAgYm90dG9tOiAwO1xuICBsZWZ0OiAwOyB9XG5cbi5oaWdoUXVhbGl0eUxvYWRlciB7XG4gIHdpZHRoOiAxcHg7XG4gIGhlaWdodDogMXB4O1xuICBvcGFjaXR5OiAuMTsgfVxuXG4ubG93UXVhbGl0eUxvYWRlciB7XG4gIHdpZHRoOiAxcHg7XG4gIGhlaWdodDogMXB4O1xuICBvcGFjaXR5OiAuMTsgfVxuXG4udGh1bWJUZXh0IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB6LWluZGV4OiAzO1xuICBib3R0b206IC01cHg7XG4gIHBhZGRpbmc6IDJweCA1cHg7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC44KTsgfVxuIl19 */";
-    var styleNames = {"container":"thumbnails__container___3b5xi","highQualityThumb":"thumbnails__highQualityThumb___3lKoJ","lowQualityThumb":"thumbnails__lowQualityThumb___2w2SL","highQualityLoader":"thumbnails__highQualityLoader___3MIiC","lowQualityLoader":"thumbnails__lowQualityLoader___2BIpo","thumbText":"thumbnails__thumbText___2uKEQ"};
-    styleInject(css$19);
-
-    var Thumbnails = /** @class */ (function () {
-        function Thumbnails(_a) {
-            var rootContainer = _a.rootContainer, engine = _a.engine;
-            this._engine = engine;
-            this._bindCallbacks();
-            this._initUI();
-            rootContainer.appendComponentNode(this.node);
-        }
-        Thumbnails.prototype._initUI = function () {
-            this._node = htmlToElement(anonymous$34({
-                styles: styleNames,
-            }));
-            this._lowLoader = getElementByHook(this._node, 'low-quality-loader');
-            this._highLoader = getElementByHook(this._node, 'high-quality-loader');
-            this._textBlock = getElementByHook(this._node, 'thumb-text-block');
-            this._node_high = getElementByHook(this._node, 'high-quality-thumb');
-            this._node_low = getElementByHook(this._node, 'low-quality-thumb');
-        };
-        Thumbnails.prototype._bindCallbacks = function () {
-            this._onLowQualityLoad = this._onLowQualityLoad.bind(this);
-            this._onHighQualityLoad = this._onHighQualityLoad.bind(this);
-        };
-        Object.defineProperty(Thumbnails.prototype, "node", {
-            get: function () {
-                return this._node;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Thumbnails.prototype.setConfig = function (config) {
-            this._config = config;
-        };
-        Thumbnails.prototype.getAt = function (second) {
-            var duration = this._engine.getDurationTime();
-            if (!duration) {
-                return;
-            }
-            var playedPercent = second / duration;
-            var framesCount = this._config.framesCount;
-            var neededFrame = Math.round(framesCount * playedPercent);
-            return this._config.qualities.map(function (quality) {
-                var framesInSprite = quality.framesInSprite.vert * quality.framesInSprite.horz;
-                var frameNumberInSprite = neededFrame % framesInSprite;
-                var spriteNumber = Math.floor(neededFrame / framesInSprite);
-                var horzPositionInSprite = frameNumberInSprite % quality.framesInSprite.horz;
-                var vertPositionInSprite = Math.floor(frameNumberInSprite / quality.framesInSprite.vert);
-                var url = "https://storage.googleapis.com/video-player-media-server-static/thumbnails/" + quality.spriteNameMask.replace('%d', spriteNumber);
-                return {
-                    frameSize: quality.frameSize,
-                    framesInSprite: (spriteNumber + 1) * framesInSprite <= framesCount
-                        ? quality.framesInSprite
-                        : {
-                            horz: Math.min(framesCount % framesInSprite, quality.framesInSprite.horz),
-                            vert: Math.ceil((framesCount % framesInSprite) / quality.framesInSprite.vert),
-                        },
-                    framePositionInSprite: {
-                        vert: vertPositionInSprite,
-                        horz: horzPositionInSprite,
-                    },
-                    spriteUrl: url,
-                };
-            });
-        };
-        Thumbnails.prototype.showAt = function (second) {
-            var config = this.getAt(second);
-            if (!config) {
-                return;
-            }
-            this._currentConfig = config;
-            this._checkHighQuality();
-            this._checkLowQuality();
-        };
-        Thumbnails.prototype._checkLowQuality = function () {
-            if (this._lowLoader.src === this._currentConfig[0].spriteUrl) {
-                if (!this._lowQualityLoading) {
-                    this._applyLowQuality();
-                }
-            }
-            else {
-                this._node_low.style.background = '';
-                this._loadLowQuality();
-            }
-        };
-        Thumbnails.prototype._checkHighQuality = function () {
-            if (this._highLoader.src === this._currentConfig[1].spriteUrl) {
-                if (!this._highQualityLoading) {
-                    this._applyHighQuality();
-                }
-            }
-            else {
-                this._node_high.style.background = '';
-                this._loadHighQuality();
-            }
-        };
-        Thumbnails.prototype._onLowQualityLoad = function () {
-            this._lowQualityLoading = false;
-            this._applyLowQuality();
-        };
-        Thumbnails.prototype._onHighQualityLoad = function () {
-            this._highQualityLoading = false;
-            this._applyHighQuality();
-        };
-        Thumbnails.prototype._loadLowQuality = function () {
-            this._lowLoader.onload = this._onLowQualityLoad;
-            this._lowLoader.src = this._currentConfig[0].spriteUrl;
-            this._lowQualityLoading = true;
-        };
-        Thumbnails.prototype._loadHighQuality = function () {
-            this._highLoader.onload = this._onHighQualityLoad;
-            this._highLoader.src = this._currentConfig[1].spriteUrl;
-            this._highQualityLoading = true;
-        };
-        Thumbnails.prototype._applyLowQuality = function () {
-            this._applyQualityToNode(this._node_low, this._currentConfig[0]);
-        };
-        Thumbnails.prototype._applyHighQuality = function () {
-            this._applyQualityToNode(this._node_high, this._currentConfig[1]);
-        };
-        Thumbnails.prototype._applyQualityToNode = function (node, quality) {
-            var viewWidth = node.offsetWidth;
-            var viewHeight = node.offsetHeight;
-            var backgroudWidth = viewWidth * quality.framesInSprite.horz;
-            var backgroundHeight = viewHeight * quality.framesInSprite.vert;
-            node.style.background = "url('" + quality.spriteUrl + "') -" + viewWidth *
-                quality.framePositionInSprite.horz + "px -" + viewHeight *
-                quality.framePositionInSprite
-                    .vert + "px / " + backgroudWidth + "px " + backgroundHeight + "px";
-        };
-        Thumbnails.prototype.setTime = function (time) {
-            this._textBlock.innerText = time;
-        };
-        Thumbnails.prototype.showAtPercent = function (percent) {
-            this.showAt(percent / 100 * this._engine.getDurationTime());
-        };
-        Thumbnails.prototype.clear = function () {
-            this._node.style.background = '';
-        };
-        Thumbnails.prototype.destroy = function () {
-            this._engine = null;
-        };
-        Thumbnails.moduleName = 'thumbnails';
-        Thumbnails.dependencies = ['rootContainer', 'engine'];
-        __decorate([
-            playerAPI()
-        ], Thumbnails.prototype, "setConfig", null);
-        __decorate([
-            playerAPI()
-        ], Thumbnails.prototype, "getAt", null);
-        __decorate([
-            playerAPI()
-        ], Thumbnails.prototype, "showAt", null);
-        return Thumbnails;
-    }());
-
     var asClass$1 = DependencyContainer.asClass;
     var modules = {
         RootContainer: RootContainer,
@@ -9428,7 +9290,6 @@
         VolumeControl: VolumeControl,
         FullScreenControl: FullScreenControl,
         Logo: Logo,
-        Thumbnails: Thumbnails,
         TooltipService: TooltipService,
     };
     var DIModules = Object.keys(modules).reduce(function (DIModules, key) {
