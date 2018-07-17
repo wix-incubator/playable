@@ -7,11 +7,11 @@ import {
 
 const defaultPlaybackAdapters = [
   getNativeAdapterCreator(
-    MediaStreamTypes.DASH,
+    MediaStreamTypes.HLS,
     MediaStreamDeliveryPriority.NATIVE_ADAPTIVE,
   ),
   getNativeAdapterCreator(
-    MediaStreamTypes.HLS,
+    MediaStreamTypes.DASH,
     MediaStreamDeliveryPriority.NATIVE_ADAPTIVE,
   ),
   getNativeAdapterCreator(
