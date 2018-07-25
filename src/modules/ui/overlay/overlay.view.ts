@@ -18,7 +18,7 @@ class OverlayView extends View<IOverlayViewStyles>
   implements IView<IOverlayViewStyles> {
   private _callbacks: IOverlayViewCallbacks;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$content: HTMLElement;
   private _$playButton: HTMLElement;
 
@@ -36,15 +36,18 @@ class OverlayView extends View<IOverlayViewStyles>
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       overlayTemplate({
         styles: this.styleNames,
         themeStyles: this.themeStyles,
       }),
     );
 
-    this._$content = getElementByHook(this._$node, 'overlay-content');
-    this._$playButton = getElementByHook(this._$node, 'overlay-play-button');
+    this._$content = getElementByHook(this._$rootElement, 'overlay-content');
+    this._$playButton = getElementByHook(
+      this._$rootElement,
+      'overlay-play-button',
+    );
   }
 
   private _bindEvents() {
@@ -56,23 +59,23 @@ class OverlayView extends View<IOverlayViewStyles>
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   hideContent() {
-    this._$node.classList.remove(this.styleNames.active);
+    this._$rootElement.classList.remove(this.styleNames.active);
   }
 
   showContent() {
-    this._$node.classList.add(this.styleNames.active);
+    this._$rootElement.classList.add(this.styleNames.active);
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   setPoster(src: string) {
@@ -82,11 +85,11 @@ class OverlayView extends View<IOverlayViewStyles>
   destroy() {
     this._unbindEvents();
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
     this._$content = null;
     this._$playButton = null;
   }

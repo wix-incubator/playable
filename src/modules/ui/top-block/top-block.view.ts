@@ -16,7 +16,7 @@ import styles from './top-block.scss';
 
 class TopBlockView extends View<ITopBlockViewStyles>
   implements IView<ITopBlockViewStyles> {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
 
   constructor(config: ITopBlockViewConfig) {
     super();
@@ -27,15 +27,18 @@ class TopBlockView extends View<ITopBlockViewStyles>
   }
 
   private _initDOM(elements: ITopBlockViewElements) {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       topBlockTemplate({
         styles: this.styleNames,
       }),
     );
 
-    const $titleContainer = getElementByHook(this._$node, 'title-container');
+    const $titleContainer = getElementByHook(
+      this._$rootElement,
+      'title-container',
+    );
     const $liveIndicatorContainer = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'live-indicator-container',
     );
 
@@ -48,40 +51,43 @@ class TopBlockView extends View<ITopBlockViewStyles>
   }
 
   private _bindEvents() {
-    this._$node.addEventListener('click', this._preventClickPropagation);
+    this._$rootElement.addEventListener('click', this._preventClickPropagation);
   }
 
   private _unbindEvents() {
-    this._$node.removeEventListener('click', this._preventClickPropagation);
+    this._$rootElement.removeEventListener(
+      'click',
+      this._preventClickPropagation,
+    );
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   showContent() {
-    this._$node.classList.add(this.styleNames.activated);
+    this._$rootElement.classList.add(this.styleNames.activated);
   }
 
   hideContent() {
-    this._$node.classList.remove(this.styleNames.activated);
+    this._$rootElement.classList.remove(this.styleNames.activated);
   }
 
   destroy() {
     this._unbindEvents();
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
   }
 }
 

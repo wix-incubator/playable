@@ -5,7 +5,7 @@ import { screenTemplate } from './templates';
 
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
-import toggleNodeClass from '../core/toggleNodeClass';
+import toggleElementClass from '../core/toggleElementClass';
 
 import {
   VideoViewMode,
@@ -20,7 +20,7 @@ class ScreenView extends View<IScreenViewStyles>
   implements IView<IScreenViewStyles> {
   private _callbacks: IScreenViewCallbacks;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$canvas: HTMLCanvasElement;
   private _$playbackNode: HTMLVideoElement;
   private _ctx: CanvasRenderingContext2D;
@@ -58,36 +58,39 @@ class ScreenView extends View<IScreenViewStyles>
   }
 
   private _initDOM(playbackViewNode: HTMLElement) {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       screenTemplate({
         styles: this.styleNames,
       }),
     );
 
     this._$playbackNode = playbackViewNode as HTMLVideoElement;
-    this._$node.appendChild(playbackViewNode);
+    this._$rootElement.appendChild(playbackViewNode);
 
     this._$canvas = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'background-canvas',
     ) as HTMLCanvasElement;
     this._ctx = this._$canvas.getContext('2d');
   }
 
   private _bindEvents() {
-    this._$node.addEventListener('click', this._callbacks.onWrapperMouseClick);
-    this._$node.addEventListener(
+    this._$rootElement.addEventListener(
+      'click',
+      this._callbacks.onWrapperMouseClick,
+    );
+    this._$rootElement.addEventListener(
       'dblclick',
       this._callbacks.onWrapperMouseDblClick,
     );
   }
 
   private _unbindEvents() {
-    this._$node.removeEventListener(
+    this._$rootElement.removeEventListener(
       'click',
       this._callbacks.onWrapperMouseClick,
     );
-    this._$node.removeEventListener(
+    this._$rootElement.removeEventListener(
       'dblclick',
       this._callbacks.onWrapperMouseDblClick,
     );
@@ -96,36 +99,40 @@ class ScreenView extends View<IScreenViewStyles>
   updateVideoAspectRatio(widthHeightRatio: number) {
     this._widthHeightRatio = widthHeightRatio;
     const isHorizontal = this._widthHeightRatio > 1;
-    toggleNodeClass(this._$node, this.styleNames.horizontalVideo, isHorizontal);
-    toggleNodeClass(this._$node, this.styleNames.verticalVideo, !isHorizontal);
+    toggleElementClass(
+      this._$rootElement,
+      this.styleNames.horizontalVideo,
+      isHorizontal,
+    );
+    toggleElementClass(
+      this._$rootElement,
+      this.styleNames.verticalVideo,
+      !isHorizontal,
+    );
   }
 
   focusOnNode() {
-    this._$node.focus();
+    this._$rootElement.focus();
   }
 
   show() {
-    toggleNodeClass(this._$node, this.styleNames.hidden, false);
+    toggleElementClass(this._$rootElement, this.styleNames.hidden, false);
   }
 
   hide() {
-    toggleNodeClass(this._$node, this.styleNames.hidden, true);
+    toggleElementClass(this._$rootElement, this.styleNames.hidden, true);
   }
 
   getNode() {
-    return this._$node;
-  }
-
-  appendComponentNode(node: HTMLElement) {
-    this._$node.appendChild(node);
+    return this._$rootElement;
   }
 
   hideCursor() {
-    toggleNodeClass(this._$node, this.styleNames.hiddenCursor, true);
+    toggleElementClass(this._$rootElement, this.styleNames.hiddenCursor, true);
   }
 
   showCursor() {
-    toggleNodeClass(this._$node, this.styleNames.hiddenCursor, false);
+    toggleElementClass(this._$rootElement, this.styleNames.hiddenCursor, false);
   }
 
   setViewMode(viewMode: VideoViewMode) {
@@ -133,10 +140,18 @@ class ScreenView extends View<IScreenViewStyles>
       this.resetBackground();
 
       Object.keys(this._styleNamesByViewMode).forEach(mode => {
-        toggleNodeClass(this._$node, this._styleNamesByViewMode[mode], false);
+        toggleElementClass(
+          this._$rootElement,
+          this._styleNamesByViewMode[mode],
+          false,
+        );
       });
 
-      toggleNodeClass(this._$node, this._styleNamesByViewMode[viewMode], true);
+      toggleElementClass(
+        this._$rootElement,
+        this._styleNamesByViewMode[viewMode],
+        true,
+      );
 
       if (viewMode === VideoViewMode.BLUR) {
         this._startUpdatingBackground();
@@ -178,8 +193,16 @@ class ScreenView extends View<IScreenViewStyles>
     const { videoWidth, videoHeight } = this._$playbackNode;
     this._widthHeightRatio = videoHeight ? videoWidth / videoHeight : 0;
     const isHorizontal = this._widthHeightRatio > 1;
-    toggleNodeClass(this._$node, this.styleNames.horizontalVideo, isHorizontal);
-    toggleNodeClass(this._$node, this.styleNames.verticalVideo, !isHorizontal);
+    toggleElementClass(
+      this._$rootElement,
+      this.styleNames.horizontalVideo,
+      isHorizontal,
+    );
+    toggleElementClass(
+      this._$rootElement,
+      this.styleNames.verticalVideo,
+      !isHorizontal,
+    );
   }
 
   resetBackground() {
@@ -254,11 +277,11 @@ class ScreenView extends View<IScreenViewStyles>
   destroy() {
     this._stopUpdatingBackground();
     this._unbindEvents();
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
     this._$playbackNode = null;
     this._$canvas = null;
     this._ctx = null;

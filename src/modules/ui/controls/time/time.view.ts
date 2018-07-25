@@ -13,7 +13,7 @@ import timeViewTheme from './time.theme';
 import styles from './time.scss';
 
 class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$currentTime: HTMLElement;
   private _$durationTime: HTMLElement;
   private _duration: number;
@@ -27,16 +27,16 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       timeTemplate({ styles: this.styleNames, themeStyles: this.themeStyles }),
     );
 
     this._$currentTime = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'current-time-indicator',
     );
     this._$durationTime = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'duration-time-indicator',
     );
   }
@@ -81,25 +81,25 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
     this._$currentTime = null;
     this._$durationTime = null;
-    this._$node = null;
+    this._$rootElement = null;
   }
 }
 

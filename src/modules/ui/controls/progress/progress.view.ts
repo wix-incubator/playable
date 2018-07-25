@@ -10,7 +10,7 @@ import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
-import toggleNodeClass from '../../core/toggleNodeClass';
+import toggleElementClass from '../../core/toggleElementClass';
 
 import {
   IProgressViewStyles,
@@ -51,7 +51,7 @@ class ProgressView extends View<IProgressViewStyles>
 
   private _isDragging: boolean;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$hitbox: HTMLElement;
   private _$played: HTMLElement;
   private _$buffered: HTMLElement;
@@ -79,29 +79,35 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       progressTemplate({
         styles: this.styleNames,
         themeStyles: this.themeStyles,
       }),
     );
 
-    this._$played = getElementByHook(this._$node, 'progress-played');
-    this._$buffered = getElementByHook(this._$node, 'progress-buffered');
-    this._$seekTo = getElementByHook(this._$node, 'progress-seek-to');
+    this._$played = getElementByHook(this._$rootElement, 'progress-played');
+    this._$buffered = getElementByHook(this._$rootElement, 'progress-buffered');
+    this._$seekTo = getElementByHook(this._$rootElement, 'progress-seek-to');
     this._$timeIndicators = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'progress-time-indicators',
     );
-    this._$seekButton = getElementByHook(this._$node, 'progress-seek-button');
-    this._$syncButton = getElementByHook(this._$node, 'progress-sync-button');
+    this._$seekButton = getElementByHook(
+      this._$rootElement,
+      'progress-seek-button',
+    );
+    this._$syncButton = getElementByHook(
+      this._$rootElement,
+      'progress-sync-button',
+    );
     this._syncButtonTooltipReference = this._tooltipService.createReference(
       this._$syncButton,
       {
         text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
       },
     );
-    this._$hitbox = getElementByHook(this._$node, 'progress-hitbox');
+    this._$hitbox = getElementByHook(this._$rootElement, 'progress-hitbox');
   }
 
   private _bindCallbacks() {
@@ -208,14 +214,14 @@ class ProgressView extends View<IProgressViewStyles>
   private _startDrag() {
     this._isDragging = true;
     this._callbacks.onDragStart();
-    this._$node.classList.add(this.styleNames.isDragging);
+    this._$rootElement.classList.add(this.styleNames.isDragging);
   }
 
   private _stopDrag() {
     if (this._isDragging) {
       this._isDragging = false;
       this._callbacks.onDragEnd();
-      this._$node.classList.remove(this.styleNames.isDragging);
+      this._$rootElement.classList.remove(this.styleNames.isDragging);
     }
   }
 
@@ -224,12 +230,12 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   private _setPlayedDOMAttributes(percent: number) {
-    this._$node.setAttribute(
+    this._$rootElement.setAttribute(
       'aria-valuetext',
       this._textMap.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
     );
-    this._$node.setAttribute('aria-valuenow', String(percent));
-    this._$node.setAttribute(DATA_PLAYED, String(percent));
+    this._$rootElement.setAttribute('aria-valuenow', String(percent));
+    this._$rootElement.setAttribute(DATA_PLAYED, String(percent));
     this._$played.setAttribute('style', `width:${percent}%;`);
     this._$seekButton.setAttribute('style', `left:${percent}%;`);
   }
@@ -251,7 +257,7 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   setLiveSyncStatus(isSync: boolean) {
-    toggleNodeClass(this._$syncButton, this.styleNames.liveSync, isSync);
+    toggleElementClass(this._$syncButton, this.styleNames.liveSync, isSync);
 
     if (isSync) {
       this._syncButtonTooltipReference.disable();
@@ -285,13 +291,13 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   setLiveMode() {
-    this._$node.classList.add(this.styleNames.inLive);
+    this._$rootElement.classList.add(this.styleNames.inLive);
 
     this.showSyncWithLive();
   }
 
   setUsualMode() {
-    this._$node.classList.remove(this.styleNames.inLive);
+    this._$rootElement.classList.remove(this.styleNames.inLive);
 
     this.hideSyncWithLive();
   }
@@ -320,15 +326,15 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
@@ -338,11 +344,11 @@ class ProgressView extends View<IProgressViewStyles>
     this._syncButtonTooltipReference.destroy();
     this._syncButtonTooltipReference = null;
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
     this._$buffered = null;
     this._$hitbox = null;
     this._$played = null;

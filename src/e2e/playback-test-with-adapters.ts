@@ -57,16 +57,10 @@ describe('Playback e2e test', function() {
         // TODO: describe `@playerApi` methods in `Player` with TS
         const player: any = Playable.create();
         player.attachToElement(node);
-        player.on(
-          VIDEO_EVENTS.STATE_CHANGED,
-          ({ nextState }: { nextState: ENGINE_STATES }) => {
-            if (nextState === ENGINE_STATES.PLAYING) {
-              player.off(VIDEO_EVENTS.STATE_CHANGED);
-              player.destroy();
-              done();
-            }
-          },
-        );
+        player.on(ENGINE_STATES.PLAYING, () => {
+          player.destroy();
+          done();
+        });
         player.setSrc(formatToTest.url);
         player.play();
       });
@@ -78,16 +72,14 @@ describe('Playback e2e test', function() {
           preload: PreloadTypes.NONE,
         });
         player.attachToElement(node);
-        player.on(
-          VIDEO_EVENTS.STATE_CHANGED,
-          ({ nextState }: { nextState: ENGINE_STATES }) => {
-            if (nextState === ENGINE_STATES.PLAYING) {
-              player.off(VIDEO_EVENTS.STATE_CHANGED);
-              player.destroy();
-              done();
-            }
-          },
-        );
+        player.on(ENGINE_STATES.PLAYING, () => {
+          player.destroy();
+          done();
+        });
+        player.on(VIDEO_EVENTS.PLAY_ABORTED, () => {
+          player.destroy();
+          done();
+        });
         player.setSrc(formatToTest.url);
         player.play();
       });

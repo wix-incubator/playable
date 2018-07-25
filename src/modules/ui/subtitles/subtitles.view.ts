@@ -11,7 +11,7 @@ import styles from './subtitles.scss';
 
 class SubtitlesView extends View<ISubtitlesViewStyles>
   implements IView<ISubtitlesViewStyles> {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$subtitles: HTMLElement;
 
   constructor() {
@@ -21,25 +21,28 @@ class SubtitlesView extends View<ISubtitlesViewStyles>
   }
 
   private _initDOM(): void {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       subtitlesTemplate({
         styles: this.styleNames,
       }),
     );
 
-    this._$subtitles = getElementByHook(this._$node, 'subtitles-container');
+    this._$subtitles = getElementByHook(
+      this._$rootElement,
+      'subtitles-container',
+    );
   }
 
   getNode(): HTMLElement {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy(): void {
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
   }
 
   moveSubtitlesUp(): void {
@@ -64,11 +67,11 @@ class SubtitlesView extends View<ISubtitlesViewStyles>
   }
 
   show(): void {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   hide(): void {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   clearSubtitles(): void {

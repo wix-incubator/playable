@@ -1,5 +1,7 @@
 import { EventEmitter, ListenerFn } from 'eventemitter3';
 
+import logger from './logger';
+
 export const KEYCODES = {
   SPACE_BAR: 32,
   ENTER: 13,
@@ -70,11 +72,21 @@ export default class KeyboardInterceptorCore {
     this._eventEmitter.emit(e.keyCode, e);
   }
 
-  destroy() {
-    this._unbindEvents();
-    this._unattachCallbacks();
-    this._eventEmitter = null;
+  private get _isDestroyed(): boolean {
+    return !this._node && !this._eventEmitter;
+  }
 
-    this._node = null;
+  destroy() {
+    if (this._isDestroyed) {
+      logger.warn(
+        'KeyboardInterceptor.destroy called after already been destroyed',
+      );
+      return;
+    } else {
+      this._unbindEvents();
+      this._node = null;
+      this._unattachCallbacks();
+      this._eventEmitter = null;
+    }
   }
 }

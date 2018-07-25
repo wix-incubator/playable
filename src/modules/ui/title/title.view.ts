@@ -3,7 +3,7 @@ import View from '../core/view';
 import { titleTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
-import toggleNodeClass from '../core/toggleNodeClass';
+import toggleElementClass from '../core/toggleElementClass';
 
 import {
   ITitleViewStyles,
@@ -19,7 +19,7 @@ class TitleView extends View<ITitleViewStyles>
   implements IView<ITitleViewStyles> {
   private _callbacks: ITitleViewCallbacks;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   _$title: HTMLElement;
 
   constructor(config: ITitleViewConfig) {
@@ -34,10 +34,10 @@ class TitleView extends View<ITitleViewStyles>
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       titleTemplate({ styles: this.styleNames, themeStyles: this.themeStyles }),
     );
-    this._$title = getElementByHook(this._$node, 'video-title');
+    this._$title = getElementByHook(this._$rootElement, 'video-title');
   }
 
   private _bindEvents() {
@@ -49,7 +49,7 @@ class TitleView extends View<ITitleViewStyles>
   }
 
   setDisplayAsLink(flag: boolean) {
-    toggleNodeClass(this._$title, this.styleNames.link, flag);
+    toggleElementClass(this._$title, this.styleNames.link, flag);
   }
 
   setTitle(title?: string) {
@@ -64,24 +64,24 @@ class TitleView extends View<ITitleViewStyles>
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
     this._unbindEvents();
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
     this._$title = null;
   }
 }

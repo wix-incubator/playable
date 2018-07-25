@@ -7,7 +7,7 @@ import syntaxHighlight from './syntaxHighlight';
 
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
-import toggleNodeClass from '../core/toggleNodeClass';
+import toggleElementClass from '../core/toggleElementClass';
 
 import {
   IDebugPanelViewStyles,
@@ -21,7 +21,7 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
   implements IView<IDebugPanelViewStyles> {
   private _callbacks: IDebugPanelViewCallbacks;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$infoContainer: HTMLElement;
   private _$closeButton: HTMLElement;
 
@@ -36,18 +36,18 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       debugPanelTemplate({
         styles: this.styleNames,
       }),
     );
 
     this._$closeButton = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'debug-panel-close-button',
     );
     this._$infoContainer = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'debug-panel-info-container',
     );
   }
@@ -67,11 +67,11 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
   }
 
   show() {
-    toggleNodeClass(this._$node, this.styleNames.hidden, false);
+    toggleElementClass(this._$rootElement, this.styleNames.hidden, false);
   }
 
   hide() {
-    toggleNodeClass(this._$node, this.styleNames.hidden, true);
+    toggleElementClass(this._$rootElement, this.styleNames.hidden, true);
   }
 
   setInfo(info: any) {
@@ -82,17 +82,17 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
     this._unbindEvents();
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
     this._$closeButton = null;
     this._$infoContainer = null;
 

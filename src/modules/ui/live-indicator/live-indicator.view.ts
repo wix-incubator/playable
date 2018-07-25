@@ -6,7 +6,7 @@ import { liveIndicatorTemplate } from './templates';
 
 import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
-import toggleNodeClass from '../core/toggleNodeClass';
+import toggleElementClass from '../core/toggleElementClass';
 
 import {
   ILiveIndicatorViewStyles,
@@ -26,7 +26,7 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   private _tooltipService: ITooltipService;
   private _tooltipReference: ITooltipReference;
 
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$liveIndicatorText: HTMLElement;
 
   constructor(config: ILiveIndicatorViewConfig) {
@@ -41,7 +41,7 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       liveIndicatorTemplate({
         styles: this.styleNames,
         themeStyles: this.themeStyles,
@@ -50,13 +50,16 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
     );
 
     this._$liveIndicatorText = getElementByHook(
-      this._$node,
+      this._$rootElement,
       'live-indicator-text',
     );
 
-    this._tooltipReference = this._tooltipService.createReference(this._$node, {
-      text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
-    });
+    this._tooltipReference = this._tooltipService.createReference(
+      this._$rootElement,
+      {
+        text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+      },
+    );
 
     // NOTE: LIVE indicator is hidden and inactive by default
     this.toggle(false);
@@ -65,15 +68,19 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   }
 
   private _bindEvents() {
-    this._$node.addEventListener('click', this._callbacks.onClick);
+    this._$rootElement.addEventListener('click', this._callbacks.onClick);
   }
 
   private _unbindEvents() {
-    this._$node.removeEventListener('click', this._callbacks.onClick);
+    this._$rootElement.removeEventListener('click', this._callbacks.onClick);
   }
 
   toggleActive(shouldActivate: boolean) {
-    toggleNodeClass(this._$node, this.styleNames.active, shouldActivate);
+    toggleElementClass(
+      this._$rootElement,
+      this.styleNames.active,
+      shouldActivate,
+    );
 
     // NOTE: disable tooltip while video is sync with live
     if (shouldActivate) {
@@ -84,7 +91,7 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   }
 
   toggleEnded(isEnded: boolean) {
-    toggleNodeClass(this._$node, this.styleNames.ended, isEnded);
+    toggleElementClass(this._$rootElement, this.styleNames.ended, isEnded);
 
     this._$liveIndicatorText.innerText = this._textMap.get(
       TEXT_LABELS.LIVE_INDICATOR_TEXT,
@@ -111,11 +118,11 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   }
 
   toggle(shouldShow: boolean) {
-    toggleNodeClass(this._$node, this.styleNames.hidden, !shouldShow);
+    toggleElementClass(this._$rootElement, this.styleNames.hidden, !shouldShow);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
@@ -125,11 +132,11 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
     this._tooltipReference.destroy();
     this._tooltipReference = null;
 
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
     this._$liveIndicatorText = null;
     this._callbacks = null;
     this._textMap = null;

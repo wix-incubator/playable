@@ -12,7 +12,7 @@ import styles from './loading-cover.scss';
 
 class LoadingCoverView extends View<ILoadingCoverViewStyles>
   implements IView<ILoadingCoverViewStyles> {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
   private _$image: HTMLElement;
 
   constructor(config: ILoadingCoverConfig) {
@@ -24,25 +24,25 @@ class LoadingCoverView extends View<ILoadingCoverViewStyles>
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   private _initDOM() {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       loadingCoverTemplate({
         styles: this.styleNames,
       }),
     );
 
-    this._$image = getElementByHook(this._$node, 'loading-cover-image');
+    this._$image = getElementByHook(this._$rootElement, 'loading-cover-image');
   }
 
   hide() {
-    this._$node.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   show() {
-    this._$node.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   setCover(url: string | boolean) {
@@ -60,11 +60,11 @@ class LoadingCoverView extends View<ILoadingCoverViewStyles>
   }
 
   destroy() {
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
   }
 }
 

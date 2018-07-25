@@ -52,11 +52,11 @@ export default class IOSFullScreen implements IFullScreenHelper {
 
     isFullScreenRequested = false;
 
-    this._elem.webkitEnterFullscreen();
+    this.request();
   }
 
   request() {
-    if (!this.isEnabled || this.isInFullScreen) {
+    if (!this.isEnabled || this.isInFullScreen || isFullScreenRequested) {
       return false;
     }
 
@@ -64,9 +64,6 @@ export default class IOSFullScreen implements IFullScreenHelper {
       this._elem.webkitEnterFullscreen();
     } catch (e) {
       if (this._elem.readyState < HAVE_METADATA) {
-        if (isFullScreenRequested) {
-          return;
-        }
         this._elem.addEventListener(
           'loadedmetadata',
           this._enterWhenHasMetaData,

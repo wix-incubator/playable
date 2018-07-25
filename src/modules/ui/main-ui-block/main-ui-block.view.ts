@@ -13,7 +13,7 @@ import {
 
 class MainUIBlockView extends View<IMainUIBlockViewStyles>
   implements IView<IMainUIBlockViewStyles> {
-  private _$node: HTMLElement;
+  private _$rootElement: HTMLElement;
 
   constructor(config: IMainUIBlockViewConfig) {
     super();
@@ -22,7 +22,7 @@ class MainUIBlockView extends View<IMainUIBlockViewStyles>
   }
 
   private _initDOM(elements: IMainUIBlockViewElements) {
-    this._$node = htmlToElement(
+    this._$rootElement = htmlToElement(
       mainUIBlockTemplate({
         styles: this.styleNames,
       }),
@@ -34,21 +34,21 @@ class MainUIBlockView extends View<IMainUIBlockViewStyles>
     );
     $tooltipContainerWrapper.appendChild(elements.tooltipContainer);
 
-    this._$node.appendChild(elements.topBlock);
-    this._$node.appendChild($tooltipContainerWrapper);
-    this._$node.appendChild(elements.bottomBlock);
+    this._$rootElement.appendChild(elements.topBlock);
+    this._$rootElement.appendChild($tooltipContainerWrapper);
+    this._$rootElement.appendChild(elements.bottomBlock);
   }
 
   getNode() {
-    return this._$node;
+    return this._$rootElement;
   }
 
   destroy() {
-    if (this._$node.parentNode) {
-      this._$node.parentNode.removeChild(this._$node);
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$node = null;
+    this._$rootElement = null;
   }
 }
 

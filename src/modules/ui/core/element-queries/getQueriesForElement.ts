@@ -1,5 +1,5 @@
 import { forEachMatch, reduce } from './utils';
-import isElementMatchesSelector from '../isElementMatchesSelector';
+import isElementMatchesSelector from './isElementMatchesSelector';
 
 // NOTE: "inspired" by https://github.com/marcj/css-element-queries/blob/1.0.2/src/ElementQueries.js#L340-L393
 
