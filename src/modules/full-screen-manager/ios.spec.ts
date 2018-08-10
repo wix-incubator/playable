@@ -16,7 +16,7 @@ describe('IOSFullScreen', () => {
   });
 
   afterEach(() => {
-    callback.reset();
+    callback.resetHistory();
   });
 
   describe('enable status', () => {

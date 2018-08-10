@@ -294,7 +294,7 @@ describe('ProgressControl', () => {
     });
 
     it('should change current time of video', () => {
-      const spy = sinon.spy(engine, 'setCurrentTime');
+      const spy = sinon.stub(engine, 'setCurrentTime');
       control._changePlayedProgress(10);
       expect(spy.called).to.be.true;
     });

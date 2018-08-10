@@ -42,7 +42,7 @@ describe('Overlay', () => {
     });
 
     it('should emit ui event on play', () => {
-      const callback = sinon.spy(overlay._engine, 'play');
+      const callback = sinon.stub(overlay._engine, 'play');
 
       overlay._playVideo();
 

@@ -30,7 +30,7 @@ describe('DesktopFullScreen', () => {
   });
 
   afterEach(() => {
-    callback.reset();
+    callback.resetHistory();
   });
 
   describe('enable status', () => {

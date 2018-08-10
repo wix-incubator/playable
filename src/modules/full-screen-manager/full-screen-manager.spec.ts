@@ -27,9 +27,9 @@ const mockedFullscreenHelper = {
     this.isInFullScreen = false;
     this.isEnabled = true;
 
-    this.request.reset();
-    this.exit.reset();
-    this.destroy.reset();
+    this.request.resetHistory();
+    this.exit.resetHistory();
+    this.destroy.resetHistory();
   },
 };
 
@@ -194,7 +194,7 @@ describe('FullScreenManager', () => {
     });
 
     it('should pause video on exit from full screen if proper config passed', () => {
-      const spy = sinon.spy(engine, 'pause');
+      const spy = sinon.stub(engine, 'pause');
 
       fullScreenManager._pauseVideoOnFullScreenExit = true;
       mockedFullscreenHelper.isInFullScreen = false;

@@ -97,7 +97,7 @@ describe('LiveStateEngine', () => {
       });
 
       it('should sync to live on `PLAY_REQUESTED`', () => {
-        const syncWithLiveSpy = sinon.spy(engine, 'syncWithLive');
+        const syncWithLiveSpy = sinon.stub(engine, 'syncWithLive');
 
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: EngineState.PLAY_REQUESTED,
@@ -186,7 +186,7 @@ describe('LiveStateEngine', () => {
         setProperty(engine, 'isSyncWithLive', false);
 
         // reset spy state before test
-        eventEmitter.emit.reset();
+        eventEmitter.emit.resetHistory();
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: EngineState.PLAYING,
         });
@@ -212,7 +212,7 @@ describe('LiveStateEngine', () => {
         setProperty(engine, 'isSyncWithLive', true);
 
         // reset spy state before test
-        eventEmitter.emit.reset();
+        eventEmitter.emit.resetHistory();
         eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: EngineState.PLAYING,
         });
@@ -294,7 +294,7 @@ describe('LiveStateEngine', () => {
     ).to.equal(LiveState.NONE);
 
     // reset spy state before test
-    eventEmitter.emit.reset();
+    eventEmitter.emit.resetHistory();
     eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
       nextState: EngineState.METADATA_LOADED,
     });
