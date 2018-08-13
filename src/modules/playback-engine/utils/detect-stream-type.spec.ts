@@ -20,7 +20,7 @@ describe('Stream type auto detection', function() {
     });
   });
 
-  describe('when recieve ULR', () => {
+  describe('when receive ULR', () => {
     const mp4URL = testURL + 'video.mp4';
     const queryParam = '?data=true';
     const fragment = '#sectionOnPage';

@@ -36,7 +36,7 @@ describe('AnomalyBloodhound', () => {
   });
 
   afterEach(() => {
-    callback.reset();
+    callback.resetHistory();
   });
 
   describe('reaction on changed state', () => {

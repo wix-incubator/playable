@@ -62,12 +62,14 @@ describe('PlayControl', () => {
     });
 
     it('should change playback status', () => {
-      const playSpy = sinon.spy(control._engine, 'play');
-      const pauseSpy = sinon.spy(control._engine, 'pause');
+      const playSpy = sinon.stub(control._engine, 'play');
+      const pauseSpy = sinon.stub(control._engine, 'pause');
       control._playVideo();
       expect(playSpy.called).to.be.true;
       control._pauseVideo();
       expect(pauseSpy.called).to.be.true;
+      control._engine.play.restore();
+      control._engine.pause.restore();
     });
   });
 });

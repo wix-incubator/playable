@@ -35,10 +35,10 @@ describe('BottomBlock', () => {
       expect(startTimeout.called).to.be.true;
       mainBlock._updatePlayingStatus({ nextState: EngineState.PAUSED });
       expect(showTimeout.called).to.be.true;
-      showTimeout.reset();
+      showTimeout.resetHistory();
       mainBlock._updatePlayingStatus({ nextState: EngineState.ENDED });
       expect(showTimeout.called).to.be.true;
-      showTimeout.reset();
+      showTimeout.resetHistory();
       mainBlock._updatePlayingStatus({ nextState: EngineState.SRC_SET });
       expect(showTimeout.called).to.be.true;
     });

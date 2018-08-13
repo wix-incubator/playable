@@ -51,7 +51,7 @@ describe('KeyboardControl', () => {
   });
 
   afterEach(() => {
-    keyDownEvent.preventDefault.reset();
+    keyDownEvent.preventDefault.resetHistory();
 
     eventEmitter.destroy();
     engine.destroy();
@@ -88,7 +88,7 @@ describe('KeyboardControl', () => {
     });
 
     it('should do stuff if key was SPACE_BAR', () => {
-      sinon.spy(engine, 'togglePlayback');
+      sinon.stub(engine, 'togglePlayback');
       keyDownEvent.keyCode = KEYCODES.SPACE_BAR;
       rootContainer.node.dispatchEvent(keyDownEvent);
 
@@ -107,7 +107,7 @@ describe('KeyboardControl', () => {
     });
 
     it('should do stuff if key was LEFT_ARROW', () => {
-      sinon.spy(engine, 'goBackward');
+      sinon.stub(engine, 'goBackward');
       keyDownEvent.keyCode = KEYCODES.LEFT_ARROW;
       rootContainer.node.dispatchEvent(keyDownEvent);
 
@@ -126,7 +126,7 @@ describe('KeyboardControl', () => {
     });
 
     it('should do stuff if key was RIGHT_ARROW', () => {
-      sinon.spy(engine, 'goForward');
+      sinon.stub(engine, 'goForward');
       keyDownEvent.keyCode = KEYCODES.RIGHT_ARROW;
       rootContainer.node.dispatchEvent(keyDownEvent);
 
@@ -145,7 +145,7 @@ describe('KeyboardControl', () => {
     });
 
     it('should do stuff if key was UP_ARROW', () => {
-      sinon.spy(engine, 'increaseVolume');
+      sinon.stub(engine, 'increaseVolume');
       keyDownEvent.keyCode = KEYCODES.UP_ARROW;
       rootContainer.node.dispatchEvent(keyDownEvent);
 
@@ -165,7 +165,7 @@ describe('KeyboardControl', () => {
     });
 
     it('should do stuff if key was DOWN_ARROW', () => {
-      sinon.spy(engine, 'decreaseVolume');
+      sinon.stub(engine, 'decreaseVolume');
       keyDownEvent.keyCode = KEYCODES.DOWN_ARROW;
       rootContainer.node.dispatchEvent(keyDownEvent);
 

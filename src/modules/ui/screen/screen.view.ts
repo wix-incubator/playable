@@ -23,7 +23,6 @@ class ScreenView extends View<IScreenViewStyles>
   private _$rootElement: HTMLElement;
   private _$canvas: HTMLCanvasElement;
   private _$playbackNode: HTMLVideoElement;
-  private _ctx: CanvasRenderingContext2D;
 
   private _widthHeightRatio: number;
   private _requestAnimationFrameID: number;
@@ -71,7 +70,6 @@ class ScreenView extends View<IScreenViewStyles>
       this._$rootElement,
       'background-canvas',
     ) as HTMLCanvasElement;
-    this._ctx = this._$canvas.getContext('2d');
   }
 
   private _bindEvents() {
@@ -230,8 +228,9 @@ class ScreenView extends View<IScreenViewStyles>
   private _drawAreaFromSource(source: number[], area: number[]) {
     const [sourceX, sourceY, sourceWidth, sourceHeight] = source;
     const [areaX, areaY, areaWidth, areaHeight] = area;
+    const ctx = this._$canvas.getContext('2d');
 
-    this._ctx.drawImage(
+    ctx.drawImage(
       this._$playbackNode,
 
       sourceX,
@@ -271,7 +270,9 @@ class ScreenView extends View<IScreenViewStyles>
   }
 
   private _clearBackground() {
-    this._ctx.clearRect(0, 0, this._$canvas.width, this._$canvas.height);
+    const ctx = this._$canvas.getContext('2d');
+
+    ctx.clearRect(0, 0, this._$canvas.width, this._$canvas.height);
   }
 
   destroy() {
@@ -284,7 +285,6 @@ class ScreenView extends View<IScreenViewStyles>
     this._$rootElement = null;
     this._$playbackNode = null;
     this._$canvas = null;
-    this._ctx = null;
 
     this._callbacks = null;
   }

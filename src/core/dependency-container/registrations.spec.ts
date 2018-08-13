@@ -18,7 +18,7 @@ describe('registration method', () => {
   };
 
   afterEach(() => {
-    container.resolve.reset();
+    container.resolve.resetHistory();
   });
 
   describe('asValue', () => {
