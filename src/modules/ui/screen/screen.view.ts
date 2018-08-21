@@ -27,7 +27,9 @@ class ScreenView extends View<IScreenViewStyles>
   private _widthHeightRatio: number;
   private _requestAnimationFrameID: number;
   private _currentMode: string;
-  private _styleNamesByViewMode: any;
+  private _styleNamesByViewMode: {
+    [viewMode: string]: string;
+  };
 
   constructor(config: IScreenViewConfig) {
     super();

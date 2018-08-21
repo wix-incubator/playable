@@ -1,19 +1,22 @@
+import { IThemeConfig } from '../../core/theme/types';
+
 import { transperentizeColor } from '../../core/theme';
 
 export default {
   volumeSvgFill: {
-    fill: (data: any) => data.color,
+    fill: (data: IThemeConfig) => data.color,
   },
   volumeSvgStroke: {
-    stroke: (data: any) => data.color,
+    stroke: (data: IThemeConfig) => data.color,
   },
   volumeProgress: {
-    backgroundColor: (data: any) => data.color,
+    backgroundColor: (data: IThemeConfig) => data.color,
     '&:after': {
-      backgroundColor: (data: any) => data.color,
+      backgroundColor: (data: IThemeConfig) => data.color,
     },
   },
   volumeProgressBackground: {
-    backgroundColor: (data: any) => transperentizeColor(data.color, 0.25),
+    backgroundColor: (data: IThemeConfig) =>
+      transperentizeColor(data.color, 0.25),
   },
 };
