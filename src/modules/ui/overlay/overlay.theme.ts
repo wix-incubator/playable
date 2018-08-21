@@ -1,8 +1,10 @@
+import { IThemeConfig } from '../core/theme/types';
+
 export default {
   overlayPlaySvgFill: {
-    fill: (data: any) => data.color,
+    fill: (data: IThemeConfig) => data.color,
   },
   overlayPlaySvgStroke: {
-    stroke: (data: any) => data.color,
+    stroke: (data: IThemeConfig) => data.color,
   },
 };

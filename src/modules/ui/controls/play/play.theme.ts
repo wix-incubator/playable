@@ -1,5 +1,7 @@
+import { IThemeConfig } from '../../core/theme/types';
+
 export default {
   playSvgFill: {
-    fill: (data: any) => data.color,
+    fill: (data: IThemeConfig) => data.color,
   },
 };

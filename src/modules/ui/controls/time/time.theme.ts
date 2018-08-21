@@ -1,5 +1,7 @@
+import { IThemeConfig } from '../../core/theme/types';
+
 export default {
   timeText: {
-    color: (data: any) => data.color,
+    color: (data: IThemeConfig) => data.color,
   },
 };

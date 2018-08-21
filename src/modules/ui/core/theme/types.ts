@@ -10,6 +10,7 @@ type ICSSRules = {
 
 type IThemeConfig = {
   color?: string;
+  progressColor?: string;
 };
 
 export { ICSSRuleFunction, ICSSRule, ICSSRules, IThemeConfig };

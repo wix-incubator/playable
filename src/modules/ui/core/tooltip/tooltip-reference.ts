@@ -13,7 +13,10 @@ class TooltipReference implements ITooltipReference {
   private _tooltipService: ITooltipService;
 
   private _options: ITooltipReferenceOptions;
-  private _eventListeners: any[];
+  private _eventListeners: {
+    event: string;
+    fn: EventListener;
+  }[];
 
   private _isDisabled: boolean;
 
