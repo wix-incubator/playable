@@ -31,8 +31,6 @@ export default class FullScreenControl implements IFullScreenControl {
   private _tooltipService: ITooltipService;
   private _theme: IThemeService;
 
-  private _isInFullScreen: boolean;
-
   private _unbindEvents: Function;
 
   view: View;
@@ -56,8 +54,6 @@ export default class FullScreenControl implements IFullScreenControl {
     this._textMap = textMap;
     this._theme = theme;
     this._tooltipService = tooltipService;
-
-    this._isInFullScreen = null;
 
     this._bindCallbacks();
 
@@ -120,7 +116,7 @@ export default class FullScreenControl implements IFullScreenControl {
   }
 
   private _toggleFullScreen() {
-    if (this._isInFullScreen) {
+    if (this._fullScreenManager.isInFullScreen) {
       this._exitFullScreen();
     } else {
       this._enterFullScreen();
@@ -136,8 +132,7 @@ export default class FullScreenControl implements IFullScreenControl {
   }
 
   setControlStatus(isInFullScreen: boolean) {
-    this._isInFullScreen = isInFullScreen;
-    this.view.setState({ isInFullScreen: this._isInFullScreen });
+    this.view.setState({ isInFullScreen });
   }
 
   hide() {

@@ -49,7 +49,7 @@ export default class ProgressControl implements IProgressControl {
 
   private _isUserInteracting: boolean;
   private _shouldPlayAfterManipulationEnd: boolean;
-  private _currentProgress: number;
+  private _currentProgressPercent: number;
   private _interceptor: KeyboardInterceptor;
   private _updateControlInterval: number;
   private _timeIndicatorsToAdd: number[];
@@ -80,7 +80,7 @@ export default class ProgressControl implements IProgressControl {
     this._textMap = textMap;
     this._tooltipService = tooltipService;
     this._isUserInteracting = false;
-    this._currentProgress = 0;
+    this._currentProgressPercent = 0;
     this._theme = theme;
 
     this._timeIndicatorsToAdd = [];
@@ -184,13 +184,13 @@ export default class ProgressControl implements IProgressControl {
     );
   }
 
-  private _changePlayedProgress(value: number) {
-    if (this._currentProgress === value) {
+  private _changePlayedProgress(percent: number) {
+    if (this._currentProgressPercent === percent) {
       return;
     }
 
-    this._currentProgress = value;
-    this._changeCurrentTimeOfVideo(value / 100);
+    this._currentProgressPercent = percent;
+    this._changeCurrentTimeOfVideo(percent);
   }
 
   private _startIntervalUpdates() {
@@ -208,7 +208,7 @@ export default class ProgressControl implements IProgressControl {
 
   private _onSeekToByMouseStart(percent: number) {
     const durationTime = this._engine.getDurationTime();
-    const seekTime = durationTime * percent / 100;
+    const seekTime = (durationTime * percent) / 100;
     const time = this._engine.isDynamicContent
       ? seekTime - durationTime
       : seekTime;
@@ -317,16 +317,19 @@ export default class ProgressControl implements IProgressControl {
     }
   }
 
-  private _changeCurrentTimeOfVideo(percent: number) {
+  private _changeCurrentTimeOfVideo(progressPercent: number) {
     const duration = this._engine.getDurationTime();
 
-    if (this._engine.isDynamicContent && percent === 1) {
+    if (this._engine.isDynamicContent && progressPercent === 100) {
       this._engine.syncWithLive();
     } else {
-      this._engine.setCurrentTime(duration * percent);
+      this._engine.setCurrentTime(duration * (progressPercent / 100));
     }
 
-    this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, percent);
+    this._eventEmitter.emit(
+      UI_EVENTS.PROGRESS_CHANGE_TRIGGERED,
+      progressPercent / 100,
+    );
   }
 
   private _pauseVideoOnProgressManipulationStart() {
@@ -446,8 +449,8 @@ export default class ProgressControl implements IProgressControl {
   }
 
   updatePlayed(percent: number) {
-    this._currentProgress = percent;
-    this.view.setPlayed(this._currentProgress);
+    this._currentProgressPercent = percent;
+    this.view.setPlayed(this._currentProgressPercent);
   }
 
   updateBuffered(percent: number) {
