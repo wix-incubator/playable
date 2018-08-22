@@ -47,7 +47,7 @@ describe('FullScreenControl', () => {
   });
 
   describe('API', () => {
-    it('should have method for setting current time', () => {
+    it('should have method for setting current state', () => {
       const spy = sinon.spy(control.view, 'setState');
       expect(control.setControlStatus).to.exist;
       control.setControlStatus();

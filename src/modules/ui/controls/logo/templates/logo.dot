@@ -10,7 +10,6 @@
           tabindex="0">
     <div class="${props.styles.icon}">
       <svg xmlns="http://www.w3.org/2000/svg"
-          tabindex="0"
           viewBox="0 0 14 14"
           preserveAspectRatio="xMidYMin slice"
           width="100%"

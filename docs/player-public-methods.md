@@ -1728,6 +1728,14 @@ player.showProgressControl();
 
 Method for showing progress control.
 
+## showDownloadButton()
+
+```javascript
+player.showDownloadButton();
+```
+
+Method for showing download button.
+
 ## hidePlayControl()
 
 ```javascript
@@ -1767,6 +1775,14 @@ player.hideProgressControl();
 ```
 
 Method for hidding progress control.
+
+## hideDownloadButton()
+
+```javascript
+player.hideDownloadButton();
+```
+
+Method for hidding download button.
 
 ## addTimeIndicator()
 
@@ -1879,6 +1895,29 @@ Method for attaching callback for click on logo
         <td>
             <div class="type">Function</div>
             <p>Your function</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## setDownloadClickCallback()
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>callback</code>
+        </td>
+        <td>
+            <div class="type">Function</div>
         </td>
       </tr>
     </tbody>

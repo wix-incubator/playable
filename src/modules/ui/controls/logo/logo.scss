@@ -45,6 +45,10 @@
     max-width: 450px;
     max-height: 36px;
   }
+  &.hidden {
+    //for accessibility reasons
+    display: none;
+  }
 }
 
 .logoPlaceholder {

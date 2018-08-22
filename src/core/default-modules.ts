@@ -30,6 +30,7 @@ import TimeControl from '../modules/ui/controls/time/time';
 import VolumeControl from '../modules/ui/controls/volume/volume';
 import FullScreenControl from '../modules/ui/controls/full-screen/full-screen';
 import Logo from '../modules/ui/controls/logo/logo';
+import DownloadButton from '../modules/ui/controls/download/download';
 
 import { TooltipService } from '../modules/ui/core/tooltip';
 
@@ -67,6 +68,7 @@ export const modules: { [id: string]: any } = {
   VolumeControl,
   FullScreenControl,
   Logo,
+  DownloadButton,
 
   TooltipService,
 };

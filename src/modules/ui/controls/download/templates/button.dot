@@ -1,0 +1,19 @@
+<div class="${props.styles.buttonWrapper}">
+  <button class="${props.styles.downloadButton} ${props.styles.controlButton}"
+          data-hook="playable-download-button"
+          type="button"
+          tabindex="0">
+    <div class="${props.styles.icon}">
+      <svg xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 17 14"
+          preserveAspectRatio="xMidYMin slice"
+          width="100%"
+          style="padding-bottom: 127%; height: 1px; overflow: visible">
+        <path fill="#FFF"
+              fill-rule="evenodd"
+              class="${props.themeStyles.downloadSvgFill}"
+              d="M8 5.586V0h2v5.364l2.048-2.048 1.414 1.414-4.048 4.048-.268-.268-.525.526-4.31-4.311L5.725 3.31 8 5.586zM2 12h13V8h2v6H0V8h2v4z"/>
+      </svg>
+    </div>
+  </button>
+</div>
