@@ -10,6 +10,7 @@ import { IProgressControl } from '../controls/progress/types';
 import { IVolumeControl } from '../controls/volume/types';
 import { IFullScreenControl } from '../controls/full-screen/types';
 import { ILogoControl, ILogoConfig } from '../controls/logo/types';
+import { IDownloadButton } from '../controls/download/types';
 
 import {
   IBottomBlock,
@@ -27,6 +28,7 @@ interface IDependencies {
   volumeControl: IVolumeControl;
   fullScreenControl: IFullScreenControl;
   logo: ILogoControl;
+  downloadButton: IDownloadButton;
 }
 
 export default class BottomBlock implements IBottomBlock {
@@ -40,6 +42,7 @@ export default class BottomBlock implements IBottomBlock {
     'volumeControl',
     'fullScreenControl',
     'logo',
+    'downloadButton',
     'eventEmitter',
   ];
 
@@ -72,6 +75,7 @@ export default class BottomBlock implements IBottomBlock {
       volumeControl,
       fullScreenControl,
       logo,
+      downloadButton,
     } = dependencies;
 
     return {
@@ -80,6 +84,7 @@ export default class BottomBlock implements IBottomBlock {
       time: timeControl.node,
       volume: volumeControl.node,
       fullScreen: fullScreenControl.node,
+      download: downloadButton.node,
       logo: logo.node,
     };
   }
@@ -98,6 +103,7 @@ export default class BottomBlock implements IBottomBlock {
     };
 
     this.view = new BottomBlock.View(config);
+    this.hideDownloadButton();
   }
 
   private _bindEvents() {
@@ -235,6 +241,16 @@ export default class BottomBlock implements IBottomBlock {
   }
 
   /**
+   * Method for showing download button.
+   * @example
+   * player.showDownloadButton();
+   */
+  @playerAPI()
+  showDownloadButton() {
+    this.view.showDownloadButton();
+  }
+
+  /**
    * Method for hidding play control.
    * @example
    * player.hidePlayControl();
@@ -282,6 +298,16 @@ export default class BottomBlock implements IBottomBlock {
   @playerAPI()
   hideProgressControl() {
     this.view.hideProgressControl();
+  }
+
+  /**
+   * Method for hidding download button.
+   * @example
+   * player.hideDownloadButton();
+   */
+  @playerAPI()
+  hideDownloadButton() {
+    this.view.hideDownloadButton();
   }
 
   destroy() {

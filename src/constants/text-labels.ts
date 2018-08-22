@@ -18,4 +18,6 @@ export default {
   MUTE_CONTROL_TOOLTIP: 'mute-control-tooltip',
   VOLUME_CONTROL_LABEL: 'volume-control-label',
   VOLUME_CONTROL_VALUE: 'volume-control-value',
+  DOWNLOAD_BUTTON_LABEL: 'download-button-label',
+  DOWNLOAD_BUTTON_TOOLTIP: 'download-button-tooltip',
 };

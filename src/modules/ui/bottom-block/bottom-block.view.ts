@@ -63,12 +63,18 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
       'playable-progress-bar-container',
     );
 
+    const $downloadContainer = getElementByHook(
+      this._$rootElement,
+      'playable-download-container',
+    );
+
     $playContainer.appendChild(elements.play);
     $volumeContainer.appendChild(elements.volume);
     $timeContainer.appendChild(elements.time);
     $fullScreenContainer.appendChild(elements.fullScreen);
     $logoContainer.appendChild(elements.logo);
     $progressBarContainer.appendChild(elements.progress);
+    $downloadContainer.appendChild(elements.download);
   }
 
   private _preventClickPropagation(e: MouseEvent) {
@@ -159,6 +165,14 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
 
   hideProgressControl() {
     this._$rootElement.classList.add(this.styleNames.progressControlHidden);
+  }
+
+  showDownloadButton() {
+    this._$rootElement.classList.remove(this.styleNames.downloadButtonHidden);
+  }
+
+  hideDownloadButton() {
+    this._$rootElement.classList.add(this.styleNames.downloadButtonHidden);
   }
 
   show() {

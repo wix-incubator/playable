@@ -75,6 +75,11 @@
       display: none;
     }
   }
+  &.downloadButtonHidden {
+    .downloadContainer {
+      display: none;
+    }
+  }
 }
 
 .elementsContainer {
@@ -185,16 +190,20 @@
   }
 }
 
-.fullScreenContainer {
+.downloadContainer {
   margin-right: 8px;
-  margin-left: 5px;
 
-  @include max-width-550() {
-    margin-right: 1px;
-  }
   @include in-full-screen() {
     margin-right: 18px;
-    margin-left: 0;
+  }
+}
+
+.fullScreenContainer {
+  margin-right: 8px;
+
+  @include in-full-screen() {
+    margin-right: 18px;
+    //margin-left: 0;
   }
 }
 
@@ -205,11 +214,9 @@
 
   @include max-width-550() {
     margin-right: 9px;
-    margin-left: 1px;
   }
   @include in-full-screen() {
     margin-right: 23px;
-    margin-left: 0;
   }
   @include max-width-280() {
     margin-right: 12px;
