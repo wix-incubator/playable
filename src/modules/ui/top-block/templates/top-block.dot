@@ -1,14 +1,14 @@
-<div data-hook="top-block"
+<div data-hook="playable-top-block"
      class="${props.styles.topBlock}">
   <div class="${props.styles.background}"
-       data-hook="screen-top-background">
+       data-hook="playable-screen-top-background">
   </div>
   <div class="${props.styles.elementsContainer}">
     <div class="${props.styles.liveIndicatorContainer}"
-         data-hook="live-indicator-container">
+         data-hook="playable-live-indicator-container">
     </div>
     <div class="${props.styles.titleContainer}"
-         data-hook="title-container">
+         data-hook="playable-title-container">
     </div>
   </div>
 </div>

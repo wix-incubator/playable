@@ -33,11 +33,11 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
 
     this._$currentTime = getElementByHook(
       this._$rootElement,
-      'current-time-indicator',
+      'playable-current-time-indicator',
     );
     this._$durationTime = getElementByHook(
       this._$rootElement,
-      'duration-time-indicator',
+      'playable-duration-time-indicator',
     );
   }
 

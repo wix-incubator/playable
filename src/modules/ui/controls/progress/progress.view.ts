@@ -85,20 +85,29 @@ class ProgressView extends View<IProgressViewStyles>
       }),
     );
 
-    this._$played = getElementByHook(this._$rootElement, 'progress-played');
-    this._$buffered = getElementByHook(this._$rootElement, 'progress-buffered');
-    this._$seekTo = getElementByHook(this._$rootElement, 'progress-seek-to');
+    this._$played = getElementByHook(
+      this._$rootElement,
+      'playable-progress-played',
+    );
+    this._$buffered = getElementByHook(
+      this._$rootElement,
+      'playable-progress-buffered',
+    );
+    this._$seekTo = getElementByHook(
+      this._$rootElement,
+      'playable-progress-seek-to',
+    );
     this._$timeIndicators = getElementByHook(
       this._$rootElement,
-      'progress-time-indicators',
+      'playable-progress-time-indicators',
     );
     this._$seekButton = getElementByHook(
       this._$rootElement,
-      'progress-seek-button',
+      'playable-progress-seek-button',
     );
     this._$syncButton = getElementByHook(
       this._$rootElement,
-      'progress-sync-button',
+      'playable-progress-sync-button',
     );
     this._syncButtonTooltipReference = this._tooltipService.createReference(
       this._$syncButton,
@@ -106,7 +115,10 @@ class ProgressView extends View<IProgressViewStyles>
         text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
       },
     );
-    this._$hitbox = getElementByHook(this._$rootElement, 'progress-hitbox');
+    this._$hitbox = getElementByHook(
+      this._$rootElement,
+      'playable-progress-hitbox',
+    );
   }
 
   private _bindCallbacks() {

@@ -44,7 +44,7 @@ const getPercentBasedOnXPosition = (
     return 100;
   }
 
-  return (event.clientX - boundingRect.left) / boundingRect.width * 100;
+  return ((event.clientX - boundingRect.left) / boundingRect.width) * 100;
 };
 
 class VolumeView extends View<IVolumeViewStyles>
@@ -89,13 +89,22 @@ class VolumeView extends View<IVolumeViewStyles>
       }),
     );
 
-    this._$muteButton = getElementByHook(this._$rootElement, 'mute-button');
+    this._$muteButton = getElementByHook(
+      this._$rootElement,
+      'playable-mute-button',
+    );
     this._$volumeNode = getElementByHook(
       this._$rootElement,
-      'volume-input-block',
+      'playable-volume-input-block',
     );
-    this._$hitbox = getElementByHook(this._$rootElement, 'volume-hitbox');
-    this._$volume = getElementByHook(this._$rootElement, 'volume-input');
+    this._$hitbox = getElementByHook(
+      this._$rootElement,
+      'playable-volume-hitbox',
+    );
+    this._$volume = getElementByHook(
+      this._$rootElement,
+      'playable-volume-input',
+    );
 
     this._muteButtonTooltipReference = this._tooltipService.createReference(
       this._$muteButton,

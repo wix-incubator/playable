@@ -37,7 +37,7 @@ class TitleView extends View<ITitleViewStyles>
     this._$rootElement = htmlToElement(
       titleTemplate({ styles: this.styleNames, themeStyles: this.themeStyles }),
     );
-    this._$title = getElementByHook(this._$rootElement, 'video-title');
+    this._$title = getElementByHook(this._$rootElement, 'playable-video-title');
   }
 
   private _bindEvents() {

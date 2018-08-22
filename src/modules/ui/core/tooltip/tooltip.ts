@@ -25,7 +25,10 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
         styles: this.styleNames,
       }),
     );
-    this._$tooltipInner = getElementByHook(this._$rootElement, 'tooltipInner');
+    this._$tooltipInner = getElementByHook(
+      this._$rootElement,
+      'playable-tooltip-inner',
+    );
   }
 
   get node(): HTMLElement {

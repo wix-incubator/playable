@@ -51,7 +51,7 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
 
     this._$liveIndicatorText = getElementByHook(
       this._$rootElement,
-      'live-indicator-text',
+      'playable-live-indicator-text',
     );
 
     this._tooltipReference = this._tooltipService.createReference(
