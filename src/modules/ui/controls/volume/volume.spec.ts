@@ -33,8 +33,6 @@ describe('VolumeControl', () => {
     it('should have method for setting current volume', () => {
       const spy = sinon.spy(control.view, 'setVolume');
       expect(control.setVolumeLevel).to.exist;
-      control.setVolumeLevel(100);
-      expect(spy.called).to.be.false;
       control.setVolumeLevel(0);
       expect(spy.called).to.be.true;
     });
@@ -93,13 +91,15 @@ describe('VolumeControl', () => {
     it('should change volume level and mute status of video', () => {
       const volumeSpy = sinon.spy(control, '_changeVolumeLevel');
       const muteSpy = sinon.spy(control, '_toggleMuteStatus');
-
       control._changeVolumeStatus(90);
       expect(volumeSpy.calledWith(90)).to.be.true;
       expect(muteSpy.called).to.be.false;
-      control._isMuted = true;
+      const engineIsMutedThub = sinon
+        .stub(control._engine, 'getMute')
+        .callsFake(() => true);
       control._changeVolumeStatus(90);
       expect(muteSpy.called).to.be.true;
+      engineIsMutedThub.restore();
     });
   });
 });
