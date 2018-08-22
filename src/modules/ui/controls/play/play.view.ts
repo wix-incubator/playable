@@ -46,7 +46,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
 
     this._$playbackControl = getElementByHook(
       this._$rootElement,
-      'playback-control',
+      'playable-playback-control',
     );
 
     this.setState({ isPlaying: false });

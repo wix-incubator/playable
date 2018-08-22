@@ -128,8 +128,8 @@ $color: white !default;
 }
 
 :global {
-  [data-focus-source='key'] [data-hook='volume-control'],
-  [data-focus-source='script'] [data-hook='volume-control'] {
+  [data-focus-source='key'] [data-hook='playable-volume-control'],
+  [data-focus-source='script'] [data-hook='playable-volume-control'] {
     .focus-within {
       &:local.volumeInputBlock {
         width: 50px;

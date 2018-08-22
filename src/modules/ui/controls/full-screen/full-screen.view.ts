@@ -54,7 +54,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
 
     this._$toggleFullScreenControl = getElementByHook(
       this._$rootElement,
-      'full-screen-button',
+      'playable-full-screen-button',
     );
 
     this._tooltipReference = tooltipService.createReference(

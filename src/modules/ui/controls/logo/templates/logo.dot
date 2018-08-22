@@ -1,11 +1,11 @@
 <div class="${props.styles.logoWrapper}">
   <img class="${props.styles.companyLogo}"
-       data-hook="company-logo"
+       data-hook="playable-company-logo"
        aria-label="${props.texts.label}"
        role="button"
        tabindex="0" />
   <button class="${props.styles.logoPlaceholder} ${props.styles.controlButton}"
-          data-hook="logo-placeholder"
+          data-hook="playable-logo-placeholder"
           type="button"
           tabindex="0">
     <div class="${props.styles.icon}">

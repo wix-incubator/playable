@@ -38,10 +38,10 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
       }),
     );
 
-    this._$logo = getElementByHook(this._$rootElement, 'company-logo');
+    this._$logo = getElementByHook(this._$rootElement, 'playable-company-logo');
     this._$placeholder = getElementByHook(
       this._$rootElement,
-      'logo-placeholder',
+      'playable-logo-placeholder',
     );
 
     this._tooltipReference = tooltipService.createReference(
