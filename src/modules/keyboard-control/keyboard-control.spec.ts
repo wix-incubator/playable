@@ -71,7 +71,7 @@ describe('KeyboardControl', () => {
 
     it('should do stuff if key was TAB', () => {
       keyDownEvent.keyCode = KEYCODES.TAB;
-      rootContainer.node.dispatchEvent(keyDownEvent);
+      rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(
         eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
@@ -80,7 +80,7 @@ describe('KeyboardControl', () => {
 
     it('should do stuff if key was TAB', () => {
       keyDownEvent.keyCode = KEYCODES.TAB;
-      rootContainer.node.dispatchEvent(keyDownEvent);
+      rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(
         eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
@@ -90,7 +90,7 @@ describe('KeyboardControl', () => {
     it('should do stuff if key was SPACE_BAR', () => {
       sinon.stub(engine, 'togglePlayback');
       keyDownEvent.keyCode = KEYCODES.SPACE_BAR;
-      rootContainer.node.dispatchEvent(keyDownEvent);
+      rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
       expect(
@@ -107,9 +107,9 @@ describe('KeyboardControl', () => {
     });
 
     it('should do stuff if key was LEFT_ARROW', () => {
-      sinon.stub(engine, 'goBackward');
+      sinon.stub(engine, 'seekBackward');
       keyDownEvent.keyCode = KEYCODES.LEFT_ARROW;
-      rootContainer.node.dispatchEvent(keyDownEvent);
+      rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
       expect(
@@ -120,15 +120,15 @@ describe('KeyboardControl', () => {
           UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
         ),
       ).to.be.true;
-      expect(engine.goBackward.calledWith(AMOUNT_TO_SKIP_SECONDS)).to.be.true;
+      expect(engine.seekBackward.calledWith(AMOUNT_TO_SKIP_SECONDS)).to.be.true;
 
-      engine.goBackward.restore();
+      engine.seekBackward.restore();
     });
 
     it('should do stuff if key was RIGHT_ARROW', () => {
-      sinon.stub(engine, 'goForward');
+      sinon.stub(engine, 'seekForward');
       keyDownEvent.keyCode = KEYCODES.RIGHT_ARROW;
-      rootContainer.node.dispatchEvent(keyDownEvent);
+      rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
       expect(
@@ -139,15 +139,15 @@ describe('KeyboardControl', () => {
           UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
         ),
       ).to.be.true;
-      expect(engine.goForward.calledWith(AMOUNT_TO_SKIP_SECONDS)).to.be.true;
+      expect(engine.seekForward.calledWith(AMOUNT_TO_SKIP_SECONDS)).to.be.true;
 
-      engine.goForward.restore();
+      engine.seekForward.restore();
     });
 
     it('should do stuff if key was UP_ARROW', () => {
       sinon.stub(engine, 'increaseVolume');
       keyDownEvent.keyCode = KEYCODES.UP_ARROW;
-      rootContainer.node.dispatchEvent(keyDownEvent);
+      rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
       expect(
@@ -167,7 +167,7 @@ describe('KeyboardControl', () => {
     it('should do stuff if key was DOWN_ARROW', () => {
       sinon.stub(engine, 'decreaseVolume');
       keyDownEvent.keyCode = KEYCODES.DOWN_ARROW;
-      rootContainer.node.dispatchEvent(keyDownEvent);
+      rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
       expect(
@@ -191,7 +191,7 @@ describe('KeyboardControl', () => {
       keyboardControl.destroy();
 
       keyDownEvent.keyCode = KEYCODES.TAB;
-      rootContainer.node.dispatchEvent(keyDownEvent);
+      rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(eventEmitter.emit.called).to.be.false;
       eventEmitter.emit.restore();

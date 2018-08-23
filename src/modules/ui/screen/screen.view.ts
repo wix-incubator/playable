@@ -123,7 +123,7 @@ class ScreenView extends View<IScreenViewStyles>
     toggleElementClass(this._$rootElement, this.styleNames.hidden, true);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

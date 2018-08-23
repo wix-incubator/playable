@@ -85,7 +85,7 @@ class DownloadView extends View<IDownloadViewStyles>
     this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

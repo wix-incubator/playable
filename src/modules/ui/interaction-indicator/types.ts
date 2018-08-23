@@ -9,7 +9,7 @@ type IInteractionIndicatorViewStyles = {
 };
 
 interface IInteractionIndicator {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   showPause(): void;
   showPlay(): void;

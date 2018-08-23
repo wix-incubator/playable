@@ -42,13 +42,13 @@ type IBottomBlockViewConfig = {
 };
 
 interface IBottomBlock {
-  node: HTMLElement;
+  getElement(): HTMLElement;
   isFocused: boolean;
   showContent(): void;
   hideContent(): void;
   show(): void;
   hide(): void;
-  setLogoAlwaysShowFlag(flag: boolean): void;
+  setAlwaysShowLogo(flag: boolean): void;
   showLogo(): void;
   hideLogo(): void;
   showPlayControl(): void;

@@ -121,7 +121,7 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
     toggleElementClass(this._$rootElement, this.styleNames.hidden, !shouldShow);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

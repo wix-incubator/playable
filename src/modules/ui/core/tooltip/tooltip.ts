@@ -31,7 +31,7 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
     );
   }
 
-  get node(): HTMLElement {
+  getElement(): HTMLElement {
     return this._$rootElement;
   }
 

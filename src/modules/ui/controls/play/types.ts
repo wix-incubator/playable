@@ -20,7 +20,7 @@ type IPlayViewConfig = {
 };
 
 interface IPlayControl {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   setControlStatus(isPlaying: boolean): void;
   reset(): void;

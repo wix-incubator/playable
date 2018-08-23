@@ -70,8 +70,8 @@ export default class FullScreenControl implements IFullScreenControl {
     this._initInterceptor();
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
@@ -99,7 +99,7 @@ export default class FullScreenControl implements IFullScreenControl {
   }
 
   private _initInterceptor() {
-    this._interceptor = new KeyboardInterceptor(this.node, {
+    this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: (e: Event) => {
         e.stopPropagation();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);

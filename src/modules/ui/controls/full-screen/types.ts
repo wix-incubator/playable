@@ -22,7 +22,7 @@ type IFullScreenViewConfig = {
 };
 
 interface IFullScreenControl {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   setControlStatus(isInFullScreen: boolean): void;
 

@@ -52,7 +52,7 @@ describe('Loader', () => {
         expect(loader.isHidden).to.be.false;
       });
 
-      it('should have method for hidding loader', () => {
+      it('should have method for hiding loader', () => {
         loader._showContent();
         const hideSpy = sinon.spy(loader.view, 'hideContent');
         loader._hideContent();

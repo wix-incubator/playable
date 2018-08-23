@@ -50,8 +50,8 @@ export default class TimeControl implements ITimeControl {
     this.setDurationTime(0);
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
@@ -130,7 +130,7 @@ export default class TimeControl implements ITimeControl {
   }
 
   private _updateDurationTime() {
-    this.setDurationTime(this._engine.getDurationTime());
+    this.setDurationTime(this._engine.getDuration());
   }
 
   private _updateCurrentTime() {

@@ -338,7 +338,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

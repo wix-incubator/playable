@@ -42,7 +42,7 @@ const config = {
     src: 'https://example.com/logo.png',
     showAlways: true
   },
-  playInline: true,
+  playsinline: true,
   crossOrigin: 'anonymous',
   loader: true,
   disableControlWithKeyboard: false,
@@ -133,7 +133,7 @@ const player = Playable.create(config, theme);
 
 `config.showInteractionIndicator: Boolean` Pass `false` to disable indication of user interaction with player
 
-`config.playInline: Boolean` Attribute for playing inline in iOS
+`config.playsinline: Boolean` Attribute for playing inline in iOS
 
 `config.crossOrigin: 'anonymous' | 'use-credentials'` Attribute setting video [crossOrigin](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) property
 

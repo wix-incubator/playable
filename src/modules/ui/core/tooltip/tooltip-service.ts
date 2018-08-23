@@ -32,7 +32,7 @@ class TooltipService implements ITooltipService {
   }
 
   get tooltipContainerNode(): HTMLElement {
-    return this._tooltipContainer.node;
+    return this._tooltipContainer.getElement();
   }
 
   private _bindEvents() {

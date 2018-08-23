@@ -1,7 +1,7 @@
 import View from '../core/view';
 import { IView } from '../core/types';
 
-import { ILoadingCoverConfig, ILoadingCoverViewStyles } from './types';
+import { ILoadingCoverViewStyles } from './types';
 
 import { loadingCoverTemplate } from './templates';
 
@@ -15,15 +15,13 @@ class LoadingCoverView extends View<ILoadingCoverViewStyles>
   private _$rootElement: HTMLElement;
   private _$image: HTMLElement;
 
-  constructor(config: ILoadingCoverConfig) {
+  constructor() {
     super();
 
     this._initDOM();
-
-    this.setCover(config.url);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

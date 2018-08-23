@@ -27,7 +27,7 @@ type ITooltipStyles = {
 };
 
 interface ITooltip {
-  node: HTMLElement;
+  getElement(): HTMLElement;
   isHidden: boolean;
   show(): void;
   hide(): void;

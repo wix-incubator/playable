@@ -15,13 +15,8 @@ type ITitleViewConfig = {
   theme: IThemeService;
 };
 
-interface ITitleConfig {
-  text?: string;
-  callback?: Function;
-}
-
 interface ITitle {
-  node: HTMLElement;
+  getElement(): HTMLElement;
   setTitle(title?: string): void;
   setTitleClickCallback(callback?: Function): void;
 
@@ -31,10 +26,4 @@ interface ITitle {
   destroy(): void;
 }
 
-export {
-  ITitle,
-  ITitleConfig,
-  ITitleViewStyles,
-  ITitleViewCallbacks,
-  ITitleViewConfig,
-};
+export { ITitle, ITitleViewStyles, ITitleViewCallbacks, ITitleViewConfig };

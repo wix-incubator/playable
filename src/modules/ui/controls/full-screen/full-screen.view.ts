@@ -139,7 +139,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

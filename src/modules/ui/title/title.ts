@@ -18,26 +18,22 @@ export default class TitleControl implements ITitle {
   isHidden: boolean;
 
   constructor({
-    config,
     theme,
+    config,
   }: {
-    config: IPlayerConfig;
     theme: IThemeService;
+    config: IPlayerConfig;
   }) {
     this._theme = theme;
 
     this._bindCallbacks();
     this._initUI();
-    if (typeof config.title === 'object') {
-      this.setTitleClickCallback(config.title.callback || null);
-      this.setTitle(config.title.text);
-    } else if (config.title === false) {
-      this.hide();
-    }
+
+    this.setTitle(config.title);
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {

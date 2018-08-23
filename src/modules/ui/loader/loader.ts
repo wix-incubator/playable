@@ -44,15 +44,15 @@ export default class Loader {
     this._bindEvents();
     this._hideContent();
 
-    rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentElement(this.getElement());
 
-    if (config.loader === false) {
+    if (config.hideMainUI) {
       this.hide();
     }
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {

@@ -43,7 +43,7 @@ export default class KeyboardControl implements IKeyboardControl {
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
-    this._rootNode = rootContainer.node;
+    this._rootNode = rootContainer.getElement();
 
     if (isIPhone() || isIPod() || isIPad() || isAndroid()) {
       this._isEnabled = false;
@@ -81,7 +81,7 @@ export default class KeyboardControl implements IKeyboardControl {
           this._eventEmitter.emit(
             UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
           );
-          this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
+          this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
         }
       },
       [KEYCODES.RIGHT_ARROW]: e => {
@@ -89,7 +89,7 @@ export default class KeyboardControl implements IKeyboardControl {
           e.preventDefault();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
-          this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
+          this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
         }
       },
       [KEYCODES.UP_ARROW]: e => {

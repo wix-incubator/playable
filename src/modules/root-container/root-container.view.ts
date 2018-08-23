@@ -100,7 +100,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
     this._$rootElement.appendChild(element);
   }
 
-  getNode(): HTMLElement {
+  getElement(): HTMLElement {
     return this._$rootElement;
   }
 

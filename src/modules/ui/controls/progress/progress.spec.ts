@@ -59,7 +59,7 @@ describe('ProgressControl', () => {
 
       beforeEach(() => {
         engineGetDurationTimeStub = sinon
-          .stub(control._engine, 'getDurationTime')
+          .stub(control._engine, 'getDuration')
           .callsFake(() => VIDEO_DURATION_TIME);
       });
 
@@ -275,7 +275,7 @@ describe('ProgressControl', () => {
     });
 
     it('should change current time of video', () => {
-      const spy = sinon.stub(engine, 'setCurrentTime');
+      const spy = sinon.stub(engine, 'seekTo');
       control._onChangePlayedPercent(10);
       expect(spy.called).to.be.true;
     });

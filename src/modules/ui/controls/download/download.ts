@@ -52,8 +52,8 @@ export default class DownloadButton implements IDownloadButton {
     this._initInterceptor();
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
@@ -74,7 +74,7 @@ export default class DownloadButton implements IDownloadButton {
   }
 
   private _initInterceptor() {
-    this._interceptor = new KeyboardInterceptor(this.node, {
+    this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: (e: Event) => {
         e.stopPropagation();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);

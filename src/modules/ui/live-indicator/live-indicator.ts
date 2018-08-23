@@ -44,8 +44,8 @@ export default class LiveIndicator implements ILiveIndicator {
     this._bindEvents();
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   get isHidden(): boolean {

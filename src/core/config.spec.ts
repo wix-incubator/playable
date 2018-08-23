@@ -15,14 +15,10 @@ describe('getUIConfig function', () => {
     const params = {};
 
     const expectedConfig = {
-      loader: false,
-      controls: false,
-      title: false,
-      showInteractionIndicator: false,
-      screen: {
-        disableClickProcessing: true,
-        nativeControls: true,
-      },
+      hideMainUI: true,
+      disableControlWithClickOnPlayer: true,
+      disableControlWithKeyboard: true,
+      nativeBrowserControls: true,
     };
 
     setProperty(navigator, 'userAgent', 'iPod');
@@ -36,14 +32,10 @@ describe('getUIConfig function', () => {
     const params = {};
 
     const expectedConfig = {
-      loader: false,
-      controls: false,
-      title: false,
-      showInteractionIndicator: false,
-      screen: {
-        disableClickProcessing: true,
-        nativeControls: true,
-      },
+      hideMainUI: true,
+      disableControlWithClickOnPlayer: true,
+      disableControlWithKeyboard: true,
+      nativeBrowserControls: true,
     };
     setProperty(navigator, 'userAgent', 'iPhone');
 
@@ -56,14 +48,10 @@ describe('getUIConfig function', () => {
     const params = {};
 
     const expectedConfig = {
-      loader: false,
-      controls: false,
-      title: false,
-      showInteractionIndicator: false,
-      screen: {
-        disableClickProcessing: true,
-        nativeControls: true,
-      },
+      hideMainUI: true,
+      disableControlWithClickOnPlayer: true,
+      disableControlWithKeyboard: true,
+      nativeBrowserControls: true,
     };
 
     setProperty(navigator, 'userAgent', 'iPad');
@@ -77,18 +65,13 @@ describe('getUIConfig function', () => {
     setProperty(navigator, 'userAgent', 'Android');
 
     const params = {
-      title: { text: 'test' },
-      controls: {},
-      loader: true,
+      width: 100,
     };
 
     expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal({
-      title: { text: 'test' },
-      controls: {},
-      loader: true,
-      screen: {
-        disableClickProcessing: true,
-      },
+      width: 100,
+      disableControlWithClickOnPlayer: true,
+      disableControlWithKeyboard: true,
     });
   });
 });

@@ -72,11 +72,11 @@ describe('Title', () => {
     });
 
     it('should have method for getting view node', () => {
-      const getTitleViewNodeSpy = sinon.spy(title.view, 'getNode');
-      const titleViewNode = title.node;
+      const getTitleViewNodeSpy = sinon.spy(title.view, 'getElement');
+      const titleViewNode = title.getElement();
 
       expect(getTitleViewNodeSpy.called).to.be.true;
-      expect(titleViewNode).to.equal(title.view.getNode());
+      expect(titleViewNode).to.equal(title.view.getElement());
 
       getTitleViewNodeSpy.restore();
     });

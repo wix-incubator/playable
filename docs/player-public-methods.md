@@ -36,7 +36,7 @@ Method for setting theme for player instance
   </table>
 </div>
 
-## node
+## getElement()
 
 Getter for DOM element with player UI
 (use it only for debug, if you need attach player to your document use `attachToElement` method)
@@ -481,24 +481,24 @@ Method for toggling(play\\pause) playback of video
 
 ```javascript
 player.play();
-console.log(player.isVideoPaused); // false
+console.log(player.isPaused); // false
 ...
 player.resetPlayback();
-console.log(player.isVideoPaused); // true;
+console.log(player.isPaused); // true;
 console.log(player.getCurrentTime()); //0;
 ```
 
 Method for reseting playback of video
 
-## isVideoPaused
+## isPaused
 
 ```javascript
 player.play();
-console.log(player.isVideoPaused);
+console.log(player.isPaused);
 ```
 
 High level status of video playback. Returns true if playback is paused.
-For more advance state use `getCurrentPlaybackState`
+For more advance state use `getPlaybackState`
 
 <div class="method-list">
   <table>
@@ -520,15 +520,15 @@ For more advance state use `getCurrentPlaybackState`
   </table>
 </div>
 
-## isVideoEnded
+## isEnded
 
 ```javascript
 player.play();
-console.log(player.isVideoEnded);
+console.log(player.isEnded);
 ```
 
 High level status of video playback. Returns true if playback is ended. Also note, that `isPaused` will return `true` if playback is ended also.
-For more advance state use `getCurrentPlaybackState`
+For more advance state use `getPlaybackState`
 
 <div class="method-list">
   <table>
@@ -558,10 +558,10 @@ player.syncWithLive();
 
 Method for synchronize current playback with live point. Available only if you playing live source.
 
-## goForward()
+## seekForward()
 
 ```javascript
-player.goForward(5);
+player.seekForward(5);
 ```
 
 Method for going forward in playback by your value
@@ -588,10 +588,10 @@ Method for going forward in playback by your value
   </table>
 </div>
 
-## goBackward()
+## seekBackward()
 
 ```javascript
-player.goBackward(5);
+player.seekBackward(5);
 ```
 
 Method for going backward in playback by your value
@@ -736,40 +736,29 @@ Method for decreasing current volume by value
   </table>
 </div>
 
-## setMute()
+## mute()
 
 ```javascript
-player.setMute(true);
+player.mute();
 ```
 
-Mute or unmute the video
+Mute the video
 
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>isMuted</code>
-        </td>
-        <td>
-            <div class="type">boolean</div>
-            <p><code>true</code> to mute the video.</p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-## getMute()
+## unmute()
 
 ```javascript
-player.getMute(); // true
+player.unmute(true);
+```
+
+Unmute the video
+
+## isMuted
+
+```javascript
+player.mute();
+player.isMuted; // true
+player.unmute();
+player.isMuted: // false
 ```
 
 Get mute flag
@@ -794,13 +783,13 @@ Get mute flag
   </table>
 </div>
 
-## setAutoPlay()
+## setAutoplay()
 
 ```javascript
-player.setAutoPlay();
+player.setAutoplay();
 ```
 
-Set autoPlay flag
+Set autoplay flag
 
 <div class="method-list">
   <table>
@@ -813,7 +802,7 @@ Set autoPlay flag
     <tbody>
       <tr>
         <td class="param">
-          <code>isAutoPlay</code>
+          <code>isAutoplay</code>
         </td>
         <td>
             <div class="type">boolean</div>
@@ -823,13 +812,13 @@ Set autoPlay flag
   </table>
 </div>
 
-## getAutoPlay()
+## getAutoplay()
 
 ```javascript
-player.getAutoPlay(); // true
+player.getAutoplay(); // true
 ```
 
-Get autoPlay flag
+Get autoplay flag
 
 <div class="method-list">
   <table>
@@ -1043,10 +1032,10 @@ Return current time of video playback
   </table>
 </div>
 
-## goTo()
+## seekTo()
 
 ```javascript
-player.goTo(34);
+player.seekTo(34);
 ```
 
 Method for seeking to time in video
@@ -1073,10 +1062,10 @@ Method for seeking to time in video
   </table>
 </div>
 
-## getDurationTime()
+## getDuration()
 
 ```javascript
-player.getDurationTime(); // 180.149745
+player.getDuration(); // 180.149745
 ```
 
 Return duration of video
@@ -1157,13 +1146,13 @@ Return real height of video from metadata
   </table>
 </div>
 
-## setPlayInline()
+## setPlaysinline()
 
 ```javascript
-player.setPlayInline(true);
+player.setPlaysinline(true);
 ```
 
-Set playInline flag
+Set playsinline flag
 
 <div class="method-list">
   <table>
@@ -1176,7 +1165,7 @@ Set playInline flag
     <tbody>
       <tr>
         <td class="param">
-          <code>isPlayInline</code>
+          <code>isPlaysinline</code>
         </td>
         <td>
             <div class="type">boolean</div>
@@ -1187,7 +1176,7 @@ Set playInline flag
   </table>
 </div>
 
-## getPlayInline()
+## getPlaysinline()
 
 ```javascript
 player.getPlayInline(); // true
@@ -1272,7 +1261,7 @@ Get crossorigin attribute value for video
   </table>
 </div>
 
-## getCurrentPlaybackState()
+## getPlaybackState()
 
 Return current state of playback
 
@@ -1517,6 +1506,22 @@ With "BLUR" black lines would be filled with blured pixels from video.</p>
   </table>
 </div>
 
+## hideOverlay()
+
+```javascript
+player.showOverlay();
+```
+
+Method for completely hiding player overlay. It's not gonna appear on initial state of player and when video is ended.
+
+## showOverlay()
+
+```javascript
+player.showOverlay();
+```
+
+Method for showing player overlay after it was completely hidden with `player.hideOverlay()`.
+
 ## setPoster()
 
 ```javascript
@@ -1547,13 +1552,13 @@ Method for setting overlay poster
   </table>
 </div>
 
-## setControlsShouldAlwaysShow()
+## setMainUIShouldAlwaysShow()
 
 ```javascript
-player.setControlsShouldAlwaysShow(true);
+player.setMainUIShouldAlwaysShow(true);
 ```
 
-Method for allowing bottom block to be always shown.
+Method for allowing main ui to be always shown despite the playback status and the cursor position
 
 <div class="method-list">
   <table>
@@ -1642,10 +1647,10 @@ Method for attaching callback for click on title
   </table>
 </div>
 
-## setLogoAlwaysShowFlag()
+## setAlwaysShowLogo()
 
 ```javascript
-player.setLogoAlwaysShowFlag(true);
+player.setAlwaysShowLogo(true);
 ```
 
 Method for allowing logo to be always shown in bottom block
@@ -1678,7 +1683,7 @@ Method for allowing logo to be always shown in bottom block
 player.hideLogo();
 ```
 
-Method for hidding logo. If you use `setLogoAlwaysShowFlag` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
+Method for hiding logo. If you use `setAlwaysShowLogo` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
 
 ## showLogo()
 
@@ -1742,7 +1747,7 @@ Method for showing download button.
 player.hidePlayControl();
 ```
 
-Method for hidding play control.
+Method for hiding play control.
 
 ## hideVolumeControl()
 
@@ -1750,7 +1755,7 @@ Method for hidding play control.
 player.hideVolumeControl();
 ```
 
-Method for hidding voluem control.
+Method for hiding voluem control.
 
 ## hideTimeControl()
 
@@ -1758,7 +1763,7 @@ Method for hidding voluem control.
 player.hideTimeControl();
 ```
 
-Method for hidding time control.
+Method for hiding time control.
 
 ## hideFullScreenControl()
 
@@ -1766,7 +1771,7 @@ Method for hidding time control.
 player.hideFullScreenControl();
 ```
 
-Method for hidding full screen control.
+Method for hiding full screen control.
 
 ## hideProgressControl()
 
@@ -1774,7 +1779,7 @@ Method for hidding full screen control.
 player.hideProgressControl();
 ```
 
-Method for hidding progress control.
+Method for hiding progress control.
 
 ## hideDownloadButton()
 
@@ -1782,7 +1787,7 @@ Method for hidding progress control.
 player.hideDownloadButton();
 ```
 
-Method for hidding download button.
+Method for hiding download button.
 
 ## showPreviewOnProgressDrag()
 

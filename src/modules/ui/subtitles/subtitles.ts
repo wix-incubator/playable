@@ -42,13 +42,13 @@ export default class Subtitles implements ISubtitles {
     eventEmitter: IEventEmitter;
   }) {
     this._eventEmitter = eventEmitter;
-    this._video = engine.getNode();
+    this._video = engine.getElement();
 
     this._initUI();
     this._bindCallbacks();
     this._bindEvents();
 
-    rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentElement(this.getElement());
   }
 
   @playerAPI()
@@ -160,8 +160,8 @@ export default class Subtitles implements ISubtitles {
     this._activeSubtitleIndex = index;
   }
 
-  get node(): HTMLElement {
-    return this.view.getNode();
+  getElement(): HTMLElement {
+    return this.view.getElement();
   }
 
   private _initUI(): void {

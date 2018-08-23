@@ -56,8 +56,8 @@ class RootContainer implements IRootContainer {
    * (use it only for debug, if you need attach player to your document use `attachToElement` method)
    */
   @playerAPI()
-  get node(): HTMLElement {
-    return this.view.getNode();
+  getElement(): HTMLElement {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
@@ -81,27 +81,24 @@ class RootContainer implements IRootContainer {
   }
 
   private _initUI(config: IPlayerConfig) {
-    const sizeConfig = {
-      ...config.size,
-    };
     this.view = new View({
       callbacks: {
         onMouseEnter: this._broadcastMouseEnter,
         onMouseLeave: this._broadcastMouseLeave,
         onMouseMove: this._broadcastMouseMove,
       },
-      width: sizeConfig.width || null,
-      height: sizeConfig.height || null,
+      width: config.width || null,
+      height: config.height || null,
       fillAllSpace: config.fillAllSpace || DEFAULT_CONFIG.fillAllSpace,
     });
 
-    this._elementQueries = new ElementQueries(this.node, {
+    this._elementQueries = new ElementQueries(this.getElement(), {
       prefix: '',
     });
   }
 
-  appendComponentNode(node: HTMLElement) {
-    this.view.appendComponentElement(node);
+  appendComponentElement(element: HTMLElement) {
+    this.view.appendComponentElement(element);
   }
 
   private _broadcastMouseEnter() {
@@ -164,13 +161,13 @@ class RootContainer implements IRootContainer {
   attachToElement(element: Element) {
     this._enableFocusInterceptors();
 
-    element.appendChild(this.node);
+    element.appendChild(this.getElement());
 
     if (!this._resizeObserver) {
       // NOTE: required for valid work of player "media queries"
       this._resizeObserver = new ResizeObserver(this._onResized);
 
-      this._resizeObserver.observe(this.node);
+      this._resizeObserver.observe(this.getElement());
     }
   }
 
@@ -256,7 +253,7 @@ class RootContainer implements IRootContainer {
     this._disableFocusInterceptors();
 
     if (this._resizeObserver) {
-      this._resizeObserver.unobserve(this.node);
+      this._resizeObserver.unobserve(this.getElement());
       this._resizeObserver = null;
     }
 

@@ -23,7 +23,7 @@ class LoaderView extends View<ILoaderViewStyles>
     );
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

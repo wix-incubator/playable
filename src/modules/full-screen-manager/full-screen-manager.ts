@@ -52,13 +52,12 @@ export default class FullScreenManager implements IFullScreenManager {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
 
-    if (config.fullScreen === false) {
+    if (config.disableFullScreen) {
       this._isEnabled = false;
     } else {
       this._isEnabled = true;
       const _config: IFullScreenConfig = {
         ...DEFAULT_CONFIG,
-        ...(typeof config.fullScreen === 'object' ? config.fullScreen : {}),
       };
 
       this._exitFullScreenOnEnd = _config.exitFullScreenOnEnd;
@@ -69,9 +68,15 @@ export default class FullScreenManager implements IFullScreenManager {
     this._onChange = this._onChange.bind(this);
 
     if (isIOS()) {
-      this._helper = new IOSFullScreen(this._engine.getNode(), this._onChange);
+      this._helper = new IOSFullScreen(
+        this._engine.getElement(),
+        this._onChange,
+      );
     } else {
-      this._helper = new DesktopFullScreen(rootContainer.node, this._onChange);
+      this._helper = new DesktopFullScreen(
+        rootContainer.getElement(),
+        this._onChange,
+      );
     }
 
     this._bindEvents();

@@ -40,16 +40,12 @@ Object.defineProperty(window, 'Playable', {
 document.addEventListener('DOMContentLoaded', () => {
   const player: any = Playable.create({
     preload: PreloadTypes.METADATA,
-    size: {
-      width: 800,
-      height: 450,
-    },
-    playInline: true,
-    overlay: false,
-    logo: {
-      src: '',
-    },
+    width: 800,
+    height: 450,
+    playsinline: true,
+    hideOverlay: true,
   });
+  player.showLogo();
 
   Object.defineProperty(window, 'player', {
     value: player,

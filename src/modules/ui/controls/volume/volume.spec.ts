@@ -94,12 +94,9 @@ describe('VolumeControl', () => {
       control._changeVolumeStatus(90);
       expect(volumeSpy.calledWith(90)).to.be.true;
       expect(muteSpy.called).to.be.false;
-      const engineIsMutedThub = sinon
-        .stub(control._engine, 'getMute')
-        .callsFake(() => true);
+      control._engine.mute();
       control._changeVolumeStatus(90);
       expect(muteSpy.called).to.be.true;
-      engineIsMutedThub.restore();
     });
   });
 });

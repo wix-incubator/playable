@@ -47,7 +47,7 @@ describe('Loader', () => {
       screen._bindCallbacks();
       screen._initUI();
 
-      screen.view.getNode().dispatchEvent(new Event('click'));
+      screen.view.getElement().dispatchEvent(new Event('click'));
       expect(processClickSpy.called).to.be.true;
     });
 
@@ -67,16 +67,14 @@ describe('Loader', () => {
 
     it('should add native controls if config passed', () => {
       testkit.setConfig({
-        screen: {
-          nativeControls: true,
-        },
+        nativeBrowserControls: true,
       });
 
       const video: any = document.createElement('video');
 
       video.setAttribute = sinon.spy();
 
-      engine.getNode = () => video;
+      engine.getElement = () => video;
 
       screen = testkit.getModule('screen');
 

@@ -10,19 +10,9 @@ import { IPlaybackEngine } from '../../playback-engine/types';
 import { IInteractionIndicator } from '../interaction-indicator/types';
 import { IPlayerConfig } from '../../../core/config';
 import { IRootContainer } from '../../root-container/types';
-import {
-  IScreen,
-  VideoViewMode,
-  IScreenConfig,
-  IScreenViewConfig,
-} from './types';
+import { IScreen, VideoViewMode, IScreenViewConfig } from './types';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
-
-const DEFAULT_CONFIG: IScreenConfig = {
-  disableClickProcessing: false,
-  nativeControls: false,
-};
 
 export default class Screen implements IScreen {
   static moduleName = 'screen';
@@ -74,22 +64,19 @@ export default class Screen implements IScreen {
 
     this._delayedToggleVideoPlaybackTimeout = null;
 
-    const screenConfig = {
-      ...DEFAULT_CONFIG,
-      ...config.screen,
-    };
-
-    this._isClickProcessingDisabled = screenConfig.disableClickProcessing;
+    this._isClickProcessingDisabled = Boolean(
+      config.disableControlWithClickOnPlayer,
+    );
 
     this._bindCallbacks();
-    this._initUI(screenConfig.nativeControls);
+    this._initUI(config.nativeBrowserControls);
     this._bindEvents();
 
-    rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentElement(this.getElement());
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
@@ -105,7 +92,7 @@ export default class Screen implements IScreen {
         onWrapperMouseClick: this._processNodeClick,
         onWrapperMouseDblClick: this._processNodeDblClick,
       },
-      playbackViewNode: this._engine.getNode(),
+      playbackViewNode: this._engine.getElement(),
     };
 
     this.view = new View(config);

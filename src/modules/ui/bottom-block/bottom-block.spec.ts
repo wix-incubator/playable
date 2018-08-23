@@ -66,7 +66,7 @@ describe('BottomBlock', () => {
       expect(controls.view.showContent).to.exist;
     });
 
-    it('should have method for hidding block with controls', () => {
+    it('should have method for hiding block with controls', () => {
       expect(controls.view.hideContent).to.exist;
     });
 
@@ -74,12 +74,12 @@ describe('BottomBlock', () => {
       expect(controls.view.show).to.exist;
     });
 
-    it('should have method for hidding itself', () => {
+    it('should have method for hiding itself', () => {
       expect(controls.view.hide).to.exist;
     });
 
     it('should have method gettind root node', () => {
-      expect(controls.view.getNode).to.exist;
+      expect(controls.view.getElement).to.exist;
     });
 
     it('should have method for destroying', () => {

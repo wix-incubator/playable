@@ -7,12 +7,12 @@ import logger from './logger';
 import KeyboardInterceptor from './keyboard-interceptor';
 
 describe('KeyboardInterceptor', () => {
-  let node: any;
+  let element: HTMLElement;
   let interceptor: KeyboardInterceptor;
   const keydownEvent: any = new Event('keydown');
 
   beforeEach(() => {
-    node = document.createElement('div');
+    element = document.createElement('div');
   });
 
   describe('', () => {
@@ -28,16 +28,16 @@ describe('KeyboardInterceptor', () => {
         [testKeyCode2]: sinon.spy(),
       };
 
-      interceptor = new KeyboardInterceptor(node, callbacks);
+      interceptor = new KeyboardInterceptor(element, callbacks);
 
       keydownEvent.keyCode = testKeyCode1;
-      node.dispatchEvent(keydownEvent);
+      element.dispatchEvent(keydownEvent);
 
       expect(callbacks[testKeyCode1].calledWith(keydownEvent)).to.be.true;
       expect(callbacks[testKeyCode2].called).to.be.false;
 
       keydownEvent.keyCode = testKeyCode2;
-      node.dispatchEvent(keydownEvent);
+      element.dispatchEvent(keydownEvent);
 
       expect(callbacks[testKeyCode2].calledWith(keydownEvent)).to.be.true;
     });
@@ -48,17 +48,17 @@ describe('KeyboardInterceptor', () => {
         [testKeyCode]: sinon.spy(),
       };
 
-      interceptor = new KeyboardInterceptor(node);
+      interceptor = new KeyboardInterceptor(element);
 
       keydownEvent.keyCode = testKeyCode;
-      node.dispatchEvent(keydownEvent);
+      element.dispatchEvent(keydownEvent);
 
       expect(additionCallbacks[testKeyCode].called).to.be.false;
 
       interceptor.addCallbacks(additionCallbacks);
 
       keydownEvent.keyCode = testKeyCode;
-      node.dispatchEvent(keydownEvent);
+      element.dispatchEvent(keydownEvent);
 
       expect(additionCallbacks[testKeyCode].called).to.be.true;
     });
@@ -69,19 +69,19 @@ describe('KeyboardInterceptor', () => {
       [testKeyCode]: sinon.spy(),
     };
 
-    interceptor = new KeyboardInterceptor(node, callbacks);
+    interceptor = new KeyboardInterceptor(element, callbacks);
 
     interceptor.destroy();
 
     keydownEvent.keyCode = testKeyCode;
-    node.dispatchEvent(keydownEvent);
+    element.dispatchEvent(keydownEvent);
 
     expect(callbacks[testKeyCode].called).to.be.false;
   });
   it('should call warn on destroy after destroy', () => {
     const warnSpy = sinon.stub(logger, 'warn');
 
-    interceptor = new KeyboardInterceptor(node);
+    interceptor = new KeyboardInterceptor(element);
 
     interceptor.destroy();
     interceptor.destroy();

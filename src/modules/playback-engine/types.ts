@@ -47,7 +47,7 @@ interface IDebugInfo {
 }
 
 interface IPlaybackEngine {
-  getNode(): HTMLVideoElement;
+  getElement(): HTMLVideoElement;
 
   isDynamicContent: boolean;
   isDynamicContentEnded: boolean;
@@ -56,8 +56,8 @@ interface IPlaybackEngine {
   isPreloadAvailable: boolean;
   isAutoPlayAvailable: boolean;
   isSyncWithLive: boolean;
-  isVideoPaused: boolean;
-  isVideoEnded: boolean;
+  isPaused: boolean;
+  isEnded: boolean;
 
   attachedAdapter: IPlaybackAdapter;
 
@@ -69,18 +69,19 @@ interface IPlaybackEngine {
   togglePlayback(): void;
   syncWithLive(): void;
 
-  goForward(sec: number): void;
-  goBackward(sec: number): void;
+  seekTo(time: number): void;
+  seekForward(sec: number): void;
+  seekBackward(sec: number): void;
 
   setVolume(volume: number): void;
   getVolume(): number;
   increaseVolume(value: number): void;
   decreaseVolume(value: number): void;
   setMute(isMuted: boolean): void;
-  getMute(): boolean;
+  isMuted: boolean;
 
-  setAutoPlay(isAutoPlay: boolean): void;
-  getAutoPlay(): boolean;
+  setAutoplay(isAutoplay: boolean): void;
+  getAutoplay(): boolean;
 
   setLoop(isLoop: boolean): void;
   getLoop(): boolean;
@@ -95,16 +96,15 @@ interface IPlaybackEngine {
   getCrossOrigin(): CrossOriginValue;
 
   getCurrentTime(): number;
-  setCurrentTime(time: number): void;
-  getDurationTime(): number;
+  getDuration(): number;
 
   getVideoWidth(): number;
   getVideoHeight(): number;
 
   getBuffered(): TimeRanges;
 
-  setPlayInline(isPlayInline: boolean): void;
-  getPlayInline(): boolean;
+  setPlaysinline(isPlaysinline: boolean): void;
+  getPlaysinline(): boolean;
 
   getCurrentState(): EngineState;
   getDebugInfo(): IDebugInfo;

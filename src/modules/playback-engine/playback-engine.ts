@@ -73,27 +73,27 @@ export default class Engine implements IPlaybackEngine {
   private _applyConfig(config: IPlayerConfig = {}) {
     const {
       preload,
-      autoPlay,
+      autoplay,
       loop,
       muted,
       volume,
-      playInline,
+      playsinline,
       crossOrigin,
       src,
     } = config;
 
     this.setPreload(preload);
-    this.setAutoPlay(autoPlay);
+    this.setAutoplay(autoplay);
     this.setLoop(loop);
     this.setMute(muted);
     this.setVolume(volume);
-    this.setPlayInline(playInline);
+    this.setPlaysinline(playsinline);
     this.setCrossOrigin(crossOrigin);
 
     this.setSrc(src);
   }
 
-  getNode() {
+  getElement() {
     return this._video;
   }
 
@@ -145,7 +145,7 @@ export default class Engine implements IPlaybackEngine {
       return false;
     }
 
-    return this.getAutoPlay();
+    return this.getAutoplay();
   }
 
   get isSyncWithLive(): boolean {
@@ -198,7 +198,7 @@ export default class Engine implements IPlaybackEngine {
   @playerAPI()
   reset() {
     this.pause();
-    this.setCurrentTime(0);
+    this.seekTo(0);
     this._eventEmitter.emit(VIDEO_EVENTS.RESET);
   }
 
@@ -255,7 +255,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   togglePlayback() {
-    if (this.isVideoPaused) {
+    if (this.isPaused) {
       this.play();
     } else {
       this.pause();
@@ -266,40 +266,40 @@ export default class Engine implements IPlaybackEngine {
    * Method for reseting playback of video
    * @example
    * player.play();
-   * console.log(player.isVideoPaused); // false
+   * console.log(player.isPaused); // false
    * ...
    * player.resetPlayback();
-   * console.log(player.isVideoPaused); // true;
+   * console.log(player.isPaused); // true;
    * console.log(player.getCurrentTime()); //0;
    */
   @playerAPI()
   resetPlayback() {
     this.pause();
-    this.setCurrentTime(0);
+    this.seekTo(0);
     this._eventEmitter.emit(VIDEO_EVENTS.RESET);
   }
 
   /**
    * High level status of video playback. Returns true if playback is paused.
-   * For more advance state use `getCurrentPlaybackState`
+   * For more advance state use `getPlaybackState`
    * @example
    * player.play();
-   * console.log(player.isVideoPaused);
+   * console.log(player.isPaused);
    */
   @playerAPI()
-  get isVideoPaused(): boolean {
+  get isPaused(): boolean {
     return this._video.paused;
   }
 
   /**
    * High level status of video playback. Returns true if playback is ended. Also note, that `isPaused` will return `true` if playback is ended also.
-   * For more advance state use `getCurrentPlaybackState`
+   * For more advance state use `getPlaybackState`
    * @example
    * player.play();
-   * console.log(player.isVideoEnded);
+   * console.log(player.isEnded);
    */
   @playerAPI()
-  get isVideoEnded(): boolean {
+  get isEnded(): boolean {
     return this._video.ended;
   }
 
@@ -316,7 +316,7 @@ export default class Engine implements IPlaybackEngine {
       !this.attachedAdapter.isDynamicContentEnded &&
       !this.isSyncWithLive
     ) {
-      this.setCurrentTime(this.attachedAdapter.syncWithLiveTime);
+      this.seekTo(this.attachedAdapter.syncWithLiveTime);
 
       this.play();
     }
@@ -326,15 +326,15 @@ export default class Engine implements IPlaybackEngine {
    * Method for going forward in playback by your value
    * @param sec - Value in seconds
    * @example
-   * player.goForward(5);
+   * player.seekForward(5);
    */
   @playerAPI()
-  goForward(sec: number) {
-    const duration = this.getDurationTime();
+  seekForward(sec: number) {
+    const duration = this.getDuration();
 
     if (duration) {
       const current = this.getCurrentTime();
-      this.setCurrentTime(Math.min(current + sec, duration));
+      this.seekTo(Math.min(current + sec, duration));
     }
   }
 
@@ -342,15 +342,15 @@ export default class Engine implements IPlaybackEngine {
    * Method for going backward in playback by your value
    * @param sec - Value in seconds
    * @example
-   * player.goBackward(5);
+   * player.seekBackward(5);
    */
   @playerAPI()
-  goBackward(sec: number) {
-    const duration = this.getDurationTime();
+  seekBackward(sec: number) {
+    const duration = this.getDuration();
 
     if (duration) {
       const current = this.getCurrentTime();
-      this.setCurrentTime(Math.max(current - sec, 0));
+      this.seekTo(Math.max(current - sec, 0));
     }
   }
 
@@ -400,44 +400,60 @@ export default class Engine implements IPlaybackEngine {
     this.setVolume(this.getVolume() - value);
   }
 
-  /**
-   * Mute or unmute the video
-   * @param isMuted - `true` to mute the video.
-   * @example
-   * player.setMute(true);
-   */
-  @playerAPI()
   setMute(isMuted: boolean) {
     this._video.muted = Boolean(isMuted);
   }
 
   /**
-   * Get mute flag
+   * Mute the video
    * @example
-   * player.getMute(); // true
+   * player.mute();
    */
   @playerAPI()
-  getMute(): boolean {
+  mute() {
+    this.setMute(true);
+  }
+
+  /**
+   * Unmute the video
+   * @example
+   * player.unmute(true);
+   */
+  @playerAPI()
+  unmute() {
+    this.setMute(false);
+  }
+
+  /**
+   * Get mute flag
+   * @example
+   * player.mute();
+   * player.isMuted; // true
+   * player.unmute();
+   * player.isMuted: // false
+   */
+  @playerAPI()
+  get isMuted(): boolean {
     return this._video.muted;
   }
 
   /**
-   * Set autoPlay flag
+   * Set autoplay flag
    * @example
-   * player.setAutoPlay();
+   * player.setAutoplay();
    */
   @playerAPI()
-  setAutoPlay(isAutoPlay: boolean) {
-    this._video.autoplay = Boolean(isAutoPlay);
+  setAutoplay(isAutoplay: boolean) {
+    this._video.autoplay = Boolean(isAutoplay);
   }
 
   /**
-   * Get autoPlay flag
+   * Get autoplay flag
    * @example
-   * player.getAutoPlay(); // true
+   * player.getAutoplay(); // true
    */
   @playerAPI()
-  getAutoPlay(): boolean {
+  getAutoplay(): boolean {
     return this._video.autoplay;
   }
 
@@ -512,20 +528,20 @@ export default class Engine implements IPlaybackEngine {
    * Method for seeking to time in video
    * @param time - Time in seconds
    * @example
-   * player.goTo(34);
+   * player.seekTo(34);
    */
-  @playerAPI('goTo')
-  setCurrentTime(time: number) {
+  @playerAPI()
+  seekTo(time: number) {
     this._video.currentTime = time;
   }
 
   /**
    * Return duration of video
    * @example
-   * player.getDurationTime(); // 180.149745
+   * player.getDuration(); // 180.149745
    */
   @playerAPI()
-  getDurationTime(): number {
+  getDuration(): number {
     return this._video.duration || 0;
   }
 
@@ -554,17 +570,17 @@ export default class Engine implements IPlaybackEngine {
   }
 
   /**
-   * Set playInline flag
-   * @param isPlayInline - If `false` - video will be played in full screen, `true` - inline
+   * Set playsinline flag
+   * @param isPlaysinline - If `false` - video will be played in full screen, `true` - inline
    * @example
-   * player.setPlayInline(true);
+   * player.setPlaysinline(true);
    */
   @playerAPI()
-  setPlayInline(isPlayInline: boolean) {
-    if (isPlayInline) {
-      this._video.setAttribute('playsInline', 'true');
+  setPlaysinline(isPlaysinline: boolean) {
+    if (isPlaysinline) {
+      this._video.setAttribute('playsinline', 'true');
     } else {
-      this._video.removeAttribute('playsInline');
+      this._video.removeAttribute('playsinline');
     }
   }
 
@@ -574,8 +590,8 @@ export default class Engine implements IPlaybackEngine {
    * player.getPlayInline(); // true
    */
   @playerAPI()
-  getPlayInline(): boolean {
-    return this._video.getAttribute('playsInline') === 'true';
+  getPlaysinline(): boolean {
+    return this._video.getAttribute('playsinline') === 'true';
   }
 
   /**
@@ -605,7 +621,7 @@ export default class Engine implements IPlaybackEngine {
   /**
    * Return current state of playback
    */
-  @playerAPI('getCurrentPlaybackState')
+  @playerAPI('getPlaybackState')
   getCurrentState() {
     return this._stateEngine.state;
   }

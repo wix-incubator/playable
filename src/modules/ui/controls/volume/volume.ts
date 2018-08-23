@@ -65,13 +65,13 @@ export default class VolumeControl implements IVolumeControl {
     this._bindEvents();
 
     this.view.setVolume(this._engine.getVolume());
-    this.view.setMute(this._engine.getMute());
+    this.view.setMute(this._engine.isMuted);
 
     this._initInterceptor();
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _initUI() {
@@ -100,7 +100,7 @@ export default class VolumeControl implements IVolumeControl {
 
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(
-            this._engine.getMute()
+            this._engine.isMuted
               ? UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED
               : UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
           );
@@ -110,7 +110,7 @@ export default class VolumeControl implements IVolumeControl {
 
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(
-            this._engine.getMute()
+            this._engine.isMuted
               ? UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED
               : UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
           );
@@ -178,10 +178,10 @@ export default class VolumeControl implements IVolumeControl {
   }
 
   private _toggleMuteStatus() {
-    this._engine.setMute(!this._engine.getMute());
+    this._engine.setMute(!this._engine.isMuted);
     this._eventEmitter.emit(
       UI_EVENTS.MUTE_STATUS_TRIGGERED,
-      !this._engine.getMute(),
+      !this._engine.isMuted,
     );
   }
 
@@ -198,14 +198,14 @@ export default class VolumeControl implements IVolumeControl {
 
   private _changeVolumeStatus(level: number) {
     this._changeVolumeLevel(level);
-    if (this._engine.getMute()) {
+    if (this._engine.isMuted) {
       this._toggleMuteStatus();
     }
   }
 
   private _updateVolumeStatus() {
     this.setVolumeLevel(this._engine.getVolume());
-    this.setMuteStatus(this._engine.getMute());
+    this.setMuteStatus(this._engine.isMuted);
   }
 
   setVolumeLevel(level: number) {

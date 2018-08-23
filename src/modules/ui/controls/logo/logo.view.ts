@@ -144,7 +144,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

@@ -69,7 +69,7 @@ class TopBlockView extends View<ITopBlockViewStyles>
     this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

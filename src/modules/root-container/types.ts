@@ -18,14 +18,9 @@ type IRootContainerViewConfig = {
   callbacks: IRootContainerViewCallbacks;
 };
 
-interface IPlayerSize {
-  width: number;
-  height: number;
-}
-
 interface IRootContainer {
-  node: HTMLElement;
-  appendComponentNode(node: Element): void;
+  getElement(): HTMLElement;
+  appendComponentElement(element: Element): void;
   attachToElement(element: Element): void;
   setWidth(width: number): void;
   getWidth(): number;
@@ -38,7 +33,6 @@ interface IRootContainer {
 }
 
 export {
-  IPlayerSize,
   IRootContainer,
   IRootContainerViewStyles,
   IRootContainerViewCallbacks,

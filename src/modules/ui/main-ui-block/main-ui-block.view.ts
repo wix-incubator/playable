@@ -39,7 +39,7 @@ class MainUIBlockView extends View<IMainUIBlockViewStyles>
     this._$rootElement.appendChild(elements.bottomBlock);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

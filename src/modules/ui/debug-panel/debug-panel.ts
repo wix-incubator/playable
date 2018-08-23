@@ -37,7 +37,7 @@ export default class DebugPanel {
 
     this.hide();
 
-    rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentElement(this.getElement());
 
     keyboardControl.addKeyControl(KEYCODES.DEBUG_KEY, this._keyControlCallback);
   }
@@ -48,8 +48,8 @@ export default class DebugPanel {
     }
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _initUI() {

@@ -117,8 +117,8 @@ export default class ProgressControl implements IProgressControl {
     this._initInterceptor();
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindEvents() {
@@ -154,34 +154,34 @@ export default class ProgressControl implements IProgressControl {
   }
 
   private _initInterceptor() {
-    this._interceptor = new KeyboardInterceptor(this.view.getNode(), {
+    this._interceptor = new KeyboardInterceptor(this.view.getElement(), {
       [KEYCODES.UP_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
-        this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
+        this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.DOWN_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
-        this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
+        this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.RIGHT_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
-        this._engine.goForward(AMOUNT_TO_SKIP_SECONDS);
+        this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.LEFT_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
-        this._engine.goBackward(AMOUNT_TO_SKIP_SECONDS);
+        this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
       },
     });
   }
@@ -221,7 +221,7 @@ export default class ProgressControl implements IProgressControl {
   }
 
   private _convertPlayedPercentToTime(percent: number): number {
-    const duration = this._engine.getDurationTime();
+    const duration = this._engine.getDuration();
     return (duration * percent) / 100;
   }
 
@@ -240,7 +240,7 @@ export default class ProgressControl implements IProgressControl {
   }
 
   private _showTooltipAndPreview(percent: number) {
-    const duration = this._engine.getDurationTime();
+    const duration = this._engine.getDuration();
     const seekToTime = this._convertPlayedPercentToTime(percent);
     const timeToShow = this._engine.isDynamicContent
       ? seekToTime - duration
@@ -374,12 +374,12 @@ export default class ProgressControl implements IProgressControl {
   }
 
   private _changeCurrentTimeOfVideo(newTime: number) {
-    const duration = this._engine.getDurationTime();
+    const duration = this._engine.getDuration();
 
     if (this._engine.isDynamicContent && duration === newTime) {
       this._engine.syncWithLive();
     } else {
-      this._engine.setCurrentTime(newTime);
+      this._engine.seekTo(newTime);
     }
 
     this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, newTime);
@@ -408,7 +408,7 @@ export default class ProgressControl implements IProgressControl {
   private _updateBufferIndicator() {
     const currentTime = this._engine.getCurrentTime();
     const buffered = this._engine.getBuffered();
-    const duration = this._engine.getDurationTime();
+    const duration = this._engine.getDuration();
 
     this._setBuffered(
       getOverallBufferedPercent(buffered, currentTime, duration),
@@ -422,7 +422,7 @@ export default class ProgressControl implements IProgressControl {
     }
 
     const currentTime = this._engine.getCurrentTime();
-    const duration = this._engine.getDurationTime();
+    const duration = this._engine.getDuration();
 
     this._setPlayed(getOverallPlayedPercent(currentTime, duration));
   }
@@ -440,7 +440,7 @@ export default class ProgressControl implements IProgressControl {
   }
 
   private _addTimeIndicator(time: number) {
-    const durationTime = this._engine.getDurationTime();
+    const durationTime = this._engine.getDuration();
 
     if (time > durationTime) {
       // TODO: log error for developers

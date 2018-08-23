@@ -88,7 +88,7 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
     this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

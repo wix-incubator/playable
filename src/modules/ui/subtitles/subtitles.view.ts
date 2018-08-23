@@ -33,7 +33,7 @@ class SubtitlesView extends View<ISubtitlesViewStyles>
     );
   }
 
-  getNode(): HTMLElement {
+  getElement(): HTMLElement {
     return this._$rootElement;
   }
 

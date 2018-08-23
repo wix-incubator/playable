@@ -25,14 +25,12 @@ class OverlayView extends View<IOverlayViewStyles>
   constructor(config: IOverlayViewConfig) {
     super(config.theme);
 
-    const { callbacks, src } = config;
+    const { callbacks } = config;
 
     this._callbacks = callbacks;
 
     this._initDOM();
     this._bindEvents();
-
-    this.setPoster(src);
   }
 
   private _initDOM() {
@@ -61,7 +59,7 @@ class OverlayView extends View<IOverlayViewStyles>
     this._$playButton.removeEventListener('click', this._callbacks.onPlayClick);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

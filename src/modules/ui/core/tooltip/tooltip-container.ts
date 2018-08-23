@@ -12,7 +12,7 @@ import {
 import styles from './tooltip-container.scss';
 
 interface ITooltipContainer {
-  node: HTMLElement;
+  getElement(): HTMLElement;
   getTooltipPositionStyles(
     position: ITooltipPosition,
   ): { [ket: string]: string | number };
@@ -30,7 +30,7 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
     this._initDOM();
   }
 
-  get node(): HTMLElement {
+  getElement(): HTMLElement {
     return this._$rootElement;
   }
 
@@ -40,7 +40,7 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
         styles: this.styleNames,
       }),
     );
-    this._$rootElement.appendChild(this._tooltip.node);
+    this._$rootElement.appendChild(this._tooltip.getElement());
   }
 
   getTooltipPositionStyles(
@@ -71,7 +71,7 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
   }
 
   private _getTooltipLeftX(tooltipCenterX: number) {
-    const tooltipRect = this._tooltip.node.getBoundingClientRect();
+    const tooltipRect = this._tooltip.getElement().getBoundingClientRect();
     const tooltipContainerRect = this._$rootElement.getBoundingClientRect();
 
     let tooltipLeftX = tooltipCenterX - tooltipRect.width / 2;

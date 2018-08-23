@@ -37,15 +37,15 @@ export default class InteractionIndicator implements IInteractionIndicator {
     this._initUI();
     this._bindEvents();
 
-    rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentElement(this.getElement());
 
-    if (config.showInteractionIndicator === false) {
+    if (config.hideMainUI) {
       this.hide();
     }
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _initUI() {
@@ -113,11 +113,11 @@ export default class InteractionIndicator implements IInteractionIndicator {
   }
 
   show() {
-    this.view.hide();
+    this.view.show();
   }
 
   hide() {
-    this.view.show();
+    this.view.hide();
   }
 
   private _showPlaybackChangeIndicator() {

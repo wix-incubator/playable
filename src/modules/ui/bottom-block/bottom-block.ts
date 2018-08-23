@@ -9,7 +9,7 @@ import { ITimeControl } from '../controls/time/types';
 import { IProgressControl } from '../controls/progress/types';
 import { IVolumeControl } from '../controls/volume/types';
 import { IFullScreenControl } from '../controls/full-screen/types';
-import { ILogoControl, ILogoConfig } from '../controls/logo/types';
+import { ILogoControl } from '../controls/logo/types';
 import { IDownloadButton } from '../controls/download/types';
 
 import {
@@ -17,10 +17,8 @@ import {
   IBottomBlockViewConfig,
   IBottomBlockViewElements,
 } from './types';
-import { IPlayerConfig } from '../../../core/config';
 
 interface IDependencies {
-  config: IPlayerConfig;
   eventEmitter: IEventEmitter;
   playControl: IPlayControl;
   progressControl: IProgressControl;
@@ -35,7 +33,6 @@ export default class BottomBlock implements IBottomBlock {
   static moduleName = 'bottomBlock';
   static View = View;
   static dependencies = [
-    'config',
     'playControl',
     'progressControl',
     'timeControl',
@@ -56,12 +53,11 @@ export default class BottomBlock implements IBottomBlock {
   isHidden: boolean = false;
 
   constructor(dependencies: IDependencies) {
-    const { config, eventEmitter } = dependencies;
+    const { eventEmitter } = dependencies;
     this._eventEmitter = eventEmitter;
 
     this._bindViewCallbacks();
     this._initUI(this._getElementsNodes(dependencies));
-    this._initLogo(config.logo);
     this._bindEvents();
   }
 
@@ -79,18 +75,18 @@ export default class BottomBlock implements IBottomBlock {
     } = dependencies;
 
     return {
-      play: playControl.node,
-      progress: progressControl.node,
-      time: timeControl.node,
-      volume: volumeControl.node,
-      fullScreen: fullScreenControl.node,
-      download: downloadButton.node,
-      logo: logo.node,
+      play: playControl.getElement(),
+      progress: progressControl.getElement(),
+      time: timeControl.getElement(),
+      volume: volumeControl.getElement(),
+      fullScreen: fullScreenControl.getElement(),
+      download: downloadButton.getElement(),
+      logo: logo.getElement(),
     };
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _initUI(elementNodes: IBottomBlockViewElements) {
@@ -103,6 +99,7 @@ export default class BottomBlock implements IBottomBlock {
     };
 
     this.view = new BottomBlock.View(config);
+    this.hideLogo();
     this.hideDownloadButton();
   }
 
@@ -111,16 +108,6 @@ export default class BottomBlock implements IBottomBlock {
       [[UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._removeFocusState]],
       this,
     );
-  }
-
-  private _initLogo(logoConfig: ILogoConfig | boolean) {
-    if (logoConfig) {
-      if (typeof logoConfig === 'object') {
-        this.setLogoAlwaysShowFlag(logoConfig.showAlways);
-      }
-    } else {
-      this.hideLogo();
-    }
   }
 
   private _bindViewCallbacks() {
@@ -162,16 +149,16 @@ export default class BottomBlock implements IBottomBlock {
    * Method for allowing logo to be always shown in bottom block
    * @param flag - `true` for showing always
    * @example
-   * player.setLogoAlwaysShowFlag(true);
+   * player.setAlwaysShowLogo(true);
    *
    */
   @playerAPI()
-  setLogoAlwaysShowFlag(flag: boolean) {
+  setAlwaysShowLogo(flag: boolean) {
     this.view.setShouldLogoShowAlwaysFlag(flag);
   }
 
   /**
-   * Method for hidding logo. If you use `setLogoAlwaysShowFlag` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
+   * Method for hiding logo. If you use `setAlwaysShowLogo` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
    * @example
    * player.hideLogo();
    */
@@ -251,7 +238,7 @@ export default class BottomBlock implements IBottomBlock {
   }
 
   /**
-   * Method for hidding play control.
+   * Method for hiding play control.
    * @example
    * player.hidePlayControl();
    */
@@ -261,7 +248,7 @@ export default class BottomBlock implements IBottomBlock {
   }
 
   /**
-   * Method for hidding voluem control.
+   * Method for hiding voluem control.
    * @example
    * player.hideVolumeControl();
    */
@@ -271,7 +258,7 @@ export default class BottomBlock implements IBottomBlock {
   }
 
   /**
-   * Method for hidding time control.
+   * Method for hiding time control.
    * @example
    * player.hideTimeControl();
    */
@@ -281,7 +268,7 @@ export default class BottomBlock implements IBottomBlock {
   }
 
   /**
-   * Method for hidding full screen control.
+   * Method for hiding full screen control.
    * @example
    * player.hideFullScreenControl();
    */
@@ -291,7 +278,7 @@ export default class BottomBlock implements IBottomBlock {
   }
 
   /**
-   * Method for hidding progress control.
+   * Method for hiding progress control.
    * @example
    * player.hideProgressControl();
    */
@@ -301,7 +288,7 @@ export default class BottomBlock implements IBottomBlock {
   }
 
   /**
-   * Method for hidding download button.
+   * Method for hiding download button.
    * @example
    * player.hideDownloadButton();
    */

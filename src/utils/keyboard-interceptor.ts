@@ -20,11 +20,11 @@ interface ICallbacks {
 export default class KeyboardInterceptorCore {
   //TODO: Find how to set proper types here
   private _eventEmitter: any;
-  private _node: HTMLElement;
+  private _element: HTMLElement;
 
-  constructor(node: HTMLElement, callbacks?: ICallbacks) {
+  constructor(element: HTMLElement, callbacks?: ICallbacks) {
     this._eventEmitter = new EventEmitter();
-    this._node = node;
+    this._element = element;
 
     callbacks && this._attachCallbacks(callbacks);
     this._bindCallbacks();
@@ -53,11 +53,15 @@ export default class KeyboardInterceptorCore {
   }
 
   private _bindEvents() {
-    this._node.addEventListener('keydown', this._processKeyboardInput, false);
+    this._element.addEventListener(
+      'keydown',
+      this._processKeyboardInput,
+      false,
+    );
   }
 
   private _unbindEvents() {
-    this._node.removeEventListener(
+    this._element.removeEventListener(
       'keydown',
       this._processKeyboardInput,
       false,
@@ -73,7 +77,7 @@ export default class KeyboardInterceptorCore {
   }
 
   private get _isDestroyed(): boolean {
-    return !this._node && !this._eventEmitter;
+    return !this._element && !this._eventEmitter;
   }
 
   destroy() {
@@ -84,7 +88,7 @@ export default class KeyboardInterceptorCore {
       return;
     } else {
       this._unbindEvents();
-      this._node = null;
+      this._element = null;
       this._unattachCallbacks();
       this._eventEmitter = null;
     }

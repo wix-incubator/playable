@@ -37,13 +37,13 @@ export default class TopBlock implements ITopBlock {
     const { title, liveIndicator } = dependencies;
 
     return {
-      title: title.node,
-      liveIndicator: liveIndicator.node,
+      title: title.getElement(),
+      liveIndicator: liveIndicator.getElement(),
     };
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   hide() {
