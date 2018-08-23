@@ -21,6 +21,9 @@
     </div>
     <div class="${props.styles.controlsContainerRight}"
          data-hook="controls-container-right">
+      <div class="${props.styles.downloadContainer}"
+           data-hook="playable-download-container">
+      </div>
       <div class="${props.styles.fullScreenContainer}"
            data-hook="full-screen-container">
       </div>
