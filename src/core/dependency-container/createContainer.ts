@@ -129,11 +129,11 @@ export class Container {
       let resolved;
 
       switch (registration.lifetime) {
-        case Lifetime.Transient:
+        case Lifetime.TRANSIENT:
           // Transient lifetime means resolve every time.
           resolved = registration.resolve(this);
           break;
-        case Lifetime.Singelton:
+        case Lifetime.SINGLETON:
           // Singleton lifetime means cache at all times, regardless of scope.
           cached = root.cache[name];
           if (cached === undefined) {
@@ -143,7 +143,7 @@ export class Container {
             resolved = cached;
           }
           break;
-        case Lifetime.Scoped:
+        case Lifetime.SCOPED:
           // Scoped lifetime means that the container
           // that resolves the registration also caches it.
           // When a registration is not found, we travel up

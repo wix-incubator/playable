@@ -6,7 +6,7 @@ import Stylable from '../stylable';
 import {
   ITooltipPosition,
   ITooltipPositionFunction,
-  ITooltipPositionPlacement,
+  TooltipPositionPlacement,
 } from './types';
 
 import styles from './tooltip-container.scss';
@@ -50,7 +50,7 @@ class TooltipContainer extends Stylable implements ITooltipContainer {
       position = position(this._$rootElement);
     }
 
-    if (position.placement === ITooltipPositionPlacement.TOP) {
+    if (position.placement === TooltipPositionPlacement.TOP) {
       return {
         left: `${this._getTooltipLeftX(position.x)}px`,
         top: 0,

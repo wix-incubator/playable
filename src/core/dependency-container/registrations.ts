@@ -17,9 +17,9 @@ export const makeFluidInterface = (obj: IOptions) => {
 
   return {
     setLifetime,
-    transient: () => setLifetime(Lifetime.Transient),
-    scoped: () => setLifetime(Lifetime.Scoped),
-    singleton: () => setLifetime(Lifetime.Singelton),
+    transient: () => setLifetime(Lifetime.TRANSIENT),
+    scoped: () => setLifetime(Lifetime.SCOPED),
+    singleton: () => setLifetime(Lifetime.SINGLETON),
   };
 };
 
@@ -28,7 +28,7 @@ export const asValue = (value: any): any => {
 
   return {
     resolve,
-    lifetime: Lifetime.Transient,
+    lifetime: Lifetime.TRANSIENT,
   };
 };
 
@@ -38,7 +38,7 @@ export const asFunction: any = (fn: Function, options?: IOptions): any => {
   }
 
   const defaults = {
-    lifetime: Lifetime.Transient,
+    lifetime: Lifetime.TRANSIENT,
   };
 
   options = __assign({}, defaults, options);
@@ -63,7 +63,7 @@ export const asClass: any = (
   }
 
   const defaults = {
-    lifetime: Lifetime.Transient,
+    lifetime: Lifetime.TRANSIENT,
   };
 
   options = __assign({}, defaults, options);

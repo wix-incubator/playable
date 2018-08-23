@@ -1,10 +1,10 @@
-enum ITooltipPositionPlacement {
+enum TooltipPositionPlacement {
   TOP = 'top',
   BOTTOM = 'bottom',
 }
 
 type ITooltipPosition = {
-  placement: ITooltipPositionPlacement;
+  placement: TooltipPositionPlacement;
   x: number;
 };
 
@@ -62,7 +62,7 @@ interface ITooltipService {
 }
 
 export {
-  ITooltipPositionPlacement,
+  TooltipPositionPlacement,
   ITooltipPosition,
   ITooltipPositionFunction,
   ITooltipShowOptions,

@@ -1,4 +1,4 @@
-import { ITooltipPosition, ITooltipPositionPlacement } from '../types';
+import { ITooltipPosition, TooltipPositionPlacement } from '../types';
 
 type ITooltipCenterXfn = (
   tooltipReferenceOffsetX: number,
@@ -22,8 +22,8 @@ function getTooltipPositionByReferenceNode(
 
   const tooltipPlacement =
     tooltipReferenceRect.top > tooltipContainerRect.top
-      ? ITooltipPositionPlacement.BOTTOM
-      : ITooltipPositionPlacement.TOP;
+      ? TooltipPositionPlacement.BOTTOM
+      : TooltipPositionPlacement.TOP;
   const tooltipReferenceOffsetX =
     tooltipReferenceRect.left - tooltipContainerRect.left;
   const tooltipCenterX = tooltipCenterXfn(
