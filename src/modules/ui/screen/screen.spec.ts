@@ -11,6 +11,7 @@ import Screen from './screen';
 class FullScreenManagerMock {
   enterFullScreen = (_: any) => _;
   exitFullScreen = (_: any) => _;
+  isInFullScreen = false;
   isEnabled = true;
   _config = {};
 }
@@ -84,7 +85,9 @@ describe('Loader', () => {
 
     it('should emit ui event on enter full screen', () => {
       const spy = sinon.spy(fullScreenManager, 'enterFullScreen');
-      screen._enterFullScreen();
+      fullScreenManager.isInFullScreen = false;
+
+      screen._toggleFullScreen();
 
       expect(spy.called).to.be.true;
       fullScreenManager.enterFullScreen.restore();
@@ -92,8 +95,9 @@ describe('Loader', () => {
 
     it('should emit ui event on exit full screen', () => {
       const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
+      fullScreenManager.isInFullScreen = true;
 
-      screen._exitFullScreen();
+      screen._toggleFullScreen();
 
       expect(spy.called).to.be.true;
       fullScreenManager.exitFullScreen.restore();

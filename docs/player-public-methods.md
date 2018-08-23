@@ -1486,6 +1486,12 @@ Return true if player is in full screen
 
 ## setVideoViewMode()
 
+```javascript
+player.setVideoViewMode("BLUR");
+```
+
+Method for setting video view mode.
+
 <div class="method-list">
   <table>
     <thead>
@@ -1501,6 +1507,10 @@ Return true if player is in full screen
         </td>
         <td>
             <div class="type">VideoViewMode</div>
+            <p>Possible values are "REGULAR", "FILL", "BLUR".
+With "REGULAR" video tag would try to be fully shown.
+With "FILL" video tag would fill all space, removing black lines on sides.
+With "BLUR" black lines would be filled with blured pixels from video.</p>
         </td>
       </tr>
     </tbody>

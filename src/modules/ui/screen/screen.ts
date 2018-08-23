@@ -44,7 +44,6 @@ export default class Screen implements IScreen {
   private _delayedToggleVideoPlaybackTimeout: number;
 
   private _isClickProcessingDisabled: boolean;
-  private _isInFullScreen: boolean;
 
   private _unbindEvents: Function;
 
@@ -71,7 +70,6 @@ export default class Screen implements IScreen {
     this._fullScreenManager = fullScreenManager;
     this._interactionIndicator = interactionIndicator;
 
-    this._isInFullScreen = false;
     this.isHidden = false;
 
     this._delayedToggleVideoPlaybackTimeout = null;
@@ -116,7 +114,6 @@ export default class Screen implements IScreen {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._setFullScreenStatus],
         [UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view],
         [UI_EVENTS.RESIZE, this._updateBackgroundSize],
         [EngineState.SRC_SET, this.view.resetBackground, this.view],
@@ -142,10 +139,6 @@ export default class Screen implements IScreen {
 
   hideCursor() {
     this.view.hideCursor();
-  }
-
-  private _setFullScreenStatus(isInFullScreen: boolean) {
-    this._isInFullScreen = isInFullScreen;
   }
 
   private _processNodeClick() {
@@ -224,10 +217,10 @@ export default class Screen implements IScreen {
   }
 
   private _toggleFullScreen() {
-    if (this._isInFullScreen) {
-      this._exitFullScreen();
+    if (this._fullScreenManager.isInFullScreen) {
+      this._fullScreenManager.exitFullScreen();
     } else {
-      this._enterFullScreen();
+      this._fullScreenManager.enterFullScreen();
     }
   }
 
@@ -245,17 +238,18 @@ export default class Screen implements IScreen {
     }
   }
 
+  /**
+   * Method for setting video view mode.
+   * @param viewMode Possible values are "REGULAR", "FILL", "BLUR".
+   * With "REGULAR" video tag would try to be fully shown.
+   * With "FILL" video tag would fill all space, removing black lines on sides.
+   * With "BLUR" black lines would be filled with blured pixels from video.
+   * @example
+   * player.setVideoViewMode("BLUR");
+   */
   @playerAPI()
   setVideoViewMode(viewMode: VideoViewMode) {
     this.view.setViewMode(viewMode);
-  }
-
-  private _enterFullScreen() {
-    this._fullScreenManager.enterFullScreen();
-  }
-
-  private _exitFullScreen() {
-    this._fullScreenManager.exitFullScreen();
   }
 
   destroy() {
