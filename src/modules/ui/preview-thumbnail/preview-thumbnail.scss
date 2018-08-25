@@ -1,0 +1,65 @@
+$thumbnail-width: 180px;
+$thumbnail-height: 90px;
+
+.container {
+  display: flex;
+  flex-direction: column-reverse;
+
+  width: $thumbnail-width;
+  height: $thumbnail-height;
+
+  border: 2px solid rgba(0, 0, 0, .7);
+  border-radius: 2px;
+
+  align-items: center;
+
+  &.empty {
+    width: initial;
+    height: initial;
+
+    border: none;
+  }
+}
+
+.highQualityFrame,
+.lowQualityFrame {
+  position: absolute;
+
+  width: $thumbnail-width;
+  height: $thumbnail-height;
+}
+
+.highQualityFrame {
+  z-index: 2;
+}
+
+.lowQualityFrame {
+  z-index: 1;
+}
+
+.empty {
+  .thumbText {
+    background: rgba(0, 0, 0, .5);
+  }
+
+  .highQualityFrame,
+  .lowQualityFrame {
+    width: 0;
+    height: 0;
+  }
+}
+
+.thumbText {
+  font-size: 11px;
+  line-height: 12px;
+
+  position: relative;
+  z-index: 3;
+
+  padding: 4px 5px;
+
+  white-space: nowrap;
+
+  color: white;
+  background: rgba(0, 0, 0, .8);
+}
