@@ -20,7 +20,7 @@ type IProgressViewStyles = {
 };
 
 type IProgressViewCallbacks = {
-  onChangePlayedProgress: Function;
+  onChangePlayedPercent: Function;
   onSeekToByMouseStart: Function;
   onSeekToByMouseEnd: Function;
   onSyncWithLiveClick: Function;
@@ -43,11 +43,6 @@ interface IProgressControl {
   addTimeIndicator(time: number): void;
   addTimeIndicators(times: number[]): void;
   clearTimeIndicators(): void;
-
-  updatePlayed(percent: number): void;
-  updateBuffered(percent: number): void;
-
-  reset(): void;
 
   show(): void;
   hide(): void;

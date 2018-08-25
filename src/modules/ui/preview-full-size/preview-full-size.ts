@@ -36,7 +36,7 @@ export default class PreviewFullsize implements IPreviewFullSize {
     this._initUI();
 
     this.hide();
-    rootContainer.appendComponentNode(this.getDOMElement());
+    rootContainer.appendComponentNode(this.getElement());
   }
 
   private _initUI() {
@@ -52,7 +52,7 @@ export default class PreviewFullsize implements IPreviewFullSize {
     ) as HTMLDivElement;
   }
 
-  getDOMElement(): HTMLElement {
+  getElement(): HTMLElement {
     return this._$rootElement;
   }
 

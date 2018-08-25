@@ -32,22 +32,6 @@ describe('ProgressControl', () => {
   });
 
   describe('API', () => {
-    it('should have method for setting value for played', () => {
-      const played = '10';
-      const spy = sinon.spy(control.view, 'setPlayed');
-      expect(control.updatePlayed).to.exist;
-      control.updatePlayed(played);
-      expect(spy.calledWith(played)).to.be.true;
-    });
-
-    it('should have method for setting value for buffered', () => {
-      const buffered = '30';
-      const spy = sinon.spy(control.view, 'setBuffered');
-      expect(control.updateBuffered).to.exist;
-      control.updateBuffered(buffered);
-      expect(spy.calledWith(buffered)).to.be.true;
-    });
-
     it('should have method for showing whole view', () => {
       expect(control.show).to.exist;
       control.show();
@@ -257,14 +241,11 @@ describe('ProgressControl', () => {
 
   describe('internal methods', () => {
     it('should toggle playback on manipulation change', () => {
-      const startSpy = sinon.spy(
-        control,
-        '_pauseVideoOnProgressManipulationStart',
-      );
-      const stopSpy = sinon.spy(control, '_playVideoOnProgressManipulationEnd');
-      control._onUserInteractionStarts();
+      const startSpy = sinon.spy(control, '_pauseVideoOnDragStart');
+      const stopSpy = sinon.spy(control, '_playVideoOnDragEnd');
+      control._startProcessingUserDrag();
       expect(startSpy.called).to.be.true;
-      control._onUserInteractionEnds();
+      control._stopProcessingUserDrag();
       expect(stopSpy.called).to.be.true;
 
       startSpy.restore();
@@ -285,7 +266,7 @@ describe('ProgressControl', () => {
       const spy = sinon.spy(window, 'setInterval');
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
-      expect(spy.calledWith(control._updateControlOnInterval)).to.be.true;
+      expect(spy.calledWith(control._updateAllIndicators)).to.be.true;
       expect(stopSpy.called).to.be.false;
       control._startIntervalUpdates();
       expect(stopSpy.called).to.be.true;
@@ -295,13 +276,13 @@ describe('ProgressControl', () => {
 
     it('should change current time of video', () => {
       const spy = sinon.stub(engine, 'setCurrentTime');
-      control._changePlayedProgress(10);
+      control._onChangePlayedPercent(10);
       expect(spy.called).to.be.true;
     });
 
     it('should update view', () => {
-      const playedSpy = sinon.spy(control, 'updatePlayed');
-      const bufferSpy = sinon.spy(control, 'updateBuffered');
+      const playedSpy = sinon.spy(control, '_setPlayed');
+      const bufferSpy = sinon.spy(control, '_setBuffered');
       control._updatePlayedIndicator();
       expect(playedSpy.called).to.be.true;
       control._updateBufferIndicator();
@@ -311,7 +292,7 @@ describe('ProgressControl', () => {
     it('should trigger update of both played and buffered', () => {
       const playedSpy = sinon.spy(control, '_updatePlayedIndicator');
       const bufferSpy = sinon.spy(control, '_updateBufferIndicator');
-      control._updateControlOnInterval();
+      control._updateAllIndicators();
       expect(playedSpy.called).to.be.true;
       expect(bufferSpy.called).to.be.true;
     });

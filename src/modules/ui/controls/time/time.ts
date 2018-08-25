@@ -1,6 +1,11 @@
 import View from './time.view';
 
-import { VIDEO_EVENTS, EngineState, LiveState } from '../../../../constants';
+import {
+  VIDEO_EVENTS,
+  EngineState,
+  LiveState,
+  UI_EVENTS,
+} from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
@@ -57,6 +62,7 @@ export default class TimeControl implements ITimeControl {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
+        [UI_EVENTS.USER_PREVIEWING_FRAME, this._updateTimeFromPreview],
         [VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates],
         [VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime],
         [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
@@ -115,7 +121,7 @@ export default class TimeControl implements ITimeControl {
         this._startIntervalUpdates();
         break;
       case EngineState.SEEK_IN_PROGRESS:
-        this._updateCurrentTime();
+        this._startIntervalUpdates();
         break;
       default:
         this._stopIntervalUpdates();
@@ -129,6 +135,10 @@ export default class TimeControl implements ITimeControl {
 
   private _updateCurrentTime() {
     this.setCurrentTime(this._engine.getCurrentTime());
+  }
+
+  private _updateTimeFromPreview(time: number) {
+    this.view.setCurrentTime(time);
   }
 
   setDurationTime(time: number) {

@@ -1,5 +1,5 @@
 interface IPreviewThumbnail {
-  getDOMElement(): HTMLElement;
+  getElement(): HTMLElement;
 
   showAt(second: number): void;
   setTime(time: string): void;

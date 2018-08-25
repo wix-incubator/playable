@@ -72,7 +72,7 @@ describe('TimeControl', () => {
     });
 
     it('should call callback on seek', () => {
-      const spy = sinon.spy(control, '_updateCurrentTime');
+      const spy = sinon.spy(control, '_startIntervalUpdates');
       control._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,

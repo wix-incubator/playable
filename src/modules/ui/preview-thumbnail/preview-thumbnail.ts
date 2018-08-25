@@ -53,7 +53,7 @@ export default class PreviewThumbnail implements IPreviewThumbnail {
     );
   }
 
-  getDOMElement(): HTMLElement {
+  getElement(): HTMLElement {
     return this._$rootElement;
   }
 

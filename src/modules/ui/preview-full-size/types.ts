@@ -1,5 +1,5 @@
 interface IPreviewFullSize {
-  getDOMElement(): HTMLElement;
+  getElement(): HTMLElement;
 
   showAt(second: number): void;
   hide(): void;

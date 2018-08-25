@@ -1784,6 +1784,22 @@ player.hideDownloadButton();
 
 Method for hidding download button.
 
+## showPreviewOnProgressDrag()
+
+```javascript
+player.showPreviewOnProgressDrag();
+```
+
+Player will show full screen preview instead of actual seek on video when user drag the progress control
+
+## seekOnProgressDrag()
+
+```javascript
+player.seekOnProgressDrag();
+```
+
+Player will seek on video when user drag the progress control
+
 ## addTimeIndicator()
 
 Add time indicator to progress bar
@@ -1918,6 +1934,29 @@ Method for attaching callback for click on logo
         </td>
         <td>
             <div class="type">Function</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## setFramesMap()
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>map</code>
+        </td>
+        <td>
+            <div class="type">IFramesData</div>
         </td>
       </tr>
     </tbody>

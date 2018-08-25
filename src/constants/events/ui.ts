@@ -55,6 +55,7 @@ const UI_EVENTS = {
   PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED:
     'ui-events/progress-sync-button-mouse-leave-triggered',
   RESIZE: 'ui-events/resize',
+  USER_PREVIEWING_FRAME: 'ui-events/user-previewing-frame',
 };
 
 export default UI_EVENTS;

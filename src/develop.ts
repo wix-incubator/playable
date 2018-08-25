@@ -2,6 +2,7 @@ import Playable from './index';
 import HLSAdapter from './adapters/hls';
 import DASHAdapter from './adapters/dash';
 import Subtitles from './modules/ui/subtitles/subtitles';
+
 import { PreloadTypes } from './modules/playback-engine/types';
 
 const DEFAULT_URLS: any = {
@@ -9,7 +10,7 @@ const DEFAULT_URLS: any = {
   HLS:
     'https://files.wixstatic.com/files/video/64b2fa_039e5c16db504dbaad166ba28d377744/repackage/hls',
   MP4:
-    'https://wixmp-01bd43eabd844aac9eab64f5.wixmp.com/videos/output/720p/Highest Peak.mp4',
+    'https://storage.googleapis.com/video-player-media-server-static/test2.mp4',
   'MP4-VERTICAL':
     'https://storage.googleapis.com/video-player-media-server-static/videoplayback.mp4',
 };
@@ -17,7 +18,21 @@ const DEFAULT_URLS: any = {
 Playable.registerModule('subtitles', Subtitles);
 Playable.registerPlaybackAdapter(HLSAdapter);
 Playable.registerPlaybackAdapter(DASHAdapter);
-
+const config = {
+  framesCount: 178,
+  qualities: [
+    {
+      spriteNameMask: 'low_rez_sprite_%d.jpg',
+      frameSize: { width: 90, height: 45 },
+      framesInSprite: { vert: 10, horz: 10 },
+    },
+    {
+      spriteNameMask: 'high_rez_sprite_%d.jpg',
+      frameSize: { width: 180, height: 90 },
+      framesInSprite: { vert: 5, horz: 5 },
+    },
+  ],
+};
 Object.defineProperty(window, 'Playable', {
   value: Playable,
 });
@@ -27,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     preload: PreloadTypes.METADATA,
     size: {
       width: 800,
-      height: 600,
+      height: 450,
     },
     playInline: true,
     overlay: false,
@@ -75,5 +90,21 @@ document.addEventListener('DOMContentLoaded', () => {
     player.updateTheme({ progressColor: color, color });
   });
 
+  document
+    .getElementById('progress-bar-modes')
+    .addEventListener('click', event => {
+      const { mode } = (event.target as any).dataset;
+      if (!mode) {
+        return;
+      }
+
+      if (mode === 'REGULAR') {
+        player.seekOnProgressDrag();
+      } else if (mode === 'PREVIEW') {
+        player.showPreviewOnProgressDrag();
+      }
+    });
+
   player.attachToElement(document.getElementById('player-wrapper'));
+  player.setFramesMap(config);
 });
