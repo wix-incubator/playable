@@ -67,6 +67,7 @@ class TooltipReference implements ITooltipReference {
 
     this._tooltipService.show({
       text: this._options.text,
+      element: this._options.element,
       position: getTooltipPositionByReferenceNode(
         this._$reference,
         this._tooltipService.tooltipContainerNode,

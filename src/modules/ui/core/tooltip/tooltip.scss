@@ -6,24 +6,31 @@
 
   visibility: hidden;
 
-  padding: 4px 5px;
-
   transition: opacity .2s, visibility .2s;
 
   opacity: 0;
-  background: rgba(0,0,0,.5);
+
+  &.showAsText {
+    padding: 4px 5px;
+
+    background: rgba(0, 0, 0, .5);
+  }
+
+
+
   &.tooltipVisible {
     visibility: visible;
 
     opacity: 1;
   }
 }
+.showAsText {
+  .tooltipInner {
+    font-size: 11px;
+    line-height: 12px;
 
-.tooltipInner {
-  font-size: 11px;
-  line-height: 12px;
+    white-space: nowrap;
 
-  white-space: nowrap;
-
-  color: white;
+    color: white;
+  }
 }

@@ -54,11 +54,19 @@ class TooltipService implements ITooltipService {
    */
   show(options: ITooltipShowOptions) {
     // NOTE: its important to set tooltip text before update tooltip position styles
-    this._tooltip.setText(options.text);
+    if (options.element) {
+      this._tooltip.setElement(options.element);
+    } else {
+      this._tooltip.setText(options.text);
+    }
     this._tooltip.setStyle(
       this._tooltipContainer.getTooltipPositionStyles(options.position),
     );
     this._tooltip.show();
+  }
+
+  clearElement() {
+    this._tooltip.clearElement();
   }
 
   /**

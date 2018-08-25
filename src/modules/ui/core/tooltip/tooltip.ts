@@ -53,7 +53,34 @@ class Tooltip extends Stylable<ITooltipStyles> implements ITooltip {
   }
 
   setText(text: string) {
+    this.clearElement();
+    this._showAsText();
     this._$tooltipInner.innerText = text;
+  }
+
+  clearElement() {
+    this._$tooltipInner.firstChild &&
+      this._$tooltipInner.removeChild(this._$tooltipInner.firstChild);
+  }
+
+  setElement(element: HTMLElement) {
+    if (element !== this._$tooltipInner.firstChild) {
+      this._showAsElement();
+      this.clearElement();
+      if (element) {
+        this._$tooltipInner.appendChild(element);
+      }
+    }
+  }
+
+  private _showAsText() {
+    this._$rootElement.classList.remove(this.styleNames.showAsElement);
+    this._$rootElement.classList.add(this.styleNames.showAsText);
+  }
+
+  private _showAsElement() {
+    this._$rootElement.classList.remove(this.styleNames.showAsText);
+    this._$rootElement.classList.add(this.styleNames.showAsElement);
   }
 
   setStyle(style: any) {
