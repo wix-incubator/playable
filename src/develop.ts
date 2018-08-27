@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    player.updateTheme({ progressColor: color });
+    player.updateTheme({ progressColor: color, color });
   });
 
   player.attachToElement(document.getElementById('player-wrapper'));

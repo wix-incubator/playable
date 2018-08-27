@@ -158,5 +158,6 @@ export default class PlayControl implements IPlayControl {
     this._eventEmitter = null;
     this._engine = null;
     this._textMap = null;
+    this._theme = null;
   }
 }

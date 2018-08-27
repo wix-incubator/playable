@@ -165,5 +165,6 @@ export default class TimeControl implements ITimeControl {
 
     this._eventEmitter = null;
     this._engine = null;
+    this._theme = null;
   }
 }

@@ -16,6 +16,7 @@
           style="padding-bottom: 127%; height: 1px; overflow: visible">
         <path fill="#FFF"
               fill-rule="evenodd"
+              class="${props.themeStyles.logoButtonSvgFill}"
               d="M2 12h10v-2h2v4H0V0h4v2H2v10zm10-8.515L7.414 8.071 6 6.657 10.657 2H9.004V0H14v5.005h-2v-1.52z"/>
       </svg>
     </div>

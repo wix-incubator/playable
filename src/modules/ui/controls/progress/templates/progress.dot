@@ -4,7 +4,7 @@
   tabindex="0">
   <div class="${props.styles.progressBarsWrapper}">
     <div
-      class="${props.styles.progressBar} ${props.styles.background} ${props.themeStyles.progressBackground}">
+      class="${props.styles.progressBar} ${props.styles.background}">
     </div>
     <div
       data-hook="progress-buffered"
@@ -33,6 +33,6 @@
   </div>
   <div
     data-hook="progress-sync-button"
-    class="${props.styles.syncButton} ${props.themeStyles.progressSyncBtn}">
+    class="${props.styles.syncButton}">
   </div>
 </div>

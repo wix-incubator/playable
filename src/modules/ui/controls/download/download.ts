@@ -120,5 +120,6 @@ export default class DownloadButton implements IDownloadButton {
 
     this._eventEmitter = null;
     this._textMap = null;
+    this._theme = null;
   }
 }

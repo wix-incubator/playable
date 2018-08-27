@@ -185,6 +185,8 @@ $color-sync-pointer-background: #ea492e;
 
 .background {
   width: 100%;
+
+  background-color: transparentize(#fff, .75);
 }
 
 .seekTo {

@@ -11,6 +11,8 @@ import getElementByHook from '../../core/getElementByHook';
 
 import { ITextMap } from '../../../text-map/types';
 
+import logoViewTheme from './logo.theme';
+
 import styles from './logo.scss';
 
 class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
@@ -23,8 +25,9 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   private _$placeholder: HTMLElement;
 
   constructor(config: ILogoViewConfig) {
-    super();
-    const { callbacks, textMap, tooltipService } = config;
+    const { callbacks, textMap, tooltipService, theme } = config;
+
+    super(theme);
 
     this._callbacks = callbacks;
     this._textMap = textMap;
@@ -32,6 +35,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._$rootElement = htmlToElement(
       logoTemplate({
         styles: this.styleNames,
+        themeStyles: this.themeStyles,
         texts: {
           label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
         },
@@ -128,6 +132,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   }
 }
 
+LogoView.setTheme(logoViewTheme);
 LogoView.extendStyleNames(styles);
 
 export default LogoView;

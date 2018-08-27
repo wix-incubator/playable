@@ -485,5 +485,6 @@ export default class ProgressControl implements IProgressControl {
     this._liveStateEngine = null;
     this._timeIndicatorsToAdd = null;
     this._textMap = null;
+    this._theme = null;
   }
 }

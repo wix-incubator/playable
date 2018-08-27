@@ -154,5 +154,6 @@ export default class FullScreenControl implements IFullScreenControl {
     this._eventEmitter = null;
     this._fullScreenManager = null;
     this._textMap = null;
+    this._theme = null;
   }
 }

@@ -239,5 +239,6 @@ export default class VolumeControl implements IVolumeControl {
     this._eventEmitter = null;
     this._engine = null;
     this._textMap = null;
+    this._theme = null;
   }
 }

@@ -1,5 +1,6 @@
 import { ITooltipService } from '../../core/tooltip/types';
 import { ITextMap } from '../../../text-map/types';
+import { IThemeService } from '../../core/theme';
 
 type ILogoViewStyles = {
   logoWrapper: string;
@@ -14,6 +15,7 @@ type ILogoViewCallbacks = {
 };
 
 type ILogoViewConfig = {
+  theme: IThemeService;
   callbacks: ILogoViewCallbacks;
   textMap: ITextMap;
   tooltipService: ITooltipService;
