@@ -96,7 +96,7 @@ export default class LoadingCover implements ILoadingCover {
 
   hide() {
     if (!this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_HIDE_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_HIDE);
       this.view.hide();
       this.isHidden = true;
     }
@@ -105,7 +105,7 @@ export default class LoadingCover implements ILoadingCover {
   show() {
     if (this.isHidden) {
       this._bottomBlock.hideContent();
-      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_SHOW);
       this.view.show();
       this.isHidden = false;
     }

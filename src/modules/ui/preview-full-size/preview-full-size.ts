@@ -36,7 +36,7 @@ export default class PreviewFullsize implements IPreviewFullSize {
     this._initUI();
 
     this.hide();
-    rootContainer.appendComponentNode(this.getElement());
+    rootContainer.appendComponentElement(this.getElement());
   }
 
   private _initUI() {

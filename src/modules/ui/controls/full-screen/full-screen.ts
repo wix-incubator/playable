@@ -61,8 +61,6 @@ export default class FullScreenControl implements IFullScreenControl {
 
     this._bindEvents();
 
-    this.setControlStatus(false);
-
     if (!this._fullScreenManager.isEnabled) {
       this.hide();
     }
@@ -80,8 +78,8 @@ export default class FullScreenControl implements IFullScreenControl {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.setControlStatus]],
-      this,
+      [[UI_EVENTS.FULL_SCREEN_STATE_CHANGED, this.view.setFullScreenState]],
+      this.view,
     );
   }
 
@@ -117,22 +115,12 @@ export default class FullScreenControl implements IFullScreenControl {
 
   private _toggleFullScreen() {
     if (this._fullScreenManager.isInFullScreen) {
-      this._exitFullScreen();
+      this._fullScreenManager.exitFullScreen();
+      this._eventEmitter.emit(UI_EVENTS.EXIT_FULL_SCREEN_CLICK);
     } else {
-      this._enterFullScreen();
+      this._fullScreenManager.enterFullScreen();
+      this._eventEmitter.emit(UI_EVENTS.ENTER_FULL_SCREEN_CLICK);
     }
-  }
-
-  private _enterFullScreen() {
-    this._fullScreenManager.enterFullScreen();
-  }
-
-  private _exitFullScreen() {
-    this._fullScreenManager.exitFullScreen();
-  }
-
-  setControlStatus(isInFullScreen: boolean) {
-    this.view.setState({ isInFullScreen });
   }
 
   hide() {

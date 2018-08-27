@@ -71,8 +71,8 @@ class RootContainer implements IRootContainer {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
         [
-          UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
-          this.view.setFullScreenStatus,
+          UI_EVENTS.FULL_SCREEN_STATE_CHANGED,
+          this.view.setFullScreenState,
           this.view,
         ],
       ],
@@ -102,15 +102,15 @@ class RootContainer implements IRootContainer {
   }
 
   private _broadcastMouseEnter() {
-    this._eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER);
   }
 
   private _broadcastMouseMove() {
-    this._eventEmitter.emit(UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_MOVE_ON_PLAYER);
   }
 
   private _broadcastMouseLeave() {
-    this._eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER);
   }
 
   private _enableFocusInterceptors() {
@@ -180,7 +180,6 @@ class RootContainer implements IRootContainer {
   @playerAPI()
   setWidth(width: number) {
     this.view.setWidth(width);
-    this._eventEmitter.emit(UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED, width);
   }
 
   /**
@@ -202,7 +201,6 @@ class RootContainer implements IRootContainer {
   @playerAPI()
   setHeight(height: number) {
     this.view.setHeight(height);
-    this._eventEmitter.emit(UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED, height);
   }
 
   /**

@@ -97,7 +97,7 @@ export default class NativeEventsBroadcaster {
           this._eventEmitter.emit(VIDEO_EVENTS.MUTE_CHANGED, this._currentMute);
         }
 
-        this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
+        this._eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED, {
           volume: videoEl.volume,
           muted: videoEl.muted,
         });

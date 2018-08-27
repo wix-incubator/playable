@@ -37,7 +37,7 @@ class TooltipService implements ITooltipService {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.hide]],
+      [[UI_EVENTS.FULL_SCREEN_STATE_CHANGED, this.hide]],
       this,
     );
   }

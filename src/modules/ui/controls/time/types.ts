@@ -16,8 +16,6 @@ type ITimeViewConfig = {
 interface ITimeControl {
   getElement(): HTMLElement;
 
-  setDurationTime(time: number): void;
-  setCurrentTime(time: number): void;
   reset(): void;
 
   show(): void;

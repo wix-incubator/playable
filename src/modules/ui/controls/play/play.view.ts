@@ -49,7 +49,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
       'playable-playback-control',
     );
 
-    this.setState({ isPlaying: false });
+    this.setPlayingState(false);
     this._bindEvents();
   }
 
@@ -68,7 +68,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
     this._callbacks.onButtonClick();
   }
 
-  setState({ isPlaying }: { isPlaying: boolean }) {
+  setPlayingState(isPlaying: boolean) {
     if (isPlaying) {
       this._$playbackControl.classList.remove(this.styleNames.paused);
       this._$playbackControl.innerHTML = pauseIconTemplate({

@@ -53,8 +53,6 @@ export default class PlayControl implements IPlayControl {
     this._initUI();
     this._bindEvents();
 
-    this.setControlStatus(false);
-
     this._initInterceptor();
   }
 
@@ -66,15 +64,11 @@ export default class PlayControl implements IPlayControl {
     this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(
-          UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
-        );
+        this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD);
       },
       [KEYCODES.ENTER]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(
-          UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
-        );
+        this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD);
       },
     });
   }
@@ -89,7 +83,7 @@ export default class PlayControl implements IPlayControl {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus]],
+      [[VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState]],
       this,
     );
   }
@@ -105,26 +99,26 @@ export default class PlayControl implements IPlayControl {
   private _playVideo() {
     this._engine.play();
 
-    this._eventEmitter.emit(UI_EVENTS.PLAY_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.PLAY_CLICK);
   }
 
   private _pauseVideo() {
     this._engine.pause();
 
-    this._eventEmitter.emit(UI_EVENTS.PAUSE_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.PAUSE_CLICK);
   }
 
-  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
+  private _updatePlayingState({ nextState }: { nextState: EngineState }) {
     if (nextState === EngineState.SRC_SET) {
-      this.reset();
+      this._reset();
     } else if (nextState === EngineState.PLAYING) {
-      this.setControlStatus(true);
+      this._setPlaybackState(true);
     } else if (
       nextState === EngineState.PAUSED ||
       nextState === EngineState.ENDED ||
       nextState === EngineState.SEEK_IN_PROGRESS
     ) {
-      this.setControlStatus(false);
+      this._setPlaybackState(false);
     }
   }
 
@@ -140,13 +134,13 @@ export default class PlayControl implements IPlayControl {
     this.view = new PlayControl.View(config);
   }
 
-  setControlStatus(isPlaying: boolean) {
+  private _setPlaybackState(isPlaying: boolean) {
     this._isPlaying = isPlaying;
-    this.view.setState({ isPlaying: this._isPlaying });
+    this.view.setPlayingState(this._isPlaying);
   }
 
-  reset() {
-    this.setControlStatus(false);
+  private _reset() {
+    this._setPlaybackState(false);
   }
 
   destroy() {

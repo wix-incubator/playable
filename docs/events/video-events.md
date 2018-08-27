@@ -18,13 +18,13 @@
 
 `VIDEO_EVENTS.MUTE_CHANGED` - Video muted or unmuted.
 
-`VIDEO_EVENTS.VOLUME_STATUS_CHANGED` - Volume status changed. It will emit on both volume changes or muted\unmute. For internal use
+`VIDEO_EVENTS.SOUND_STATE_CHANGED` - Sound state changed. It will emit on both volume changes or muted\unmute. For internal use
 
 `VIDEO_EVENTS.UPLOAD_STALLED` - Upload stalled for some reason.
 
 `VIDEO_EVENTS.UPLOAD_SUSPEND` - Upload suspended for some reason.
 
-`VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED` - Player was requested for play.
+`VIDEO_EVENTS.PLAY_REQUEST` - Player was requested for play.
 
 `VIDEO_EVENTS.PLAY_ABORTED` - Player aborted play request.
 

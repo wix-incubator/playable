@@ -25,21 +25,21 @@ describe('BottomBlock', () => {
   });
 
   describe('instance', () => {
-    it('should have method for setting playback status', () => {
-      expect(mainBlock._updatePlayingStatus).to.exist;
+    it('should have method for setting playback state', () => {
+      expect(mainBlock._updatePlayingState).to.exist;
 
       const startTimeout = sinon.spy(mainBlock, '_startHideBlockTimeout');
       const showTimeout = sinon.spy(mainBlock, '_showContent');
 
-      mainBlock._updatePlayingStatus({ nextState: EngineState.PLAY_REQUESTED });
+      mainBlock._updatePlayingState({ nextState: EngineState.PLAY_REQUESTED });
       expect(startTimeout.called).to.be.true;
-      mainBlock._updatePlayingStatus({ nextState: EngineState.PAUSED });
+      mainBlock._updatePlayingState({ nextState: EngineState.PAUSED });
       expect(showTimeout.called).to.be.true;
       showTimeout.resetHistory();
-      mainBlock._updatePlayingStatus({ nextState: EngineState.ENDED });
+      mainBlock._updatePlayingState({ nextState: EngineState.ENDED });
       expect(showTimeout.called).to.be.true;
       showTimeout.resetHistory();
-      mainBlock._updatePlayingStatus({ nextState: EngineState.SRC_SET });
+      mainBlock._updatePlayingState({ nextState: EngineState.SRC_SET });
       expect(showTimeout.called).to.be.true;
     });
 
@@ -57,8 +57,8 @@ describe('BottomBlock', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback status change', () => {
-      const spy = sinon.spy(mainBlock, '_updatePlayingStatus');
+    it('should call callback on playback state change', () => {
+      const spy = sinon.spy(mainBlock, '_updatePlayingState');
       mainBlock._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;

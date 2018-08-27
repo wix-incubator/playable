@@ -101,7 +101,7 @@ export default class Screen implements IScreen {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view],
+        [UI_EVENTS.PLAY_OVERLAY_CLICK, this.view.focusOnNode, this.view],
         [UI_EVENTS.RESIZE, this._updateBackgroundSize],
         [EngineState.SRC_SET, this.view.resetBackground, this.view],
         [EngineState.METADATA_LOADED, this.view.resetAspectRatio, this.view],
@@ -195,19 +195,21 @@ export default class Screen implements IScreen {
     const state = this._engine.getCurrentState();
 
     if (state === EngineState.PLAY_REQUESTED || state === EngineState.PLAYING) {
-      this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
       this._engine.pause();
+      this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK);
     } else {
-      this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED);
       this._engine.play();
+      this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK);
     }
   }
 
   private _toggleFullScreen() {
     if (this._fullScreenManager.isInFullScreen) {
       this._fullScreenManager.exitFullScreen();
+      this._eventEmitter.emit(UI_EVENTS.EXIT_FULL_SCREEN_WITH_SCREEN_CLICK);
     } else {
       this._fullScreenManager.enterFullScreen();
+      this._eventEmitter.emit(UI_EVENTS.ENTER_FULL_SCREEN_WITH_SCREEN_CLICK);
     }
   }
 

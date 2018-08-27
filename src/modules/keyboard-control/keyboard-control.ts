@@ -27,7 +27,7 @@ export default class KeyboardControl implements IKeyboardControl {
   private _isEnabled: boolean;
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
-  private _rootNode: HTMLElement;
+  private _rootElement: HTMLElement;
   private _keyboardInterceptor: KeyboardInterceptor;
 
   constructor({
@@ -43,7 +43,7 @@ export default class KeyboardControl implements IKeyboardControl {
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
-    this._rootNode = rootContainer.getElement();
+    this._rootElement = rootContainer.getElement();
 
     if (isIPhone() || isIPod() || isIPad() || isAndroid()) {
       this._isEnabled = false;
@@ -56,7 +56,7 @@ export default class KeyboardControl implements IKeyboardControl {
 
   private _initInterceptor() {
     if (this._isEnabled) {
-      this._keyboardInterceptor = new KeyboardInterceptor(this._rootNode);
+      this._keyboardInterceptor = new KeyboardInterceptor(this._rootElement);
       this._attachDefaultControls();
     }
   }
@@ -69,18 +69,14 @@ export default class KeyboardControl implements IKeyboardControl {
       [KEYCODES.SPACE_BAR]: e => {
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(
-          UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED,
-        );
+        this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD);
         this._engine.togglePlayback();
       },
       [KEYCODES.LEFT_ARROW]: e => {
         if (this._engine.isSeekAvailable) {
           e.preventDefault();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._eventEmitter.emit(
-            UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
-          );
+          this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD);
           this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
         }
       },
@@ -88,25 +84,21 @@ export default class KeyboardControl implements IKeyboardControl {
         if (this._engine.isSeekAvailable) {
           e.preventDefault();
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
+          this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD);
           this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
         }
       },
       [KEYCODES.UP_ARROW]: e => {
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(
-          UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-        );
+        this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD);
         this._engine.setMute(false);
         this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
       },
       [KEYCODES.DOWN_ARROW]: e => {
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(
-          UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-        );
+        this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD);
         this._engine.setMute(false);
         this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
       },
@@ -130,7 +122,7 @@ export default class KeyboardControl implements IKeyboardControl {
   destroy() {
     this._destroyInterceptor();
 
-    this._rootNode = null;
+    this._rootElement = null;
     this._eventEmitter = null;
     this._engine = null;
   }

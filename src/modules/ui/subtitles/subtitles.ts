@@ -175,16 +175,8 @@ export default class Subtitles implements ISubtitles {
   private _bindEvents(): void {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [
-          UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
-          this.view.moveSubtitlesUp,
-          this.view,
-        ],
-        [
-          UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
-          this.view.moveSubtitlesDown,
-          this.view,
-        ],
+        [UI_EVENTS.MAIN_BLOCK_SHOW, this.view.moveSubtitlesUp, this.view],
+        [UI_EVENTS.MAIN_BLOCK_HIDE, this.view.moveSubtitlesDown, this.view],
       ],
       this,
     );

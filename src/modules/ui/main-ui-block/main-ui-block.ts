@@ -105,11 +105,11 @@ export default class MainUIBlock implements IMainUIBlock {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideBlockTimeout],
-        [UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent],
+        [UI_EVENTS.MOUSE_MOVE_ON_PLAYER, this._startHideBlockTimeout],
+        [UI_EVENTS.MOUSE_LEAVE_ON_PLAYER, this._tryHideContent],
         [UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout],
-        [UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideBlockTimeout],
-        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus],
+        [UI_EVENTS.LOADER_HIDE, this._startHideBlockTimeout],
+        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState],
         [UI_EVENTS.CONTROL_DRAG_START, this._onControlDragStart],
         [UI_EVENTS.CONTROL_DRAG_END, this._onControlDragEnd],
       ],
@@ -117,7 +117,7 @@ export default class MainUIBlock implements IMainUIBlock {
     );
   }
 
-  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
+  private _updatePlayingState({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.PLAY_REQUESTED: {
         this._shouldShowContent = false;
@@ -187,7 +187,7 @@ export default class MainUIBlock implements IMainUIBlock {
 
     this._screen.showCursor();
 
-    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_SHOW_TRIGGERED);
+    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_SHOW);
     this._bottomBlock.showContent();
     this._topBlock.showContent();
     this._isContentShown = true;
@@ -213,7 +213,7 @@ export default class MainUIBlock implements IMainUIBlock {
       this._screen.hideCursor();
     }
 
-    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE_TRIGGERED);
+    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE);
     this._bottomBlock.hideContent();
     this._topBlock.hideContent();
     this._isContentShown = false;
@@ -244,7 +244,7 @@ export default class MainUIBlock implements IMainUIBlock {
   }
 
   /**
-   * Method for allowing main ui to be always shown despite the playback status and the cursor position
+   * Method for allowing main ui to be always shown despite the playback state and the cursor position
    * @param flag - `true` for showing always
    * @example
    * player.setMainUIShouldAlwaysShow(true);

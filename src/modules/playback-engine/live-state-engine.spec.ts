@@ -205,7 +205,7 @@ describe('LiveStateEngine', () => {
         liveStateEngine._setState(LiveState.SYNC);
 
         // emulate seek by UI
-        eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED);
+        eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE);
       });
 
       it('should ignore if `isSyncWithLive`', () => {

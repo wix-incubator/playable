@@ -55,8 +55,7 @@ describe('LoadingCover', () => {
       it('should have method for showing loader', () => {
         const showSpy = sinon.spy(loadingCover.view, 'show');
         loadingCover.show();
-        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED)).to.be
-          .true;
+        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_SHOW)).to.be.true;
         expect(showSpy.called).to.be.true;
         expect(loadingCover.isHidden).to.be.false;
       });
@@ -65,8 +64,7 @@ describe('LoadingCover', () => {
         loadingCover.show();
         const hideSpy = sinon.spy(loadingCover.view, 'hide');
         loadingCover.hide();
-        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_HIDE_TRIGGERED)).to.be
-          .true;
+        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_HIDE)).to.be.true;
         expect(hideSpy.called).to.be.true;
         expect(loadingCover.isHidden).to.be.true;
       });

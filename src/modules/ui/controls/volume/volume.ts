@@ -81,7 +81,7 @@ export default class VolumeControl implements IVolumeControl {
         onDragEnd: this._broadcastDragEnd,
         onVolumeLevelChangeFromInput: this._getVolumeLevelFromInput,
         onVolumeLevelChangeFromWheel: this._getVolumeLevelFromWheel,
-        onToggleMuteClick: this._toggleMuteStatus,
+        onToggleMuteClick: this._toggleMuteState,
       },
       theme: this._theme,
       textMap: this._textMap,
@@ -101,8 +101,8 @@ export default class VolumeControl implements IVolumeControl {
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(
             this._engine.isMuted
-              ? UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED
-              : UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+              ? UI_EVENTS.UNMUTE_WITH_KEYBOARD
+              : UI_EVENTS.MUTE_WITH_KEYBOARD,
           );
         },
         [KEYCODES.ENTER]: e => {
@@ -111,8 +111,8 @@ export default class VolumeControl implements IVolumeControl {
           this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(
             this._engine.isMuted
-              ? UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED
-              : UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED,
+              ? UI_EVENTS.UNMUTE_WITH_KEYBOARD
+              : UI_EVENTS.MUTE_WITH_KEYBOARD,
           );
         },
       },
@@ -124,9 +124,7 @@ export default class VolumeControl implements IVolumeControl {
         e.preventDefault();
 
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(
-          UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-        );
+        this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD);
         this._engine.setMute(false);
         this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
       },
@@ -135,9 +133,7 @@ export default class VolumeControl implements IVolumeControl {
         e.preventDefault();
 
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(
-          UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED,
-        );
+        this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD);
         this._engine.setMute(false);
         this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
       },
@@ -151,14 +147,14 @@ export default class VolumeControl implements IVolumeControl {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[VIDEO_EVENTS.VOLUME_STATUS_CHANGED, this._updateVolumeStatus]],
+      [[VIDEO_EVENTS.SOUND_STATE_CHANGED, this._updateSoundState]],
       this,
     );
   }
 
   private _bindCallbacks() {
     this._getVolumeLevelFromInput = this._getVolumeLevelFromInput.bind(this);
-    this._toggleMuteStatus = this._toggleMuteStatus.bind(this);
+    this._toggleMuteState = this._toggleMuteState.bind(this);
     this._getVolumeLevelFromWheel = this._getVolumeLevelFromWheel.bind(this);
     this._broadcastDragStart = this._broadcastDragStart.bind(this);
     this._broadcastDragEnd = this._broadcastDragEnd.bind(this);
@@ -174,14 +170,18 @@ export default class VolumeControl implements IVolumeControl {
 
   private _changeVolumeLevel(level: number) {
     this._engine.setVolume(level);
-    this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE_TRIGGERED, level);
+    this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE, level);
+
+    if (this._engine.isMuted) {
+      this._toggleMuteState();
+    }
   }
 
-  private _toggleMuteStatus() {
-    this._engine.setMute(!this._engine.isMuted);
+  private _toggleMuteState() {
+    const desiredMuteState = !this._engine.isMuted;
+    this._engine.setMute(desiredMuteState);
     this._eventEmitter.emit(
-      UI_EVENTS.MUTE_STATUS_TRIGGERED,
-      !this._engine.isMuted,
+      desiredMuteState ? UI_EVENTS.MUTE_CLICK : UI_EVENTS.UNMUTE_CLICK,
     );
   }
 
@@ -189,31 +189,24 @@ export default class VolumeControl implements IVolumeControl {
     const adjustedVolume = this._engine.getVolume() + delta / 10;
     const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
 
-    this._changeVolumeStatus(validatedVolume);
+    this._changeVolumeLevel(validatedVolume);
   }
 
   private _getVolumeLevelFromInput(level: number) {
-    this._changeVolumeStatus(level);
-  }
-
-  private _changeVolumeStatus(level: number) {
     this._changeVolumeLevel(level);
-    if (this._engine.isMuted) {
-      this._toggleMuteStatus();
-    }
   }
 
-  private _updateVolumeStatus() {
-    this.setVolumeLevel(this._engine.getVolume());
-    this.setMuteStatus(this._engine.isMuted);
+  private _updateSoundState() {
+    this._setVolumeLevel(this._engine.getVolume());
+    this._setMuteState(this._engine.isMuted);
   }
 
-  setVolumeLevel(level: number) {
+  private _setVolumeLevel(level: number) {
     this.view.setVolume(level);
     this.view.setMute(Boolean(!level));
   }
 
-  setMuteStatus(isMuted: boolean) {
+  private _setMuteState(isMuted: boolean) {
     const volume = this._engine.getVolume();
 
     this.view.setVolume(isMuted ? 0 : volume);

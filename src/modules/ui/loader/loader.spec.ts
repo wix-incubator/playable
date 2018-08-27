@@ -47,7 +47,7 @@ describe('Loader', () => {
       it('should have method for showing loader', () => {
         const showSpy = sinon.spy(loader.view, 'showContent');
         loader._showContent();
-        expect(emitSpy.calledWith(UI_EVENTS.LOADER_SHOW_TRIGGERED)).to.be.true;
+        expect(emitSpy.calledWith(UI_EVENTS.LOADER_SHOW)).to.be.true;
         expect(showSpy.called).to.be.true;
         expect(loader.isHidden).to.be.false;
       });
@@ -56,7 +56,7 @@ describe('Loader', () => {
         loader._showContent();
         const hideSpy = sinon.spy(loader.view, 'hideContent');
         loader._hideContent();
-        expect(emitSpy.calledWith(UI_EVENTS.LOADER_HIDE_TRIGGERED)).to.be.true;
+        expect(emitSpy.calledWith(UI_EVENTS.LOADER_HIDE)).to.be.true;
         expect(hideSpy.called).to.be.true;
         expect(loader.isHidden).to.be.true;
       });

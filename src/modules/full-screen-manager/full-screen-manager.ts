@@ -87,7 +87,7 @@ export default class FullScreenManager implements IFullScreenManager {
       this._engine.pause();
     }
     this._eventEmitter.emit(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      UI_EVENTS.FULL_SCREEN_STATE_CHANGED,
       this._helper.isInFullScreen,
     );
   }
@@ -96,7 +96,7 @@ export default class FullScreenManager implements IFullScreenManager {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
         [VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine],
-        [VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested],
+        [VIDEO_EVENTS.PLAY_REQUEST, this._enterOnPlayRequested],
       ],
       this,
     );

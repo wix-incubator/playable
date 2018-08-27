@@ -76,14 +76,14 @@ export default class Overlay implements IOverlay {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus],
+        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState],
         [VIDEO_EVENTS.RESET, this._tryShowContent],
       ],
       this,
     );
   }
 
-  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
+  private _updatePlayingState({ nextState }: { nextState: EngineState }) {
     if (nextState === EngineState.PLAY_REQUESTED) {
       this._hideContent();
     } else if (
@@ -97,7 +97,7 @@ export default class Overlay implements IOverlay {
   private _playVideo() {
     this._engine.play();
 
-    this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_CLICK);
   }
 
   private _tryShowContent() {

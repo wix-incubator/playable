@@ -64,7 +64,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
       },
     );
 
-    this.setState({ isInFullScreen: false });
+    this.setFullScreenState(false);
     this._bindEvents();
   }
 
@@ -90,7 +90,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
   }
 
   //TODO: No need to create icons every tims on setState
-  setState({ isInFullScreen }: { isInFullScreen: boolean }) {
+  setFullScreenState(isInFullScreen: boolean) {
     if (isInFullScreen) {
       this._$toggleFullScreenControl.classList.add(
         this.styleNames.inFullScreen,

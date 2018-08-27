@@ -11,7 +11,7 @@ export default class EventEmitterModule extends EventEmitter
    * Method for adding listeners of events inside player.
    * You can check all events inside `Playable.UI_EVENTS` and `Playable.VIDEO_EVENTS`
    *
-   * @param event - The Event name, such as `Playable.UI_EVENTS.PLAY_TRIGGERED`
+   * @param event - The Event name, such as `Playable.UI_EVENTS.PLAY_CLICK`
    * @param fn - A function callback to execute when the event is triggered.
    * @param context - Value to use as `this` (i.e the reference Object) when executing callback.
    *
@@ -19,7 +19,7 @@ export default class EventEmitterModule extends EventEmitter
    * const Playable = require('playable');
    * const player = Playable.create();
    *
-   * player.on(Playable.UI_EVENTS.PLAY_TRIGGERED, () => {
+   * player.on(Playable.UI_EVENTS.PLAY_CLICK, () => {
    *   // Will be executed after you will click on play button
    * });
    *
@@ -35,7 +35,7 @@ export default class EventEmitterModule extends EventEmitter
   /**
    * Method for removing listeners of events inside player.
    *
-   * @param event - The Event name, such as `Playable.UI_EVENTS.PLAY_TRIGGERED`
+   * @param event - The Event name, such as `Playable.UI_EVENTS.PLAY_CLICK`
    * @param fn - Only remove the listeners that match this function.
    * @param context - Only remove the listeners that have this context.
    * @param once - Only remove one-time listeners.
@@ -49,13 +49,13 @@ export default class EventEmitterModule extends EventEmitter
    * };
    *
    * // ... Now callback will be called when some one will pause the video ...
-   * player.on(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
+   * player.on(Playable.UI_EVENTS.PAUSE, callback);
    *
    * // ... callback will no longer be called.
-   * player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
+   * player.off(Playable.UI_EVENTS.PAUSE, callback);
    *
-   * // ... remove all handlers for event UI_EVENTS.PAUSE_TRIGGERED.
-   * player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED);
+   * // ... remove all handlers for event UI_EVENTS.PAUSE.
+   * player.off(Playable.UI_EVENTS.PAUSE);
    */
   @playerAPI()
   off(event: string, fn?: ListenerFn, context?: any, once?: boolean) {

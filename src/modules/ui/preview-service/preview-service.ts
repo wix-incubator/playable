@@ -31,7 +31,7 @@ export default class PreviewService implements IPreviewService {
       return;
     }
 
-    const duration = this._engine.getDurationTime();
+    const duration = this._engine.getDuration();
     if (!duration) {
       return;
     }

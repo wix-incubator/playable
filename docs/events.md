@@ -25,7 +25,7 @@ console.log(VIDEO_EVENTS);
 > Add new event listeners
 
 ```javascript
-player.on(Playable.UI_EVENTS.PLAY_TRIGGERED, () => {
+player.on(Playable.UI_EVENTS.PLAY_CLICK, () => {
   // Will be executed after you will click on play button
 });
 
@@ -42,13 +42,13 @@ const callback = function() {
 };
 
 // ... Now callback will be called when some one will pause the video ...
-player.on(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
+player.on(Playable.UI_EVENTS.PAUSE_CLICK, callback);
 
 // ... callback will no longer be called.
-player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
+player.off(Playable.UI_EVENTS.PAUSE_CLICK, callback);
 
-// ... remove all handlers for event UI_EVENTS.PAUSE_TRIGGERED.
-player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED);
+// ... remove all handlers for event UI_EVENTS.PAUSE_CLICK.
+player.off(Playable.UI_EVENTS.PAUSE_CLICK);
 ```
 
 You can create listeners for events triggered by the video player, using [on](/api#on) method. To remove a listener, use [off](/api#off).

@@ -210,7 +210,7 @@ export default class Engine implements IPlaybackEngine {
   @playerAPI()
   play() {
     //Workaround for triggering functionality that requires user event pipe
-    this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
+    this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
 
     this._pauseRequested = false;
 
@@ -280,7 +280,7 @@ export default class Engine implements IPlaybackEngine {
   }
 
   /**
-   * High level status of video playback. Returns true if playback is paused.
+   * High level state of video playback. Returns true if playback is paused.
    * For more advance state use `getPlaybackState`
    * @example
    * player.play();
@@ -292,7 +292,7 @@ export default class Engine implements IPlaybackEngine {
   }
 
   /**
-   * High level status of video playback. Returns true if playback is ended. Also note, that `isPaused` will return `true` if playback is ended also.
+   * High level state of video playback. Returns true if playback is ended. Also note, that `isPaused` will return `true` if playback is ended also.
    * For more advance state use `getPlaybackState`
    * @example
    * player.play();

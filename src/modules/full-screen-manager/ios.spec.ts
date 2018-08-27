@@ -19,25 +19,25 @@ describe('IOSFullScreen', () => {
     callback.resetHistory();
   });
 
-  describe('enable status', () => {
-    it('should return true in native status is true', () => {
+  describe('enable state', () => {
+    it('should return true in native state is true', () => {
       element.webkitSupportsFullscreen = true;
       expect(fullScreen.isEnabled).to.be.true;
     });
 
-    it('should return false in native status is false', () => {
+    it('should return false in native state is false', () => {
       element.webkitSupportsFullscreen = false;
       expect(fullScreen.isEnabled).to.be.false;
     });
   });
 
-  describe('full screen status', () => {
-    it('should return true in native status is true', () => {
+  describe('full screen state', () => {
+    it('should return true in native state is true', () => {
       element.webkitDisplayingFullscreen = true;
       expect(fullScreen.isInFullScreen).to.be.true;
     });
 
-    it('should return false in native status is false', () => {
+    it('should return false in native state is false', () => {
       element.webkitDisplayingFullscreen = false;
       expect(fullScreen.isInFullScreen).to.be.false;
     });

@@ -159,28 +159,28 @@ export default class ProgressControl implements IProgressControl {
         e.stopPropagation();
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
+        this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD);
         this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.DOWN_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
+        this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD);
         this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.RIGHT_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED);
+        this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD);
         this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.LEFT_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED);
+        this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD);
         this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
       },
     });
@@ -270,7 +270,7 @@ export default class ProgressControl implements IProgressControl {
 
       this._pauseVideoOnDragStart();
 
-      this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
+      this._eventEmitter.emit(UI_EVENTS.PROGRESS_DRAG_STARTED);
       this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
     }
   }
@@ -288,7 +288,7 @@ export default class ProgressControl implements IProgressControl {
 
       this.view.hideProgressTimeTooltip();
 
-      this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
+      this._eventEmitter.emit(UI_EVENTS.PROGRESS_DRAG_ENDED);
       this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
     }
   }
@@ -382,7 +382,7 @@ export default class ProgressControl implements IProgressControl {
       this._engine.seekTo(newTime);
     }
 
-    this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, newTime);
+    this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE, newTime);
   }
 
   private _pauseVideoOnDragStart() {
@@ -395,6 +395,8 @@ export default class ProgressControl implements IProgressControl {
       this._shouldPlayAfterDragEnd = true;
       this._engine.pause();
     }
+
+    this._eventEmitter.emit(UI_EVENTS.PROGRESS_DRAG_STARTED);
   }
 
   private _playVideoOnDragEnd() {
@@ -455,15 +457,11 @@ export default class ProgressControl implements IProgressControl {
   }
 
   private _onSyncWithLiveMouseEnter() {
-    this._eventEmitter.emit(
-      UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER_TRIGGERED,
-    );
+    this._eventEmitter.emit(UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER);
   }
 
   private _onSyncWithLiveMouseLeave() {
-    this._eventEmitter.emit(
-      UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED,
-    );
+    this._eventEmitter.emit(UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE);
   }
 
   private _setPlayed(percent: number) {

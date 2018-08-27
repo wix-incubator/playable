@@ -47,7 +47,7 @@ describe('Overlay', () => {
       overlay._playVideo();
 
       expect(callback.called).to.be.true;
-      expect(eventEmitterSpy.calledWith(UI_EVENTS.PLAY_OVERLAY_TRIGGERED)).to.be
+      expect(eventEmitterSpy.calledWith(UI_EVENTS.PLAY_OVERLAY_CLICK)).to.be
         .true;
 
       overlay._engine.play.restore();
@@ -60,8 +60,8 @@ describe('Overlay', () => {
       eventEmitter = testkit.getModule('eventEmitter');
     });
 
-    it('should react on video playback status changed on play', () => {
-      const callback = sinon.spy(overlay, '_updatePlayingStatus');
+    it('should react on video playback state changed on play', () => {
+      const callback = sinon.spy(overlay, '_updatePlayingState');
       const hideSpy = sinon.spy(overlay, '_hideContent');
 
       overlay._bindEvents();
@@ -74,8 +74,8 @@ describe('Overlay', () => {
       expect(hideSpy.called).to.be.true;
     });
 
-    it('should react on video playback status changed on end', () => {
-      const callback = sinon.spy(overlay, '_updatePlayingStatus');
+    it('should react on video playback state changed on end', () => {
+      const callback = sinon.spy(overlay, '_updatePlayingState');
       const showSpy = sinon.spy(overlay, '_showContent');
       overlay._bindEvents();
 

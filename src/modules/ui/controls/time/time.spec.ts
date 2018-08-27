@@ -29,15 +29,13 @@ describe('TimeControl', () => {
   describe('API', () => {
     it('should have method for setting current time', () => {
       const spy = sinon.spy(control.view, 'setCurrentTime');
-      expect(control.setCurrentTime).to.exist;
-      control.setCurrentTime();
+      control._setCurrentTime();
       expect(spy.called).to.be.true;
     });
 
     it('should have method for setting duration time', () => {
       const spy = sinon.spy(control.view, 'setDurationTime');
-      expect(control.setDurationTime).to.exist;
-      control.setDurationTime();
+      control._setDurationTime();
       expect(spy.called).to.be.true;
     });
 
@@ -64,7 +62,7 @@ describe('TimeControl', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback status change', () => {
+    it('should call callback on playback state change', () => {
       const spy = sinon.spy(control, '_toggleIntervalUpdates');
       control._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});

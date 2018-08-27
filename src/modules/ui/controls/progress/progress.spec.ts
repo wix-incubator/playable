@@ -213,7 +213,7 @@ describe('ProgressControl', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback status change', () => {
+    it('should call callback on playback state change', () => {
       const spy = sinon.spy(control, '_processStateChange');
       control._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});

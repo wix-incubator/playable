@@ -264,7 +264,7 @@ Show whole ui
 const Playable = require('playable');
 const player = Playable.create();
 
-player.on(Playable.UI_EVENTS.PLAY_TRIGGERED, () => {
+player.on(Playable.UI_EVENTS.PLAY_CLICK, () => {
   // Will be executed after you will click on play button
 });
 
@@ -291,7 +291,7 @@ You can check all events inside `Playable.UI_EVENTS` and `Playable.VIDEO_EVENTS`
         </td>
         <td>
             <div class="type">string</div>
-            <p>The Event name, such as <code>Playable.UI_EVENTS.PLAY_TRIGGERED</code></p>
+            <p>The Event name, such as <code>Playable.UI_EVENTS.PLAY_CLICK</code></p>
         </td>
       </tr>
       <tr>
@@ -327,13 +327,13 @@ const callback = function() {
 };
 
 // ... Now callback will be called when some one will pause the video ...
-player.on(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
+player.on(Playable.UI_EVENTS.PAUSE, callback);
 
 // ... callback will no longer be called.
-player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED, callback);
+player.off(Playable.UI_EVENTS.PAUSE, callback);
 
-// ... remove all handlers for event UI_EVENTS.PAUSE_TRIGGERED.
-player.off(Playable.UI_EVENTS.PAUSE_TRIGGERED);
+// ... remove all handlers for event UI_EVENTS.PAUSE.
+player.off(Playable.UI_EVENTS.PAUSE);
 ```
 
 Method for removing listeners of events inside player.
@@ -353,7 +353,7 @@ Method for removing listeners of events inside player.
         </td>
         <td>
             <div class="type">string</div>
-            <p>The Event name, such as <code>Playable.UI_EVENTS.PLAY_TRIGGERED</code></p>
+            <p>The Event name, such as <code>Playable.UI_EVENTS.PLAY_CLICK</code></p>
         </td>
       </tr>
       <tr>
@@ -497,7 +497,7 @@ player.play();
 console.log(player.isPaused);
 ```
 
-High level status of video playback. Returns true if playback is paused.
+High level state of video playback. Returns true if playback is paused.
 For more advance state use `getPlaybackState`
 
 <div class="method-list">
@@ -527,7 +527,7 @@ player.play();
 console.log(player.isEnded);
 ```
 
-High level status of video playback. Returns true if playback is ended. Also note, that `isPaused` will return `true` if playback is ended also.
+High level state of video playback. Returns true if playback is ended. Also note, that `isPaused` will return `true` if playback is ended also.
 For more advance state use `getPlaybackState`
 
 <div class="method-list">
@@ -1558,7 +1558,7 @@ Method for setting overlay poster
 player.setMainUIShouldAlwaysShow(true);
 ```
 
-Method for allowing main ui to be always shown despite the playback status and the cursor position
+Method for allowing main ui to be always shown despite the playback state and the cursor position
 
 <div class="method-list">
   <table>

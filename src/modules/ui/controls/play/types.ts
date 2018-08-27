@@ -22,9 +22,6 @@ type IPlayViewConfig = {
 interface IPlayControl {
   getElement(): HTMLElement;
 
-  setControlStatus(isPlaying: boolean): void;
-  reset(): void;
-
   destroy(): void;
 }
 

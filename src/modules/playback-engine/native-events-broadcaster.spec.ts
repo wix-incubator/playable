@@ -111,7 +111,7 @@ describe('NativeEventsBroadcaster', () => {
     video.muted = true;
     broadcaster._processEventFromVideo(NATIVE_EVENTS.VOLUME_CHANGE);
     expect(
-      eventEmitter.emit.calledWith(VIDEO_EVENTS.VOLUME_STATUS_CHANGED, {
+      eventEmitter.emit.calledWith(VIDEO_EVENTS.SOUND_STATE_CHANGED, {
         volume: video.volume,
         muted: video.muted,
       }),

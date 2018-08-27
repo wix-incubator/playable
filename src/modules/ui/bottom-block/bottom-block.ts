@@ -105,7 +105,7 @@ export default class BottomBlock implements IBottomBlock {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this._removeFocusState]],
+      [[UI_EVENTS.FULL_SCREEN_STATE_CHANGED, this._removeFocusState]],
       this,
     );
   }

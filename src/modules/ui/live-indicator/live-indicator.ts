@@ -83,13 +83,13 @@ export default class LiveIndicator implements ILiveIndicator {
       [
         [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processStateChange],
         [
-          UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER_TRIGGERED,
+          UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER,
           () => {
             this.view.toggleActive(true);
           },
         ],
         [
-          UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE_TRIGGERED,
+          UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE,
           () => {
             // NOTE: restore state before mouse enter
             this.view.toggleActive(this._isActive);

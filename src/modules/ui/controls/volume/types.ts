@@ -33,9 +33,6 @@ type IVolumeViewConfig = {
 interface IVolumeControl {
   getElement(): HTMLElement;
 
-  setVolumeLevel(level: number): void;
-  setMuteStatus(isMuted: boolean): void;
-
   show(): void;
   hide(): void;
 

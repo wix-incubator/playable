@@ -32,15 +32,13 @@ describe('VolumeControl', () => {
   describe('API', () => {
     it('should have method for setting current volume', () => {
       const spy = sinon.spy(control.view, 'setVolume');
-      expect(control.setVolumeLevel).to.exist;
-      control.setVolumeLevel(0);
+      control._setVolumeLevel(0);
       expect(spy.called).to.be.true;
     });
 
-    it('should have method for setting mute status', () => {
+    it('should have method for setting mute state', () => {
       const spy = sinon.spy(control.view, 'setMute');
-      expect(control.setMuteStatus).to.exist;
-      control.setMuteStatus();
+      control._setMuteState();
       expect(spy.called).to.be.true;
     });
 
@@ -67,35 +65,35 @@ describe('VolumeControl', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback status change', () => {
-      const spy = sinon.spy(control, '_updateVolumeStatus');
+    it('should call callback on playback state change', () => {
+      const spy = sinon.spy(control, '_updateSoundState');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.VOLUME_STATUS_CHANGED);
+      eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED);
       expect(spy.called).to.be.true;
     });
   });
 
   describe('internal methods', () => {
     it('should change volume level based on wheel delta', () => {
-      const startSpy = sinon.spy(control, '_changeVolumeStatus');
+      const startSpy = sinon.spy(control, '_changeVolumeLevel');
       control._getVolumeLevelFromWheel(-100);
       expect(startSpy.calledWith(90)).to.be.true;
     });
 
     it('should change volume level based on input', () => {
-      const startSpy = sinon.spy(control, '_changeVolumeStatus');
+      const startSpy = sinon.spy(control, '_changeVolumeLevel');
       control._getVolumeLevelFromInput(40);
       expect(startSpy.calledWith(40)).to.be.true;
     });
 
-    it('should change volume level and mute status of video', () => {
+    it('should change volume level and mute state of video', () => {
       const volumeSpy = sinon.spy(control, '_changeVolumeLevel');
-      const muteSpy = sinon.spy(control, '_toggleMuteStatus');
-      control._changeVolumeStatus(90);
+      const muteSpy = sinon.spy(control, '_toggleMuteState');
+      control._changeVolumeLevel(90);
       expect(volumeSpy.calledWith(90)).to.be.true;
       expect(muteSpy.called).to.be.false;
       control._engine.mute();
-      control._changeVolumeStatus(90);
+      control._changeVolumeLevel(90);
       expect(muteSpy.called).to.be.true;
     });
   });
