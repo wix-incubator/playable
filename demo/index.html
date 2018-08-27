@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Player</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #player-wrapper {
+      height: 100%;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <script src='./develop.bundle.min.js'></script>
+</head>
+<body>
+<div id="theme-switcher">
+  <h3>Switch progress bar color: </h3>
+  <button data-color="#FFF">white</button>
+  <button data-color="#F00">red</button>
+  <button data-color="#0F0">green</button>
+  <button data-color="#00F">blue</button>
+</div>
+<div id="player-wrapper"></div>
+<div id="types">
+  <h3>Switch video format: </h3>
+  <button data-type="HLS">HLS</button>
+  <button data-type="DASH">DASH</button>
+  <button data-type="MP4">MP4</button>
+  <button data-type="MP4-VERTICAL">MP4 vertical</button>
+</div>
+<div id="progress-bar-modes">
+  <h3>Switch progress bar mode:</h3>
+  <button data-mode="REGULAR">REGULAR</button>
+  <button data-mode="PREVIEW">PREVIEW</button>
+</div>
+</body>
+</html>
