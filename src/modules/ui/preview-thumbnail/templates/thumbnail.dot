@@ -1,0 +1,11 @@
+<div class="${props.styles.container}">
+  <div class="${props.styles.highQualityFrame}"
+       data-hook="playable-thumb-high-quality" >
+  </div>
+  <div class="${props.styles.lowQualityFrame}"
+       data-hook="playable-thumb-low-quality">
+  </div>
+  <div class="${props.styles.thumbText}"
+       data-hook="playable-thumb-text-block">
+  </div>
+</div>

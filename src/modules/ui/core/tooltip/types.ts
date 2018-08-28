@@ -13,7 +13,8 @@ type ITooltipPositionFunction = (
 ) => ITooltipPosition;
 
 type ITooltipShowOptions = {
-  text: string;
+  text?: string;
+  element?: HTMLElement;
   position: ITooltipPosition | ITooltipPositionFunction;
 };
 
@@ -21,6 +22,8 @@ type ITooltipStyles = {
   tooltip: string;
   tooltipVisible: string;
   tooltipInner: string;
+  showAsText: string;
+  showAsElement: string;
 };
 
 interface ITooltip {
@@ -34,7 +37,8 @@ interface ITooltip {
 }
 
 type ITooltipReferenceOptions = {
-  text: string;
+  text?: string;
+  element?: HTMLElement;
 };
 
 interface ITooltipReference {

@@ -4,7 +4,6 @@ import View from '../../core/view';
 
 import { IView } from '../../core/types';
 import { ITooltipReference, ITooltipService } from '../../core/tooltip/types';
-import formatTime from '../../core/utils/formatTime';
 import getProgressTimeTooltipPosition from './utils/getProgressTimeTooltipPosition';
 import { progressTemplate, progressTimeIndicatorTemplate } from './templates';
 
@@ -39,7 +38,7 @@ const getPercentBasedOnXPosition = (
     return 100;
   }
 
-  return (event.clientX - boundingRect.left) / boundingRect.width * 100;
+  return ((event.clientX - boundingRect.left) / boundingRect.width) * 100;
 };
 
 class ProgressView extends View<IProgressViewStyles>
@@ -178,7 +177,7 @@ class ProgressView extends View<IProgressViewStyles>
 
     const percent = getPercentBasedOnXPosition(event, this._$hitbox);
     this._setPlayedDOMAttributes(percent);
-    this._callbacks.onChangePlayedProgress(percent);
+    this._callbacks.onChangePlayedPercent(percent);
 
     this._startDrag();
   }
@@ -207,7 +206,7 @@ class ProgressView extends View<IProgressViewStyles>
     if (this._isDragging) {
       const percent = getPercentBasedOnXPosition(event, this._$hitbox);
       this._setPlayedDOMAttributes(percent);
-      this._callbacks.onChangePlayedProgress(percent);
+      this._callbacks.onChangePlayedPercent(percent);
     }
   }
 
@@ -268,15 +267,9 @@ class ProgressView extends View<IProgressViewStyles>
     }
   }
 
-  showProgressTimeTooltip({
-    time,
-    percent,
-  }: {
-    time: number;
-    percent: number;
-  }) {
+  showProgressTimeTooltip(element: HTMLElement, percent: number) {
     this._tooltipService.show({
-      text: formatTime(time),
+      element,
       position: tooltipContainerNode =>
         getProgressTimeTooltipPosition(
           percent,

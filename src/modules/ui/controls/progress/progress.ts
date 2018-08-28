@@ -17,6 +17,8 @@ import { AMOUNT_TO_SKIP_SECONDS } from '../../../keyboard-control/keyboard-contr
 import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
+import formatTime from '../../core/utils/formatTime';
+
 import playerAPI from '../../../../core/player-api-decorator';
 
 import { IEventEmitter } from '../../../event-emitter/types';
@@ -24,6 +26,9 @@ import { ITooltipService } from '../../core/tooltip/types';
 import { IProgressControl, IProgressViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
+import { IPreviewThumbnail } from '../../preview-thumbnail/types';
+import { IPreviewFullSize } from '../../preview-full-size/types';
+
 import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
@@ -38,6 +43,8 @@ export default class ProgressControl implements IProgressControl {
     'textMap',
     'tooltipService',
     'theme',
+    'previewThumbnail',
+    'previewFullSize',
   ];
 
   private _engine: IPlaybackEngine;
@@ -46,13 +53,19 @@ export default class ProgressControl implements IProgressControl {
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
   private _theme: IThemeService;
+  private _previewThumbnail: IPreviewThumbnail;
+  private _previewFullSize: IPreviewFullSize;
 
-  private _isUserInteracting: boolean;
-  private _shouldPlayAfterManipulationEnd: boolean;
-  private _currentProgressPercent: number;
+  private _isUserDragging: boolean;
+  private _shouldPlayAfterDragEnd: boolean;
+  private _desiredSeekPosition: number;
   private _interceptor: KeyboardInterceptor;
   private _updateControlInterval: number;
   private _timeIndicatorsToAdd: number[];
+
+  private _shouldHidePreviewOnUpdate: boolean;
+
+  private _showFullScreenPreview: boolean;
 
   private _unbindEvents: Function;
 
@@ -66,6 +79,8 @@ export default class ProgressControl implements IProgressControl {
     textMap,
     tooltipService,
     theme,
+    previewThumbnail,
+    previewFullSize,
   }: {
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
@@ -73,17 +88,24 @@ export default class ProgressControl implements IProgressControl {
     textMap: ITextMap;
     tooltipService: ITooltipService;
     theme: IThemeService;
+    previewThumbnail: IPreviewThumbnail;
+    previewFullSize: IPreviewFullSize;
   }) {
     this._engine = engine;
     this._liveStateEngine = liveStateEngine;
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
-    this._isUserInteracting = false;
-    this._currentProgressPercent = 0;
+    this._previewThumbnail = previewThumbnail;
+    this._previewFullSize = previewFullSize;
+
+    this._isUserDragging = false;
+    this._desiredSeekPosition = 0;
     this._theme = theme;
 
     this._timeIndicatorsToAdd = [];
+
+    this._showFullScreenPreview = false;
 
     this._bindCallbacks();
     this._initUI();
@@ -117,11 +139,11 @@ export default class ProgressControl implements IProgressControl {
         onSyncWithLiveClick: this._syncWithLive,
         onSyncWithLiveMouseEnter: this._onSyncWithLiveMouseEnter,
         onSyncWithLiveMouseLeave: this._onSyncWithLiveMouseLeave,
-        onChangePlayedProgress: this._changePlayedProgress,
-        onSeekToByMouseStart: this._onSeekToByMouseStart,
-        onSeekToByMouseEnd: this._onSeekToByMouseEnd,
-        onDragStart: this._onUserInteractionStarts,
-        onDragEnd: this._onUserInteractionEnds,
+        onChangePlayedPercent: this._onChangePlayedPercent,
+        onSeekToByMouseStart: this._showTooltipAndPreview,
+        onSeekToByMouseEnd: this._hideTooltip,
+        onDragStart: this._startProcessingUserDrag,
+        onDragEnd: this._stopProcessingUserDrag,
       },
       theme: this._theme,
       textMap: this._textMap,
@@ -172,25 +194,12 @@ export default class ProgressControl implements IProgressControl {
     this._syncWithLive = this._syncWithLive.bind(this);
     this._onSyncWithLiveMouseEnter = this._onSyncWithLiveMouseEnter.bind(this);
     this._onSyncWithLiveMouseLeave = this._onSyncWithLiveMouseLeave.bind(this);
-    this._updateControlOnInterval = this._updateControlOnInterval.bind(this);
-    this._changePlayedProgress = this._changePlayedProgress.bind(this);
-    this._onSeekToByMouseStart = this._onSeekToByMouseStart.bind(this);
-    this._onSeekToByMouseEnd = this._onSeekToByMouseEnd.bind(this);
-    this._onUserInteractionStarts = this._onUserInteractionStarts.bind(this);
-    this._onUserInteractionEnds = this._onUserInteractionEnds.bind(this);
-    this._processStateChange = this._processStateChange.bind(this);
-    this._playVideoOnProgressManipulationEnd = this._playVideoOnProgressManipulationEnd.bind(
-      this,
-    );
-  }
-
-  private _changePlayedProgress(percent: number) {
-    if (this._currentProgressPercent === percent) {
-      return;
-    }
-
-    this._currentProgressPercent = percent;
-    this._changeCurrentTimeOfVideo(percent);
+    this._updateAllIndicators = this._updateAllIndicators.bind(this);
+    this._onChangePlayedPercent = this._onChangePlayedPercent.bind(this);
+    this._showTooltipAndPreview = this._showTooltipAndPreview.bind(this);
+    this._hideTooltip = this._hideTooltip.bind(this);
+    this._startProcessingUserDrag = this._startProcessingUserDrag.bind(this);
+    this._stopProcessingUserDrag = this._stopProcessingUserDrag.bind(this);
   }
 
   private _startIntervalUpdates() {
@@ -198,26 +207,12 @@ export default class ProgressControl implements IProgressControl {
       this._stopIntervalUpdates();
     }
 
-    this._updateControlOnInterval();
+    this._updateAllIndicators();
 
     this._updateControlInterval = window.setInterval(
-      this._updateControlOnInterval,
+      this._updateAllIndicators,
       UPDATE_INTERVAL_DELAY,
     );
-  }
-
-  private _onSeekToByMouseStart(percent: number) {
-    const durationTime = this._engine.getDurationTime();
-    const seekTime = (durationTime * percent) / 100;
-    const time = this._engine.isDynamicContent
-      ? seekTime - durationTime
-      : seekTime;
-
-    this.view.showProgressTimeTooltip({ time, percent });
-  }
-
-  private _onSeekToByMouseEnd() {
-    this.view.hideProgressTimeTooltip();
   }
 
   private _stopIntervalUpdates() {
@@ -225,33 +220,88 @@ export default class ProgressControl implements IProgressControl {
     this._updateControlInterval = null;
   }
 
-  private _onUserInteractionStarts() {
-    if (!this._isUserInteracting) {
-      this._isUserInteracting = true;
-      this._pauseVideoOnProgressManipulationStart();
-    }
-
-    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
+  private _convertPlayedPercentToTime(percent: number): number {
+    const duration = this._engine.getDurationTime();
+    return (duration * percent) / 100;
   }
 
-  private _onUserInteractionEnds() {
-    if (this._isUserInteracting) {
-      this._isUserInteracting = false;
-      this._playVideoOnProgressManipulationEnd();
+  private _onChangePlayedPercent(percent: number) {
+    const newTime = this._convertPlayedPercentToTime(percent);
+    this._desiredSeekPosition = newTime;
+    if (this._showFullScreenPreview) {
+      this._eventEmitter.emit(UI_EVENTS.USER_PREVIEWING_FRAME, newTime);
+    } else {
+      this._changeCurrentTimeOfVideo(newTime);
     }
 
-    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
+    if (this._isUserDragging) {
+      this._showTooltipAndPreview(percent);
+    }
   }
 
-  private _updateControlOnInterval() {
-    this._updatePlayedIndicator();
-    this._updateBufferIndicator();
+  private _showTooltipAndPreview(percent: number) {
+    const duration = this._engine.getDurationTime();
+    const seekToTime = this._convertPlayedPercentToTime(percent);
+    const timeToShow = this._engine.isDynamicContent
+      ? seekToTime - duration
+      : seekToTime;
+
+    this._previewThumbnail.setTime(formatTime(timeToShow));
+    this._previewThumbnail.showAt(seekToTime);
+    this.view.showProgressTimeTooltip(
+      this._previewThumbnail.getElement(),
+      percent,
+    );
+
+    if (this._isUserDragging && this._showFullScreenPreview) {
+      this._previewFullSize.showAt(seekToTime);
+    }
+  }
+
+  private _hideTooltip() {
+    if (!this._isUserDragging) {
+      this.view.hideProgressTimeTooltip();
+    }
+  }
+
+  private _startProcessingUserDrag() {
+    if (!this._isUserDragging) {
+      this._isUserDragging = true;
+
+      this._pauseVideoOnDragStart();
+
+      this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
+      this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
+    }
+  }
+
+  private _stopProcessingUserDrag() {
+    if (this._isUserDragging) {
+      this._isUserDragging = false;
+
+      if (this._showFullScreenPreview) {
+        this._shouldHidePreviewOnUpdate = true;
+      }
+
+      this._changeCurrentTimeOfVideo(this._desiredSeekPosition);
+      this._playVideoOnDragEnd();
+
+      this.view.hideProgressTimeTooltip();
+
+      this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
+      this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
+    }
+  }
+
+  private _hidePreview() {
+    this._shouldHidePreviewOnUpdate = false;
+    this._previewFullSize.hide();
   }
 
   private _processStateChange({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.SRC_SET:
-        this.reset();
+        this._reset();
         break;
       case EngineState.METADATA_LOADED:
         this._initTimeIndicators();
@@ -264,18 +314,25 @@ export default class ProgressControl implements IProgressControl {
 
         break;
       case EngineState.PLAYING:
+        if (this._shouldHidePreviewOnUpdate) {
+          this._hidePreview();
+        }
         if (this._liveStateEngine.state === LiveState.SYNC) {
           this.view.setPlayed(100);
         } else {
           this._startIntervalUpdates();
         }
         break;
+      case EngineState.PAUSED:
+        if (this._shouldHidePreviewOnUpdate) {
+          this._hidePreview();
+        }
+        this._stopIntervalUpdates();
+        break;
       case EngineState.SEEK_IN_PROGRESS:
-        this._updatePlayedIndicator();
-        this._updateBufferIndicator();
+        this._updateAllIndicators();
         break;
       default:
-        this._stopIntervalUpdates();
         break;
     }
   }
@@ -307,8 +364,7 @@ export default class ProgressControl implements IProgressControl {
         if (this._engine.getCurrentState() === EngineState.PLAYING) {
           this._startIntervalUpdates();
         } else {
-          this._updatePlayedIndicator();
-          this._updateBufferIndicator();
+          this._updateAllIndicators();
         }
         break;
 
@@ -317,42 +373,36 @@ export default class ProgressControl implements IProgressControl {
     }
   }
 
-  private _changeCurrentTimeOfVideo(progressPercent: number) {
+  private _changeCurrentTimeOfVideo(newTime: number) {
     const duration = this._engine.getDurationTime();
 
-    if (this._engine.isDynamicContent && progressPercent === 100) {
+    if (this._engine.isDynamicContent && duration === newTime) {
       this._engine.syncWithLive();
     } else {
-      this._engine.setCurrentTime(duration * (progressPercent / 100));
+      this._engine.setCurrentTime(newTime);
     }
 
-    this._eventEmitter.emit(
-      UI_EVENTS.PROGRESS_CHANGE_TRIGGERED,
-      progressPercent / 100,
-    );
+    this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE_TRIGGERED, newTime);
   }
 
-  private _pauseVideoOnProgressManipulationStart() {
+  private _pauseVideoOnDragStart() {
     const currentState = this._engine.getCurrentState();
 
     if (
       currentState === EngineState.PLAYING ||
       currentState === EngineState.PLAY_REQUESTED
     ) {
-      this._shouldPlayAfterManipulationEnd = true;
+      this._shouldPlayAfterDragEnd = true;
       this._engine.pause();
     }
-    this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_STARTED);
   }
 
-  private _playVideoOnProgressManipulationEnd() {
-    if (this._shouldPlayAfterManipulationEnd) {
+  private _playVideoOnDragEnd() {
+    if (this._shouldPlayAfterDragEnd) {
       this._engine.play();
 
-      this._shouldPlayAfterManipulationEnd = false;
+      this._shouldPlayAfterDragEnd = false;
     }
-
-    this._eventEmitter.emit(UI_EVENTS.PROGRESS_MANIPULATION_ENDED);
   }
 
   private _updateBufferIndicator() {
@@ -360,7 +410,7 @@ export default class ProgressControl implements IProgressControl {
     const buffered = this._engine.getBuffered();
     const duration = this._engine.getDurationTime();
 
-    this.updateBuffered(
+    this._setBuffered(
       getOverallBufferedPercent(buffered, currentTime, duration),
     );
   }
@@ -374,7 +424,7 @@ export default class ProgressControl implements IProgressControl {
     const currentTime = this._engine.getCurrentTime();
     const duration = this._engine.getDurationTime();
 
-    this.updatePlayed(getOverallPlayedPercent(currentTime, duration));
+    this._setPlayed(getOverallPlayedPercent(currentTime, duration));
   }
 
   private _updateAllIndicators() {
@@ -416,6 +466,40 @@ export default class ProgressControl implements IProgressControl {
     );
   }
 
+  private _setPlayed(percent: number) {
+    this.view.setPlayed(percent);
+  }
+
+  private _setBuffered(percent: number) {
+    this.view.setBuffered(percent);
+  }
+
+  private _reset() {
+    this._setPlayed(0);
+    this._setBuffered(0);
+    this.clearTimeIndicators();
+  }
+
+  /**
+   * Player will show full screen preview instead of actual seek on video when user drag the progress control
+   * @example
+   * player.showPreviewOnProgressDrag();
+   */
+  @playerAPI()
+  showPreviewOnProgressDrag() {
+    this._showFullScreenPreview = true;
+  }
+
+  /**
+   * Player will seek on video when user drag the progress control
+   * @example
+   * player.seekOnProgressDrag();
+   */
+  @playerAPI()
+  seekOnProgressDrag() {
+    this._showFullScreenPreview = false;
+  }
+
   /**
    * Add time indicator to progress bar
    */
@@ -448,15 +532,6 @@ export default class ProgressControl implements IProgressControl {
     this.view.clearTimeIndicators();
   }
 
-  updatePlayed(percent: number) {
-    this._currentProgressPercent = percent;
-    this.view.setPlayed(this._currentProgressPercent);
-  }
-
-  updateBuffered(percent: number) {
-    this.view.setBuffered(percent);
-  }
-
   hide() {
     this.isHidden = true;
     this.view.hide();
@@ -465,12 +540,6 @@ export default class ProgressControl implements IProgressControl {
   show() {
     this.isHidden = false;
     this.view.show();
-  }
-
-  reset() {
-    this.updatePlayed(0);
-    this.updateBuffered(0);
-    this.clearTimeIndicators();
   }
 
   destroy() {
@@ -486,5 +555,7 @@ export default class ProgressControl implements IProgressControl {
     this._timeIndicatorsToAdd = null;
     this._textMap = null;
     this._theme = null;
+    this._previewFullSize = null;
+    this._previewThumbnail = null;
   }
 }
