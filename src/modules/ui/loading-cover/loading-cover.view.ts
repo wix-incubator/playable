@@ -32,10 +32,7 @@ class LoadingCoverView extends View<ILoadingCoverViewStyles>
       }),
     );
 
-    this._$image = getElementByHook(
-      this._$rootElement,
-      'playable-loading-cover-image',
-    );
+    this._$image = getElementByHook(this._$rootElement, 'loading-cover-image');
   }
 
   hide() {

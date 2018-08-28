@@ -2,7 +2,7 @@
   <span
     class="${props.styles.liveIndicatorText}"
     aria-label="${props.texts.label || ''}"
-    data-hook="playable-live-indicator-text">
+    data-playable-hook="live-indicator-text">
     ${props.texts.text || ''}
   </span>
 </div>

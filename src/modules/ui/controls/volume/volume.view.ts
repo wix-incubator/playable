@@ -24,8 +24,8 @@ import { ITextMap } from '../../../text-map/types';
 import volumeViewTheme from './volume.theme';
 import styles from './volume.scss';
 
-const DATA_IS_MUTED = 'data-is-muted';
-const DATA_VOLUME = 'data-volume-percent';
+const DATA_IS_MUTED = 'data-playable-is-muted';
+const DATA_VOLUME = 'data-playable-volume-percent';
 
 const MAX_VOLUME_ICON_RANGE = 50;
 
@@ -89,22 +89,13 @@ class VolumeView extends View<IVolumeViewStyles>
       }),
     );
 
-    this._$muteButton = getElementByHook(
-      this._$rootElement,
-      'playable-mute-button',
-    );
+    this._$muteButton = getElementByHook(this._$rootElement, 'mute-button');
     this._$volumeNode = getElementByHook(
       this._$rootElement,
-      'playable-volume-input-block',
+      'volume-input-block',
     );
-    this._$hitbox = getElementByHook(
-      this._$rootElement,
-      'playable-volume-hitbox',
-    );
-    this._$volume = getElementByHook(
-      this._$rootElement,
-      'playable-volume-input',
-    );
+    this._$hitbox = getElementByHook(this._$rootElement, 'volume-hitbox');
+    this._$volume = getElementByHook(this._$rootElement, 'volume-input');
 
     this._muteButtonTooltipReference = this._tooltipService.createReference(
       this._$muteButton,
@@ -203,7 +194,6 @@ class VolumeView extends View<IVolumeViewStyles>
       this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { percent }),
     );
     this._$volumeNode.setAttribute('aria-valuenow', String(percent));
-    this._$volumeNode.setAttribute(DATA_VOLUME, String(percent));
 
     this._$volume.setAttribute('style', `width:${percent}%;`);
 
@@ -244,7 +234,6 @@ class VolumeView extends View<IVolumeViewStyles>
       });
     }
 
-    this._$rootElement.setAttribute(DATA_IS_MUTED, String(isMuted));
     this._$muteButton.setAttribute(
       'aria-label',
       isMuted
@@ -256,6 +245,8 @@ class VolumeView extends View<IVolumeViewStyles>
         ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_TOOLTIP)
         : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
     );
+
+    this._$rootElement.setAttribute(DATA_IS_MUTED, String(isMuted));
   }
 
   show() {

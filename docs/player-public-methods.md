@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 
 Method for attaching player node to your container
-It's important to call this methods after `DOMContentLoaded` event!
 
 <div class="method-list">
   <table>

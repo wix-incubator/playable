@@ -1,9 +1,9 @@
 <div
   class="${props.styles.loadingCover}"
-  data-hook="playable-loading-cover"
+  data-playable-hook="loading-cover"
   >
   <img
     class="${props.styles.loadingCoverImage}"
-    data-hook="playable-loading-cover-image"
+    data-playable-hook="loading-cover-image"
     />
 </div>

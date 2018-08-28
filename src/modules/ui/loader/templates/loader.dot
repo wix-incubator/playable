@@ -1,5 +1,5 @@
 <div
   class="${props.styles.loader} ${props.styles.active}"
-  data-hook="playable-loader"
+  data-playable-hook="loader"
   >
 </div>

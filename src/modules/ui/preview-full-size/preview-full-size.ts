@@ -48,7 +48,7 @@ export default class PreviewFullsize implements IPreviewFullSize {
 
     this._$frame = getElementByHook(
       this._$rootElement,
-      'playable-preview-full-size-frame',
+      'preview-full-size-frame',
     ) as HTMLDivElement;
   }
 

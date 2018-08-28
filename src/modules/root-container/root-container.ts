@@ -92,9 +92,10 @@ class RootContainer implements IRootContainer {
       fillAllSpace: config.fillAllSpace || DEFAULT_CONFIG.fillAllSpace,
     });
 
-    this._elementQueries = new ElementQueries(this.getElement(), {
-      prefix: '',
-    });
+    this._elementQueries = new ElementQueries(this.getElement());
+
+    this._resizeObserver = new ResizeObserver(this._onResized);
+    this._resizeObserver.observe(this.getElement());
   }
 
   appendComponentElement(element: HTMLElement) {
@@ -147,7 +148,6 @@ class RootContainer implements IRootContainer {
 
   /**
    * Method for attaching player node to your container
-   * It's important to call this methods after `DOMContentLoaded` event!
    *
    * @example
    * document.addEventListener('DOMContentLoaded', function() {
@@ -162,13 +162,6 @@ class RootContainer implements IRootContainer {
     this._enableFocusInterceptors();
 
     element.appendChild(this.getElement());
-
-    if (!this._resizeObserver) {
-      // NOTE: required for valid work of player "media queries"
-      this._resizeObserver = new ResizeObserver(this._onResized);
-
-      this._resizeObserver.observe(this.getElement());
-    }
   }
 
   /**
@@ -250,10 +243,8 @@ class RootContainer implements IRootContainer {
     this._unbindEvents();
     this._disableFocusInterceptors();
 
-    if (this._resizeObserver) {
-      this._resizeObserver.unobserve(this.getElement());
-      this._resizeObserver = null;
-    }
+    this._resizeObserver.unobserve(this.getElement());
+    this._resizeObserver = null;
 
     this._elementQueries.destroy();
     this._elementQueries = null;

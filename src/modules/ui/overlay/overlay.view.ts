@@ -41,13 +41,10 @@ class OverlayView extends View<IOverlayViewStyles>
       }),
     );
 
-    this._$content = getElementByHook(
-      this._$rootElement,
-      'playable-overlay-content',
-    );
+    this._$content = getElementByHook(this._$rootElement, 'overlay-content');
     this._$playButton = getElementByHook(
       this._$rootElement,
-      'playable-overlay-play-button',
+      'overlay-play-button',
     );
   }
 

@@ -1,6 +1,6 @@
 import getQueriesForElement from './getQueriesForElement';
 
-const DEFAULT_QUERY_PREFIX = 'data';
+const DEFAULT_QUERY_PREFIX = 'data-playable';
 
 class ElementQueries {
   private _element: Element;

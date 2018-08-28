@@ -1,8 +1,8 @@
 <div class="${props.styles.playControl}"
-     data-hook="playable-playback-control"
+     data-playable-hook="playback-control"
      data-is-playing="false">
   <button class="${props.styles.playbackToggle} ${props.styles.controlButton}"
-          data-hook="playable-playback-control"
+          data-playable-hook="playback-control"
           aria-label="${props.texts.label}"
           type="button"
           tabindex="0"/>

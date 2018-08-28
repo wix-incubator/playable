@@ -18,7 +18,7 @@ import { ITextMap } from '../../../text-map/types';
 import playViewTheme from './play.theme';
 import styles from './play.scss';
 
-const DATA_IS_PLAYING = 'data-is-playing';
+const DATA_IS_PLAYING = 'data-playable-is-playing';
 
 class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
   private _callbacks: IPlayViewCallbacks;
@@ -46,7 +46,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
 
     this._$playbackControl = getElementByHook(
       this._$rootElement,
-      'playable-playback-control',
+      'playback-control',
     );
 
     this.setPlayingState(false);

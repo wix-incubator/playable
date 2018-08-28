@@ -1,5 +1,5 @@
 <div
-  data-hook="playable-progress-control"
+  data-playable-hook="progress-control"
   class="${props.styles.seekBlock}"
   tabindex="0">
   <div class="${props.styles.progressBarsWrapper}">
@@ -7,32 +7,32 @@
       class="${props.styles.progressBar} ${props.styles.background}">
     </div>
     <div
-      data-hook="playable-progress-buffered"
+      data-playable-hook="progress-buffered"
       class="${props.styles.progressBar} ${props.styles.buffered}">
     </div>
     <div
-      data-hook="playable-progress-seek-to"
+      data-playable-hook="progress-seek-to"
       class="${props.styles.progressBar} ${props.styles.seekTo} ${props.themeStyles.progressSeekTo}">
     </div>
     <div
-      data-hook="playable-progress-played"
+      data-playable-hook="progress-played"
       class="${props.styles.progressBar} ${props.styles.played} ${props.themeStyles.progressPlayed}">
     </div>
     <div
-      data-hook="playable-progress-time-indicators"
+      data-playable-hook="progress-time-indicators"
       class="${props.styles.timeIndicators}">
     </div>
   </div>
   <div
-    data-hook="playable-progress-hitbox"
+    data-playable-hook="progress-hitbox"
     class="${props.styles.hitbox}">
   </div>
   <div
-    data-hook="playable-progress-seek-button"
+    data-playable-hook="progress-seek-button"
     class="${props.styles.seekButton} ${props.themeStyles.progressSeekBtn}">
   </div>
   <div
-    data-hook="playable-progress-sync-button"
+    data-playable-hook="progress-sync-button"
     class="${props.styles.syncButton}">
   </div>
 </div>

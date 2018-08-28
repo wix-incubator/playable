@@ -29,7 +29,7 @@ class SubtitlesView extends View<ISubtitlesViewStyles>
 
     this._$subtitles = getElementByHook(
       this._$rootElement,
-      'playable-subtitles-container',
+      'subtitles-container',
     );
   }
 

@@ -35,11 +35,11 @@ class TopBlockView extends View<ITopBlockViewStyles>
 
     const $titleContainer = getElementByHook(
       this._$rootElement,
-      'playable-title-container',
+      'title-container',
     );
     const $liveIndicatorContainer = getElementByHook(
       this._$rootElement,
-      'playable-live-indicator-container',
+      'live-indicator-container',
     );
 
     $titleContainer.appendChild(elements.title);

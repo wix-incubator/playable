@@ -40,32 +40,32 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
 
     const $playContainer = getElementByHook(
       this._$rootElement,
-      'playable-play-container',
+      'play-container',
     );
     const $volumeContainer = getElementByHook(
       this._$rootElement,
-      'playable-volume-container',
+      'volume-container',
     );
     const $timeContainer = getElementByHook(
       this._$rootElement,
-      'playable-time-container',
+      'time-container',
     );
     const $fullScreenContainer = getElementByHook(
       this._$rootElement,
-      'playable-full-screen-container',
+      'full-screen-container',
     );
     const $logoContainer = getElementByHook(
       this._$rootElement,
-      'playable-logo-container',
+      'logo-container',
     );
     const $progressBarContainer = getElementByHook(
       this._$rootElement,
-      'playable-progress-bar-container',
+      'progress-bar-container',
     );
 
     const $downloadContainer = getElementByHook(
       this._$rootElement,
-      'playable-download-container',
+      'download-container',
     );
 
     $playContainer.appendChild(elements.play);

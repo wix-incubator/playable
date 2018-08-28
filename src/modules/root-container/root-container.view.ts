@@ -106,10 +106,10 @@ class RootContainerView extends View<IRootContainerViewStyles>
 
   setFullScreenState(isFullScreen: boolean) {
     if (isFullScreen) {
-      this._$rootElement.setAttribute('data-in-full-screen', 'true');
+      this._$rootElement.setAttribute('data-playable-in-full-screen', 'true');
       this._$rootElement.classList.add(this.styleNames.fullScreen);
     } else {
-      this._$rootElement.setAttribute('data-in-full-screen', 'false');
+      this._$rootElement.setAttribute('data-playable-in-full-screen', 'false');
       this._$rootElement.classList.remove(this.styleNames.fullScreen);
     }
   }

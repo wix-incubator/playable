@@ -24,8 +24,6 @@ import {
 import fullScreenViewTheme from './full-screen.theme';
 import styles from './full-screen.scss';
 
-const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
-
 class FullScreenView extends View<IFullScreenViewStyles>
   implements IView<IFullScreenViewStyles> {
   private _callbacks: IFullScreenViewCallbacks;
@@ -54,7 +52,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
 
     this._$toggleFullScreenControl = getElementByHook(
       this._$rootElement,
-      'playable-full-screen-button',
+      'full-screen-button',
     );
 
     this._tooltipReference = tooltipService.createReference(
@@ -124,11 +122,6 @@ class FullScreenView extends View<IFullScreenViewStyles>
         this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       );
     }
-
-    this._$rootElement.setAttribute(
-      DATA_IS_IN_FULL_SCREEN,
-      String(isInFullScreen),
-    );
   }
 
   hide() {

@@ -1,12 +1,12 @@
 <div
-  data-hook="playable-time-control"
+  data-playable-hook="time-control"
   class="${props.styles.timeWrapper} ${props.themeStyles.timeText}">
   <span
-    data-hook="playable-current-time-indicator"
+    data-playable-hook="current-time-indicator"
     class="${props.styles.time}">
   </span>
   <span
-    data-hook="playable-duration-time-indicator"
+    data-playable-hook="duration-time-indicator"
     class="${props.styles.time} ${props.styles.duration}">
   </span>
 </div>

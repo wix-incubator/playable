@@ -70,7 +70,7 @@ class ScreenView extends View<IScreenViewStyles>
 
     this._$canvas = getElementByHook(
       this._$rootElement,
-      'playable-background-canvas',
+      'background-canvas',
     ) as HTMLCanvasElement;
   }
 

@@ -1,6 +1,6 @@
 <div class="${props.styles.buttonWrapper}">
   <button class="${props.styles.downloadButton} ${props.styles.controlButton}"
-          data-hook="playable-download-button"
+          data-playable-hook="download-button"
           type="button"
           tabindex="0">
     <div class="${props.styles.icon}">

@@ -44,11 +44,11 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
 
     this._$closeButton = getElementByHook(
       this._$rootElement,
-      'playable-debug-panel-close-button',
+      'debug-panel-close-button',
     );
     this._$infoContainer = getElementByHook(
       this._$rootElement,
-      'playable-debug-panel-info-container',
+      'debug-panel-info-container',
     );
   }
 

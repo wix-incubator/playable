@@ -21,7 +21,7 @@ import { ITextMap } from '../../../text-map/types';
 import progressViewTheme from './progress.theme';
 import styles from './progress.scss';
 
-const DATA_PLAYED = 'data-played-percent';
+const DATA_PLAYED = 'data-playable-played-percent';
 
 const getPercentBasedOnXPosition = (
   event: MouseEvent,
@@ -85,29 +85,20 @@ class ProgressView extends View<IProgressViewStyles>
       }),
     );
 
-    this._$played = getElementByHook(
-      this._$rootElement,
-      'playable-progress-played',
-    );
-    this._$buffered = getElementByHook(
-      this._$rootElement,
-      'playable-progress-buffered',
-    );
-    this._$seekTo = getElementByHook(
-      this._$rootElement,
-      'playable-progress-seek-to',
-    );
+    this._$played = getElementByHook(this._$rootElement, 'progress-played');
+    this._$buffered = getElementByHook(this._$rootElement, 'progress-buffered');
+    this._$seekTo = getElementByHook(this._$rootElement, 'progress-seek-to');
     this._$timeIndicators = getElementByHook(
       this._$rootElement,
-      'playable-progress-time-indicators',
+      'progress-time-indicators',
     );
     this._$seekButton = getElementByHook(
       this._$rootElement,
-      'playable-progress-seek-button',
+      'progress-seek-button',
     );
     this._$syncButton = getElementByHook(
       this._$rootElement,
-      'playable-progress-sync-button',
+      'progress-sync-button',
     );
     this._syncButtonTooltipReference = this._tooltipService.createReference(
       this._$syncButton,
@@ -115,10 +106,7 @@ class ProgressView extends View<IProgressViewStyles>
         text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
       },
     );
-    this._$hitbox = getElementByHook(
-      this._$rootElement,
-      'playable-progress-hitbox',
-    );
+    this._$hitbox = getElementByHook(this._$rootElement, 'progress-hitbox');
   }
 
   private _bindCallbacks() {

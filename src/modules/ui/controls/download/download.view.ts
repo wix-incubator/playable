@@ -49,7 +49,7 @@ class DownloadView extends View<IDownloadViewStyles>
 
     this._$downloadButton = getElementByHook(
       this._$rootElement,
-      'playable-download-button',
+      'download-button',
     );
 
     this._tooltipReference = tooltipService.createReference(
