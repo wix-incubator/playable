@@ -270,11 +270,11 @@ class ProgressView extends View<IProgressViewStyles>
   showProgressTimeTooltip(element: HTMLElement, percent: number) {
     this._tooltipService.show({
       element,
-      position: tooltipContainerNode =>
+      position: tooltipContainer =>
         getProgressTimeTooltipPosition(
           percent,
           this._$hitbox,
-          tooltipContainerNode,
+          tooltipContainer,
         ),
     });
   }

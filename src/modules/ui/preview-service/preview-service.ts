@@ -40,6 +40,7 @@ export default class PreviewService implements IPreviewService {
   }
 
   destroy(): void {
+    this._framesMap = null;
     this._engine = null;
   }
 }

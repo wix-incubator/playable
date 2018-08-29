@@ -117,13 +117,13 @@ export default class Subtitles implements ISubtitles {
   @playerAPI()
   removeSubtitles(): void {
     this._clearActiveSubtitle();
-    const subtitleTracks: NodeList = this._video.querySelectorAll(
-      'track[kind="subtitles"]',
-    );
+    const subtitleTracks: NodeListOf<
+      HTMLTrackElement
+    > = this._video.querySelectorAll('track[kind="subtitles"]');
 
     Array.prototype.forEach.call(
       subtitleTracks,
-      (trackNode: HTMLTrackElement) => this._video.removeChild(trackNode),
+      (trackElement: HTMLTrackElement) => this._video.removeChild(trackElement),
     );
 
     this._trackList = [];

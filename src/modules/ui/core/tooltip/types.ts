@@ -9,7 +9,7 @@ type ITooltipPosition = {
 };
 
 type ITooltipPositionFunction = (
-  tooltipContainerNode: HTMLElement,
+  tooltipContainerElement: HTMLElement,
 ) => ITooltipPosition;
 
 type ITooltipShowOptions = {
@@ -54,7 +54,7 @@ interface ITooltipReference {
 
 interface ITooltipService {
   isHidden: boolean;
-  tooltipContainerNode: HTMLElement;
+  tooltipContainerElement: HTMLElement;
   setText(text: string): void;
   show(options: ITooltipShowOptions): void;
   hide(): void;

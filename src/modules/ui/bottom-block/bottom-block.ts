@@ -57,11 +57,11 @@ export default class BottomBlock implements IBottomBlock {
     this._eventEmitter = eventEmitter;
 
     this._bindViewCallbacks();
-    this._initUI(this._getElementsNodes(dependencies));
+    this._initUI(this._getControlElements(dependencies));
     this._bindEvents();
   }
 
-  private _getElementsNodes(
+  private _getControlElements(
     dependencies: IDependencies,
   ): IBottomBlockViewElements {
     const {
@@ -89,9 +89,9 @@ export default class BottomBlock implements IBottomBlock {
     return this.view.getElement();
   }
 
-  private _initUI(elementNodes: IBottomBlockViewElements) {
+  private _initUI(elements: IBottomBlockViewElements) {
     const config: IBottomBlockViewConfig = {
-      elements: elementNodes,
+      elements,
       callbacks: {
         onBlockMouseMove: this._setFocusState,
         onBlockMouseOut: this._removeFocusState,

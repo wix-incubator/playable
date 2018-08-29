@@ -74,7 +74,7 @@ export default class MainUIBlock implements IMainUIBlock {
     this._shouldAlwaysShow = false;
 
     this._initUI({
-      tooltipContainer: tooltipService.tooltipContainerNode,
+      tooltipContainer: tooltipService.tooltipContainerElement,
       topBlock: topBlock.getElement(),
       bottomBlock: bottomBlock.getElement(),
     });

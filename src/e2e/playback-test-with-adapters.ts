@@ -10,7 +10,7 @@ describe('Playback e2e test', function() {
   Playable.registerPlaybackAdapter(DASHAdapter);
 
   this.timeout(10000);
-  const node = document.createElement('div');
+  const container = document.createElement('div');
   const formatsToTest = [
     {
       type: 'MP4',
@@ -56,7 +56,7 @@ describe('Playback e2e test', function() {
       it(`allows playback of ${formatToTest.type}`, function(done) {
         // TODO: describe `@playerApi` methods in `Player` with TS
         const player: any = Playable.create();
-        player.attachToElement(node);
+        player.attachToElement(container);
         player.on(ENGINE_STATES.PLAYING, () => {
           player.destroy();
           done();
@@ -71,7 +71,7 @@ describe('Playback e2e test', function() {
         const player: any = Playable.create({
           preload: PreloadTypes.NONE,
         });
-        player.attachToElement(node);
+        player.attachToElement(container);
         player.on(ENGINE_STATES.PLAYING, () => {
           player.destroy();
           done();

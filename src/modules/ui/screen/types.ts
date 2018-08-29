@@ -19,7 +19,7 @@ type IScreenViewCallbacks = {
 
 type IScreenViewConfig = {
   callbacks: IScreenViewCallbacks;
-  playbackViewNode: HTMLElement;
+  playbackViewElement: HTMLElement;
   nativeControls: boolean;
 };
 

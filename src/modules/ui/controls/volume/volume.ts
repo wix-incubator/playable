@@ -93,7 +93,7 @@ export default class VolumeControl implements IVolumeControl {
 
   private _initInterceptor() {
     this._buttonInterceptor = new KeyboardInterceptor(
-      this.view.getButtonNode(),
+      this.view.getButtonElement(),
       {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
@@ -118,26 +118,29 @@ export default class VolumeControl implements IVolumeControl {
       },
     );
 
-    this._inputInterceptor = new KeyboardInterceptor(this.view.getInputNode(), {
-      [KEYCODES.RIGHT_ARROW]: e => {
-        e.stopPropagation();
-        e.preventDefault();
+    this._inputInterceptor = new KeyboardInterceptor(
+      this.view.getInputElement(),
+      {
+        [KEYCODES.RIGHT_ARROW]: e => {
+          e.stopPropagation();
+          e.preventDefault();
 
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD);
-        this._engine.setMute(false);
-        this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
-      },
-      [KEYCODES.LEFT_ARROW]: e => {
-        e.stopPropagation();
-        e.preventDefault();
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD);
+          this._engine.setMute(false);
+          this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
+        },
+        [KEYCODES.LEFT_ARROW]: e => {
+          e.stopPropagation();
+          e.preventDefault();
 
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD);
-        this._engine.setMute(false);
-        this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
+          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD);
+          this._engine.setMute(false);
+          this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
+        },
       },
-    });
+    );
   }
 
   private _destroyInterceptor() {

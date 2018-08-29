@@ -56,7 +56,7 @@ class VolumeView extends View<IVolumeViewStyles>
 
   private _$rootElement: HTMLElement;
   private _$muteButton: HTMLElement;
-  private _$volumeNode: HTMLElement;
+  private _$volumeContainer: HTMLElement;
   private _$volume: HTMLElement;
   private _$hitbox: HTMLElement;
 
@@ -90,7 +90,7 @@ class VolumeView extends View<IVolumeViewStyles>
     );
 
     this._$muteButton = getElementByHook(this._$rootElement, 'mute-button');
-    this._$volumeNode = getElementByHook(
+    this._$volumeContainer = getElementByHook(
       this._$rootElement,
       'volume-input-block',
     );
@@ -150,7 +150,7 @@ class VolumeView extends View<IVolumeViewStyles>
   }
 
   private _setVolumeByClick(event: MouseEvent) {
-    this._$volumeNode.focus();
+    this._$volumeContainer.focus();
     const percent = getPercentBasedOnXPosition(event, this._$hitbox);
     this._callbacks.onVolumeLevelChangeFromInput(percent);
   }
@@ -188,12 +188,12 @@ class VolumeView extends View<IVolumeViewStyles>
   }
 
   private _setVolumeDOMAttributes(percent: number) {
-    this._$volumeNode.setAttribute('value', String(percent));
-    this._$volumeNode.setAttribute(
+    this._$volumeContainer.setAttribute('value', String(percent));
+    this._$volumeContainer.setAttribute(
       'aria-valuetext',
       this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { percent }),
     );
-    this._$volumeNode.setAttribute('aria-valuenow', String(percent));
+    this._$volumeContainer.setAttribute('aria-valuenow', String(percent));
 
     this._$volume.setAttribute('style', `width:${percent}%;`);
 
@@ -261,12 +261,12 @@ class VolumeView extends View<IVolumeViewStyles>
     return this._$rootElement;
   }
 
-  getButtonNode() {
+  getButtonElement() {
     return this._$muteButton;
   }
 
-  getInputNode() {
-    return this._$volumeNode;
+  getInputElement() {
+    return this._$volumeContainer;
   }
 
   destroy() {

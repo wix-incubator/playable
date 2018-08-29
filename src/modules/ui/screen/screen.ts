@@ -80,8 +80,8 @@ export default class Screen implements IScreen {
   }
 
   private _bindCallbacks() {
-    this._processNodeClick = this._processNodeClick.bind(this);
-    this._processNodeDblClick = this._processNodeDblClick.bind(this);
+    this._processClick = this._processClick.bind(this);
+    this._processDblClick = this._processDblClick.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
   }
 
@@ -89,10 +89,10 @@ export default class Screen implements IScreen {
     const config: IScreenViewConfig = {
       nativeControls: isNativeControls,
       callbacks: {
-        onWrapperMouseClick: this._processNodeClick,
-        onWrapperMouseDblClick: this._processNodeDblClick,
+        onWrapperMouseClick: this._processClick,
+        onWrapperMouseDblClick: this._processDblClick,
       },
-      playbackViewNode: this._engine.getElement(),
+      playbackViewElement: this._engine.getElement(),
     };
 
     this.view = new View(config);
@@ -128,7 +128,7 @@ export default class Screen implements IScreen {
     this.view.hideCursor();
   }
 
-  private _processNodeClick() {
+  private _processClick() {
     if (this._isClickProcessingDisabled) {
       return;
     }
@@ -142,7 +142,7 @@ export default class Screen implements IScreen {
     }
   }
 
-  private _processNodeDblClick() {
+  private _processDblClick() {
     if (this._isClickProcessingDisabled) {
       return;
     }

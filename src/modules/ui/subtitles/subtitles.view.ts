@@ -56,13 +56,13 @@ class SubtitlesView extends View<ISubtitlesViewStyles>
   showSubtitles(subtitles: Array<string>): void {
     this.clearSubtitles();
     subtitles.forEach(subtitle => {
-      const subtitleNode = htmlToElement(
+      const subtitleElement = htmlToElement(
         singleSubtitleTemplate({
           styles: this.styleNames,
         }),
       );
-      subtitleNode.innerHTML = subtitle;
-      this._$subtitles.appendChild(subtitleNode);
+      subtitleElement.innerHTML = subtitle;
+      this._$subtitles.appendChild(subtitleElement);
     });
   }
 

@@ -22,7 +22,7 @@ class ScreenView extends View<IScreenViewStyles>
 
   private _$rootElement: HTMLElement;
   private _$canvas: HTMLCanvasElement;
-  private _$playbackNode: HTMLVideoElement;
+  private _$playbackElement: HTMLVideoElement;
 
   private _widthHeightRatio: number;
   private _requestAnimationFrameID: number;
@@ -33,7 +33,7 @@ class ScreenView extends View<IScreenViewStyles>
 
   constructor(config: IScreenViewConfig) {
     super();
-    const { callbacks, nativeControls, playbackViewNode } = config;
+    const { callbacks, nativeControls, playbackViewElement } = config;
 
     this._callbacks = callbacks;
 
@@ -46,10 +46,10 @@ class ScreenView extends View<IScreenViewStyles>
     this._bindCallbacks();
 
     if (nativeControls) {
-      playbackViewNode.setAttribute('controls', 'true');
+      playbackViewElement.setAttribute('controls', 'true');
     }
 
-    this._initDOM(playbackViewNode);
+    this._initDOM(playbackViewElement);
     this._bindEvents();
     this.setViewMode(VideoViewMode.REGULAR);
   }
@@ -58,15 +58,15 @@ class ScreenView extends View<IScreenViewStyles>
     this._updateBackground = this._updateBackground.bind(this);
   }
 
-  private _initDOM(playbackViewNode: HTMLElement) {
+  private _initDOM(playbackViewElement: HTMLElement) {
     this._$rootElement = htmlToElement(
       screenTemplate({
         styles: this.styleNames,
       }),
     );
 
-    this._$playbackNode = playbackViewNode as HTMLVideoElement;
-    this._$rootElement.appendChild(playbackViewNode);
+    this._$playbackElement = playbackViewElement as HTMLVideoElement;
+    this._$rootElement.appendChild(playbackViewElement);
 
     this._$canvas = getElementByHook(
       this._$rootElement,
@@ -190,7 +190,7 @@ class ScreenView extends View<IScreenViewStyles>
   }
 
   resetAspectRatio() {
-    const { videoWidth, videoHeight } = this._$playbackNode;
+    const { videoWidth, videoHeight } = this._$playbackElement;
     this._widthHeightRatio = videoHeight ? videoWidth / videoHeight : 0;
     const isHorizontal = this._widthHeightRatio > 1;
     toggleElementClass(
@@ -233,7 +233,7 @@ class ScreenView extends View<IScreenViewStyles>
     const ctx = this._$canvas.getContext('2d');
 
     ctx.drawImage(
-      this._$playbackNode,
+      this._$playbackElement,
 
       sourceX,
       sourceY,
@@ -247,7 +247,7 @@ class ScreenView extends View<IScreenViewStyles>
     );
   }
   private _drawBackground() {
-    const { videoWidth, videoHeight } = this._$playbackNode;
+    const { videoWidth, videoHeight } = this._$playbackElement;
     const canvasWidth: number = this._$canvas.width;
     const canvasHeight: number = this._$canvas.height;
     const sourceAreas: number[][] = this._getSourceAreas(
@@ -285,7 +285,7 @@ class ScreenView extends View<IScreenViewStyles>
     }
 
     this._$rootElement = null;
-    this._$playbackNode = null;
+    this._$playbackElement = null;
     this._$canvas = null;
 
     this._callbacks = null;

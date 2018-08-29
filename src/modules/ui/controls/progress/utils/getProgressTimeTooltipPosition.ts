@@ -1,28 +1,30 @@
-import { getTooltipPositionByReferenceNode } from '../../../core/tooltip';
+import { getTooltipPositionByReferenceElement } from '../../../core/tooltip';
 
 import { ITooltipPosition } from '../../../core/tooltip/types';
 
 function calcProgressTimeTooltipCenterX(
   progressPercent: number,
-  progressNodeOffsetX: number,
-  progressNodeWidth: number,
+  progressElementOffsetX: number,
+  progressElementWidth: number,
 ) {
-  return progressNodeOffsetX + progressPercent * progressNodeWidth / 100;
+  return (
+    progressElementOffsetX + (progressPercent * progressElementWidth) / 100
+  );
 }
 
 function getProgressTimeTooltipPosition(
   progressPercent: number,
-  progressNode: HTMLElement,
-  tooltipContainerNode: HTMLElement,
+  progressElement: HTMLElement,
+  tooltipContainer: HTMLElement,
 ): ITooltipPosition {
-  return getTooltipPositionByReferenceNode(
-    progressNode,
-    tooltipContainerNode,
-    (progressNodeOffsetX, progressNodeWidth) =>
+  return getTooltipPositionByReferenceElement(
+    progressElement,
+    tooltipContainer,
+    (progressElementOffsetX, progressElementWidth) =>
       calcProgressTimeTooltipCenterX(
         progressPercent,
-        progressNodeOffsetX,
-        progressNodeWidth,
+        progressElementOffsetX,
+        progressElementWidth,
       ),
   );
 }

@@ -31,7 +31,7 @@ class TooltipService implements ITooltipService {
     return this._tooltip.isHidden;
   }
 
-  get tooltipContainerNode(): HTMLElement {
+  get tooltipContainerElement(): HTMLElement {
     return this._tooltipContainer.getElement();
   }
 

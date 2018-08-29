@@ -20,20 +20,18 @@ export default class TopBlock implements ITopBlock {
   constructor(dependencies: IDependencies) {
     this.isHidden = false;
 
-    this._initUI(this._getElementsNodes(dependencies));
+    this._initUI(this._getElements(dependencies));
   }
 
-  private _initUI(elementNodes: ITopBlockViewElements) {
+  private _initUI(elements: ITopBlockViewElements) {
     const config: ITopBlockViewConfig = {
-      elements: elementNodes,
+      elements,
     };
 
     this.view = new TopBlock.View(config);
   }
 
-  private _getElementsNodes(
-    dependencies: IDependencies,
-  ): ITopBlockViewElements {
+  private _getElements(dependencies: IDependencies): ITopBlockViewElements {
     const { title, liveIndicator } = dependencies;
 
     return {
