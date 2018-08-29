@@ -255,7 +255,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._$syncButton.classList.add(this.styleNames.hidden);
   }
 
-  setLiveSyncStatus(isSync: boolean) {
+  setLiveSyncState(isSync: boolean) {
     toggleElementClass(this._$syncButton, this.styleNames.liveSync, isSync);
 
     if (isSync) {

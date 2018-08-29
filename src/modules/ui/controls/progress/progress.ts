@@ -229,7 +229,10 @@ export default class ProgressControl implements IProgressControl {
     const newTime = this._convertPlayedPercentToTime(percent);
     this._desiredSeekPosition = newTime;
     if (this._showFullScreenPreview) {
-      this._eventEmitter.emit(UI_EVENTS.USER_PREVIEWING_FRAME, newTime);
+      this._eventEmitter.emit(
+        UI_EVENTS.PROGRESS_USER_PREVIEWING_FRAME,
+        newTime,
+      );
     } else {
       this._changeCurrentTimeOfVideo(newTime);
     }
@@ -340,7 +343,7 @@ export default class ProgressControl implements IProgressControl {
   private _processLiveStateChange({ nextState }: { nextState: LiveState }) {
     switch (nextState) {
       case LiveState.NONE:
-        this.view.setLiveSyncStatus(false);
+        this.view.setLiveSyncState(false);
         this.view.setUsualMode();
         break;
 
@@ -349,15 +352,15 @@ export default class ProgressControl implements IProgressControl {
         break;
 
       case LiveState.SYNC:
-        this.view.setLiveSyncStatus(true);
+        this.view.setLiveSyncState(true);
         break;
 
       case LiveState.NOT_SYNC:
-        this.view.setLiveSyncStatus(false);
+        this.view.setLiveSyncState(false);
         break;
 
       case LiveState.ENDED:
-        this.view.setLiveSyncStatus(false);
+        this.view.setLiveSyncState(false);
         this.view.hideSyncWithLive();
 
         // ensure progress indicators show latest info

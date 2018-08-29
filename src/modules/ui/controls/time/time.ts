@@ -62,7 +62,7 @@ export default class TimeControl implements ITimeControl {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.USER_PREVIEWING_FRAME, this._updateTimeFromPreview],
+        [UI_EVENTS.PROGRESS_USER_PREVIEWING_FRAME, this._updateTimeFromPreview],
         [VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates],
         [VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime],
         [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],

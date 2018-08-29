@@ -10,6 +10,7 @@ const UI_EVENTS = {
     'ui-events/progress-sync-button-mouse-enter',
   PROGRESS_SYNC_BUTTON_MOUSE_LEAVE:
     'ui-events/progress-sync-button-mouse-leave',
+  PROGRESS_USER_PREVIEWING_FRAME: 'ui-events/progress-user-previewing-frame',
 
   VOLUME_CHANGE: 'ui-events/volume-change',
   MUTE_CLICK: 'ui-events/mute-click',
@@ -54,7 +55,6 @@ const UI_EVENTS = {
   KEYBOARD_KEYDOWN_INTERCEPTED: 'ui-events/keyboard-keydown-intercepted',
   FULL_SCREEN_STATE_CHANGED: 'ui-events/full-screen-state-changed',
   RESIZE: 'ui-events/resize',
-  USER_PREVIEWING_FRAME: 'ui-events/user-previewing-frame',
 };
 
 export default UI_EVENTS;
