@@ -32,6 +32,7 @@ export default class Logo implements ILogoControl {
 
   private _interceptor: KeyboardInterceptor;
   private _callback: Function;
+  private _logoSrc: string;
 
   view: View;
   isHidden: boolean;
@@ -122,7 +123,9 @@ export default class Logo implements ILogoControl {
    */
   @playerAPI()
   setLogo(src: string) {
-    this.view.setLogo(src);
+    this._logoSrc = src;
+    this.view.setLogo(this._logoSrc);
+    this._setProperDisplayState();
   }
 
   /**
@@ -140,7 +143,15 @@ export default class Logo implements ILogoControl {
   @playerAPI()
   setLogoClickCallback(callback?: Function) {
     this._callback = callback;
-    this.view.setDisplayAsLink(Boolean(this._callback));
+    this._setProperDisplayState();
+  }
+
+  private _setProperDisplayState() {
+    if (this._callback) {
+      this._logoSrc ? this.view.showAsInput() : this.view.showAsButton();
+    } else {
+      this._logoSrc ? this.view.showAsImage() : this.view.showAsButton();
+    }
   }
 
   hide() {

@@ -4,9 +4,8 @@ import { IThemeService } from '../../core/theme';
 
 type ILogoViewStyles = {
   logoWrapper: string;
-  logoPlaceholder: string;
-  companyLogo: string;
-  link: string;
+  logoButton: string;
+  logoImage: string;
   hidden: string;
 };
 

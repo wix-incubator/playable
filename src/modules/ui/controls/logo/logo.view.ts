@@ -4,10 +4,14 @@ import { ITooltipReference } from '../../core/tooltip/types';
 import View from '../../core/view';
 import { IView } from '../../core/types';
 import { ILogoViewStyles, ILogoViewCallbacks, ILogoViewConfig } from './types';
-import { logoTemplate } from './templates';
+import {
+  logoTemplate,
+  logoButtonTemplate,
+  logoImageTemplate,
+  logoInputTemplate,
+} from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
-import getElementByHook from '../../core/getElementByHook';
 
 import { ITextMap } from '../../../text-map/types';
 
@@ -21,8 +25,9 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   private _textMap: ITextMap;
 
   private _$rootElement: HTMLElement;
-  private _$logo: HTMLElement;
-  private _$placeholder: HTMLElement;
+  private _$logoImage: HTMLImageElement;
+  private _$logoInput: HTMLInputElement;
+  private _$logoButton: HTMLButtonElement;
 
   constructor(config: ILogoViewConfig) {
     const { callbacks, textMap, tooltipService, theme } = config;
@@ -35,18 +40,34 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._$rootElement = htmlToElement(
       logoTemplate({
         styles: this.styleNames,
+      }),
+    );
+
+    this._$logoImage = htmlToElement(
+      logoImageTemplate({
+        styles: this.styleNames,
+        texts: {
+          label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
+        },
+      }),
+    ) as HTMLImageElement;
+    this._$logoInput = htmlToElement(
+      logoInputTemplate({
+        styles: this.styleNames,
+        texts: {
+          label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
+        },
+      }),
+    ) as HTMLInputElement;
+    this._$logoButton = htmlToElement(
+      logoButtonTemplate({
+        styles: this.styleNames,
         themeStyles: this.themeStyles,
         texts: {
           label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
         },
       }),
-    );
-
-    this._$logo = getElementByHook(this._$rootElement, 'company-logo');
-    this._$placeholder = getElementByHook(
-      this._$rootElement,
-      'logo-placeholder',
-    );
+    ) as HTMLButtonElement;
 
     this._tooltipReference = tooltipService.createReference(
       this._$rootElement,
@@ -63,24 +84,36 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
 
   setLogo(url: string) {
     if (url) {
-      this._$logo.classList.remove(this.styleNames.hidden);
-      this._$placeholder.classList.add(this.styleNames.hidden);
-      this._$logo.setAttribute('src', url);
+      this._$logoImage.setAttribute('src', url);
+      this._$logoInput.setAttribute('src', url);
     } else {
-      this._$logo.classList.add(this.styleNames.hidden);
-      this._$placeholder.classList.remove(this.styleNames.hidden);
-      this._$logo.removeAttribute('src');
+      this._$logoImage.removeAttribute('src');
+      this._$logoInput.removeAttribute('src');
     }
   }
 
-  setDisplayAsLink(flag: boolean) {
-    if (flag) {
-      this._$rootElement.classList.add(this.styleNames.link);
-      this._tooltipReference.enable();
-    } else {
-      this._$rootElement.classList.remove(this.styleNames.link);
-      this._tooltipReference.disable();
-    }
+  showAsImage() {
+    this._setChild(this._$logoImage);
+
+    this._tooltipReference.disable();
+  }
+
+  showAsButton() {
+    this._setChild(this._$logoButton);
+
+    this._tooltipReference.enable();
+  }
+
+  showAsInput() {
+    this._setChild(this._$logoInput);
+
+    this._tooltipReference.enable();
+  }
+
+  private _setChild(childNode: HTMLElement) {
+    this._$rootElement.firstChild &&
+      this._$rootElement.removeChild(this._$rootElement.firstChild);
+    this._$rootElement.appendChild(childNode);
   }
 
   private _bindCallbacks() {
@@ -124,8 +157,9 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     }
 
     this._$rootElement = null;
-    this._$logo = null;
-    this._$placeholder = null;
+    this._$logoImage = null;
+    this._$logoInput = null;
+    this._$logoButton = null;
 
     this._tooltipReference = null;
     this._textMap = null;

@@ -15,19 +15,14 @@
   justify-content: center;
   align-items: center;
 
-  &.link {
-    cursor: pointer;
-
-    &:hover {
-      .logoPlaceholder,
-      img {
-        opacity: .7;
-      }
+  &:hover {
+    .logoPlaceholder {
+      opacity: .7;
     }
   }
 }
 
-.companyLogo {
+.logoImage {
   max-width: 125px;
   max-height: 26px;
 
@@ -51,7 +46,7 @@
   }
 }
 
-.logoPlaceholder {
+.logoButton {
   width: 26px;
   min-width: 26px;
   height: 26px;

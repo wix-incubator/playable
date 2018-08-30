@@ -1,0 +1,3 @@
+<img class="${props.styles.logoImage}"
+     aria-label="${props.texts.label}"
+     tabindex="0" />
