@@ -40,6 +40,9 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._$rootElement = htmlToElement(
       logoTemplate({
         styles: this.styleNames,
+        texts: {
+          label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
+        },
       }),
     );
 

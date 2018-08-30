@@ -1,4 +1,5 @@
 <button class="${props.styles.logoButton} ${props.styles.controlButton}"
+        aria-label="${props.texts.label}"
         type="button"
         tabindex="0">
   <div class="${props.styles.icon}">
