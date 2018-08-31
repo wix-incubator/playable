@@ -7,46 +7,33 @@ const config = {
     'http://my-url/video.webm',
     'http://my-url/video.m3u8'
   ],
-  loop: true,
-  autoPlay: false,
+  poster: 'http://my-poster.jpg',
+  title: 'Awesome video',
+
+  width: 160,
+  height: 90,
+  fillAllSpace: false,
+
   preload: 'auto',
+  autoplay: false,
+  loop: true,
   muted: false,
   volume: 50,
-  size: {
-    width: 160,
-    height: 90
-  },
-  showInteractionIndicator: false,
-  screen: {
-    disableClickProcessing: false,
-    nativeControls: false
-  },
-  title: {
-    callback: () => console.log('click on title'),
-    text: 'Awesome video'
-  },
-  controls: {
-    shouldAlwaysShow: true
-  },
-  overlay: {
-    poster: 'https://example.com/overlay.png'
-  },
-  fullScreen: {
-    exitFullScreenOnEnd: false,
-    enterFullScreenOnPlay: true,
-    exitFullScreenOnPause: false,
-    pauseVideoOnFullScreenExit: true
-  },
-  logo: {
-    callback: () => console.log('click on logo'),
-    src: 'https://example.com/logo.png',
-    showAlways: true
-  },
   playsinline: true,
   crossOrigin: 'anonymous',
-  loader: true,
-  disableControlWithKeyboard: false,
-  fillAllSpace: true
+  nativeBrowserControls: false,
+
+  disableControlWithClickOnPlayer: false;
+  disableControlWithKeyboard: false;
+
+  hideMainUI: false,
+  hideOverlay: false,
+
+  disableFullScreen: false,
+
+  texts: {
+    TEXT_KEY: 'TEXT_VALUE',
+  }
 };
 
 const theme = {
@@ -56,91 +43,32 @@ const theme = {
 const player = Playable.create(config, theme);
 ```
 
-### Video sources
+### Video source config
 
 `config.src: MediaSource` A string or array with source of the video. For more information see [this page](/video-source)
 
-### Playback attributes
+### UI related config
 
-`config.loop: Boolean` Loop video playback
-
-`config.autoPlay: Boolean` Start video playback as soon as it can do so without stopping to finish loading the data
-
-`config.preload: OneOf('auto', 'metadata', 'none')` Type of preloading. For more info check ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video))
-
-`config.muted: Boolean` Status of audio playback. If set, the audio will be initially silenced
-
-`config.volume: Number<0..100>` Start value of volume for audio
-
-
-### Size
-
-`config.size.width: Number` Width of video player
-
-`config.size.height: Number` Height of video player
-
-### Screen
-
-`config.screen.disableClickProcessing: Boolean` Pass `true` to disable control of player through click on screen
-
-`config.screen.nativeControls: Boolean` Pass `true` to show native browser controls
-
-### Title
-
-`config.title: Boolean | ITitleConfig` Pass `false` to hide title
-
-`config.title.callback: Function` Function that would be called when user clicks on title
-
-`config.title.text: String` String that would be shown as title of video.
-
-### Controls
-
-`config.controls: Boolean | IControlsConfig` Pass `false` to hide controls
-
-`config.controls.shouldAlwaysShow: Boolean` Pass `true` for alowing controls to be visible no matter of what
-
-### Overlay
-
-`config.overlay: Boolean | IOverlayConfig` Pass `false` to hide overlay
-
-`config.overlay.poster: String` URL to image that would be used as poster on overlay
-
-### FullScreen
-
-`config.fullScreen: Boolean | IFullScreenConfig` Pass `false` to disable full screen functionality
-
-`config.fullScreen.exitFullScreenOnEnd: Boolean` Pass `true` to alow player exit full screen after video ends.
-
-`config.fullScreen.enterFullScreenOnPlay: Boolean` Pass `true` to alow player enter full screen after video starts playing.
-
-`config.fullScreen.exitFullScreenOnPause: Boolean` Pass `true` to alow player exit full screen after video pauses.
-
-`config.fullScreen.pauseVideoOnFullScreenExit: Boolean` Pass `true` to alow player pause video after exit from full screen.
-
-### Logo
-
-`config.logo: Boolean | ILogoConfig` Pass `false` to hide logo
-
-`config.logo.callback: Function` Function that would be called when user clicks on logo
-
-`config.logo.src: String` URL to image that would be used as logo
-
-`config.logo.showAlways: Boolean` Pass `true` to allow logo be visible no matter or what
-
-### Other
-
-`config.videoElement: HTMLVideoElement` You can pass your own HTMLVideoElement to player and we gonna use it.
-
-`config.showInteractionIndicator: Boolean` Pass `false` to disable indication of user interaction with player
-
-`config.playsinline: Boolean` Attribute for playing inline in iOS
-
-`config.crossOrigin: 'anonymous' | 'use-credentials'` Attribute setting video [crossOrigin](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) property
-
-`config.loader: Boolean` Pass `false` to hide loader
-
+`config.width: Number` Width of video player <br/>
+`config.height: Number` Height of video player <br/>
+`config.fillAllSpace: Boolean` Pass `true` to alow player fill all space of it container <br/>
+`config.title: String` String that would be shown as title of video <br/>
+`config.poster: String` URL to image that would be used as poster on overlay <br/>
 `config.texts: ITextMapConfig` Gives you ability to override texts, that are used in player. Read more [here](/player-texts).
 
-`config.disableControlWithKeyboard: Boolean` Pass `false` to disable ability to control player through keyboard
+`config.hideMainUI: Boolean` Pass `true` to completly hide all our UI of player, except overlay <br/>
+`config.hideOverlay: Boolean` Pass `true` to completly hide overlay <br/>
+`config.disableControlWithKeyboard: Boolean` Pass `false` to disable ability to control player through keyboard <br/>
+`config.disableControlWithClickOnPlayer: Boolean` Pass `false` to disable ability to control player through click on player(not related to controls of player) <br/>
+`config.disableFullScreen: Boolean` Pass `true` to disable functionality related to full screen mode <br/>
+`config.nativeBrowserControls: Boolean` Pass `true` to show native browser controls. You also should pass `hideMainUI: true` for better look<br/>
 
-`config.fillAllSpace: Boolean` Pass `true` to alow player fill all space of it container
+### Playback related config
+
+`config.loop: Boolean` Loop video playback <br/>
+`config.autoPlay: Boolean` Start video playback as soon as it can do so without stopping to finish loading the data <br/>
+`config.preload: OneOf('auto', 'metadata', 'none')` Type of preloading. For more info check ([MDN](https://developer.mozilla.org/en/docs/Web/HTML/Element/video)) <br/>
+`config.muted: Boolean` Status of audio playback. If set, the audio will be initially silenced <br/>
+`config.volume: Number<0..100>` Start value of volume for audio <br/>
+`config.playsinline: Boolean` Attribute for playing inline in iOS <br/>
+`config.crossOrigin: 'anonymous' | 'use-credentials'` Attribute setting video [crossOrigin](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) property <br/>

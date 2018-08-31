@@ -44,10 +44,8 @@ import Playable from 'playable';
 
 document.addEventListener('DOMContentLoaded', function() {
   const config = {
-    size: {
-      width: 700,
-      height: 394
-    },
+    width: 700,
+    height: 394,
     src: 'http://my-url/video.mp4'
   };
 
