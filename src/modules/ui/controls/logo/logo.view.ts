@@ -83,6 +83,8 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
 
     this._bindCallbacks();
     this._bindEvents();
+
+    this.showAsButton();
   }
 
   setLogo(url: string) {
