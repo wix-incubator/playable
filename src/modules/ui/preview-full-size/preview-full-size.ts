@@ -36,7 +36,7 @@ export default class PreviewFullsize implements IPreviewFullSize {
     this._initUI();
 
     this.hide();
-    rootContainer.appendComponentNode(this.getElement());
+    rootContainer.appendComponentElement(this.getElement());
   }
 
   private _initUI() {
@@ -48,7 +48,7 @@ export default class PreviewFullsize implements IPreviewFullSize {
 
     this._$frame = getElementByHook(
       this._$rootElement,
-      'playable-preview-full-size-frame',
+      'preview-full-size-frame',
     ) as HTMLDivElement;
   }
 

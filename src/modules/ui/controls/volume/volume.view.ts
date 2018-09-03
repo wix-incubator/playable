@@ -24,8 +24,8 @@ import { ITextMap } from '../../../text-map/types';
 import volumeViewTheme from './volume.theme';
 import styles from './volume.scss';
 
-const DATA_IS_MUTED = 'data-is-muted';
-const DATA_VOLUME = 'data-volume-percent';
+const DATA_IS_MUTED = 'data-playable-is-muted';
+const DATA_VOLUME = 'data-playable-volume-percent';
 
 const MAX_VOLUME_ICON_RANGE = 50;
 
@@ -44,7 +44,7 @@ const getPercentBasedOnXPosition = (
     return 100;
   }
 
-  return (event.clientX - boundingRect.left) / boundingRect.width * 100;
+  return ((event.clientX - boundingRect.left) / boundingRect.width) * 100;
 };
 
 class VolumeView extends View<IVolumeViewStyles>
@@ -56,7 +56,7 @@ class VolumeView extends View<IVolumeViewStyles>
 
   private _$rootElement: HTMLElement;
   private _$muteButton: HTMLElement;
-  private _$volumeNode: HTMLElement;
+  private _$volumeContainer: HTMLElement;
   private _$volume: HTMLElement;
   private _$hitbox: HTMLElement;
 
@@ -90,7 +90,7 @@ class VolumeView extends View<IVolumeViewStyles>
     );
 
     this._$muteButton = getElementByHook(this._$rootElement, 'mute-button');
-    this._$volumeNode = getElementByHook(
+    this._$volumeContainer = getElementByHook(
       this._$rootElement,
       'volume-input-block',
     );
@@ -150,7 +150,7 @@ class VolumeView extends View<IVolumeViewStyles>
   }
 
   private _setVolumeByClick(event: MouseEvent) {
-    this._$volumeNode.focus();
+    this._$volumeContainer.focus();
     const percent = getPercentBasedOnXPosition(event, this._$hitbox);
     this._callbacks.onVolumeLevelChangeFromInput(percent);
   }
@@ -188,13 +188,12 @@ class VolumeView extends View<IVolumeViewStyles>
   }
 
   private _setVolumeDOMAttributes(percent: number) {
-    this._$volumeNode.setAttribute('value', String(percent));
-    this._$volumeNode.setAttribute(
+    this._$volumeContainer.setAttribute('value', String(percent));
+    this._$volumeContainer.setAttribute(
       'aria-valuetext',
       this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { percent }),
     );
-    this._$volumeNode.setAttribute('aria-valuenow', String(percent));
-    this._$volumeNode.setAttribute(DATA_VOLUME, String(percent));
+    this._$volumeContainer.setAttribute('aria-valuenow', String(percent));
 
     this._$volume.setAttribute('style', `width:${percent}%;`);
 
@@ -235,7 +234,6 @@ class VolumeView extends View<IVolumeViewStyles>
       });
     }
 
-    this._$rootElement.setAttribute(DATA_IS_MUTED, String(isMuted));
     this._$muteButton.setAttribute(
       'aria-label',
       isMuted
@@ -247,6 +245,8 @@ class VolumeView extends View<IVolumeViewStyles>
         ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_TOOLTIP)
         : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
     );
+
+    this._$rootElement.setAttribute(DATA_IS_MUTED, String(isMuted));
   }
 
   show() {
@@ -257,16 +257,16 @@ class VolumeView extends View<IVolumeViewStyles>
     this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 
-  getButtonNode() {
+  getButtonElement() {
     return this._$muteButton;
   }
 
-  getInputNode() {
-    return this._$volumeNode;
+  getInputElement() {
+    return this._$volumeContainer;
   }
 
   destroy() {

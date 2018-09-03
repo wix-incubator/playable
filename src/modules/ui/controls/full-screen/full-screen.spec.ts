@@ -38,22 +38,15 @@ describe('FullScreenControl', () => {
   });
 
   describe('ui events listeners', () => {
-    it('should call callback on playback status change', () => {
-      const spy = sinon.spy(control, 'setControlStatus');
+    it('should call callback on playback state change', () => {
+      const spy = sinon.spy(control.view, 'setFullScreenState');
       control._bindEvents();
-      eventEmitter.emit(UI_EVENTS.FULLSCREEN_STATUS_CHANGED);
+      eventEmitter.emit(UI_EVENTS.FULL_SCREEN_STATE_CHANGED);
       expect(spy.called).to.be.true;
     });
   });
 
   describe('API', () => {
-    it('should have method for setting current state', () => {
-      const spy = sinon.spy(control.view, 'setState');
-      expect(control.setControlStatus).to.exist;
-      control.setControlStatus();
-      expect(spy.called).to.be.true;
-    });
-
     it('should have method for showing whole view', () => {
       expect(control.show).to.exist;
       control.show();
@@ -81,9 +74,10 @@ describe('FullScreenControl', () => {
       const enterSpy = sinon.spy(fullScreenManager, 'enterFullScreen');
       const exitSpy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
-      control._enterFullScreen();
+      control._toggleFullScreen();
       expect(enterSpy.called).to.be.true;
-      control._exitFullScreen();
+      fullScreenManager.isInFullScreen = true;
+      control._toggleFullScreen();
       expect(exitSpy.called).to.be.true;
 
       fullScreenManager.enterFullScreen.restore();

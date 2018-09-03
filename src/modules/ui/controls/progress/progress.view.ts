@@ -21,7 +21,7 @@ import { ITextMap } from '../../../text-map/types';
 import progressViewTheme from './progress.theme';
 import styles from './progress.scss';
 
-const DATA_PLAYED = 'data-played-percent';
+const DATA_PLAYED = 'data-playable-played-percent';
 
 const getPercentBasedOnXPosition = (
   event: MouseEvent,
@@ -255,7 +255,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._$syncButton.classList.add(this.styleNames.hidden);
   }
 
-  setLiveSyncStatus(isSync: boolean) {
+  setLiveSyncState(isSync: boolean) {
     toggleElementClass(this._$syncButton, this.styleNames.liveSync, isSync);
 
     if (isSync) {
@@ -270,11 +270,11 @@ class ProgressView extends View<IProgressViewStyles>
   showProgressTimeTooltip(element: HTMLElement, percent: number) {
     this._tooltipService.show({
       element,
-      position: tooltipContainerNode =>
+      position: tooltipContainer =>
         getProgressTimeTooltipPosition(
           percent,
           this._$hitbox,
-          tooltipContainerNode,
+          tooltipContainer,
         ),
     });
   }
@@ -326,7 +326,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

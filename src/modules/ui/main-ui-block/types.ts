@@ -14,12 +14,8 @@ type IMainUIBlockViewConfig = {
   elements: IMainUIBlockViewElements;
 };
 
-interface IMainUIBlockConfig {
-  shouldAlwaysShow?: boolean;
-}
-
 interface IMainUIBlock {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   enableShowingContent(): void;
   disableShowingContent(): void;
@@ -33,7 +29,6 @@ interface IMainUIBlock {
 
 export {
   IMainUIBlock,
-  IMainUIBlockConfig,
   IMainUIBlockViewStyles,
   IMainUIBlockViewElements,
   IMainUIBlockViewConfig,

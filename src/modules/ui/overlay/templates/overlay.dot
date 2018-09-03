@@ -1,15 +1,15 @@
 <div
   class="${props.styles.overlay} ${props.styles.active}"
-  data-hook="overlay"
+  data-playable-hook="overlay"
   >
   <div
     class="${props.styles.poster}"
-    data-hook="overlay-content"
+    data-playable-hook="overlay-content"
     >
   </div>
   <div
     class="${props.styles.icon}"
-    data-hook="overlay-play-button"
+    data-playable-hook="overlay-play-button"
     >
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -46,12 +46,12 @@ export default class TimeControl implements ITimeControl {
     this._initUI();
     this._bindEvents();
 
-    this.setCurrentTime(0);
-    this.setDurationTime(0);
+    this._setCurrentTime(0);
+    this._setDurationTime(0);
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
@@ -62,7 +62,7 @@ export default class TimeControl implements ITimeControl {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.USER_PREVIEWING_FRAME, this._updateTimeFromPreview],
+        [UI_EVENTS.PROGRESS_USER_PREVIEWING_FRAME, this._updateTimeFromPreview],
         [VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates],
         [VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime],
         [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
@@ -130,22 +130,22 @@ export default class TimeControl implements ITimeControl {
   }
 
   private _updateDurationTime() {
-    this.setDurationTime(this._engine.getDurationTime());
+    this._setDurationTime(this._engine.getDuration());
   }
 
   private _updateCurrentTime() {
-    this.setCurrentTime(this._engine.getCurrentTime());
+    this._setCurrentTime(this._engine.getCurrentTime());
   }
 
   private _updateTimeFromPreview(time: number) {
     this.view.setCurrentTime(time);
   }
 
-  setDurationTime(time: number) {
+  private _setDurationTime(time: number) {
     this.view.setDurationTime(time);
   }
 
-  setCurrentTime(time: number) {
+  private _setCurrentTime(time: number) {
     this.view.setCurrentTime(time);
   }
 
@@ -160,8 +160,8 @@ export default class TimeControl implements ITimeControl {
   }
 
   reset() {
-    this.setDurationTime(0);
-    this.setCurrentTime(0);
+    this._setDurationTime(0);
+    this._setCurrentTime(0);
     this.view.showDuration();
     this.view.setCurrentTimeBackward(false);
     this.show();

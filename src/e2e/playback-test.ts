@@ -5,7 +5,7 @@ import { PreloadTypes } from '../modules/playback-engine/types';
 /* ignore coverage */
 describe('Playback e2e test', function() {
   this.timeout(10000);
-  const node = document.createElement('div');
+  const container = document.createElement('div');
   const formatsToTest = [
     {
       type: 'MP4',
@@ -26,7 +26,7 @@ describe('Playback e2e test', function() {
       it(`allows playback of ${formatToTest.type}`, function(done) {
         // TODO: describe `@playerApi` methods in `Player` with TS
         const player: any = Playable.create();
-        player.attachToElement(node);
+        player.attachToElement(container);
         player.on(
           VIDEO_EVENTS.STATE_CHANGED,
           ({ nextState }: { nextState: ENGINE_STATES }) => {
@@ -47,7 +47,7 @@ describe('Playback e2e test', function() {
         const player: any = Playable.create({
           preload: PreloadTypes.NONE,
         });
-        player.attachToElement(node);
+        player.attachToElement(container);
         player.on(
           VIDEO_EVENTS.STATE_CHANGED,
           ({ nextState }: { nextState: ENGINE_STATES }) => {

@@ -3,11 +3,7 @@ import playerAPI from '../../../core/player-api-decorator';
 
 import MainUIBlockView from './main-ui-block.view';
 
-import {
-  IMainUIBlock,
-  IMainUIBlockConfig,
-  IMainUIBlockViewElements,
-} from './types';
+import { IMainUIBlock, IMainUIBlockViewElements } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IBottomBlock } from '../bottom-block/types';
 import { ITopBlock } from '../top-block/types';
@@ -17,10 +13,6 @@ import { IRootContainer } from '../../root-container/types';
 import { ITooltipService } from '../core/tooltip/tooltip-service';
 
 const HIDE_BLOCK_TIMEOUT = 2000;
-
-const DEFAULT_CONFIG: IMainUIBlockConfig = {
-  shouldAlwaysShow: false,
-};
 
 export default class MainUIBlock implements IMainUIBlock {
   static moduleName = 'mainUIBlock';
@@ -78,30 +70,26 @@ export default class MainUIBlock implements IMainUIBlock {
     this._screen = screen;
 
     this.isHidden = false;
-    const mainBlockConfig = {
-      ...DEFAULT_CONFIG,
-      ...(typeof config.controls === 'object' ? config.controls : null),
-    };
 
-    this._shouldAlwaysShow = mainBlockConfig.shouldAlwaysShow;
+    this._shouldAlwaysShow = false;
 
     this._initUI({
-      tooltipContainer: tooltipService.tooltipContainerNode,
-      topBlock: topBlock.node,
-      bottomBlock: bottomBlock.node,
+      tooltipContainer: tooltipService.tooltipContainerElement,
+      topBlock: topBlock.getElement(),
+      bottomBlock: bottomBlock.getElement(),
     });
     this._bindViewCallbacks();
     this._bindEvents();
 
-    rootContainer.appendComponentNode(this.view.getNode());
+    rootContainer.appendComponentElement(this.view.getElement());
 
-    if (config.controls === false) {
+    if (config.hideMainUI) {
       this.hide();
     }
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _initUI(elements: IMainUIBlockViewElements) {
@@ -117,11 +105,11 @@ export default class MainUIBlock implements IMainUIBlock {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED, this._startHideBlockTimeout],
-        [UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED, this._tryHideContent],
+        [UI_EVENTS.MOUSE_MOVE_ON_PLAYER, this._startHideBlockTimeout],
+        [UI_EVENTS.MOUSE_LEAVE_ON_PLAYER, this._tryHideContent],
         [UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout],
-        [UI_EVENTS.LOADER_HIDE_TRIGGERED, this._startHideBlockTimeout],
-        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus],
+        [UI_EVENTS.LOADER_HIDE, this._startHideBlockTimeout],
+        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState],
         [UI_EVENTS.CONTROL_DRAG_START, this._onControlDragStart],
         [UI_EVENTS.CONTROL_DRAG_END, this._onControlDragEnd],
       ],
@@ -129,7 +117,7 @@ export default class MainUIBlock implements IMainUIBlock {
     );
   }
 
-  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
+  private _updatePlayingState({ nextState }: { nextState: EngineState }) {
     switch (nextState) {
       case EngineState.PLAY_REQUESTED: {
         this._shouldShowContent = false;
@@ -199,7 +187,7 @@ export default class MainUIBlock implements IMainUIBlock {
 
     this._screen.showCursor();
 
-    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_SHOW_TRIGGERED);
+    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_SHOW);
     this._bottomBlock.showContent();
     this._topBlock.showContent();
     this._isContentShown = true;
@@ -225,7 +213,7 @@ export default class MainUIBlock implements IMainUIBlock {
       this._screen.hideCursor();
     }
 
-    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE_TRIGGERED);
+    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE);
     this._bottomBlock.hideContent();
     this._topBlock.hideContent();
     this._isContentShown = false;
@@ -256,13 +244,13 @@ export default class MainUIBlock implements IMainUIBlock {
   }
 
   /**
-   * Method for allowing bottom block to be always shown.
+   * Method for allowing main ui to be always shown despite the playback state and the cursor position
    * @param flag - `true` for showing always
    * @example
-   * player.setControlsShouldAlwaysShow(true);
+   * player.setMainUIShouldAlwaysShow(true);
    *
    */
-  @playerAPI('setControlsShouldAlwaysShow')
+  @playerAPI('setMainUIShouldAlwaysShow')
   setShouldAlwaysShow(flag: boolean) {
     this._shouldAlwaysShow = flag;
 

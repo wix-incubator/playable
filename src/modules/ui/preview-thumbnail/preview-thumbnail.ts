@@ -40,16 +40,16 @@ export default class PreviewThumbnail implements IPreviewThumbnail {
 
     this._$timeText = getElementByHook(
       this._$rootElement,
-      'playable-thumb-text-block',
+      'thumb-text-block',
     ) as HTMLDivElement;
 
     this._$lowQualityThumb = getElementByHook(
       this._$rootElement,
-      'playable-thumb-low-quality',
+      'thumb-low-quality',
     );
     this._$highQualityThumb = getElementByHook(
       this._$rootElement,
-      'playable-thumb-high-quality',
+      'thumb-high-quality',
     );
   }
 

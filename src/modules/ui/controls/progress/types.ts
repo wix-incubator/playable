@@ -38,7 +38,7 @@ type IProgressViewConfig = {
 };
 
 interface IProgressControl {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   addTimeIndicator(time: number): void;
   addTimeIndicators(times: number[]): void;

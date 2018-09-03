@@ -1,6 +1,6 @@
 // Code from ally.js
 /*
-  add data-focus-source attribute to html element containing "key", "pointer" or "script"
+  add data-playable-focus-source attribute to html element containing "key", "pointer" or "script"
   depending on the input method used to change focus.
 
   USAGE:
@@ -10,11 +10,11 @@
       outline: 1px solid grey;
     }
 
-    html[data-focus-source="key"] body :focus {
+    html[data-playable-focus-source="key"] body :focus {
       outline: 5px solid red;
     }
 
-    html[data-focus-source="key"] body :focus {
+    html[data-playable-focus-source="key"] body :focus {
       outline: 1px solid blue;
     }
 
@@ -59,7 +59,7 @@ function handleFocusEvent(event: any) {
     source = 'initial';
   }
 
-  document.documentElement.setAttribute('data-focus-source', source);
+  document.documentElement.setAttribute('data-playable-focus-source', source);
 
   if (event.type !== blurEventName) {
     used[source] = true;
@@ -102,7 +102,7 @@ function disengage() {
     handleFocusEvent,
     true,
   );
-  document.documentElement.removeAttribute('data-focus-source');
+  document.documentElement.removeAttribute('data-playable-focus-source');
 }
 
 function engage() {

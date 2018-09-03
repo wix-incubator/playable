@@ -2,7 +2,6 @@ import { VIDEO_EVENTS, EngineState } from '../../constants';
 
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
-import { IPlayerConfig } from '../../core/config';
 
 import {
   IReportReasons,
@@ -10,6 +9,7 @@ import {
   IReportTypes,
   IReportType,
 } from './types';
+import playerAPI from '../../core/player-api-decorator';
 
 export const REPORT_REASONS: IReportReasons = {
   LONG_INITIAL_VIDEO_PARTS_LOADING: 'long-initial-video-parts-loading',
@@ -40,27 +40,23 @@ export const DELAYED_REPORT_TYPES: IReportTypes = {
 
 export default class AnomalyBloodhound {
   static moduleName = 'anomalyBloodhound';
-  static dependencies = ['eventEmitter', 'engine', 'config'];
+  static dependencies = ['eventEmitter', 'engine'];
 
-  private _config: IPlayerConfig;
   private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
   private _timeoutContainer: ITimeoutContainer;
 
   private _unbindEvents: Function;
 
+  private _callback: Function | null = null;
+
   constructor({
     engine,
     eventEmitter,
-    config,
   }: {
     engine: IPlaybackEngine;
     eventEmitter: IEventEmitter;
-    config: IPlayerConfig;
   }) {
-    this._config = {
-      ...config.anomalyBloodhound,
-    };
     this._engine = engine;
     this._eventEmitter = eventEmitter;
 
@@ -203,6 +199,13 @@ export default class AnomalyBloodhound {
     });
   }
 
+  @playerAPI()
+  setAnomalyCallback(callback: Function) {
+    if (callback) {
+      this._callback = callback;
+    }
+  }
+
   reportDebugInfo({
     reason,
     startTS,
@@ -212,14 +215,13 @@ export default class AnomalyBloodhound {
     startTS?: number;
     endTS?: number;
   }) {
-    if (typeof this._config.callback === 'function') {
-      this._config.callback({
+    this._callback &&
+      this._callback({
         reason,
         startTS,
         endTS,
         ...this._engine.getDebugInfo(),
       });
-    }
   }
 
   destroy() {
@@ -230,6 +232,5 @@ export default class AnomalyBloodhound {
     this._eventEmitter = null;
     this._engine = null;
     this._timeoutContainer = null;
-    this._config = null;
   }
 }

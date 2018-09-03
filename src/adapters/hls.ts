@@ -14,6 +14,7 @@ import {
   VIDEO_EVENTS,
   IPlaybackAdapter,
 } from '../index';
+import { IEventEmitter } from '../modules/event-emitter/types';
 
 const LIVE_SYNC_DURATION = 4;
 const LIVE_SYNC_DURATION_DELTA = 5;
@@ -30,8 +31,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
     return NativeEnvironmentSupport.MSE && HlsJs.isSupported();
   }
 
-  private eventEmitter: any;
-  private hls: any;
+  private eventEmitter: IEventEmitter;
+  private hls: HlsJs;
   private videoElement: HTMLVideoElement;
   private mediaStream: any;
 
@@ -121,27 +122,27 @@ export default class HlsAdapter implements IPlaybackAdapter {
     let overallBufferLength = null;
     let bwEstimate = 0;
 
-    if (this.hls.levelController) {
-      bitrates = this.hls.levelController.levels.map(
-        (level: any) => level.bitrate,
-      );
+    const { streamController, levelController } = this.hls as any;
+
+    if (levelController) {
+      bitrates = levelController.levels.map((level: any) => level.bitrate);
       if (bitrates) {
-        currentBitrate = bitrates[this.hls.levelController.level];
+        currentBitrate = bitrates[levelController.level];
       }
     }
-    if (this.hls.streamController) {
-      currentTime = this.hls.streamController.lastCurrentTime;
-      if (this.hls.streamController.mediaBuffer) {
+    if (streamController) {
+      currentTime = streamController.lastCurrentTime;
+      if (streamController.mediaBuffer) {
         overallBufferLength = geOverallBufferLength(
-          this.hls.streamController.mediaBuffer.buffered,
+          streamController.mediaBuffer.buffered,
         );
         nearestBufferSegInfo = getNearestBufferSegmentInfo(
-          this.hls.streamController.mediaBuffer.buffered,
+          streamController.mediaBuffer.buffered,
           currentTime,
         );
       }
-      if (this.hls.streamController.stats) {
-        bwEstimate = this.hls.streamController.stats.bwEstimate;
+      if (streamController.stats) {
+        bwEstimate = streamController.stats.bwEstimate;
       }
     }
 

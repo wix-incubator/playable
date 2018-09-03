@@ -52,12 +52,14 @@ describe('LiveIndicator', () => {
     });
 
     it('should have method for getting view node', () => {
-      expect(liveIndicator.node).to.equal(liveIndicator.view.getNode());
+      expect(liveIndicator.getElement()).to.equal(
+        liveIndicator.view.getElement(),
+      );
     });
 
     it('should try to sync with live on click', () => {
       const engineSyncWithLiveSpy = sinon.stub(engine, 'syncWithLive');
-      const liveIndicatorViewNode = liveIndicator.view.getNode();
+      const liveIndicatorViewNode = liveIndicator.view.getElement();
 
       liveIndicatorViewNode.dispatchEvent(new Event('click'));
 

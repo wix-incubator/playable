@@ -1,15 +1,15 @@
 <div class="${props.styles.volumeControl}"
-     data-hook="volume-control"
+     data-playable-hook="volume-control"
      data-volume-percent="100"
      data-is-muted="false">
   <button class="${props.styles.muteButton} ${props.styles.controlButton}"
-          data-hook="mute-button"
+          data-playable-hook="mute-button"
           aria-label="${props.texts.muteLabel}"
           type="button"
           tabindex="0">
   </button>
   <div class="${props.styles.volumeInputBlock}"
-       data-hook="volume-input-block"
+       data-playable-hook="volume-input-block"
        aria-label="${props.texts.volumeLabel}"
        aria-valuemin="0"
        aria-valuenow="0"
@@ -18,10 +18,10 @@
     <div class="${props.styles.progressBar} ${props.styles.background} ${props.themeStyles.volumeProgressBackground}">
     </div>
     <div class="${props.styles.progressBar} ${props.styles.volume} ${props.themeStyles.volumeProgress}"
-         data-hook="volume-input">
+         data-playable-hook="volume-input">
     </div>
     <div class="${props.styles.hitbox}"
-         data-hook="volume-hitbox">
+         data-playable-hook="volume-hitbox">
     </div>
   </div>
 </div>

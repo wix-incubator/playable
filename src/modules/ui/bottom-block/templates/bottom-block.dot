@@ -1,35 +1,35 @@
-<div data-hook="bottom-block"
+<div data-playable-hook="bottom-block"
      class="${props.styles.bottomBlock}">
   <div class="${props.styles.background}"
-       data-hook="screen-bottom-background">
+      data-playable-hook="screen-bottom-background">
   </div>
   <div class="${props.styles.progressBarContainer}"
-       data-hook="progress-bar-container">
+      data-playable-hook="progress-bar-container">
   </div>
   <div class="${props.styles.elementsContainer}">
     <div class="${props.styles.controlsContainerLeft}"
-         data-hook="controls-container-left">
+        data-playable-hook="controls-container-left">
       <div class="${props.styles.playContainer}"
-         data-hook="play-container">
+        data-playable-hook="play-container">
       </div>
       <div class="${props.styles.volumeContainer}"
-           data-hook="volume-container">
+          data-playable-hook="volume-container">
       </div>
       <div class="${props.styles.timeContainer}"
-           data-hook="time-container">
+          data-playable-hook="time-container">
       </div>
     </div>
     <div class="${props.styles.controlsContainerRight}"
-         data-hook="controls-container-right">
+        data-playable-hook="controls-container-right">
       <div class="${props.styles.downloadContainer}"
-           data-hook="playable-download-container">
+          data-playable-hook="download-container">
       </div>
       <div class="${props.styles.fullScreenContainer}"
-           data-hook="full-screen-container">
+          data-playable-hook="full-screen-container">
       </div>
     </div>
     <div class="${props.styles.logoContainer}"
-         data-hook="logo-container">
+        data-playable-hook="logo-container">
     </div>
   </div>
 </div>

@@ -21,14 +21,8 @@ type ILogoViewConfig = {
   logo?: string;
 };
 
-interface ILogoConfig {
-  callback?: Function;
-  src?: string;
-  showAlways?: boolean;
-}
-
 interface ILogoControl {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   setLogo(src: string): void;
   setLogoClickCallback(callback?: Function): void;
@@ -39,10 +33,4 @@ interface ILogoControl {
   destroy(): void;
 }
 
-export {
-  ILogoControl,
-  ILogoConfig,
-  ILogoViewStyles,
-  ILogoViewConfig,
-  ILogoViewCallbacks,
-};
+export { ILogoControl, ILogoViewStyles, ILogoViewConfig, ILogoViewCallbacks };

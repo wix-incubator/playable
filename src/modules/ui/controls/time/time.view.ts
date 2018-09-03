@@ -12,6 +12,9 @@ import { ITimeViewStyles, ITimeViewConfig } from './types';
 import timeViewTheme from './time.theme';
 import styles from './time.scss';
 
+const DATA_DURATION = 'data-playable-duration';
+const DATA_CURRENT_TIME = 'data-playable-current-time';
+
 class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
   private _$rootElement: HTMLElement;
   private _$currentTime: HTMLElement;
@@ -62,6 +65,10 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
 
   private _updateDurationTime() {
     this._$durationTime.innerHTML = formatTime(this._duration);
+    this._$rootElement.setAttribute(
+      DATA_DURATION,
+      this._duration ? this._duration.toString() : '0',
+    );
   }
 
   private _updateCurrentTime() {
@@ -70,6 +77,10 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
     } else {
       this._$currentTime.innerHTML = formatTime(this._current);
     }
+    this._$rootElement.setAttribute(
+      DATA_CURRENT_TIME,
+      this._current ? this._current.toString() : '0',
+    );
   }
 
   showDuration() {
@@ -88,7 +99,7 @@ class TimeView extends View<ITimeViewStyles> implements IView<ITimeViewStyles> {
     this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

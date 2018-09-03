@@ -190,7 +190,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
   private _startDelayedInitPlayer() {
     this.eventEmitter.on(
-      VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
+      VIDEO_EVENTS.PLAY_REQUEST,
       this._delayedInitPlayer,
       this,
     );
@@ -198,7 +198,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
   private _stopDelayedInitPlayer() {
     this.eventEmitter.off(
-      VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED,
+      VIDEO_EVENTS.PLAY_REQUEST,
       this._delayedInitPlayer,
       this,
     );

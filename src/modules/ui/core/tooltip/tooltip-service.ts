@@ -31,13 +31,13 @@ class TooltipService implements ITooltipService {
     return this._tooltip.isHidden;
   }
 
-  get tooltipContainerNode(): HTMLElement {
-    return this._tooltipContainer.node;
+  get tooltipContainerElement(): HTMLElement {
+    return this._tooltipContainer.getElement();
   }
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[UI_EVENTS.FULLSCREEN_STATUS_CHANGED, this.hide]],
+      [[UI_EVENTS.FULL_SCREEN_STATE_CHANGED, this.hide]],
       this,
     );
   }

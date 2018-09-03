@@ -10,19 +10,9 @@ import { IPlaybackEngine } from '../../playback-engine/types';
 import { IInteractionIndicator } from '../interaction-indicator/types';
 import { IPlayerConfig } from '../../../core/config';
 import { IRootContainer } from '../../root-container/types';
-import {
-  IScreen,
-  VideoViewMode,
-  IScreenConfig,
-  IScreenViewConfig,
-} from './types';
+import { IScreen, VideoViewMode, IScreenViewConfig } from './types';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
-
-const DEFAULT_CONFIG: IScreenConfig = {
-  disableClickProcessing: false,
-  nativeControls: false,
-};
 
 export default class Screen implements IScreen {
   static moduleName = 'screen';
@@ -74,27 +64,24 @@ export default class Screen implements IScreen {
 
     this._delayedToggleVideoPlaybackTimeout = null;
 
-    const screenConfig = {
-      ...DEFAULT_CONFIG,
-      ...config.screen,
-    };
-
-    this._isClickProcessingDisabled = screenConfig.disableClickProcessing;
+    this._isClickProcessingDisabled = Boolean(
+      config.disableControlWithClickOnPlayer,
+    );
 
     this._bindCallbacks();
-    this._initUI(screenConfig.nativeControls);
+    this._initUI(config.nativeBrowserControls);
     this._bindEvents();
 
-    rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentElement(this.getElement());
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
-    this._processNodeClick = this._processNodeClick.bind(this);
-    this._processNodeDblClick = this._processNodeDblClick.bind(this);
+    this._processClick = this._processClick.bind(this);
+    this._processDblClick = this._processDblClick.bind(this);
     this._toggleVideoPlayback = this._toggleVideoPlayback.bind(this);
   }
 
@@ -102,10 +89,10 @@ export default class Screen implements IScreen {
     const config: IScreenViewConfig = {
       nativeControls: isNativeControls,
       callbacks: {
-        onWrapperMouseClick: this._processNodeClick,
-        onWrapperMouseDblClick: this._processNodeDblClick,
+        onWrapperMouseClick: this._processClick,
+        onWrapperMouseDblClick: this._processDblClick,
       },
-      playbackViewNode: this._engine.getNode(),
+      playbackViewElement: this._engine.getElement(),
     };
 
     this.view = new View(config);
@@ -114,7 +101,7 @@ export default class Screen implements IScreen {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.PLAY_OVERLAY_TRIGGERED, this.view.focusOnNode, this.view],
+        [UI_EVENTS.PLAY_OVERLAY_CLICK, this.view.focusOnNode, this.view],
         [UI_EVENTS.RESIZE, this._updateBackgroundSize],
         [EngineState.SRC_SET, this.view.resetBackground, this.view],
         [EngineState.METADATA_LOADED, this.view.resetAspectRatio, this.view],
@@ -141,7 +128,7 @@ export default class Screen implements IScreen {
     this.view.hideCursor();
   }
 
-  private _processNodeClick() {
+  private _processClick() {
     if (this._isClickProcessingDisabled) {
       return;
     }
@@ -155,7 +142,7 @@ export default class Screen implements IScreen {
     }
   }
 
-  private _processNodeDblClick() {
+  private _processDblClick() {
     if (this._isClickProcessingDisabled) {
       return;
     }
@@ -208,19 +195,21 @@ export default class Screen implements IScreen {
     const state = this._engine.getCurrentState();
 
     if (state === EngineState.PLAY_REQUESTED || state === EngineState.PLAYING) {
-      this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED);
       this._engine.pause();
+      this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK);
     } else {
-      this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED);
       this._engine.play();
+      this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK);
     }
   }
 
   private _toggleFullScreen() {
     if (this._fullScreenManager.isInFullScreen) {
       this._fullScreenManager.exitFullScreen();
+      this._eventEmitter.emit(UI_EVENTS.EXIT_FULL_SCREEN_WITH_SCREEN_CLICK);
     } else {
       this._fullScreenManager.enterFullScreen();
+      this._eventEmitter.emit(UI_EVENTS.ENTER_FULL_SCREEN_WITH_SCREEN_CLICK);
     }
   }
 

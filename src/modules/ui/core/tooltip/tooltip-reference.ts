@@ -3,7 +3,7 @@ import {
   ITooltipReference,
   ITooltipReferenceOptions,
 } from './types';
-import getTooltipPositionByReferenceNode from './utils/getTooltipPositionByReferenceNode';
+import getTooltipPositionByReferenceElement from './utils/getTooltipPositionByReferenceElement';
 
 const SHOW_EVENTS = ['mouseenter', 'focus'];
 const HIDE_EVENTS = ['mouseleave', 'blur'];
@@ -68,9 +68,9 @@ class TooltipReference implements ITooltipReference {
     this._tooltipService.show({
       text: this._options.text,
       element: this._options.element,
-      position: getTooltipPositionByReferenceNode(
+      position: getTooltipPositionByReferenceElement(
         this._$reference,
-        this._tooltipService.tooltipContainerNode,
+        this._tooltipService.tooltipContainerElement,
       ),
     });
   }

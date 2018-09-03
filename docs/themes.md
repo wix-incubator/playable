@@ -9,10 +9,8 @@ We added ability to customize some UI elements. You pass object with theme confi
 
 ```javascript
 const config = {
-  size: {
-    width: 160,
-    height: 90
-  }
+  width: 160,
+  height: 90
 }
 
 const theme = {

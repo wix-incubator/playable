@@ -59,7 +59,7 @@ describe('ProgressControl', () => {
 
       beforeEach(() => {
         engineGetDurationTimeStub = sinon
-          .stub(control._engine, 'getDurationTime')
+          .stub(control._engine, 'getDuration')
           .callsFake(() => VIDEO_DURATION_TIME);
       });
 
@@ -213,7 +213,7 @@ describe('ProgressControl', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback status change', () => {
+    it('should call callback on playback state change', () => {
       const spy = sinon.spy(control, '_processStateChange');
       control._bindEvents();
       eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
@@ -275,7 +275,7 @@ describe('ProgressControl', () => {
     });
 
     it('should change current time of video', () => {
-      const spy = sinon.stub(engine, 'setCurrentTime');
+      const spy = sinon.stub(engine, 'seekTo');
       control._onChangePlayedPercent(10);
       expect(spy.called).to.be.true;
     });

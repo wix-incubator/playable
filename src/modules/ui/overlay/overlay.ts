@@ -3,12 +3,12 @@ import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import View from './overlay.view';
-import { IOverlay, IOverlayConfig, IOverlayViewConfig } from './types';
+import { IOverlay, IOverlayViewConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IThemeService } from '../core/theme';
-import { IPlayerConfig } from '../../../core/config';
 import { IRootContainer } from '../../root-container/types';
+import { IPlayerConfig } from '../../../core/config';
 
 export default class Overlay implements IOverlay {
   static moduleName = 'overlay';
@@ -16,9 +16,9 @@ export default class Overlay implements IOverlay {
   static dependencies = [
     'engine',
     'eventEmitter',
-    'config',
     'rootContainer',
     'theme',
+    'config',
   ];
 
   private _eventEmitter: IEventEmitter;
@@ -31,44 +31,42 @@ export default class Overlay implements IOverlay {
   isHidden: boolean = false;
 
   constructor({
-    config,
     eventEmitter,
     engine,
     rootContainer,
     theme,
+    config,
   }: {
-    config: IPlayerConfig;
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
     rootContainer: IRootContainer;
     theme: IThemeService;
+    config: IPlayerConfig;
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._theme = theme;
 
     this._bindEvents();
-    this._initUI(config.overlay);
+    this._initUI();
 
-    rootContainer.appendComponentNode(this.node);
-
-    if (config.overlay === false) {
+    this.setPoster(config.poster);
+    if (config.hideOverlay) {
       this.hide();
     }
+
+    rootContainer.appendComponentElement(this.getElement());
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
-  private _initUI(overlayConfig: IOverlayConfig | boolean) {
-    const poster: string =
-      typeof overlayConfig === 'object' ? overlayConfig.poster : null;
+  private _initUI() {
     const viewConfig: IOverlayViewConfig = {
       callbacks: {
         onPlayClick: this._playVideo.bind(this),
       },
-      src: poster,
       theme: this._theme,
     };
 
@@ -78,14 +76,14 @@ export default class Overlay implements IOverlay {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingStatus],
+        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState],
         [VIDEO_EVENTS.RESET, this._tryShowContent],
       ],
       this,
     );
   }
 
-  private _updatePlayingStatus({ nextState }: { nextState: EngineState }) {
+  private _updatePlayingState({ nextState }: { nextState: EngineState }) {
     if (nextState === EngineState.PLAY_REQUESTED) {
       this._hideContent();
     } else if (
@@ -99,11 +97,11 @@ export default class Overlay implements IOverlay {
   private _playVideo() {
     this._engine.play();
 
-    this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_TRIGGERED);
+    this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_CLICK);
   }
 
   private _tryShowContent() {
-    if (this._engine.isVideoPaused) {
+    if (this._engine.isPaused) {
       this._showContent();
     }
   }
@@ -116,11 +114,23 @@ export default class Overlay implements IOverlay {
     this.view.showContent();
   }
 
+  /**
+   * Method for completely hiding player overlay. It's not gonna appear on initial state of player and when video is ended.
+   * @example
+   * player.showOverlay();
+   */
+  @playerAPI('hideOverlay')
   hide() {
     this.isHidden = true;
     this.view.hide();
   }
 
+  /**
+   * Method for showing player overlay after it was completely hidden with `player.hideOverlay()`.
+   * @example
+   * player.showOverlay();
+   */
+  @playerAPI('showOverlay')
   show() {
     this.isHidden = false;
     this.view.show();

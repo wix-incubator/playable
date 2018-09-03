@@ -1,11 +1,11 @@
 @mixin in-full-screen() {
-  div[data-hook='player-container'][data-in-full-screen='true'] & {
+  div[data-playable-hook='player-container'][data-in-full-screen='true'] & {
     @content
   }
 }
 
 @mixin query-basic($query, $value) {
-  div[data-hook='player-container'][#{$query}~=#{'"' + $value + '"'}] & {
+  div[data-playable-hook='player-container'][data-playable-#{$query}~=#{'"' + $value + '"'}] & {
     @content
   }
 }

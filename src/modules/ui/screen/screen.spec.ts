@@ -43,23 +43,23 @@ describe('Loader', () => {
 
   describe('instance callbacks', () => {
     it('should trigger _toggleVideoPlayback on node click', () => {
-      const processClickSpy = sinon.spy(screen, '_processNodeClick');
+      const processClickSpy = sinon.spy(screen, '_processClick');
       screen._bindCallbacks();
       screen._initUI();
 
-      screen.view.getNode().dispatchEvent(new Event('click'));
+      screen.view.getElement().dispatchEvent(new Event('click'));
       expect(processClickSpy.called).to.be.true;
     });
 
-    it('should remove timeout of delayed playback change on _processNodeClick and call _toggleFullScreen on _processNodeDblClick', () => {
+    it('should remove timeout of delayed playback change on _processClick and call _toggleFullScreen on _processDblClick', () => {
       const timeoutClearSpy = sinon.spy(window, 'clearTimeout');
       const toggleFullScreenSpy = sinon.spy(screen, '_toggleFullScreen');
       const id = window.setTimeout(() => {}, 0);
       screen._delayedToggleVideoPlaybackTimeout = id;
 
-      screen._processNodeClick();
+      screen._processClick();
       expect(timeoutClearSpy.calledWith(id)).to.be.true;
-      screen._processNodeDblClick();
+      screen._processDblClick();
       expect(toggleFullScreenSpy.called).to.be.true;
 
       timeoutClearSpy.restore();
@@ -67,16 +67,14 @@ describe('Loader', () => {
 
     it('should add native controls if config passed', () => {
       testkit.setConfig({
-        screen: {
-          nativeControls: true,
-        },
+        nativeBrowserControls: true,
       });
 
       const video: any = document.createElement('video');
 
       video.setAttribute = sinon.spy();
 
-      engine.getNode = () => video;
+      engine.getElement = () => video;
 
       screen = testkit.getModule('screen');
 

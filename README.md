@@ -30,12 +30,10 @@ And write awesome code:
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
   const config = {
-   size: {
-     width: 700,
-     height: 394
-   },
-   src: 'http://my-url/video.mp4',
-   preload: 'metadata'
+    width: 700,
+    height: 394,
+    src: 'http://my-url/video.mp4',
+    preload: 'metadata'
   };
   const player = Playable.create(config);
 

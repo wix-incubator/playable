@@ -110,7 +110,7 @@ class InteractionIndicatorView extends View<IInteractionIndicatorViewStyles>
     this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

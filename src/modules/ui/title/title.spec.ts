@@ -27,30 +27,6 @@ describe('Title', () => {
   });
 
   describe('instance', () => {
-    /*
-    it('should react on video control block show event', () => {
-      const fadeInSpy = sinon.spy(title, '_fadeIn');
-      title._bindEvents();
-
-      eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED);
-
-      expect(fadeInSpy.called).to.be.true;
-
-      fadeInSpy.restore();
-    });
-
-    it('should react on video control block hide event', () => {
-      const fadeOutSpy = sinon.spy(title, '_fadeOut');
-      title._bindEvents();
-
-      eventEmitter.emit(UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED);
-
-      expect(fadeOutSpy.called).to.be.true;
-
-      fadeOutSpy.restore();
-    });
-    */
-
     it('should have method for showing title', () => {
       const viewShowSpy = sinon.spy(title.view, 'show');
       title.show();
@@ -72,11 +48,11 @@ describe('Title', () => {
     });
 
     it('should have method for getting view node', () => {
-      const getTitleViewNodeSpy = sinon.spy(title.view, 'getNode');
-      const titleViewNode = title.node;
+      const getTitleViewNodeSpy = sinon.spy(title.view, 'getElement');
+      const titleViewNode = title.getElement();
 
       expect(getTitleViewNodeSpy.called).to.be.true;
-      expect(titleViewNode).to.equal(title.view.getNode());
+      expect(titleViewNode).to.equal(title.view.getElement());
 
       getTitleViewNodeSpy.restore();
     });

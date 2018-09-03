@@ -65,7 +65,7 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
 
     const $downloadContainer = getElementByHook(
       this._$rootElement,
-      'playable-download-container',
+      'download-container',
     );
 
     $playContainer.appendChild(elements.play);
@@ -183,7 +183,7 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

@@ -20,7 +20,7 @@ type ILiveIndicatorViewConfig = {
 };
 
 interface ILiveIndicator {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   isHidden: boolean;
   isActive: boolean;

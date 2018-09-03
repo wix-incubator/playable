@@ -27,8 +27,8 @@
 
 
 :global {
-  [data-focus-source='key'] [data-hook='player-container'],
-  [data-focus-source='script'] [data-hook='player-container'] {
+  [data-playable-focus-source='key'] [data-playable-hook='player-container'],
+  [data-playable-focus-source='script'] [data-playable-hook='player-container'] {
     button.focus-within,
     input.focus-within,
     img.focus-within {

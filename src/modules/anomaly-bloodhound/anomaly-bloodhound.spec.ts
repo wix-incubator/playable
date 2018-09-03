@@ -15,11 +15,7 @@ describe('AnomalyBloodhound', () => {
   let eventEmitter: any;
   let engine: any;
   const callback = sinon.spy();
-  const config = {
-    anomalyBloodhound: {
-      callback,
-    },
-  };
+  const config = {};
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
@@ -31,8 +27,8 @@ describe('AnomalyBloodhound', () => {
     anomalyBloodhound = new AnomalyBloodhound({
       eventEmitter,
       engine,
-      config,
     });
+    anomalyBloodhound.setAnomalyCallback(callback);
   });
 
   afterEach(() => {
@@ -51,7 +47,7 @@ describe('AnomalyBloodhound', () => {
     describe('for LOAD_STARTED', () => {
       it('should not schedule report if preload is not available and autoPlay is false', () => {
         engine.setPreload('none');
-        engine.setAutoPlay(false);
+        engine.setAutoplay(false);
         anomalyBloodhound._processStateChange({
           nextState: EngineState.LOAD_STARTED,
         });
@@ -64,7 +60,7 @@ describe('AnomalyBloodhound', () => {
       });
 
       it('should not schedule report if preload is autoPlay is true', () => {
-        engine.setAutoPlay(true);
+        engine.setAutoplay(true);
         anomalyBloodhound._processStateChange({
           nextState: EngineState.LOAD_STARTED,
         });

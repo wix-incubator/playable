@@ -1,13 +1,13 @@
 <div class="${props.styles.debugPanel}">
   <div
     class="${props.styles.closeButton}"
-    data-hook="debug-panel-close-button"
+    data-playable-hook="debug-panel-close-button"
     >
     x
   </div>
   <pre
     class="${props.styles.infoContainer}"
-    data-hook="debug-panel-info-container"
+    data-playable-hook="debug-panel-info-container"
     >
   </pre>
 </div>

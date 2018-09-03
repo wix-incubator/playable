@@ -42,13 +42,13 @@ export default class Subtitles implements ISubtitles {
     eventEmitter: IEventEmitter;
   }) {
     this._eventEmitter = eventEmitter;
-    this._video = engine.getNode();
+    this._video = engine.getElement();
 
     this._initUI();
     this._bindCallbacks();
     this._bindEvents();
 
-    rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentElement(this.getElement());
   }
 
   @playerAPI()
@@ -117,13 +117,13 @@ export default class Subtitles implements ISubtitles {
   @playerAPI()
   removeSubtitles(): void {
     this._clearActiveSubtitle();
-    const subtitleTracks: NodeList = this._video.querySelectorAll(
-      'track[kind="subtitles"]',
-    );
+    const subtitleTracks: NodeListOf<
+      HTMLTrackElement
+    > = this._video.querySelectorAll('track[kind="subtitles"]');
 
     Array.prototype.forEach.call(
       subtitleTracks,
-      (trackNode: HTMLTrackElement) => this._video.removeChild(trackNode),
+      (trackElement: HTMLTrackElement) => this._video.removeChild(trackElement),
     );
 
     this._trackList = [];
@@ -160,8 +160,8 @@ export default class Subtitles implements ISubtitles {
     this._activeSubtitleIndex = index;
   }
 
-  get node(): HTMLElement {
-    return this.view.getNode();
+  getElement(): HTMLElement {
+    return this.view.getElement();
   }
 
   private _initUI(): void {
@@ -175,16 +175,8 @@ export default class Subtitles implements ISubtitles {
   private _bindEvents(): void {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [
-          UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED,
-          this.view.moveSubtitlesUp,
-          this.view,
-        ],
-        [
-          UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED,
-          this.view.moveSubtitlesDown,
-          this.view,
-        ],
+        [UI_EVENTS.MAIN_BLOCK_SHOW, this.view.moveSubtitlesUp, this.view],
+        [UI_EVENTS.MAIN_BLOCK_HIDE, this.view.moveSubtitlesDown, this.view],
       ],
       this,
     );

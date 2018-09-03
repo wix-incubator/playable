@@ -11,14 +11,13 @@ import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip/types';
 import { ILogoControl, ILogoViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
-import { IPlayerConfig } from '../../../../core/config';
 import { IThemeService } from '../../core/theme';
 
 export default class Logo implements ILogoControl {
   static moduleName = 'logo';
   static View = View;
+
   static dependencies = [
-    'config',
     'eventEmitter',
     'textMap',
     'tooltipService',
@@ -39,13 +38,11 @@ export default class Logo implements ILogoControl {
 
   constructor({
     eventEmitter,
-    config,
     textMap,
     tooltipService,
     theme,
   }: {
     eventEmitter: IEventEmitter;
-    config: IPlayerConfig;
     textMap: ITextMap;
     tooltipService: ITooltipService;
     theme: IThemeService;
@@ -59,17 +56,10 @@ export default class Logo implements ILogoControl {
 
     this._initUI();
     this._initInterceptor();
-
-    const logoConfig = {
-      ...(typeof config.logo === 'object' ? config.logo : {}),
-    };
-
-    this.setLogo(logoConfig.src);
-    this.setLogoClickCallback(logoConfig.callback);
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
@@ -90,7 +80,7 @@ export default class Logo implements ILogoControl {
   }
 
   private _initInterceptor() {
-    this._interceptor = new KeyboardInterceptor(this.node, {
+    this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
         this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);

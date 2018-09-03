@@ -18,7 +18,7 @@ import { ITextMap } from '../../../text-map/types';
 import playViewTheme from './play.theme';
 import styles from './play.scss';
 
-const DATA_IS_PLAYING = 'data-is-playing';
+const DATA_IS_PLAYING = 'data-playable-is-playing';
 
 class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
   private _callbacks: IPlayViewCallbacks;
@@ -49,7 +49,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
       'playback-control',
     );
 
-    this.setState({ isPlaying: false });
+    this.setPlayingState(false);
     this._bindEvents();
   }
 
@@ -68,7 +68,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
     this._callbacks.onButtonClick();
   }
 
-  setState({ isPlaying }: { isPlaying: boolean }) {
+  setPlayingState(isPlaying: boolean) {
     if (isPlaying) {
       this._$playbackControl.classList.remove(this.styleNames.paused);
       this._$playbackControl.innerHTML = pauseIconTemplate({
@@ -102,7 +102,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
     this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

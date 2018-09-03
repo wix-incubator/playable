@@ -124,8 +124,8 @@ describe('FullScreenManager', () => {
     });
   });
 
-  describe('enable status', () => {
-    it('should be based on helper status and config', () => {
+  describe('enable state', () => {
+    it('should be based on helper state and config', () => {
       expect(fullScreenManager.isEnabled).to.be.true;
       mockedFullscreenHelper.isEnabled = false;
       expect(fullScreenManager.isEnabled).to.be.false;
@@ -138,8 +138,8 @@ describe('FullScreenManager', () => {
     });
   });
 
-  describe('full screen status', () => {
-    it('should return status of helper', () => {
+  describe('full screen state', () => {
+    it('should return state of helper', () => {
       mockedFullscreenHelper.isInFullScreen = true;
       expect(fullScreenManager.isInFullScreen).to.be.true;
     });
@@ -185,7 +185,7 @@ describe('FullScreenManager', () => {
       fullScreenManager._onChange();
       expect(
         spy.calledWith(
-          UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+          UI_EVENTS.FULL_SCREEN_STATE_CHANGED,
           mockedFullscreenHelper.isInFullScreen,
         ),
       ).to.be.true;
@@ -209,11 +209,11 @@ describe('FullScreenManager', () => {
     it('should enter full screen if proper config passed', () => {
       const spy = sinon.spy(fullScreenManager, 'enterFullScreen');
 
-      eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
+      eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
 
       fullScreenManager._enterFullScreenOnPlay = true;
       mockedFullscreenHelper.isInFullScreen = false;
-      eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED);
+      eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
       expect(spy.calledOnce).to.be.true;
 
       fullScreenManager.enterFullScreen.restore();

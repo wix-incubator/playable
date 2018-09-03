@@ -44,15 +44,15 @@ export default class Loader {
     this._bindEvents();
     this._hideContent();
 
-    rootContainer.appendComponentNode(this.node);
+    rootContainer.appendComponentElement(this.getElement());
 
-    if (config.loader === false) {
+    if (config.hideMainUI) {
       this.hide();
     }
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindCallbacks() {
@@ -108,7 +108,7 @@ export default class Loader {
 
   private _showContent() {
     if (this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADER_SHOW_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.LOADER_SHOW);
       this.view.showContent();
       this.isHidden = false;
     }
@@ -116,7 +116,7 @@ export default class Loader {
 
   private _hideContent() {
     if (!this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADER_HIDE_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.LOADER_HIDE);
       this.view.hideContent();
       this.isHidden = true;
     }

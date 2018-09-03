@@ -20,7 +20,7 @@ type IDownloadViewConfig = {
 };
 
 interface IDownloadButton {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   setDownloadClickCallback(callback: Function): void;
 

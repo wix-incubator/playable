@@ -52,13 +52,12 @@ export default class FullScreenManager implements IFullScreenManager {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
 
-    if (config.fullScreen === false) {
+    if (config.disableFullScreen) {
       this._isEnabled = false;
     } else {
       this._isEnabled = true;
       const _config: IFullScreenConfig = {
         ...DEFAULT_CONFIG,
-        ...(typeof config.fullScreen === 'object' ? config.fullScreen : {}),
       };
 
       this._exitFullScreenOnEnd = _config.exitFullScreenOnEnd;
@@ -69,9 +68,15 @@ export default class FullScreenManager implements IFullScreenManager {
     this._onChange = this._onChange.bind(this);
 
     if (isIOS()) {
-      this._helper = new IOSFullScreen(this._engine.getNode(), this._onChange);
+      this._helper = new IOSFullScreen(
+        this._engine.getElement(),
+        this._onChange,
+      );
     } else {
-      this._helper = new DesktopFullScreen(rootContainer.node, this._onChange);
+      this._helper = new DesktopFullScreen(
+        rootContainer.getElement(),
+        this._onChange,
+      );
     }
 
     this._bindEvents();
@@ -82,7 +87,7 @@ export default class FullScreenManager implements IFullScreenManager {
       this._engine.pause();
     }
     this._eventEmitter.emit(
-      UI_EVENTS.FULLSCREEN_STATUS_CHANGED,
+      UI_EVENTS.FULL_SCREEN_STATE_CHANGED,
       this._helper.isInFullScreen,
     );
   }
@@ -91,7 +96,7 @@ export default class FullScreenManager implements IFullScreenManager {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
         [VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine],
-        [VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED, this._enterOnPlayRequested],
+        [VIDEO_EVENTS.PLAY_REQUEST, this._enterOnPlayRequested],
       ],
       this,
     );

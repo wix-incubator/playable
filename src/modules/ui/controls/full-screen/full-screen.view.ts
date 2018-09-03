@@ -24,8 +24,6 @@ import {
 import fullScreenViewTheme from './full-screen.theme';
 import styles from './full-screen.scss';
 
-const DATA_IS_IN_FULL_SCREEN = 'data-is-in-full-screen';
-
 class FullScreenView extends View<IFullScreenViewStyles>
   implements IView<IFullScreenViewStyles> {
   private _callbacks: IFullScreenViewCallbacks;
@@ -64,7 +62,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
       },
     );
 
-    this.setState({ isInFullScreen: false });
+    this.setFullScreenState(false);
     this._bindEvents();
   }
 
@@ -90,7 +88,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
   }
 
   //TODO: No need to create icons every tims on setState
-  setState({ isInFullScreen }: { isInFullScreen: boolean }) {
+  setFullScreenState(isInFullScreen: boolean) {
     if (isInFullScreen) {
       this._$toggleFullScreenControl.classList.add(
         this.styleNames.inFullScreen,
@@ -124,11 +122,6 @@ class FullScreenView extends View<IFullScreenViewStyles>
         this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
       );
     }
-
-    this._$rootElement.setAttribute(
-      DATA_IS_IN_FULL_SCREEN,
-      String(isInFullScreen),
-    );
   }
 
   hide() {
@@ -139,7 +132,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

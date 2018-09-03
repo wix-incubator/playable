@@ -12,13 +12,13 @@ function calcTooltipCenterX(
   return tooltipReferenceOffsetX + tooltipReferenceWidth / 2;
 }
 
-function getTooltipPositionByReferenceNode(
-  tooltipReferenceNode: HTMLElement,
-  tooltipContainerNode: HTMLElement,
+function getTooltipPositionByReferenceElement(
+  tooltipReferenceElement: HTMLElement,
+  tooltipContainerElement: HTMLElement,
   tooltipCenterXfn: ITooltipCenterXfn = calcTooltipCenterX,
 ): ITooltipPosition {
-  const tooltipReferenceRect = tooltipReferenceNode.getBoundingClientRect();
-  const tooltipContainerRect = tooltipContainerNode.getBoundingClientRect();
+  const tooltipReferenceRect = tooltipReferenceElement.getBoundingClientRect();
+  const tooltipContainerRect = tooltipContainerElement.getBoundingClientRect();
 
   const tooltipPlacement =
     tooltipReferenceRect.top > tooltipContainerRect.top
@@ -34,4 +34,4 @@ function getTooltipPositionByReferenceNode(
   return { placement: tooltipPlacement, x: tooltipCenterX };
 }
 
-export default getTooltipPositionByReferenceNode;
+export default getTooltipPositionByReferenceElement;

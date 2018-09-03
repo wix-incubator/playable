@@ -9,9 +9,9 @@ import { IEventEmitter, IEventMap } from '../event-emitter/types';
 import { ILiveStateEngineDependencies, IPlaybackEngine } from './types';
 
 const SEEK_BY_UI_EVENTS = [
-  UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED,
-  UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED,
-  UI_EVENTS.PROGRESS_CHANGE_TRIGGERED,
+  UI_EVENTS.GO_FORWARD_WITH_KEYBOARD,
+  UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD,
+  UI_EVENTS.PROGRESS_CHANGE,
 ];
 
 class LiveStateEngine {

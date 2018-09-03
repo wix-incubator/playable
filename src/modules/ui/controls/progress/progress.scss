@@ -253,8 +253,8 @@ $color-sync-pointer-background: #ea492e;
 }
 
 :global {
-  [data-focus-source='key'] [data-hook='progress-control'].focus-within,
-  [data-focus-source='script'] [data-hook='progress-control'].focus-within {
+  [data-playable-focus-source='key'] [data-playable-hook='progress-control'].focus-within,
+  [data-playable-focus-source='script'] [data-playable-hook='progress-control'].focus-within {
     opacity: 1;
     box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
   }

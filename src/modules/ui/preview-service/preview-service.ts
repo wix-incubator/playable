@@ -31,7 +31,7 @@ export default class PreviewService implements IPreviewService {
       return;
     }
 
-    const duration = this._engine.getDurationTime();
+    const duration = this._engine.getDuration();
     if (!duration) {
       return;
     }
@@ -40,6 +40,7 @@ export default class PreviewService implements IPreviewService {
   }
 
   destroy(): void {
+    this._framesMap = null;
     this._engine = null;
   }
 }

@@ -14,15 +14,10 @@ type IOverlayViewCallbacks = {
 type IOverlayViewConfig = {
   callbacks: IOverlayViewCallbacks;
   theme: IThemeService;
-  src: string;
 };
 
-interface IOverlayConfig {
-  poster?: string;
-}
-
 interface IOverlay {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   show(): void;
   hide(): void;
@@ -34,7 +29,6 @@ interface IOverlay {
 
 export {
   IOverlay,
-  IOverlayConfig,
   IOverlayViewStyles,
   IOverlayViewCallbacks,
   IOverlayViewConfig,

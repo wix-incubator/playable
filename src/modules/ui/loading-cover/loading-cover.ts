@@ -7,7 +7,6 @@ import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IBottomBlock } from '../bottom-block/types';
 import { ILoadingCover } from './types';
-import { IPlayerConfig } from '../../../core/config';
 import { IRootContainer } from '../../root-container/types';
 
 export default class LoadingCover implements ILoadingCover {
@@ -16,7 +15,6 @@ export default class LoadingCover implements ILoadingCover {
   static dependencies = [
     'engine',
     'eventEmitter',
-    'config',
     'bottomBlock',
     'rootContainer',
   ];
@@ -24,7 +22,6 @@ export default class LoadingCover implements ILoadingCover {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
   private _bottomBlock: IBottomBlock;
-  private _url: string;
 
   private _unbindEvents: Function;
 
@@ -32,13 +29,11 @@ export default class LoadingCover implements ILoadingCover {
   isHidden: boolean;
 
   constructor({
-    config,
     eventEmitter,
     engine,
     bottomBlock,
     rootContainer,
   }: {
-    config: IPlayerConfig;
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
     bottomBlock: IBottomBlock;
@@ -48,23 +43,19 @@ export default class LoadingCover implements ILoadingCover {
     this.isHidden = false;
     this._engine = engine;
     this._bottomBlock = bottomBlock;
-    this._url = config.loadingCover;
 
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
 
     this._initUI();
-    this.hide();
     this._bindEvents();
 
-    if (config.loadingCover && typeof config.loadingCover === 'string') {
-      this._url = config.loadingCover;
-      rootContainer.appendComponentNode(this.node);
-    }
+    rootContainer.appendComponentElement(this.getElement());
+    this.hide();
   }
 
-  get node() {
-    return this.view.getNode();
+  getElement() {
+    return this.view.getElement();
   }
 
   private _bindEvents() {
@@ -100,14 +91,12 @@ export default class LoadingCover implements ILoadingCover {
   }
 
   private _initUI() {
-    this.view = new View({
-      url: this._url,
-    });
+    this.view = new View();
   }
 
   hide() {
     if (!this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_HIDE_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_HIDE);
       this.view.hide();
       this.isHidden = true;
     }
@@ -116,7 +105,7 @@ export default class LoadingCover implements ILoadingCover {
   show() {
     if (this.isHidden) {
       this._bottomBlock.hideContent();
-      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED);
+      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_SHOW);
       this.view.show();
       this.isHidden = false;
     }

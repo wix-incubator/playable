@@ -17,7 +17,7 @@ type ITopBlockViewConfig = {
 };
 
 interface ITopBlock {
-  node: HTMLElement;
+  getElement(): HTMLElement;
 
   show(): void;
   hide(): void;

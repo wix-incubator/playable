@@ -19,14 +19,9 @@ type IScreenViewCallbacks = {
 
 type IScreenViewConfig = {
   callbacks: IScreenViewCallbacks;
-  playbackViewNode: HTMLElement;
+  playbackViewElement: HTMLElement;
   nativeControls: boolean;
 };
-
-interface IScreenConfig {
-  disableClickProcessing?: boolean;
-  nativeControls?: boolean;
-}
 
 enum VideoViewMode {
   REGULAR = 'REGULAR',
@@ -35,7 +30,7 @@ enum VideoViewMode {
 }
 
 interface IScreen {
-  node: HTMLElement;
+  getElement(): HTMLElement;
   showCursor(): void;
   hideCursor(): void;
 
@@ -50,7 +45,6 @@ interface IScreen {
 export {
   IScreen,
   VideoViewMode,
-  IScreenConfig,
   IScreenViewStyles,
   IScreenViewCallbacks,
   IScreenViewConfig,

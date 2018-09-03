@@ -81,7 +81,7 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
     );
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 

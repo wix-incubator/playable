@@ -1,5 +1,5 @@
 <div class="${props.styles.container}">
   <div class="${props.styles.frame}"
-       data-hook="playable-preview-full-size-frame" >
+       data-playable-hook="preview-full-size-frame" >
   </div>
 </div>

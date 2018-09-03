@@ -120,18 +120,18 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
   }
 
   private _bindCallbacks() {
-    this._onNodeClick = this._onNodeClick.bind(this);
+    this._onClick = this._onClick.bind(this);
   }
 
   private _bindEvents() {
-    this._$rootElement.addEventListener('click', this._onNodeClick);
+    this._$rootElement.addEventListener('click', this._onClick);
   }
 
   private _unbindEvents() {
-    this._$rootElement.removeEventListener('click', this._onNodeClick);
+    this._$rootElement.removeEventListener('click', this._onClick);
   }
 
-  private _onNodeClick() {
+  private _onClick() {
     this._$rootElement.focus();
     this._callbacks.onLogoClick();
   }
@@ -144,7 +144,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
-  getNode() {
+  getElement() {
     return this._$rootElement;
   }
 
