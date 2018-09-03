@@ -4,8 +4,8 @@ const UI_EVENTS = {
   PAUSE_CLICK: 'ui-events/pause-click',
 
   PROGRESS_CHANGE: 'ui-events/progress-change',
-  PROGRESS_DRAG_STARTED: 'ui-events/progress-manipulation-started',
-  PROGRESS_DRAG_ENDED: 'ui-events/progress-manipulation-ended',
+  PROGRESS_DRAG_STARTED: 'ui-events/progress-drag-started',
+  PROGRESS_DRAG_ENDED: 'ui-events/progress-drag-ended',
   PROGRESS_SYNC_BUTTON_MOUSE_ENTER:
     'ui-events/progress-sync-button-mouse-enter',
   PROGRESS_SYNC_BUTTON_MOUSE_LEAVE:

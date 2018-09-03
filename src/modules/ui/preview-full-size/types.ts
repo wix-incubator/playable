@@ -7,4 +7,10 @@ interface IPreviewFullSize {
   destroy(): void;
 }
 
-export { IPreviewFullSize };
+interface IPreviewFullSizeViewStyles {
+  container: string;
+  frame: string;
+  hidden: string;
+}
+
+export { IPreviewFullSizeViewStyles, IPreviewFullSize };

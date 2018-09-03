@@ -7,4 +7,12 @@ interface IPreviewThumbnail {
   destroy(): void;
 }
 
-export { IPreviewThumbnail };
+interface IPreviewThumbnailViewStyles {
+  container: string;
+  highQualityFrame: string;
+  lowQualityFrame: string;
+  thumbText: string;
+  empty: string;
+}
+
+export { IPreviewThumbnailViewStyles, IPreviewThumbnail };
