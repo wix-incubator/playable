@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link rel="preload" href="/playable/component---src-layouts-index-js-31a47a78fcde81598082.js" as="script"/><link rel="preload" href="/playable/component---src-templates-md-js-79143fd886bb295af1fb.js" as="script"/><link rel="preload" href="/playable/path---events-2559a9ef93b7fb32e8f1.js" as="script"/><link rel="preload" href="/playable/app-5596f97a9a360d075a1c.js" as="script"/><link rel="preload" href="/playable/commons-2f1625090ca13753dcdb.js" as="script"/><title data-react-helmet="true">playable</title><style type="text/css">
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link rel="preload" href="/playable/component---src-layouts-index-js-ebfff135f03ef8ce13d3.js" as="script"/><link rel="preload" href="/playable/component---src-templates-md-js-1b010973c6fc6c73d2d2.js" as="script"/><link rel="preload" href="/playable/path---events-1d1e11ccaa4aed371de7.js" as="script"/><link rel="preload" href="/playable/app-aa494a57b728c1b27184.js" as="script"/><link rel="preload" href="/playable/commons-38639b561c79574ce721.js" as="script"/><title data-react-helmet="true">playable</title><style type="text/css">
     .anchor {
       float: left;
       padding-right: 4px;
@@ -56,7 +56,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>Add new event listeners</p>
 </blockquote>
 <div class="gatsby-highlight">
-      <pre class="language-javascript"><code class="language-javascript">player<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>Playable<span class="token punctuation">.</span><span class="token constant">UI_EVENTS</span><span class="token punctuation">.</span><span class="token constant">PLAY_TRIGGERED</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <pre class="language-javascript"><code class="language-javascript">player<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>Playable<span class="token punctuation">.</span><span class="token constant">UI_EVENTS</span><span class="token punctuation">.</span><span class="token constant">PLAY_CLICK</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
   <span class="token comment">// Will be executed after you will click on play button</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -73,65 +73,72 @@ player<span class="token punctuation">.</span><span class="token function">on</s
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
 <span class="token comment">// ... Now callback will be called when some one will pause the video ...</span>
-player<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>Playable<span class="token punctuation">.</span><span class="token constant">UI_EVENTS</span><span class="token punctuation">.</span><span class="token constant">PAUSE_TRIGGERED</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+player<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>Playable<span class="token punctuation">.</span><span class="token constant">UI_EVENTS</span><span class="token punctuation">.</span><span class="token constant">PAUSE_CLICK</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment">// ... callback will no longer be called.</span>
-player<span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span>Playable<span class="token punctuation">.</span><span class="token constant">UI_EVENTS</span><span class="token punctuation">.</span><span class="token constant">PAUSE_TRIGGERED</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+player<span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span>Playable<span class="token punctuation">.</span><span class="token constant">UI_EVENTS</span><span class="token punctuation">.</span><span class="token constant">PAUSE_CLICK</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment">// ... remove all handlers for event UI_EVENTS.PAUSE_TRIGGERED.</span>
-player<span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span>Playable<span class="token punctuation">.</span><span class="token constant">UI_EVENTS</span><span class="token punctuation">.</span><span class="token constant">PAUSE_TRIGGERED</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token comment">// ... remove all handlers for event UI_EVENTS.PAUSE_CLICK.</span>
+player<span class="token punctuation">.</span><span class="token function">off</span><span class="token punctuation">(</span>Playable<span class="token punctuation">.</span><span class="token constant">UI_EVENTS</span><span class="token punctuation">.</span><span class="token constant">PAUSE_CLICK</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
       </div>
 <p>You can create listeners for events triggered by the video player, using <a href="/playable/api#on">on</a> method. To remove a listener, use <a href="/playable/api#off">off</a>.</p>
 <p>Below you can see the events that can be passed as eventName.</p><h3 id="video-events"><a href="#video-events" aria-hidden="true" class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Video Events</h3>
-<p><code class="language-text">VIDEO_EVENTS.ERROR</code> - Error occured. You can check all errors <a href="#errors">below</a>.</p>
-<p><code class="language-text">VIDEO_EVENTS.STATE_CHANGED</code> - Playback state changed. You can check all states <a href="#playback-states">below</a>.</p>
-<p><code class="language-text">VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED</code> - Live stream ended. Use <code class="language-text">VIDEO_EVENTS.LIVE_STATE_CHANGED</code> for more live states.</p>
-<p><code class="language-text">VIDEO_EVENTS.LIVE_STATE_CHANGED</code> - Live video state changed. You can check all states <a href="#live-states">below</a>.</p>
+<p><code class="language-text">VIDEO_EVENTS.ERROR</code> - Error occured. You can check all errors <a href="#errors">below</a>.<br/></p>
+<p><code class="language-text">VIDEO_EVENTS.STATE_CHANGED</code> - Playback state changed. You can check all states <a href="#playback-states">below</a>.<br/>
+<code class="language-text">VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED</code> - Live stream ended. Use <code class="language-text">VIDEO_EVENTS.LIVE_STATE_CHANGED</code> for more live states.<br/>
+<code class="language-text">VIDEO_EVENTS.LIVE_STATE_CHANGED</code> - Live video state changed. You can check all states <a href="#live-states">below</a>.<br/></p>
 <p><code class="language-text">VIDEO_EVENTS.CHUNK_LOADED</code> - Chunk of video loaded.</p>
-<p><code class="language-text">VIDEO_EVENTS.CURRENT_TIME_UPDATED</code> - Updated current time of playback.</p>
-<p><code class="language-text">VIDEO_EVENTS.DURATION_UPDATED</code> - Duration of video updated.</p>
-<p><code class="language-text">VIDEO_EVENTS.VOLUME_CHANGED</code> - Volume changed.</p>
-<p><code class="language-text">VIDEO_EVENTS.MUTE_CHANGED</code> - Video muted or unmuted.</p>
-<p><code class="language-text">VIDEO_EVENTS.VOLUME_STATUS_CHANGED</code> - Volume status changed. It will emit on both volume changes or muted\unmute. For internal use</p>
-<p><code class="language-text">VIDEO_EVENTS.UPLOAD_STALLED</code> - Upload stalled for some reason.</p>
-<p><code class="language-text">VIDEO_EVENTS.UPLOAD_SUSPEND</code> - Upload suspended for some reason.</p>
-<p><code class="language-text">VIDEO_EVENTS.PLAY_REQUEST_TRIGGERED</code> - Player was requested for play.</p>
-<p><code class="language-text">VIDEO_EVENTS.PLAY_ABORTED</code> - Player aborted play request.</p><h3 id="ui-events"><a href="#ui-events" aria-hidden="true" class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UI Events</h3>
-<p><code class="language-text">UI_EVENTS.PLAY_TRIGGERED</code> - User triggered play via play control.</p>
-<p><code class="language-text">UI_EVENTS.PLAY_OVERLAY_TRIGGERED</code> - User triggered play via overlay.</p>
-<p><code class="language-text">UI_EVENTS.PAUSE_TRIGGERED</code> - User triggered pause.</p>
-<p><code class="language-text">UI_EVENTS.PROGRESS_CHANGE_TRIGGERED</code> - User changed current time of playback.</p>
-<p><code class="language-text">UI_EVENTS.VOLUME_CHANGE_TRIGGERED</code> - User changed volume.</p>
-<p><code class="language-text">UI_EVENTS.MUTE_STATUS_TRIGGERED</code> - User changed mute status.</p>
-<p><code class="language-text">UI_EVENTS.FULLSCREEN_STATUS_CHANGED</code> - User changed fullscreen state.</p>
-<p><code class="language-text">UI_EVENTS.MOUSE_ENTER_ON_PLAYER_TRIGGERED</code> - Mouse entered player boundaries.</p>
-<p><code class="language-text">UI_EVENTS.MOUSE_MOVE_ON_PLAYER_TRIGGERED</code> - Mouse moved in player boundaries.</p>
-<p><code class="language-text">UI_EVENTS.MOUSE_LEAVE_ON_PLAYER_TRIGGERED</code> - Mouse left player boundaries.</p>
-<p><code class="language-text">UI_EVENTS.CONTROL_BLOCK_HIDE_TRIGGERED</code> - Controls disappeared.</p>
-<p><code class="language-text">UI_EVENTS.CONTROL_BLOCK_SHOW_TRIGGERED</code> - Controls appeared.</p>
-<p><code class="language-text">UI_EVENTS.PROGRESS_MANIPULATION_STARTED</code> - User&#x27;s manipulation with progress bar started.</p>
-<p><code class="language-text">UI_EVENTS.PROGRESS_MANIPULATION_ENDED</code> - User&#x27;s manipulation with progress bar finished.</p>
-<p><code class="language-text">UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED</code> - User pressed keyboard button on player.</p>
-<p><code class="language-text">UI_EVENTS.LOADER_SHOW_TRIGGERED</code> - Loader appeared.</p>
-<p><code class="language-text">UI_EVENTS.LOADER_HIDE_TRIGGERED</code> - Loader disappeared.</p>
-<p><code class="language-text">UI_EVENTS.LOADING_COVER_SHOW_TRIGGERED</code> - Loading cover appeared.</p>
-<p><code class="language-text">UI_EVENTS.LOADING_COVER_HIDE_TRIGGERED</code> - Loading cover disappeared.</p>
-<p><code class="language-text">UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD_TRIGGERED</code> - Playback toggled via keyboard.</p>
-<p><code class="language-text">UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD_TRIGGERED</code> - Go backward in playback triggered via keyboard.</p>
-<p><code class="language-text">UI_EVENTS.GO_FORWARD_WITH_KEYBOARD_TRIGGERED</code> - Go forward in playback triggered via keyboard.</p>
-<p><code class="language-text">UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD_TRIGGERED</code> - Volume increased via keyboard.</p>
-<p><code class="language-text">UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD_TRIGGERED</code> - Volume decreased via keyboard.</p>
-<p><code class="language-text">UI_EVENTS.MUTE_SOUND_WITH_KEYBOARD_TRIGGERED</code> - Sound muted via keyboard.</p>
-<p><code class="language-text">UI_EVENTS.UNMUTE_SOUND_WITH_KEYBOARD_TRIGGERED</code> - Soune unmuted via keyobard.</p>
-<p><code class="language-text">UI_EVENTS.HIDE_INTERACTION_INDICATOR_TRIGGERED</code> - Interaction indicator disappeared.</p>
-<p><code class="language-text">UI_EVENTS.PLAYER_WIDTH_CHANGE_TRIGGERED</code> - Player width changed.</p>
-<p><code class="language-text">UI_EVENTS.PLAYER_HEIGHT_CHANGE_TRIGGERED</code> - Player height changed.</p>
-<p><code class="language-text">UI_EVENTS.PLAY_WITH_SCREEN_CLICK_TRIGGERED</code> - User triggered play via click on screen.</p>
-<p><code class="language-text">UI_EVENTS.PAUSE_WITH_SCREEN_CLICK_TRIGGERED</code> - Uset triggered pause via click on screen.</p>
-<p><code class="language-text">UI_EVENTS.CONTROL_DRAG_START</code> - User started drag control.</p>
-<p><code class="language-text">UI_EVENTS.CONTROL_DRAG_END</code> - Uset ended drag control.</p>
-<p><code class="language-text">UI_EVENTS.MAIN_BLOCK_HIDE_TRIGGERED</code> - Main UI block disappeared.</p>
-<p><code class="language-text">UI_EVENTS.MAIN_BLOCK_SHOW_TRIGGERED</code> - Main UI block appeared.</p><h3 id="errors"><a href="#errors" aria-hidden="true" class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Errors</h3>
+<p><code class="language-text">VIDEO_EVENTS.CURRENT_TIME_UPDATED</code> - Updated current time of playback.<br/>
+<code class="language-text">VIDEO_EVENTS.DURATION_UPDATED</code> - Duration of video updated.<br/></p>
+<p><code class="language-text">VIDEO_EVENTS.VOLUME_CHANGED</code> - Volume changed.<br/>
+<code class="language-text">VIDEO_EVENTS.MUTE_CHANGED</code> - Video muted or unmuted.<br/>
+<code class="language-text">VIDEO_EVENTS.SOUND_STATE_CHANGED</code> - Sound state changed. It will emit on both volume changes or muted\unmute.<br/></p>
+<p><code class="language-text">VIDEO_EVENTS.SEEK_IN_PROGRESS</code> - Triggers when video tag processing seek.<br/></p>
+<p><code class="language-text">VIDEO_EVENTS.UPLOAD_STALLED</code> - Upload stalled for some reason.<br/>
+<code class="language-text">VIDEO_EVENTS.UPLOAD_SUSPEND</code> - Upload suspended for some reason.<br/></p>
+<p><code class="language-text">VIDEO_EVENTS.PLAY_REQUEST</code> - Player was requested for play.<br/>
+<code class="language-text">VIDEO_EVENTS.PLAY_ABORTED</code> - Player aborted play request.<br/>
+<code class="language-text">VIDEO_EVENTS.RESET</code> - Triggers when player reseting playback.<br/></p><h3 id="ui-events"><a href="#ui-events" aria-hidden="true" class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>UI Events</h3>
+<p><code class="language-text">UI_EVENTS.PLAY_CLICK</code> - User click on play control.<br/>
+<code class="language-text">UI_EVENTS.PLAY_OVERLAY_CLICK</code> - User click on overlay play button.<br/>
+<code class="language-text">UI_EVENTS.PAUSE_CLICK</code> - User triggered pause.<br/></p>
+<p><code class="language-text">UI_EVENTS.PROGRESS_CHANGE</code> - User changed current time of playback.<br/>
+<code class="language-text">UI_EVENTS.PROGRESS_DRAG_STARTED</code> - User&#x27;s drag on progress bar started.<br/>
+<code class="language-text">UI_EVENTS.PROGRESS_DRAG_ENDED</code> - User&#x27;s drag on progress bar finished.<br/>
+<code class="language-text">UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER</code> - Mouse entered boundaries of progress bar&#x27;s sync with live button.<br/>
+<code class="language-text">UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE</code> - Mouse left boundaries of  progress bar&#x27;s sync with live button.<br/>
+<code class="language-text">UI_EVENTS.PROGRESS_USER_PREVIEWING_FRAME</code> - User previewing frames on progress bar.<br/></p>
+<p><code class="language-text">UI_EVENTS.VOLUME_CHANGE</code> - User changed volume with volume control.<br/>
+<code class="language-text">UI_EVENTS.MUTE_CLICK</code> - User clicks on mute button.<br/>
+<code class="language-text">UI_EVENTS.UNMUTE_CLICK</code> - User clicks on unmute button.<br/></p>
+<p><code class="language-text">UI_EVENTS.ENTER_FULL_SCREEN_CLICK</code> - User clicks on enter full screen button.<br/>
+<code class="language-text">UI_EVENTS.EXIT_FULL_SCREEN_CLICK</code> -  User clicks on exit full screen button.<br/></p>
+<p><code class="language-text">UI_EVENTS.MOUSE_ENTER_ON_PLAYER</code> - Mouse entered player boundaries.<br/>
+<code class="language-text">UI_EVENTS.MOUSE_MOVE_ON_PLAYER</code> - Mouse moved in player boundaries.<br/>
+<code class="language-text">UI_EVENTS.MOUSE_LEAVE_ON_PLAYER</code> - Mouse left player boundaries.<br/></p>
+<p><code class="language-text">UI_EVENTS.MAIN_BLOCK_SHOW</code> - Main UI block appeared.<br/>
+<code class="language-text">UI_EVENTS.MAIN_BLOCK_HIDE</code> - Main UI block disappeared.<br/></p>
+<p><code class="language-text">UI_EVENTS.LOADER_SHOW</code> - Loader appeared.<br/>
+<code class="language-text">UI_EVENTS.LOADER_HIDE</code> - Loader disappeared.<br/></p>
+<p><code class="language-text">UI_EVENTS.LOADING_COVER_SHOW</code> - Loading cover appeared.<br/>
+<code class="language-text">UI_EVENTS.LOADING_COVER_HIDE</code> - Loading cover disappeared.<br/></p>
+<p><code class="language-text">UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD</code> - Playback toggled via keyboard.<br/>
+<code class="language-text">UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD</code> - Go backward in playback triggered via keyboard.<br/>
+<code class="language-text">UI_EVENTS.GO_FORWARD_WITH_KEYBOARD</code> - Go forward in playback triggered via keyboard.<br/>
+<code class="language-text">UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD</code> - Volume increased via keyboard.<br/>
+<code class="language-text">UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD</code> - Volume decreased via keyboard.<br/>
+<code class="language-text">UI_EVENTS.MUTE_WITH_KEYBOARD</code> - Sound muted via keyboard.<br/>
+<code class="language-text">UI_EVENTS.UNMUTE_WITH_KEYBOARD</code> - Soune unmuted via keyobard.<br/>
+<code class="language-text">UI_EVENTS.HIDE_INTERACTION_INDICATOR</code> - Interaction indicator disappeared.<br/></p>
+<p><code class="language-text">UI_EVENTS.PLAY_WITH_SCREEN_CLICK</code> - User triggered play via click on screen.<br/>
+<code class="language-text">UI_EVENTS.PAUSE_WITH_SCREEN_CLICK</code> - Uset triggered pause via click on screen.<br/>
+<code class="language-text">UI_EVENTS.ENTER_FULL_SCREEN_WITH_SCREEN_CLICK</code> - User triggered enter full screen via dblclick on screen.<br/>
+<code class="language-text">UI_EVENTS.EXIT_FULL_SCREEN_WITH_SCREEN_CLICK</code> - Uset triggered exit full screen via dblclick on screen.<br/></p>
+<p><code class="language-text">UI_EVENTS.CONTROL_DRAG_START</code> - User started drag control.<br/>
+<code class="language-text">UI_EVENTS.CONTROL_DRAG_END</code> - Uset ended drag control.<br/>
+<code class="language-text">UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED</code> - User pressed keyboard button on player.<br/>
+<code class="language-text">UI_EVENTS.FULL_SCREEN_STATE_CHANGED</code> - Full screen state of player somehow changed.<br/>
+<code class="language-text">UI_EVENTS.RESIZE</code> - Triggers when size of player boundaries changed(via entering in full screen or usage of API for changins size of player).<br/></p><h3 id="errors"><a href="#errors" aria-hidden="true" class="anchor"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Errors</h3>
 <p><code class="language-text">ERRORS.MANIFEST_LOAD</code> - Cannot load manifest.</p>
 <p><code class="language-text">ERRORS.MANIFEST_PARSE</code> - Cannot parse manifest.</p>
 <p><code class="language-text">ERRORS.MANIFEST_INCOMPATIBLE</code> - Current system is not fit requirements of manifest.</p>
@@ -153,4 +160,4 @@ player<span class="token punctuation">.</span><span class="token function">off</
 <p><code class="language-text">LIVE_STATES.INITIAL</code> - Player loaded metadata and video is live stream </p>
 <p><code class="language-text">LIVE_STATES.NOT_SYNC</code> - Video is live stream but not sync with live</p>
 <p><code class="language-text">LIVE_STATES.SYNC</code> - Video is live stream and sync with live</p>
-<p><code class="language-text">LIVE_STATES.ENDED</code> - Video is live stream but stream is ended</p></div><div class="dark-box"></div></div></div><script id="webpack-manifest">/*<![CDATA[*/window.webpackManifest={"231608221292675":"app-5596f97a9a360d075a1c.js","226711296960320":"component---src-templates-md-js-79143fd886bb295af1fb.js","35783957827783":"component---src-pages-index-js-3cf75785a1c9e7378d40.js","162898551421021":"component---src-pages-404-js-4503918ea3a16cfcdb75.js","60335399758886":"path----80059e40ceaaad320d15.js","223281820251034":"path---pages-page-fix-bc03b28a957a3b12c693.js","47558472723404":"path---adapters-d0b7160c61427d156de7.js","44713349584700":"path---events-2559a9ef93b7fb32e8f1.js","43937140173235":"path---api-26ed4a945f88b6945cac.js","23086292683156":"path---player-public-methods-85354277af93d24acdd6.js","142629428675168":"path---index-1064fdfc45ee14b0a310.js","169666131887034":"path---modules-64463962c31de33483dc.js","277133125394525":"path---player-config-b02e70c5fbc900e516a0.js","21944268593445":"path---player-texts-bc9d1282014af428592b.js","206562574443322":"path---themes-614d7ceb9220350edbb9.js","77098458055955":"path---video-source-9fcbff55d4842ee93917.js","240935634812204":"path---events-live-states-15e25ab4914f159b9e94.js","171855366794056":"path---events-playback-states-67db48d50cc2fa033f89.js","254362201574736":"path---events-errors-c2d2c7129b0af9bb3f5c.js","240077835710910":"path---events-ui-events-0b6e23be26fc5951d6f1.js","191583774208335":"path---events-video-events-bee01d09680a26d83707.js","254022195166212":"path---404-a0e39f21c11f6a62c5ab.js","178698757827068":"path---404-html-a0e39f21c11f6a62c5ab.js","114276838955818":"component---src-layouts-index-js-31a47a78fcde81598082.js"}/*]]>*/</script><script src="https://unpkg.com/playable@1.10.2/dist/statics/playable.bundle.min.js"></script><script>/*<![CDATA[*/!function(e,t,r){function n(){for(;d[0]&&"loaded"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o="onreadystatechange",f="readyState";s=r.shift();)a=e.createElement(t),"async"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write("<"+t+' src="'+s+'" defer></'+t+">"),a.src=s}(document,"script",["/playable/commons-2f1625090ca13753dcdb.js","/playable/app-5596f97a9a360d075a1c.js","/playable/path---events-2559a9ef93b7fb32e8f1.js","/playable/component---src-templates-md-js-79143fd886bb295af1fb.js","/playable/component---src-layouts-index-js-31a47a78fcde81598082.js"])/*]]>*/</script></body></html>
+<p><code class="language-text">LIVE_STATES.ENDED</code> - Video is live stream but stream is ended</p></div><div class="dark-box"></div></div></div><script id="webpack-manifest">/*<![CDATA[*/window.webpackManifest={"231608221292675":"app-aa494a57b728c1b27184.js","226711296960320":"component---src-templates-md-js-1b010973c6fc6c73d2d2.js","35783957827783":"component---src-pages-index-js-9605e33e6fa52fbbb697.js","162898551421021":"component---src-pages-404-js-4503918ea3a16cfcdb75.js","60335399758886":"path----80059e40ceaaad320d15.js","223281820251034":"path---pages-page-fix-bc03b28a957a3b12c693.js","43937140173235":"path---api-1c6f70782cf8f0d0ed20.js","47558472723404":"path---adapters-d0b7160c61427d156de7.js","44713349584700":"path---events-1d1e11ccaa4aed371de7.js","142629428675168":"path---index-ac1d8e82e88c2c11181c.js","169666131887034":"path---modules-64463962c31de33483dc.js","277133125394525":"path---player-config-ac5e3b75becd9a36948a.js","23086292683156":"path---player-public-methods-bdd38d0707ee63c9fd3d.js","21944268593445":"path---player-texts-bc9d1282014af428592b.js","206562574443322":"path---themes-05b827cad04a4377886f.js","77098458055955":"path---video-source-9fcbff55d4842ee93917.js","254362201574736":"path---events-errors-c2d2c7129b0af9bb3f5c.js","240935634812204":"path---events-live-states-15e25ab4914f159b9e94.js","171855366794056":"path---events-playback-states-67db48d50cc2fa033f89.js","240077835710910":"path---events-ui-events-2a5ad0419bd1f0e6342c.js","191583774208335":"path---events-video-events-d96f561bf02ce9d9c684.js","254022195166212":"path---404-a0e39f21c11f6a62c5ab.js","178698757827068":"path---404-html-a0e39f21c11f6a62c5ab.js","114276838955818":"component---src-layouts-index-js-ebfff135f03ef8ce13d3.js"}/*]]>*/</script><script src="https://unpkg.com/playable@1.10.2/dist/statics/playable.bundle.min.js"></script><script>/*<![CDATA[*/!function(e,t,r){function n(){for(;d[0]&&"loaded"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o="onreadystatechange",f="readyState";s=r.shift();)a=e.createElement(t),"async"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write("<"+t+' src="'+s+'" defer></'+t+">"),a.src=s}(document,"script",["/playable/commons-38639b561c79574ce721.js","/playable/app-aa494a57b728c1b27184.js","/playable/path---events-1d1e11ccaa4aed371de7.js","/playable/component---src-templates-md-js-1b010973c6fc6c73d2d2.js","/playable/component---src-layouts-index-js-ebfff135f03ef8ce13d3.js"])/*]]>*/</script></body></html>
