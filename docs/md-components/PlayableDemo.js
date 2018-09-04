@@ -22,18 +22,13 @@ class PlayableDemo extends PureComponent {
   componentDidMount() {
     this.player = Playable.create({
       src: VIDEO_SRC,
-      title: {
-        text: 'Playable Demo',
-      },
-      logo: {
-        src: LOGO_SRC,
-      },
-      overlay: {
-        poster: POSTER_SRC,
-      },
+      title: 'Playable Demo',
+      poster: POSTER_SRC,
+      fillAllSpace: true,
     });
+    this.player.setLogo(LOGO_SRC);
+    this.player.showLogo();
     this.player.attachToElement(this.node);
-    this.player.setFillAllSpace(true);
   }
 
   componentWillUnmount() {
