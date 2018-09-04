@@ -86,15 +86,24 @@ $color-sync-pointer-background: #ea492e;
   }
 }
 
-.seekButton {
+.seekButtonContainer {
   position: absolute;
   z-index: 7;
   top: -$seek-pointer-height / 4;
-  left: 0;
+  left: -$seek-pointer-width / 2;
 
+  @include in-full-screen() {
+    top: -$progress-bar-height-full-screen / 2;
+    left: -$seek-pointer-width-full-screen / 2;
+
+    width: $seek-pointer-width-full-screen;
+    height: $seek-pointer-height-full-screen;
+  }
+}
+
+.seekButton {
   width: $seek-pointer-width;
   height: $seek-pointer-height;
-  margin-left: -$seek-pointer-width / 2;
 
   content: '';
   cursor: pointer;
@@ -105,12 +114,8 @@ $color-sync-pointer-background: #ea492e;
   background-color: #fff;
 
   @include in-full-screen() {
-    top: -$progress-bar-height-full-screen / 2;
-    left: 0;
-
     width: $seek-pointer-width-full-screen;
     height: $seek-pointer-height-full-screen;
-    margin-left: -$seek-pointer-width-full-screen / 2;
   }
 }
 
@@ -174,6 +179,10 @@ $color-sync-pointer-background: #ea492e;
 }
 
 .played {
+  width: 100%;
+
+  transform-origin: 0 0;
+
   background-color: $color-played;
 }
 

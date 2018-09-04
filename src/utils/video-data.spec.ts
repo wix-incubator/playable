@@ -76,13 +76,13 @@ describe('getOverallBufferedPercent', () => {
     ).to.be.equal(20);
     expect(
       getOverallBufferedPercent(buffer, currentTime1, duration2),
-    ).to.be.equal(14.3);
+    ).to.be.equal(14.29);
     expect(
       getOverallBufferedPercent(buffer, currentTime2, duration1),
     ).to.be.equal(100);
     expect(
       getOverallBufferedPercent(buffer, currentTime2, duration2),
-    ).to.be.equal(71.4);
+    ).to.be.equal(71.43);
   });
 });
 

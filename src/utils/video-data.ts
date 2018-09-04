@@ -3,7 +3,7 @@ export function getTimePercent(time: number, durationTime: number): number {
     return 0;
   }
 
-  return parseFloat((time / durationTime * 100).toFixed(1));
+  return parseFloat(((time / durationTime) * 100).toFixed(2));
 }
 
 export function getOverallBufferedPercent(

@@ -128,6 +128,7 @@ export default class ProgressControl implements IProgressControl {
         [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
         [VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator],
         [VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators],
+        [UI_EVENTS.RESIZE, this.view.updateOnResize, this.view],
       ],
       this,
     );

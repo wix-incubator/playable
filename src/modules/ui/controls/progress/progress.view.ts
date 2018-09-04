@@ -49,6 +49,7 @@ class ProgressView extends View<IProgressViewStyles>
   private _syncButtonTooltipReference: ITooltipReference;
 
   private _isDragging: boolean;
+  private _currentPlayedPercent: number;
 
   private _$rootElement: HTMLElement;
   private _$hitbox: HTMLElement;
@@ -233,10 +234,21 @@ class ProgressView extends View<IProgressViewStyles>
       'aria-valuetext',
       this._textMap.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
     );
-    this._$rootElement.setAttribute('aria-valuenow', String(percent));
-    this._$rootElement.setAttribute(DATA_PLAYED, String(percent));
-    this._$played.setAttribute('style', `width:${percent}%;`);
-    this._$seekButton.setAttribute('style', `left:${percent}%;`);
+    this._$rootElement.setAttribute('aria-valuenow', percent.toFixed(2));
+    this._$rootElement.setAttribute(DATA_PLAYED, percent.toFixed(2));
+
+    this._setPlayedDOMPosition(percent);
+  }
+
+  private _setPlayedDOMPosition(percent: number) {
+    const scaleValue = percent / 100;
+    const translateValue =
+      this._$rootElement.getBoundingClientRect().width * scaleValue;
+
+    this._$played.style.transform = `scaleX(${scaleValue.toFixed(3)})`;
+    this._$seekButton.style.transform = `translateX(${translateValue.toFixed(
+      3,
+    )}px)`;
   }
 
   private _setBufferedDOMAttributes(percent: number) {
@@ -245,6 +257,10 @@ class ProgressView extends View<IProgressViewStyles>
 
   private _syncWithLive() {
     this._callbacks.onSyncWithLiveClick();
+  }
+
+  updateOnResize() {
+    this._setPlayedDOMPosition(this._currentPlayedPercent);
   }
 
   showSyncWithLive() {
@@ -296,6 +312,7 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   setPlayed(percent: number) {
+    this._currentPlayedPercent = percent;
     this._setPlayedDOMAttributes(percent);
   }
 

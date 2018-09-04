@@ -29,7 +29,10 @@
   </div>
   <div
     data-playable-hook="progress-seek-button"
-    class="${props.styles.seekButton} ${props.themeStyles.progressSeekBtn}">
+    class="${props.styles.seekButtonContainer}">
+    <div
+      class="${props.styles.seekButton} ${props.themeStyles.progressSeekBtn}">
+    </div>
   </div>
   <div
     data-playable-hook="progress-sync-button"
