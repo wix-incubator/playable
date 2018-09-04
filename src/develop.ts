@@ -22,12 +22,14 @@ const config = {
   framesCount: 178,
   qualities: [
     {
-      spriteNameMask: 'low_rez_sprite_%d.jpg',
+      spriteUrlMask:
+        'https://storage.googleapis.com/video-player-media-server-static/thumbnails/low_rez_sprite_%d.jpg',
       frameSize: { width: 90, height: 45 },
       framesInSprite: { vert: 10, horz: 10 },
     },
     {
-      spriteNameMask: 'high_rez_sprite_%d.jpg',
+      spriteUrlMask:
+        'https://storage.googleapis.com/video-player-media-server-static/thumbnails/high_rez_sprite_%d.jpg',
       frameSize: { width: 180, height: 90 },
       framesInSprite: { vert: 5, horz: 5 },
     },

@@ -15,10 +15,7 @@ function normalizeFramesQuality(
     frameNumberInSprite / quality.framesInSprite.vert,
   );
 
-  const url = `https://storage.googleapis.com/video-player-media-server-static/thumbnails/${quality.spriteNameMask.replace(
-    '%d',
-    spriteNumber.toString(),
-  )}`;
+  const url = quality.spriteUrlMask.replace('%d', spriteNumber.toString());
 
   return {
     frameSize: quality.frameSize,

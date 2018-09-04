@@ -4,7 +4,7 @@ interface IFramesData {
 }
 
 interface IFramesQuality {
-  spriteNameMask: string;
+  spriteUrlMask: string;
   frameSize: IFrameSize;
   framesInSprite: IMaxFramesInSprite;
 }
