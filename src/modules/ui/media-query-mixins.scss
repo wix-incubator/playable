@@ -1,5 +1,5 @@
 @mixin in-full-screen() {
-  div[data-playable-hook='player-container'][data-in-full-screen='true'] & {
+  div[data-playable-hook='player-container'][data-playable-in-full-screen='true'] & {
     @content
   }
 }

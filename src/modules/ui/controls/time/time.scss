@@ -11,9 +11,11 @@
 
 .time {
   font-size: 12px;
+  line-height: 12px;
 
   @include in-full-screen() {
     font-size: 14px;
+    line-height: 14px;
   }
 }
 
