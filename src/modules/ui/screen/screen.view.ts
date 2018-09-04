@@ -24,7 +24,8 @@ class ScreenView extends View<IScreenViewStyles>
   private _$canvas: HTMLCanvasElement;
   private _$playbackElement: HTMLVideoElement;
 
-  private _widthHeightRatio: number;
+  private _isHorizontalStripes: boolean;
+
   private _requestAnimationFrameID: number;
   private _currentMode: string;
   private _styleNamesByViewMode: {
@@ -93,21 +94,6 @@ class ScreenView extends View<IScreenViewStyles>
     this._$rootElement.removeEventListener(
       'dblclick',
       this._callbacks.onWrapperMouseDblClick,
-    );
-  }
-
-  updateVideoAspectRatio(widthHeightRatio: number) {
-    this._widthHeightRatio = widthHeightRatio;
-    const isHorizontal = this._widthHeightRatio > 1;
-    toggleElementClass(
-      this._$rootElement,
-      this.styleNames.horizontalVideo,
-      isHorizontal,
-    );
-    toggleElementClass(
-      this._$rootElement,
-      this.styleNames.verticalVideo,
-      !isHorizontal,
     );
   }
 
@@ -191,17 +177,19 @@ class ScreenView extends View<IScreenViewStyles>
 
   resetAspectRatio() {
     const { videoWidth, videoHeight } = this._$playbackElement;
-    this._widthHeightRatio = videoHeight ? videoWidth / videoHeight : 0;
-    const isHorizontal = this._widthHeightRatio > 1;
+    const { width, height } = this._$rootElement.getBoundingClientRect();
+    this._isHorizontalStripes =
+      width / height < (videoHeight ? videoWidth / videoHeight : 0);
+
     toggleElementClass(
       this._$rootElement,
-      this.styleNames.horizontalVideo,
-      isHorizontal,
+      this.styleNames.horizontalStripes,
+      this._isHorizontalStripes,
     );
     toggleElementClass(
       this._$rootElement,
-      this.styleNames.verticalVideo,
-      !isHorizontal,
+      this.styleNames.verticalStripes,
+      !this._isHorizontalStripes,
     );
   }
 
@@ -212,7 +200,7 @@ class ScreenView extends View<IScreenViewStyles>
   }
 
   private _getSourceAreas(width: number, height: number): number[][] {
-    if (this._widthHeightRatio > 1) {
+    if (this._isHorizontalStripes) {
       return [[0, 0, width, 1], [0, height - 1, width, 1]];
     }
 
@@ -220,7 +208,7 @@ class ScreenView extends View<IScreenViewStyles>
   }
 
   private _getCanvasAreas(width: number, height: number): number[][] {
-    if (this._widthHeightRatio > 1) {
+    if (this._isHorizontalStripes) {
       return [[0, 0, width, height / 2], [0, height / 2, width, height / 2]];
     }
 

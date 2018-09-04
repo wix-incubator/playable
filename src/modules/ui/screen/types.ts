@@ -5,8 +5,8 @@ type IScreenViewStyles = {
   hidden: string;
   visible: string;
   hiddenCursor: string;
-  horizontalVideo: string;
-  verticalVideo: string;
+  horizontalStripes: string;
+  verticalStripes: string;
   fillMode: string;
   blurMode: string;
   regularMode: string;

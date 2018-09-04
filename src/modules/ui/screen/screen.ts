@@ -102,7 +102,7 @@ export default class Screen implements IScreen {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
         [UI_EVENTS.PLAY_OVERLAY_CLICK, this.view.focusOnNode, this.view],
-        [UI_EVENTS.RESIZE, this._updateBackgroundSize],
+        [UI_EVENTS.RESIZE, this._updateSizes],
         [EngineState.SRC_SET, this.view.resetBackground, this.view],
         [EngineState.METADATA_LOADED, this.view.resetAspectRatio, this.view],
       ],
@@ -110,14 +110,9 @@ export default class Screen implements IScreen {
     );
   }
 
-  private _updateBackgroundSize({
-    width,
-    height,
-  }: {
-    width: number;
-    height: number;
-  }) {
+  private _updateSizes({ width, height }: { width: number; height: number }) {
     this.view.setBackgroundSize(width, height);
+    this.view.resetAspectRatio();
   }
 
   showCursor() {
