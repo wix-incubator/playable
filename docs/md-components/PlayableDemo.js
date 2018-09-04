@@ -29,6 +29,7 @@ class PlayableDemo extends PureComponent {
     this.player.setLogo(LOGO_SRC);
     this.player.showLogo();
     this.player.attachToElement(this.node);
+    this.player.setFramesMap({"framesCount":15,"qualities":[{"spriteUrlMask":"https://storage.googleapis.com/video-player-media-server-static/demo-thumbnails/low_rez_sprite_%d.jpg","frameSize":{"width":90,"height":45},"framesInSprite":{"vert":10,"horz":10}},{"spriteUrlMask":"https://storage.googleapis.com/video-player-media-server-static/demo-thumbnails/high_rez_sprite_%d.jpg","frameSize":{"width":180,"height":90},"framesInSprite":{"vert":5,"horz":5}}]});
   }
 
   componentWillUnmount() {
