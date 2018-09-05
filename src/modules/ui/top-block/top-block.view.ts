@@ -17,6 +17,8 @@ import styles from './top-block.scss';
 class TopBlockView extends View<ITopBlockViewStyles>
   implements IView<ITopBlockViewStyles> {
   private _$rootElement: HTMLElement;
+  private _$titleContainer: HTMLElement;
+  private _$liveIndicatorContainer: HTMLElement;
 
   constructor(config: ITopBlockViewConfig) {
     super();
@@ -26,6 +28,10 @@ class TopBlockView extends View<ITopBlockViewStyles>
     this._bindEvents();
   }
 
+  getElement() {
+    return this._$rootElement;
+  }
+
   private _initDOM(elements: ITopBlockViewElements) {
     this._$rootElement = htmlToElement(
       topBlockTemplate({
@@ -33,17 +39,17 @@ class TopBlockView extends View<ITopBlockViewStyles>
       }),
     );
 
-    const $titleContainer = getElementByHook(
+    this._$titleContainer = getElementByHook(
       this._$rootElement,
       'title-container',
     );
-    const $liveIndicatorContainer = getElementByHook(
+    this._$liveIndicatorContainer = getElementByHook(
       this._$rootElement,
       'live-indicator-container',
     );
 
-    $titleContainer.appendChild(elements.title);
-    $liveIndicatorContainer.appendChild(elements.liveIndicator);
+    this._$titleContainer.appendChild(elements.title);
+    this._$liveIndicatorContainer.appendChild(elements.liveIndicator);
   }
 
   private _preventClickPropagation(e: MouseEvent) {
@@ -69,16 +75,28 @@ class TopBlockView extends View<ITopBlockViewStyles>
     this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
-  getElement() {
-    return this._$rootElement;
-  }
-
   showContent() {
     this._$rootElement.classList.add(this.styleNames.activated);
   }
 
   hideContent() {
     this._$rootElement.classList.remove(this.styleNames.activated);
+  }
+
+  showTitle() {
+    this._$titleContainer.classList.remove(this.styleNames.hidden);
+  }
+
+  hideTitle() {
+    this._$titleContainer.classList.add(this.styleNames.hidden);
+  }
+
+  showLiveIndicator() {
+    this._$liveIndicatorContainer.classList.remove(this.styleNames.hidden);
+  }
+
+  hideLiveIndicator() {
+    this._$liveIndicatorContainer.classList.add(this.styleNames.hidden);
   }
 
   destroy() {

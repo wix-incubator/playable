@@ -1581,6 +1581,14 @@ Method for allowing main ui to be always shown despite the playback state and th
   </table>
 </div>
 
+## showTitle()
+
+## hideTitle()
+
+## showLiveIndicator()
+
+## hideLiveIndicator()
+
 ## setTitle()
 
 ```javascript

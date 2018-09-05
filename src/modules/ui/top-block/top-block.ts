@@ -1,8 +1,10 @@
-import View from './top-block.view';
+import playerAPI from '../../../core/player-api-decorator';
 
 import { ILiveIndicator } from '../live-indicator/types';
 import { ITitle } from '../title/types';
 import { ITopBlock, ITopBlockViewConfig, ITopBlockViewElements } from './types';
+
+import View from './top-block.view';
 
 interface IDependencies {
   title: ITitle;
@@ -52,6 +54,26 @@ export default class TopBlock implements ITopBlock {
   show() {
     this.isHidden = false;
     this.view.show();
+  }
+
+  @playerAPI()
+  showTitle() {
+    this.view.showTitle();
+  }
+
+  @playerAPI()
+  hideTitle() {
+    this.view.hideTitle();
+  }
+
+  @playerAPI()
+  showLiveIndicator() {
+    this.view.showLiveIndicator();
+  }
+
+  @playerAPI()
+  hideLiveIndicator() {
+    this.view.hideLiveIndicator();
   }
 
   showContent() {
