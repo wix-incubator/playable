@@ -52,6 +52,8 @@ const texts = {
   [TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP]: 'Enter full screen mode',
   [TEXT_LABELS.EXIT_FULL_SCREEN_LABEL]: 'Exit full screen mode',
   [TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP]: 'Exit full screen mode',
+  [TEXT_LABELS.DOWNLOAD_BUTTON_LABEL]: 'Download',
+  [TEXT_LABELS.DOWNLOAD_BUTTON_TOOLTIP]: 'Download',
 };
 ```
 

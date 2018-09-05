@@ -36,9 +36,8 @@ Playable.registerPlaybackAdapter(DASHAdapter);
 
 You can just take our bundle with hls or dash, where we already connected our adapter with Playable:
 
-With HLS - [https://unpkg.com/playable/dist/statics/playable-hls.bundle.min.js](https://unpkg.com/playable@1.3.3/dist/statics/playable-hls.bundle.min.js)
-
-With MPEG-DASH - [https://unpkg.com/playable/dist/statics/playable-dash.bundle.min.js](https://unpkg.com/playable@1.3.3/dist/statics/playable-dash.bundle.min.js)
+With HLS - [https://unpkg.com/playable/dist/statics/playable-hls.bundle.min.js](https://unpkg.com/playable@1.3.3/dist/statics/playable-hls.bundle.min.js)<br/>
+With MPEG-DASH - [https://unpkg.com/playable/dist/statics/playable-dash.bundle.min.js](https://unpkg.com/playable@1.3.3/dist/statics/playable-dash.bundle.min.js)<br/>
 
 ```html
 <script src="https://unpkg.com/playable/dist/statics/playable-hls.bundle.min.js"/>
