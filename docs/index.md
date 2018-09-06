@@ -39,33 +39,29 @@ The video player supports the following video formats: `MP4`, `WebM`, `HLS`, `DA
 <div id="content"></div>
 
 // javascript
-
 import Playable from 'playable';
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Define config object
   const config = {
     width: 700,
     height: 394,
     src: 'http://my-url/video.mp4'
   };
 
+  // Create player instance
   const player = Playable.create(config);
 
+  // Attach it to your DOM structure
   player.attachToElement(document.getElementById('content'));
 });
 ```
 
-Check page with info about [config object](/player-config)
+## Next step
 
-You can customize player's UI elements via [themes](/themes)
-
-After that just choose what you want to configure, create object with proper fields and pass it to `Playable.create`.
-
-It will return instance of player. You can later modify the instance (for example, as a reaction to user input) with the  [public methods](/api).
-
-To place it somewhere in your structure, just call [`attachToElement`](/api#attachtoelement)
-
-It's really important to call `attachToElement` after `DOMContentLoaded` event due to [css-element-query](https://github.com/marcj/css-element-queries)
+* Structure of [config object](/player-config). <br/>
+* Simple customization via [themes](/themes)
+* Player's instanse [public methods](/api).<br/>
 
 ## Big thanks!
 
