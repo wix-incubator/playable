@@ -9,9 +9,12 @@ layout: simple
 Integrate a video player into the product you’re working on – no hassle, no fuss, just nice and easy code for you to incorporate in your project.
 </aside>
 
+**IMPORTANT!** We released 2.0.0 version! Find migration guide [here](/2.0.0-migration).
+
+
 <playable-demo></playable-demo>
 
-To install the stable version use [npm](https://www.npmjs.com/package/playable).
+To install the stable version use [npm](https://www.npmjs.com/package/playable).<br/>
 
 ```javascript
 $ npm install playable --save

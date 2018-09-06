@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/wix/playable.svg?branch=master)](https://travis-ci.org/wix/playable)
 [![npm](https://img.shields.io/npm/v/playable.svg?style=flat)](https://npmjs.org/package/playable)
 
+**IMPORTANT!** We released 2.0.0 version! Find migration guide [here](/2.0.0-migration).
+
 # playable
 
 You can play with demo here: [https://jsfiddle.net/bodia/to0r65f4/](https://jsfiddle.net/bodia/to0r65f4/)
