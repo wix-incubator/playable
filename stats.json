@@ -32,13 +32,17 @@
       "path---video-source-9fcbff55d4842ee93917.js",
       "path---video-source-9fcbff55d4842ee93917.js.map"
     ],
+    "path---migration": [
+      "path---migration-beeeeb37dd1a1fec078b.js",
+      "path---migration-beeeeb37dd1a1fec078b.js.map"
+    ],
     "component---src-layouts-index-js": [
       "component---src-layouts-index-js-ebfff135f03ef8ce13d3.js",
       "component---src-layouts-index-js-ebfff135f03ef8ce13d3.js.map"
     ],
     "path---index": [
-      "path---index-18e1a9110c8dbd4a7384.js",
-      "path---index-18e1a9110c8dbd4a7384.js.map"
+      "path---index-f8125e069ae1e8c254c4.js",
+      "path---index-f8125e069ae1e8c254c4.js.map"
     ],
     "component---src-pages-404-js": [
       "component---src-pages-404-js-4503918ea3a16cfcdb75.js",
@@ -79,9 +83,9 @@
       "component---src-templates-md-js-48520df8d9ec34abe218.js.map"
     ],
     "app": [
-      "app-2b110000686643ae32da.js",
+      "app-4c68a0a2520f5cd8ee02.js",
       "build-js-styles.css",
-      "app-2b110000686643ae32da.js.map",
+      "app-4c68a0a2520f5cd8ee02.js.map",
       "build-js-styles.css.map"
     ],
     "path---events-ui-events": [
@@ -105,8 +109,8 @@
       "path---player-config-ac5e3b75becd9a36948a.js.map"
     ],
     "path---2-0-0-migration": [
-      "path---2-0-0-migration-0eaeb7afe9641e37766c.js",
-      "path---2-0-0-migration-0eaeb7afe9641e37766c.js.map"
+      "path---2-0-0-migration-83dd60aae1ab9cd23994.js",
+      "path---2-0-0-migration-83dd60aae1ab9cd23994.js.map"
     ]
   }
 }
