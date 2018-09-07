@@ -18,21 +18,31 @@ function getQueriesFromCssSelector(cssSelector: string) {
 
   cssSelector = cssSelector.replace(/'/g, '"');
 
-  forEachMatch(cssSelector, CSS_SELECTOR_PATTERN, (match: RegExpMatchArray) => {
-    const [selectorPart1, attribute, selectorPart2] = match.slice(1);
-    const selector = selectorPart1 + selectorPart2;
+  forEachMatch(
+    cssSelector,
+    CSS_SELECTOR_PATTERN,
+    (matchedSelectors: RegExpMatchArray) => {
+      const [selectorPart1, attribute, selectorPart2] = matchedSelectors.slice(
+        1,
+      );
+      const selector = selectorPart1 + selectorPart2;
 
-    forEachMatch(attribute, QUERY_ATTR_PATTERN, (match: RegExpMatchArray) => {
-      const [prefix = '', mode, width] = match.slice(1);
+      forEachMatch(
+        attribute,
+        QUERY_ATTR_PATTERN,
+        (matchedAttributes: RegExpMatchArray) => {
+          const [prefix = '', mode, width] = matchedAttributes.slice(1);
 
-      results.push({
-        selector,
-        prefix,
-        mode,
-        width: parseInt(width, 10),
-      });
-    });
-  });
+          results.push({
+            selector,
+            prefix,
+            mode,
+            width: parseInt(width, 10),
+          });
+        },
+      );
+    },
+  );
 
   return results;
 }

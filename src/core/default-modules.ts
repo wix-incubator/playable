@@ -82,14 +82,14 @@ export const modules: { [id: string]: any } = {
 };
 
 const DIModules: { [id: string]: any } = Object.keys(modules).reduce(
-  (DIModules: { [id: string]: any }, key: string) => {
+  (processedModules: { [id: string]: any }, key: string) => {
     const module = modules[key] as any;
     if (!module.moduleName) {
       throw new Error(`No moduleName in module: ${key}`);
     }
 
-    DIModules[module.moduleName] = asClass(module).scoped();
-    return DIModules;
+    processedModules[module.moduleName] = asClass(module).scoped();
+    return processedModules;
   },
   {},
 );

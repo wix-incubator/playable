@@ -35,14 +35,14 @@
     "no-unused-expression": [true, "allow-fast-null-checks"],
     "no-duplicate-variable": true,
     "no-string-throw": true,
-    "radix": [true, "as-needed"],
-    "no-unused-variable": true,
-    "no-use-before-declare": [true, "nofunc"],
+    "radix": true,
+    "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-shorthand": [true, "always"],
     "prefer-const": true,
     "jsdoc-format": [true, "check-multiline-start"],
     "no-redundant-jsdoc": false,
+    "no-shadowed-variable": true,
     "player-api": true // use `[true, "require-jsdoc"]` to enforce JSDoc before `playerAPI` method
   },
   "linterOptions": {

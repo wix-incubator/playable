@@ -14,10 +14,9 @@ export function resolveAdapters(
   availableAdapters.forEach(adapter => {
     for (let i = 0; i < groupedStreamKeys.length; i += 1) {
       const mediaType = groupedStreamKeys[i];
-      const mediaStreams = groupedStreams[mediaType];
 
       if (adapter.canPlay(mediaType)) {
-        adapter.setMediaStreams(mediaStreams);
+        adapter.setMediaStreams(groupedStreams[mediaType]);
         playableAdapters.push(adapter);
         break;
       }

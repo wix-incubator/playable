@@ -22,11 +22,9 @@ function resetProperty(target: any, propertyKey: any) {
 export { setProperty, resetProperty };
 
 export default function createPlayerTestkit(config = {}, adapters: any = []) {
-  const _config = config;
-
   const scope = container.createScope();
 
-  scope.registerValue('config', _config);
+  scope.registerValue('config', config);
   scope.registerValue('themeConfig', null);
   scope.registerValue('availablePlaybackAdapters', [...adapters]);
 
@@ -40,13 +38,13 @@ export default function createPlayerTestkit(config = {}, adapters: any = []) {
     registerModuleAsSingleton(name: string, fn: Function) {
       scope.register(name, asClass(fn).scoped());
     },
-    setConfig(config: object) {
+    setConfig(newConfig: object) {
       scope.registerValue('config', {
-        ...config,
+        ...newConfig,
       });
     },
-    setPlaybackAdapters(adapters: any) {
-      scope.registerValue('availablePlaybackAdapters', [...adapters]);
+    setPlaybackAdapters(newAdapters: any) {
+      scope.registerValue('availablePlaybackAdapters', [...newAdapters]);
     },
   };
 }

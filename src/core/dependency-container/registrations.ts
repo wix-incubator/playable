@@ -93,7 +93,7 @@ function generateResolve(fn: Function, dependencyParseTarget?: any): any {
   // Use a regular function instead of an arrow function to facilitate binding to the registration.
   return function resolve(container: Container) {
     if (dependencies.length > 0) {
-      const wrapper: {} = dependencies.reduce(
+      const wrappedModules: {} = dependencies.reduce(
         (wrapper: any, dependency: string) => {
           wrapper[dependency] = container.resolve(dependency);
           return wrapper;
@@ -101,7 +101,7 @@ function generateResolve(fn: Function, dependencyParseTarget?: any): any {
         {},
       );
 
-      return fn(wrapper, container);
+      return fn(wrappedModules, container);
     }
     return fn(container);
   };
