@@ -6,6 +6,7 @@ import { IThemeConfig } from '../modules/ui/core/theme';
 export default class Player {
   //@ts-ignore
   private _config: IPlayerConfig;
+  private _scope: Container;
   private _defaultModules: { [id: string]: any };
   private _additionalModules: { [id: string]: any };
   private _destroyed: boolean;
@@ -17,18 +18,19 @@ export default class Player {
     additionalModuleNames: string[] = [],
     themeConfig?: IThemeConfig,
   ) {
-    scope.registerValue({
+    this._scope = scope;
+    this._scope.registerValue({
       config: convertToDeviceRelatedConfig(params),
     });
 
-    scope.registerValue({
+    this._scope.registerValue({
       themeConfig,
     });
 
-    this._config = scope.resolve('config');
+    this._config = this._scope.resolve('config');
 
-    this._resolveAdditionalModules(scope, additionalModuleNames);
-    this._resolveDefaultModules(scope, defaultModulesNames);
+    this._resolveAdditionalModules(additionalModuleNames);
+    this._resolveDefaultModules(defaultModulesNames);
   }
 
   /*
@@ -37,14 +39,14 @@ export default class Player {
     could be abolished in future
   */
 
-  private _resolveDefaultModules(scope: Container, modulesNames: string[]) {
+  private _resolveDefaultModules(modulesNames: string[]) {
     this._defaultModules = modulesNames.reduce(
       (modules: { [id: string]: any }, moduleName: string) => {
         if (this._additionalModules[moduleName]) {
           return modules;
         }
 
-        const resolvedModule = scope.resolve(moduleName);
+        const resolvedModule = this._scope.resolve(moduleName);
 
         this._addPlayerAPIFromModule(resolvedModule);
 
@@ -55,10 +57,10 @@ export default class Player {
     );
   }
 
-  private _resolveAdditionalModules(scope: Container, modulesNames: string[]) {
+  private _resolveAdditionalModules(modulesNames: string[]) {
     this._additionalModules = modulesNames.reduce(
       (modules: { [id: string]: any }, moduleName: string) => {
-        const resolvedModule = scope.resolve(moduleName);
+        const resolvedModule = this._scope.resolve(moduleName);
 
         this._addPlayerAPIFromModule(resolvedModule);
 
@@ -162,6 +164,7 @@ export default class Player {
     this._defaultModules = null;
     this._additionalModules = null;
     this._config = null;
+    this._scope = null;
 
     this._destroyed = true;
   }
