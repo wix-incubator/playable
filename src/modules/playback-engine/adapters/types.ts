@@ -2,6 +2,7 @@ import {
   MediaStreamTypes,
   MediaStreamDeliveryPriority,
 } from '../../../constants';
+import { IEventEmitter } from '../../event-emitter/types';
 
 interface IPlaybackAdapter {
   canPlay(mediaType: MediaStreamTypes): boolean;
@@ -18,9 +19,33 @@ interface IPlaybackAdapter {
 
   isSeekAvailable: boolean;
 
-  debugInfo: any;
-
-  // TODO: describe adapter interface
+  debugInfo: IAdapterDebugInfo;
 }
 
-export { IPlaybackAdapter };
+interface IPlaybackAdapterClass {
+  new (eventEmitter: IEventEmitter): IPlaybackAdapter;
+  isSupported(): boolean;
+}
+
+/**
+ * @property type - Name of current attached stream.
+ * @property url - Url of current source
+ * @property bitrates - List of all available bitrates. Internal structure different for different type of streams
+ * @property currentBitrate - Current bitrate. Internal structure different for different type of streams
+ * @property bwEstimate - Estimation of bandwidth
+ * @property overallBufferLength - Overall length of buffer
+ * @property nearestBufferSegInfo - Object with start and end for current buffer segment
+ * @property deliveryPriority - Priority of current adapter
+ */
+interface IAdapterDebugInfo {
+  type: MediaStreamTypes;
+  url: string;
+  bitrates: string[];
+  currentBitrate: string;
+  bwEstimate: number;
+  overallBufferLength: number;
+  nearestBufferSegInfo: Object;
+  deliveryPriority: MediaStreamDeliveryPriority;
+}
+
+export { IAdapterDebugInfo, IPlaybackAdapter, IPlaybackAdapterClass };

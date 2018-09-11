@@ -5,7 +5,7 @@ import { VIDEO_EVENTS, ERRORS } from '../../constants';
 import { resolveAdapters } from './utils/adapters-resolver';
 import { getStreamType } from './utils/detect-stream-type';
 
-import { IPlaybackAdapter } from './adapters/types';
+import { IPlaybackAdapter, IPlaybackAdapterClass } from './adapters/types';
 import { MediaSource, IMediaSource } from './types';
 
 export default class AdaptersStrategy {
@@ -18,7 +18,7 @@ export default class AdaptersStrategy {
   constructor(
     eventEmitter: IEventEmitter,
     video: HTMLVideoElement,
-    playbackAdapters: any[] = [],
+    playbackAdapters: IPlaybackAdapterClass[] = [],
   ) {
     this._video = video;
     this._eventEmitter = eventEmitter;

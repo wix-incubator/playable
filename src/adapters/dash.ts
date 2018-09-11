@@ -11,6 +11,7 @@ import {
   VIDEO_EVENTS,
   IPlaybackAdapter,
 } from '../index';
+import { IEventEmitter } from '../modules/event-emitter/types';
 
 const INITIAL_BITRATE = 5000;
 
@@ -26,7 +27,7 @@ export default class DashAdapter implements IPlaybackAdapter {
   private mediaStream: any;
   private videoElement: HTMLVideoElement;
 
-  constructor(eventEmitter: any) {
+  constructor(eventEmitter: IEventEmitter) {
     this.eventEmitter = eventEmitter;
 
     this.dashPlayer = null;

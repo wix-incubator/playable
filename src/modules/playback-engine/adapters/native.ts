@@ -5,7 +5,7 @@ import {
   getNearestBufferSegmentInfo,
 } from '../../../utils/video-data';
 import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
-import { IPlaybackAdapter } from './types';
+import { IPlaybackAdapterClass, IPlaybackAdapter } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 
 const NATIVE_ERROR_CODES = {
@@ -23,7 +23,7 @@ import {
 export default function getNativeAdapterCreator(
   streamType: MediaStreamTypes,
   deliveryPriority: MediaStreamDeliveryPriority,
-) {
+): IPlaybackAdapterClass {
   class NativeAdapter implements IPlaybackAdapter {
     static isSupported(): boolean {
       return NativeEnvironmentSupport[streamType];

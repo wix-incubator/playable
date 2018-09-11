@@ -18,7 +18,7 @@ import { IPlayerConfig } from '../../core/config';
 import {
   IPlaybackEngine,
   IPlaybackEngineDependencies,
-  IDebugInfo,
+  IEngineDebugInfo,
   MediaSource,
   CrossOriginValue,
 } from './types';
@@ -667,7 +667,7 @@ export default class Engine implements IPlaybackEngine {
    * }
    */
   @playerAPI()
-  getDebugInfo(): IDebugInfo {
+  getDebugInfo(): IEngineDebugInfo {
     const { duration, currentTime } = this._video;
     let data;
 

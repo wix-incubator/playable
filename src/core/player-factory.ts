@@ -7,9 +7,10 @@ import defaultPlaybackAdapters from '../modules/playback-engine/adapters/default
 import { IThemeConfig } from '../modules/ui/core/theme';
 
 import { IPlayerConfig } from './config';
+import { IPlaybackAdapterClass } from '../modules/playback-engine/adapters/types';
 
 let additionalModules: { [id: string]: any } = {};
-let playbackAdapters: any[] = [...defaultPlaybackAdapters];
+let playbackAdapters: IPlaybackAdapterClass[] = [...defaultPlaybackAdapters];
 
 export const container = DependencyContainer.createContainer();
 container.register(defaultModules);
