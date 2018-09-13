@@ -9,12 +9,9 @@ $inactive-color: #959595;
 
   margin-right: 15px;
   // position styles end
-  padding: 5px 6px;
 
-  cursor: pointer;
   transition: background-color .2s;
 
-  color: #fff;
   background-color: $inactive-color;
 
   @include in-full-screen() {
@@ -38,11 +35,24 @@ $inactive-color: #959595;
   }
 }
 
-.liveIndicatorText {
+.clickable {
+  cursor: pointer;
+}
+
+button.liveIndicatorButton {
   font-size: 12px;
   line-height: 14px;
 
-  text-transform: uppercase;
+  padding: 5px 6px;
+
+  user-select: none;
+  text-transform: uppercase!important;
+
+  color: #fff;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background-color: transparent;
 
   @include max-width-280() {
     font-size: 10px;

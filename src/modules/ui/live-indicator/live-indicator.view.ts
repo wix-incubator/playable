@@ -27,7 +27,7 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   private _tooltipReference: ITooltipReference;
 
   private _$rootElement: HTMLElement;
-  private _$liveIndicatorText: HTMLElement;
+  private _$button: HTMLElement;
 
   constructor(config: ILiveIndicatorViewConfig) {
     super();
@@ -49,13 +49,13 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
       }),
     );
 
-    this._$liveIndicatorText = getElementByHook(
+    this._$button = getElementByHook(
       this._$rootElement,
-      'live-indicator-text',
+      'live-indicator-button',
     );
 
     this._tooltipReference = this._tooltipService.createReference(
-      this._$rootElement,
+      this._$button,
       {
         text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
       },
@@ -82,10 +82,18 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
       shouldActivate,
     );
 
+    toggleElementClass(
+      this._$button,
+      this.styleNames.clickable,
+      !shouldActivate,
+    );
+
     // NOTE: disable tooltip while video is sync with live
     if (shouldActivate) {
+      this._$button.setAttribute('disabled', 'true');
       this._tooltipReference.disable();
     } else {
+      this._$button.removeAttribute('disabled');
       this._tooltipReference.enable();
     }
   }
@@ -93,14 +101,15 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   toggleEnded(isEnded: boolean) {
     toggleElementClass(this._$rootElement, this.styleNames.ended, isEnded);
 
-    this._$liveIndicatorText.innerText = this._textMap.get(
+    this._$button.innerText = this._textMap.get(
       TEXT_LABELS.LIVE_INDICATOR_TEXT,
       { isEnded },
     );
-    this._$liveIndicatorText.setAttribute(
+    this._$button.setAttribute(
       'aria-label',
       !isEnded ? this._textMap.get(TEXT_LABELS.LIVE_SYNC_LABEL) : '',
     );
+    this._$button.setAttribute('disabled', 'true');
 
     if (isEnded) {
       this._tooltipReference.disable();
@@ -137,7 +146,7 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
     }
 
     this._$rootElement = null;
-    this._$liveIndicatorText = null;
+    this._$button = null;
     this._callbacks = null;
     this._textMap = null;
   }

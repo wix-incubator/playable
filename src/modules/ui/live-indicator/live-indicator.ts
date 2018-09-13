@@ -1,6 +1,13 @@
-import { ITooltipService } from '../core/tooltip/types';
-import LiveIndicatorView from './live-indicator.view';
 import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
+
+import KeyboardInterceptor, {
+  KEYCODES,
+} from '../../../utils/keyboard-interceptor';
+
+import LiveIndicatorView from './live-indicator.view';
+
+import { ITooltipService } from '../core/tooltip/types';
+
 import { IEventEmitter } from '../../event-emitter/types';
 import { ITextMap } from '../../text-map/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
@@ -15,6 +22,9 @@ export default class LiveIndicator implements ILiveIndicator {
   private _eventEmitter: IEventEmitter;
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
+
+  private _interceptor: KeyboardInterceptor;
+
   private _isHidden: boolean = true;
   private _isActive: boolean = false;
   private _isEnded: boolean = false;
@@ -42,10 +52,27 @@ export default class LiveIndicator implements ILiveIndicator {
     this._bindCallbacks();
     this._initUI();
     this._bindEvents();
+
+    this._initInterceptor();
   }
 
   getElement() {
     return this.view.getElement();
+  }
+
+  private _initInterceptor() {
+    this._interceptor = new KeyboardInterceptor(this.getElement(), {
+      [KEYCODES.SPACE_BAR]: e => {
+        e.stopPropagation();
+        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._syncWithLive();
+      },
+      [KEYCODES.ENTER]: e => {
+        e.stopPropagation();
+        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._syncWithLive();
+      },
+    });
   }
 
   get isHidden(): boolean {
@@ -153,8 +180,11 @@ export default class LiveIndicator implements ILiveIndicator {
 
   destroy() {
     this._unbindEvents();
-    this.view.destroy();
 
+    this._interceptor.destroy();
+    this._interceptor = null;
+
+    this.view.destroy();
     this.view = null;
 
     this._engine = null;

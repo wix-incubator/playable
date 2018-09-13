@@ -1,8 +1,9 @@
 <div class="${props.styles.liveIndicator} ${props.styles.hidden}">
-  <span
-    class="${props.styles.liveIndicatorText}"
+  <button
+    tabindex="0"
+    class="${props.styles.liveIndicatorButton}"
     aria-label="${props.texts.label || ''}"
-    data-playable-hook="live-indicator-text">
+    data-playable-hook="live-indicator-button">
     ${props.texts.text || ''}
-  </span>
+  </button>
 </div>

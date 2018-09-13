@@ -3,7 +3,8 @@ import { ITextMap } from '../../text-map/types';
 
 type ILiveIndicatorViewStyles = {
   liveIndicator: string;
-  liveIndicatorText: string;
+  liveIndicatorButton: string;
+  clickable: string;
   active: string;
   hidden: string;
   ended: string;
