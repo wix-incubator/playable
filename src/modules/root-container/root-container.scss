@@ -1,34 +1,21 @@
 @import '../ui/shared';
 
-
-.videoWrapper {
-  font-family: HelveticaNeueW01-45Ligh,HelveticaNeueW02-45Ligh,HelveticaNeueW10-45Ligh,Helvetica Neue,Helvetica,Arial,\\30E1\30A4\30EA\30AA,meiryo,\\30D2\30E9\30AE\30CE\89D2\30B4 pro w3,hiragino kaku gothic pro;
-  line-height: 0;
-
-  position: relative;
-  z-index: 0;
-
-  display: block;
-  overflow: hidden;
-
-  height: inherit;
-
-  outline: none;
-
-  @import './normalize/universal';
-  @import './normalize/button';
+.container {
+  font-family: HelveticaNeueW01-45Ligh, HelveticaNeueW02-45Ligh,
+  HelveticaNeueW10-45Ligh, Helvetica Neue, Helvetica, Arial,
+  \\30e1\30a4\30ea\30aa, meiryo, \\30d2\30e9\30ae\30ce\89d2\30b4 pro w3,
+  hiragino kaku gothic pro;  position: relative;  z-index: 0;  display: block;  overflow: hidden;  height: inherit;@import './normalize/universal';@import './normalize/button';
 }
 
 .fillAllSpace,
 .fullScreen {
-  width: 100%!important;
-  height: 100%!important;
+  width: 100% !important;  height: 100% !important;
 }
-
 
 :global {
   [data-playable-focus-source='key'] [data-playable-hook='player-container'],
-  [data-playable-focus-source='script'] [data-playable-hook='player-container'] {
+  [data-playable-focus-source='script']
+  [data-playable-hook='player-container'] {
     button.focus-within,
     input.focus-within,
     img.focus-within {

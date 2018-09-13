@@ -1,5 +1,5 @@
 type IRootContainerViewStyles = {
-  videoWrapper: string;
+  container: string;
   fillAllSpace: string;
   fullScreen: string;
   hidden: string;

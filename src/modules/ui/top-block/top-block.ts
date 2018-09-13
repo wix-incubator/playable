@@ -16,18 +16,30 @@ export default class TopBlock implements ITopBlock {
   static View = View;
   static dependencies = ['title', 'liveIndicator'];
 
+  private _isBlockFocused: boolean = false;
+
   isHidden: boolean;
   view: View;
 
   constructor(dependencies: IDependencies) {
     this.isHidden = false;
 
+    this._bindViewCallbacks();
     this._initUI(this._getElements(dependencies));
+  }
+
+  private _bindViewCallbacks() {
+    this._setFocusState = this._setFocusState.bind(this);
+    this._removeFocusState = this._removeFocusState.bind(this);
   }
 
   private _initUI(elements: ITopBlockViewElements) {
     const config: ITopBlockViewConfig = {
       elements,
+      callbacks: {
+        onBlockMouseMove: this._setFocusState,
+        onBlockMouseOut: this._removeFocusState,
+      },
     };
 
     this.view = new TopBlock.View(config);
@@ -40,6 +52,18 @@ export default class TopBlock implements ITopBlock {
       title: title.getElement(),
       liveIndicator: liveIndicator.getElement(),
     };
+  }
+
+  private _setFocusState() {
+    this._isBlockFocused = true;
+  }
+
+  private _removeFocusState() {
+    this._isBlockFocused = false;
+  }
+
+  get isFocused() {
+    return this._isBlockFocused;
   }
 
   getElement() {
