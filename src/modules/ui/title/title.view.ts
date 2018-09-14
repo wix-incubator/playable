@@ -2,7 +2,6 @@ import View from '../core/view';
 
 import { titleTemplate } from './templates';
 import htmlToElement from '../core/htmlToElement';
-import getElementByHook from '../core/getElementByHook';
 import toggleElementClass from '../core/toggleElementClass';
 
 import {
@@ -20,7 +19,6 @@ class TitleView extends View<ITitleViewStyles>
   private _callbacks: ITitleViewCallbacks;
 
   private _$rootElement: HTMLElement;
-  _$title: HTMLElement;
 
   constructor(config: ITitleViewConfig) {
     const { callbacks, theme } = config;
@@ -37,19 +35,18 @@ class TitleView extends View<ITitleViewStyles>
     this._$rootElement = htmlToElement(
       titleTemplate({ styles: this.styleNames, themeStyles: this.themeStyles }),
     );
-    this._$title = getElementByHook(this._$rootElement, 'video-title');
   }
 
   private _bindEvents() {
-    this._$title.addEventListener('click', this._callbacks.onClick);
+    this._$rootElement.addEventListener('click', this._callbacks.onClick);
   }
 
   private _unbindEvents() {
-    this._$title.removeEventListener('click', this._callbacks.onClick);
+    this._$rootElement.removeEventListener('click', this._callbacks.onClick);
   }
 
   setDisplayAsLink(flag: boolean) {
-    toggleElementClass(this._$title, this.styleNames.link, flag);
+    toggleElementClass(this._$rootElement, this.styleNames.link, flag);
   }
 
   setTitle(title?: string) {
@@ -57,7 +54,7 @@ class TitleView extends View<ITitleViewStyles>
     // TODO: what if we call with empty value `.setTitle('')` and then call `.show()` method? Mb clear value anyway?
     if (title) {
       this.show();
-      this._$title.innerHTML = title;
+      this._$rootElement.innerHTML = title;
     } else {
       this.hide();
     }
@@ -82,7 +79,6 @@ class TitleView extends View<ITitleViewStyles>
     }
 
     this._$rootElement = null;
-    this._$title = null;
   }
 }
 

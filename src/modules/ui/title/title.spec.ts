@@ -86,7 +86,8 @@ describe('Title', () => {
         title.setTitle(TITLE_TEXT);
 
         expect(titleViewSetTitleSpy.calledWith(TITLE_TEXT)).to.be.true;
-        expect(title.view._$title.innerHTML).to.equal(TITLE_TEXT);
+        //@ts-ignore
+        expect(title.view._$rootElement.innerHTML).to.equal(TITLE_TEXT);
         expect(titleViewShowSpy.called).to.be.true;
       });
 
@@ -119,7 +120,8 @@ describe('Title', () => {
 
         title.setTitleClickCallback(clickCallback);
 
-        title.view._$title.dispatchEvent(new Event('click'));
+        //@ts-ignore
+        title.view._$rootElement.dispatchEvent(new Event('click'));
 
         expect(setViewDisplayAsLinkSpy.calledWith(true)).to.be.true;
         expect(clickCallback.called).to.be.true;
@@ -130,11 +132,13 @@ describe('Title', () => {
 
         title.setTitleClickCallback(clickCallback);
 
-        title.view._$title.dispatchEvent(new Event('click'));
+        //@ts-ignore
+        title.view._$rootElement.dispatchEvent(new Event('click'));
 
         title.setTitleClickCallback();
 
-        title.view._$title.dispatchEvent(new Event('click'));
+        //@ts-ignore
+        title.view._$rootElement.dispatchEvent(new Event('click'));
 
         expect(setViewDisplayAsLinkSpy.lastCall.calledWith(false)).to.be.true;
         expect(clickCallback.calledOnce).to.be.true;

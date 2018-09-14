@@ -17,12 +17,7 @@ export default class Logo implements ILogoControl {
   static moduleName = 'logo';
   static View = View;
 
-  static dependencies = [
-    'eventEmitter',
-    'textMap',
-    'tooltipService',
-    'theme',
-  ];
+  static dependencies = ['eventEmitter', 'textMap', 'tooltipService', 'theme'];
 
   private _eventEmitter: IEventEmitter;
   private _textMap: ITextMap;

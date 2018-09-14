@@ -23,8 +23,8 @@ interface IPlaybackAdapter {
 }
 
 interface IPlaybackAdapterClass {
-  new (eventEmitter: IEventEmitter): IPlaybackAdapter;
   isSupported(): boolean;
+  new (eventEmitter: IEventEmitter): IPlaybackAdapter;
 }
 
 /**

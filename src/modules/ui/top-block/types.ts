@@ -7,6 +7,11 @@ type ITopBlockViewStyles = {
   hidden: string;
 };
 
+type ITopBlockViewCallbacks = {
+  onBlockMouseMove: EventListenerOrEventListenerObject;
+  onBlockMouseOut: EventListenerOrEventListenerObject;
+};
+
 type ITopBlockViewElements = {
   title: HTMLElement;
   liveIndicator: HTMLElement;
@@ -14,10 +19,12 @@ type ITopBlockViewElements = {
 
 type ITopBlockViewConfig = {
   elements: ITopBlockViewElements;
+  callbacks: ITopBlockViewCallbacks;
 };
 
 interface ITopBlock {
   getElement(): HTMLElement;
+  isFocused: boolean;
 
   show(): void;
   hide(): void;
@@ -32,5 +39,6 @@ export {
   ITopBlock,
   ITopBlockViewStyles,
   ITopBlockViewElements,
+  ITopBlockViewCallbacks,
   ITopBlockViewConfig,
 };
