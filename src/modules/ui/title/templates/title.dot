@@ -1,1 +1,3 @@
-<div class="${props.styles.title} ${props.themeStyles.titleText}" data-playable-hook="video-title"></div>
+<div>
+  <div class="${props.styles.title} ${props.themeStyles.titleText}" data-playable-hook="video-title"></div>
+</div>

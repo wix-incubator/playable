@@ -9,7 +9,6 @@ import { topBlockTemplate } from './templates';
 import {
   ITopBlockViewStyles,
   ITopBlockViewConfig,
-  ITopBlockViewCallbacks,
   ITopBlockViewElements,
 } from './types';
 
@@ -21,13 +20,9 @@ class TopBlockView extends View<ITopBlockViewStyles>
   private _$titleContainer: HTMLElement;
   private _$liveIndicatorContainer: HTMLElement;
 
-  private _callbacks: ITopBlockViewCallbacks;
-
   constructor(config: ITopBlockViewConfig) {
     super();
-    const { callbacks, elements } = config;
-
-    this._callbacks = callbacks;
+    const { elements } = config;
 
     this._initDOM(elements);
     this._bindEvents();
@@ -63,28 +58,12 @@ class TopBlockView extends View<ITopBlockViewStyles>
 
   private _bindEvents() {
     this._$rootElement.addEventListener('click', this._preventClickPropagation);
-    this._$rootElement.addEventListener(
-      'mousemove',
-      this._callbacks.onBlockMouseMove,
-    );
-    this._$rootElement.addEventListener(
-      'mouseleave',
-      this._callbacks.onBlockMouseOut,
-    );
   }
 
   private _unbindEvents() {
     this._$rootElement.removeEventListener(
       'click',
       this._preventClickPropagation,
-    );
-    this._$rootElement.removeEventListener(
-      'mousemove',
-      this._callbacks.onBlockMouseMove,
-    );
-    this._$rootElement.removeEventListener(
-      'mouseleave',
-      this._callbacks.onBlockMouseOut,
     );
   }
 
@@ -122,7 +101,6 @@ class TopBlockView extends View<ITopBlockViewStyles>
 
   destroy() {
     this._unbindEvents();
-    this._callbacks = null;
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
     }

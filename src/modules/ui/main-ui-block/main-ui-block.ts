@@ -145,7 +145,7 @@ export default class MainUIBlock implements IMainUIBlock {
   }
 
   private get _isBlockFocused() {
-    return this._bottomBlock.isFocused || this._topBlock.isFocused;
+    return this._bottomBlock.isFocused;
   }
 
   private _startHideBlockTimeout() {
