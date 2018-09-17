@@ -1,6 +1,7 @@
 <div class="${props.styles.buttonWrapper}">
   <button class="${props.styles.downloadButton} ${props.styles.controlButton}"
           data-playable-hook="download-button"
+          aria-label="${props.texts.label}"
           type="button"
           tabindex="0">
     <div class="${props.styles.icon}">
