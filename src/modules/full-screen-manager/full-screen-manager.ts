@@ -142,6 +142,122 @@ export default class FullScreenManager implements IFullScreenManager {
   }
 
   /**
+   * Allow player try to exit full screen on pause
+   * @example
+   * player.play();
+   * player.enableExitFullScreenOnPause();
+   * player.enterFullScreen();
+   * console.log(player.isInFullScreen) // true
+   * player.pause();
+   * console.log(player.isInFullScreen) // false
+   */
+  @playerAPI()
+  enableExitFullScreenOnPause() {
+    this._exitFullScreenOnPause = true;
+  }
+
+  /**
+   * Disallow player to exit full screen on pause
+   * @example
+   * player.play();
+   * player.disableExitFullScreenOnPause();
+   * player.enterFullScreen();
+   * console.log(player.isInFullScreen) // true
+   * player.pause();
+   * console.log(player.isInFullScreen) // true
+   */
+  @playerAPI()
+  disableExitFullScreenOnPause() {
+    this._exitFullScreenOnPause = false;
+  }
+
+  /**
+   * Allow player try to exit full screen on end
+   * @example
+   * player.play();
+   * player.enableExitFullScreenOnEnd();
+   * player.enterFullScreen();
+   * console.log(player.isInFullScreen) // true
+   * console.log(player.isEnded); // true
+   * console.log(player.isInFullScreen) // false
+   */
+  @playerAPI()
+  enableExitFullScreenOnEnd() {
+    this._exitFullScreenOnEnd = true;
+  }
+
+  /**
+   * Disallow player try to exit full screen on end
+   * @example
+   * player.play();
+   * player.disableExitFullScreenOnEnd();
+   * player.enterFullScreen();
+   * console.log(player.isInFullScreen) // true
+   * console.log(player.isEnded); // true
+   * console.log(player.isInFullScreen) // true
+   */
+  @playerAPI()
+  disableExitFullScreenOnEnd() {
+    this._exitFullScreenOnPause = false;
+  }
+
+  /**
+   * Allow player try to exit full screen on end
+   * @example
+   * player.enableEnterFullScreenOnPlay();
+   * console.log(player.isInFullScreen) // false
+   * player.play();
+   * console.log(player.isInFullScreen) // true
+   */
+  @playerAPI()
+  enableEnterFullScreenOnPlay() {
+    this._enterFullScreenOnPlay = true;
+  }
+
+  /**
+   * Disallow player try to exit full screen on end
+   * @example
+   * player.disableEnterFullScreenOnPlay();
+   * console.log(player.isInFullScreen) // false
+   * player.play();
+   * console.log(player.isInFullScreen) // false
+   */
+  @playerAPI()
+  disableEnterFullScreenOnPlay() {
+    this._enterFullScreenOnPlay = false;
+  }
+
+  /**
+   * Allow player try to exit full screen on end
+   * @example
+   * player.play();
+   * player.enablePauseVideoOnFullScreenExit();
+   * player.enterFullScreen();
+   * console.log(player.isInFullScreen) // true
+   * player.pause();
+   * console.log(player.isInFullScreen) // false
+   */
+  @playerAPI()
+  enablePauseVideoOnFullScreenExit() {
+    this._pauseVideoOnFullScreenExit = true;
+  }
+
+  /**
+   * Disallow player try to exit full screen on end
+   * @example
+   * player.play();
+   * player.enablePauseVideoOnFullScreenExit();
+   * player.enterFullScreen();
+   * console.log(player.isInFullScreen) // true
+   * player.pause();
+   * console.log(player.isInFullScreen) // true
+   */
+  @playerAPI()
+  disablePauseVideoOnFullScreenExit() {
+    this._pauseVideoOnFullScreenExit = false;
+  }
+
+  /**
    * Player would try to enter fullscreen mode.
    * Behavior of fullscreen mode on different platforms may differ.
    * @example

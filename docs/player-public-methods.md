@@ -1355,6 +1355,106 @@ Return object with internal debug info
   </table>
 </div>
 
+## enableExitFullScreenOnPause()
+
+```javascript
+player.play();
+player.enableExitFullScreenOnPause();
+player.enterFullScreen();
+console.log(player.isInFullScreen) // true
+player.pause();
+console.log(player.isInFullScreen) // false
+```
+
+Allow player try to exit full screen on pause
+
+## disableExitFullScreenOnPause()
+
+```javascript
+player.play();
+player.disableExitFullScreenOnPause();
+player.enterFullScreen();
+console.log(player.isInFullScreen) // true
+player.pause();
+console.log(player.isInFullScreen) // true
+```
+
+Disallow player to exit full screen on pause
+
+## enableExitFullScreenOnEnd()
+
+```javascript
+player.play();
+player.enableExitFullScreenOnEnd();
+player.enterFullScreen();
+console.log(player.isInFullScreen) // true
+console.log(player.isEnded); // true
+console.log(player.isInFullScreen) // false
+```
+
+Allow player try to exit full screen on end
+
+## disableExitFullScreenOnEnd()
+
+```javascript
+player.play();
+player.disableExitFullScreenOnEnd();
+player.enterFullScreen();
+console.log(player.isInFullScreen) // true
+console.log(player.isEnded); // true
+console.log(player.isInFullScreen) // true
+```
+
+Disallow player try to exit full screen on end
+
+## enableEnterFullScreenOnPlay()
+
+```javascript
+player.enableEnterFullScreenOnPlay();
+console.log(player.isInFullScreen) // false
+player.play();
+console.log(player.isInFullScreen) // true
+```
+
+Allow player try to exit full screen on end
+
+## disableEnterFullScreenOnPlay()
+
+```javascript
+player.disableEnterFullScreenOnPlay();
+console.log(player.isInFullScreen) // false
+player.play();
+console.log(player.isInFullScreen) // false
+```
+
+Disallow player try to exit full screen on end
+
+## enablePauseVideoOnFullScreenExit()
+
+```javascript
+player.play();
+player.enablePauseVideoOnFullScreenExit();
+player.enterFullScreen();
+console.log(player.isInFullScreen) // true
+player.pause();
+console.log(player.isInFullScreen) // false
+```
+
+Allow player try to exit full screen on end
+
+## disablePauseVideoOnFullScreenExit()
+
+```javascript
+player.play();
+player.enablePauseVideoOnFullScreenExit();
+player.enterFullScreen();
+console.log(player.isInFullScreen) // true
+player.pause();
+console.log(player.isInFullScreen) // true
+```
+
+Disallow player try to exit full screen on end
+
 ## enterFullScreen()
 
 ```javascript
