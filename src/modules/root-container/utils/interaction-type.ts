@@ -59,7 +59,7 @@ function handlePointerEndEvent(event: any) {
   }
 
   // delay reset to when the current handlers are executed
-  (window.setImmediate || window.setTimeout)(() => {
+  ((window as any).setImmediate || window.setTimeout)(() => {
     // mouseup without prior mousedown
     // (drag something out of the window)
     _activePointers = Math.max(_activePointers - 1, 0);
@@ -98,7 +98,7 @@ function handleKeyEndEvent(event: KeyboardEvent) {
   }
 
   // delay reset to when the current handlers are executed
-  (window.setImmediate || window.setTimeout)(() => {
+  ((window as any).setImmediate || window.setTimeout)(() => {
     // keyup without prior keydown
     // (may happen on CMD+R)
     _activeKeys = Math.max(_activeKeys - 1, 0);
