@@ -54,10 +54,12 @@
     "tslint:all": "npm run tslint -- '{src,scripts}/**/*.ts'",
     "prettier:all": "prettier --write '{src,scripts,tslint-rules,dev-env}/**/*.{js,ts}'",
     "csscomb:all": "csscomb src/.",
+    "pretest:node": "haste-playable clean && npm run bundle:playable",
+    "test:node": "node src/e2e/node.js",
     "test:unit": "haste-playable test --mocha",
     "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-with-adapters",
     "test:playback": "haste-playable test --karma dev-env/karma.conf.js && haste-playable test --karma dev-env/karma-with-adapters.conf.js",
-    "precommit": "lint-staged && npm run test:unit && npm run test:playback && npm run documentation:gitadd"
+    "precommit": "lint-staged && npm run test:unit && npm run test:node && npm run test:playback && npm run documentation:gitadd"
   },
   "dependencies": {
     "classnames": "^2.2.6",
