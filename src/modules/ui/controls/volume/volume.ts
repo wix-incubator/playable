@@ -189,10 +189,11 @@ export default class VolumeControl implements IVolumeControl {
   }
 
   private _getVolumeLevelFromWheel(delta: number) {
-    const adjustedVolume = this._engine.getVolume() + delta / 10;
-    const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
-
-    this._changeVolumeLevel(validatedVolume);
+    if (!this._engine.isMuted) {
+      const adjustedVolume = this._engine.getVolume() + delta / 10;
+      const validatedVolume = Math.min(100, Math.max(0, adjustedVolume));
+      this._changeVolumeLevel(validatedVolume);
+    }
   }
 
   private _getVolumeLevelFromInput(level: number) {
