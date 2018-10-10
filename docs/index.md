@@ -60,11 +60,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-## Next step
+## Next steps
 
-* Structure of [config object](/player-config). <br/>
-* Simple customization via [themes](/themes)
-* Player's instanse [public methods](/api).<br/>
+* Structure of [config object](./player-config.md). <br/>
+* Simple customization via [themes](./themes.md)
+* Player's instanse [public methods](./api.md).<br/>
 
 ## Big thanks!
 
