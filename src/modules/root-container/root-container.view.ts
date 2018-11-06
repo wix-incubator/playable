@@ -68,8 +68,9 @@ class RootContainerView extends View<IRootContainerViewStyles>
     if (!width) {
       return;
     }
-
-    this._$rootElement.style.width = `${width}px`;
+    const widthStyle = `${width}px`;
+    this._$rootElement.style.width = widthStyle;
+    this._$rootElement.style.minWidth = widthStyle;
   }
 
   setHeight(height: number) {
@@ -77,7 +78,9 @@ class RootContainerView extends View<IRootContainerViewStyles>
       return;
     }
 
-    this._$rootElement.style.height = `${height}px`;
+    const heightStyle = `${height}px`;
+    this._$rootElement.style.height = heightStyle;
+    this._$rootElement.style.minHeight = heightStyle;
   }
 
   getWidth(): number {
