@@ -93,9 +93,9 @@ describe('Loader', () => {
     });
 
     describe('reaction to event', () => {
-      it('should be proper if event is VIDEO_EVENTS.UPLOAD_SUSPEND', () => {
+      it('should be proper if event is VIDEO_EVENTS.UPLOAD_SUSPEND', async function() {
         loader.show();
-        eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
+        await eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
         expect(loader.isHidden).to.be.true;
       });
 
@@ -113,43 +113,43 @@ describe('Loader', () => {
           loader.stopDelayedShow.restore();
         });
 
-        it('should be proper if next state is EngineState.SEEK_IN_PROGRESS', () => {
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        it('should be proper if next state is EngineState.SEEK_IN_PROGRESS', async function() {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.SEEK_IN_PROGRESS,
           });
 
           expect(delayedShowSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is EngineState.WAITING', () => {
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        it('should be proper if next state is EngineState.WAITING', async function() {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.WAITING,
           });
 
           expect(delayedShowSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is EngineState.LOAD_STARTED', () => {
+        it('should be proper if next state is EngineState.LOAD_STARTED', async function() {
           const showSpy = sinon.spy(loader, '_showContent');
           engine.setPreload('none');
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.false;
 
           engine.setPreload('auto');
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is EngineState.READY_TO_PLAY', () => {
+        it('should be proper if next state is EngineState.READY_TO_PLAY', async function() {
           const hideSpy = sinon.spy(loader, '_hideContent');
           loader._showContent();
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.READY_TO_PLAY,
           });
 
@@ -157,9 +157,9 @@ describe('Loader', () => {
           expect(stopDelayedShowSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is EngineState.PLAYING', () => {
+        it('should be proper if next state is EngineState.PLAYING', async function() {
           const hideSpy = sinon.spy(loader, '_hideContent');
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.PLAYING,
           });
 
@@ -167,9 +167,9 @@ describe('Loader', () => {
           expect(stopDelayedShowSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is EngineState.PAUSED', () => {
+        it('should be proper if next state is EngineState.PAUSED', async function() {
           const hideSpy = sinon.spy(loader, '_hideContent');
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.PAUSED,
           });
 

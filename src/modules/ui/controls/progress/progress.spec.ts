@@ -78,7 +78,7 @@ describe('ProgressControl', () => {
           control.clearTimeIndicators();
         });
 
-        it('should add one indicator', () => {
+        it('should add one indicator', async function() {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
           control.addTimeIndicator(100);
@@ -92,7 +92,7 @@ describe('ProgressControl', () => {
             'indicator added before `METADATA_LOADED`',
           ).to.equal(0);
 
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.METADATA_LOADED,
           });
 
@@ -102,7 +102,7 @@ describe('ProgressControl', () => {
           ).to.equal(1);
         });
 
-        it('should add multiple indicators', () => {
+        it('should add multiple indicators', async function() {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
           control.addTimeIndicators([100, 200, 300]);
@@ -116,7 +116,7 @@ describe('ProgressControl', () => {
             'indicator added before `METADATA_LOADED`',
           ).to.equal(0);
 
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.METADATA_LOADED,
           });
 
@@ -213,28 +213,28 @@ describe('ProgressControl', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback state change', () => {
+    it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control, '_processStateChange');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
+      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
 
-    it('should call callback on seek', () => {
+    it('should call callback on seek', async function() {
       const spyPlayed = sinon.spy(control, '_updatePlayedIndicator');
       const spyBuffered = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,
       });
       expect(spyPlayed.called).to.be.true;
       expect(spyBuffered.called).to.be.true;
     });
 
-    it('should call callback on duration update', () => {
+    it('should call callback on duration update', async function() {
       const spy = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
+      await eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
       expect(spy.called).to.be.true;
     });
   });

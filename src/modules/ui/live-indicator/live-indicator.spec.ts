@@ -70,7 +70,7 @@ describe('LiveIndicator', () => {
   });
 
   describe('on live state change', () => {
-    it('should reset on `LiveState.NONE`', () => {
+    it('should reset on `LiveState.NONE`', async function() {
       const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
       const viewToggleActiveSpy = sinon.spy(liveIndicator.view, 'toggleActive');
       const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
@@ -80,7 +80,7 @@ describe('LiveIndicator', () => {
       expect(liveIndicator.isHidden, 'hidden before `LiveState.NONE`').to.be
         .false;
 
-      eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+      await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
         nextState: LiveState.NONE,
       });
 
@@ -102,19 +102,19 @@ describe('LiveIndicator', () => {
     });
 
     describe('for dynamic content', () => {
-      beforeEach(() => {
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+      beforeEach(async function() {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.NONE,
         });
       });
 
-      it('should show on `LiveState.INITIAL`', () => {
+      it('should show on `LiveState.INITIAL`', async function() {
         const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
 
         expect(liveIndicator.isHidden, 'hidden before `LiveState.INITIAL`').to
           .be.true;
 
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
 
@@ -124,13 +124,13 @@ describe('LiveIndicator', () => {
         viewToggleSpy.restore();
       });
 
-      it('should activate on `LiveState.SYNC`', () => {
+      it('should activate on `LiveState.SYNC`', async function() {
         const viewToggleActiveSpy = sinon.spy(
           liveIndicator.view,
           'toggleActive',
         );
 
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
 
@@ -139,7 +139,7 @@ describe('LiveIndicator', () => {
         expect(liveIndicator.isActive, 'active before `LiveState.SYNC`').to.be
           .false;
 
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.SYNC,
         });
 
@@ -149,22 +149,22 @@ describe('LiveIndicator', () => {
         viewToggleActiveSpy.restore();
       });
 
-      it('should deactivate on `LiveState.NOT_SYNC`', () => {
+      it('should deactivate on `LiveState.NOT_SYNC`', async function() {
         const viewToggleActiveSpy = sinon.spy(
           liveIndicator.view,
           'toggleActive',
         );
 
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.SYNC,
         });
 
         expect(liveIndicator.isActive, 'active before out of sync').to.be.true;
 
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.NOT_SYNC,
         });
 
@@ -174,24 +174,24 @@ describe('LiveIndicator', () => {
         viewToggleActiveSpy.restore();
       });
 
-      it('should react to `LiveState.ENDED`', () => {
+      it('should react to `LiveState.ENDED`', async function() {
         const viewToggleActiveSpy = sinon.spy(
           liveIndicator.view,
           'toggleActive',
         );
         const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
 
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.SYNC,
         });
 
         expect(liveIndicator.isActive, 'active before `LiveState.ENDED`').to.be
           .true;
 
-        eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
           nextState: LiveState.ENDED,
         });
 

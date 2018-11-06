@@ -65,10 +65,10 @@ describe('VolumeControl', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback state change', () => {
+    it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control, '_updateSoundState');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED);
+      await eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED);
       expect(spy.called).to.be.true;
     });
   });

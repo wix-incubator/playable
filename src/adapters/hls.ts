@@ -228,9 +228,15 @@ export default class HlsAdapter implements IPlaybackAdapter {
           this._logError(ERRORS.UNKNOWN, data);
           break;
       }
-
       this._tryRecoverNetworkError();
     } else if (data.type === ErrorTypes.MEDIA_ERROR) {
+      // NOTE: when error is BUFFER_STALLED_ERROR
+      // video play successfully without recovering
+      // while recover breaks video playback
+      if (data.details !== ErrorDetails.BUFFER_STALLED_ERROR) {
+        this._tryRecoverMediaError();
+      }
+
       switch (data.details) {
         case ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR:
           this._logError(ERRORS.MANIFEST_INCOMPATIBLE, data);
@@ -241,13 +247,6 @@ export default class HlsAdapter implements IPlaybackAdapter {
         default:
           this._logError(ERRORS.MEDIA, data);
           break;
-      }
-
-      // NOTE: when error is BUFFER_STALLED_ERROR
-      // video play successfully without recovering
-      // while recover breaks video playback
-      if (data.details !== ErrorDetails.BUFFER_STALLED_ERROR) {
-        this._tryRecoverMediaError();
       }
     } else {
       this._logError(ERRORS.UNKNOWN, data);
@@ -280,6 +279,21 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.videoElement.removeEventListener('play', this._attachOnPlay);
   }
 
+  private _onLevelUpdated(_eventName: string, { details }: any) {
+    this._isDynamicContent = details.live;
+    this._isDynamicContentEnded = details.live ? false : null;
+
+    this.hls.off(HlsJs.Events.LEVEL_UPDATED, this._onLevelUpdated);
+  }
+
+  private _onEndOfStream() {
+    if (this._isDynamicContent) {
+      this._isDynamicContentEnded = true;
+
+      this.eventEmitter.emit(VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED);
+    }
+  }
+
   attach(videoElement: HTMLVideoElement) {
     if (!this.mediaStream) {
       return;
@@ -305,21 +319,6 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.hls.loadSource(this.mediaStream.url);
     this.hls.attachMedia(this.videoElement);
     this._isAttached = true;
-  }
-
-  private _onLevelUpdated(_eventName: string, { details }: any) {
-    this._isDynamicContent = details.live;
-    this._isDynamicContentEnded = details.live ? false : null;
-
-    this.hls.off(HlsJs.Events.LEVEL_UPDATED, this._onLevelUpdated);
-  }
-
-  private _onEndOfStream() {
-    if (this._isDynamicContent) {
-      this._isDynamicContentEnded = true;
-
-      this.eventEmitter.emit(VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED);
-    }
   }
 
   detach() {

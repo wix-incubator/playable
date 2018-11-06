@@ -38,10 +38,10 @@ describe('FullScreenControl', () => {
   });
 
   describe('ui events listeners', () => {
-    it('should call callback on playback state change', () => {
+    it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control.view, 'setFullScreenState');
       control._bindEvents();
-      eventEmitter.emit(UI_EVENTS.FULL_SCREEN_STATE_CHANGED);
+      await eventEmitter.emit(UI_EVENTS.FULL_SCREEN_STATE_CHANGED);
       expect(spy.called).to.be.true;
     });
   });

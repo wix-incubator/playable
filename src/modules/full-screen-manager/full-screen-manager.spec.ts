@@ -206,14 +206,14 @@ describe('FullScreenManager', () => {
   });
 
   describe('due to reaction on play request', () => {
-    it('should enter full screen if proper config passed', () => {
+    it('should enter full screen if proper config passed', async function() {
       const spy = sinon.spy(fullScreenManager, 'enterFullScreen');
 
-      eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
+      await eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
 
       fullScreenManager._enterFullScreenOnPlay = true;
       mockedFullscreenHelper.isInFullScreen = false;
-      eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
+      await eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
       expect(spy.calledOnce).to.be.true;
 
       fullScreenManager.enterFullScreen.restore();
@@ -222,17 +222,17 @@ describe('FullScreenManager', () => {
 
   describe('due to reaction on state changed', () => {
     describe('to end state', () => {
-      it('should exit full screen if config passed', () => {
+      it('should exit full screen if config passed', async function() {
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: EngineState.ENDED,
         });
 
         fullScreenManager._exitFullScreenOnEnd = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: EngineState.ENDED,
         });
         expect(spy.calledOnce).to.be.true;
@@ -242,17 +242,17 @@ describe('FullScreenManager', () => {
     });
 
     describe('to pause state', () => {
-      it('should exit full screen if config passed', () => {
+      it('should exit full screen if config passed', async function() {
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: EngineState.PAUSED,
         });
 
         fullScreenManager._exitFullScreenOnPause = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
-        eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
           nextState: EngineState.PAUSED,
         });
         expect(spy.calledOnce).to.be.true;

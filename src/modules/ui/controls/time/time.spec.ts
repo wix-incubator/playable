@@ -62,26 +62,26 @@ describe('TimeControl', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback state change', () => {
+    it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control, '_toggleIntervalUpdates');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
+      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
 
-    it('should call callback on seek', () => {
+    it('should call callback on seek', async function() {
       const spy = sinon.spy(control, '_startIntervalUpdates');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,
       });
       expect(spy.called).to.be.true;
     });
 
-    it('should call callback on duration update', () => {
+    it('should call callback on duration update', async function() {
       const spy = sinon.spy(control, '_updateDurationTime');
       control._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
+      await eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
       expect(spy.called).to.be.true;
     });
   });

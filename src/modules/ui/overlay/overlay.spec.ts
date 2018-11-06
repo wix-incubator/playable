@@ -60,13 +60,13 @@ describe('Overlay', () => {
       eventEmitter = testkit.getModule('eventEmitter');
     });
 
-    it('should react on video playback state changed on play', () => {
+    it('should react on video playback state changed on play', async function() {
       const callback = sinon.spy(overlay, '_updatePlayingState');
       const hideSpy = sinon.spy(overlay, '_hideContent');
 
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
         nextState: EngineState.PLAY_REQUESTED,
       });
 
@@ -74,12 +74,12 @@ describe('Overlay', () => {
       expect(hideSpy.called).to.be.true;
     });
 
-    it('should react on video playback state changed on end', () => {
+    it('should react on video playback state changed on end', async function() {
       const callback = sinon.spy(overlay, '_updatePlayingState');
       const showSpy = sinon.spy(overlay, '_showContent');
       overlay._bindEvents();
 
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
         nextState: EngineState.ENDED,
       });
 

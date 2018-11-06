@@ -71,9 +71,9 @@ describe('LoadingCover', () => {
     });
 
     describe('reaction to event', () => {
-      it('should be proper if event is VIDEO_EVENTS.UPLOAD_SUSPEND', () => {
+      it('should be proper if event is VIDEO_EVENTS.UPLOAD_SUSPEND', async function() {
         loadingCover.show();
-        eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
+        await eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
         expect(loadingCover.isHidden).to.be.true;
       });
 
@@ -91,25 +91,25 @@ describe('LoadingCover', () => {
           loadingCover.hide.restore();
         });
 
-        it('should be proper if next state is EngineState.LOAD_STARTED', () => {
+        it('should be proper if next state is EngineState.LOAD_STARTED', async function() {
           engine.setPreload('none');
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.false;
 
           engine.setPreload('auto');
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is EngineState.WAITING', () => {
+        it('should be proper if next state is EngineState.WAITING', async function() {
           engine._stateEngine._isMetadataLoaded = true;
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.WAITING,
           });
 
@@ -117,15 +117,15 @@ describe('LoadingCover', () => {
 
           engine._stateEngine._isMetadataLoaded = false;
           engine.setPreload('auto');
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.WAITING,
           });
 
           expect(showSpy.called).to.be.true;
         });
 
-        it('should be proper if next state is EngineState.READY_TO_PLAY', () => {
-          eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        it('should be proper if next state is EngineState.READY_TO_PLAY', async function() {
+          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
             nextState: EngineState.READY_TO_PLAY,
           });
 

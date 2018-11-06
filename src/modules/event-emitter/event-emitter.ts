@@ -7,6 +7,7 @@ import { IEventEmitter, IEventMap } from './types';
 export default class EventEmitterModule extends EventEmitter
   implements IEventEmitter {
   static moduleName = 'eventEmitter';
+
   /**
    * Method for adding listeners of events inside player.
    * You can check all events inside `Playable.UI_EVENTS` and `Playable.VIDEO_EVENTS`
@@ -84,7 +85,7 @@ export default class EventEmitterModule extends EventEmitter
    * @param defaultFnContext
    * @returns unbindEvents
    */
-  bindEvents(eventsMap: IEventMap[], defaultFnContext?: Object): Function {
+  bindEvents(eventsMap: IEventMap[], defaultFnContext?: Object): () => void {
     const events: Function[] = [];
 
     eventsMap.forEach(([eventName, fn, fnContext = defaultFnContext]) => {
@@ -99,6 +100,12 @@ export default class EventEmitterModule extends EventEmitter
         unbindEvent();
       });
     };
+  }
+
+  //@ts-ignore
+  //Now emit fire events only at the end of current macrotask, as part as next microtask
+  emit(event: string | symbol, ...args: any[]): Promise<boolean> {
+    return Promise.resolve().then(() => super.emit(event, ...args));
   }
 
   destroy() {

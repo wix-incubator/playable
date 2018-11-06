@@ -57,10 +57,10 @@ describe('BottomBlock', () => {
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback state change', () => {
+    it('should call callback on playback state change', async function() {
       const spy = sinon.spy(mainBlock, '_updatePlayingState');
       mainBlock._bindEvents();
-      eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
+      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
   });
