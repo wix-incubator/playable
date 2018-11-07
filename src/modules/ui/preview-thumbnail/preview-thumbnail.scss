@@ -1,5 +1,6 @@
 $thumbnail-width: 180px;
 $thumbnail-height: 90px;
+$thumbnail-border-size: 2px;
 
 .container {
   display: flex;
@@ -8,9 +9,9 @@ $thumbnail-height: 90px;
   width: $thumbnail-width;
   height: $thumbnail-height;
 
-  border: 2px solid rgba(0, 0, 0, .5);
+  border: $thumbnail-border-size solid rgba(0, 0, 0, 0.5);
   border-radius: 2px;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
 
   align-items: center;
 
@@ -26,6 +27,10 @@ $thumbnail-height: 90px;
 .highQualityFrame,
 .lowQualityFrame {
   position: absolute;
+  top: $thumbnail-border-size;
+  right: $thumbnail-border-size;
+  bottom: $thumbnail-border-size;
+  left: $thumbnail-border-size;
 
   width: $thumbnail-width;
   height: $thumbnail-height;
@@ -63,5 +68,5 @@ $thumbnail-height: 90px;
   white-space: nowrap;
 
   color: white;
-  background: rgba(0, 0, 0, .8);
+  background: rgba(0, 0, 0, 0.8);
 }
