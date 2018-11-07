@@ -4,6 +4,22 @@ import playerAPI from '../../core/player-api-decorator';
 
 import { IEventEmitter, IEventMap } from './types';
 
+const isPromiseAvailable = function() {
+  const globalNS = (function() {
+    if (typeof self !== 'undefined') {
+      return self;
+    }
+    if (typeof window !== 'undefined') {
+      return window;
+    }
+    if (typeof global !== 'undefined') {
+      return global;
+    }
+    throw new Error('unable to locate global object');
+  })();
+  return 'Promise' in globalNS;
+};
+
 export default class EventEmitterModule extends EventEmitter
   implements IEventEmitter {
   static moduleName = 'eventEmitter';
@@ -104,7 +120,12 @@ export default class EventEmitterModule extends EventEmitter
 
   //@ts-ignore
   //Now emit fire events only at the end of current macrotask, as part as next microtask
-  emit(event: string | symbol, ...args: any[]): Promise<boolean> {
+  emit(event: string | symbol, ...args: any[]): Promise<boolean> | number {
+    //Handle IE11
+    if (!isPromiseAvailable && setImmediate) {
+      return setImmediate(() => super.emit(event, ...args));
+    }
+
     return Promise.resolve().then(() => super.emit(event, ...args));
   }
 

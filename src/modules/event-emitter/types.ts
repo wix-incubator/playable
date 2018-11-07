@@ -9,7 +9,7 @@ interface IEventMap extends Array<any> {
 interface IEventEmitter {
   on(event: string, fn: ListenerFn, context?: any): this;
   off(event: string, fn?: ListenerFn, context?: any, once?: boolean): this;
-  emit(event: string | symbol, ...args: any[]): void;
+  emit(event: string | symbol, ...args: any[]): Promise<boolean> | number;
   bindEvents(eventsMap: IEventMap[], defaultFnContext?: any): Function;
   destroy(): void;
 }
