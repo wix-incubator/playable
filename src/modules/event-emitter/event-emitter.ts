@@ -120,10 +120,10 @@ export default class EventEmitterModule extends EventEmitter
 
   //@ts-ignore
   //Now emit fire events only at the end of current macrotask, as part as next microtask
-  emit(event: string | symbol, ...args: any[]): Promise<boolean> | number {
+  emit(event: string | symbol, ...args: any[]): Promise<boolean> | void {
     //Handle IE11
     if (!isPromiseAvailable && setImmediate) {
-      return setImmediate(() => super.emit(event, ...args));
+      setImmediate(() => super.emit(event, ...args));
     }
 
     return Promise.resolve().then(() => super.emit(event, ...args));
