@@ -3,6 +3,7 @@ import { IEventEmitter } from '../event-emitter/types';
 import { VIDEO_EVENTS } from '../../constants';
 
 export const NATIVE_VIDEO_TO_BROADCAST = [
+  'loadstart',
   'progress',
   'error',
   'stalled',
@@ -18,6 +19,7 @@ export default class NativeEventsBroadcaster {
   private _video: HTMLVideoElement;
   private _currentVolume: number;
   private _currentMute: boolean;
+  private _shouldCheckVolume: boolean;
 
   constructor(eventEmitter: IEventEmitter, video: HTMLVideoElement) {
     this._eventEmitter = eventEmitter;
@@ -48,8 +50,14 @@ export default class NativeEventsBroadcaster {
 
   private _processEventFromVideo(event: any = {}) {
     const videoEl = this._video;
-
     switch (event.type) {
+      case 'loadstart': {
+        if (this._shouldCheckVolume) {
+          this._checkVolumeChanges();
+        }
+
+        break;
+      }
       case 'progress': {
         this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
         break;
@@ -84,28 +92,39 @@ export default class NativeEventsBroadcaster {
         break;
       }
       case 'volumechange': {
-        if (this._currentVolume !== videoEl.volume) {
-          this._currentVolume = videoEl.volume * 100;
-          this._eventEmitter.emit(
-            VIDEO_EVENTS.VOLUME_CHANGED,
-            this._currentVolume,
-          );
+        if (this._shouldCheckVolume) {
+          this._shouldCheckVolume = false;
         }
-
-        if (this._currentMute !== videoEl.muted) {
-          this._currentMute = videoEl.muted;
-          this._eventEmitter.emit(VIDEO_EVENTS.MUTE_CHANGED, this._currentMute);
-        }
-
-        this._eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED, {
-          volume: videoEl.volume,
-          muted: videoEl.muted,
-        });
+        this._checkVolumeChanges();
         break;
       }
       default:
         break;
     }
+  }
+
+  private _checkVolumeChanges() {
+    const videoEl = this._video;
+
+    if (this._currentVolume !== videoEl.volume) {
+      this._currentVolume = videoEl.volume * 100;
+      this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_CHANGED, this._currentVolume);
+    }
+
+    if (this._currentMute !== videoEl.muted) {
+      this._currentMute = videoEl.muted;
+      this._eventEmitter.emit(VIDEO_EVENTS.MUTE_CHANGED, this._currentMute);
+    }
+
+    this._eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED, {
+      volume: videoEl.volume,
+      muted: videoEl.muted,
+    });
+  }
+
+  //Workaround for problem with HTML5Video not firing volumechange if source changed right after volume/muted changed
+  checkVolumeChangeAfterLoadStart() {
+    this._shouldCheckVolume = true;
   }
 
   destroy() {

@@ -366,6 +366,8 @@ export default class Engine implements IPlaybackEngine {
     this._video.volume = isNaN(parsedVolume)
       ? 1
       : Math.max(0, Math.min(Number(volume) / 100, 1));
+    //Workaround for problem with HTML5Video not firing volumechange if source changed right after volume/muted changed
+    this._nativeEventsBroadcaster.checkVolumeChangeAfterLoadStart();
   }
 
   /**
@@ -402,6 +404,8 @@ export default class Engine implements IPlaybackEngine {
 
   setMute(isMuted: boolean) {
     this._video.muted = Boolean(isMuted);
+    //Workaround for problem with HTML5Video not firing volumechange if source changed right after volume/muted changed
+    this._nativeEventsBroadcaster.checkVolumeChangeAfterLoadStart();
   }
 
   /**

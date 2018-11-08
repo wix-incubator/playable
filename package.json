@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "dashjs": "^2.9.0",
+    "dashjs": "^2.9.2",
     "eventemitter3": "^3.1.0",
     "hls.js": "^0.10.1",
     "resize-observer-polyfill": "^1.5.0",
@@ -71,14 +71,14 @@
   },
   "devDependencies": {
     "@babel/types": "7.0.0-beta.46",
-    "@types/chai": "^4.1.5",
+    "@types/chai": "^4.1.7",
     "@types/chance": "^1.0.1",
-    "@types/hls.js": "^0.10.1",
+    "@types/hls.js": "^0.10.2",
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.11.2",
+    "@types/node": "^10.12.3",
     "chai": "~4.1.2",
     "chance": "^1.0.16",
-    "conventional-changelog-cli": "^2.0.5",
+    "conventional-changelog-cli": "^2.0.11",
     "csscomb": "^4.2.0",
     "gh-pages": "^1.2.0",
     "haste-preset-playable": "github:bodia-uz/haste-preset-playable#v2.2.1",
@@ -93,11 +93,11 @@
     "lint-staged": "^7.3.0",
     "okidoc-md": "^2.0.0-beta.4",
     "okidoc-site": "^2.0.0-beta.4",
-    "prettier": "^1.14.3",
-    "sinon": "^6.3.4",
+    "prettier": "^1.15.1",
+    "sinon": "^6.3.5",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.1.1"
+    "typescript": "^3.1.6"
   },
   "publishConfig": {
     "logLevel": "verbose",

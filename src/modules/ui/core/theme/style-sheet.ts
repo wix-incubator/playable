@@ -73,8 +73,8 @@ export class StyleSheet {
 
     const complexRuleNames = Object.keys(rule)
       .filter(ruleName => typeof rule[ruleName] === 'object')
-      .map(
-        ruleName => (ruleName.indexOf('&') !== -1 ? ruleName : `& ${ruleName}`),
+      .map(ruleName =>
+        ruleName.indexOf('&') !== -1 ? ruleName : `& ${ruleName}`,
       );
 
     const complexRules = complexRuleNames
