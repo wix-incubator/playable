@@ -25,7 +25,7 @@ import Playable from 'playable';
 Or add a `<script>` element
 
 ```html
-<script src="https://unpkg.com/playable@2.2.0/dist/statics/playable.bundle.min.js"></script>
+<script src="https://unpkg.com/playable@2.3.0/dist/statics/playable.bundle.min.js"></script>
 
 <script>
   var Playable = window.Playable;
