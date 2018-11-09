@@ -31,6 +31,7 @@ export default class MainUIBlock implements IMainUIBlock {
   private _bottomBlock: IBottomBlock;
   private _topBlock: ITopBlock;
   private _screen: IScreen;
+  private _tooltipService: ITooltipService;
 
   private _hideTimeout: number = null;
 
@@ -68,6 +69,7 @@ export default class MainUIBlock implements IMainUIBlock {
     this._topBlock = topBlock;
     this._bottomBlock = bottomBlock;
     this._screen = screen;
+    this._tooltipService = tooltipService;
 
     this.isHidden = false;
 
@@ -107,6 +109,7 @@ export default class MainUIBlock implements IMainUIBlock {
       [
         [UI_EVENTS.MOUSE_MOVE_ON_PLAYER, this._startHideBlockTimeout],
         [UI_EVENTS.MOUSE_LEAVE_ON_PLAYER, this._tryHideContent],
+        [UI_EVENTS.FOCUS_ENTER_ON_PLAYER, this._startHideBlockTimeout],
         [UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout],
         [UI_EVENTS.LOADER_HIDE, this._startHideBlockTimeout],
         [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState],
@@ -216,6 +219,7 @@ export default class MainUIBlock implements IMainUIBlock {
     this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE);
     this._bottomBlock.hideContent();
     this._topBlock.hideContent();
+    this._tooltipService.hide();
     this._isContentShown = false;
   }
 
@@ -270,5 +274,7 @@ export default class MainUIBlock implements IMainUIBlock {
     this._eventEmitter = null;
     this._topBlock = null;
     this._bottomBlock = null;
+    this._screen = null;
+    this._tooltipService = null;
   }
 }
