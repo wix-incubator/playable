@@ -7,7 +7,7 @@
 
   display: flex;
 
-  transition: opacity .2s, visibility .2s;
+  transition: opacity .2s;
   transition-duration: .2s;
 
   opacity: 1;
@@ -26,7 +26,7 @@
   max-width: 125px;
   max-height: 26px;
 
-  transition: opacity .2s, visibility .2s;
+  transition: opacity .2s;
 
   @include max-width-550() {
     max-width: 90px;
@@ -76,6 +76,6 @@
   }
 
   &:hover {
-    transform: scale(1.20);
+    transform: scale(1.2);
   }
 }

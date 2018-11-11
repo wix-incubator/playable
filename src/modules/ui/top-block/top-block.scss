@@ -8,16 +8,9 @@
     border: 0;
   }
 
-  &.activated,
-  &.focus-within {
-    .titleContainer {
-      visibility: visible;
-
-      opacity: 1;
-    }
+  &.activated {
+    .titleContainer,
     .background {
-      visibility: visible;
-
       opacity: 1;
     }
   }
@@ -52,11 +45,9 @@
 }
 
 .titleContainer {
-  visibility: hidden;
-
   max-width: calc(100% - 200px);
 
-  transition: opacity .2s, visibility .2s;
+  transition: opacity .2s;
 
   opacity: 0;
 
@@ -68,20 +59,18 @@
   top: 0;
   right: 0;
   left: 0;
-
-  visibility: hidden;
   //height less then background by 1px 'cause of strange problem on chrome, when visible size of background is 181px
   //maybe it's 'cause of linear-gradient
 
   height: 181px;
 
-  transition: opacity .2s, visibility .2s;
+  transition: opacity .2s;
   pointer-events: none;
 
   opacity: 0;
   background-image: linear-gradient(
   to top,
-  rgba(0, 0, 0, .0),
+  rgba(0, 0, 0, 0),
   rgba(0, 0, 0, .03) 24%,
   rgba(0, 0, 0, .15) 50%,
   rgba(0, 0, 0, .3) 75%,

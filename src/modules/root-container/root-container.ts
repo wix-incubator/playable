@@ -65,6 +65,8 @@ class RootContainer implements IRootContainer {
     this._broadcastMouseEnter = this._broadcastMouseEnter.bind(this);
     this._broadcastMouseMove = this._broadcastMouseMove.bind(this);
     this._broadcastMouseLeave = this._broadcastMouseLeave.bind(this);
+    this._broadcastFocusEnter = this._broadcastFocusEnter.bind(this);
+    this._broadcastFocusLeave = this._broadcastFocusLeave.bind(this);
   }
 
   private _bindEvents() {
@@ -114,9 +116,21 @@ class RootContainer implements IRootContainer {
     this._eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER);
   }
 
+  private _broadcastFocusEnter() {
+    this._eventEmitter.emit(UI_EVENTS.FOCUS_ENTER_ON_PLAYER);
+  }
+
+  private _broadcastFocusLeave() {
+    this._eventEmitter.emit(UI_EVENTS.FOCUS_LEAVE_ON_PLAYER);
+  }
+
   private _enableFocusInterceptors() {
     if (!this._disengageFocusWithin) {
-      this._disengageFocusWithin = focusWithin();
+      this._disengageFocusWithin = focusWithin(
+        this.getElement(),
+        this._broadcastFocusEnter,
+        this._broadcastFocusLeave,
+      );
     }
 
     if (!this._disengageFocusSource) {

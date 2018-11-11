@@ -1,25 +1,59 @@
 // inspired by https://gist.github.com/aFarkas/a7e0d85450f323d5e164
-const focusWithin = () => {
-  const slice = [].slice;
-  const removeClass = (elem: any) => {
-    elem.classList.remove('focus-within');
-  };
+const FOCUS_WITHIN_CLASSNAME = 'focus-within';
+
+const clearFocusWithinClass = (element: Element): void => {
+  Array.prototype.slice
+    .call(element.getElementsByClassName(FOCUS_WITHIN_CLASSNAME))
+    .forEach((elem: Element) => {
+      elem.classList.remove(FOCUS_WITHIN_CLASSNAME);
+    });
+};
+
+const addFocusWithinClass = (
+  boundaryElement: Element,
+  activeElement: Element,
+): void => {
+  let currentNode: Node = activeElement;
+  while (currentNode !== boundaryElement && (<Element>currentNode).classList) {
+    (<Element>currentNode).classList.add(FOCUS_WITHIN_CLASSNAME);
+    currentNode = currentNode.parentNode;
+  }
+};
+
+const focusWithin = (
+  rootElement: Element,
+  onFocusEnter: () => void,
+  onFocusLeave: () => void,
+): (() => void) => {
   const update = (() => {
     let running: boolean;
     let last: Element;
-    const action = () => {
-      let element: any = document.activeElement;
+    let isFocused: boolean;
 
+    const action = () => {
+      const activeElement: any = document.activeElement;
       running = false;
-      if (last !== element) {
-        last = element;
-        slice
-          .call(document.getElementsByClassName('focus-within'))
-          .forEach(removeClass);
-        while (element && element.classList) {
-          element.classList.add('focus-within');
-          element = element.parentNode;
+
+      if (last !== activeElement) {
+        last = activeElement;
+
+        clearFocusWithinClass(rootElement);
+
+        if (!rootElement.contains(activeElement)) {
+          if (isFocused) {
+            isFocused = false;
+            onFocusLeave();
+          }
+
+          return;
         }
+
+        if (!isFocused) {
+          isFocused = true;
+          onFocusEnter();
+        }
+
+        addFocusWithinClass(rootElement, activeElement);
       }
     };
 
@@ -31,13 +65,13 @@ const focusWithin = () => {
     };
   })();
 
-  document.addEventListener('focus', update, true);
-  document.addEventListener('blur', update, true);
+  rootElement.addEventListener('focus', update, true);
+  rootElement.addEventListener('blur', update, true);
   update();
 
-  return () => {
-    document.removeEventListener('focus', update, true);
-    document.removeEventListener('blur', update, true);
+  return (): void => {
+    rootElement.removeEventListener('focus', update, true);
+    rootElement.removeEventListener('blur', update, true);
   };
 };
 

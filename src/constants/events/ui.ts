@@ -23,6 +23,8 @@ const UI_EVENTS = {
   MOUSE_ENTER_ON_PLAYER: 'ui-events/mouse-enter-on-player',
   MOUSE_MOVE_ON_PLAYER: 'ui-events/mouse-move-on-player',
   MOUSE_LEAVE_ON_PLAYER: 'ui-events/mouse-leave-on-player',
+  FOCUS_ENTER_ON_PLAYER: 'ui-events/focus-enter-on-player',
+  FOCUS_LEAVE_ON_PLAYER: 'ui-events/focus-leave-on-player',
 
   MAIN_BLOCK_HIDE: 'ui-events/main-block-hide',
   MAIN_BLOCK_SHOW: 'ui-events/main-block-show',
