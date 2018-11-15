@@ -15,6 +15,12 @@ enum PreloadTypes {
 
 interface IMediaSource {
   url: string;
+  type?: MediaStreamTypes;
+  mimeType?: string;
+}
+
+interface IParsedMediaSource {
+  url: string;
   type: MediaStreamTypes;
 }
 
@@ -117,6 +123,7 @@ export {
   IPlaybackEngine,
   IEngineDebugInfo,
   IMediaSource,
+  IParsedMediaSource,
   MediaSource,
   PreloadTypes,
   CrossOriginValue,

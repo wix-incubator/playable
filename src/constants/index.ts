@@ -1,4 +1,8 @@
-import { MediaStreamTypes, MediaStreamDeliveryPriority } from './media-stream';
+import {
+  MediaStreamTypes,
+  MimeToStreamTypeMap,
+  MediaStreamDeliveryPriority,
+} from './media-stream';
 import UI_EVENTS from './events/ui';
 import VIDEO_EVENTS from './events/video';
 import ERRORS from './errors';
@@ -8,6 +12,7 @@ import LiveState from './live-state';
 
 export {
   MediaStreamTypes,
+  MimeToStreamTypeMap,
   MediaStreamDeliveryPriority,
   TEXT_LABELS,
   UI_EVENTS,

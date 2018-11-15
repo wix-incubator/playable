@@ -8,6 +8,17 @@ enum MediaStreamTypes {
   MKV = 'MKV',
 }
 
+const MimeToStreamTypeMap: { [mimeType: string]: MediaStreamTypes } = {
+  'application/x-mpegURL': MediaStreamTypes.HLS,
+  'application/vnd.apple.mpegURL': MediaStreamTypes.HLS,
+  'application/dash+xml': MediaStreamTypes.DASH,
+  'video/mp4': MediaStreamTypes.MP4,
+  'video/webm': MediaStreamTypes.WEBM,
+  'video/ogg': MediaStreamTypes.OGG,
+  'video/quicktime': MediaStreamTypes.MOV,
+  'video/x-matroska': MediaStreamTypes.MKV,
+};
+
 enum MediaStreamDeliveryPriority {
   NATIVE_PROGRESSIVE,
   ADAPTIVE_VIA_MSE,
@@ -15,4 +26,4 @@ enum MediaStreamDeliveryPriority {
   FORCED,
 }
 
-export { MediaStreamTypes, MediaStreamDeliveryPriority };
+export { MediaStreamTypes, MimeToStreamTypeMap, MediaStreamDeliveryPriority };
