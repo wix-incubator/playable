@@ -6,15 +6,9 @@ import Playable from 'playable';
 const player = Playable.create({
   src: 'https://my-url/video.mp4'
 });
-
-player.setSrc([
-  'https://my-url/video.mp4',
-  'https://my-url/video.webm',
-  'https://my-url/video.m3u8'
-]);
 ```
 
-Set the source of the video stream:
+To set the source of the video stream, use `src` property of config or `setSrc` method of player instance.
 
 The type of stream is automatically detected from the URL. The following extensions are recognized:
 
@@ -23,7 +17,31 @@ The type of stream is automatically detected from the URL. The following extensi
 - HLS manifest `.m3u8`
 - DASH manifest `.mpd`
 
+```javascript
+player.setSrc([
+  'https://my-url/video.mp4',
+  'https://my-url/video.webm',
+  'https://my-url/video.m3u8'
+]);
+```
+
 You can provide multiple source as an array.
+
+```javascript
+import Playable from 'playable';
+
+const player = Playable.create({
+  src: 'https://my-url/video'
+  type: Playable.MEDIA_STREAM_TYPES.MP4
+});
+// OR
+player.setSrc({
+  url: 'https://my-url/video',
+  type: Playable.MEDIA_STREAM_TYPES.MP4
+})
+```
+If the URL does not end with the file extension, the type can be specified explicitly.
+Use `Playable.MEDIA_STREAM_TYPES` to set video `type`.
 
 ## And now, the best part...
 
@@ -40,8 +58,6 @@ player.setSrc([
   },
 ]);
 ```
-
-If the URL does not end with the file extension, the type can be specified explicitly.
 
 In combination with multiple sources, you can be flexible as much as you want:
 
