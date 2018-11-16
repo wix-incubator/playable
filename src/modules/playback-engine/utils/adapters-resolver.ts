@@ -1,6 +1,6 @@
 import { IPlaybackAdapter } from '../adapters/types';
-import { MediaStreamTypes } from '../../../constants';
-import { IMediaSource } from '../types';
+import { MediaStreamTypes, MimeToStreamTypeMap } from '../../../constants';
+import { IMediaSource, IParsedMediaSource } from '../types';
 
 export function resolveAdapters(
   mediaStreams: IMediaSource[],
@@ -33,16 +33,23 @@ export function resolveAdapters(
 }
 
 function groupStreamsByMediaType(mediaStreams: IMediaSource[]) {
-  const typeMap: { [type: string]: IMediaSource[] } = {};
+  const typeMap: { [type: string]: IParsedMediaSource[] } = {};
   mediaStreams.forEach((mediaStream: IMediaSource) => {
-    if (!mediaStream.type) {
+    const type: MediaStreamTypes =
+      mediaStream.type || MimeToStreamTypeMap[mediaStream.mimeType];
+
+    if (!type) {
       return;
     }
 
-    if (!Array.isArray(typeMap[mediaStream.type])) {
-      typeMap[mediaStream.type] = [];
+    if (!Array.isArray(typeMap[type])) {
+      typeMap[type] = [];
     }
-    typeMap[mediaStream.type].push(mediaStream);
+
+    typeMap[type].push({
+      url: mediaStream.url,
+      type,
+    });
   });
 
   return typeMap;

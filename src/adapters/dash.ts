@@ -12,6 +12,7 @@ import {
   IPlaybackAdapter,
 } from '../index';
 import { IEventEmitter } from '../modules/event-emitter/types';
+import { IParsedMediaSource } from '../modules/playback-engine/types';
 
 const INITIAL_BITRATE = 5000;
 
@@ -24,7 +25,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
   private eventEmitter: any;
   private dashPlayer: any;
-  private mediaStream: any;
+  private mediaStream: IParsedMediaSource;
   private videoElement: HTMLVideoElement;
 
   constructor(eventEmitter: IEventEmitter) {
@@ -110,7 +111,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     this._broadcastError = this._broadcastError.bind(this);
   }
 
-  setMediaStreams(mediaStreams: any) {
+  setMediaStreams(mediaStreams: IParsedMediaSource[]) {
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {

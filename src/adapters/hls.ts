@@ -15,7 +15,7 @@ import {
   IPlaybackAdapter,
 } from '../index';
 import { IEventEmitter } from '../modules/event-emitter/types';
-import { IMediaSource } from '../modules/playback-engine/types';
+import { IParsedMediaSource } from '../modules/playback-engine/types';
 
 const LIVE_SYNC_DURATION = 4;
 const LIVE_SYNC_DURATION_DELTA = 5;
@@ -35,7 +35,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private eventEmitter: IEventEmitter;
   private hls: HlsJs;
   private videoElement: HTMLVideoElement;
-  private mediaStream: IMediaSource;
+  private mediaStream: IParsedMediaSource;
 
   private _mediaRecoverTimeout: number;
   private _networkRecoverTimeout: number;
@@ -162,7 +162,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     return mediaType === MEDIA_STREAM_TYPES.HLS;
   }
 
-  setMediaStreams(mediaStreams: IMediaSource[]) {
+  setMediaStreams(mediaStreams: IParsedMediaSource[]) {
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {
