@@ -13,6 +13,8 @@ const MimeToStreamTypeMap: { [mimeType: string]: MediaStreamTypes } = {
   'application/vnd.apple.mpegURL': MediaStreamTypes.HLS,
   'application/dash+xml': MediaStreamTypes.DASH,
   'video/mp4': MediaStreamTypes.MP4,
+  'video/x-mp4': MediaStreamTypes.MP4,
+  'x-video/mp4': MediaStreamTypes.MP4,
   'video/webm': MediaStreamTypes.WEBM,
   'video/ogg': MediaStreamTypes.OGG,
   'video/quicktime': MediaStreamTypes.MOV,
