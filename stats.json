@@ -29,20 +29,20 @@
       "path----80059e40ceaaad320d15.js.map"
     ],
     "path---video-source": [
-      "path---video-source-9fcbff55d4842ee93917.js",
-      "path---video-source-9fcbff55d4842ee93917.js.map"
+      "path---video-source-389ae851dff84967ee59.js",
+      "path---video-source-389ae851dff84967ee59.js.map"
     ],
     "path---migration": [
-      "path---migration-beeeeb37dd1a1fec078b.js",
-      "path---migration-beeeeb37dd1a1fec078b.js.map"
+      "path---migration-ab44aea421be3aad4256.js",
+      "path---migration-ab44aea421be3aad4256.js.map"
     ],
     "component---src-layouts-index-js": [
       "component---src-layouts-index-js-ebfff135f03ef8ce13d3.js",
       "component---src-layouts-index-js-ebfff135f03ef8ce13d3.js.map"
     ],
     "path---index": [
-      "path---index-ebb2cc07437b05a3d794.js",
-      "path---index-ebb2cc07437b05a3d794.js.map"
+      "path---index-4e6d27162eada16c38e7.js",
+      "path---index-4e6d27162eada16c38e7.js.map"
     ],
     "component---src-pages-404-js": [
       "component---src-pages-404-js-4503918ea3a16cfcdb75.js",
@@ -109,8 +109,8 @@
       "path---player-config-ac5e3b75becd9a36948a.js.map"
     ],
     "path---2-0-0-migration": [
-      "path---2-0-0-migration-83dd60aae1ab9cd23994.js",
-      "path---2-0-0-migration-83dd60aae1ab9cd23994.js.map"
+      "path---2-0-0-migration-de6d478a84a7fb7dffbf.js",
+      "path---2-0-0-migration-de6d478a84a7fb7dffbf.js.map"
     ]
   }
 }
