@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+
 import * as sinon from 'sinon';
 
 import FullScreenManager from './full-screen-manager';

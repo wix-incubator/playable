@@ -62,6 +62,7 @@
     "precommit": "lint-staged && npm run test:unit && npm run test:node && npm run test:playback && npm run documentation:gitadd"
   },
   "dependencies": {
+    "@types/sinon": "^5.0.7",
     "classnames": "^2.2.6",
     "dashjs": "^2.9.2",
     "eventemitter3": "^3.1.0",

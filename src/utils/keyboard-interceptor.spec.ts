@@ -1,6 +1,7 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
+
 import * as sinon from 'sinon';
 import logger from './logger';
 import KeyboardInterceptor from './keyboard-interceptor';

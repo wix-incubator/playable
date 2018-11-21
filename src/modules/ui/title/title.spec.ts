@@ -85,6 +85,7 @@ describe('Title', () => {
         title.setTitle(TITLE_TEXT);
 
         expect(titleViewSetTitleSpy.calledWith(TITLE_TEXT)).to.be.true;
+
         //@ts-ignore
         expect(title.view._$rootElement.innerHTML).to.equal(TITLE_TEXT);
         expect(titleViewShowSpy.called).to.be.true;

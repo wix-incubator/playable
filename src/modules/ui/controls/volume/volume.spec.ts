@@ -90,7 +90,8 @@ describe('VolumeControl', () => {
         control,
         '_changeVolumeLevel',
       );
-      const muteSpy = sinon.spy(control, '_toggleMuteState');
+
+      const muteSpy: sinon.SinonSpy = sinon.spy(control, '_toggleMuteState');
       control._changeVolumeLevel(90);
       expect(volumeSpy.calledWith(90)).to.be.true;
       expect(muteSpy.called).to.be.false;
