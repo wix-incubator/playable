@@ -38,6 +38,8 @@ import PreviewFullSize from '../modules/ui/preview-full-size/preview-full-size';
 
 import { TooltipService } from '../modules/ui/core/tooltip';
 
+import PictureInPicture from '../modules/picture-in-picture/picture-in-picture';
+
 const { asClass } = DependencyContainer;
 
 export const modules: { [id: string]: any } = {
@@ -79,6 +81,7 @@ export const modules: { [id: string]: any } = {
   PreviewFullSize,
 
   TooltipService,
+  PictureInPicture,
 };
 
 const DIModules: { [id: string]: any } = Object.keys(modules).reduce(

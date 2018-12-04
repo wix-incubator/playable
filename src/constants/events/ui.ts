@@ -56,6 +56,8 @@ const UI_EVENTS = {
 
   KEYBOARD_KEYDOWN_INTERCEPTED: 'ui-events/keyboard-keydown-intercepted',
   FULL_SCREEN_STATE_CHANGED: 'ui-events/full-screen-state-changed',
+  PICTURE_IN_PICTURE_STATUS_CHANGE:
+    'ui-events/picture-in-picture-status-changed',
   RESIZE: 'ui-events/resize',
 };
 

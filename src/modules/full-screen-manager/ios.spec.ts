@@ -11,7 +11,7 @@ describe('IOSFullScreen', () => {
   let fullScreen: any;
 
   beforeEach(() => {
-    element = document.createElement('div');
+    element = document.createDocumentFragment();
     fullScreen = new IOSFullScreen(element, callback);
   });
 

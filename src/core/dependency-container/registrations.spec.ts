@@ -11,6 +11,10 @@ import {
   PROPERTY_FOR_DEPENDENCIES,
 } from './registrations';
 
+interface ModuleSpy extends sinon.SinonSpy {
+  [PROPERTY_FOR_DEPENDENCIES]?: string[];
+}
+
 describe('registration method', () => {
   const container = {
     resolve: sinon.spy((name: any) => name),
@@ -65,7 +69,7 @@ describe('registration method', () => {
       });
 
       it('should combine wrapper object with resolved dependencies from container', () => {
-        const func: any = sinon.spy();
+        const func: ModuleSpy = sinon.spy();
         const moduleName = 'moduleName';
         func[PROPERTY_FOR_DEPENDENCIES] = [moduleName];
         const registeredFunction = asFunction(func);
@@ -136,7 +140,7 @@ describe('registration method', () => {
       });
 
       it('should combine wrapper object with resolved dependencies from container', () => {
-        const constructor: any = sinon.spy();
+        const constructor: ModuleSpy = sinon.spy();
         const moduleName = 'moduleName';
         constructor[PROPERTY_FOR_DEPENDENCIES] = [moduleName];
         const registeredClass = asClass(constructor);
