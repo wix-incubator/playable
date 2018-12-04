@@ -1,6 +1,5 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
@@ -53,7 +52,7 @@ describe('PlayControl', () => {
 
   describe('internal methods', () => {
     it('should change view based on playback state', () => {
-      const spy = sinon.spy(control, '_setPlaybackState');
+      const spy: sinon.SinonSpy = sinon.spy(control, '_setPlaybackState');
       control._updatePlayingState({ nextState: EngineState.PLAYING });
       expect(spy.calledWith(true)).to.be.true;
       control._updatePlayingState({ nextState: EngineState.PAUSED });

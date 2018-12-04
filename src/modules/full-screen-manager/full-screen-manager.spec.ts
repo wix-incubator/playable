@@ -1,7 +1,6 @@
 import 'jsdom-global/register';
 
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 
 import FullScreenManager from './full-screen-manager';
@@ -179,7 +178,7 @@ describe('FullScreenManager', () => {
 
   describe('due to reaction on fullscreen change', () => {
     it('should trigger proper event', () => {
-      const spy = sinon.spy(eventEmitter, 'emit');
+      const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emit');
 
       mockedFullscreenHelper.isInFullScreen = true;
       fullScreenManager._onChange();

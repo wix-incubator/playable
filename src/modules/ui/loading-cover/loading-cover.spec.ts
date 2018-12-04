@@ -1,6 +1,5 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
@@ -47,7 +46,10 @@ describe('LoadingCover', () => {
 
       it('should have method for setting cover', () => {
         const url = 'url';
-        const setCoverSpy = sinon.spy(loadingCover.view, 'setCover');
+        const setCoverSpy: sinon.SinonSpy = sinon.spy(
+          loadingCover.view,
+          'setCover',
+        );
         loadingCover.setLoadingCover(url);
         expect(setCoverSpy.calledWith(url)).to.be.true;
       });

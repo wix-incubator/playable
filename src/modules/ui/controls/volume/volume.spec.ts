@@ -1,6 +1,5 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
@@ -75,19 +74,22 @@ describe('VolumeControl', () => {
 
   describe('internal methods', () => {
     it('should change volume level based on wheel delta', () => {
-      const startSpy = sinon.spy(control, '_changeVolumeLevel');
+      const startSpy: sinon.SinonSpy = sinon.spy(control, '_changeVolumeLevel');
       control._getVolumeLevelFromWheel(-100);
       expect(startSpy.calledWith(90)).to.be.true;
     });
 
     it('should change volume level based on input', () => {
-      const startSpy = sinon.spy(control, '_changeVolumeLevel');
+      const startSpy: sinon.SinonSpy = sinon.spy(control, '_changeVolumeLevel');
       control._getVolumeLevelFromInput(40);
       expect(startSpy.calledWith(40)).to.be.true;
     });
 
     it('should change volume level and mute state of video', () => {
-      const volumeSpy = sinon.spy(control, '_changeVolumeLevel');
+      const volumeSpy: sinon.SinonSpy = sinon.spy(
+        control,
+        '_changeVolumeLevel',
+      );
       const muteSpy = sinon.spy(control, '_toggleMuteState');
       control._changeVolumeLevel(90);
       expect(volumeSpy.calledWith(90)).to.be.true;

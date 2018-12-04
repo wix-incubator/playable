@@ -225,7 +225,7 @@ export default class Engine implements IPlaybackEngine {
               this.pause();
             }
           })
-          .catch(event => {
+          .catch((event: DOMException) => {
             this._eventEmitter.emit(VIDEO_EVENTS.PLAY_ABORTED, event);
             this._playPromise = null;
           });

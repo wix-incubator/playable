@@ -89,8 +89,10 @@ export default class StateEngine {
         break;
       }
       case 'canplay': {
-        this._setStateTimestamp(EngineState.READY_TO_PLAY);
-        this.setState(EngineState.READY_TO_PLAY);
+        if (this._currentState === EngineState.METADATA_LOADED) {
+          this._setStateTimestamp(EngineState.READY_TO_PLAY);
+          this.setState(EngineState.READY_TO_PLAY);
+        }
         break;
       }
       case 'play': {

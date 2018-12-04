@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 import { EventEmitter } from 'eventemitter3';
 

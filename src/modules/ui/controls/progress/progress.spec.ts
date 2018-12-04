@@ -1,6 +1,5 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
@@ -55,12 +54,13 @@ describe('ProgressControl', () => {
 
     describe('for time indicators', () => {
       const VIDEO_DURATION_TIME = 1000;
-      let engineGetDurationTimeStub: any;
+      let engineGetDurationTimeStub: sinon.SinonStub;
 
       beforeEach(() => {
-        engineGetDurationTimeStub = sinon
-          .stub(control._engine, 'getDuration')
-          .callsFake(() => VIDEO_DURATION_TIME);
+        engineGetDurationTimeStub = (sinon.stub(
+          control._engine,
+          'getDuration',
+        ) as sinon.SinonStub).callsFake(() => VIDEO_DURATION_TIME);
       });
 
       afterEach(() => {

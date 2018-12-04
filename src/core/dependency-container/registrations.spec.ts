@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 
 import Lifetime from './constants/Lifetime';
@@ -66,7 +65,7 @@ describe('registration method', () => {
       });
 
       it('should combine wrapper object with resolved dependencies from container', () => {
-        const func = sinon.spy();
+        const func: any = sinon.spy();
         const moduleName = 'moduleName';
         func[PROPERTY_FOR_DEPENDENCIES] = [moduleName];
         const registeredFunction = asFunction(func);
@@ -137,7 +136,7 @@ describe('registration method', () => {
       });
 
       it('should combine wrapper object with resolved dependencies from container', () => {
-        const constructor = sinon.spy();
+        const constructor: any = sinon.spy();
         const moduleName = 'moduleName';
         constructor[PROPERTY_FOR_DEPENDENCIES] = [moduleName];
         const registeredClass = asClass(constructor);

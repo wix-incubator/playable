@@ -1,6 +1,5 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 
 import convertToDeviceRelatedConfig from './config';
@@ -21,7 +20,10 @@ describe("Player's instance", () => {
 
   describe('rootNode and params', () => {
     it('should be registered and resolved', () => {
-      const registerValueSpy = sinon.spy(container, 'registerValue');
+      const registerValueSpy: sinon.SinonSpy = sinon.spy(
+        container,
+        'registerValue',
+      );
       const params = {};
 
       player = new Player({}, container, []);
@@ -44,7 +46,7 @@ describe("Player's instance", () => {
   describe('default modules', () => {
     it('should be resolved', () => {
       class ClassA {}
-      const resolveSpy = sinon.spy(container, 'resolve');
+      const resolveSpy: sinon.SinonSpy = sinon.spy(container, 'resolve');
 
       defaultModules = {
         ClassA,
@@ -81,7 +83,7 @@ describe("Player's instance", () => {
   describe('additional modules', () => {
     it('should be resolved', () => {
       class ClassB {}
-      const resolveSpy = sinon.spy(container, 'resolve');
+      const resolveSpy: sinon.SinonSpy = sinon.spy(container, 'resolve');
 
       container.registerClass('ClassB', ClassB);
 

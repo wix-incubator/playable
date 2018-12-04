@@ -1,6 +1,6 @@
 import 'jsdom-global/register';
 import { expect } from 'chai';
-//@ts-ignore
+
 import * as sinon from 'sinon';
 
 import IOSFullScreen from './ios';

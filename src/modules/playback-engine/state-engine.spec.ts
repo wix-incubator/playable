@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-//@ts-ignore
 import * as sinon from 'sinon';
 import { EventEmitter } from 'eventemitter3';
 
@@ -104,7 +103,10 @@ describe('NativeEventsBroadcaster', () => {
     expect(engine.isMetadataLoaded).to.be.true;
   });
 
-  it('should set state on canplay event', () => {
+  it('should set state on canplay event only after medatada loaded', () => {
+    engine._processEventFromVideo(NATIVE_EVENTS.CAN_PLAY);
+    expect(engine.setState.calledWith(EngineState.READY_TO_PLAY)).to.be.false;
+    engine._processEventFromVideo(NATIVE_EVENTS.LOADED_META_DATA);
     engine._processEventFromVideo(NATIVE_EVENTS.CAN_PLAY);
     expect(engine.setState.calledWith(EngineState.READY_TO_PLAY)).to.be.true;
   });
