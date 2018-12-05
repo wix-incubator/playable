@@ -228,8 +228,9 @@ export default class ProgressControl implements IProgressControl {
 
   private _onChangePlayedPercent(percent: number) {
     const newTime = this._convertPlayedPercentToTime(percent);
-    this._desiredSeekPosition = newTime;
     if (this._showFullScreenPreview) {
+      this._desiredSeekPosition = newTime;
+
       this._eventEmitter.emit(
         UI_EVENTS.PROGRESS_USER_PREVIEWING_FRAME,
         newTime,
@@ -286,8 +287,9 @@ export default class ProgressControl implements IProgressControl {
       if (this._showFullScreenPreview) {
         this._shouldHidePreviewOnUpdate = true;
       }
-
-      this._changeCurrentTimeOfVideo(this._desiredSeekPosition);
+      if (this._showFullScreenPreview) {
+        this._changeCurrentTimeOfVideo(this._desiredSeekPosition);
+      }
       this._playVideoOnDragEnd();
 
       this.view.hideProgressTimeTooltip();
