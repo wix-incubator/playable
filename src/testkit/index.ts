@@ -1,5 +1,3 @@
-import 'jsdom-global/register';
-
 import { container } from '../core/player-factory';
 import DependencyContainer from '../core/dependency-container';
 
