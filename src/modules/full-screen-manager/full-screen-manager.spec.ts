@@ -3,13 +3,10 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 
 import * as sinon from 'sinon';
+import createPlayerTestkit from '../../testkit';
 
-import FullScreenManager from './full-screen-manager';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
-import Engine from '../playback-engine/playback-engine';
-import EventEmitter from '../event-emitter/event-emitter';
-import RootContainer from '../root-container/root-container';
 
 import { setProperty, resetProperty } from '../../testkit';
 
@@ -34,30 +31,16 @@ const mockedFullscreenHelper = {
 };
 
 describe('FullScreenManager', () => {
+  let testkit: any;
   let fullScreenManager: any;
   let eventEmitter: any;
   let engine: any;
-  let rootContainer: any;
-
-  const config = {};
 
   beforeEach(() => {
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      config,
-      eventEmitter,
-      availablePlaybackAdapters: [],
-    });
-    rootContainer = new RootContainer({
-      config,
-      eventEmitter,
-    });
-    fullScreenManager = new FullScreenManager({
-      eventEmitter,
-      engine,
-      rootContainer,
-      config,
-    });
+    testkit = createPlayerTestkit();
+    eventEmitter = testkit.getModule('eventEmitter');
+    engine = testkit.getModule('engine');
+    fullScreenManager = testkit.getModule('fullScreenManager');
 
     fullScreenManager._helper = mockedFullscreenHelper;
   });
@@ -74,12 +57,8 @@ describe('FullScreenManager', () => {
     it('should be for desktop if not on iOS', () => {
       setProperty(navigator, 'userAgent', 'Computer');
 
-      fullScreenManager = new FullScreenManager({
-        eventEmitter,
-        engine,
-        rootContainer,
-        config,
-      });
+      testkit = createPlayerTestkit();
+      fullScreenManager = testkit.getModule('fullScreenManager');
 
       expect(fullScreenManager._helper instanceof DesktopFullScreen).to.be.true;
     });
@@ -87,12 +66,8 @@ describe('FullScreenManager', () => {
     it('should be for iPhone', () => {
       setProperty(navigator, 'userAgent', 'iPhone');
 
-      fullScreenManager = new FullScreenManager({
-        eventEmitter,
-        engine,
-        rootContainer,
-        config,
-      });
+      testkit = createPlayerTestkit();
+      fullScreenManager = testkit.getModule('fullScreenManager');
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
     });
@@ -100,12 +75,8 @@ describe('FullScreenManager', () => {
     it('should be for iPod', () => {
       setProperty(navigator, 'userAgent', 'iPod');
 
-      fullScreenManager = new FullScreenManager({
-        eventEmitter,
-        engine,
-        rootContainer,
-        config,
-      });
+      testkit = createPlayerTestkit();
+      fullScreenManager = testkit.getModule('fullScreenManager');
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
     });
@@ -113,12 +84,8 @@ describe('FullScreenManager', () => {
     it('should be for iPad', () => {
       setProperty(navigator, 'userAgent', 'iPad');
 
-      fullScreenManager = new FullScreenManager({
-        eventEmitter,
-        engine,
-        rootContainer,
-        config,
-      });
+      testkit = createPlayerTestkit();
+      fullScreenManager = testkit.getModule('fullScreenManager');
 
       expect(fullScreenManager._helper instanceof IOSFullScreen).to.be.true;
     });

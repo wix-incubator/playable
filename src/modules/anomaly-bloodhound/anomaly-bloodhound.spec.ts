@@ -4,30 +4,25 @@ import { expect } from 'chai';
 
 import * as sinon from 'sinon';
 
+import createPlayerTestkit from '../../testkit';
+
 import AnomalyBloodhound, { DELAYED_REPORT_TYPES } from './anomaly-bloodhound';
-import Engine from '../playback-engine/playback-engine';
-import EventEmitter from '../event-emitter/event-emitter';
 
 import { VIDEO_EVENTS, EngineState } from '../../constants';
 
 describe('AnomalyBloodhound', () => {
+  let testkit: any;
   let anomalyBloodhound: any;
   let eventEmitter: any;
   let engine: any;
   const callback = sinon.spy();
-  const config = {};
 
   beforeEach(() => {
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      config,
-      eventEmitter,
-      availablePlaybackAdapters: [],
-    });
-    anomalyBloodhound = new AnomalyBloodhound({
-      eventEmitter,
-      engine,
-    });
+    testkit = createPlayerTestkit();
+    eventEmitter = testkit.getModule('eventEmitter');
+    engine = testkit.getModule('engine');
+    testkit.registerModule(AnomalyBloodhound.moduleName, AnomalyBloodhound);
+    anomalyBloodhound = testkit.getModule('anomalyBloodhound');
     anomalyBloodhound.setAnomalyCallback(callback);
   });
 

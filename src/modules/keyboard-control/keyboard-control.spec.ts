@@ -7,10 +7,9 @@ import * as sinon from 'sinon';
 import { KEYCODES } from '../../utils/keyboard-interceptor';
 import { UI_EVENTS } from '../../constants';
 
-import Engine from '../playback-engine/playback-engine';
-import EventEmitter from '../event-emitter/event-emitter';
-import RootContainer from '../root-container/root-container';
-import KeyboardControl, {
+import createPlayerTestkit from '../../testkit';
+
+import {
   AMOUNT_TO_SKIP_SECONDS,
   AMOUNT_TO_CHANGE_VOLUME,
 } from './keyboard-control';
@@ -18,44 +17,27 @@ import KeyboardControl, {
 describe('KeyboardControl', () => {
   const keyDownEvent: any = new Event('keydown');
   keyDownEvent.preventDefault = sinon.spy();
-
-  let config;
+  let testkit: any;
   let engine: any;
   let eventEmitter: any;
   let rootContainer: any;
   let keyboardControl: any;
 
   beforeEach(() => {
-    config = {};
-    eventEmitter = new EventEmitter();
-    engine = new Engine({
-      eventEmitter,
-      config,
-      availablePlaybackAdapters: [],
-    });
+    testkit = createPlayerTestkit();
+    eventEmitter = testkit.getModule('eventEmitter');
+    engine = testkit.getModule('engine');
     engine._adapterStrategy._attachedAdapter = {
       isSeekAvailable: true,
       attach: () => {},
       detach: () => {},
     };
-    rootContainer = new RootContainer({
-      eventEmitter,
-      config,
-    });
-    keyboardControl = new KeyboardControl({
-      eventEmitter,
-      engine,
-      rootContainer,
-      config,
-    });
+    rootContainer = testkit.getModule('rootContainer');
+    keyboardControl = testkit.getModule('keyboardControl');
   });
 
   afterEach(() => {
     keyDownEvent.preventDefault.resetHistory();
-
-    eventEmitter.destroy();
-    engine.destroy();
-    rootContainer.destroy();
   });
 
   describe('as a reaction on press of key', () => {
