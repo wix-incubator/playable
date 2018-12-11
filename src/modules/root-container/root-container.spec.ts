@@ -3,26 +3,15 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import EventEmitter from '../event-emitter/event-emitter';
-import RootContainer from './root-container';
-
-(global as any).requestAnimationFrame = () => {};
+import createPlayerTestkit from '../../testkit';
 
 describe('RootContainer', () => {
-  let ui: any = {};
-  let eventEmitter: any = {};
-  let config: any = {};
+  let testkit: any;
+  let ui: any;
 
   beforeEach(() => {
-    config = {
-      ui: {},
-    };
-    eventEmitter = new EventEmitter();
-
-    ui = new RootContainer({
-      eventEmitter,
-      config,
-    });
+    testkit = createPlayerTestkit();
+    ui = testkit.getModule('rootContainer');
   });
 
   describe('constructor', () => {
@@ -34,10 +23,7 @@ describe('RootContainer', () => {
 
   describe('API', () => {
     beforeEach(() => {
-      ui = new RootContainer({
-        eventEmitter,
-        config,
-      });
+      ui = testkit.getModule('rootContainer');
     });
 
     it('should have method for setting width', () => {

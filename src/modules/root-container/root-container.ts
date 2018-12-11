@@ -13,6 +13,7 @@ import ElementQueries from '../ui/core/element-queries';
 import { IEventEmitter } from '../event-emitter/types';
 import { IRootContainer } from './types';
 import { IPlayerConfig } from '../../core/config';
+import { IPlaybackEngine } from '../playback-engine/types';
 
 const DEFAULT_CONFIG = {
   fillAllSpace: false,
@@ -20,14 +21,18 @@ const DEFAULT_CONFIG = {
 
 class RootContainer implements IRootContainer {
   static moduleName = 'rootContainer';
-  static dependencies = ['eventEmitter', 'config'];
+  static dependencies = ['eventEmitter', 'config', 'engine'];
 
   private _eventEmitter: IEventEmitter;
+  private _engine: IPlaybackEngine;
 
   private _elementQueries: ElementQueries;
   private _resizeObserver: ResizeObserver;
   private _disengageFocusWithin: Function;
   private _disengageFocusSource: Function;
+
+  private _isFillAllSpace: boolean;
+  private _isFillWithAspectRatio: boolean;
 
   private _unbindEvents: Function;
 
@@ -38,12 +43,18 @@ class RootContainer implements IRootContainer {
   constructor({
     eventEmitter,
     config,
+    engine,
   }: {
     config: IPlayerConfig;
     eventEmitter: IEventEmitter;
+    engine: IPlaybackEngine;
   }) {
     this._eventEmitter = eventEmitter;
+    this._engine = engine;
+
     this.isHidden = false;
+    this._isFillAllSpace = config.fillAllSpace || DEFAULT_CONFIG.fillAllSpace;
+    this._isFillWithAspectRatio = false;
 
     this._bindCallbacks();
     this._initUI(config);
@@ -91,7 +102,7 @@ class RootContainer implements IRootContainer {
       },
       width: config.width || null,
       height: config.height || null,
-      fillAllSpace: config.fillAllSpace || DEFAULT_CONFIG.fillAllSpace,
+      fillAllSpace: this._isFillAllSpace,
     });
 
     this._elementQueries = new ElementQueries(this.getElement());
@@ -156,7 +167,9 @@ class RootContainer implements IRootContainer {
     const height = this.view.getHeight();
 
     this._elementQueries.setWidth(width);
-
+    if (this._isFillWithAspectRatio) {
+      this._updateSizeWithAspectRatio();
+    }
     this._eventEmitter.emit(UI_EVENTS.RESIZE, { width, height });
   }
 
@@ -228,7 +241,23 @@ class RootContainer implements IRootContainer {
    */
   @playerAPI()
   setFillAllSpace(flag: boolean) {
-    this.view.setFillAllSpaceFlag(flag);
+    this._isFillAllSpace = Boolean(flag);
+    this.view.setFillAllSpaceFlag(this._isFillAllSpace);
+  }
+
+  @playerAPI()
+  setFillSpaceWithAspectRatio(flag: boolean) {
+    this._isFillWithAspectRatio = Boolean(flag);
+    if (this._isFillWithAspectRatio) {
+      this._updateSizeWithAspectRatio();
+    }
+  }
+
+  private _updateSizeWithAspectRatio() {
+    const width = this._engine.getVideoWidth();
+    const height = this._engine.getVideoHeight();
+
+    this.view.setFillSpaceWithAspectRatio(width / height);
   }
 
   /**

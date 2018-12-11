@@ -25,7 +25,6 @@ class RootContainerView extends View<IRootContainerViewStyles>
     this._$rootElement = htmlToElement(
       containerTemplate({ styles: this.styleNames }),
     );
-
     this.setFillAllSpaceFlag(fillAllSpace);
 
     this.setWidth(width);
@@ -68,9 +67,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
     if (!width) {
       return;
     }
-    const widthStyle = `${width}px`;
-    this._$rootElement.style.width = widthStyle;
-    this._$rootElement.style.minWidth = widthStyle;
+    this._setWidthStyle(`${width}px`);
   }
 
   setHeight(height: number) {
@@ -78,7 +75,15 @@ class RootContainerView extends View<IRootContainerViewStyles>
       return;
     }
 
-    const heightStyle = `${height}px`;
+    this._setHeightStyle(`${height}px`);
+  }
+
+  private _setWidthStyle(widthStyle: string) {
+    this._$rootElement.style.width = widthStyle;
+    this._$rootElement.style.minWidth = widthStyle;
+  }
+
+  private _setHeightStyle(heightStyle: string) {
     this._$rootElement.style.height = heightStyle;
     this._$rootElement.style.minHeight = heightStyle;
   }
@@ -117,11 +122,28 @@ class RootContainerView extends View<IRootContainerViewStyles>
     }
   }
 
-  setFillAllSpaceFlag(isFillAllSpace = false) {
-    if (isFillAllSpace) {
+  setFillAllSpaceFlag(flag: boolean = false) {
+    if (flag) {
       this._$rootElement.classList.add(this.styleNames.fillAllSpace);
     } else {
       this._$rootElement.classList.remove(this.styleNames.fillAllSpace);
+    }
+  }
+
+  setFillSpaceWithAspectRatio(aspectRatio: number) {
+    const parent: HTMLElement = this._$rootElement.parentNode as HTMLElement;
+    if (!parent) {
+      return;
+    }
+
+    const { width, height } = parent.getBoundingClientRect();
+
+    if (aspectRatio > 1) {
+      this._setWidthStyle('100%');
+      this._setHeightStyle(`${width / aspectRatio}px`);
+    } else {
+      this._setWidthStyle(`${height / aspectRatio}px`);
+      this._setHeightStyle('100%');
     }
   }
 
