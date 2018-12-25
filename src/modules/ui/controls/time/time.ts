@@ -82,6 +82,9 @@ export default class TimeControl implements ITimeControl {
     if (this._updateControlInterval) {
       this._stopIntervalUpdates();
     }
+
+    this._updateCurrentTime();
+
     this._updateControlInterval = window.setInterval(
       this._updateCurrentTime,
       UPDATE_INTERVAL_DELAY,
