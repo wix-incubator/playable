@@ -1,0 +1,14 @@
+<div class="${props.styles.button}">
+  <div class="${props.styles.icon}">
+    <svg xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 30 30"
+        preserveAspectRatio="xMidYMin slice"
+        width="100%"
+        style="padding-bottom: 82%; height: 1px; overflow: visible">
+        <g fill="none" fill-rule="evenodd">
+          <path fill="#FFF" d="M7.691 13l-6.127 4.183A1 1 0 0 1 0 16.357V1.562C0 .7.7 0 1.563 0h17.875C20.3 0 21 .7 21 1.563v9.874C21 12.3 20.3 13 19.437 13H7.691zM12 16h10a2 2 0 0 0 2-2V7h4.438C29.3 7 30 7.7 30 8.563v16.274a1 1 0 0 1-1.722.691L23.944 21H13.563C12.7 21 12 20.3 12 19.437V16z"/>
+        </g>
+    </svg>
+  </div>
+</div>

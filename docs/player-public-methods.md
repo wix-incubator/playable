@@ -241,29 +241,6 @@ Method for allowing player fill all available space
   </table>
 </div>
 
-## setFillSpaceWithAspectRatio()
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>flag</code>
-        </td>
-        <td>
-            <div class="type">boolean</div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 ## hide()
 
 ```javascript

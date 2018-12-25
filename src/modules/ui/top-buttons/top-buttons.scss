@@ -1,0 +1,96 @@
+@import '../shared';
+
+.button {
+  display: flex;
+
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  min-height: 30px;
+  margin: 9px;
+
+  cursor: pointer;
+  //border: 2px solid white;
+
+  color: white;
+  background-color: rgba(0, 0, 0, .3);
+
+  justify-content: center;
+  align-items: center;
+  @include in-full-screen() {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
+    margin: 15px;
+  }
+
+  &:hover {
+    .icon {
+      opacity: .8;
+    }
+  }
+}
+
+.icon {
+  display: flex;
+
+  width: 20px;
+  height: 20px;
+
+  transition: opacity .2s;
+
+  justify-content: center;
+  align-items: center;
+  @include in-full-screen() {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.toggler {
+  visibility: hidden;
+
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  min-height: 20px;
+  margin: 10px;
+
+  cursor: pointer;
+  transition: opacity .2s, visibility .2s;
+
+  opacity: 0;
+}
+
+.topButtons {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.buttonsContainer {
+  display: flex;
+  overflow: hidden;
+  flex-direction: row-reverse;
+
+  width: 240px;
+  max-width: 240px;
+
+  transition: max-width .3s, width .3s;
+}
+
+.shrinked {
+  .toggler {
+    visibility: visible;
+
+    opacity: 1;
+  }
+  .buttonsContainer {
+    overflow: hidden;
+
+    width: 96px;
+    max-width: 96px;
+  }
+}

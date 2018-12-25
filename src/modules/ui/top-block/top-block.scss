@@ -4,6 +4,12 @@
   position: relative;
   z-index: 60;
 
+  display: flex;
+
+  padding-left: 20px;
+
+  align-items: center;
+
   &::-moz-focus-inner {
     border: 0;
   }
@@ -24,11 +30,14 @@
   position: relative;
 
   display: flex;
+  overflow: hidden;
   flex-direction: row;
 
-  margin-top: 20px;
-  margin-left: 20px;
+  width: 100%;
 
+  justify-content: space-between;
+  //margin-top: 20px;
+  //margin-left: 20px;
   align-items: center;
   @include in-full-screen() {
     margin-top: 30px;
@@ -45,13 +54,13 @@
 }
 
 .titleContainer {
+  overflow: hidden;
+
   max-width: calc(100% - 200px);
 
   transition: opacity .2s;
 
   opacity: 0;
-
-  flex-grow: 1;
 }
 
 .background {
@@ -62,7 +71,7 @@
   //height less then background by 1px 'cause of strange problem on chrome, when visible size of background is 181px
   //maybe it's 'cause of linear-gradient
 
-  height: 181px;
+  height: 187px;
 
   transition: opacity .2s;
   pointer-events: none;
@@ -71,10 +80,10 @@
   background-image: linear-gradient(
   to top,
   rgba(0, 0, 0, 0),
-  rgba(0, 0, 0, .03) 24%,
-  rgba(0, 0, 0, .15) 50%,
-  rgba(0, 0, 0, .3) 75%,
+  rgba(91, 88, 88, .08) 15%,
+  rgba(43, 41, 41, .15) 38%,
+  rgba(0, 0, 0, .25) 67%,
   rgba(0, 0, 0, .4)
   );
-  background-size: 100% 182px;
+  background-size: 100% 188px;
 }

@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         player.showPreviewOnProgressDrag();
       }
     });
-
+  player.setTitle('Really really really really ');
   player.attachToElement(document.getElementById('player-wrapper'));
   player.setFramesMap(config);
 });

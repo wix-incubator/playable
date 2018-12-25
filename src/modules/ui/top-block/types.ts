@@ -15,6 +15,7 @@ type ITopBlockViewCallbacks = {
 type ITopBlockViewElements = {
   title: HTMLElement;
   liveIndicator: HTMLElement;
+  topButtons: HTMLElement;
 };
 
 type ITopBlockViewConfig = {

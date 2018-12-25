@@ -36,6 +36,8 @@ import PreviewService from '../modules/ui/preview-service/preview-service';
 import PreviewThumbnail from '../modules/ui/preview-thumbnail/preview-thumbnail';
 import PreviewFullSize from '../modules/ui/preview-full-size/preview-full-size';
 
+import TopButtons from '../modules/ui/top-buttons/top-buttons';
+
 import { TooltipService } from '../modules/ui/core/tooltip';
 
 const { asClass } = DependencyContainer;
@@ -79,6 +81,8 @@ export const modules: { [id: string]: any } = {
   PreviewFullSize,
 
   TooltipService,
+
+  TopButtons,
 };
 
 const DIModules: { [id: string]: any } = Object.keys(modules).reduce(

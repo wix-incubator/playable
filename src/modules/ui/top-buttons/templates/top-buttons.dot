@@ -1,0 +1,17 @@
+<div data-playable-hook="top-buttons"
+     class="${props.styles.topButtons}">
+  <div data-playable-hook="toggler" class="${props.styles.toggler}">
+    <svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      preserveAspectRatio="xMidYMin slice"
+      width="100%"
+      style="padding-bottom: 100%; height: 1px; overflow: visible">>
+      <g fill="none" fill-rule="evenodd">
+          <path fill="#FFF" fill-rule="nonzero" d="M2 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm8 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm8 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/>
+      </g>
+    </svg>
+  </div>
+  <div data-playable-hook="buttons-container" class="${props.styles.buttonsContainer}">
+
+  </div>
+</div>

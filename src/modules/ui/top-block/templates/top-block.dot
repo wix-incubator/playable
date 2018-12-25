@@ -3,10 +3,11 @@
   <div class="${props.styles.background}"
        data-playable-hook="screen-top-background">
   </div>
-  <div class="${props.styles.elementsContainer}">
-    <div class="${props.styles.liveIndicatorContainer}"
+      <div class="${props.styles.liveIndicatorContainer}"
          data-playable-hook="live-indicator-container">
     </div>
+  <div class="${props.styles.elementsContainer}"
+       data-playable-hook="top-elements-container">
     <div class="${props.styles.titleContainer}"
          data-playable-hook="title-container">
     </div>

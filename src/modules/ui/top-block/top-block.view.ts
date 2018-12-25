@@ -20,6 +20,7 @@ class TopBlockView extends View<ITopBlockViewStyles>
   private _$rootElement: HTMLElement;
   private _$titleContainer: HTMLElement;
   private _$liveIndicatorContainer: HTMLElement;
+  private _$topButtonsContainer: HTMLElement;
 
   private _callbacks: ITopBlockViewCallbacks;
 
@@ -52,9 +53,16 @@ class TopBlockView extends View<ITopBlockViewStyles>
       this._$rootElement,
       'live-indicator-container',
     );
+    this._$topButtonsContainer = elements.topButtons;
 
+    const elementsContainer = getElementByHook(
+      this._$rootElement,
+      'top-elements-container',
+    );
     this._$titleContainer.appendChild(elements.title);
     this._$liveIndicatorContainer.appendChild(elements.liveIndicator);
+
+    elementsContainer.appendChild(elements.topButtons);
   }
 
   private _preventClickPropagation(e: MouseEvent) {
@@ -120,6 +128,14 @@ class TopBlockView extends View<ITopBlockViewStyles>
     this._$liveIndicatorContainer.classList.add(this.styleNames.hidden);
   }
 
+  showTopButtons() {
+    this._$topButtonsContainer.classList.remove(this.styleNames.hidden);
+  }
+
+  hideTopButtons() {
+    this._$topButtonsContainer.classList.add(this.styleNames.hidden);
+  }
+
   destroy() {
     this._unbindEvents();
     this._callbacks = null;
@@ -128,6 +144,9 @@ class TopBlockView extends View<ITopBlockViewStyles>
     }
 
     this._$rootElement = null;
+    this._$titleContainer = null;
+    this._$liveIndicatorContainer = null;
+    this._$topButtonsContainer = null;
   }
 }
 

@@ -5,16 +5,18 @@ import { ITitle } from '../title/types';
 import { ITopBlock, ITopBlockViewConfig, ITopBlockViewElements } from './types';
 
 import View from './top-block.view';
+import { ITopButtons } from '../top-buttons/types';
 
 interface IDependencies {
   title: ITitle;
   liveIndicator: ILiveIndicator;
+  topButtons: ITopButtons;
 }
 
 export default class TopBlock implements ITopBlock {
   static moduleName = 'topBlock';
   static View = View;
-  static dependencies = ['title', 'liveIndicator'];
+  static dependencies = ['title', 'liveIndicator', 'topButtons'];
 
   private _isBlockFocused: boolean = false;
 
@@ -46,11 +48,12 @@ export default class TopBlock implements ITopBlock {
   }
 
   private _getElements(dependencies: IDependencies): ITopBlockViewElements {
-    const { title, liveIndicator } = dependencies;
+    const { title, liveIndicator, topButtons } = dependencies;
 
     return {
       title: title.getElement(),
       liveIndicator: liveIndicator.getElement(),
+      topButtons: topButtons.getElement(),
     };
   }
 
