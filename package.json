@@ -83,7 +83,6 @@
     "csscomb": "^4.2.0",
     "gh-pages": "^1.2.0",
     "haste-preset-playable": "github:bodia-uz/haste-preset-playable#v2.2.1",
-    "highlight.js": "9.12.0",
     "husky": "^0.14.3",
     "jsdom": "^11.12.0",
     "jsdom-global": "^3.0.2",
