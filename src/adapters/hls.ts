@@ -15,7 +15,10 @@ import {
   IPlaybackAdapter,
 } from '../index';
 import { IEventEmitter } from '../modules/event-emitter/types';
-import { IParsedMediaSource } from '../modules/playback-engine/types';
+import {
+  IParsedMediaSource,
+  IVideoOutput,
+} from '../modules/playback-engine/types';
 
 const LIVE_SYNC_DURATION = 4;
 const LIVE_SYNC_DURATION_DELTA = 5;
@@ -34,7 +37,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
   private eventEmitter: IEventEmitter;
   private hls: HlsJs;
-  private videoElement: HTMLVideoElement;
+  private output: IVideoOutput;
   private mediaStream: IParsedMediaSource;
 
   private _mediaRecoverTimeout: number;
@@ -46,7 +49,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   constructor(eventEmitter: IEventEmitter) {
     this.eventEmitter = eventEmitter;
     this.hls = null;
-    this.videoElement = null;
+    this.output = null;
     this.mediaStream = null;
 
     this._isDynamicContent = false;
@@ -72,8 +75,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     }
 
     return (
-      this.hls.liveSyncPosition ||
-      this.videoElement.duration - LIVE_SYNC_DURATION
+      this.hls.liveSyncPosition || this.output.duration - LIVE_SYNC_DURATION
     );
   }
 
@@ -91,8 +93,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     }
 
     return (
-      this.videoElement.currentTime >
-      this.syncWithLiveTime - LIVE_SYNC_DURATION_DELTA
+      this.output.currentTime > this.syncWithLiveTime - LIVE_SYNC_DURATION_DELTA
     );
   }
 
@@ -272,11 +273,11 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   private _attachOnPlay() {
-    if (!this.videoElement) {
+    if (!this.output) {
       return;
     }
     this.hls.startLoad();
-    this.videoElement.removeEventListener('play', this._attachOnPlay);
+    this.output.off('play', this._attachOnPlay);
   }
 
   private _onLevelUpdated(_eventName: string, { details }: any) {
@@ -294,7 +295,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     }
   }
 
-  attach(videoElement: HTMLVideoElement) {
+  attach(videoElement: IVideoOutput) {
     if (!this.mediaStream) {
       return;
     }
@@ -303,11 +304,11 @@ export default class HlsAdapter implements IPlaybackAdapter {
       ...HlsAdapter.DEFAULT_HLS_CONFIG,
     };
 
-    this.videoElement = videoElement;
+    this.output = videoElement;
 
-    if (this.videoElement.preload === 'none') {
+    if (this.output.preload === 'none') {
       config.autoStartLoad = false;
-      this.videoElement.addEventListener('play', this._attachOnPlay);
+      this.output.on('play', this._attachOnPlay);
     }
 
     this.hls = new HlsJs(config);
@@ -317,7 +318,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.hls.on(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
 
     this.hls.loadSource(this.mediaStream.url);
-    this.hls.attachMedia(this.videoElement);
+    this.hls.attachMedia(this.output.getElement());
     this._isAttached = true;
   }
 
@@ -343,8 +344,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.hls.destroy();
     this.hls = null;
 
-    this.videoElement.removeEventListener('play', this._attachOnPlay);
-    this.videoElement.removeAttribute('src');
-    this.videoElement = null;
+    this.output.off('play', this._attachOnPlay);
+    this.output.setSrc(null);
+    this.output = null;
   }
 }

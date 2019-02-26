@@ -8,16 +8,18 @@ import { EventEmitter } from 'eventemitter3';
 import getNativeAdapterCreator from './adapters/native';
 import AdapterStrategy from './adapters-strategy';
 import { MediaStreamTypes, MediaStreamDeliveryPriority } from '../../constants';
+import NativeOutput from './output/native';
 
 describe('AdapterStrategy', () => {
   const video = document.createElement('video');
+  const nativeOutput = new NativeOutput(video);
   let strategy: any;
   let eventEmitter: any;
   let playbackAdapters;
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
-    strategy = new AdapterStrategy(eventEmitter, video);
+    strategy = new AdapterStrategy(eventEmitter, nativeOutput);
   });
 
   it('should do nothing if src not passed', () => {
@@ -37,7 +39,7 @@ describe('AdapterStrategy', () => {
     availableStream.isSupported = () => true;
     unavailableStream.isSupported = () => false;
 
-    const newStrategy: any = new AdapterStrategy(eventEmitter, video, [
+    const newStrategy: any = new AdapterStrategy(eventEmitter, nativeOutput, [
       availableStream,
       unavailableStream,
     ]);

@@ -6,6 +6,8 @@ import { VIDEO_EVENTS, EngineState } from '../../constants';
 import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE } from './state-engine';
 
 import { setProperty, resetProperty } from '../../testkit';
+import NativeOutput from './output/native';
+import { IVideoOutput } from './types';
 
 declare const navigator: any;
 
@@ -26,6 +28,7 @@ describe('NativeEventsBroadcaster', () => {
   let video: any;
   let engine: any;
   let eventEmitter: any;
+  let output: IVideoOutput;
 
   beforeEach(() => {
     video = {
@@ -34,11 +37,14 @@ describe('NativeEventsBroadcaster', () => {
       played: {
         length: 1,
       },
+      tagName: 'VIDEO',
     };
 
     eventEmitter = new EventEmitter();
+    output = new NativeOutput(video);
+
     sinon.spy(eventEmitter, 'emit');
-    engine = new StateEngine(eventEmitter, video);
+    engine = new StateEngine(eventEmitter, output);
     sinon.spy(engine, 'setState');
   });
 

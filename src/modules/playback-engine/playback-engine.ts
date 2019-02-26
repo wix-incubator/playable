@@ -3,6 +3,7 @@ import playerAPI from '../../core/player-api-decorator';
 import StateEngine from './state-engine';
 import NativeEventsBroadcaster from './native-events-broadcaster';
 import AdapterStrategy from './adapters-strategy';
+import NativeOutput from './output/native';
 
 import {
   isIPhone,
@@ -19,6 +20,7 @@ import {
   IPlaybackEngine,
   IPlaybackEngineDependencies,
   IEngineDebugInfo,
+  IVideoOutput,
   MediaSource,
   CrossOriginValue,
 } from './types';
@@ -32,7 +34,7 @@ export default class Engine implements IPlaybackEngine {
   private _eventEmitter: IEventEmitter;
   private _currentSrc: MediaSource;
   private _stateEngine: StateEngine;
-  private _video: HTMLVideoElement;
+  private _output: IVideoOutput;
   private _nativeEventsBroadcaster: NativeEventsBroadcaster;
   private _adapterStrategy: AdapterStrategy;
   private _playPromise: Promise<any>;
@@ -47,29 +49,22 @@ export default class Engine implements IPlaybackEngine {
 
     this._currentSrc = null;
 
-    this._createVideoTag(config.videoElement);
+    this._output = new NativeOutput(config.videoElement);
 
-    this._stateEngine = new StateEngine(eventEmitter, this._video);
+    this._stateEngine = new StateEngine(eventEmitter, this._output);
     this._nativeEventsBroadcaster = new NativeEventsBroadcaster(
       eventEmitter,
-      this._video,
+      this._output,
     );
     this._adapterStrategy = new AdapterStrategy(
       this._eventEmitter,
-      this._video,
+      this._output,
       availablePlaybackAdapters,
     );
 
     this._applyConfig(config);
   }
 
-  private _createVideoTag(videoElement?: HTMLVideoElement) {
-    if (videoElement && videoElement.tagName === 'VIDEO') {
-      this._video = videoElement;
-    } else {
-      this._video = document.createElement('video');
-    }
-  }
   private _applyConfig(config: IPlayerConfig = {}) {
     const {
       preload,
@@ -94,14 +89,11 @@ export default class Engine implements IPlaybackEngine {
   }
 
   getElement() {
-    return this._video;
+    return this._output.getElement();
   }
 
   private _getViewDimensions() {
-    return {
-      width: this._video.offsetWidth,
-      height: this._video.offsetHeight,
-    };
+    return this._output.getViewDimensions;
   }
 
   get isDynamicContent() {
@@ -215,7 +207,7 @@ export default class Engine implements IPlaybackEngine {
     this._pauseRequested = false;
 
     if (!this._playPromise) {
-      this._playPromise = this._video.play();
+      this._playPromise = this._output.play();
       if (this._playPromise !== undefined) {
         this._playPromise
           .then(() => {
@@ -243,7 +235,7 @@ export default class Engine implements IPlaybackEngine {
     if (this._playPromise) {
       this._pauseRequested = true;
     } else {
-      this._video.pause();
+      this._output.pause();
       this._pauseRequested = false;
     }
   }
@@ -288,7 +280,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   get isPaused(): boolean {
-    return this._video.paused;
+    return this._output.isPaused;
   }
 
   /**
@@ -300,7 +292,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   get isEnded(): boolean {
-    return this._video.ended;
+    return this._output.isEnded;
   }
 
   /**
@@ -363,9 +355,11 @@ export default class Engine implements IPlaybackEngine {
   @playerAPI()
   setVolume(volume: number) {
     const parsedVolume = Number(volume);
-    this._video.volume = isNaN(parsedVolume)
+    const newVolume = isNaN(parsedVolume)
       ? 1
       : Math.max(0, Math.min(Number(volume) / 100, 1));
+
+    this._output.setVolume(newVolume);
     //Workaround for problem with HTML5Video not firing volumechange if source changed right after volume/muted changed
     this._nativeEventsBroadcaster.checkVolumeChangeAfterLoadStart();
   }
@@ -377,7 +371,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getVolume(): number {
-    return this._video.volume * 100;
+    return this._output.volume * 100;
   }
 
   /**
@@ -403,7 +397,7 @@ export default class Engine implements IPlaybackEngine {
   }
 
   setMute(isMuted: boolean) {
-    this._video.muted = Boolean(isMuted);
+    this._output.setMute(isMuted);
     //Workaround for problem with HTML5Video not firing volumechange if source changed right after volume/muted changed
     this._nativeEventsBroadcaster.checkVolumeChangeAfterLoadStart();
   }
@@ -438,7 +432,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   get isMuted(): boolean {
-    return this._video.muted;
+    return this._output.isMuted;
   }
 
   /**
@@ -448,7 +442,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   setAutoplay(isAutoplay: boolean) {
-    this._video.autoplay = Boolean(isAutoplay);
+    this._output.setAutoplay(isAutoplay);
   }
 
   /**
@@ -458,7 +452,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getAutoplay(): boolean {
-    return this._video.autoplay;
+    return this._output.isAutoplay;
   }
 
   /**
@@ -469,7 +463,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   setLoop(isLoop: boolean) {
-    this._video.loop = Boolean(isLoop);
+    this._output.setLoop(isLoop);
   }
 
   /**
@@ -479,7 +473,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getLoop(): boolean {
-    return this._video.loop;
+    return this._output.isLoop;
   }
 
   /**
@@ -487,7 +481,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   setPlaybackRate(rate: number) {
-    this._video.playbackRate = rate;
+    this._output.setPlaybackRate(rate);
   }
 
   /**
@@ -495,7 +489,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getPlaybackRate(): number {
-    return this._video.playbackRate;
+    return this._output.playbackRate;
   }
 
   /**
@@ -504,8 +498,8 @@ export default class Engine implements IPlaybackEngine {
    * player.setPreload('none');
    */
   @playerAPI()
-  setPreload(preload: 'auto' | 'metadata' | 'none') {
-    this._video.preload = preload || 'auto';
+  setPreload(preload: 'auto' | 'metadata' | 'none' = 'auto') {
+    this._output.setPreload(preload);
   }
 
   /**
@@ -515,7 +509,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getPreload(): string {
-    return this._video.preload;
+    return this._output.preload;
   }
 
   /**
@@ -525,7 +519,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getCurrentTime(): number {
-    return this._video.currentTime;
+    return this._output.currentTime;
   }
 
   /**
@@ -536,7 +530,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   seekTo(time: number) {
-    this._video.currentTime = time;
+    this._output.setCurrentTime(time);
   }
 
   /**
@@ -546,7 +540,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getDuration(): number {
-    return this._video.duration || 0;
+    return this._output.duration || 0;
   }
 
   /**
@@ -556,7 +550,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI('getVideoRealWidth')
   getVideoWidth(): number {
-    return this._video.videoWidth;
+    return this._output.videoWidth;
   }
 
   /**
@@ -566,11 +560,11 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI('getVideoRealHeight')
   getVideoHeight(): number {
-    return this._video.videoHeight;
+    return this._output.videoHeight;
   }
 
   getBuffered() {
-    return this._video.buffered;
+    return this._output.buffered;
   }
 
   /**
@@ -581,11 +575,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   setPlaysinline(isPlaysinline: boolean) {
-    if (isPlaysinline) {
-      this._video.setAttribute('playsinline', 'true');
-    } else {
-      this._video.removeAttribute('playsinline');
-    }
+    this._output.setInline(isPlaysinline);
   }
 
   /**
@@ -595,7 +585,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getPlaysinline(): boolean {
-    return this._video.getAttribute('playsinline') === 'true';
+    return this._output.isInline;
   }
 
   /**
@@ -605,11 +595,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   setCrossOrigin(crossOrigin?: 'anonymous' | 'use-credentials') {
-    if (crossOrigin) {
-      this._video.setAttribute('crossorigin', crossOrigin);
-    } else {
-      this._video.removeAttribute('crossorigin');
-    }
+    this._output.setCrossOrigin(crossOrigin);
   }
 
   /**
@@ -619,7 +605,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getCrossOrigin(): CrossOriginValue {
-    return this._video.getAttribute('crossorigin') as CrossOriginValue;
+    return this._output.crossOrigin;
   }
 
   /**
@@ -672,7 +658,7 @@ export default class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getDebugInfo(): IEngineDebugInfo {
-    const { duration, currentTime } = this._video;
+    const { duration, currentTime } = this._output;
     let data;
 
     if (this._adapterStrategy.attachedAdapter) {
@@ -692,12 +678,12 @@ export default class Engine implements IPlaybackEngine {
     this._stateEngine.destroy();
     this._nativeEventsBroadcaster.destroy();
     this._adapterStrategy.destroy();
-    this._video.parentNode && this._video.parentNode.removeChild(this._video);
+    this._output.destroy();
 
     this._stateEngine = null;
     this._nativeEventsBroadcaster = null;
     this._adapterStrategy = null;
     this._eventEmitter = null;
-    this._video = null;
+    this._output = null;
   }
 }
