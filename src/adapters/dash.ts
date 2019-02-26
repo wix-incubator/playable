@@ -12,7 +12,10 @@ import {
   IPlaybackAdapter,
 } from '../index';
 import { IEventEmitter } from '../modules/event-emitter/types';
-import { IParsedMediaSource } from '../modules/playback-engine/types';
+import {
+  IParsedMediaSource,
+  IVideoOutput,
+} from '../modules/playback-engine/types';
 
 const INITIAL_BITRATE = 5000;
 
@@ -26,14 +29,14 @@ export default class DashAdapter implements IPlaybackAdapter {
   private eventEmitter: any;
   private dashPlayer: any;
   private mediaStream: IParsedMediaSource;
-  private videoElement: HTMLVideoElement;
+  private output: IVideoOutput;
 
   constructor(eventEmitter: IEventEmitter) {
     this.eventEmitter = eventEmitter;
 
     this.dashPlayer = null;
     this.mediaStream = null;
-    this.videoElement = null;
+    this.output = null;
 
     this._bindCallbacks();
   }
@@ -169,16 +172,16 @@ export default class DashAdapter implements IPlaybackAdapter {
     }
   }
 
-  attach(videoElement: HTMLVideoElement) {
+  attach(videoOutput: IVideoOutput) {
     if (!this.mediaStream) {
       return;
     }
-    this.videoElement = videoElement;
+    this.output = videoOutput;
     this.dashPlayer = MediaPlayer().create();
     this.dashPlayer.getDebug().setLogToBrowserConsole(false);
     this.dashPlayer.on(DashEvents.ERROR, this._broadcastError);
 
-    if (videoElement.preload === 'none') {
+    if (videoOutput.preload === 'none') {
       this._startDelayedInitPlayer();
     } else {
       this._initPlayer();
@@ -208,9 +211,9 @@ export default class DashAdapter implements IPlaybackAdapter {
 
   private _initPlayer(forceAutoplay?: boolean) {
     this.dashPlayer.initialize(
-      this.videoElement,
+      this.output.getElement(),
       this.mediaStream.url,
-      forceAutoplay || this.videoElement.autoplay,
+      forceAutoplay || this.output.autoplay,
     );
     this.dashPlayer.setInitialBitrateFor('video', INITIAL_BITRATE);
   }
@@ -223,7 +226,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     this.dashPlayer.reset();
     this.dashPlayer.off(DashEvents.ERROR, this._broadcastError);
     this.dashPlayer = null;
-    this.videoElement.removeAttribute('src');
-    this.videoElement = null;
+    this.output.setSrc(null);
+    this.output = null;
   }
 }

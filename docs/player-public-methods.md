@@ -10,7 +10,8 @@ player.updateTheme({
 })
 ```
 
-> You can check info about theming [here](/themes)
+You can check info about theming [here](/themes)
+
 
 Method for setting theme for player instance
 
@@ -241,29 +242,6 @@ Method for allowing player fill all available space
   </table>
 </div>
 
-## setFillSpaceWithAspectRatio()
-
-<div class="method-list">
-  <table>
-    <thead>
-      <tr>
-        <th>ARGUMENTS</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="param">
-          <code>flag</code>
-        </td>
-        <td>
-            <div class="type">boolean</div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 ## hide()
 
 ```javascript
@@ -419,7 +397,8 @@ player.setSrc([
 ]);
 ```
 
-> Read more about [video source](/video-source)
+Read more about [video source](/video-source)
+
 
 Method for setting source of video to player.
 
@@ -989,6 +968,7 @@ Set preload type
       <tr>
         <td class="param">
           <code>preload</code>
+          <div class="optional">(Optional)</div>
         </td>
         <td>
             Possible values are <code>"auto"</code>, <code>"metadata"</code>, <code>"none"</code>.
@@ -1293,7 +1273,8 @@ Return current state of playback
 player.getDebugInfo();
 ```
 
-> The above command returns JSON structured like this:
+The above command returns JSON structured like this:
+
 
 ```javascript
 {
@@ -1646,7 +1627,8 @@ Method for allowing main ui to be always shown despite the playback state and th
 player.setTitle('Your awesome video title here');
 ```
 
-> [Live Demo](https://jsfiddle.net/bodia/243k6m0u/)
+[Live Demo](https://jsfiddle.net/bodia/243k6m0u/)
+
 
 Display title text over the video. If you want to have clickable title, use `setTitleClickCallback`
 

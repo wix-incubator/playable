@@ -15,7 +15,10 @@ import {
   IPlaybackAdapter,
 } from '../index';
 import { IEventEmitter } from '../modules/event-emitter/types';
-import { IParsedMediaSource } from '../modules/playback-engine/types';
+import {
+  IParsedMediaSource,
+  IVideoOutput,
+} from '../modules/playback-engine/types';
 
 const LIVE_SYNC_DURATION = 4;
 const LIVE_SYNC_DURATION_DELTA = 5;
@@ -34,7 +37,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
   private eventEmitter: IEventEmitter;
   private hls: HlsJs;
-  private videoElement: HTMLVideoElement;
+  private videoElement: IVideoOutput;
   private mediaStream: IParsedMediaSource;
 
   private _mediaRecoverTimeout: number;
@@ -276,7 +279,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
       return;
     }
     this.hls.startLoad();
-    this.videoElement.removeEventListener('play', this._attachOnPlay);
+    this.videoElement.off('play', this._attachOnPlay);
   }
 
   private _onLevelUpdated(_eventName: string, { details }: any) {
@@ -294,7 +297,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     }
   }
 
-  attach(videoElement: HTMLVideoElement) {
+  attach(videoElement: IVideoOutput) {
     if (!this.mediaStream) {
       return;
     }
@@ -307,7 +310,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
     if (this.videoElement.preload === 'none') {
       config.autoStartLoad = false;
-      this.videoElement.addEventListener('play', this._attachOnPlay);
+      this.videoElement.on('play', this._attachOnPlay);
     }
 
     this.hls = new HlsJs(config);
@@ -317,7 +320,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.hls.on(HlsJs.Events.BUFFER_EOS, this._onEndOfStream);
 
     this.hls.loadSource(this.mediaStream.url);
-    this.hls.attachMedia(this.videoElement);
+    this.hls.attachMedia(this.videoElement.getElement());
     this._isAttached = true;
   }
 
@@ -343,8 +346,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
     this.hls.destroy();
     this.hls = null;
 
-    this.videoElement.removeEventListener('play', this._attachOnPlay);
-    this.videoElement.removeAttribute('src');
+    this.videoElement.off('play', this._attachOnPlay);
+    this.videoElement.setSrc(null);
     this.videoElement = null;
   }
 }

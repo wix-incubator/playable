@@ -28,7 +28,7 @@ type MediaSource = string | IMediaSource | Array<string | IMediaSource>;
 type CrossOriginValue = 'anonymous' | 'use-credentials';
 
 interface IPlaybackEngine {
-  getElement(): HTMLVideoElement;
+  getElement(): HTMLVideoElement | null;
 
   isDynamicContent: boolean;
   isDynamicContentEnded: boolean;
@@ -117,6 +117,56 @@ interface ILiveStateEngineDependencies {
   engine: IPlaybackEngine;
 }
 
+interface IDimensions {
+  width?: number;
+  height?: number;
+}
+
+interface IVideoOutput {
+  play: () => Promise<void>;
+  pause: () => void;
+  destroy: () => void;
+
+  getElement: () => HTMLVideoElement | null;
+  getViewDimensions: () => IDimensions;
+
+  on: (event: string, cb: (event?: Event) => void) => void;
+  off: (event: string, cb: (event?: Event) => void) => void;
+
+  setPlaybackRate: (rate: number) => void;
+  setPreload: (preload: 'auto' | 'metadata' | 'none') => void;
+  setAutoplay: (isAutoplay: boolean) => void;
+  setVolume: (volume: number) => void;
+  setMute: (mute: boolean) => void;
+  setCurrentTime: (time: number) => void;
+  setInline: (isPlaysinline: boolean) => void;
+  setCrossOrigin: (crossOrigin?: CrossOriginValue) => void;
+  setLoop: (mute: boolean) => void;
+  setSrc: (src: string) => void;
+
+  isPaused: boolean;
+  isMuted: boolean;
+  isEnded: boolean;
+  isAutoplay: boolean;
+  isLoop: boolean;
+
+  preload: 'auto' | 'metadata' | 'none';
+
+  volume: number;
+  currentTime: number;
+  duration: number;
+  length: number;
+  autoplay: boolean;
+  playbackRate: number;
+  videoWidth?: number;
+  videoHeight?: number;
+  buffered: TimeRanges;
+  isInline: boolean;
+  crossOrigin: CrossOriginValue;
+  error: MediaError;
+  src: string;
+}
+
 export {
   ILiveStateEngineDependencies,
   IPlaybackEngineDependencies,
@@ -124,6 +174,7 @@ export {
   IEngineDebugInfo,
   IMediaSource,
   IParsedMediaSource,
+  IVideoOutput,
   MediaSource,
   PreloadTypes,
   CrossOriginValue,

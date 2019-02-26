@@ -6,6 +6,8 @@ import { VIDEO_EVENTS } from '../../constants';
 import NativeEventsBroadcast, {
   NATIVE_VIDEO_TO_BROADCAST,
 } from './native-events-broadcaster';
+import NativeOutput from './output/native';
+import { IVideoOutput } from './types';
 
 const NATIVE_EVENTS = {
   ERROR: { type: 'error' },
@@ -17,21 +19,25 @@ const NATIVE_EVENTS = {
   TIME_UPDATE: { type: 'timeupdate' },
   VOLUME_CHANGE: { type: 'volumechange' },
 };
-
+9;
 describe('NativeEventsBroadcaster', () => {
   let video: any;
   let broadcaster: any;
   let eventEmitter: any;
+  let output: IVideoOutput;
 
   beforeEach(() => {
     video = {
       addEventListener: sinon.spy(),
       removeEventListener: sinon.spy(),
+      tagName: 'VIDEO',
     };
 
     eventEmitter = new EventEmitter();
     sinon.spy(eventEmitter, 'emit');
-    broadcaster = new NativeEventsBroadcast(eventEmitter, video);
+
+    output = new NativeOutput(video);
+    broadcaster = new NativeEventsBroadcast(eventEmitter, output);
   });
 
   afterEach(() => {
