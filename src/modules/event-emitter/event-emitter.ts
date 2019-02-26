@@ -100,7 +100,7 @@ export default class EventEmitterModule extends EventEmitter
    * @returns unbindEvents
    */
   bindEvents(eventsMap: IEventMap[], defaultFnContext?: Object): () => void {
-    const events: Function[] = [];
+    const events: (() => void)[] = [];
 
     eventsMap.forEach(([eventName, fn, fnContext = defaultFnContext]) => {
       this.on(eventName, fn, fnContext);
@@ -109,7 +109,7 @@ export default class EventEmitterModule extends EventEmitter
       });
     });
 
-    return function unbindEvents() {
+    return () => {
       events.forEach(unbindEvent => {
         unbindEvent();
       });

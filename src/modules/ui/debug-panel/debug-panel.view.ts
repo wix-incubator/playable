@@ -95,8 +95,6 @@ class DebugPanelView extends View<IDebugPanelViewStyles>
     this._$rootElement = null;
     this._$closeButton = null;
     this._$infoContainer = null;
-
-    this._callbacks = null;
   }
 }
 

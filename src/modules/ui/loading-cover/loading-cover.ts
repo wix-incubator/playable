@@ -23,7 +23,7 @@ export default class LoadingCover implements ILoadingCover {
   private _engine: IPlaybackEngine;
   private _bottomBlock: IBottomBlock;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean;
@@ -127,11 +127,5 @@ export default class LoadingCover implements ILoadingCover {
     this._unbindEvents();
 
     this.view.destroy();
-
-    this.view = null;
-
-    this._bottomBlock = null;
-    this._eventEmitter = null;
-    this._engine = null;
   }
 }

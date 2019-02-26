@@ -71,9 +71,6 @@ export default class PreviewFullsize implements IPreviewFullSize {
   }
 
   destroy(): void {
-    this._previewService = null;
-
     this.view.destroy();
-    this.view = null;
   }
 }

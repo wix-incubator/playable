@@ -9,7 +9,7 @@ type IDownloadViewStyles = {
 };
 
 type IDownloadViewCallbacks = {
-  onButtonClick: Function;
+  onButtonClick: () => void;
 };
 
 type IDownloadViewConfig = {
@@ -22,7 +22,7 @@ type IDownloadViewConfig = {
 interface IDownloadButton {
   getElement(): HTMLElement;
 
-  setDownloadClickCallback(callback: Function): void;
+  setDownloadClickCallback(callback: () => void): void;
 
   show(): void;
   hide(): void;

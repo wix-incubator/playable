@@ -36,7 +36,7 @@ export default class FullScreenManager implements IFullScreenManager {
 
   private _isEnabled: boolean;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   constructor({
     eventEmitter,
@@ -308,9 +308,5 @@ export default class FullScreenManager implements IFullScreenManager {
     this._unbindEvents();
 
     this._helper.destroy();
-    this._helper = null;
-
-    this._eventEmitter = null;
-    this._engine = null;
   }
 }

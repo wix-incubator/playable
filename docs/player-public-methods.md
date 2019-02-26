@@ -1679,7 +1679,7 @@ Method for attaching callback for click on title
           <code>callback</code>
         </td>
         <td>
-            <div class="type">Function</div>
+            <code>function(): void</code>
             <p>Your function</p>
         </td>
       </tr>
@@ -1954,7 +1954,7 @@ Method for attaching callback for click on logo
           <code>callback</code>
         </td>
         <td>
-            <div class="type">Function</div>
+            <code>function(): void</code>
             <p>Your function</p>
         </td>
       </tr>
@@ -1978,7 +1978,7 @@ Method for attaching callback for click on logo
           <code>callback</code>
         </td>
         <td>
-            <div class="type">Function</div>
+            <code>function(): void</code>
         </td>
       </tr>
     </tbody>

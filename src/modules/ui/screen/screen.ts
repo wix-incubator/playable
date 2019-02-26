@@ -35,7 +35,7 @@ export default class Screen implements IScreen {
 
   private _isClickProcessingDisabled: boolean;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean;
@@ -241,11 +241,5 @@ export default class Screen implements IScreen {
 
     this._clearDelayedPlaybackToggle();
     this.view.destroy();
-    this.view = null;
-
-    this._interactionIndicator = null;
-    this._eventEmitter = null;
-    this._engine = null;
-    this._fullScreenManager = null;
   }
 }

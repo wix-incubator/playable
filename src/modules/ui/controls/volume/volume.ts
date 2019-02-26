@@ -34,7 +34,7 @@ export default class VolumeControl implements IVolumeControl {
   private _buttonInterceptor: KeyboardInterceptor;
   private _inputInterceptor: KeyboardInterceptor;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean;
@@ -231,11 +231,5 @@ export default class VolumeControl implements IVolumeControl {
     this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._engine = null;
-    this._textMap = null;
-    this._theme = null;
   }
 }

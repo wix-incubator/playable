@@ -47,7 +47,7 @@ export default class BottomBlock implements IBottomBlock {
 
   private _isBlockFocused: boolean = false;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean = false;
@@ -300,8 +300,5 @@ export default class BottomBlock implements IBottomBlock {
   destroy() {
     this._unbindEvents();
     this.view.destroy();
-
-    this.view = null;
-    this._eventEmitter = null;
   }
 }

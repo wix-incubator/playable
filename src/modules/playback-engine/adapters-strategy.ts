@@ -9,7 +9,7 @@ import { IPlaybackAdapter, IPlaybackAdapterClass } from './adapters/types';
 import { MediaSource, IMediaSource, IVideoOutput } from './types';
 
 export default class AdaptersStrategy {
-  private _video: IVideoOutput;
+  private _output: IVideoOutput;
   private _eventEmitter: IEventEmitter;
   private _playableAdapters: IPlaybackAdapter[];
   private _availableAdapters: IPlaybackAdapter[];
@@ -17,10 +17,10 @@ export default class AdaptersStrategy {
 
   constructor(
     eventEmitter: IEventEmitter,
-    video: IVideoOutput,
+    output: IVideoOutput,
     playbackAdapters: IPlaybackAdapterClass[] = [],
   ) {
-    this._video = video;
+    this._output = output;
     this._eventEmitter = eventEmitter;
     this._playableAdapters = [];
     this._availableAdapters = [];
@@ -71,7 +71,7 @@ export default class AdaptersStrategy {
       // Use the first PlayableStream for now
       // Later, we can use the others as fallback
       this._attachedAdapter = this._playableAdapters[0];
-      this._attachedAdapter.attach(this._video);
+      this._attachedAdapter.attach(this._output);
     }
   }
 
@@ -94,11 +94,5 @@ export default class AdaptersStrategy {
 
   destroy() {
     this._detachCurrentAdapter();
-
-    this._attachedAdapter = null;
-    this._availableAdapters = null;
-    this._playableAdapters = null;
-
-    this._video = null;
   }
 }

@@ -122,7 +122,6 @@ class TopBlockView extends View<ITopBlockViewStyles>
 
   destroy() {
     this._unbindEvents();
-    this._callbacks = null;
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
     }

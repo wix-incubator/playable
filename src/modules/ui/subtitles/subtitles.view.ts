@@ -37,14 +37,6 @@ class SubtitlesView extends View<ISubtitlesViewStyles>
     return this._$rootElement;
   }
 
-  destroy(): void {
-    if (this._$rootElement.parentNode) {
-      this._$rootElement.parentNode.removeChild(this._$rootElement);
-    }
-
-    this._$rootElement = null;
-  }
-
   moveSubtitlesUp(): void {
     this._$subtitles.classList.add(this.styleNames.controlsShown);
   }
@@ -76,6 +68,14 @@ class SubtitlesView extends View<ISubtitlesViewStyles>
 
   clearSubtitles(): void {
     this._$subtitles.innerHTML = '';
+  }
+
+  destroy(): void {
+    if (this._$rootElement.parentNode) {
+      this._$rootElement.parentNode.removeChild(this._$rootElement);
+    }
+
+    this._$rootElement = null;
   }
 }
 

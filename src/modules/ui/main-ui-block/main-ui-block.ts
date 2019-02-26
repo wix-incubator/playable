@@ -41,7 +41,7 @@ export default class MainUIBlock implements IMainUIBlock {
   private _shouldAlwaysShow: boolean = false;
   private _isDragging: boolean = false;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: MainUIBlockView;
   isHidden: boolean;
@@ -269,12 +269,5 @@ export default class MainUIBlock implements IMainUIBlock {
     this._stopHideBlockTimeout();
     this._unbindEvents();
     this.view.destroy();
-
-    this.view = null;
-    this._eventEmitter = null;
-    this._topBlock = null;
-    this._bottomBlock = null;
-    this._screen = null;
-    this._tooltipService = null;
   }
 }

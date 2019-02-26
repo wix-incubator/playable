@@ -52,12 +52,6 @@ describe('BottomBlock', () => {
     it('should have method for destroying', () => {
       expect(controls.destroy).to.exist;
       controls.destroy();
-      expect(controls.view).to.not.exist;
-      expect(controls.fullscreenControl).to.not.exist;
-      expect(controls.playControl).to.not.exist;
-      expect(controls.progressControl).to.not.exist;
-      expect(controls.timeControl).to.not.exist;
-      expect(controls.volumeControl).to.not.exist;
     });
   });
 

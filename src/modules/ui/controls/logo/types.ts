@@ -10,7 +10,7 @@ type ILogoViewStyles = {
 };
 
 type ILogoViewCallbacks = {
-  onLogoClick: Function;
+  onLogoClick: () => void;
 };
 
 type ILogoViewConfig = {
@@ -25,7 +25,7 @@ interface ILogoControl {
   getElement(): HTMLElement;
 
   setLogo(src: string): void;
-  setLogoClickCallback(callback?: Function): void;
+  setLogoClickCallback(callback?: () => void): void;
 
   show(): void;
   hide(): void;

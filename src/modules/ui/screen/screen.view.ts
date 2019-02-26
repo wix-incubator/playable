@@ -275,8 +275,6 @@ class ScreenView extends View<IScreenViewStyles>
     this._$rootElement = null;
     this._$playbackElement = null;
     this._$canvas = null;
-
-    this._callbacks = null;
   }
 }
 

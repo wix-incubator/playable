@@ -108,7 +108,6 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
 
   destroy() {
     this._unbindEvents();
-    this._callbacks = null;
 
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
@@ -116,7 +115,6 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
 
     this._$playbackControl = null;
     this._$rootElement = null;
-    this._textMap = null;
   }
 }
 

@@ -18,7 +18,7 @@ type ITitleViewConfig = {
 interface ITitle {
   getElement(): HTMLElement;
   setTitle(title?: string): void;
-  setTitleClickCallback(callback?: Function): void;
+  setTitleClickCallback(callback?: () => void): void;
 
   show(): void;
   hide(): void;

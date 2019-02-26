@@ -54,8 +54,6 @@ describe('TimeControl', () => {
       const spy = sinon.spy(control, '_unbindEvents');
       expect(control.destroy).to.exist;
       control.destroy();
-      expect(control.view).to.not.exist;
-      expect(control._eventEmitter).to.not.exist;
       expect(spy.called).to.be.true;
     });
   });

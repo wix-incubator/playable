@@ -31,7 +31,7 @@ export default class FullScreenControl implements IFullScreenControl {
   private _tooltipService: ITooltipService;
   private _theme: IThemeService;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean;
@@ -137,11 +137,5 @@ export default class FullScreenControl implements IFullScreenControl {
     this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._fullScreenManager = null;
-    this._textMap = null;
-    this._theme = null;
   }
 }

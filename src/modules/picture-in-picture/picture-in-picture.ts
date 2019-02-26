@@ -114,8 +114,5 @@ export default class PictureInPicture implements IPictureInPicture {
 
   destroy() {
     this._helper.destroy();
-    this._helper = null;
-
-    this._eventEmitter = null;
   }
 }

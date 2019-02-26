@@ -26,10 +26,10 @@ class RootContainer implements IRootContainer {
 
   private _elementQueries: ElementQueries;
   private _resizeObserver: ResizeObserver;
-  private _disengageFocusWithin: Function;
-  private _disengageFocusSource: Function;
+  private _disengageFocusWithin: () => void;
+  private _disengageFocusSource: () => void;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   // TODO: check if props should be `private`
   view: View;
@@ -258,15 +258,9 @@ class RootContainer implements IRootContainer {
     this._disableFocusInterceptors();
 
     this._resizeObserver.unobserve(this.getElement());
-    this._resizeObserver = null;
-
     this._elementQueries.destroy();
-    this._elementQueries = null;
 
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
   }
 }
 

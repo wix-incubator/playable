@@ -127,8 +127,5 @@ export default class NativeEventsBroadcaster {
 
   destroy() {
     this._unbindEvents();
-
-    this._output = null;
-    this._eventEmitter = null;
   }
 }

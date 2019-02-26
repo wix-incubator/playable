@@ -11,7 +11,7 @@ type IFullScreenViewStyles = {
 };
 
 type IFullScreenViewCallbacks = {
-  onButtonClick: Function;
+  onButtonClick(): void;
 };
 
 type IFullScreenViewConfig = {

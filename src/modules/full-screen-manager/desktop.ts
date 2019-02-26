@@ -66,12 +66,12 @@ interface IFullScreenFnMap {
 }
 
 export default class DesktopFullScreen implements IFullScreenHelper {
-  private _elem: HTMLElement;
+  private _$elem: HTMLElement;
   private _callback: EventListener;
   private _fullscreenFn: IFullScreenFnMap | boolean;
 
   constructor(elem: HTMLElement, callback: EventListener) {
-    this._elem = elem;
+    this._$elem = elem;
     this._callback = callback;
     this._fullscreenFn = getFullScreenFn();
 
@@ -135,9 +135,9 @@ export default class DesktopFullScreen implements IFullScreenHelper {
     // setTimeout is even worse.
 
     if (/5\.1[.\d]* Safari/.test(navigator.userAgent)) {
-      (this._elem as any)[request]();
+      (this._$elem as any)[request]();
     } else {
-      (this._elem as any)[request]((Element as any).ALLOW_KEYBOARD_INPUT);
+      (this._$elem as any)[request]((Element as any).ALLOW_KEYBOARD_INPUT);
     }
   }
 
@@ -154,7 +154,6 @@ export default class DesktopFullScreen implements IFullScreenHelper {
   destroy() {
     this._unbindEvents();
 
-    this._elem = null;
-    this._callback = null;
+    this._$elem = null;
   }
 }

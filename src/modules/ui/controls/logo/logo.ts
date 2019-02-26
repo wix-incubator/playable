@@ -25,7 +25,7 @@ export default class Logo implements ILogoControl {
   private _tooltipService: ITooltipService;
 
   private _interceptor: KeyboardInterceptor;
-  private _callback: Function;
+  private _callback: () => void;
   private _logoSrc: string;
 
   view: View;
@@ -126,7 +126,7 @@ export default class Logo implements ILogoControl {
    *
    */
   @playerAPI()
-  setLogoClickCallback(callback?: Function) {
+  setLogoClickCallback(callback?: () => void) {
     this._callback = callback;
     this._setProperDisplayState();
   }
@@ -152,10 +152,5 @@ export default class Logo implements ILogoControl {
   destroy() {
     this._destroyInterceptor();
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._textMap = null;
-    this._theme = null;
   }
 }

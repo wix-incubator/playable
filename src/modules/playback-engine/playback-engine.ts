@@ -679,11 +679,5 @@ export default class Engine implements IPlaybackEngine {
     this._nativeEventsBroadcaster.destroy();
     this._adapterStrategy.destroy();
     this._output.destroy();
-
-    this._stateEngine = null;
-    this._nativeEventsBroadcaster = null;
-    this._adapterStrategy = null;
-    this._eventEmitter = null;
-    this._output = null;
   }
 }

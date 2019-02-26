@@ -18,7 +18,7 @@ export default class Loader {
   private _engine: IPlaybackEngine;
 
   private _delayedShowTimeout: number;
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean;
@@ -154,9 +154,5 @@ export default class Loader {
     this.stopDelayedShow();
 
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._engine = null;
   }
 }

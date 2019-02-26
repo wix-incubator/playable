@@ -152,10 +152,8 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
 
   destroy() {
     this._unbindEvents();
-    this._callbacks = null;
 
     this._tooltipReference.destroy();
-    this._tooltipReference = null;
 
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
@@ -165,9 +163,6 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._$logoImage = null;
     this._$logoInput = null;
     this._$logoButton = null;
-
-    this._tooltipReference = null;
-    this._textMap = null;
   }
 }
 

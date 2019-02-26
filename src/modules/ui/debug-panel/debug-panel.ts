@@ -132,6 +132,5 @@ export default class DebugPanel {
     this.clearUpdateInterval();
 
     this.view.destroy();
-    this.view = null;
   }
 }

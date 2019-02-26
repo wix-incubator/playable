@@ -25,7 +25,7 @@ export default class DownloadButton implements IDownloadButton {
   private _tooltipService: ITooltipService;
   private _theme: IThemeService;
 
-  private _callback: Function;
+  private _callback: () => void;
 
   view: View;
   isHidden: boolean;
@@ -99,7 +99,7 @@ export default class DownloadButton implements IDownloadButton {
   }
 
   @playerAPI()
-  setDownloadClickCallback(callback: Function) {
+  setDownloadClickCallback(callback: () => void) {
     this._callback = callback;
   }
 
@@ -116,10 +116,5 @@ export default class DownloadButton implements IDownloadButton {
   destroy() {
     this._destroyInterceptor();
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._textMap = null;
-    this._theme = null;
   }
 }

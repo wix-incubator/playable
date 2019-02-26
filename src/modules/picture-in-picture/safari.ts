@@ -12,11 +12,11 @@ interface SafariWebkitHTMLVideo extends HTMLVideoElement {
 }
 
 export default class SafariPictureInPicture implements IPictureInPictureHelper {
-  private _elem: SafariWebkitHTMLVideo;
+  private _$elem: SafariWebkitHTMLVideo;
   private _callback: EventListener;
 
   constructor(elem: HTMLVideoElement, callback: EventListener) {
-    this._elem = elem as SafariWebkitHTMLVideo;
+    this._$elem = elem as SafariWebkitHTMLVideo;
     this._callback = callback;
 
     this._bindEvents();
@@ -24,14 +24,15 @@ export default class SafariPictureInPicture implements IPictureInPictureHelper {
 
   get isAPIExist() {
     return Boolean(
-      this._elem && typeof this._elem.webkitSetPresentationMode === 'function',
+      this._$elem &&
+        typeof this._$elem.webkitSetPresentationMode === 'function',
     );
   }
 
   get isInPictureInPicture() {
     return Boolean(
-      this._elem &&
-        this._elem.webkitPresentationMode === PICTURE_IN_PICTURE_MODE,
+      this._$elem &&
+        this._$elem.webkitPresentationMode === PICTURE_IN_PICTURE_MODE,
     );
   }
 
@@ -40,26 +41,26 @@ export default class SafariPictureInPicture implements IPictureInPictureHelper {
   }
 
   private _bindEvents() {
-    this._elem.addEventListener(
+    this._$elem.addEventListener(
       'webkitpresentationmodechanged',
       this._callback,
     );
   }
 
   private _unbindEvents() {
-    this._elem.removeEventListener(
+    this._$elem.removeEventListener(
       'webkitpresentationmodechanged',
       this._callback,
     );
 
-    this._elem.removeEventListener(
+    this._$elem.removeEventListener(
       'loadedmetadata',
       this._enterWhenHasMetaData,
     );
   }
 
   private _enterWhenHasMetaData = () => {
-    this._elem.removeEventListener(
+    this._$elem.removeEventListener(
       'loadedmetadata',
       this._enterWhenHasMetaData,
     );
@@ -79,10 +80,10 @@ export default class SafariPictureInPicture implements IPictureInPictureHelper {
     }
     try {
       //NOT FIRING EXEPTION IF NOT TRIGGERED BY USER GESTURE
-      this._elem.webkitSetPresentationMode(PICTURE_IN_PICTURE_MODE);
+      this._$elem.webkitSetPresentationMode(PICTURE_IN_PICTURE_MODE);
     } catch (e) {
-      if (this._elem.readyState < HAVE_METADATA) {
-        this._elem.addEventListener(
+      if (this._$elem.readyState < HAVE_METADATA) {
+        this._$elem.addEventListener(
           'loadedmetadata',
           this._enterWhenHasMetaData,
         );
@@ -96,13 +97,12 @@ export default class SafariPictureInPicture implements IPictureInPictureHelper {
       return false;
     }
 
-    this._elem.webkitSetPresentationMode(INLINE_MODE);
+    this._$elem.webkitSetPresentationMode(INLINE_MODE);
   }
 
   destroy() {
     this._unbindEvents();
 
-    this._elem = null;
-    this._callback = null;
+    this._$elem = null;
   }
 }

@@ -30,7 +30,7 @@ export default class Subtitles implements ISubtitles {
   private _activeSubtitleIndex: number | null = null;
   private _trackList: Array<TextTrack> = [];
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   constructor({
     rootContainer,
@@ -194,8 +194,6 @@ export default class Subtitles implements ISubtitles {
 
   destroy(): void {
     this._unbindEvents();
-
-    this._eventEmitter = null;
-    this._video = null;
+    this.view.destroy();
   }
 }

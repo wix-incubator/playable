@@ -1,4 +1,4 @@
-interface ITimeoutContainer {
+interface ITimeoutMap {
   [id: string]: number;
 }
 
@@ -15,4 +15,4 @@ interface IReportReasons {
   [id: string]: string;
 }
 
-export { ITimeoutContainer, IReportReasons, IReportType, IReportTypes };
+export { ITimeoutMap, IReportReasons, IReportType, IReportTypes };

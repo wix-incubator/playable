@@ -67,7 +67,7 @@ export default class ProgressControl implements IProgressControl {
 
   private _showFullScreenPreview: boolean;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean;
@@ -551,15 +551,5 @@ export default class ProgressControl implements IProgressControl {
     this._stopIntervalUpdates();
     this._unbindEvents();
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._engine = null;
-    this._liveStateEngine = null;
-    this._timeIndicatorsToAdd = null;
-    this._textMap = null;
-    this._theme = null;
-    this._previewFullSize = null;
-    this._previewThumbnail = null;
   }
 }

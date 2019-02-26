@@ -27,7 +27,7 @@ export default class PlayControl implements IPlayControl {
   private _interceptor: KeyboardInterceptor;
   private _isPlaying: boolean;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
 
@@ -147,11 +147,5 @@ export default class PlayControl implements IPlayControl {
     this._destroyInterceptor();
     this._unbindEvents();
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._engine = null;
-    this._textMap = null;
-    this._theme = null;
   }
 }

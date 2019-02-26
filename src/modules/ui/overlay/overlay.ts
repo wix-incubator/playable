@@ -25,7 +25,7 @@ export default class Overlay implements IOverlay {
   private _engine: IPlaybackEngine;
   private _theme: IThemeService;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean = false;
@@ -151,9 +151,5 @@ export default class Overlay implements IOverlay {
   destroy() {
     this._unbindEvents();
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._engine = null;
   }
 }

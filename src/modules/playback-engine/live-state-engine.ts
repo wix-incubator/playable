@@ -24,7 +24,7 @@ class LiveStateEngine {
 
   private _isSeekedByUIWhilePlaying: boolean;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   constructor({ eventEmitter, engine }: ILiveStateEngineDependencies) {
     this._eventEmitter = eventEmitter;
@@ -135,9 +135,6 @@ class LiveStateEngine {
 
   destroy() {
     this._unbindEvents();
-    this._eventEmitter = null;
-    this._engine = null;
-    this._state = null;
   }
 }
 

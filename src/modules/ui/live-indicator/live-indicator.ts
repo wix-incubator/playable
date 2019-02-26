@@ -29,7 +29,7 @@ export default class LiveIndicator implements ILiveIndicator {
   private _isActive: boolean = false;
   private _isEnded: boolean = false;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: LiveIndicatorView;
 
@@ -182,13 +182,7 @@ export default class LiveIndicator implements ILiveIndicator {
     this._unbindEvents();
 
     this._interceptor.destroy();
-    this._interceptor = null;
 
     this.view.destroy();
-    this.view = null;
-
-    this._engine = null;
-    this._eventEmitter = null;
-    this._textMap = null;
   }
 }

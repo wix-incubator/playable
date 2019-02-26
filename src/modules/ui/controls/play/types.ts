@@ -10,7 +10,7 @@ type IPlayViewStyles = {
 };
 
 type IPlayViewCallbacks = {
-  onButtonClick: Function;
+  onButtonClick: () => void;
 };
 
 type IPlayViewConfig = {

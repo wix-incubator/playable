@@ -5,11 +5,11 @@ const HAVE_METADATA = 1;
 let isFullScreenRequested = false;
 
 export default class IOSFullScreen implements IFullScreenHelper {
-  private _elem: HTMLVideoElement;
+  private _$elem: HTMLVideoElement;
   private _callback: EventListener;
 
   constructor(elem: HTMLVideoElement, callback: EventListener) {
-    this._elem = elem;
+    this._$elem = elem;
     this._callback = callback;
 
     this._bindEvents();
@@ -18,11 +18,11 @@ export default class IOSFullScreen implements IFullScreenHelper {
   }
 
   get isAPIExist() {
-    return Boolean(this._elem && this._elem.webkitSupportsFullscreen);
+    return Boolean(this._$elem && this._$elem.webkitSupportsFullscreen);
   }
 
   get isInFullScreen() {
-    return Boolean(this._elem && this._elem.webkitDisplayingFullscreen);
+    return Boolean(this._$elem && this._$elem.webkitDisplayingFullscreen);
   }
 
   get isEnabled() {
@@ -30,22 +30,22 @@ export default class IOSFullScreen implements IFullScreenHelper {
   }
 
   private _bindEvents() {
-    this._elem.addEventListener('webkitbeginfullscreen', this._callback);
-    this._elem.addEventListener('webkitendfullscreen', this._callback);
+    this._$elem.addEventListener('webkitbeginfullscreen', this._callback);
+    this._$elem.addEventListener('webkitendfullscreen', this._callback);
   }
 
   private _unbindEvents() {
-    this._elem.removeEventListener('webkitbeginfullscreen', this._callback);
-    this._elem.removeEventListener('webkitendfullscreen', this._callback);
+    this._$elem.removeEventListener('webkitbeginfullscreen', this._callback);
+    this._$elem.removeEventListener('webkitendfullscreen', this._callback);
 
-    this._elem.removeEventListener(
+    this._$elem.removeEventListener(
       'loadedmetadata',
       this._enterWhenHasMetaData,
     );
   }
 
   private _enterWhenHasMetaData() {
-    this._elem.removeEventListener(
+    this._$elem.removeEventListener(
       'loadedmetadata',
       this._enterWhenHasMetaData,
     );
@@ -61,10 +61,10 @@ export default class IOSFullScreen implements IFullScreenHelper {
     }
 
     try {
-      this._elem.webkitEnterFullscreen();
+      this._$elem.webkitEnterFullscreen();
     } catch (e) {
-      if (this._elem.readyState < HAVE_METADATA) {
-        this._elem.addEventListener(
+      if (this._$elem.readyState < HAVE_METADATA) {
+        this._$elem.addEventListener(
           'loadedmetadata',
           this._enterWhenHasMetaData,
         );
@@ -78,13 +78,12 @@ export default class IOSFullScreen implements IFullScreenHelper {
       return false;
     }
 
-    this._elem.webkitExitFullscreen();
+    this._$elem.webkitExitFullscreen();
   }
 
   destroy() {
     this._unbindEvents();
 
-    this._elem = null;
-    this._callback = null;
+    this._$elem = null;
   }
 }

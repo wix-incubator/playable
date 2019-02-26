@@ -110,6 +110,5 @@ export default class TopBlock implements ITopBlock {
 
   destroy() {
     this.view.destroy();
-    this.view = null;
   }
 }

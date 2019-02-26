@@ -271,10 +271,8 @@ class VolumeView extends View<IVolumeViewStyles>
 
   destroy() {
     this._unbindEvents();
-    this._callbacks = null;
 
     this._muteButtonTooltipReference.destroy();
-    this._muteButtonTooltipReference = null;
 
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
@@ -282,8 +280,6 @@ class VolumeView extends View<IVolumeViewStyles>
 
     this._$muteButton = null;
     this._$rootElement = null;
-
-    this._textMap = null;
   }
 }
 

@@ -349,10 +349,8 @@ class ProgressView extends View<IProgressViewStyles>
 
   destroy() {
     this._unbindEvents();
-    this._callbacks = null;
 
     this._syncButtonTooltipReference.destroy();
-    this._syncButtonTooltipReference = null;
 
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
@@ -366,8 +364,6 @@ class ProgressView extends View<IProgressViewStyles>
     this._$seekButton = null;
     this._$syncButton = null;
     this._$timeIndicators = null;
-
-    this._textMap = null;
   }
 }
 

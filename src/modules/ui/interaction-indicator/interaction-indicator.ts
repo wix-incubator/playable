@@ -16,7 +16,7 @@ export default class InteractionIndicator implements IInteractionIndicator {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
 
@@ -125,9 +125,5 @@ export default class InteractionIndicator implements IInteractionIndicator {
     this._unbindEvents();
 
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._engine = null;
   }
 }

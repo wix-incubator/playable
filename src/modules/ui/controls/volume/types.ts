@@ -16,11 +16,11 @@ type IVolumeViewStyles = {
 };
 
 type IVolumeViewCallbacks = {
-  onVolumeLevelChangeFromInput: Function;
-  onVolumeLevelChangeFromWheel: Function;
-  onToggleMuteClick: Function;
-  onDragStart: Function;
-  onDragEnd: Function;
+  onVolumeLevelChangeFromInput: (level: number) => void;
+  onVolumeLevelChangeFromWheel: (delta: number) => void;
+  onToggleMuteClick: () => void;
+  onDragStart: () => void;
+  onDragEnd: () => void;
 };
 
 type IVolumeViewConfig = {

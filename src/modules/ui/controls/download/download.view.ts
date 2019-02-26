@@ -91,10 +91,8 @@ class DownloadView extends View<IDownloadViewStyles>
 
   destroy() {
     this._unbindEvents();
-    this._callbacks = null;
 
     this._tooltipReference.destroy();
-    this._tooltipReference = null;
 
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
@@ -102,8 +100,6 @@ class DownloadView extends View<IDownloadViewStyles>
 
     this._$downloadButton = null;
     this._$rootElement = null;
-
-    this._textMap = null;
   }
 }
 

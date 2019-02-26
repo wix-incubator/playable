@@ -15,11 +15,11 @@ export interface ChromeDocument extends Document {
 }
 
 export default class ChromePictureInPicture implements IPictureInPictureHelper {
-  private _elem: ChromeWebkitHTMLVideo;
+  private _$elem: ChromeWebkitHTMLVideo;
   private _callback: EventListener;
 
   constructor(elem: HTMLVideoElement, callback: EventListener) {
-    this._elem = elem as ChromeWebkitHTMLVideo;
+    this._$elem = elem as ChromeWebkitHTMLVideo;
     this._callback = callback;
 
     this._bindEvents();
@@ -35,8 +35,8 @@ export default class ChromePictureInPicture implements IPictureInPictureHelper {
 
   get isInPictureInPicture() {
     return Boolean(
-      this._elem &&
-        this._elem === (document as ChromeDocument).pictureInPictureElement,
+      this._$elem &&
+        this._$elem === (document as ChromeDocument).pictureInPictureElement,
     );
   }
 
@@ -45,22 +45,22 @@ export default class ChromePictureInPicture implements IPictureInPictureHelper {
   }
 
   private _bindEvents() {
-    this._elem.addEventListener('enterpictureinpicture', this._callback);
-    this._elem.addEventListener('leavepictureinpicture', this._callback);
+    this._$elem.addEventListener('enterpictureinpicture', this._callback);
+    this._$elem.addEventListener('leavepictureinpicture', this._callback);
   }
 
   private _unbindEvents() {
-    this._elem.removeEventListener('enterpictureinpicture', this._callback);
-    this._elem.removeEventListener('leavepictureinpicture', this._callback);
+    this._$elem.removeEventListener('enterpictureinpicture', this._callback);
+    this._$elem.removeEventListener('leavepictureinpicture', this._callback);
 
-    this._elem.removeEventListener(
+    this._$elem.removeEventListener(
       'loadedmetadata',
       this._enterWhenHasMetaData,
     );
   }
 
   private _enterWhenHasMetaData = () => {
-    this._elem.removeEventListener(
+    this._$elem.removeEventListener(
       'loadedmetadata',
       this._enterWhenHasMetaData,
     );
@@ -71,8 +71,11 @@ export default class ChromePictureInPicture implements IPictureInPictureHelper {
   };
 
   private catchException = () => {
-    if (this._elem && this._elem.readyState < HAVE_METADATA) {
-      this._elem.addEventListener('loadedmetadata', this._enterWhenHasMetaData);
+    if (this._$elem && this._$elem.readyState < HAVE_METADATA) {
+      this._$elem.addEventListener(
+        'loadedmetadata',
+        this._enterWhenHasMetaData,
+      );
       isPictureInPictureRequested = true;
     }
   };
@@ -85,7 +88,7 @@ export default class ChromePictureInPicture implements IPictureInPictureHelper {
     ) {
       return false;
     }
-    return this._elem.requestPictureInPicture().catch(this.catchException);
+    return this._$elem.requestPictureInPicture().catch(this.catchException);
   }
 
   exit() {
@@ -99,7 +102,6 @@ export default class ChromePictureInPicture implements IPictureInPictureHelper {
   destroy() {
     this._unbindEvents();
 
-    this._elem = null;
-    this._callback = null;
+    this._$elem = null;
   }
 }

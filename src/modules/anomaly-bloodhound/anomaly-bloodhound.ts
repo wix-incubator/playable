@@ -5,7 +5,7 @@ import { IPlaybackEngine } from '../playback-engine/types';
 
 import {
   IReportReasons,
-  ITimeoutContainer,
+  ITimeoutMap,
   IReportTypes,
   IReportType,
 } from './types';
@@ -19,23 +19,19 @@ export const REPORT_REASONS: IReportReasons = {
   LONG_PLAY_REQUESTED_PROCESSING: 'long-play-requested-processing',
 };
 
-const INITIAL_VIDEO_PARTS_LOADING: IReportType = {
-  id: '_initialVideoPartsLoading',
-  timeoutTime: 5000,
-};
-const METADATA_LOADING: IReportType = {
-  id: '_metadataLoading',
-  timeoutTime: 5000,
-};
-const RUNTIME_LOADING: IReportType = {
-  id: '_runtimeLoading',
-  timeoutTime: 5000,
-};
-
 export const DELAYED_REPORT_TYPES: IReportTypes = {
-  INITIAL_VIDEO_PARTS_LOADING,
-  METADATA_LOADING,
-  RUNTIME_LOADING,
+  INITIAL_VIDEO_PARTS_LOADING: {
+    id: '_initialVideoPartsLoading',
+    timeoutTime: 5000,
+  },
+  METADATA_LOADING: {
+    id: '_metadataLoading',
+    timeoutTime: 5000,
+  },
+  RUNTIME_LOADING: {
+    id: '_runtimeLoading',
+    timeoutTime: 5000,
+  },
 };
 
 export default class AnomalyBloodhound {
@@ -44,11 +40,11 @@ export default class AnomalyBloodhound {
 
   private _engine: IPlaybackEngine;
   private _eventEmitter: IEventEmitter;
-  private _timeoutContainer: ITimeoutContainer;
+  private _timeoutMap: ITimeoutMap;
 
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
-  private _callback: Function | null = null;
+  private _callback: (anomalyData: any) => void;
 
   constructor({
     engine,
@@ -60,7 +56,7 @@ export default class AnomalyBloodhound {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
 
-    this._timeoutContainer = Object.create(null);
+    this._timeoutMap = Object.create(null);
 
     this._bindEvents();
   }
@@ -167,7 +163,7 @@ export default class AnomalyBloodhound {
   }
 
   isDelayedReportExist(type: IReportType) {
-    return Boolean(this._timeoutContainer[type.id]);
+    return Boolean(this._timeoutMap[type.id]);
   }
 
   startDelayedReport(type: IReportType, reason: string) {
@@ -176,9 +172,9 @@ export default class AnomalyBloodhound {
     }
 
     const startTS = Date.now();
-    this._timeoutContainer[type.id] = window.setTimeout(() => {
+    this._timeoutMap[type.id] = window.setTimeout(() => {
       const endTS = Date.now();
-      delete this._timeoutContainer;
+      delete this._timeoutMap;
       this.reportDebugInfo({
         reason,
         startTS,
@@ -188,19 +184,19 @@ export default class AnomalyBloodhound {
   }
 
   stopDelayedReport(type: IReportType) {
-    window.clearTimeout(this._timeoutContainer[type.id]);
-    delete this._timeoutContainer[type.id];
+    window.clearTimeout(this._timeoutMap[type.id]);
+    delete this._timeoutMap[type.id];
   }
 
   stopAllDelayedReports() {
-    Object.keys(this._timeoutContainer).forEach(key => {
-      window.clearTimeout(this._timeoutContainer[key]);
-      delete this._timeoutContainer[key];
+    Object.keys(this._timeoutMap).forEach(key => {
+      window.clearTimeout(this._timeoutMap[key]);
+      delete this._timeoutMap[key];
     });
   }
 
   @playerAPI()
-  setAnomalyCallback(callback: Function) {
+  setAnomalyCallback(callback: (anomalyData: any) => void) {
     if (callback) {
       this._callback = callback;
     }
@@ -228,9 +224,5 @@ export default class AnomalyBloodhound {
     this.stopAllDelayedReports();
 
     this._unbindEvents();
-
-    this._eventEmitter = null;
-    this._engine = null;
-    this._timeoutContainer = null;
   }
 }

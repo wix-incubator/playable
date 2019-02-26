@@ -1,12 +1,16 @@
 function reduce(
   arrayLike: { length: number },
-  callback: Function,
+  callback: (...args: any[]) => void,
   initialValue: any,
 ) {
   return Array.prototype.reduce.call(arrayLike, callback, initialValue);
 }
 
-function forEachMatch(string: string, pattern: RegExp, callback: Function) {
+function forEachMatch(
+  string: string,
+  pattern: RegExp,
+  callback: (match: RegExpExecArray) => void,
+) {
   let match = pattern.exec(string);
 
   while (match !== null) {

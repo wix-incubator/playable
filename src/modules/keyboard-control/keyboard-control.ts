@@ -27,7 +27,6 @@ export default class KeyboardControl implements IKeyboardControl {
   private _isEnabled: boolean;
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
-  private _rootElement: HTMLElement;
   private _keyboardInterceptor: KeyboardInterceptor;
 
   constructor({
@@ -43,7 +42,6 @@ export default class KeyboardControl implements IKeyboardControl {
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
-    this._rootElement = rootContainer.getElement();
 
     if (isIPhone() || isIPod() || isIPad() || isAndroid()) {
       this._isEnabled = false;
@@ -51,12 +49,12 @@ export default class KeyboardControl implements IKeyboardControl {
       this._isEnabled = config.disableControlWithKeyboard !== false;
     }
 
-    this._initInterceptor();
+    this._initInterceptor(rootContainer.getElement());
   }
 
-  private _initInterceptor() {
+  private _initInterceptor(rootElement: HTMLElement) {
     if (this._isEnabled) {
-      this._keyboardInterceptor = new KeyboardInterceptor(this._rootElement);
+      this._keyboardInterceptor = new KeyboardInterceptor(rootElement);
       this._attachDefaultControls();
     }
   }
@@ -121,9 +119,5 @@ export default class KeyboardControl implements IKeyboardControl {
 
   destroy() {
     this._destroyInterceptor();
-
-    this._rootElement = null;
-    this._eventEmitter = null;
-    this._engine = null;
   }
 }

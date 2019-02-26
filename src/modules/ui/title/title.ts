@@ -11,7 +11,7 @@ export default class TitleControl implements ITitle {
   static View = View;
   static dependencies = ['config', 'theme'];
 
-  private _callback: Function;
+  private _callback: () => void;
   private _theme: IThemeService;
 
   view: View;
@@ -82,7 +82,7 @@ export default class TitleControl implements ITitle {
    *
    */
   @playerAPI()
-  setTitleClickCallback(callback?: Function) {
+  setTitleClickCallback(callback?: () => void) {
     this._callback = callback;
     this.view.setDisplayAsLink(Boolean(this._callback));
   }
@@ -105,6 +105,5 @@ export default class TitleControl implements ITitle {
 
   destroy() {
     this.view.destroy();
-    this.view = null;
   }
 }

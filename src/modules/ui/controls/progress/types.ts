@@ -20,14 +20,14 @@ type IProgressViewStyles = {
 };
 
 type IProgressViewCallbacks = {
-  onChangePlayedPercent: Function;
-  onSeekToByMouseStart: Function;
-  onSeekToByMouseEnd: Function;
-  onSyncWithLiveClick: Function;
+  onChangePlayedPercent: (percent: number) => void;
+  onSeekToByMouseStart: (percent: number) => void;
+  onSeekToByMouseEnd: () => void;
+  onSyncWithLiveClick: () => void;
   onSyncWithLiveMouseEnter: EventListenerOrEventListenerObject;
   onSyncWithLiveMouseLeave: EventListenerOrEventListenerObject;
-  onDragStart: Function;
-  onDragEnd: Function;
+  onDragStart: () => void;
+  onDragEnd: () => void;
 };
 
 type IProgressViewConfig = {

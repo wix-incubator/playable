@@ -24,7 +24,7 @@ export default class TimeControl implements ITimeControl {
   private _theme: IThemeService;
 
   private _updateControlInterval: number;
-  private _unbindEvents: Function;
+  private _unbindEvents: () => void;
 
   view: View;
   isHidden: boolean;
@@ -174,10 +174,5 @@ export default class TimeControl implements ITimeControl {
     this._stopIntervalUpdates();
     this._unbindEvents();
     this.view.destroy();
-    this.view = null;
-
-    this._eventEmitter = null;
-    this._engine = null;
-    this._theme = null;
   }
 }

@@ -127,7 +127,6 @@ class RootContainerView extends View<IRootContainerViewStyles>
 
   destroy() {
     this._unbindEvents();
-    this._callbacks = null;
 
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
