@@ -3,6 +3,7 @@ import { IEventEmitter } from '../event-emitter/types';
 import { isSafari } from '../../utils/device-detection';
 
 import { VIDEO_EVENTS, EngineState } from '../../constants';
+import { IVideoOutput } from './types';
 
 export const NATIVE_VIDEO_EVENTS_TO_STATE = [
   'loadstart',
@@ -19,15 +20,15 @@ export const NATIVE_VIDEO_EVENTS_TO_STATE = [
 
 export default class StateEngine {
   private _eventEmitter: IEventEmitter;
-  private _video: HTMLVideoElement;
+  private _output: IVideoOutput;
   private _currentState: EngineState;
   private _statesTimestamps: { [state: string]: number };
   private _initialTimeStamp: number;
   private _isMetadataLoaded: boolean;
 
-  constructor(eventEmitter: IEventEmitter, video: HTMLVideoElement) {
+  constructor(eventEmitter: IEventEmitter, video: IVideoOutput) {
     this._eventEmitter = eventEmitter;
-    this._video = video;
+    this._output = video;
 
     this._currentState = null;
 
@@ -43,14 +44,14 @@ export default class StateEngine {
   }
 
   private _bindEvents() {
-    NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event =>
-      this._video.addEventListener(event, this._processEventFromVideo),
-    );
+    NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event => {
+      this._output.on(event, this._processEventFromVideo);
+    });
   }
 
   private _unbindEvents() {
     NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event =>
-      this._video.removeEventListener(event, this._processEventFromVideo),
+      this._output.off(event, this._processEventFromVideo),
     );
   }
 
@@ -74,7 +75,7 @@ export default class StateEngine {
   }
 
   private _processEventFromVideo(event: any = {}) {
-    const videoEl = this._video;
+    const output = this._output;
 
     switch (event.type) {
       case 'loadstart': {
@@ -102,7 +103,7 @@ export default class StateEngine {
       case 'playing': {
         // Safari triggers event 'playing' even when play request aborted by browser. So we need to check if video is actualy playing
         if (isSafari()) {
-          if (!videoEl.paused) {
+          if (!output.isPaused) {
             this.setState(EngineState.PLAYING);
           }
         } else {
@@ -117,7 +118,7 @@ export default class StateEngine {
       case 'pause': {
         // Safari triggers event 'pause' even when playing was aborted buy autoplay policies, emit pause event even if there wasn't any real playback
         if (isSafari()) {
-          if (videoEl.played.length) {
+          if (output.length) {
             this.setState(EngineState.PAUSED);
           }
         } else {
@@ -135,7 +136,7 @@ export default class StateEngine {
       }
       case 'seeked': {
         this.setState(
-          videoEl.paused ? EngineState.PAUSED : EngineState.PLAYING,
+          output.isPaused ? EngineState.PAUSED : EngineState.PLAYING,
         );
         break;
       }
@@ -179,6 +180,6 @@ export default class StateEngine {
     this._unbindEvents();
 
     this._eventEmitter = null;
-    this._video = null;
+    this._output = null;
   }
 }

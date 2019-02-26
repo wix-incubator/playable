@@ -1,6 +1,7 @@
 import { IEventEmitter } from '../event-emitter/types';
 
 import { VIDEO_EVENTS } from '../../constants';
+import { IVideoOutput } from './types';
 
 export const NATIVE_VIDEO_TO_BROADCAST = [
   'loadstart',
@@ -16,17 +17,17 @@ export const NATIVE_VIDEO_TO_BROADCAST = [
 
 export default class NativeEventsBroadcaster {
   private _eventEmitter: IEventEmitter;
-  private _video: HTMLVideoElement;
+  private _output: IVideoOutput;
   private _currentVolume: number;
   private _currentMute: boolean;
   private _shouldCheckVolume: boolean;
 
-  constructor(eventEmitter: IEventEmitter, video: HTMLVideoElement) {
+  constructor(eventEmitter: IEventEmitter, output: IVideoOutput) {
     this._eventEmitter = eventEmitter;
-    this._video = video;
+    this._output = output;
 
-    this._currentMute = this._video.muted;
-    this._currentVolume = this._video.volume;
+    this._currentMute = this._output.isMuted;
+    this._currentVolume = this._output.volume;
 
     this._bindCallbacks();
     this._bindEvents();
@@ -38,18 +39,18 @@ export default class NativeEventsBroadcaster {
 
   private _bindEvents() {
     NATIVE_VIDEO_TO_BROADCAST.forEach(event =>
-      this._video.addEventListener(event, this._processEventFromVideo),
+      this._output.on(event, this._processEventFromVideo),
     );
   }
 
   private _unbindEvents() {
     NATIVE_VIDEO_TO_BROADCAST.forEach(event =>
-      this._video.removeEventListener(event, this._processEventFromVideo),
+      this._output.off(event, this._processEventFromVideo),
     );
   }
 
   private _processEventFromVideo(event: any = {}) {
-    const videoEl = this._video;
+    const output = this._output;
     switch (event.type) {
       case 'loadstart': {
         if (this._shouldCheckVolume) {
@@ -73,21 +74,18 @@ export default class NativeEventsBroadcaster {
       case 'seeking': {
         this._eventEmitter.emit(
           VIDEO_EVENTS.SEEK_IN_PROGRESS,
-          videoEl.currentTime,
+          output.currentTime,
         );
         break;
       }
       case 'durationchange': {
-        this._eventEmitter.emit(
-          VIDEO_EVENTS.DURATION_UPDATED,
-          videoEl.duration,
-        );
+        this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, output.duration);
         break;
       }
       case 'timeupdate': {
         this._eventEmitter.emit(
           VIDEO_EVENTS.CURRENT_TIME_UPDATED,
-          videoEl.currentTime,
+          output.currentTime,
         );
         break;
       }
@@ -104,21 +102,21 @@ export default class NativeEventsBroadcaster {
   }
 
   private _checkVolumeChanges() {
-    const videoEl = this._video;
+    const output = this._output;
 
-    if (this._currentVolume !== videoEl.volume) {
-      this._currentVolume = videoEl.volume * 100;
+    if (this._currentVolume !== output.volume) {
+      this._currentVolume = output.volume * 100;
       this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_CHANGED, this._currentVolume);
     }
 
-    if (this._currentMute !== videoEl.muted) {
-      this._currentMute = videoEl.muted;
+    if (this._currentMute !== output.isMuted) {
+      this._currentMute = output.isMuted;
       this._eventEmitter.emit(VIDEO_EVENTS.MUTE_CHANGED, this._currentMute);
     }
 
     this._eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED, {
-      volume: videoEl.volume,
-      muted: videoEl.muted,
+      volume: output.volume,
+      muted: output.isMuted,
     });
   }
 
@@ -130,7 +128,7 @@ export default class NativeEventsBroadcaster {
   destroy() {
     this._unbindEvents();
 
-    this._video = null;
+    this._output = null;
     this._eventEmitter = null;
   }
 }

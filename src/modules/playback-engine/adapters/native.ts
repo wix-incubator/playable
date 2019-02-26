@@ -19,6 +19,7 @@ import {
   MediaStreamTypes,
   MediaStreamDeliveryPriority,
 } from '../../../constants';
+import { IVideoOutput } from '../types';
 
 export default function getNativeAdapterCreator(
   streamType: MediaStreamTypes,
@@ -32,7 +33,7 @@ export default function getNativeAdapterCreator(
     private mediaStreams: any;
     private eventEmitter: IEventEmitter;
     private currentLevel: number;
-    private videoElement: HTMLVideoElement;
+    private output: IVideoOutput;
 
     constructor(eventEmitter: IEventEmitter) {
       this.mediaStreams = null;
@@ -52,7 +53,7 @@ export default function getNativeAdapterCreator(
     }
 
     get isDynamicContent() {
-      return !isFinite(this.videoElement.duration);
+      return !isFinite(this.output.duration);
     }
 
     get isDynamicContentEnded() {
@@ -73,7 +74,7 @@ export default function getNativeAdapterCreator(
         return false;
       }
 
-      return Boolean(this.videoElement.seekable.length);
+      return Boolean(this.output.seekable.length);
       */
     }
 
@@ -86,8 +87,8 @@ export default function getNativeAdapterCreator(
     }
 
     get debugInfo() {
-      if (this.videoElement) {
-        const { buffered, currentTime } = this.videoElement;
+      if (this.output) {
+        const { buffered, currentTime } = this.output;
 
         const overallBufferLength = geOverallBufferLength(buffered);
         const nearestBufferSegInfo = getNearestBufferSegmentInfo(
@@ -128,7 +129,7 @@ export default function getNativeAdapterCreator(
     }
 
     private _broadcastError() {
-      const error = this.videoElement.error;
+      const error = this.output.error; // take error from event?
       if (!error) {
         this._logError(ERRORS.UNKNOWN, null);
         return;
@@ -160,16 +161,16 @@ export default function getNativeAdapterCreator(
       }
     }
 
-    attach(videoElement: HTMLVideoElement) {
-      this.videoElement = videoElement;
-      this.videoElement.addEventListener('error', this._broadcastError);
-      this.videoElement.src = this.mediaStreams[this.currentLevel].url;
+    attach(videoElement: IVideoOutput) {
+      this.output = videoElement;
+      this.output.on('error', this._broadcastError);
+      this.output.setSrc(this.mediaStreams[this.currentLevel].url);
     }
 
     detach() {
-      this.videoElement.removeEventListener('error', this._broadcastError);
-      this.videoElement.removeAttribute('src');
-      this.videoElement = null;
+      this.output.off('error', this._broadcastError);
+      this.output.setSrc(null);
+      this.output = null;
     }
   }
 

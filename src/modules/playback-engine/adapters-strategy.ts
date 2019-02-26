@@ -6,10 +6,10 @@ import { resolveAdapters } from './utils/adapters-resolver';
 import { getStreamType } from './utils/detect-stream-type';
 
 import { IPlaybackAdapter, IPlaybackAdapterClass } from './adapters/types';
-import { MediaSource, IMediaSource } from './types';
+import { MediaSource, IMediaSource, IVideoOutput } from './types';
 
 export default class AdaptersStrategy {
-  private _video: HTMLVideoElement;
+  private _video: IVideoOutput;
   private _eventEmitter: IEventEmitter;
   private _playableAdapters: IPlaybackAdapter[];
   private _availableAdapters: IPlaybackAdapter[];
@@ -17,7 +17,7 @@ export default class AdaptersStrategy {
 
   constructor(
     eventEmitter: IEventEmitter,
-    video: HTMLVideoElement,
+    video: IVideoOutput,
     playbackAdapters: IPlaybackAdapterClass[] = [],
   ) {
     this._video = video;

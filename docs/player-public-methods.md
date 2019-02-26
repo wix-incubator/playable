@@ -968,6 +968,7 @@ Set preload type
       <tr>
         <td class="param">
           <code>preload</code>
+          <div class="optional">(Optional)</div>
         </td>
         <td>
             Possible values are <code>"auto"</code>, <code>"metadata"</code>, <code>"none"</code>.

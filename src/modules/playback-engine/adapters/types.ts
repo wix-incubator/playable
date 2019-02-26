@@ -3,12 +3,13 @@ import {
   MediaStreamDeliveryPriority,
 } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';
+import { IVideoOutput } from '../types';
 
 interface IPlaybackAdapter {
   canPlay(mediaType: MediaStreamTypes): boolean;
   setMediaStreams(mediaStreams: any): void;
 
-  attach(videoElement: HTMLVideoElement): void;
+  attach(videoElement: IVideoOutput): void;
   detach(): void;
 
   mediaStreamDeliveryPriority: MediaStreamDeliveryPriority;
