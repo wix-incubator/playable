@@ -14,4 +14,9 @@ interface IEventEmitter {
   destroy(): void;
 }
 
-export { IEventEmitter, IEventMap };
+interface IEventEmitterAPI {
+  on?(event: string, fn: ListenerFn, context?: any): this;
+  off?(event: string, fn?: ListenerFn, context?: any, once?: boolean): this;
+}
+
+export { IEventEmitterAPI, IEventEmitter, IEventMap };

@@ -3,28 +3,32 @@ import {
   IPlaybackAdapterClass,
   IAdapterDebugInfo,
 } from './adapters/types';
-import { EngineState, MediaStreamTypes } from '../../constants';
+import { EngineState, MediaStreamType } from '../../constants';
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlayerConfig } from '../../core/config';
 
-enum PreloadTypes {
+enum PreloadType {
   NONE = 'none',
   METADATA = 'metadata',
   AUTO = 'auto',
 }
 
-interface IMediaSource {
+interface IPlayableSource {
   url: string;
-  type?: MediaStreamTypes;
+  type?: MediaStreamType;
   mimeType?: string;
 }
 
-interface IParsedMediaSource {
+interface IParsedPlayableSource {
   url: string;
-  type: MediaStreamTypes;
+  type: MediaStreamType;
 }
 
-type MediaSource = string | IMediaSource | Array<string | IMediaSource>;
+type PlayableMediaSource =
+  | string
+  | IPlayableSource
+  | Array<string | IPlayableSource>;
+
 type CrossOriginValue = 'anonymous' | 'use-credentials';
 
 interface IPlaybackEngine {
@@ -42,11 +46,12 @@ interface IPlaybackEngine {
 
   attachedAdapter: IPlaybackAdapter;
 
-  setSrc(src: MediaSource): void;
-  getSrc(): MediaSource;
+  setSrc(src: PlayableMediaSource): void;
+  getSrc(): PlayableMediaSource;
 
   play(): void;
   pause(): void;
+  reset(): void;
   togglePlayback(): void;
   syncWithLive(): void;
 
@@ -70,7 +75,7 @@ interface IPlaybackEngine {
   setPlaybackRate(rate: number): void;
   getPlaybackRate(): number;
 
-  setPreload(preload: PreloadTypes): void;
+  setPreload(preload: PreloadType): void;
   getPreload(): string;
 
   setCrossOrigin(crossOrigin?: CrossOriginValue): void;
@@ -167,15 +172,69 @@ interface IVideoOutput {
   src: string;
 }
 
+interface IPlaybackEngineAPI {
+  setSrc?(src: PlayableMediaSource): void;
+  getSrc?(): PlayableMediaSource;
+
+  play?(): void;
+  pause?(): void;
+  togglePlayback?(): void;
+  resetPlayback?(): void;
+  isPaused?: boolean;
+  isEnded?: boolean;
+
+  syncWithLive?(): void;
+
+  seekTo?(time: number): void;
+  seekForward?(sec: number): void;
+  seekBackward?(sec: number): void;
+
+  setVolume?(volume: number): void;
+  getVolume?(): number;
+  increaseVolume?(value: number): void;
+  decreaseVolume?(value: number): void;
+  mute?(): void;
+  unmute?(): void;
+  isMuted?: boolean;
+
+  setAutoplay?(isAutoplay: boolean): void;
+  getAutoplay?(): boolean;
+
+  setLoop?(isLoop: boolean): void;
+  getLoop?(): boolean;
+
+  setPlaybackRate?(rate: number): void;
+  getPlaybackRate?(): number;
+
+  setPreload?(preload: PreloadType): void;
+  getPreload?(): string;
+
+  setCrossOrigin?(crossOrigin?: CrossOriginValue): void;
+  getCrossOrigin?(): CrossOriginValue;
+
+  getCurrentTime?(): number;
+  getDuration?(): number;
+
+  getVideoWidth?(): number;
+  getVideoHeight?(): number;
+
+  setPlaysinline?(isPlaysinline: boolean): void;
+  getPlaysinline?(): boolean;
+
+  getPlaybackState?(): EngineState;
+  getDebugInfo?(): IEngineDebugInfo;
+}
+
 export {
+  IPlaybackEngineAPI,
   ILiveStateEngineDependencies,
   IPlaybackEngineDependencies,
   IPlaybackEngine,
   IEngineDebugInfo,
-  IMediaSource,
-  IParsedMediaSource,
+  IPlayableSource,
+  IParsedPlayableSource,
   IVideoOutput,
-  MediaSource,
-  PreloadTypes,
+  PlayableMediaSource,
+  PreloadType,
   CrossOriginValue,
 };

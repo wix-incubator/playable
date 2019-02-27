@@ -1,4 +1,4 @@
-import { TEXT_LABELS } from '../../../../constants';
+import { TextLabel } from '../../../../constants';
 
 import View from '../../core/view';
 import { IView } from '../../core/types';
@@ -45,7 +45,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
       controlTemplate({
         styles: this.styleNames,
         texts: {
-          label: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
+          label: this._textMap.get(TextLabel.ENTER_FULL_SCREEN_LABEL),
         },
       }),
     );
@@ -58,7 +58,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._tooltipReference = tooltipService.createReference(
       this._$toggleFullScreenControl,
       {
-        text: this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
+        text: this._textMap.get(TextLabel.ENTER_FULL_SCREEN_TOOLTIP),
       },
     );
 
@@ -99,11 +99,11 @@ class FullScreenView extends View<IFullScreenViewStyles>
       });
       this._$toggleFullScreenControl.setAttribute(
         'aria-label',
-        this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_LABEL),
+        this._textMap.get(TextLabel.EXIT_FULL_SCREEN_LABEL),
       );
 
       this._tooltipReference.setText(
-        this._textMap.get(TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP),
+        this._textMap.get(TextLabel.EXIT_FULL_SCREEN_TOOLTIP),
       );
     } else {
       this._$toggleFullScreenControl.classList.remove(
@@ -115,11 +115,11 @@ class FullScreenView extends View<IFullScreenViewStyles>
       });
       this._$toggleFullScreenControl.setAttribute(
         'aria-label',
-        this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_LABEL),
+        this._textMap.get(TextLabel.ENTER_FULL_SCREEN_LABEL),
       );
 
       this._tooltipReference.setText(
-        this._textMap.get(TEXT_LABELS.ENTER_FULL_SCREEN_TOOLTIP),
+        this._textMap.get(TextLabel.ENTER_FULL_SCREEN_TOOLTIP),
       );
     }
   }

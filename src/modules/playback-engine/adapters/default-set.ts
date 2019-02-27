@@ -1,37 +1,37 @@
 import getNativeAdapterCreator from './native';
 import { IPlaybackAdapterClass } from './types';
 import {
-  MediaStreamTypes,
+  MediaStreamType,
   MediaStreamDeliveryPriority,
 } from '../../../constants';
 
 const defaultPlaybackAdapters: IPlaybackAdapterClass[] = [
   getNativeAdapterCreator(
-    MediaStreamTypes.HLS,
+    MediaStreamType.HLS,
     MediaStreamDeliveryPriority.NATIVE_ADAPTIVE,
   ),
   getNativeAdapterCreator(
-    MediaStreamTypes.DASH,
+    MediaStreamType.DASH,
     MediaStreamDeliveryPriority.NATIVE_ADAPTIVE,
   ),
   getNativeAdapterCreator(
-    MediaStreamTypes.MP4,
+    MediaStreamType.MP4,
     MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
   ),
   getNativeAdapterCreator(
-    MediaStreamTypes.WEBM,
+    MediaStreamType.WEBM,
     MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
   ), // Native WebM (Chrome, Firefox)
   getNativeAdapterCreator(
-    MediaStreamTypes.OGG,
+    MediaStreamType.OGG,
     MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
   ), // Native WebM (Chrome, Firefox)
   getNativeAdapterCreator(
-    MediaStreamTypes.MOV,
+    MediaStreamType.MOV,
     MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
   ), // Native QuickTime .mov (Safari)
   getNativeAdapterCreator(
-    MediaStreamTypes.MKV,
+    MediaStreamType.MKV,
     MediaStreamDeliveryPriority.NATIVE_PROGRESSIVE,
   ),
 ];

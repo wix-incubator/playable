@@ -3,10 +3,10 @@ import View from './title.view';
 import playerAPI from '../../../core/player-api-decorator';
 
 import { IThemeService } from '../core/theme';
-import { ITitle, ITitleViewConfig } from './types';
+import { ITitleAPI, ITitle, ITitleViewConfig } from './types';
 import { IPlayerConfig } from '../../../core/config';
 
-export default class TitleControl implements ITitle {
+class Title implements ITitle {
   static moduleName = 'title';
   static View = View;
   static dependencies = ['config', 'theme'];
@@ -48,7 +48,7 @@ export default class TitleControl implements ITitle {
       },
     };
 
-    this.view = new TitleControl.View(config);
+    this.view = new Title.View(config);
 
     this.view.setTitle();
   }
@@ -107,3 +107,6 @@ export default class TitleControl implements ITitle {
     this.view.destroy();
   }
 }
+
+export { ITitleAPI };
+export default Title;

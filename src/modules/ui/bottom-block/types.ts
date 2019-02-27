@@ -64,7 +64,23 @@ interface IBottomBlock {
   destroy(): void;
 }
 
+interface IBottomBlockAPI {
+  showLogo?(): void;
+  hideLogo?(): void;
+  showPlayControl?(): void;
+  hidePlayControl?(): void;
+  showTimeControl?(): void;
+  hideTimeControl?(): void;
+  showProgressControl?(): void;
+  hideProgressControl?(): void;
+  showFullScreenControl?(): void;
+  hideFullScreenControl?(): void;
+  showVolumeControl?(): void;
+  hideVolumeControl?(): void;
+}
+
 export {
+  IBottomBlockAPI,
   IBottomBlock,
   IBottomBlockViewStyles,
   IBottomBlockViewCallbacks,

@@ -1,7 +1,7 @@
 import playerAPI from '../../../core/player-api-decorator';
 
 import View from './bottom-block.view';
-import { UI_EVENTS } from '../../../constants';
+import { UIEvent } from '../../../constants';
 
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlayControl } from '../controls/play/types';
@@ -13,6 +13,7 @@ import { ILogoControl } from '../controls/logo/types';
 import { IDownloadButton } from '../controls/download/types';
 
 import {
+  IBottomBlockAPI,
   IBottomBlock,
   IBottomBlockViewConfig,
   IBottomBlockViewElements,
@@ -29,7 +30,7 @@ interface IDependencies {
   downloadButton: IDownloadButton;
 }
 
-export default class BottomBlock implements IBottomBlock {
+class BottomBlock implements IBottomBlock {
   static moduleName = 'bottomBlock';
   static View = View;
   static dependencies = [
@@ -105,7 +106,7 @@ export default class BottomBlock implements IBottomBlock {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[UI_EVENTS.FULL_SCREEN_STATE_CHANGED, this._removeFocusState]],
+      [[UIEvent.FULL_SCREEN_STATE_CHANGED, this._removeFocusState]],
       this,
     );
   }
@@ -302,3 +303,6 @@ export default class BottomBlock implements IBottomBlock {
     this.view.destroy();
   }
 }
+
+export { IBottomBlockAPI };
+export default BottomBlock;

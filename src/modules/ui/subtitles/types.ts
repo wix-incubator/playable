@@ -26,4 +26,16 @@ interface ISubtitles {
   destroy(): void;
 }
 
-export { ISubtitles, ISubtitleConfig, ISubtitlesViewStyles };
+interface ISubtitlesAPI {
+  setSubtitles?(
+    subtitles: string | ISubtitleConfig | Array<ISubtitleConfig>,
+  ): void;
+
+  setActiveSubtitle?(index: number): void;
+
+  showSubtitles?(): void;
+  hideSubtitles?(): void;
+  removeSubtitles?(): void;
+}
+
+export { ISubtitlesAPI, ISubtitles, ISubtitleConfig, ISubtitlesViewStyles };

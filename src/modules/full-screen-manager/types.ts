@@ -8,6 +8,14 @@ interface IFullScreenConfig {
 interface IFullScreenManager {
   enterFullScreen(): void;
   exitFullScreen(): void;
+  enableExitFullScreenOnPause(): void;
+  disableExitFullScreenOnPause(): void;
+  enableExitFullScreenOnEnd(): void;
+  disableExitFullScreenOnEnd(): void;
+  enableEnterFullScreenOnPlay(): void;
+  disableEnterFullScreenOnPlay(): void;
+  enablePauseVideoOnFullScreenExit(): void;
+  disablePauseVideoOnFullScreenExit(): void;
   isInFullScreen: boolean;
   isEnabled: boolean;
   destroy(): void;
@@ -22,4 +30,23 @@ interface IFullScreenHelper {
   destroy(): void;
 }
 
-export { IFullScreenManager, IFullScreenHelper, IFullScreenConfig };
+interface IFullScreenAPI {
+  enableExitFullScreenOnPause?(): void;
+  disableExitFullScreenOnPause?(): void;
+  enableExitFullScreenOnEnd?(): void;
+  disableExitFullScreenOnEnd?(): void;
+  enableEnterFullScreenOnPlay?(): void;
+  disableEnterFullScreenOnPlay?(): void;
+  enablePauseVideoOnFullScreenExit?(): void;
+  disablePauseVideoOnFullScreenExit?(): void;
+  enterFullScreen?(): void;
+  exitFullScreen?(): void;
+  isInFullScreen?: boolean;
+}
+
+export {
+  IFullScreenAPI,
+  IFullScreenManager,
+  IFullScreenHelper,
+  IFullScreenConfig,
+};

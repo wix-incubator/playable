@@ -1,15 +1,15 @@
 import { IPlaybackAdapter } from '../adapters/types';
-import { MediaStreamTypes, MimeToStreamTypeMap } from '../../../constants';
-import { IMediaSource, IParsedMediaSource } from '../types';
+import { MediaStreamType, MimeToStreamTypeMap } from '../../../constants';
+import { IPlayableSource, IParsedPlayableSource } from '../types';
 
 export function resolveAdapters(
-  mediaStreams: IMediaSource[],
+  mediaStreams: IPlayableSource[],
   availableAdapters: IPlaybackAdapter[],
 ): IPlaybackAdapter[] {
   const playableAdapters: IPlaybackAdapter[] = [];
 
   const groupedStreams = groupStreamsByMediaType(mediaStreams);
-  const groupedStreamKeys = Object.keys(groupedStreams) as MediaStreamTypes[];
+  const groupedStreamKeys = Object.keys(groupedStreams) as MediaStreamType[];
 
   availableAdapters.forEach(adapter => {
     for (let i = 0; i < groupedStreamKeys.length; i += 1) {
@@ -32,10 +32,10 @@ export function resolveAdapters(
   return playableAdapters;
 }
 
-function groupStreamsByMediaType(mediaStreams: IMediaSource[]) {
-  const typeMap: { [type: string]: IParsedMediaSource[] } = {};
-  mediaStreams.forEach((mediaStream: IMediaSource) => {
-    const type: MediaStreamTypes =
+function groupStreamsByMediaType(mediaStreams: IPlayableSource[]) {
+  const typeMap: { [type: string]: IParsedPlayableSource[] } = {};
+  mediaStreams.forEach((mediaStream: IPlayableSource) => {
+    const type: MediaStreamType =
       mediaStream.type || MimeToStreamTypeMap[mediaStream.mimeType];
 
     if (!type) {

@@ -42,7 +42,12 @@ interface IScreen {
   destroy(): void;
 }
 
+interface IScreenAPI {
+  setVideoViewMode?(viewMode: VideoViewMode): void;
+}
+
 export {
+  IScreenAPI,
   IScreen,
   VideoViewMode,
   IScreenViewStyles,

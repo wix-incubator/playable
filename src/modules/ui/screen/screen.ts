@@ -1,4 +1,4 @@
-import { UI_EVENTS, EngineState } from '../../../constants';
+import { UIEvent, EngineState } from '../../../constants';
 
 import View from './screen.view';
 
@@ -10,11 +10,11 @@ import { IPlaybackEngine } from '../../playback-engine/types';
 import { IInteractionIndicator } from '../interaction-indicator/types';
 import { IPlayerConfig } from '../../../core/config';
 import { IRootContainer } from '../../root-container/types';
-import { IScreen, VideoViewMode, IScreenViewConfig } from './types';
+import { IScreenAPI, IScreen, VideoViewMode, IScreenViewConfig } from './types';
 
 const PLAYBACK_CHANGE_TIMEOUT = 300;
 
-export default class Screen implements IScreen {
+class Screen implements IScreen {
   static moduleName = 'screen';
   static View = View;
   static dependencies = [
@@ -101,8 +101,8 @@ export default class Screen implements IScreen {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.PLAY_OVERLAY_CLICK, this.view.focusOnNode, this.view],
-        [UI_EVENTS.RESIZE, this._updateSizes],
+        [UIEvent.PLAY_OVERLAY_CLICK, this.view.focusOnNode, this.view],
+        [UIEvent.RESIZE, this._updateSizes],
         [EngineState.SRC_SET, this.view.resetBackground, this.view],
         [EngineState.METADATA_LOADED, this.view.resetAspectRatio, this.view],
       ],
@@ -191,20 +191,20 @@ export default class Screen implements IScreen {
 
     if (state === EngineState.PLAY_REQUESTED || state === EngineState.PLAYING) {
       this._engine.pause();
-      this._eventEmitter.emit(UI_EVENTS.PAUSE_WITH_SCREEN_CLICK);
+      this._eventEmitter.emit(UIEvent.PAUSE_WITH_SCREEN_CLICK);
     } else {
       this._engine.play();
-      this._eventEmitter.emit(UI_EVENTS.PLAY_WITH_SCREEN_CLICK);
+      this._eventEmitter.emit(UIEvent.PLAY_WITH_SCREEN_CLICK);
     }
   }
 
   private _toggleFullScreen() {
     if (this._fullScreenManager.isInFullScreen) {
       this._fullScreenManager.exitFullScreen();
-      this._eventEmitter.emit(UI_EVENTS.EXIT_FULL_SCREEN_WITH_SCREEN_CLICK);
+      this._eventEmitter.emit(UIEvent.EXIT_FULL_SCREEN_WITH_SCREEN_CLICK);
     } else {
       this._fullScreenManager.enterFullScreen();
-      this._eventEmitter.emit(UI_EVENTS.ENTER_FULL_SCREEN_WITH_SCREEN_CLICK);
+      this._eventEmitter.emit(UIEvent.ENTER_FULL_SCREEN_WITH_SCREEN_CLICK);
     }
   }
 
@@ -243,3 +243,6 @@ export default class Screen implements IScreen {
     this.view.destroy();
   }
 }
+
+export { IScreenAPI };
+export default Screen;

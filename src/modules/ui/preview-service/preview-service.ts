@@ -4,12 +4,13 @@ import { IPlaybackEngine } from '../../playback-engine/types';
 
 import { getAt } from './adapter';
 import {
+  IPreviewAPI,
   IPreviewService,
   IFramesData,
   INormalizedFramesQuality,
 } from './types';
 
-export default class PreviewService implements IPreviewService {
+class PreviewService implements IPreviewService {
   static moduleName = 'previewService';
   static dependencies = ['engine'];
 
@@ -43,3 +44,6 @@ export default class PreviewService implements IPreviewService {
     this._framesMap = null;
   }
 }
+
+export { IPreviewAPI };
+export default PreviewService;

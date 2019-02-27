@@ -1,12 +1,12 @@
 import {
-  MediaStreamTypes,
+  MediaStreamType,
   MediaStreamDeliveryPriority,
 } from '../../../constants';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IVideoOutput } from '../types';
 
 interface IPlaybackAdapter {
-  canPlay(mediaType: MediaStreamTypes): boolean;
+  canPlay(mediaType: MediaStreamType): boolean;
   setMediaStreams(mediaStreams: any): void;
 
   attach(videoElement: IVideoOutput): void;
@@ -39,7 +39,7 @@ interface IPlaybackAdapterClass {
  * @property deliveryPriority - Priority of current adapter
  */
 interface IAdapterDebugInfo {
-  type: MediaStreamTypes;
+  type: MediaStreamType;
   url: string;
   bitrates: string[];
   currentBitrate: string;

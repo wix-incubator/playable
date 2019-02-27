@@ -1,4 +1,4 @@
-import { TEXT_LABELS } from '../../../../constants';
+import { TextLabel } from '../../../../constants';
 
 import View from '../../core/view';
 import { IView } from '../../core/types';
@@ -39,7 +39,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
       controlTemplate({
         styles: this.styleNames,
         texts: {
-          label: this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
+          label: this._textMap.get(TextLabel.PLAY_CONTROL_LABEL),
         },
       }),
     );
@@ -77,7 +77,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
       });
       this._$playbackControl.setAttribute(
         'aria-label',
-        this._textMap.get(TEXT_LABELS.PAUSE_CONTROL_LABEL),
+        this._textMap.get(TextLabel.PAUSE_CONTROL_LABEL),
       );
     } else {
       this._$playbackControl.classList.add(this.styleNames.paused);
@@ -87,7 +87,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
       });
       this._$playbackControl.setAttribute(
         'aria-label',
-        this._textMap.get(TEXT_LABELS.PLAY_CONTROL_LABEL),
+        this._textMap.get(TextLabel.PLAY_CONTROL_LABEL),
       );
     }
 

@@ -7,8 +7,8 @@ import {
 } from '../../../../utils/video-data';
 
 import {
-  VIDEO_EVENTS,
-  UI_EVENTS,
+  VideoEvent,
+  UIEvent,
   EngineState,
   LiveState,
 } from '../../../../constants';
@@ -23,7 +23,11 @@ import playerAPI from '../../../../core/player-api-decorator';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip/types';
-import { IProgressControl, IProgressViewConfig } from './types';
+import {
+  IProgressControlAPI,
+  IProgressControl,
+  IProgressViewConfig,
+} from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
 import { IPreviewThumbnail } from '../../preview-thumbnail/types';
@@ -33,7 +37,7 @@ import { IThemeService } from '../../core/theme';
 
 const UPDATE_INTERVAL_DELAY = 1000 / 60;
 
-export default class ProgressControl implements IProgressControl {
+class ProgressControl implements IProgressControl {
   static moduleName = 'progressControl';
   static View = View;
   static dependencies = [
@@ -124,11 +128,11 @@ export default class ProgressControl implements IProgressControl {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
-        [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
-        [VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator],
-        [VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators],
-        [UI_EVENTS.RESIZE, this.view.updateOnResize, this.view],
+        [VideoEvent.STATE_CHANGED, this._processStateChange],
+        [VideoEvent.LIVE_STATE_CHANGED, this._processLiveStateChange],
+        [VideoEvent.CHUNK_LOADED, this._updateBufferIndicator],
+        [VideoEvent.DURATION_UPDATED, this._updateAllIndicators],
+        [UIEvent.RESIZE, this.view.updateOnResize, this.view],
       ],
       this,
     );
@@ -159,29 +163,29 @@ export default class ProgressControl implements IProgressControl {
       [KEYCODES.UP_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.GO_FORWARD_WITH_KEYBOARD);
         this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.DOWN_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.GO_BACKWARD_WITH_KEYBOARD);
         this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.RIGHT_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.GO_FORWARD_WITH_KEYBOARD);
         this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.LEFT_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.GO_BACKWARD_WITH_KEYBOARD);
         this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
       },
     });
@@ -231,10 +235,7 @@ export default class ProgressControl implements IProgressControl {
     if (this._showFullScreenPreview) {
       this._desiredSeekPosition = newTime;
 
-      this._eventEmitter.emit(
-        UI_EVENTS.PROGRESS_USER_PREVIEWING_FRAME,
-        newTime,
-      );
+      this._eventEmitter.emit(UIEvent.PROGRESS_USER_PREVIEWING_FRAME, newTime);
     } else {
       this._changeCurrentTimeOfVideo(newTime);
     }
@@ -275,8 +276,8 @@ export default class ProgressControl implements IProgressControl {
 
       this._pauseVideoOnDragStart();
 
-      this._eventEmitter.emit(UI_EVENTS.PROGRESS_DRAG_STARTED);
-      this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
+      this._eventEmitter.emit(UIEvent.PROGRESS_DRAG_STARTED);
+      this._eventEmitter.emit(UIEvent.CONTROL_DRAG_START);
     }
   }
 
@@ -294,8 +295,8 @@ export default class ProgressControl implements IProgressControl {
 
       this.view.hideProgressTimeTooltip();
 
-      this._eventEmitter.emit(UI_EVENTS.PROGRESS_DRAG_ENDED);
-      this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
+      this._eventEmitter.emit(UIEvent.PROGRESS_DRAG_ENDED);
+      this._eventEmitter.emit(UIEvent.CONTROL_DRAG_END);
     }
   }
 
@@ -388,7 +389,7 @@ export default class ProgressControl implements IProgressControl {
       this._engine.seekTo(newTime);
     }
 
-    this._eventEmitter.emit(UI_EVENTS.PROGRESS_CHANGE, newTime);
+    this._eventEmitter.emit(UIEvent.PROGRESS_CHANGE, newTime);
   }
 
   private _pauseVideoOnDragStart() {
@@ -402,7 +403,7 @@ export default class ProgressControl implements IProgressControl {
       this._engine.pause();
     }
 
-    this._eventEmitter.emit(UI_EVENTS.PROGRESS_DRAG_STARTED);
+    this._eventEmitter.emit(UIEvent.PROGRESS_DRAG_STARTED);
   }
 
   private _playVideoOnDragEnd() {
@@ -463,11 +464,11 @@ export default class ProgressControl implements IProgressControl {
   }
 
   private _onSyncWithLiveMouseEnter() {
-    this._eventEmitter.emit(UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER);
+    this._eventEmitter.emit(UIEvent.PROGRESS_SYNC_BUTTON_MOUSE_ENTER);
   }
 
   private _onSyncWithLiveMouseLeave() {
-    this._eventEmitter.emit(UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE);
+    this._eventEmitter.emit(UIEvent.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE);
   }
 
   private _setPlayed(percent: number) {
@@ -553,3 +554,6 @@ export default class ProgressControl implements IProgressControl {
     this.view.destroy();
   }
 }
+
+export { IProgressControlAPI };
+export default ProgressControl;

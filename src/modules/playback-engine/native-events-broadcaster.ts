@@ -1,6 +1,6 @@
 import { IEventEmitter } from '../event-emitter/types';
 
-import { VIDEO_EVENTS } from '../../constants';
+import { VideoEvent } from '../../constants';
 import { IVideoOutput } from './types';
 
 export const NATIVE_VIDEO_TO_BROADCAST = [
@@ -60,31 +60,31 @@ export default class NativeEventsBroadcaster {
         break;
       }
       case 'progress': {
-        this._eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
+        this._eventEmitter.emit(VideoEvent.CHUNK_LOADED);
         break;
       }
       case 'stalled': {
-        this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_STALLED);
+        this._eventEmitter.emit(VideoEvent.UPLOAD_STALLED);
         break;
       }
       case 'suspend': {
-        this._eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
+        this._eventEmitter.emit(VideoEvent.UPLOAD_SUSPEND);
         break;
       }
       case 'seeking': {
         this._eventEmitter.emit(
-          VIDEO_EVENTS.SEEK_IN_PROGRESS,
+          VideoEvent.SEEK_IN_PROGRESS,
           output.currentTime,
         );
         break;
       }
       case 'durationchange': {
-        this._eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED, output.duration);
+        this._eventEmitter.emit(VideoEvent.DURATION_UPDATED, output.duration);
         break;
       }
       case 'timeupdate': {
         this._eventEmitter.emit(
-          VIDEO_EVENTS.CURRENT_TIME_UPDATED,
+          VideoEvent.CURRENT_TIME_UPDATED,
           output.currentTime,
         );
         break;
@@ -106,15 +106,15 @@ export default class NativeEventsBroadcaster {
 
     if (this._currentVolume !== output.volume) {
       this._currentVolume = output.volume * 100;
-      this._eventEmitter.emit(VIDEO_EVENTS.VOLUME_CHANGED, this._currentVolume);
+      this._eventEmitter.emit(VideoEvent.VOLUME_CHANGED, this._currentVolume);
     }
 
     if (this._currentMute !== output.isMuted) {
       this._currentMute = output.isMuted;
-      this._eventEmitter.emit(VIDEO_EVENTS.MUTE_CHANGED, this._currentMute);
+      this._eventEmitter.emit(VideoEvent.MUTE_CHANGED, this._currentMute);
     }
 
-    this._eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED, {
+    this._eventEmitter.emit(VideoEvent.SOUND_STATE_CHANGED, {
       volume: output.volume,
       muted: output.isMuted,
     });

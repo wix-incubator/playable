@@ -6,7 +6,7 @@ import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
+import { VideoEvent, UIEvent } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
@@ -61,11 +61,11 @@ export default class PlayControl implements IPlayControl {
     this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD);
       },
       [KEYCODES.ENTER]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD);
       },
     });
   }
@@ -80,7 +80,7 @@ export default class PlayControl implements IPlayControl {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState]],
+      [[VideoEvent.STATE_CHANGED, this._updatePlayingState]],
       this,
     );
   }
@@ -96,13 +96,13 @@ export default class PlayControl implements IPlayControl {
   private _playVideo() {
     this._engine.play();
 
-    this._eventEmitter.emit(UI_EVENTS.PLAY_CLICK);
+    this._eventEmitter.emit(UIEvent.PLAY_CLICK);
   }
 
   private _pauseVideo() {
     this._engine.pause();
 
-    this._eventEmitter.emit(UI_EVENTS.PAUSE_CLICK);
+    this._eventEmitter.emit(UIEvent.PAUSE_CLICK);
   }
 
   private _updatePlayingState() {

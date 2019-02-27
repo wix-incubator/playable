@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, EngineState } from '../../constants';
+import { VideoEvent, EngineState } from '../../constants';
 
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
@@ -63,7 +63,7 @@ export default class AnomalyBloodhound {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[VIDEO_EVENTS.STATE_CHANGED, this._processStateChange]],
+      [[VideoEvent.STATE_CHANGED, this._processStateChange]],
       this,
     );
   }

@@ -5,15 +5,16 @@ import { getNearestBufferSegmentInfo } from '../utils/video-data';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 
 import {
-  ERRORS,
-  MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_PRIORITY,
-  VIDEO_EVENTS,
-  IPlaybackAdapter,
-} from '../index';
+  Error as PlayableError,
+  MediaStreamType,
+  MediaStreamDeliveryPriority,
+  VideoEvent,
+} from '../constants';
+
+import { IPlaybackAdapter } from '../modules/playback-engine/adapters/types';
 import { IEventEmitter } from '../modules/event-emitter/types';
 import {
-  IParsedMediaSource,
+  IParsedPlayableSource,
   IVideoOutput,
 } from '../modules/playback-engine/types';
 
@@ -28,7 +29,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
   private eventEmitter: any;
   private dashPlayer: any;
-  private mediaStream: IParsedMediaSource;
+  private mediaStream: IParsedPlayableSource;
   private output: IVideoOutput;
 
   constructor(eventEmitter: IEventEmitter) {
@@ -41,12 +42,12 @@ export default class DashAdapter implements IPlaybackAdapter {
     this._bindCallbacks();
   }
 
-  canPlay(mediaType: MEDIA_STREAM_TYPES) {
-    return mediaType === MEDIA_STREAM_TYPES.DASH;
+  canPlay(mediaType: MediaStreamType) {
+    return mediaType === MediaStreamType.DASH;
   }
 
   get mediaStreamDeliveryPriority() {
-    return MEDIA_STREAM_DELIVERY_PRIORITY.ADAPTIVE_VIA_MSE;
+    return MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
   }
 
   get currentUrl() {
@@ -114,7 +115,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     this._broadcastError = this._broadcastError.bind(this);
   }
 
-  setMediaStreams(mediaStreams: IParsedMediaSource[]) {
+  setMediaStreams(mediaStreams: IParsedPlayableSource[]) {
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {
@@ -127,9 +128,9 @@ export default class DashAdapter implements IPlaybackAdapter {
   }
 
   private _logError(error: string, errorEvent: any) {
-    this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
+    this.eventEmitter.emit(VideoEvent.ERROR, {
       errorType: error,
-      streamType: MEDIA_STREAM_TYPES.DASH,
+      streamType: MediaStreamType.DASH,
       streamProvider: 'dash.js',
       errorInstance: errorEvent,
     });
@@ -143,32 +144,32 @@ export default class DashAdapter implements IPlaybackAdapter {
     if (errorEvent.error === 'download') {
       switch (errorEvent.event.id) {
         case 'manifest':
-          this._logError(ERRORS.MANIFEST_LOAD, errorEvent);
+          this._logError(PlayableError.MANIFEST_LOAD, errorEvent);
           break;
         case 'content':
-          this._logError(ERRORS.CONTENT_LOAD, errorEvent);
+          this._logError(PlayableError.CONTENT_LOAD, errorEvent);
           break;
         case 'initialization':
-          this._logError(ERRORS.LEVEL_LOAD, errorEvent);
+          this._logError(PlayableError.LEVEL_LOAD, errorEvent);
           break;
         default:
-          this._logError(ERRORS.UNKNOWN, errorEvent);
+          this._logError(PlayableError.UNKNOWN, errorEvent);
       }
     } else if (errorEvent.error === 'manifestError') {
       switch (errorEvent.event.id) {
         case 'codec':
-          this._logError(ERRORS.MANIFEST_INCOMPATIBLE, errorEvent);
+          this._logError(PlayableError.MANIFEST_INCOMPATIBLE, errorEvent);
           break;
         case 'parse':
-          this._logError(ERRORS.MANIFEST_PARSE, errorEvent);
+          this._logError(PlayableError.MANIFEST_PARSE, errorEvent);
           break;
         default:
-          this._logError(ERRORS.UNKNOWN, errorEvent);
+          this._logError(PlayableError.UNKNOWN, errorEvent);
       }
     } else if (errorEvent.error === 'mediasource') {
-      this._logError(ERRORS.MEDIA, errorEvent);
+      this._logError(PlayableError.MEDIA, errorEvent);
     } else {
-      this._logError(ERRORS.UNKNOWN, errorEvent);
+      this._logError(PlayableError.UNKNOWN, errorEvent);
     }
   }
 
@@ -195,7 +196,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
   private _startDelayedInitPlayer() {
     this.eventEmitter.on(
-      VIDEO_EVENTS.PLAY_REQUEST,
+      VideoEvent.PLAY_REQUEST,
       this._delayedInitPlayer,
       this,
     );
@@ -203,7 +204,7 @@ export default class DashAdapter implements IPlaybackAdapter {
 
   private _stopDelayedInitPlayer() {
     this.eventEmitter.off(
-      VIDEO_EVENTS.PLAY_REQUEST,
+      VideoEvent.PLAY_REQUEST,
       this._delayedInitPlayer,
       this,
     );

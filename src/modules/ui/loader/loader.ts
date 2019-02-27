@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
+import { VideoEvent, UIEvent, EngineState } from '../../../constants';
 
 import View from './loader.view';
 
@@ -63,8 +63,8 @@ export default class Loader {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState],
-        [VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide],
+        [VideoEvent.STATE_CHANGED, this._checkForWaitingState],
+        [VideoEvent.UPLOAD_SUSPEND, this.hide],
       ],
       this,
     );
@@ -108,7 +108,7 @@ export default class Loader {
 
   private _showContent() {
     if (this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADER_SHOW);
+      this._eventEmitter.emit(UIEvent.LOADER_SHOW);
       this.view.showContent();
       this.isHidden = false;
     }
@@ -116,7 +116,7 @@ export default class Loader {
 
   private _hideContent() {
     if (!this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADER_HIDE);
+      this._eventEmitter.emit(UIEvent.LOADER_HIDE);
       this.view.hideContent();
       this.isHidden = true;
     }

@@ -1,4 +1,4 @@
-import { UI_EVENTS } from '../../constants';
+import { UIEvent } from '../../constants';
 import {
   isIPhone,
   isIPod,
@@ -62,41 +62,41 @@ export default class KeyboardControl implements IKeyboardControl {
   private _attachDefaultControls() {
     this._keyboardInterceptor.addCallbacks({
       [KEYCODES.TAB]: () => {
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
       },
       [KEYCODES.SPACE_BAR]: e => {
         e.preventDefault();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD);
         this._engine.togglePlayback();
       },
       [KEYCODES.LEFT_ARROW]: e => {
         if (this._engine.isSeekAvailable) {
           e.preventDefault();
-          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._eventEmitter.emit(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD);
+          this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UIEvent.GO_BACKWARD_WITH_KEYBOARD);
           this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
         }
       },
       [KEYCODES.RIGHT_ARROW]: e => {
         if (this._engine.isSeekAvailable) {
           e.preventDefault();
-          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._eventEmitter.emit(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD);
+          this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UIEvent.GO_FORWARD_WITH_KEYBOARD);
           this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
         }
       },
       [KEYCODES.UP_ARROW]: e => {
         e.preventDefault();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.INCREASE_VOLUME_WITH_KEYBOARD);
         this._engine.setMute(false);
         this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
       },
       [KEYCODES.DOWN_ARROW]: e => {
         e.preventDefault();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.DECREASE_VOLUME_WITH_KEYBOARD);
         this._engine.setMute(false);
         this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
       },

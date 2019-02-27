@@ -2,7 +2,7 @@ import { IEventEmitter } from '../event-emitter/types';
 
 import { isSafari } from '../../utils/device-detection';
 
-import { VIDEO_EVENTS, EngineState } from '../../constants';
+import { VideoEvent, EngineState } from '../../constants';
 import { IVideoOutput } from './types';
 
 export const NATIVE_VIDEO_EVENTS_TO_STATE = [
@@ -160,7 +160,7 @@ export default class StateEngine {
       }
     }
 
-    this._eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+    this._eventEmitter.emit(VideoEvent.STATE_CHANGED, {
       prevState: this._currentState,
       nextState: state,
     });

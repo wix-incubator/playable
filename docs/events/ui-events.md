@@ -8,7 +8,7 @@
 `UI_EVENTS.PROGRESS_DRAG_STARTED` - User's drag on progress bar started.<br/>
 `UI_EVENTS.PROGRESS_DRAG_ENDED` - User's drag on progress bar finished.<br/>
 `UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER` - Mouse entered boundaries of progress bar's sync with live button.<br/>
-`UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE` - Mouse left boundaries of  progress bar's sync with live button.<br/>
+`UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE` - Mouse left boundaries of progress bar's sync with live button.<br/>
 `UI_EVENTS.PROGRESS_USER_PREVIEWING_FRAME` - User previewing frames on progress bar.<br/>
 
 `UI_EVENTS.VOLUME_CHANGE` - User changed volume with volume control.<br/>
@@ -16,7 +16,7 @@
 `UI_EVENTS.UNMUTE_CLICK` - User clicks on unmute button.<br/>
 
 `UI_EVENTS.ENTER_FULL_SCREEN_CLICK` - User clicks on enter full screen button.<br/>
-`UI_EVENTS.EXIT_FULL_SCREEN_CLICK` -  User clicks on exit full screen button.<br/>
+`UI_EVENTS.EXIT_FULL_SCREEN_CLICK` - User clicks on exit full screen button.<br/>
 
 `UI_EVENTS.MOUSE_ENTER_ON_PLAYER` - Mouse entered player boundaries.<br/>
 `UI_EVENTS.MOUSE_MOVE_ON_PLAYER` - Mouse moved in player boundaries.<br/>

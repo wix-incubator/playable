@@ -1,4 +1,4 @@
-import { TEXT_LABELS } from '../../../../constants';
+import { TextLabel } from '../../../../constants';
 
 import View from '../../core/view';
 import { IView } from '../../core/types';
@@ -42,7 +42,7 @@ class DownloadView extends View<IDownloadViewStyles>
         styles: this.styleNames,
         themeStyles: this.themeStyles,
         texts: {
-          label: this._textMap.get(TEXT_LABELS.DOWNLOAD_BUTTON_LABEL),
+          label: this._textMap.get(TextLabel.DOWNLOAD_BUTTON_LABEL),
         },
       }),
     );
@@ -55,7 +55,7 @@ class DownloadView extends View<IDownloadViewStyles>
     this._tooltipReference = tooltipService.createReference(
       this._$downloadButton,
       {
-        text: this._textMap.get(TEXT_LABELS.DOWNLOAD_BUTTON_TOOLTIP),
+        text: this._textMap.get(TextLabel.DOWNLOAD_BUTTON_TOOLTIP),
       },
     );
 

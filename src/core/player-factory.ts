@@ -1,7 +1,7 @@
 import DependencyContainer from './dependency-container';
 import PlayerFacade from './player-facade';
 
-import defaultModules from './default-modules';
+import defaultModules, { IPlayer } from './default-modules';
 import defaultPlaybackAdapters from '../modules/playback-engine/adapters/default-set';
 
 import { IThemeConfig } from '../modules/ui/core/theme';
@@ -32,7 +32,14 @@ export function clearPlaybackAdapters() {
   playbackAdapters = [...defaultPlaybackAdapters];
 }
 
-export function create(params: IPlayerConfig = {}, themeConfig?: IThemeConfig) {
+export interface IPlayerInstance extends IPlayer {
+  destroy(): void;
+}
+
+export function create(
+  params: IPlayerConfig = {},
+  themeConfig?: IThemeConfig,
+): IPlayerInstance {
   const scope = container.createScope();
 
   const additionalModuleNames = Object.keys(additionalModules);

@@ -5,7 +5,7 @@ import KeyboardInterceptor, {
 } from '../../../../utils/keyboard-interceptor';
 
 import { AMOUNT_TO_CHANGE_VOLUME } from '../../../keyboard-control/keyboard-control';
-import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
+import { VideoEvent, UIEvent } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip/types';
@@ -98,21 +98,21 @@ export default class VolumeControl implements IVolumeControl {
         [KEYCODES.SPACE_BAR]: e => {
           e.stopPropagation();
 
-          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(
             this._engine.isMuted
-              ? UI_EVENTS.UNMUTE_WITH_KEYBOARD
-              : UI_EVENTS.MUTE_WITH_KEYBOARD,
+              ? UIEvent.UNMUTE_WITH_KEYBOARD
+              : UIEvent.MUTE_WITH_KEYBOARD,
           );
         },
         [KEYCODES.ENTER]: e => {
           e.stopPropagation();
 
-          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
           this._eventEmitter.emit(
             this._engine.isMuted
-              ? UI_EVENTS.UNMUTE_WITH_KEYBOARD
-              : UI_EVENTS.MUTE_WITH_KEYBOARD,
+              ? UIEvent.UNMUTE_WITH_KEYBOARD
+              : UIEvent.MUTE_WITH_KEYBOARD,
           );
         },
       },
@@ -125,8 +125,8 @@ export default class VolumeControl implements IVolumeControl {
           e.stopPropagation();
           e.preventDefault();
 
-          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._eventEmitter.emit(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD);
+          this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UIEvent.INCREASE_VOLUME_WITH_KEYBOARD);
           this._engine.setMute(false);
           this._engine.increaseVolume(AMOUNT_TO_CHANGE_VOLUME);
         },
@@ -134,8 +134,8 @@ export default class VolumeControl implements IVolumeControl {
           e.stopPropagation();
           e.preventDefault();
 
-          this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
-          this._eventEmitter.emit(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD);
+          this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+          this._eventEmitter.emit(UIEvent.DECREASE_VOLUME_WITH_KEYBOARD);
           this._engine.setMute(false);
           this._engine.decreaseVolume(AMOUNT_TO_CHANGE_VOLUME);
         },
@@ -150,7 +150,7 @@ export default class VolumeControl implements IVolumeControl {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[VIDEO_EVENTS.SOUND_STATE_CHANGED, this._updateSoundState]],
+      [[VideoEvent.SOUND_STATE_CHANGED, this._updateSoundState]],
       this,
     );
   }
@@ -164,16 +164,16 @@ export default class VolumeControl implements IVolumeControl {
   }
 
   private _broadcastDragStart() {
-    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_START);
+    this._eventEmitter.emit(UIEvent.CONTROL_DRAG_START);
   }
 
   private _broadcastDragEnd() {
-    this._eventEmitter.emit(UI_EVENTS.CONTROL_DRAG_END);
+    this._eventEmitter.emit(UIEvent.CONTROL_DRAG_END);
   }
 
   private _changeVolumeLevel(level: number) {
     this._engine.setVolume(level);
-    this._eventEmitter.emit(UI_EVENTS.VOLUME_CHANGE, level);
+    this._eventEmitter.emit(UIEvent.VOLUME_CHANGE, level);
 
     if (this._engine.isMuted) {
       this._toggleMuteState();
@@ -184,7 +184,7 @@ export default class VolumeControl implements IVolumeControl {
     const desiredMuteState = !this._engine.isMuted;
     this._engine.setMute(desiredMuteState);
     this._eventEmitter.emit(
-      desiredMuteState ? UI_EVENTS.MUTE_CLICK : UI_EVENTS.UNMUTE_CLICK,
+      desiredMuteState ? UIEvent.MUTE_CLICK : UIEvent.UNMUTE_CLICK,
     );
   }
 

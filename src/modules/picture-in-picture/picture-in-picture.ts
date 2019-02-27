@@ -3,12 +3,16 @@ import playerAPI from '../../core/player-api-decorator';
 import ChromePictureInPicture from './chrome';
 import SafariPictureInPicture from './safari';
 
-import { UI_EVENTS } from '../../constants';
-import { IPictureInPicture, IPictureInPictureHelper } from './types';
+import { UIEvent } from '../../constants';
+import {
+  IPictureInPicture,
+  IPictureInPictureHelper,
+  IPictureInPictureAPI,
+} from './types';
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
 
-export default class PictureInPicture implements IPictureInPicture {
+class PictureInPicture implements IPictureInPicture {
   static moduleName = 'pictureInPicture';
   static dependencies = ['eventEmitter', 'engine', 'config'];
 
@@ -43,7 +47,7 @@ export default class PictureInPicture implements IPictureInPicture {
 
   private _onChange() {
     this._eventEmitter.emit(
-      UI_EVENTS.PICTURE_IN_PICTURE_STATUS_CHANGE,
+      UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE,
       this.isInPictureInPicture,
     );
   }
@@ -116,3 +120,6 @@ export default class PictureInPicture implements IPictureInPicture {
     this._helper.destroy();
   }
 }
+
+export { IPictureInPictureAPI };
+export default PictureInPicture;

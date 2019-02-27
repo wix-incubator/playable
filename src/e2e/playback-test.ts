@@ -1,6 +1,5 @@
-import Playable, { ENGINE_STATES, VIDEO_EVENTS } from '../index';
+import Playable from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
-import { PreloadTypes } from '../modules/playback-engine/types';
 
 /* ignore coverage */
 describe('Playback e2e test', function() {
@@ -27,16 +26,11 @@ describe('Playback e2e test', function() {
         // TODO: describe `@playerApi` methods in `Player` with TS
         const player: any = Playable.create();
         player.attachToElement(container);
-        player.on(
-          VIDEO_EVENTS.STATE_CHANGED,
-          ({ nextState }: { nextState: ENGINE_STATES }) => {
-            if (nextState === ENGINE_STATES.PLAYING) {
-              player.off(VIDEO_EVENTS.STATE_CHANGED);
-              player.destroy();
-              done();
-            }
-          },
-        );
+        player.on(Playable.ENGINE_STATES.PLAYING, () => {
+          player.destroy();
+
+          done();
+        });
         player.setSrc(formatToTest.url);
         player.play();
       });
@@ -45,19 +39,14 @@ describe('Playback e2e test', function() {
         formatToTest.type
       } when preload = none`, function(done) {
         const player: any = Playable.create({
-          preload: PreloadTypes.NONE,
+          preload: Playable.PRELOAD_TYPES.NONE,
         });
         player.attachToElement(container);
-        player.on(
-          VIDEO_EVENTS.STATE_CHANGED,
-          ({ nextState }: { nextState: ENGINE_STATES }) => {
-            if (nextState === ENGINE_STATES.PLAYING) {
-              player.off(VIDEO_EVENTS.STATE_CHANGED);
-              player.destroy();
-              done();
-            }
-          },
-        );
+        player.on(Playable.ENGINE_STATES.PLAYING, () => {
+          player.destroy();
+
+          done();
+        });
         player.setSrc(formatToTest.url);
         player.play();
       });

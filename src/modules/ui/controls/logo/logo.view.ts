@@ -1,4 +1,4 @@
-import { TEXT_LABELS } from '../../../../constants';
+import { TextLabel } from '../../../../constants';
 
 import { ITooltipReference } from '../../core/tooltip/types';
 import View from '../../core/view';
@@ -41,7 +41,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
       logoTemplate({
         styles: this.styleNames,
         texts: {
-          label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
+          label: this._textMap.get(TextLabel.LOGO_LABEL),
         },
       }),
     );
@@ -50,7 +50,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
       logoImageTemplate({
         styles: this.styleNames,
         texts: {
-          label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
+          label: this._textMap.get(TextLabel.LOGO_LABEL),
         },
       }),
     ) as HTMLImageElement;
@@ -58,7 +58,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
       logoInputTemplate({
         styles: this.styleNames,
         texts: {
-          label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
+          label: this._textMap.get(TextLabel.LOGO_LABEL),
         },
       }),
     ) as HTMLInputElement;
@@ -67,7 +67,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
         styles: this.styleNames,
         themeStyles: this.themeStyles,
         texts: {
-          label: this._textMap.get(TEXT_LABELS.LOGO_LABEL),
+          label: this._textMap.get(TextLabel.LOGO_LABEL),
         },
       }),
     ) as HTMLButtonElement;
@@ -75,7 +75,7 @@ class LogoView extends View<ILogoViewStyles> implements IView<ILogoViewStyles> {
     this._tooltipReference = tooltipService.createReference(
       this._$rootElement,
       {
-        text: this._textMap.get(TEXT_LABELS.LOGO_TOOLTIP),
+        text: this._textMap.get(TextLabel.LOGO_TOOLTIP),
       },
     );
 

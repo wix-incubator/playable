@@ -1,9 +1,13 @@
-import Playable from './index';
+import {
+  create,
+  registerModule,
+  registerPlaybackAdapter,
+  MEDIA_STREAM_TYPES,
+  PRELOAD_TYPES,
+} from './index';
 import HLSAdapter from './adapters/hls';
 import DASHAdapter from './adapters/dash';
 import Subtitles from './modules/ui/subtitles/subtitles';
-
-import { PreloadTypes } from './modules/playback-engine/types';
 
 const DEFAULT_URLS: any = {
   DASH: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
@@ -15,9 +19,9 @@ const DEFAULT_URLS: any = {
     'https://storage.googleapis.com/video-player-media-server-static/videoplayback.mp4',
 };
 
-Playable.registerModule('subtitles', Subtitles);
-Playable.registerPlaybackAdapter(HLSAdapter);
-Playable.registerPlaybackAdapter(DASHAdapter);
+registerModule('subtitles', Subtitles);
+registerPlaybackAdapter(HLSAdapter);
+registerPlaybackAdapter(DASHAdapter);
 const config = {
   framesCount: 178,
   qualities: [
@@ -35,13 +39,10 @@ const config = {
     },
   ],
 };
-Object.defineProperty(window, 'Playable', {
-  value: Playable,
-});
 
 document.addEventListener('DOMContentLoaded', () => {
-  const player: any = Playable.create({
-    preload: PreloadTypes.METADATA,
+  const player = create({
+    preload: PRELOAD_TYPES.METADATA,
     width: 800,
     height: 450,
     playsinline: true,
@@ -53,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     value: player,
   });
 
-  const selectVideo = (type: string) => {
+  const selectVideo = (type: MEDIA_STREAM_TYPES) => {
     player.setSrc({
       type,
       url: DEFAULT_URLS[type],
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     player.setTitle(`${type} format`);
   };
 
-  selectVideo('MP4');
+  selectVideo(MEDIA_STREAM_TYPES.MP4);
 
   document.getElementById('types').addEventListener('click', event => {
     const { type } = (event.target as any).dataset;
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (type === 'MP4-VERTICAL') {
       player.setSrc({
-        type: 'MP4',
+        type: MEDIA_STREAM_TYPES.MP4,
         url: DEFAULT_URLS[type],
       });
       player.setTitle(`${type}`);

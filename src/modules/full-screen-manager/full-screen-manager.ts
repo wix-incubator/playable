@@ -3,8 +3,9 @@ import playerAPI from '../../core/player-api-decorator';
 import DesktopFullScreen from './desktop';
 import IOSFullScreen from './ios';
 
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../constants';
+import { VideoEvent, UIEvent, EngineState } from '../../constants';
 import {
+  IFullScreenAPI,
   IFullScreenManager,
   IFullScreenHelper,
   IFullScreenConfig,
@@ -21,7 +22,7 @@ const DEFAULT_CONFIG: IFullScreenConfig = {
   pauseVideoOnFullScreenExit: false,
 };
 
-export default class FullScreenManager implements IFullScreenManager {
+class FullScreenManager implements IFullScreenManager {
   static moduleName = 'fullScreenManager';
   static dependencies = ['eventEmitter', 'engine', 'rootContainer', 'config'];
 
@@ -87,7 +88,7 @@ export default class FullScreenManager implements IFullScreenManager {
       this._engine.pause();
     }
     this._eventEmitter.emit(
-      UI_EVENTS.FULL_SCREEN_STATE_CHANGED,
+      UIEvent.FULL_SCREEN_STATE_CHANGED,
       this._helper.isInFullScreen,
     );
   }
@@ -95,8 +96,8 @@ export default class FullScreenManager implements IFullScreenManager {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.STATE_CHANGED, this._processNextStateFromEngine],
-        [VIDEO_EVENTS.PLAY_REQUEST, this._enterOnPlayRequested],
+        [VideoEvent.STATE_CHANGED, this._processNextStateFromEngine],
+        [VideoEvent.PLAY_REQUEST, this._enterOnPlayRequested],
       ],
       this,
     );
@@ -310,3 +311,6 @@ export default class FullScreenManager implements IFullScreenManager {
     this._helper.destroy();
   }
 }
+
+export { IFullScreenAPI };
+export default FullScreenManager;

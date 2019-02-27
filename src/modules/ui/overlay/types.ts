@@ -27,7 +27,14 @@ interface IOverlay {
   destroy(): void;
 }
 
+interface IOverlayAPI {
+  showOverlay?(): void;
+  hideOverlay?(): void;
+  setPoster?(src: string): void;
+}
+
 export {
+  IOverlayAPI,
   IOverlay,
   IOverlayViewStyles,
   IOverlayViewCallbacks,

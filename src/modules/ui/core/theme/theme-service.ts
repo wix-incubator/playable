@@ -2,21 +2,13 @@ import { StyleSheet } from './style-sheet';
 
 import playerAPI from '../../../../core/player-api-decorator';
 
-import { IStyles } from '../types';
-import { ICSSRules, IThemeConfig } from './types';
+import { IThemeAPI, IThemeService, ICSSRules, IThemeConfig } from './types';
 
 const DEFAULT_THEME_CONFIG = {
   color: '#FFF',
   liveColor: '#ea492e',
   progressColor: '#FFF',
 };
-
-interface IThemeService {
-  updateTheme(config: IThemeConfig): void;
-  registerModuleTheme(module: object, rules: ICSSRules): void;
-  get(module: object): IStyles;
-  destroy(): void;
-}
 
 class ThemeService implements IThemeService {
   static moduleName = 'theme';
@@ -70,6 +62,6 @@ class ThemeService implements IThemeService {
   }
 }
 
-export { DEFAULT_THEME_CONFIG, IThemeService };
+export { DEFAULT_THEME_CONFIG, IThemeService, IThemeAPI };
 
 export default ThemeService;

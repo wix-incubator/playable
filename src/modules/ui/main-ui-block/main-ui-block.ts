@@ -1,9 +1,13 @@
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
+import { VideoEvent, UIEvent, EngineState } from '../../../constants';
 import playerAPI from '../../../core/player-api-decorator';
 
 import MainUIBlockView from './main-ui-block.view';
 
-import { IMainUIBlock, IMainUIBlockViewElements } from './types';
+import {
+  IMainUIBlockAPI,
+  IMainUIBlock,
+  IMainUIBlockViewElements,
+} from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IBottomBlock } from '../bottom-block/types';
 import { ITopBlock } from '../top-block/types';
@@ -14,7 +18,7 @@ import { ITooltipService } from '../core/tooltip/tooltip-service';
 
 const HIDE_BLOCK_TIMEOUT = 2000;
 
-export default class MainUIBlock implements IMainUIBlock {
+class MainUIBlock implements IMainUIBlock {
   static moduleName = 'mainUIBlock';
   static View = MainUIBlockView;
   static dependencies = [
@@ -107,14 +111,14 @@ export default class MainUIBlock implements IMainUIBlock {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.MOUSE_MOVE_ON_PLAYER, this._startHideBlockTimeout],
-        [UI_EVENTS.MOUSE_LEAVE_ON_PLAYER, this._tryHideContent],
-        [UI_EVENTS.FOCUS_ENTER_ON_PLAYER, this._startHideBlockTimeout],
-        [UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout],
-        [UI_EVENTS.LOADER_HIDE, this._startHideBlockTimeout],
-        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState],
-        [UI_EVENTS.CONTROL_DRAG_START, this._onControlDragStart],
-        [UI_EVENTS.CONTROL_DRAG_END, this._onControlDragEnd],
+        [UIEvent.MOUSE_MOVE_ON_PLAYER, this._startHideBlockTimeout],
+        [UIEvent.MOUSE_LEAVE_ON_PLAYER, this._tryHideContent],
+        [UIEvent.FOCUS_ENTER_ON_PLAYER, this._startHideBlockTimeout],
+        [UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED, this._startHideBlockTimeout],
+        [UIEvent.LOADER_HIDE, this._startHideBlockTimeout],
+        [VideoEvent.STATE_CHANGED, this._updatePlayingState],
+        [UIEvent.CONTROL_DRAG_START, this._onControlDragStart],
+        [UIEvent.CONTROL_DRAG_END, this._onControlDragEnd],
       ],
       this,
     );
@@ -190,7 +194,7 @@ export default class MainUIBlock implements IMainUIBlock {
 
     this._screen.showCursor();
 
-    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_SHOW);
+    this._eventEmitter.emit((UIEvent as any).MAIN_BLOCK_SHOW);
     this._bottomBlock.showContent();
     this._topBlock.showContent();
     this._isContentShown = true;
@@ -216,7 +220,7 @@ export default class MainUIBlock implements IMainUIBlock {
       this._screen.hideCursor();
     }
 
-    this._eventEmitter.emit((UI_EVENTS as any).MAIN_BLOCK_HIDE);
+    this._eventEmitter.emit((UIEvent as any).MAIN_BLOCK_HIDE);
     this._bottomBlock.hideContent();
     this._topBlock.hideContent();
     this._tooltipService.hide();
@@ -271,3 +275,6 @@ export default class MainUIBlock implements IMainUIBlock {
     this.view.destroy();
   }
 }
+
+export { IMainUIBlockAPI };
+export default MainUIBlock;

@@ -9,7 +9,7 @@ import PictureInPicture from './picture-in-picture';
 
 import createPlayerTestkit, { setProperty, resetProperty } from '../../testkit';
 
-import { UI_EVENTS } from '../../constants';
+import { UIEvent } from '../../constants';
 
 import { IPictureInPictureHelper } from './types';
 
@@ -139,7 +139,7 @@ describe('PictureInPicture', () => {
 
         mockedPictureInPictureHelper.isInPictureInPicture = true;
         pictureInPicture._onChange();
-        expect(spy.calledWith(UI_EVENTS.PICTURE_IN_PICTURE_STATUS_CHANGE)).to.be
+        expect(spy.calledWith(UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE)).to.be
           .true;
 
         eventEmitter.emit.restore();

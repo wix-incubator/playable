@@ -1,9 +1,9 @@
-import { UI_EVENTS } from '../../../constants';
+import { UIEvent } from '../../../constants';
 import logger from '../../../utils/logger';
 import playerAPI from '../../../core/player-api-decorator';
 
 import SubtitlesView from './subtitles.view';
-import { ISubtitles, ISubtitleConfig } from './types';
+import { ISubtitlesAPI, ISubtitles, ISubtitleConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IRootContainer } from '../../root-container/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
@@ -17,7 +17,7 @@ function isSameOrigin(url: string): boolean {
   return a.protocol === protocol && a.hostname === hostname && a.port === port;
 }
 
-export default class Subtitles implements ISubtitles {
+class Subtitles implements ISubtitles {
   static moduleName = 'subtitle';
   static dependencies = ['rootContainer', 'engine', 'eventEmitter'];
   static View = SubtitlesView;
@@ -175,8 +175,8 @@ export default class Subtitles implements ISubtitles {
   private _bindEvents(): void {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.MAIN_BLOCK_SHOW, this.view.moveSubtitlesUp, this.view],
-        [UI_EVENTS.MAIN_BLOCK_HIDE, this.view.moveSubtitlesDown, this.view],
+        [UIEvent.MAIN_BLOCK_SHOW, this.view.moveSubtitlesUp, this.view],
+        [UIEvent.MAIN_BLOCK_HIDE, this.view.moveSubtitlesDown, this.view],
       ],
       this,
     );
@@ -197,3 +197,6 @@ export default class Subtitles implements ISubtitles {
     this.view.destroy();
   }
 }
+
+export { ISubtitlesAPI };
+export default Subtitles;

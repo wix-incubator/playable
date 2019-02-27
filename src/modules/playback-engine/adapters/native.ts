@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, ERRORS } from '../../../constants';
+import { VideoEvent, Error } from '../../../constants';
 
 import {
   geOverallBufferLength,
@@ -16,13 +16,13 @@ const NATIVE_ERROR_CODES = {
 };
 
 import {
-  MediaStreamTypes,
+  MediaStreamType,
   MediaStreamDeliveryPriority,
 } from '../../../constants';
 import { IVideoOutput } from '../types';
 
 export default function getNativeAdapterCreator(
-  streamType: MediaStreamTypes,
+  streamType: MediaStreamType,
   deliveryPriority: MediaStreamDeliveryPriority,
 ): IPlaybackAdapterClass {
   class NativeAdapter implements IPlaybackAdapter {
@@ -111,7 +111,7 @@ export default function getNativeAdapterCreator(
       this._broadcastError = this._broadcastError.bind(this);
     }
 
-    canPlay(mediaType: MediaStreamTypes) {
+    canPlay(mediaType: MediaStreamType) {
       return mediaType === streamType;
     }
 
@@ -120,7 +120,7 @@ export default function getNativeAdapterCreator(
     }
 
     private _logError(error: string, errorEvent: MediaError) {
-      this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
+      this.eventEmitter.emit(VideoEvent.ERROR, {
         errorType: error,
         streamType,
         streamProvider: 'native',
@@ -131,7 +131,7 @@ export default function getNativeAdapterCreator(
     private _broadcastError() {
       const error = this.output.error; // take error from event?
       if (!error) {
-        this._logError(ERRORS.UNKNOWN, null);
+        this._logError(Error.UNKNOWN, null);
         return;
       }
 
@@ -141,10 +141,10 @@ export default function getNativeAdapterCreator(
 
           break;
         case NATIVE_ERROR_CODES.NETWORK:
-          this._logError(ERRORS.CONTENT_LOAD, error);
+          this._logError(Error.CONTENT_LOAD, error);
           break;
         case NATIVE_ERROR_CODES.DECODE:
-          this._logError(ERRORS.MEDIA, error);
+          this._logError(Error.MEDIA, error);
           break;
         case NATIVE_ERROR_CODES.SRC_NOT_SUPPORTED:
           /*
@@ -152,11 +152,11 @@ export default function getNativeAdapterCreator(
              when video tag couldn't retriev any info from endpoit
           */
 
-          this._logError(ERRORS.CONTENT_LOAD, error);
+          this._logError(Error.CONTENT_LOAD, error);
 
           break;
         default:
-          this._logError(ERRORS.UNKNOWN, error);
+          this._logError(Error.UNKNOWN, error);
           break;
       }
     }

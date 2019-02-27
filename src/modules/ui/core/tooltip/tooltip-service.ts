@@ -2,7 +2,7 @@ import TooltipReference from './tooltip-reference';
 import TooltipContainer from './tooltip-container';
 import Tooltip from './tooltip';
 
-import { UI_EVENTS } from '../../../../constants';
+import { UIEvent } from '../../../../constants';
 
 import {
   ITooltipShowOptions,
@@ -37,7 +37,7 @@ class TooltipService implements ITooltipService {
 
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
-      [[UI_EVENTS.FULL_SCREEN_STATE_CHANGED, this.hide]],
+      [[UIEvent.FULL_SCREEN_STATE_CHANGED, this.hide]],
       this,
     );
   }

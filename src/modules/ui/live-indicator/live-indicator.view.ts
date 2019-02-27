@@ -17,7 +17,7 @@ import { ITextMap } from '../../text-map/types';
 
 import styles from './live-indicator.scss';
 
-import { TEXT_LABELS } from '../../../constants';
+import { TextLabel } from '../../../constants';
 
 class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   implements IView<ILiveIndicatorViewStyles> {
@@ -57,7 +57,7 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
     this._tooltipReference = this._tooltipService.createReference(
       this._$button,
       {
-        text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+        text: this._textMap.get(TextLabel.LIVE_SYNC_TOOLTIP),
       },
     );
 
@@ -101,13 +101,12 @@ class LiveIndicatorView extends View<ILiveIndicatorViewStyles>
   toggleEnded(isEnded: boolean) {
     toggleElementClass(this._$rootElement, this.styleNames.ended, isEnded);
 
-    this._$button.innerText = this._textMap.get(
-      TEXT_LABELS.LIVE_INDICATOR_TEXT,
-      { isEnded },
-    );
+    this._$button.innerText = this._textMap.get(TextLabel.LIVE_INDICATOR_TEXT, {
+      isEnded,
+    });
     this._$button.setAttribute(
       'aria-label',
-      !isEnded ? this._textMap.get(TEXT_LABELS.LIVE_SYNC_LABEL) : '',
+      !isEnded ? this._textMap.get(TextLabel.LIVE_SYNC_LABEL) : '',
     );
     this._$button.setAttribute('disabled', 'true');
 

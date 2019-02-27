@@ -6,7 +6,7 @@ import createPlayerTestkit from '../../../../testkit';
 
 import ProgressControl from './progress';
 
-import { VIDEO_EVENTS, EngineState } from '../../../../constants';
+import { VideoEvent, EngineState } from '../../../../constants';
 
 describe('ProgressControl', () => {
   let testkit;
@@ -90,7 +90,7 @@ describe('ProgressControl', () => {
             'indicator added before `METADATA_LOADED`',
           ).to.equal(0);
 
-          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.METADATA_LOADED,
           });
 
@@ -114,7 +114,7 @@ describe('ProgressControl', () => {
             'indicator added before `METADATA_LOADED`',
           ).to.equal(0);
 
-          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.METADATA_LOADED,
           });
 
@@ -214,7 +214,7 @@ describe('ProgressControl', () => {
     it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control, '_processStateChange');
       control._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
+      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
 
@@ -222,7 +222,7 @@ describe('ProgressControl', () => {
       const spyPlayed = sinon.spy(control, '_updatePlayedIndicator');
       const spyBuffered = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,
       });
       expect(spyPlayed.called).to.be.true;
@@ -232,7 +232,7 @@ describe('ProgressControl', () => {
     it('should call callback on duration update', async function() {
       const spy = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.CHUNK_LOADED);
+      await eventEmitter.emit(VideoEvent.CHUNK_LOADED);
       expect(spy.called).to.be.true;
     });
   });

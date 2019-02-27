@@ -8,7 +8,7 @@ import createPlayerTestkit from '../../testkit';
 
 import AnomalyBloodhound, { DELAYED_REPORT_TYPES } from './anomaly-bloodhound';
 
-import { VIDEO_EVENTS, EngineState } from '../../constants';
+import { VideoEvent, EngineState } from '../../constants';
 
 describe('AnomalyBloodhound', () => {
   let testkit: any;
@@ -34,7 +34,7 @@ describe('AnomalyBloodhound', () => {
     it('should be based on event', async function() {
       const spy = sinon.spy(anomalyBloodhound, '_processStateChange');
       anomalyBloodhound._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
+      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
       anomalyBloodhound._processStateChange.restore();
     });

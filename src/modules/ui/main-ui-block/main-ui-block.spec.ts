@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
 
-import { VIDEO_EVENTS, EngineState } from '../../../constants';
+import { VideoEvent, EngineState } from '../../../constants';
 
 describe('BottomBlock', () => {
   let testkit;
@@ -59,7 +59,7 @@ describe('BottomBlock', () => {
     it('should call callback on playback state change', async function() {
       const spy = sinon.spy(mainBlock, '_updatePlayingState');
       mainBlock._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
+      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
   });

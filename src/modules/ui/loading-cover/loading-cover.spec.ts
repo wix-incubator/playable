@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 import createPlayerTestkit from '../../../testkit';
 import LoadingCover from './loading-cover';
 
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
+import { VideoEvent, UIEvent, EngineState } from '../../../constants';
 
 describe('LoadingCover', () => {
   let testkit;
@@ -57,7 +57,7 @@ describe('LoadingCover', () => {
       it('should have method for showing loader', () => {
         const showSpy = sinon.spy(loadingCover.view, 'show');
         loadingCover.show();
-        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_SHOW)).to.be.true;
+        expect(emitSpy.calledWith(UIEvent.LOADING_COVER_SHOW)).to.be.true;
         expect(showSpy.called).to.be.true;
         expect(loadingCover.isHidden).to.be.false;
       });
@@ -66,16 +66,16 @@ describe('LoadingCover', () => {
         loadingCover.show();
         const hideSpy = sinon.spy(loadingCover.view, 'hide');
         loadingCover.hide();
-        expect(emitSpy.calledWith(UI_EVENTS.LOADING_COVER_HIDE)).to.be.true;
+        expect(emitSpy.calledWith(UIEvent.LOADING_COVER_HIDE)).to.be.true;
         expect(hideSpy.called).to.be.true;
         expect(loadingCover.isHidden).to.be.true;
       });
     });
 
     describe('reaction to event', () => {
-      it('should be proper if event is VIDEO_EVENTS.UPLOAD_SUSPEND', async function() {
+      it('should be proper if event is VideoEvent.UPLOAD_SUSPEND', async function() {
         loadingCover.show();
-        await eventEmitter.emit(VIDEO_EVENTS.UPLOAD_SUSPEND);
+        await eventEmitter.emit(VideoEvent.UPLOAD_SUSPEND);
         expect(loadingCover.isHidden).to.be.true;
       });
 
@@ -95,14 +95,14 @@ describe('LoadingCover', () => {
 
         it('should be proper if next state is EngineState.LOAD_STARTED', async function() {
           engine.setPreload('none');
-          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.false;
 
           engine.setPreload('auto');
-          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
@@ -111,7 +111,7 @@ describe('LoadingCover', () => {
 
         it('should be proper if next state is EngineState.WAITING', async function() {
           engine._stateEngine._isMetadataLoaded = true;
-          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.WAITING,
           });
 
@@ -119,7 +119,7 @@ describe('LoadingCover', () => {
 
           engine._stateEngine._isMetadataLoaded = false;
           engine.setPreload('auto');
-          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.WAITING,
           });
 
@@ -127,7 +127,7 @@ describe('LoadingCover', () => {
         });
 
         it('should be proper if next state is EngineState.READY_TO_PLAY', async function() {
-          await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.READY_TO_PLAY,
           });
 

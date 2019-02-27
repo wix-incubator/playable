@@ -5,13 +5,13 @@ import focusWithin from './utils/focus-within';
 
 import playerAPI from '../../core/player-api-decorator';
 
-import { UI_EVENTS } from '../../constants';
+import { UIEvent } from '../../constants';
 
 import View from './root-container.view';
 import ElementQueries from '../ui/core/element-queries';
 
 import { IEventEmitter } from '../event-emitter/types';
-import { IRootContainer } from './types';
+import { IRootContainer, IRootContainerAPI } from './types';
 import { IPlayerConfig } from '../../core/config';
 
 const DEFAULT_CONFIG = {
@@ -73,7 +73,7 @@ class RootContainer implements IRootContainer {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
         [
-          UI_EVENTS.FULL_SCREEN_STATE_CHANGED,
+          UIEvent.FULL_SCREEN_STATE_CHANGED,
           this.view.setFullScreenState,
           this.view,
         ],
@@ -105,23 +105,23 @@ class RootContainer implements IRootContainer {
   }
 
   private _broadcastMouseEnter() {
-    this._eventEmitter.emit(UI_EVENTS.MOUSE_ENTER_ON_PLAYER);
+    this._eventEmitter.emit(UIEvent.MOUSE_ENTER_ON_PLAYER);
   }
 
   private _broadcastMouseMove() {
-    this._eventEmitter.emit(UI_EVENTS.MOUSE_MOVE_ON_PLAYER);
+    this._eventEmitter.emit(UIEvent.MOUSE_MOVE_ON_PLAYER);
   }
 
   private _broadcastMouseLeave() {
-    this._eventEmitter.emit(UI_EVENTS.MOUSE_LEAVE_ON_PLAYER);
+    this._eventEmitter.emit(UIEvent.MOUSE_LEAVE_ON_PLAYER);
   }
 
   private _broadcastFocusEnter() {
-    this._eventEmitter.emit(UI_EVENTS.FOCUS_ENTER_ON_PLAYER);
+    this._eventEmitter.emit(UIEvent.FOCUS_ENTER_ON_PLAYER);
   }
 
   private _broadcastFocusLeave() {
-    this._eventEmitter.emit(UI_EVENTS.FOCUS_LEAVE_ON_PLAYER);
+    this._eventEmitter.emit(UIEvent.FOCUS_LEAVE_ON_PLAYER);
   }
 
   private _enableFocusInterceptors() {
@@ -157,7 +157,7 @@ class RootContainer implements IRootContainer {
 
     this._elementQueries.setWidth(width);
 
-    this._eventEmitter.emit(UI_EVENTS.RESIZE, { width, height });
+    this._eventEmitter.emit(UIEvent.RESIZE, { width, height });
   }
 
   /**
@@ -264,4 +264,5 @@ class RootContainer implements IRootContainer {
   }
 }
 
+export { IRootContainerAPI };
 export default RootContainer;
