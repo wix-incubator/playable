@@ -6,7 +6,7 @@ import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../../constants';
+import { VIDEO_EVENTS, UI_EVENTS } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { IPlaybackEngine } from '../../../playback-engine/types';
@@ -25,7 +25,6 @@ export default class PlayControl implements IPlayControl {
   private _theme: IThemeService;
 
   private _interceptor: KeyboardInterceptor;
-  private _isPlaying: boolean;
 
   private _unbindEvents: () => void;
 
@@ -46,8 +45,6 @@ export default class PlayControl implements IPlayControl {
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
     this._theme = theme;
-
-    this._isPlaying = null;
 
     this._bindCallbacks();
     this._initUI();
@@ -89,10 +86,10 @@ export default class PlayControl implements IPlayControl {
   }
 
   private _togglePlayback() {
-    if (this._isPlaying) {
-      this._pauseVideo();
-    } else {
+    if (this._engine.isPaused) {
       this._playVideo();
+    } else {
+      this._pauseVideo();
     }
   }
 
@@ -108,18 +105,8 @@ export default class PlayControl implements IPlayControl {
     this._eventEmitter.emit(UI_EVENTS.PAUSE_CLICK);
   }
 
-  private _updatePlayingState({ nextState }: { nextState: EngineState }) {
-    if (nextState === EngineState.SRC_SET) {
-      this._reset();
-    } else if (nextState === EngineState.PLAYING) {
-      this._setPlaybackState(true);
-    } else if (
-      nextState === EngineState.PAUSED ||
-      nextState === EngineState.ENDED ||
-      nextState === EngineState.SEEK_IN_PROGRESS
-    ) {
-      this._setPlaybackState(false);
-    }
+  private _updatePlayingState() {
+    this.view.setPlayingState(!this._engine.isPaused);
   }
 
   private _initUI() {
@@ -132,15 +119,6 @@ export default class PlayControl implements IPlayControl {
     };
 
     this.view = new PlayControl.View(config);
-  }
-
-  private _setPlaybackState(isPlaying: boolean) {
-    this._isPlaying = isPlaying;
-    this.view.setPlayingState(this._isPlaying);
-  }
-
-  private _reset() {
-    this._setPlaybackState(false);
   }
 
   destroy() {
