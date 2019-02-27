@@ -1,8 +1,7 @@
-import Playable, { ENGINE_STATES, VIDEO_EVENTS } from '../index';
+import Playable from '../index';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import HLSAdapter from '../adapters/hls';
 import DASHAdapter from '../adapters/dash';
-import { PreloadTypes } from '../modules/playback-engine/types';
 
 /* ignore coverage */
 describe('Playback e2e test', function() {
@@ -57,7 +56,7 @@ describe('Playback e2e test', function() {
         // TODO: describe `@playerApi` methods in `Player` with TS
         const player: any = Playable.create();
         player.attachToElement(container);
-        player.on(ENGINE_STATES.PLAYING, () => {
+        player.on(Playable.ENGINE_STATES.PLAYING, () => {
           player.destroy();
           done();
         });
@@ -69,14 +68,14 @@ describe('Playback e2e test', function() {
         formatToTest.type
       } when preload = none`, function(done) {
         const player: any = Playable.create({
-          preload: PreloadTypes.NONE,
+          preload: Playable.PRELOAD_TYPES.NONE,
         });
         player.attachToElement(container);
-        player.on(ENGINE_STATES.PLAYING, () => {
+        player.on(Playable.ENGINE_STATES.PLAYING, () => {
           player.destroy();
           done();
         });
-        player.on(VIDEO_EVENTS.PLAY_ABORTED, () => {
+        player.on(Playable.VIDEO_EVENTS.PLAY_ABORTED, () => {
           player.destroy();
           done();
         });

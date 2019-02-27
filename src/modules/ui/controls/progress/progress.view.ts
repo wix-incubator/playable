@@ -1,4 +1,4 @@
-import { TEXT_LABELS } from '../../../../constants';
+import { TextLabel } from '../../../../constants';
 
 import View from '../../core/view';
 
@@ -104,7 +104,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._syncButtonTooltipReference = this._tooltipService.createReference(
       this._$syncButton,
       {
-        text: this._textMap.get(TEXT_LABELS.LIVE_SYNC_TOOLTIP),
+        text: this._textMap.get(TextLabel.LIVE_SYNC_TOOLTIP),
       },
     );
     this._$hitbox = getElementByHook(this._$rootElement, 'progress-hitbox');
@@ -232,7 +232,7 @@ class ProgressView extends View<IProgressViewStyles>
   private _setPlayedDOMAttributes(percent: number) {
     this._$rootElement.setAttribute(
       'aria-valuetext',
-      this._textMap.get(TEXT_LABELS.PROGRESS_CONTROL_VALUE, { percent }),
+      this._textMap.get(TextLabel.PROGRESS_CONTROL_VALUE, { percent }),
     );
     this._$rootElement.setAttribute('aria-valuenow', percent.toFixed(2));
     this._$rootElement.setAttribute(DATA_PLAYED, percent.toFixed(2));

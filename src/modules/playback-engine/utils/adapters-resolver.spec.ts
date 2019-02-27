@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { resolveAdapters } from './adapters-resolver';
 import {
-  MediaStreamTypes,
+  MediaStreamType,
   MediaStreamDeliveryPriority,
 } from '../../../constants';
 
@@ -56,7 +56,7 @@ describe('Picking proper playback stream', () => {
   const mediaStreams = [
     {
       url: '',
-      type: MediaStreamTypes.HLS,
+      type: MediaStreamType.HLS,
     },
   ];
 

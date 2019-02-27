@@ -30,7 +30,12 @@ interface IDownloadButton {
   destroy(): void;
 }
 
+interface IDownloadButtonAPI {
+  setDownloadClickCallback?(callback: () => void): void;
+}
+
 export {
+  IDownloadButtonAPI,
   IDownloadButton,
   IDownloadViewStyles,
   IDownloadViewCallbacks,

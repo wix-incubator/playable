@@ -1,4 +1,11 @@
-import * as playerFactoryMethods from './core/player-factory';
+import {
+  create,
+  registerModule,
+  clearAdditionalModules,
+  registerPlaybackAdapter,
+  clearPlaybackAdapters,
+  IPlayerInstance,
+} from './core/player-factory';
 import { modules as DefaultModules } from './core/default-modules';
 import playerAPIDecorator from './core/player-api-decorator';
 import {
@@ -6,16 +13,27 @@ import {
   UI_EVENTS,
   VIDEO_EVENTS,
   TEXT_LABELS,
-  MediaStreamTypes as MEDIA_STREAM_TYPES,
-  MediaStreamDeliveryPriority as MEDIA_STREAM_DELIVERY_PRIORITY,
-  EngineState as ENGINE_STATES,
-  LiveState as LIVE_STATES,
+  MEDIA_STREAM_TYPES,
+  MEDIA_STREAM_DELIVERY_PRIORITY,
+  ENGINE_STATES,
+  LIVE_STATES,
 } from './constants';
+
 import { Tooltip } from './modules/ui/core/tooltip';
+import {
+  PreloadType as PRELOAD_TYPES,
+  PlayableMediaSource,
+} from './modules/playback-engine/types';
 import { IPlaybackAdapter } from './modules/playback-engine/adapters/types';
+
 import { VideoViewMode as VIDEO_VIEW_MODES } from './modules/ui/screen/types';
 
 export {
+  create,
+  registerModule,
+  clearAdditionalModules,
+  registerPlaybackAdapter,
+  clearPlaybackAdapters,
   ERRORS,
   UI_EVENTS,
   VIDEO_EVENTS,
@@ -25,16 +43,22 @@ export {
   ENGINE_STATES,
   LIVE_STATES,
   VIDEO_VIEW_MODES,
+  PRELOAD_TYPES,
   Tooltip,
   playerAPIDecorator,
   DefaultModules,
+  IPlayerInstance,
+  PlayableMediaSource,
   IPlaybackAdapter,
 };
 
-export * from './core/player-factory';
-
 export default {
-  ...playerFactoryMethods,
+  create,
+  registerModule,
+  clearAdditionalModules,
+  registerPlaybackAdapter,
+  clearPlaybackAdapters,
+  ERRORS,
   UI_EVENTS,
   VIDEO_EVENTS,
   TEXT_LABELS,
@@ -43,6 +67,7 @@ export default {
   ENGINE_STATES,
   LIVE_STATES,
   VIDEO_VIEW_MODES,
+  PRELOAD_TYPES,
   Tooltip,
   playerAPIDecorator,
   DefaultModules,

@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
+import { VideoEvent, UIEvent, EngineState } from '../../../constants';
 
 import playerAPI from '../../../core/player-api-decorator';
 
@@ -61,8 +61,8 @@ export default class LoadingCover implements ILoadingCover {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.STATE_CHANGED, this._checkForWaitingState],
-        [VIDEO_EVENTS.UPLOAD_SUSPEND, this.hide],
+        [VideoEvent.STATE_CHANGED, this._checkForWaitingState],
+        [VideoEvent.UPLOAD_SUSPEND, this.hide],
       ],
       this,
     );
@@ -96,7 +96,7 @@ export default class LoadingCover implements ILoadingCover {
 
   hide() {
     if (!this.isHidden) {
-      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_HIDE);
+      this._eventEmitter.emit(UIEvent.LOADING_COVER_HIDE);
       this.view.hide();
       this.isHidden = true;
     }
@@ -105,7 +105,7 @@ export default class LoadingCover implements ILoadingCover {
   show() {
     if (this.isHidden) {
       this._bottomBlock.hideContent();
-      this._eventEmitter.emit(UI_EVENTS.LOADING_COVER_SHOW);
+      this._eventEmitter.emit(UIEvent.LOADING_COVER_SHOW);
       this.view.show();
       this.isHidden = false;
     }

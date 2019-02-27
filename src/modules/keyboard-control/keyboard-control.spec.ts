@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import { KEYCODES } from '../../utils/keyboard-interceptor';
-import { UI_EVENTS } from '../../constants';
+import { UIEvent } from '../../constants';
 
 import createPlayerTestkit from '../../testkit';
 
@@ -55,18 +55,16 @@ describe('KeyboardControl', () => {
       keyDownEvent.keyCode = KEYCODES.TAB;
       rootContainer.getElement().dispatchEvent(keyDownEvent);
 
-      expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
-      ).to.be.true;
+      expect(eventEmitter.emit.calledWith(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED))
+        .to.be.true;
     });
 
     it('should do stuff if key was TAB', () => {
       keyDownEvent.keyCode = KEYCODES.TAB;
       rootContainer.getElement().dispatchEvent(keyDownEvent);
 
-      expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
-      ).to.be.true;
+      expect(eventEmitter.emit.calledWith(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED))
+        .to.be.true;
     });
 
     it('should do stuff if key was SPACE_BAR', () => {
@@ -75,11 +73,10 @@ describe('KeyboardControl', () => {
       rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
+      expect(eventEmitter.emit.calledWith(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED))
+        .to.be.true;
       expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
-      ).to.be.true;
-      expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD),
+        eventEmitter.emit.calledWith(UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD),
       ).to.be.true;
       expect(engine.togglePlayback.called).to.be.true;
 
@@ -92,11 +89,10 @@ describe('KeyboardControl', () => {
       rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
-      expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
-      ).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD))
+      expect(eventEmitter.emit.calledWith(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED))
         .to.be.true;
+      expect(eventEmitter.emit.calledWith(UIEvent.GO_BACKWARD_WITH_KEYBOARD)).to
+        .be.true;
       expect(engine.seekBackward.calledWith(AMOUNT_TO_SKIP_SECONDS)).to.be.true;
 
       engine.seekBackward.restore();
@@ -108,11 +104,10 @@ describe('KeyboardControl', () => {
       rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
-      expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
-      ).to.be.true;
-      expect(eventEmitter.emit.calledWith(UI_EVENTS.GO_FORWARD_WITH_KEYBOARD))
+      expect(eventEmitter.emit.calledWith(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED))
         .to.be.true;
+      expect(eventEmitter.emit.calledWith(UIEvent.GO_FORWARD_WITH_KEYBOARD)).to
+        .be.true;
       expect(engine.seekForward.calledWith(AMOUNT_TO_SKIP_SECONDS)).to.be.true;
 
       engine.seekForward.restore();
@@ -124,11 +119,10 @@ describe('KeyboardControl', () => {
       rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
+      expect(eventEmitter.emit.calledWith(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED))
+        .to.be.true;
       expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
-      ).to.be.true;
-      expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD),
+        eventEmitter.emit.calledWith(UIEvent.INCREASE_VOLUME_WITH_KEYBOARD),
       ).to.be.true;
       expect(engine.increaseVolume.calledWith(AMOUNT_TO_CHANGE_VOLUME)).to.be
         .true;
@@ -142,11 +136,10 @@ describe('KeyboardControl', () => {
       rootContainer.getElement().dispatchEvent(keyDownEvent);
 
       expect(keyDownEvent.preventDefault.called).to.be.true;
+      expect(eventEmitter.emit.calledWith(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED))
+        .to.be.true;
       expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED),
-      ).to.be.true;
-      expect(
-        eventEmitter.emit.calledWith(UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD),
+        eventEmitter.emit.calledWith(UIEvent.DECREASE_VOLUME_WITH_KEYBOARD),
       ).to.be.true;
       expect(engine.decreaseVolume.calledWith(AMOUNT_TO_CHANGE_VOLUME)).to.be
         .true;

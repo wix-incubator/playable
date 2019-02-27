@@ -26,4 +26,15 @@ interface ITitle {
   destroy(): void;
 }
 
-export { ITitle, ITitleViewStyles, ITitleViewCallbacks, ITitleViewConfig };
+interface ITitleAPI {
+  setTitle?(title?: string): void;
+  setTitleClickCallback?(callback?: () => void): void;
+}
+
+export {
+  ITitleAPI,
+  ITitle,
+  ITitleViewStyles,
+  ITitleViewCallbacks,
+  ITitleViewConfig,
+};

@@ -33,4 +33,15 @@ interface ILogoControl {
   destroy(): void;
 }
 
-export { ILogoControl, ILogoViewStyles, ILogoViewConfig, ILogoViewCallbacks };
+interface ILogoAPI {
+  setLogo?(src: string): void;
+  setLogoClickCallback?(callback?: () => void): void;
+}
+
+export {
+  ILogoAPI,
+  ILogoControl,
+  ILogoViewStyles,
+  ILogoViewConfig,
+  ILogoViewCallbacks,
+};

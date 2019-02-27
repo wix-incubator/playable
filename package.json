@@ -32,6 +32,7 @@
     "src"
   ],
   "main": "dist/statics/playable.bundle.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "start": "haste-playable start",
     "lint": "npm run tslint:all",

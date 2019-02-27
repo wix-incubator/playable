@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import { VIDEO_EVENTS, EngineState } from '../../../../constants';
+import { VideoEvent, EngineState } from '../../../../constants';
 
 describe('TimeControl', () => {
   let testkit;
@@ -62,14 +62,14 @@ describe('TimeControl', () => {
     it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control, '_toggleIntervalUpdates');
       control._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {});
+      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {});
       expect(spy.called).to.be.true;
     });
 
     it('should call callback on seek', async function() {
       const spy = sinon.spy(control, '_startIntervalUpdates');
       control._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,
       });
       expect(spy.called).to.be.true;
@@ -78,7 +78,7 @@ describe('TimeControl', () => {
     it('should call callback on duration update', async function() {
       const spy = sinon.spy(control, '_updateDurationTime');
       control._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.DURATION_UPDATED);
+      await eventEmitter.emit(VideoEvent.DURATION_UPDATED);
       expect(spy.called).to.be.true;
     });
   });

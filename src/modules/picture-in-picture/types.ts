@@ -1,6 +1,8 @@
 interface IPictureInPicture {
   enterPictureInPicture(): void;
   exitPictureInPicture(): void;
+  disablePictureInPicture(): void;
+  enablePictureInPicture(): void;
   isInPictureInPicture: boolean;
   isEnabled: boolean;
   destroy(): void;
@@ -14,4 +16,12 @@ interface IPictureInPictureHelper {
   destroy(): void;
 }
 
-export { IPictureInPicture, IPictureInPictureHelper };
+interface IPictureInPictureAPI {
+  enterPictureInPicture?(): void;
+  exitPictureInPicture?(): void;
+  disablePictureInPicture?(): void;
+  enablePictureInPicture?(): void;
+  isInPictureInPicture?: boolean;
+}
+
+export { IPictureInPictureAPI, IPictureInPicture, IPictureInPictureHelper };

@@ -12,27 +12,28 @@ import {
   isAndroid,
 } from '../../utils/device-detection';
 
-import { VIDEO_EVENTS, EngineState } from '../../constants';
+import { VideoEvent, EngineState } from '../../constants';
 import { IPlaybackAdapter } from './adapters/types';
 
 import { IPlayerConfig } from '../../core/config';
 import {
+  IPlaybackEngineAPI,
   IPlaybackEngine,
   IPlaybackEngineDependencies,
   IEngineDebugInfo,
   IVideoOutput,
-  MediaSource,
+  PlayableMediaSource,
   CrossOriginValue,
 } from './types';
 import { IEventEmitter } from '../event-emitter/types';
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
-export default class Engine implements IPlaybackEngine {
+class Engine implements IPlaybackEngine {
   static moduleName = 'engine';
   static dependencies = ['eventEmitter', 'config', 'availablePlaybackAdapters'];
 
   private _eventEmitter: IEventEmitter;
-  private _currentSrc: MediaSource;
+  private _currentSrc: PlayableMediaSource;
   private _stateEngine: StateEngine;
   private _output: IVideoOutput;
   private _nativeEventsBroadcaster: NativeEventsBroadcaster;
@@ -165,7 +166,7 @@ export default class Engine implements IPlaybackEngine {
    * Read more about [video source](/video-source)
    */
   @playerAPI()
-  setSrc(src: MediaSource) {
+  setSrc(src: PlayableMediaSource) {
     if (src === this._currentSrc) {
       return;
     }
@@ -183,7 +184,7 @@ export default class Engine implements IPlaybackEngine {
    * player.getSrc(); // ['https://my-url/video.mp4']
    */
   @playerAPI()
-  getSrc(): MediaSource {
+  getSrc(): PlayableMediaSource {
     return this._currentSrc;
   }
 
@@ -191,7 +192,7 @@ export default class Engine implements IPlaybackEngine {
   reset() {
     this.pause();
     this.seekTo(0);
-    this._eventEmitter.emit(VIDEO_EVENTS.RESET);
+    this._eventEmitter.emit(VideoEvent.RESET);
   }
 
   /**
@@ -202,7 +203,7 @@ export default class Engine implements IPlaybackEngine {
   @playerAPI()
   play() {
     //Workaround for triggering functionality that requires user event pipe
-    this._eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
+    this._eventEmitter.emit(VideoEvent.PLAY_REQUEST);
 
     this._pauseRequested = false;
 
@@ -218,7 +219,7 @@ export default class Engine implements IPlaybackEngine {
             }
           })
           .catch((event: DOMException) => {
-            this._eventEmitter.emit(VIDEO_EVENTS.PLAY_ABORTED, event);
+            this._eventEmitter.emit(VideoEvent.PLAY_ABORTED, event);
             this._playPromise = null;
           });
       }
@@ -268,7 +269,7 @@ export default class Engine implements IPlaybackEngine {
   resetPlayback() {
     this.pause();
     this.seekTo(0);
-    this._eventEmitter.emit(VIDEO_EVENTS.RESET);
+    this._eventEmitter.emit(VideoEvent.RESET);
   }
 
   /**
@@ -681,3 +682,6 @@ export default class Engine implements IPlaybackEngine {
     this._output.destroy();
   }
 }
+
+export { IPlaybackEngineAPI };
+export default Engine;

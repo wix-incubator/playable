@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import { UI_EVENTS } from '../../../../constants';
+import { UIEvent } from '../../../../constants';
 class FullScreenManagerMock {
   enterFullScreen = function() {};
   exitFullScreen = function() {};
@@ -40,7 +40,7 @@ describe('FullScreenControl', () => {
     it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control.view, 'setFullScreenState');
       control._bindEvents();
-      await eventEmitter.emit(UI_EVENTS.FULL_SCREEN_STATE_CHANGED);
+      await eventEmitter.emit(UIEvent.FULL_SCREEN_STATE_CHANGED);
       expect(spy.called).to.be.true;
     });
   });

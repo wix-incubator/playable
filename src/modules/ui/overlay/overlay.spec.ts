@@ -5,7 +5,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
 
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
+import { VideoEvent, UIEvent, EngineState } from '../../../constants';
 
 describe('Overlay', () => {
   let testkit: any;
@@ -46,8 +46,7 @@ describe('Overlay', () => {
       overlay._playVideo();
 
       expect(callback.called).to.be.true;
-      expect(eventEmitterSpy.calledWith(UI_EVENTS.PLAY_OVERLAY_CLICK)).to.be
-        .true;
+      expect(eventEmitterSpy.calledWith(UIEvent.PLAY_OVERLAY_CLICK)).to.be.true;
 
       overlay._engine.play.restore();
     });
@@ -65,7 +64,7 @@ describe('Overlay', () => {
 
       overlay._bindEvents();
 
-      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.PLAY_REQUESTED,
       });
 
@@ -78,7 +77,7 @@ describe('Overlay', () => {
       const showSpy = sinon.spy(overlay, '_showContent');
       overlay._bindEvents();
 
-      await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.ENDED,
       });
 

@@ -1,4 +1,4 @@
-import { TEXT_LABELS } from '../../../../constants';
+import { TextLabel } from '../../../../constants';
 
 import { ITooltipReference, ITooltipService } from '../../core/tooltip/types';
 import {
@@ -83,8 +83,8 @@ class VolumeView extends View<IVolumeViewStyles>
         styles: this.styleNames,
         themeStyles: this.themeStyles,
         texts: {
-          muteLabel: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
-          volumeLabel: this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_LABEL),
+          muteLabel: this._textMap.get(TextLabel.MUTE_CONTROL_LABEL),
+          volumeLabel: this._textMap.get(TextLabel.VOLUME_CONTROL_LABEL),
         },
       }),
     );
@@ -100,7 +100,7 @@ class VolumeView extends View<IVolumeViewStyles>
     this._muteButtonTooltipReference = this._tooltipService.createReference(
       this._$muteButton,
       {
-        text: this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
+        text: this._textMap.get(TextLabel.MUTE_CONTROL_TOOLTIP),
       },
     );
   }
@@ -191,7 +191,7 @@ class VolumeView extends View<IVolumeViewStyles>
     this._$volumeContainer.setAttribute('value', String(percent));
     this._$volumeContainer.setAttribute(
       'aria-valuetext',
-      this._textMap.get(TEXT_LABELS.VOLUME_CONTROL_VALUE, { percent }),
+      this._textMap.get(TextLabel.VOLUME_CONTROL_VALUE, { percent }),
     );
     this._$volumeContainer.setAttribute('aria-valuenow', String(percent));
 
@@ -237,13 +237,13 @@ class VolumeView extends View<IVolumeViewStyles>
     this._$muteButton.setAttribute(
       'aria-label',
       isMuted
-        ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_LABEL)
-        : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_LABEL),
+        ? this._textMap.get(TextLabel.UNMUTE_CONTROL_LABEL)
+        : this._textMap.get(TextLabel.MUTE_CONTROL_LABEL),
     );
     this._muteButtonTooltipReference.setText(
       isMuted
-        ? this._textMap.get(TEXT_LABELS.UNMUTE_CONTROL_TOOLTIP)
-        : this._textMap.get(TEXT_LABELS.MUTE_CONTROL_TOOLTIP),
+        ? this._textMap.get(TextLabel.UNMUTE_CONTROL_TOOLTIP)
+        : this._textMap.get(TextLabel.MUTE_CONTROL_TOOLTIP),
     );
 
     this._$rootElement.setAttribute(DATA_IS_MUTED, String(isMuted));

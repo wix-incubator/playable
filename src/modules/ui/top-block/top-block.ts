@@ -2,7 +2,12 @@ import playerAPI from '../../../core/player-api-decorator';
 
 import { ILiveIndicator } from '../live-indicator/types';
 import { ITitle } from '../title/types';
-import { ITopBlock, ITopBlockViewConfig, ITopBlockViewElements } from './types';
+import {
+  ITopBlockAPI,
+  ITopBlock,
+  ITopBlockViewConfig,
+  ITopBlockViewElements,
+} from './types';
 
 import View from './top-block.view';
 
@@ -11,7 +16,7 @@ interface IDependencies {
   liveIndicator: ILiveIndicator;
 }
 
-export default class TopBlock implements ITopBlock {
+class TopBlock implements ITopBlock {
   static moduleName = 'topBlock';
   static View = View;
   static dependencies = ['title', 'liveIndicator'];
@@ -112,3 +117,6 @@ export default class TopBlock implements ITopBlock {
     this.view.destroy();
   }
 }
+
+export { ITopBlockAPI };
+export default TopBlock;

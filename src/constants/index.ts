@@ -1,23 +1,31 @@
 import {
-  MediaStreamTypes,
+  MediaStreamType,
   MimeToStreamTypeMap,
   MediaStreamDeliveryPriority,
 } from './media-stream';
-import UI_EVENTS from './events/ui';
-import VIDEO_EVENTS from './events/video';
-import ERRORS from './errors';
-import TEXT_LABELS from './text-labels';
+import UIEvent from './events/ui';
+import VideoEvent from './events/video';
+import Error from './errors';
+import TextLabel from './text-labels';
 import EngineState from './engine-state';
 import LiveState from './live-state';
 
 export {
-  MediaStreamTypes,
+  MediaStreamType,
+  MediaStreamType as MEDIA_STREAM_TYPES,
   MimeToStreamTypeMap,
   MediaStreamDeliveryPriority,
-  TEXT_LABELS,
-  UI_EVENTS,
-  VIDEO_EVENTS,
-  ERRORS,
+  MediaStreamDeliveryPriority as MEDIA_STREAM_DELIVERY_PRIORITY,
+  TextLabel,
+  TextLabel as TEXT_LABELS,
+  UIEvent,
+  UIEvent as UI_EVENTS,
+  VideoEvent,
+  VideoEvent as VIDEO_EVENTS,
+  Error,
+  Error as ERRORS,
   EngineState,
+  EngineState as ENGINE_STATES,
   LiveState,
+  LiveState as LIVE_STATES,
 };

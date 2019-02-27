@@ -1,4 +1,4 @@
-import { UI_EVENTS, EngineState } from '../../../constants';
+import { UIEvent, EngineState } from '../../../constants';
 
 import View from './interaction-indicator.view';
 
@@ -56,15 +56,15 @@ export default class InteractionIndicator implements IInteractionIndicator {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
         [
-          UI_EVENTS.TOGGLE_PLAYBACK_WITH_KEYBOARD,
+          UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD,
           this._showPlaybackChangeIndicator,
         ],
-        [UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD, this.showRewind],
-        [UI_EVENTS.GO_FORWARD_WITH_KEYBOARD, this.showForward],
-        [UI_EVENTS.INCREASE_VOLUME_WITH_KEYBOARD, this.showIncreaseVolume],
-        [UI_EVENTS.DECREASE_VOLUME_WITH_KEYBOARD, this.showDecreaseVolume],
-        [UI_EVENTS.MUTE_WITH_KEYBOARD, this.showMute],
-        [UI_EVENTS.UNMUTE_WITH_KEYBOARD, this.showIncreaseVolume],
+        [UIEvent.GO_BACKWARD_WITH_KEYBOARD, this.showRewind],
+        [UIEvent.GO_FORWARD_WITH_KEYBOARD, this.showForward],
+        [UIEvent.INCREASE_VOLUME_WITH_KEYBOARD, this.showIncreaseVolume],
+        [UIEvent.DECREASE_VOLUME_WITH_KEYBOARD, this.showDecreaseVolume],
+        [UIEvent.MUTE_WITH_KEYBOARD, this.showMute],
+        [UIEvent.UNMUTE_WITH_KEYBOARD, this.showIncreaseVolume],
       ],
       this,
     );
@@ -100,7 +100,7 @@ export default class InteractionIndicator implements IInteractionIndicator {
 
   hideIcons() {
     this.view.deactivateIcon();
-    this._eventEmitter.emit(UI_EVENTS.HIDE_INTERACTION_INDICATOR);
+    this._eventEmitter.emit(UIEvent.HIDE_INTERACTION_INDICATOR);
   }
 
   show() {

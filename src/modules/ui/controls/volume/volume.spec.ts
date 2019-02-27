@@ -6,7 +6,7 @@ import createPlayerTestkit from '../../../../testkit';
 
 import VolumeControl from './volume';
 
-import { VIDEO_EVENTS } from '../../../../constants';
+import { VideoEvent } from '../../../../constants';
 
 describe('VolumeControl', () => {
   let testkit;
@@ -65,7 +65,7 @@ describe('VolumeControl', () => {
     it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control, '_updateSoundState');
       control._bindEvents();
-      await eventEmitter.emit(VIDEO_EVENTS.SOUND_STATE_CHANGED);
+      await eventEmitter.emit(VideoEvent.SOUND_STATE_CHANGED);
       expect(spy.called).to.be.true;
     });
   });

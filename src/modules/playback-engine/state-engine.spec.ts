@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { EventEmitter } from 'eventemitter3';
 
-import { VIDEO_EVENTS, EngineState } from '../../constants';
+import { VideoEvent, EngineState } from '../../constants';
 import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE } from './state-engine';
 
 import { setProperty, resetProperty } from '../../testkit';
@@ -82,7 +82,7 @@ describe('NativeEventsBroadcaster', () => {
     engine._currentState = EngineState.LOAD_STARTED;
     engine.setState(EngineState.READY_TO_PLAY);
     expect(
-      eventEmitter.emit.calledWith(VIDEO_EVENTS.STATE_CHANGED, {
+      eventEmitter.emit.calledWith(VideoEvent.STATE_CHANGED, {
         prevState: EngineState.LOAD_STARTED,
         nextState: EngineState.READY_TO_PLAY,
       }),

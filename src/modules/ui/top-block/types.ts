@@ -29,13 +29,26 @@ interface ITopBlock {
   show(): void;
   hide(): void;
 
+  showTitle(): void;
+  hideTitle(): void;
+  showLiveIndicator(): void;
+  hideLiveIndicator(): void;
+
   showContent(): void;
   hideContent(): void;
 
   destroy(): void;
 }
 
+interface ITopBlockAPI {
+  showTitle?(): void;
+  hideTitle?(): void;
+  showLiveIndicator?(): void;
+  hideLiveIndicator?(): void;
+}
+
 export {
+  ITopBlockAPI,
   ITopBlock,
   ITopBlockViewStyles,
   ITopBlockViewElements,

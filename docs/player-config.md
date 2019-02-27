@@ -45,7 +45,7 @@ const player = Playable.create(config, theme);
 
 ### Video source config
 
-`config.src: MediaSource` A string or array with source of the video. For more information see [this page](/video-source)
+`config.src:PlayableMediaSource` A string or array with source of the video. For more information see [this page](/video-source)
 
 ### UI related config
 

@@ -1,3 +1,5 @@
+import { IStyles } from '../types';
+
 type ICSSRuleFunction = (data: any) => string;
 
 type ICSSRule = {
@@ -13,4 +15,22 @@ type IThemeConfig = {
   progressColor?: string;
 };
 
-export { ICSSRuleFunction, ICSSRule, ICSSRules, IThemeConfig };
+interface IThemeService {
+  updateTheme(config: IThemeConfig): void;
+  registerModuleTheme(module: object, rules: ICSSRules): void;
+  get(module: object): IStyles;
+  destroy(): void;
+}
+
+interface IThemeAPI {
+  updateTheme?: (themeConfig: IThemeConfig) => void;
+}
+
+export {
+  IThemeAPI,
+  IThemeService,
+  ICSSRuleFunction,
+  ICSSRule,
+  ICSSRules,
+  IThemeConfig,
+};

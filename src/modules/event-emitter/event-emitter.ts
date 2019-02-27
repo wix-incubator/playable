@@ -2,7 +2,7 @@ import { EventEmitter, ListenerFn } from 'eventemitter3';
 
 import playerAPI from '../../core/player-api-decorator';
 
-import { IEventEmitter, IEventMap } from './types';
+import { IEventEmitter, IEventMap, IEventEmitterAPI } from './types';
 
 const isPromiseAvailable = (function() {
   const globalNS: any = (function() {
@@ -18,8 +18,7 @@ const isPromiseAvailable = (function() {
   return globalNS['Promise'] ? true : false;
 })();
 
-export default class EventEmitterModule extends EventEmitter
-  implements IEventEmitter {
+class EventEmitterModule extends EventEmitter implements IEventEmitter {
   static moduleName = 'eventEmitter';
 
   /**
@@ -83,10 +82,10 @@ export default class EventEmitterModule extends EventEmitter
    * @example
    *
    * this._unbindEvents = this._eventEmitter.bindEvents([
-   *     [VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
-   *     [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
-   *     [VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator],
-   *     [VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators],
+   *     [Playable.VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
+   *     [Playable.VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
+   *     [Playable.VIDEO_EVENTS.CHUNK_LOADED, this._updateBufferIndicator],
+   *     [Playable.VIDEO_EVENTS.DURATION_UPDATED, this._updateAllIndicators],
    *   ],
    *   this,
    * );
@@ -135,3 +134,6 @@ export default class EventEmitterModule extends EventEmitter
     this.removeAllListeners();
   }
 }
+
+export { IEventEmitterAPI };
+export default EventEmitterModule;

@@ -43,6 +43,8 @@ interface IProgressControl {
   addTimeIndicator(time: number): void;
   addTimeIndicators(times: number[]): void;
   clearTimeIndicators(): void;
+  showPreviewOnProgressDrag(): void;
+  seekOnProgressDrag(): void;
 
   show(): void;
   hide(): void;
@@ -50,7 +52,16 @@ interface IProgressControl {
   destroy(): void;
 }
 
+interface IProgressControlAPI {
+  addTimeIndicator?(time: number): void;
+  addTimeIndicators?(times: number[]): void;
+  clearTimeIndicators?(): void;
+  showPreviewOnProgressDrag?(): void;
+  seekOnProgressDrag?(): void;
+}
+
 export {
+  IProgressControlAPI,
   IProgressControl,
   IProgressViewStyles,
   IProgressViewCallbacks,

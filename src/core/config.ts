@@ -2,13 +2,13 @@ import { isIOS, isAndroid } from '../utils/device-detection';
 
 import { ITextMapConfig } from '../modules/text-map/types';
 import {
-  PreloadTypes,
-  MediaSource,
+  PreloadType,
+  PlayableMediaSource,
   CrossOriginValue,
 } from '../modules/playback-engine/types';
 
 export interface IPlayerConfig {
-  src?: MediaSource;
+  src?: PlayableMediaSource;
   poster?: string;
   title?: string;
 
@@ -18,7 +18,7 @@ export interface IPlayerConfig {
 
   videoElement?: HTMLVideoElement;
 
-  preload?: PreloadTypes;
+  preload?: PreloadType;
   autoplay?: boolean;
   loop?: boolean;
   muted?: boolean;

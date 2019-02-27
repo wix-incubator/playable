@@ -20,8 +20,8 @@ type IRootContainerViewConfig = {
 
 interface IRootContainer {
   getElement(): HTMLElement;
-  appendComponentElement(element: Element): void;
-  attachToElement(element: Element): void;
+  appendComponentElement(element: HTMLElement): void;
+  attachToElement(element: HTMLElement): void;
   setWidth(width: number): void;
   getWidth(): number;
   setHeight(height: number): void;
@@ -32,7 +32,20 @@ interface IRootContainer {
   destroy(): void;
 }
 
+interface IRootContainerAPI {
+  getElement?(): HTMLElement;
+  attachToElement?(element: HTMLElement): void;
+  setWidth?(width: number): void;
+  getWidth?(): number;
+  setHeight?(height: number): void;
+  getHeight?(): number;
+  setFillAllSpace?(flag: boolean): void;
+  hide?(): void;
+  show?(): void;
+}
+
 export {
+  IRootContainerAPI,
   IRootContainer,
   IRootContainerViewStyles,
   IRootContainerViewCallbacks,

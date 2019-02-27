@@ -1,10 +1,10 @@
 import View from './time.view';
 
 import {
-  VIDEO_EVENTS,
+  VideoEvent,
   EngineState,
   LiveState,
-  UI_EVENTS,
+  UIEvent,
 } from '../../../../constants';
 
 import { IEventEmitter } from '../../../event-emitter/types';
@@ -62,10 +62,10 @@ export default class TimeControl implements ITimeControl {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [UI_EVENTS.PROGRESS_USER_PREVIEWING_FRAME, this._updateTimeFromPreview],
-        [VIDEO_EVENTS.STATE_CHANGED, this._toggleIntervalUpdates],
-        [VIDEO_EVENTS.DURATION_UPDATED, this._updateDurationTime],
-        [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processLiveStateChange],
+        [UIEvent.PROGRESS_USER_PREVIEWING_FRAME, this._updateTimeFromPreview],
+        [VideoEvent.STATE_CHANGED, this._toggleIntervalUpdates],
+        [VideoEvent.DURATION_UPDATED, this._updateDurationTime],
+        [VideoEvent.LIVE_STATE_CHANGED, this._processLiveStateChange],
       ],
       this,
     );

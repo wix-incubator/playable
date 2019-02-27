@@ -1,12 +1,12 @@
 import { IEventEmitter } from '../event-emitter/types';
 
-import { VIDEO_EVENTS, ERRORS } from '../../constants';
+import { VideoEvent, Error } from '../../constants';
 
 import { resolveAdapters } from './utils/adapters-resolver';
 import { getStreamType } from './utils/detect-stream-type';
 
 import { IPlaybackAdapter, IPlaybackAdapterClass } from './adapters/types';
-import { MediaSource, IMediaSource, IVideoOutput } from './types';
+import { PlayableMediaSource, IPlayableSource, IVideoOutput } from './types';
 
 export default class AdaptersStrategy {
   private _output: IVideoOutput;
@@ -34,14 +34,14 @@ export default class AdaptersStrategy {
   }
 
   private _autoDetectSourceTypes(
-    mediaSources: Array<IMediaSource | string>,
-  ): IMediaSource[] {
-    return mediaSources.map((mediaSource: IMediaSource | string) => {
+    mediaSources: Array<IPlayableSource | string>,
+  ): IPlayableSource[] {
+    return mediaSources.map((mediaSource: IPlayableSource | string) => {
       if (typeof mediaSource === 'string') {
         const type = getStreamType(mediaSource);
         if (!type) {
-          this._eventEmitter.emit(VIDEO_EVENTS.ERROR, {
-            errorType: ERRORS.SRC_PARSE,
+          this._eventEmitter.emit(VideoEvent.ERROR, {
+            errorType: Error.SRC_PARSE,
             streamSrc: mediaSource,
           });
         }
@@ -52,7 +52,7 @@ export default class AdaptersStrategy {
     });
   }
 
-  private _resolvePlayableAdapters(src: MediaSource) {
+  private _resolvePlayableAdapters(src: PlayableMediaSource) {
     if (!src) {
       this._playableAdapters = [];
       return;
@@ -86,7 +86,7 @@ export default class AdaptersStrategy {
     return this._attachedAdapter;
   }
 
-  connectAdapter(src: MediaSource) {
+  connectAdapter(src: PlayableMediaSource) {
     this._detachCurrentAdapter();
     this._resolvePlayableAdapters(src);
     this._connectAdapterToVideo();

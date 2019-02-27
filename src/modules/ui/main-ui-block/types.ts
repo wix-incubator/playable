@@ -27,7 +27,12 @@ interface IMainUIBlock {
   destroy(): void;
 }
 
+interface IMainUIBlockAPI {
+  setMainUIShouldAlwaysShow?(flag: boolean): void;
+}
+
 export {
+  IMainUIBlockAPI,
   IMainUIBlock,
   IMainUIBlockViewStyles,
   IMainUIBlockViewElements,

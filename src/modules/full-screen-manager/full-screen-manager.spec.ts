@@ -10,7 +10,7 @@ import IOSFullScreen from './ios';
 
 import { setProperty, resetProperty } from '../../testkit';
 
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../constants';
+import { VideoEvent, UIEvent, EngineState } from '../../constants';
 
 declare const navigator: any;
 
@@ -152,7 +152,7 @@ describe('FullScreenManager', () => {
       fullScreenManager._onChange();
       expect(
         spy.calledWith(
-          UI_EVENTS.FULL_SCREEN_STATE_CHANGED,
+          UIEvent.FULL_SCREEN_STATE_CHANGED,
           mockedFullscreenHelper.isInFullScreen,
         ),
       ).to.be.true;
@@ -176,11 +176,11 @@ describe('FullScreenManager', () => {
     it('should enter full screen if proper config passed', async function() {
       const spy = sinon.spy(fullScreenManager, 'enterFullScreen');
 
-      await eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
+      await eventEmitter.emit(VideoEvent.PLAY_REQUEST);
 
       fullScreenManager._enterFullScreenOnPlay = true;
       mockedFullscreenHelper.isInFullScreen = false;
-      await eventEmitter.emit(VIDEO_EVENTS.PLAY_REQUEST);
+      await eventEmitter.emit(VideoEvent.PLAY_REQUEST);
       expect(spy.calledOnce).to.be.true;
 
       fullScreenManager.enterFullScreen.restore();
@@ -192,14 +192,14 @@ describe('FullScreenManager', () => {
       it('should exit full screen if config passed', async function() {
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
-        await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.ENDED,
         });
 
         fullScreenManager._exitFullScreenOnEnd = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
-        await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.ENDED,
         });
         expect(spy.calledOnce).to.be.true;
@@ -212,14 +212,14 @@ describe('FullScreenManager', () => {
       it('should exit full screen if config passed', async function() {
         const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
 
-        await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.PAUSED,
         });
 
         fullScreenManager._exitFullScreenOnPause = true;
         mockedFullscreenHelper.isInFullScreen = true;
 
-        await eventEmitter.emit(VIDEO_EVENTS.STATE_CHANGED, {
+        await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.PAUSED,
         });
         expect(spy.calledOnce).to.be.true;

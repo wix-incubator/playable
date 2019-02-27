@@ -1,6 +1,6 @@
 import playerAPI from '../../../../core/player-api-decorator';
 
-import { UI_EVENTS } from '../../../../constants';
+import { UIEvent } from '../../../../constants';
 
 import KeyboardInterceptor, {
   KEYCODES,
@@ -10,11 +10,15 @@ import View from './download.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip/types';
-import { IDownloadButton, IDownloadViewConfig } from './types';
+import {
+  IDownloadButtonAPI,
+  IDownloadButton,
+  IDownloadViewConfig,
+} from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IThemeService } from '../../core/theme';
 
-export default class DownloadButton implements IDownloadButton {
+class DownloadButton implements IDownloadButton {
   static moduleName = 'downloadButton';
   static View = View;
   static dependencies = ['eventEmitter', 'textMap', 'tooltipService', 'theme'];
@@ -77,12 +81,12 @@ export default class DownloadButton implements IDownloadButton {
     this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: (e: Event) => {
         e.stopPropagation();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._triggerCallback();
       },
       [KEYCODES.ENTER]: (e: Event) => {
         e.stopPropagation();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._triggerCallback();
       },
     });
@@ -118,3 +122,6 @@ export default class DownloadButton implements IDownloadButton {
     this.view.destroy();
   }
 }
+
+export { IDownloadButtonAPI };
+export default DownloadButton;

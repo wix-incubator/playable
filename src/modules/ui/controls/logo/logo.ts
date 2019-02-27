@@ -4,16 +4,16 @@ import KeyboardInterceptor, {
   KEYCODES,
 } from '../../../../utils/keyboard-interceptor';
 
-import { UI_EVENTS } from '../../../../constants';
+import { UIEvent } from '../../../../constants';
 import View from './logo.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip/types';
-import { ILogoControl, ILogoViewConfig } from './types';
+import { ILogoAPI, ILogoControl, ILogoViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IThemeService } from '../../core/theme';
 
-export default class Logo implements ILogoControl {
+class Logo implements ILogoControl {
   static moduleName = 'logo';
   static View = View;
 
@@ -78,12 +78,12 @@ export default class Logo implements ILogoControl {
     this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._triggerCallback();
       },
       [KEYCODES.ENTER]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._triggerCallback();
       },
     });
@@ -154,3 +154,6 @@ export default class Logo implements ILogoControl {
     this.view.destroy();
   }
 }
+
+export { ILogoAPI };
+export default Logo;

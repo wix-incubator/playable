@@ -1,16 +1,16 @@
-import { VIDEO_EVENTS, UI_EVENTS, EngineState } from '../../../constants';
+import { VideoEvent, UIEvent, EngineState } from '../../../constants';
 
 import playerAPI from '../../../core/player-api-decorator';
 
 import View from './overlay.view';
-import { IOverlay, IOverlayViewConfig } from './types';
+import { IOverlayAPI, IOverlay, IOverlayViewConfig } from './types';
 import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IThemeService } from '../core/theme';
 import { IRootContainer } from '../../root-container/types';
 import { IPlayerConfig } from '../../../core/config';
 
-export default class Overlay implements IOverlay {
+class Overlay implements IOverlay {
   static moduleName = 'overlay';
   static View = View;
   static dependencies = [
@@ -76,8 +76,8 @@ export default class Overlay implements IOverlay {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.STATE_CHANGED, this._updatePlayingState],
-        [VIDEO_EVENTS.RESET, this._tryShowContent],
+        [VideoEvent.STATE_CHANGED, this._updatePlayingState],
+        [VideoEvent.RESET, this._tryShowContent],
       ],
       this,
     );
@@ -97,7 +97,7 @@ export default class Overlay implements IOverlay {
   private _playVideo() {
     this._engine.play();
 
-    this._eventEmitter.emit(UI_EVENTS.PLAY_OVERLAY_CLICK);
+    this._eventEmitter.emit(UIEvent.PLAY_OVERLAY_CLICK);
   }
 
   private _tryShowContent() {
@@ -153,3 +153,6 @@ export default class Overlay implements IOverlay {
     this.view.destroy();
   }
 }
+
+export { IOverlayAPI };
+export default Overlay;

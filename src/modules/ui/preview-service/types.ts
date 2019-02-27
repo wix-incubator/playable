@@ -26,7 +26,7 @@ interface ITotalFramesInSprite {
 
 interface IFrameSize {
   width: number;
-  heigh: number;
+  height: number;
 }
 
 interface INormalizedFramesQuality {
@@ -43,7 +43,12 @@ interface IPreviewService {
   destroy(): void;
 }
 
+interface IPreviewAPI {
+  setFramesMap?(map: IFramesData): void;
+}
+
 export {
+  IPreviewAPI,
   IPreviewService,
   IFramesData,
   IFramesQuality,

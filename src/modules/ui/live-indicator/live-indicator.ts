@@ -1,4 +1,4 @@
-import { VIDEO_EVENTS, UI_EVENTS, LiveState } from '../../../constants';
+import { VideoEvent, UIEvent, LiveState } from '../../../constants';
 
 import KeyboardInterceptor, {
   KEYCODES,
@@ -64,12 +64,12 @@ export default class LiveIndicator implements ILiveIndicator {
     this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._syncWithLive();
       },
       [KEYCODES.ENTER]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._syncWithLive();
       },
     });
@@ -108,15 +108,15 @@ export default class LiveIndicator implements ILiveIndicator {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.LIVE_STATE_CHANGED, this._processStateChange],
+        [VideoEvent.LIVE_STATE_CHANGED, this._processStateChange],
         [
-          UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_ENTER,
+          UIEvent.PROGRESS_SYNC_BUTTON_MOUSE_ENTER,
           () => {
             this.view.toggleActive(true);
           },
         ],
         [
-          UI_EVENTS.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE,
+          UIEvent.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE,
           () => {
             // NOTE: restore state before mouse enter
             this.view.toggleActive(this._isActive);

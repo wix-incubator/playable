@@ -1,17 +1,12 @@
-import {
-  EngineState,
-  VIDEO_EVENTS,
-  LiveState,
-  UI_EVENTS,
-} from '../../constants';
+import { EngineState, VideoEvent, LiveState, UIEvent } from '../../constants';
 
 import { IEventEmitter, IEventMap } from '../event-emitter/types';
 import { ILiveStateEngineDependencies, IPlaybackEngine } from './types';
 
 const SEEK_BY_UI_EVENTS = [
-  UI_EVENTS.GO_FORWARD_WITH_KEYBOARD,
-  UI_EVENTS.GO_BACKWARD_WITH_KEYBOARD,
-  UI_EVENTS.PROGRESS_CHANGE,
+  UIEvent.GO_FORWARD_WITH_KEYBOARD,
+  UIEvent.GO_BACKWARD_WITH_KEYBOARD,
+  UIEvent.PROGRESS_CHANGE,
 ];
 
 class LiveStateEngine {
@@ -43,11 +38,11 @@ class LiveStateEngine {
   private _bindEvents() {
     this._unbindEvents = this._eventEmitter.bindEvents(
       [
-        [VIDEO_EVENTS.STATE_CHANGED, this._processStateChange],
+        [VideoEvent.STATE_CHANGED, this._processStateChange],
         ...SEEK_BY_UI_EVENTS.map(
           eventName => [eventName, this._processSeekByUI] as IEventMap,
         ),
-        [VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED, this._onDynamicContentEnded],
+        [VideoEvent.DYNAMIC_CONTENT_ENDED, this._onDynamicContentEnded],
       ],
       this,
     );
@@ -126,7 +121,7 @@ class LiveStateEngine {
       const nextState = state;
 
       this._state = state;
-      this._eventEmitter.emit(VIDEO_EVENTS.LIVE_STATE_CHANGED, {
+      this._eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
         prevState,
         nextState,
       });

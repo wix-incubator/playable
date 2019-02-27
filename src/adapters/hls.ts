@@ -8,15 +8,15 @@ import {
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
 import { isDesktopSafari } from '../utils/device-detection';
 import {
-  ERRORS,
-  MEDIA_STREAM_TYPES,
-  MEDIA_STREAM_DELIVERY_PRIORITY,
-  VIDEO_EVENTS,
-  IPlaybackAdapter,
-} from '../index';
+  Error as PlayableError,
+  MediaStreamType,
+  MediaStreamDeliveryPriority,
+  VideoEvent,
+} from '../constants';
+import { IPlaybackAdapter } from '../modules/playback-engine/adapters/types';
 import { IEventEmitter } from '../modules/event-emitter/types';
 import {
-  IParsedMediaSource,
+  IParsedPlayableSource,
   IVideoOutput,
 } from '../modules/playback-engine/types';
 
@@ -38,7 +38,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   private eventEmitter: IEventEmitter;
   private hls: HlsJs;
   private output: IVideoOutput;
-  private mediaStream: IParsedMediaSource;
+  private mediaStream: IParsedPlayableSource;
 
   private _mediaRecoverTimeout: number;
   private _networkRecoverTimeout: number;
@@ -112,8 +112,8 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
   get mediaStreamDeliveryPriority() {
     return isDesktopSafari()
-      ? MEDIA_STREAM_DELIVERY_PRIORITY.FORCED
-      : MEDIA_STREAM_DELIVERY_PRIORITY.ADAPTIVE_VIA_MSE;
+      ? MediaStreamDeliveryPriority.FORCED
+      : MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
   }
 
   get debugInfo() {
@@ -159,11 +159,11 @@ export default class HlsAdapter implements IPlaybackAdapter {
     };
   }
 
-  canPlay(mediaType: MEDIA_STREAM_TYPES) {
-    return mediaType === MEDIA_STREAM_TYPES.HLS;
+  canPlay(mediaType: MediaStreamType) {
+    return mediaType === MediaStreamType.HLS;
   }
 
-  setMediaStreams(mediaStreams: IParsedMediaSource[]) {
+  setMediaStreams(mediaStreams: IParsedPlayableSource[]) {
     if (mediaStreams.length === 1) {
       this.mediaStream = mediaStreams[0];
     } else {
@@ -176,9 +176,9 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   private _logError(error: string, errorEvent: any) {
-    this.eventEmitter.emit(VIDEO_EVENTS.ERROR, {
+    this.eventEmitter.emit(VideoEvent.ERROR, {
       errorType: error,
-      streamType: MEDIA_STREAM_TYPES.HLS,
+      streamType: MediaStreamType.HLS,
       streamProvider: 'hls.js',
       errorInstance: errorEvent,
     });
@@ -199,34 +199,34 @@ export default class HlsAdapter implements IPlaybackAdapter {
     if (data.type === ErrorTypes.NETWORK_ERROR) {
       switch (data.details) {
         case ErrorDetails.MANIFEST_LOAD_ERROR:
-          this._logError(ERRORS.MANIFEST_LOAD, data);
+          this._logError(PlayableError.MANIFEST_LOAD, data);
           break;
         case ErrorDetails.MANIFEST_LOAD_TIMEOUT:
-          this._logError(ERRORS.MANIFEST_LOAD, data);
+          this._logError(PlayableError.MANIFEST_LOAD, data);
           break;
         case ErrorDetails.MANIFEST_PARSING_ERROR:
-          this._logError(ERRORS.MANIFEST_PARSE, data);
+          this._logError(PlayableError.MANIFEST_PARSE, data);
           break;
         case ErrorDetails.LEVEL_LOAD_ERROR:
-          this._logError(ERRORS.LEVEL_LOAD, data);
+          this._logError(PlayableError.LEVEL_LOAD, data);
           break;
         case ErrorDetails.LEVEL_LOAD_TIMEOUT:
-          this._logError(ERRORS.LEVEL_LOAD, data);
+          this._logError(PlayableError.LEVEL_LOAD, data);
           break;
         case ErrorDetails.AUDIO_TRACK_LOAD_ERROR:
-          this._logError(ERRORS.CONTENT_LOAD, data);
+          this._logError(PlayableError.CONTENT_LOAD, data);
           break;
         case ErrorDetails.AUDIO_TRACK_LOAD_TIMEOUT:
-          this._logError(ERRORS.CONTENT_LOAD, data);
+          this._logError(PlayableError.CONTENT_LOAD, data);
           break;
         case ErrorDetails.FRAG_LOAD_ERROR:
-          this._logError(ERRORS.CONTENT_LOAD, data);
+          this._logError(PlayableError.CONTENT_LOAD, data);
           break;
         case ErrorDetails.FRAG_LOAD_TIMEOUT:
-          this._logError(ERRORS.CONTENT_LOAD, data);
+          this._logError(PlayableError.CONTENT_LOAD, data);
           break;
         default:
-          this._logError(ERRORS.UNKNOWN, data);
+          this._logError(PlayableError.UNKNOWN, data);
           break;
       }
       this._tryRecoverNetworkError();
@@ -240,17 +240,17 @@ export default class HlsAdapter implements IPlaybackAdapter {
 
       switch (data.details) {
         case ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR:
-          this._logError(ERRORS.MANIFEST_INCOMPATIBLE, data);
+          this._logError(PlayableError.MANIFEST_INCOMPATIBLE, data);
           break;
         case ErrorDetails.FRAG_PARSING_ERROR:
-          this._logError(ERRORS.CONTENT_PARSE, data);
+          this._logError(PlayableError.CONTENT_PARSE, data);
           break;
         default:
-          this._logError(ERRORS.MEDIA, data);
+          this._logError(PlayableError.MEDIA, data);
           break;
       }
     } else {
-      this._logError(ERRORS.UNKNOWN, data);
+      this._logError(PlayableError.UNKNOWN, data);
     }
   }
 
@@ -291,7 +291,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     if (this._isDynamicContent) {
       this._isDynamicContentEnded = true;
 
-      this.eventEmitter.emit(VIDEO_EVENTS.DYNAMIC_CONTENT_ENDED);
+      this.eventEmitter.emit(VideoEvent.DYNAMIC_CONTENT_ENDED);
     }
   }
 
