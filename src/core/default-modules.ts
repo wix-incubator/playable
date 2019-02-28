@@ -48,6 +48,10 @@ import DownloadButton, {
   IDownloadButtonAPI,
 } from '../modules/ui/controls/download/download';
 
+import PictureInPictureManager, {
+  IPictureInPictureAPI,
+} from '../modules/picture-in-picture/picture-in-picture';
+
 import PreviewService, {
   IPreviewAPI,
 } from '../modules/ui/preview-service/preview-service';
@@ -63,6 +67,7 @@ export type IPlayer = IRootContainerAPI &
   IPlaybackEngineAPI &
   IThemeAPI &
   IFullScreenAPI &
+  IPictureInPictureAPI &
   IScreenAPI &
   IOverlayAPI &
   IMainUIBlockAPI &
@@ -82,6 +87,7 @@ export const modules: { [id: string]: any } = {
   TextMap,
 
   FullScreenManager,
+  PictureInPictureManager,
 
   LiveStateEngine,
   KeyboardControls,
