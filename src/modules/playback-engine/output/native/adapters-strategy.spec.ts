@@ -3,23 +3,26 @@ import 'jsdom-global/register';
 import { expect } from 'chai';
 
 import * as sinon from 'sinon';
-import EventEmitter from '../../modules/event-emitter/event-emitter';
+import EventEmitter from '../../../../modules/event-emitter/event-emitter';
 
 import getNativeAdapterCreator from './adapters/native';
 import AdapterStrategy from './adapters-strategy';
-import { MediaStreamType, MediaStreamDeliveryPriority } from '../../constants';
-import NativeOutput from './output/native';
+import {
+  MediaStreamDeliveryPriority,
+  MediaStreamType,
+} from '../../../../constants';
 
 describe('AdapterStrategy', () => {
   const video = document.createElement('video');
-  const nativeOutput = new NativeOutput(video);
   let strategy: any;
   let eventEmitter: any;
   let playbackAdapters;
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
-    strategy = new AdapterStrategy(eventEmitter, nativeOutput);
+    // @ts-ignore
+
+    strategy = new AdapterStrategy(eventEmitter, video);
   });
 
   it('should do nothing if src not passed', () => {
@@ -39,7 +42,7 @@ describe('AdapterStrategy', () => {
     availableStream.isSupported = () => true;
     unavailableStream.isSupported = () => false;
 
-    const newStrategy: any = new AdapterStrategy(eventEmitter, nativeOutput, [
+    const newStrategy: any = new AdapterStrategy(eventEmitter, video, [
       availableStream,
       unavailableStream,
     ]);
@@ -155,6 +158,7 @@ describe('AdapterStrategy', () => {
       ),
     ];
 
+    // @ts-ignore
     playbackAdapters.forEach(adapter =>
       strategy._availableAdapters.push(new adapter(strategy._eventEmitter)),
     );

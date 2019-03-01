@@ -24,7 +24,7 @@ import {
   PreloadType as PRELOAD_TYPES,
   PlayableMediaSource,
 } from './modules/playback-engine/types';
-import { IPlaybackAdapter } from './modules/playback-engine/adapters/types';
+import { IPlaybackAdapter } from './modules/playback-engine/output/native/adapters/types';
 
 import { VideoViewMode as VIDEO_VIEW_MODES } from './modules/ui/screen/types';
 

@@ -77,10 +77,7 @@ export default class AnomalyBloodhound {
   }) {
     switch (nextState) {
       case EngineState.LOAD_STARTED:
-        if (
-          this._engine.isAutoPlayAvailable ||
-          this._engine.isPreloadAvailable
-        ) {
+        if (this._engine.isAutoPlayActive || this._engine.isPreloadActive) {
           this.startDelayedReport(
             DELAYED_REPORT_TYPES.METADATA_LOADING,
             REPORT_REASONS.LONG_METADATA_LOADING,

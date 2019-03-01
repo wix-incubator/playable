@@ -1,12 +1,12 @@
-import { VideoEvent, Error } from '../../../constants';
+import { VideoEvent, Error } from '../../../../../constants';
 
 import {
   geOverallBufferLength,
   getNearestBufferSegmentInfo,
-} from '../../../utils/video-data';
-import { NativeEnvironmentSupport } from '../../../utils/environment-detection';
+} from '../../../../../utils/video-data';
+import { NativeEnvironmentSupport } from '../../../../../utils/environment-detection';
 import { IPlaybackAdapterClass, IPlaybackAdapter } from './types';
-import { IEventEmitter } from '../../event-emitter/types';
+import { IEventEmitter } from '../../../../event-emitter/types';
 
 const NATIVE_ERROR_CODES = {
   ABORTED: 1,
@@ -18,8 +18,7 @@ const NATIVE_ERROR_CODES = {
 import {
   MediaStreamType,
   MediaStreamDeliveryPriority,
-} from '../../../constants';
-import { IVideoOutput } from '../types';
+} from '../../../../../constants';
 
 export default function getNativeAdapterCreator(
   streamType: MediaStreamType,
@@ -33,7 +32,7 @@ export default function getNativeAdapterCreator(
     private mediaStreams: any;
     private eventEmitter: IEventEmitter;
     private currentLevel: number;
-    private output: IVideoOutput;
+    private video: HTMLVideoElement;
 
     constructor(eventEmitter: IEventEmitter) {
       this.mediaStreams = null;
@@ -53,7 +52,7 @@ export default function getNativeAdapterCreator(
     }
 
     get isDynamicContent() {
-      return !isFinite(this.output.duration);
+      return !isFinite(this.video.duration);
     }
 
     get isDynamicContentEnded() {
@@ -87,8 +86,8 @@ export default function getNativeAdapterCreator(
     }
 
     get debugInfo() {
-      if (this.output) {
-        const { buffered, currentTime } = this.output;
+      if (this.video) {
+        const { buffered, currentTime } = this.video;
 
         const overallBufferLength = geOverallBufferLength(buffered);
         const nearestBufferSegInfo = getNearestBufferSegmentInfo(
@@ -129,7 +128,7 @@ export default function getNativeAdapterCreator(
     }
 
     private _broadcastError() {
-      const error = this.output.error; // take error from event?
+      const error = this.video.error; // take error from event?
       if (!error) {
         this._logError(Error.UNKNOWN, null);
         return;
@@ -161,16 +160,17 @@ export default function getNativeAdapterCreator(
       }
     }
 
-    attach(videoElement: IVideoOutput) {
-      this.output = videoElement;
-      this.output.on('error', this._broadcastError);
-      this.output.setSrc(this.mediaStreams[this.currentLevel].url);
+    attach(videoElement: HTMLVideoElement) {
+      this.video = videoElement;
+
+      this.video.addEventListener('error', this._broadcastError);
+      this.video.src = this.mediaStreams[this.currentLevel].url;
     }
 
     detach() {
-      this.output.off('error', this._broadcastError);
-      this.output.setSrc(null);
-      this.output = null;
+      this.video.removeEventListener('error', this._broadcastError);
+      this.video.removeAttribute('src');
+      this.video = null;
     }
   }
 

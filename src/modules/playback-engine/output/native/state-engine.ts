@@ -1,9 +1,8 @@
-import { IEventEmitter } from '../event-emitter/types';
+import { IEventEmitter } from '../../../event-emitter/types';
 
-import { isSafari } from '../../utils/device-detection';
+import { isSafari } from '../../../../utils/device-detection';
 
-import { VideoEvent, EngineState } from '../../constants';
-import { IVideoOutput } from './types';
+import { VideoEvent, EngineState } from '../../../../constants';
 
 export const NATIVE_VIDEO_EVENTS_TO_STATE = [
   'loadstart',
@@ -20,15 +19,15 @@ export const NATIVE_VIDEO_EVENTS_TO_STATE = [
 
 export default class StateEngine {
   private _eventEmitter: IEventEmitter;
-  private _output: IVideoOutput;
+  private _video: HTMLVideoElement;
   private _currentState: EngineState;
   private _statesTimestamps: { [state: string]: number };
   private _initialTimeStamp: number;
   private _isMetadataLoaded: boolean;
 
-  constructor(eventEmitter: IEventEmitter, video: IVideoOutput) {
+  constructor(eventEmitter: IEventEmitter, video: HTMLVideoElement) {
     this._eventEmitter = eventEmitter;
-    this._output = video;
+    this._video = video;
 
     this._currentState = null;
 
@@ -45,13 +44,13 @@ export default class StateEngine {
 
   private _bindEvents() {
     NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event => {
-      this._output.on(event, this._processEventFromVideo);
+      this._video.addEventListener(event, this._processEventFromVideo);
     });
   }
 
   private _unbindEvents() {
     NATIVE_VIDEO_EVENTS_TO_STATE.forEach(event =>
-      this._output.off(event, this._processEventFromVideo),
+      this._video.removeEventListener(event, this._processEventFromVideo),
     );
   }
 
@@ -75,7 +74,7 @@ export default class StateEngine {
   }
 
   private _processEventFromVideo(event: any = {}) {
-    const output = this._output;
+    const videoElement = this._video;
 
     switch (event.type) {
       case 'loadstart': {
@@ -103,7 +102,7 @@ export default class StateEngine {
       case 'playing': {
         // Safari triggers event 'playing' even when play request aborted by browser. So we need to check if video is actualy playing
         if (isSafari()) {
-          if (!output.isPaused) {
+          if (!videoElement.paused) {
             this.setState(EngineState.PLAYING);
           }
         } else {
@@ -118,7 +117,7 @@ export default class StateEngine {
       case 'pause': {
         // Safari triggers event 'pause' even when playing was aborted buy autoplay policies, emit pause event even if there wasn't any real playback
         if (isSafari()) {
-          if (output.length) {
+          if (videoElement.played.length) {
             this.setState(EngineState.PAUSED);
           }
         } else {
@@ -136,7 +135,7 @@ export default class StateEngine {
       }
       case 'seeked': {
         this.setState(
-          output.isPaused ? EngineState.PAUSED : EngineState.PLAYING,
+          videoElement.paused ? EngineState.PAUSED : EngineState.PLAYING,
         );
         break;
       }

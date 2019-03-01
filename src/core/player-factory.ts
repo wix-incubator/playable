@@ -2,12 +2,12 @@ import DependencyContainer from './dependency-container';
 import PlayerFacade from './player-facade';
 
 import defaultModules, { IPlayer } from './default-modules';
-import defaultPlaybackAdapters from '../modules/playback-engine/adapters/default-set';
+import defaultPlaybackAdapters from '../modules/playback-engine/output/native/adapters/default-set';
 
 import { IThemeConfig } from '../modules/ui/core/theme';
 
 import { IPlayerConfig } from './config';
-import { IPlaybackAdapterClass } from '../modules/playback-engine/adapters/types';
+import { IPlaybackAdapterClass } from '../modules/playback-engine/output/native/adapters/types';
 
 let additionalModules: { [id: string]: any } = {};
 let playbackAdapters: IPlaybackAdapterClass[] = [...defaultPlaybackAdapters];

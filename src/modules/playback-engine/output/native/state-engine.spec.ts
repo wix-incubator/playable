@@ -1,13 +1,11 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import EventEmitter from '../../modules/event-emitter/event-emitter';
+import EventEmitter from '../../../../modules/event-emitter/event-emitter';
 
-import { VideoEvent, EngineState } from '../../constants';
+import { VideoEvent, EngineState } from '../../../../constants';
 import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE } from './state-engine';
 
-import { setProperty, resetProperty } from '../../testkit';
-import NativeOutput from './output/native';
-import { IVideoOutput } from './types';
+import { setProperty, resetProperty } from '../../../../testkit';
 
 declare const navigator: any;
 
@@ -28,7 +26,6 @@ describe('NativeEventsBroadcaster', () => {
   let video: any;
   let engine: any;
   let eventEmitter: any;
-  let output: IVideoOutput;
 
   beforeEach(() => {
     video = {
@@ -41,10 +38,9 @@ describe('NativeEventsBroadcaster', () => {
     };
 
     eventEmitter = new EventEmitter();
-    output = new NativeOutput(video);
 
     sinon.spy(eventEmitter, 'emitAsync');
-    engine = new StateEngine(eventEmitter, output);
+    engine = new StateEngine(eventEmitter, video);
     sinon.spy(engine, 'setState');
   });
 

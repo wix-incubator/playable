@@ -1,19 +1,6 @@
 import playerAPI from '../../core/player-api-decorator';
-
-import StateEngine from './state-engine';
-import NativeEventsBroadcaster from './native-events-broadcaster';
-import AdapterStrategy from './adapters-strategy';
-import NativeOutput from './output/native';
-
-import {
-  isIPhone,
-  isIPod,
-  isIPad,
-  isAndroid,
-} from '../../utils/device-detection';
-
-import { VideoEvent, EngineState } from '../../constants';
-import { IPlaybackAdapter } from './adapters/types';
+import { VideoEvent } from '../../constants';
+import { IPlaybackAdapter } from './output/native/adapters/types';
 
 import { IPlayerConfig } from '../../core/config';
 import {
@@ -30,38 +17,22 @@ import { IEventEmitter } from '../event-emitter/types';
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 class Engine implements IPlaybackEngine {
   static moduleName = 'engine';
-  static dependencies = ['eventEmitter', 'config', 'availablePlaybackAdapters'];
+  static dependencies = ['eventEmitter', 'config', 'nativeOutput'];
 
   private _eventEmitter: IEventEmitter;
   private _currentSrc: PlayableMediaSource;
-  private _stateEngine: StateEngine;
   private _output: IVideoOutput;
-  private _nativeEventsBroadcaster: NativeEventsBroadcaster;
-  private _adapterStrategy: AdapterStrategy;
-  private _playPromise: Promise<any>;
-  private _pauseRequested: boolean;
 
   constructor({
     eventEmitter,
     config,
-    availablePlaybackAdapters = [],
+    nativeOutput,
   }: IPlaybackEngineDependencies) {
     this._eventEmitter = eventEmitter;
 
     this._currentSrc = null;
 
-    this._output = new NativeOutput(config.videoElement);
-
-    this._stateEngine = new StateEngine(eventEmitter, this._output);
-    this._nativeEventsBroadcaster = new NativeEventsBroadcaster(
-      eventEmitter,
-      this._output,
-    );
-    this._adapterStrategy = new AdapterStrategy(
-      this._eventEmitter,
-      this._output,
-      availablePlaybackAdapters,
-    );
+    this._output = nativeOutput;
 
     this._applyConfig(config);
   }
@@ -93,64 +64,40 @@ class Engine implements IPlaybackEngine {
     return this._output.getElement();
   }
 
-  private _getViewDimensions() {
-    return this._output.getViewDimensions;
-  }
-
   get isDynamicContent() {
-    if (!this.attachedAdapter) {
-      return false;
-    }
-
-    return this.attachedAdapter.isDynamicContent;
+    return this._output.isDynamicContent;
   }
 
   get isDynamicContentEnded() {
-    if (!this.attachedAdapter) {
-      return false;
-    }
-
-    return this.attachedAdapter.isDynamicContentEnded;
+    return this._output.isDynamicContentEnded;
   }
 
   get isSeekAvailable() {
-    if (!this.attachedAdapter) {
-      return false;
-    }
-
-    return this.attachedAdapter.isSeekAvailable;
+    return this._output.isSeekAvailable;
   }
 
   get isMetadataLoaded() {
-    return this._stateEngine.isMetadataLoaded;
+    return this._output.isMetadataLoaded;
   }
 
-  get isPreloadAvailable() {
-    if (isIPad() || isIPhone() || isIPod() || isAndroid()) {
-      return false;
-    }
-
-    return this.getPreload() !== 'none';
+  get isPreloadActive() {
+    return this._output.isPreloadActive;
   }
 
-  get isAutoPlayAvailable() {
-    if (isIPad() || isIPhone() || isIPod() || isAndroid()) {
-      return false;
-    }
-
-    return this.getAutoplay();
+  get isAutoPlayActive() {
+    return this._output.isAutoPlayActive;
   }
 
   get isSyncWithLive(): boolean {
-    if (!this.attachedAdapter) {
-      return false;
-    }
-
-    return this.attachedAdapter.isSyncWithLive;
+    return this._output.isSyncWithLive;
   }
 
+  /**
+   * @deprecated
+   * leave it for now to not break an API
+   */
   get attachedAdapter(): IPlaybackAdapter {
-    return this._adapterStrategy.attachedAdapter;
+    return this._output.attachedAdapter;
   }
 
   /**
@@ -171,11 +118,8 @@ class Engine implements IPlaybackEngine {
       return;
     }
 
-    this._stateEngine.clearTimestamps();
+    this._output.setSrc(src);
     this._currentSrc = src;
-    this._adapterStrategy.connectAdapter(this._currentSrc);
-
-    this._stateEngine.setState(EngineState.SRC_SET);
   }
 
   /**
@@ -202,28 +146,7 @@ class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   play() {
-    //Workaround for triggering functionality that requires user event pipe
-    this._eventEmitter.emitAsync(VideoEvent.PLAY_REQUEST);
-
-    this._pauseRequested = false;
-
-    if (!this._playPromise) {
-      this._playPromise = this._output.play();
-      if (this._playPromise !== undefined) {
-        this._playPromise
-          .then(() => {
-            this._playPromise = null;
-
-            if (this._pauseRequested) {
-              this.pause();
-            }
-          })
-          .catch((event: DOMException) => {
-            this._eventEmitter.emitAsync(VideoEvent.PLAY_ABORTED, event);
-            this._playPromise = null;
-          });
-      }
-    }
+    this._output.play();
   }
 
   /**
@@ -233,12 +156,7 @@ class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   pause() {
-    if (this._playPromise) {
-      this._pauseRequested = true;
-    } else {
-      this._output.pause();
-      this._pauseRequested = false;
-    }
+    this._output.pause();
   }
 
   /**
@@ -303,16 +221,7 @@ class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   syncWithLive() {
-    if (
-      this.attachedAdapter &&
-      this.attachedAdapter.isDynamicContent &&
-      !this.attachedAdapter.isDynamicContentEnded &&
-      !this.isSyncWithLive
-    ) {
-      this.seekTo(this.attachedAdapter.syncWithLiveTime);
-
-      this.play();
-    }
+    this._output.syncWithLive();
   }
 
   /**
@@ -361,8 +270,6 @@ class Engine implements IPlaybackEngine {
       : Math.max(0, Math.min(Number(volume) / 100, 1));
 
     this._output.setVolume(newVolume);
-    //Workaround for problem with HTML5Video not firing volumechange if source changed right after volume/muted changed
-    this._nativeEventsBroadcaster.checkVolumeChangeAfterLoadStart();
   }
 
   /**
@@ -399,8 +306,6 @@ class Engine implements IPlaybackEngine {
 
   setMute(isMuted: boolean) {
     this._output.setMute(isMuted);
-    //Workaround for problem with HTML5Video not firing volumechange if source changed right after volume/muted changed
-    this._nativeEventsBroadcaster.checkVolumeChangeAfterLoadStart();
   }
 
   /**
@@ -614,7 +519,7 @@ class Engine implements IPlaybackEngine {
    */
   @playerAPI('getPlaybackState')
   getCurrentState() {
-    return this._stateEngine.state;
+    return this._output.currentState;
   }
 
   /**
@@ -659,27 +564,12 @@ class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getDebugInfo(): IEngineDebugInfo {
-    const { duration, currentTime } = this._output;
-    let data;
-
-    if (this._adapterStrategy.attachedAdapter) {
-      data = this._adapterStrategy.attachedAdapter.debugInfo;
-    }
-
-    return {
-      ...data,
-      viewDimensions: this._getViewDimensions(),
-      currentTime,
-      duration,
-      loadingStateTimestamps: this._stateEngine.stateTimestamps,
-    };
+    return this._output.getDebugInfo();
   }
 
   destroy() {
-    this._stateEngine.destroy();
-    this._nativeEventsBroadcaster.destroy();
-    this._adapterStrategy.destroy();
-    this._output.destroy();
+    // all dependencies are modules and will be destroyed from Player.destroy()
+    return;
   }
 }
 

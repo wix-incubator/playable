@@ -79,7 +79,7 @@ export default class Loader {
         this.startDelayedShow();
         break;
       case EngineState.LOAD_STARTED:
-        if (this._engine.isPreloadAvailable) {
+        if (this._engine.isPreloadActive) {
           this._showContent();
         }
         break;

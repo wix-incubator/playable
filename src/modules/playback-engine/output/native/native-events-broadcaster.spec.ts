@@ -1,13 +1,11 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import EventEmitter from '../../modules/event-emitter/event-emitter';
+import EventEmitter from '../../../../modules/event-emitter/event-emitter';
 
-import { VideoEvent } from '../../constants';
+import { VideoEvent } from '../../../../constants';
 import NativeEventsBroadcast, {
   NATIVE_VIDEO_TO_BROADCAST,
 } from './native-events-broadcaster';
-import NativeOutput from './output/native';
-import { IVideoOutput } from './types';
 
 const NATIVE_EVENTS = {
   ERROR: { type: 'error' },
@@ -24,7 +22,6 @@ describe('NativeEventsBroadcaster', () => {
   let video: any;
   let broadcaster: any;
   let eventEmitter: any;
-  let output: IVideoOutput;
 
   beforeEach(() => {
     video = {
@@ -36,8 +33,7 @@ describe('NativeEventsBroadcaster', () => {
     eventEmitter = new EventEmitter();
     sinon.spy(eventEmitter, 'emitAsync');
 
-    output = new NativeOutput(video);
-    broadcaster = new NativeEventsBroadcast(eventEmitter, output);
+    broadcaster = new NativeEventsBroadcast(eventEmitter, video);
   });
 
   afterEach(() => {

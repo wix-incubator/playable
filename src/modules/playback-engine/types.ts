@@ -2,10 +2,11 @@ import {
   IPlaybackAdapter,
   IPlaybackAdapterClass,
   IAdapterDebugInfo,
-} from './adapters/types';
+} from './output/native/adapters/types';
 import { EngineState, MediaStreamType } from '../../constants';
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlayerConfig } from '../../core/config';
+import StateEngine from './output/native/state-engine';
 
 enum PreloadType {
   NONE = 'none',
@@ -38,8 +39,8 @@ interface IPlaybackEngine {
   isDynamicContentEnded: boolean;
   isSeekAvailable: boolean;
   isMetadataLoaded: boolean;
-  isPreloadAvailable: boolean;
-  isAutoPlayAvailable: boolean;
+  isPreloadActive: boolean;
+  isAutoPlayActive: boolean;
   isSyncWithLive: boolean;
   isPaused: boolean;
   isEnded: boolean;
@@ -115,6 +116,7 @@ interface IPlaybackEngineDependencies {
   eventEmitter: IEventEmitter;
   config: IPlayerConfig;
   availablePlaybackAdapters: IPlaybackAdapterClass[];
+  nativeOutput: IVideoOutput;
 }
 
 interface ILiveStateEngineDependencies {
@@ -122,21 +124,19 @@ interface ILiveStateEngineDependencies {
   engine: IPlaybackEngine;
 }
 
-interface IDimensions {
-  width?: number;
-  height?: number;
-}
-
 interface IVideoOutput {
-  play: () => Promise<void>;
+  stateTimestamps: { [state: string]: number };
+  currentState: EngineState;
+  attachedAdapter: IPlaybackAdapter;
+  play: () => void;
   pause: () => void;
+  syncWithLive: () => void;
+
+  getDebugInfo: () => IEngineDebugInfo;
+
   destroy: () => void;
 
   getElement: () => HTMLVideoElement | null;
-  getViewDimensions: () => IDimensions;
-
-  on: (event: string, cb: (event?: Event) => void) => void;
-  off: (event: string, cb: (event?: Event) => void) => void;
 
   setPlaybackRate: (rate: number) => void;
   setPreload: (preload: 'auto' | 'metadata' | 'none') => void;
@@ -147,13 +147,20 @@ interface IVideoOutput {
   setInline: (isPlaysinline: boolean) => void;
   setCrossOrigin: (crossOrigin?: CrossOriginValue) => void;
   setLoop: (mute: boolean) => void;
-  setSrc: (src: string) => void;
+  setSrc: (src?: PlayableMediaSource) => void;
 
   isPaused: boolean;
   isMuted: boolean;
   isEnded: boolean;
   isAutoplay: boolean;
   isLoop: boolean;
+  isDynamicContent: boolean;
+  isDynamicContentEnded: any;
+  isMetadataLoaded: boolean;
+  isSeekAvailable: boolean;
+  isSyncWithLive: boolean;
+  isAutoPlayActive: boolean;
+  isPreloadActive: boolean;
 
   preload: 'auto' | 'metadata' | 'none';
 
@@ -170,6 +177,7 @@ interface IVideoOutput {
   crossOrigin: CrossOriginValue;
   error: MediaError;
   src: string;
+  stateEngine: StateEngine;
 }
 
 interface IPlaybackEngineAPI {
