@@ -100,11 +100,11 @@ export default class FullScreenControl implements IFullScreenControl {
     this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: (e: Event) => {
         e.stopPropagation();
-        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emitAsync(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
       },
       [KEYCODES.ENTER]: (e: Event) => {
         e.stopPropagation();
-        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emitAsync(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
       },
     });
   }
@@ -116,10 +116,10 @@ export default class FullScreenControl implements IFullScreenControl {
   private _toggleFullScreen() {
     if (this._fullScreenManager.isInFullScreen) {
       this._fullScreenManager.exitFullScreen();
-      this._eventEmitter.emit(UIEvent.EXIT_FULL_SCREEN_CLICK);
+      this._eventEmitter.emitAsync(UIEvent.EXIT_FULL_SCREEN_CLICK);
     } else {
       this._fullScreenManager.enterFullScreen();
-      this._eventEmitter.emit(UIEvent.ENTER_FULL_SCREEN_CLICK);
+      this._eventEmitter.emitAsync(UIEvent.ENTER_FULL_SCREEN_CLICK);
     }
   }
 

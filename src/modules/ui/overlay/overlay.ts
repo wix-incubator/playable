@@ -97,7 +97,7 @@ class Overlay implements IOverlay {
   private _playVideo() {
     this._engine.play();
 
-    this._eventEmitter.emit(UIEvent.PLAY_OVERLAY_CLICK);
+    this._eventEmitter.emitAsync(UIEvent.PLAY_OVERLAY_CLICK);
   }
 
   private _tryShowContent() {

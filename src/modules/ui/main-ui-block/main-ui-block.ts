@@ -194,7 +194,7 @@ class MainUIBlock implements IMainUIBlock {
 
     this._screen.showCursor();
 
-    this._eventEmitter.emit((UIEvent as any).MAIN_BLOCK_SHOW);
+    this._eventEmitter.emitAsync((UIEvent as any).MAIN_BLOCK_SHOW);
     this._bottomBlock.showContent();
     this._topBlock.showContent();
     this._isContentShown = true;
@@ -220,7 +220,7 @@ class MainUIBlock implements IMainUIBlock {
       this._screen.hideCursor();
     }
 
-    this._eventEmitter.emit((UIEvent as any).MAIN_BLOCK_HIDE);
+    this._eventEmitter.emitAsync((UIEvent as any).MAIN_BLOCK_HIDE);
     this._bottomBlock.hideContent();
     this._topBlock.hideContent();
     this._tooltipService.hide();

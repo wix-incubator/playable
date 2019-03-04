@@ -65,7 +65,7 @@ describe('VolumeControl', () => {
     it('should call callback on playback state change', async function() {
       const spy = sinon.spy(control, '_updateSoundState');
       control._bindEvents();
-      await eventEmitter.emit(VideoEvent.SOUND_STATE_CHANGED);
+      await eventEmitter.emitAsync(VideoEvent.SOUND_STATE_CHANGED);
       expect(spy.called).to.be.true;
     });
   });

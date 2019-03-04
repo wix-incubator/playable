@@ -163,29 +163,29 @@ class ProgressControl implements IProgressControl {
       [KEYCODES.UP_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
-        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UIEvent.GO_FORWARD_WITH_KEYBOARD);
+        this._eventEmitter.emitAsync(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emitAsync(UIEvent.GO_FORWARD_WITH_KEYBOARD);
         this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.DOWN_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
-        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UIEvent.GO_BACKWARD_WITH_KEYBOARD);
+        this._eventEmitter.emitAsync(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emitAsync(UIEvent.GO_BACKWARD_WITH_KEYBOARD);
         this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.RIGHT_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
-        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UIEvent.GO_FORWARD_WITH_KEYBOARD);
+        this._eventEmitter.emitAsync(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emitAsync(UIEvent.GO_FORWARD_WITH_KEYBOARD);
         this._engine.seekForward(AMOUNT_TO_SKIP_SECONDS);
       },
       [KEYCODES.LEFT_ARROW]: e => {
         e.stopPropagation();
         e.preventDefault();
-        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
-        this._eventEmitter.emit(UIEvent.GO_BACKWARD_WITH_KEYBOARD);
+        this._eventEmitter.emitAsync(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emitAsync(UIEvent.GO_BACKWARD_WITH_KEYBOARD);
         this._engine.seekBackward(AMOUNT_TO_SKIP_SECONDS);
       },
     });
@@ -235,7 +235,10 @@ class ProgressControl implements IProgressControl {
     if (this._showFullScreenPreview) {
       this._desiredSeekPosition = newTime;
 
-      this._eventEmitter.emit(UIEvent.PROGRESS_USER_PREVIEWING_FRAME, newTime);
+      this._eventEmitter.emitAsync(
+        UIEvent.PROGRESS_USER_PREVIEWING_FRAME,
+        newTime,
+      );
     } else {
       this._changeCurrentTimeOfVideo(newTime);
     }
@@ -276,8 +279,8 @@ class ProgressControl implements IProgressControl {
 
       this._pauseVideoOnDragStart();
 
-      this._eventEmitter.emit(UIEvent.PROGRESS_DRAG_STARTED);
-      this._eventEmitter.emit(UIEvent.CONTROL_DRAG_START);
+      this._eventEmitter.emitAsync(UIEvent.PROGRESS_DRAG_STARTED);
+      this._eventEmitter.emitAsync(UIEvent.CONTROL_DRAG_START);
     }
   }
 
@@ -295,8 +298,8 @@ class ProgressControl implements IProgressControl {
 
       this.view.hideProgressTimeTooltip();
 
-      this._eventEmitter.emit(UIEvent.PROGRESS_DRAG_ENDED);
-      this._eventEmitter.emit(UIEvent.CONTROL_DRAG_END);
+      this._eventEmitter.emitAsync(UIEvent.PROGRESS_DRAG_ENDED);
+      this._eventEmitter.emitAsync(UIEvent.CONTROL_DRAG_END);
     }
   }
 
@@ -389,7 +392,7 @@ class ProgressControl implements IProgressControl {
       this._engine.seekTo(newTime);
     }
 
-    this._eventEmitter.emit(UIEvent.PROGRESS_CHANGE, newTime);
+    this._eventEmitter.emitAsync(UIEvent.PROGRESS_CHANGE, newTime);
   }
 
   private _pauseVideoOnDragStart() {
@@ -403,7 +406,7 @@ class ProgressControl implements IProgressControl {
       this._engine.pause();
     }
 
-    this._eventEmitter.emit(UIEvent.PROGRESS_DRAG_STARTED);
+    this._eventEmitter.emitAsync(UIEvent.PROGRESS_DRAG_STARTED);
   }
 
   private _playVideoOnDragEnd() {
@@ -464,11 +467,11 @@ class ProgressControl implements IProgressControl {
   }
 
   private _onSyncWithLiveMouseEnter() {
-    this._eventEmitter.emit(UIEvent.PROGRESS_SYNC_BUTTON_MOUSE_ENTER);
+    this._eventEmitter.emitAsync(UIEvent.PROGRESS_SYNC_BUTTON_MOUSE_ENTER);
   }
 
   private _onSyncWithLiveMouseLeave() {
-    this._eventEmitter.emit(UIEvent.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE);
+    this._eventEmitter.emitAsync(UIEvent.PROGRESS_SYNC_BUTTON_MOUSE_LEAVE);
   }
 
   private _setPlayed(percent: number) {

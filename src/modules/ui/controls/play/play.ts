@@ -61,11 +61,11 @@ export default class PlayControl implements IPlayControl {
     this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD);
+        this._eventEmitter.emitAsync(UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD);
       },
       [KEYCODES.ENTER]: e => {
         e.stopPropagation();
-        this._eventEmitter.emit(UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD);
+        this._eventEmitter.emitAsync(UIEvent.TOGGLE_PLAYBACK_WITH_KEYBOARD);
       },
     });
   }
@@ -96,13 +96,13 @@ export default class PlayControl implements IPlayControl {
   private _playVideo() {
     this._engine.play();
 
-    this._eventEmitter.emit(UIEvent.PLAY_CLICK);
+    this._eventEmitter.emitAsync(UIEvent.PLAY_CLICK);
   }
 
   private _pauseVideo() {
     this._engine.pause();
 
-    this._eventEmitter.emit(UIEvent.PAUSE_CLICK);
+    this._eventEmitter.emitAsync(UIEvent.PAUSE_CLICK);
   }
 
   private _updatePlayingState() {

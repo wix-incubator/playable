@@ -105,23 +105,23 @@ class RootContainer implements IRootContainer {
   }
 
   private _broadcastMouseEnter() {
-    this._eventEmitter.emit(UIEvent.MOUSE_ENTER_ON_PLAYER);
+    this._eventEmitter.emitAsync(UIEvent.MOUSE_ENTER_ON_PLAYER);
   }
 
   private _broadcastMouseMove() {
-    this._eventEmitter.emit(UIEvent.MOUSE_MOVE_ON_PLAYER);
+    this._eventEmitter.emitAsync(UIEvent.MOUSE_MOVE_ON_PLAYER);
   }
 
   private _broadcastMouseLeave() {
-    this._eventEmitter.emit(UIEvent.MOUSE_LEAVE_ON_PLAYER);
+    this._eventEmitter.emitAsync(UIEvent.MOUSE_LEAVE_ON_PLAYER);
   }
 
   private _broadcastFocusEnter() {
-    this._eventEmitter.emit(UIEvent.FOCUS_ENTER_ON_PLAYER);
+    this._eventEmitter.emitAsync(UIEvent.FOCUS_ENTER_ON_PLAYER);
   }
 
   private _broadcastFocusLeave() {
-    this._eventEmitter.emit(UIEvent.FOCUS_LEAVE_ON_PLAYER);
+    this._eventEmitter.emitAsync(UIEvent.FOCUS_LEAVE_ON_PLAYER);
   }
 
   private _enableFocusInterceptors() {
@@ -157,7 +157,7 @@ class RootContainer implements IRootContainer {
 
     this._elementQueries.setWidth(width);
 
-    this._eventEmitter.emit(UIEvent.RESIZE, { width, height });
+    this._eventEmitter.emitAsync(UIEvent.RESIZE, { width, height });
   }
 
   /**

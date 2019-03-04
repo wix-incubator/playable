@@ -192,7 +192,7 @@ class Engine implements IPlaybackEngine {
   reset() {
     this.pause();
     this.seekTo(0);
-    this._eventEmitter.emit(VideoEvent.RESET);
+    this._eventEmitter.emitAsync(VideoEvent.RESET);
   }
 
   /**
@@ -203,7 +203,7 @@ class Engine implements IPlaybackEngine {
   @playerAPI()
   play() {
     //Workaround for triggering functionality that requires user event pipe
-    this._eventEmitter.emit(VideoEvent.PLAY_REQUEST);
+    this._eventEmitter.emitAsync(VideoEvent.PLAY_REQUEST);
 
     this._pauseRequested = false;
 
@@ -219,7 +219,7 @@ class Engine implements IPlaybackEngine {
             }
           })
           .catch((event: DOMException) => {
-            this._eventEmitter.emit(VideoEvent.PLAY_ABORTED, event);
+            this._eventEmitter.emitAsync(VideoEvent.PLAY_ABORTED, event);
             this._playPromise = null;
           });
       }
@@ -269,7 +269,7 @@ class Engine implements IPlaybackEngine {
   resetPlayback() {
     this.pause();
     this.seekTo(0);
-    this._eventEmitter.emit(VideoEvent.RESET);
+    this._eventEmitter.emitAsync(VideoEvent.RESET);
   }
 
   /**

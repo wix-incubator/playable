@@ -87,7 +87,7 @@ class FullScreenManager implements IFullScreenManager {
     if (!this._helper.isInFullScreen && this._pauseVideoOnFullScreenExit) {
       this._engine.pause();
     }
-    this._eventEmitter.emit(
+    this._eventEmitter.emitAsync(
       UIEvent.FULL_SCREEN_STATE_CHANGED,
       this._helper.isInFullScreen,
     );

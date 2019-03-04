@@ -108,7 +108,7 @@ export default class Loader {
 
   private _showContent() {
     if (this.isHidden) {
-      this._eventEmitter.emit(UIEvent.LOADER_SHOW);
+      this._eventEmitter.emitAsync(UIEvent.LOADER_SHOW);
       this.view.showContent();
       this.isHidden = false;
     }
@@ -116,7 +116,7 @@ export default class Loader {
 
   private _hideContent() {
     if (!this.isHidden) {
-      this._eventEmitter.emit(UIEvent.LOADER_HIDE);
+      this._eventEmitter.emitAsync(UIEvent.LOADER_HIDE);
       this.view.hideContent();
       this.isHidden = true;
     }

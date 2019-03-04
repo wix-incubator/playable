@@ -135,14 +135,14 @@ describe('PictureInPicture', () => {
 
     describe('due to reaction on fullscreen change', () => {
       it('should trigger proper event', () => {
-        const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emit');
+        const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emitAsync');
 
         mockedPictureInPictureHelper.isInPictureInPicture = true;
         pictureInPicture._onChange();
         expect(spy.calledWith(UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE)).to.be
           .true;
 
-        eventEmitter.emit.restore();
+        eventEmitter.emitAsync.restore();
       });
     });
   });

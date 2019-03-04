@@ -120,7 +120,7 @@ export default function getNativeAdapterCreator(
     }
 
     private _logError(error: string, errorEvent: MediaError) {
-      this.eventEmitter.emit(VideoEvent.ERROR, {
+      this.eventEmitter.emitAsync(VideoEvent.ERROR, {
         errorType: error,
         streamType,
         streamProvider: 'native',

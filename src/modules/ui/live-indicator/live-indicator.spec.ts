@@ -79,7 +79,7 @@ describe('LiveIndicator', () => {
       expect(liveIndicator.isHidden, 'hidden before `LiveState.NONE`').to.be
         .false;
 
-      await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+      await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
         nextState: LiveState.NONE,
       });
 
@@ -102,7 +102,7 @@ describe('LiveIndicator', () => {
 
     describe('for dynamic content', () => {
       beforeEach(async function() {
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.NONE,
         });
       });
@@ -113,7 +113,7 @@ describe('LiveIndicator', () => {
         expect(liveIndicator.isHidden, 'hidden before `LiveState.INITIAL`').to
           .be.true;
 
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
 
@@ -129,7 +129,7 @@ describe('LiveIndicator', () => {
           'toggleActive',
         );
 
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
 
@@ -138,7 +138,7 @@ describe('LiveIndicator', () => {
         expect(liveIndicator.isActive, 'active before `LiveState.SYNC`').to.be
           .false;
 
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.SYNC,
         });
 
@@ -154,16 +154,16 @@ describe('LiveIndicator', () => {
           'toggleActive',
         );
 
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.SYNC,
         });
 
         expect(liveIndicator.isActive, 'active before out of sync').to.be.true;
 
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.NOT_SYNC,
         });
 
@@ -180,17 +180,17 @@ describe('LiveIndicator', () => {
         );
         const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
 
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.SYNC,
         });
 
         expect(liveIndicator.isActive, 'active before `LiveState.ENDED`').to.be
           .true;
 
-        await eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+        await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.ENDED,
         });
 

@@ -22,11 +22,11 @@ describe('LoadingCover', () => {
     testkit.registerModule('loadingCover', LoadingCover);
     loadingCover = testkit.getModule('loadingCover');
 
-    emitSpy = sinon.spy(eventEmitter, 'emit');
+    emitSpy = sinon.spy(eventEmitter, 'emitAsync');
   });
 
   afterEach(() => {
-    eventEmitter.emit.restore();
+    eventEmitter.emitAsync.restore();
   });
 
   describe('constructor', () => {
@@ -75,7 +75,7 @@ describe('LoadingCover', () => {
     describe('reaction to event', () => {
       it('should be proper if event is VideoEvent.UPLOAD_SUSPEND', async function() {
         loadingCover.show();
-        await eventEmitter.emit(VideoEvent.UPLOAD_SUSPEND);
+        await eventEmitter.emitAsync(VideoEvent.UPLOAD_SUSPEND);
         expect(loadingCover.isHidden).to.be.true;
       });
 
@@ -95,14 +95,14 @@ describe('LoadingCover', () => {
 
         it('should be proper if next state is EngineState.LOAD_STARTED', async function() {
           engine.setPreload('none');
-          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
+          await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
           expect(showSpy.called).to.be.false;
 
           engine.setPreload('auto');
-          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
+          await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
@@ -111,7 +111,7 @@ describe('LoadingCover', () => {
 
         it('should be proper if next state is EngineState.WAITING', async function() {
           engine._stateEngine._isMetadataLoaded = true;
-          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
+          await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.WAITING,
           });
 
@@ -119,7 +119,7 @@ describe('LoadingCover', () => {
 
           engine._stateEngine._isMetadataLoaded = false;
           engine.setPreload('auto');
-          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
+          await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.WAITING,
           });
 
@@ -127,7 +127,7 @@ describe('LoadingCover', () => {
         });
 
         it('should be proper if next state is EngineState.READY_TO_PLAY', async function() {
-          await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
+          await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.READY_TO_PLAY,
           });
 

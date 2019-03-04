@@ -40,7 +40,7 @@ export default class AdaptersStrategy {
       if (typeof mediaSource === 'string') {
         const type = getStreamType(mediaSource);
         if (!type) {
-          this._eventEmitter.emit(VideoEvent.ERROR, {
+          this._eventEmitter.emitAsync(VideoEvent.ERROR, {
             errorType: Error.SRC_PARSE,
             streamSrc: mediaSource,
           });

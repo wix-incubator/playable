@@ -46,7 +46,7 @@ class PictureInPicture implements IPictureInPicture {
   }
 
   private _onChange() {
-    this._eventEmitter.emit(
+    this._eventEmitter.emitAsync(
       UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE,
       this.isInPictureInPicture,
     );

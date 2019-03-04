@@ -33,11 +33,11 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
       eventEmitter = testkit.getModule('eventEmitter');
 
-      eventEmitterSpy = sinon.spy(eventEmitter, 'emit');
+      eventEmitterSpy = sinon.spy(eventEmitter, 'emitAsync');
     });
 
     afterEach(() => {
-      eventEmitter.emit.restore();
+      eventEmitter.emitAsync.restore();
     });
 
     it('should emit ui event on play', () => {
@@ -64,7 +64,7 @@ describe('Overlay', () => {
 
       overlay._bindEvents();
 
-      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
+      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.PLAY_REQUESTED,
       });
 
@@ -77,7 +77,7 @@ describe('Overlay', () => {
       const showSpy = sinon.spy(overlay, '_showContent');
       overlay._bindEvents();
 
-      await eventEmitter.emit(VideoEvent.STATE_CHANGED, {
+      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.ENDED,
       });
 

@@ -160,11 +160,11 @@ export default class StateEngine {
       }
     }
 
-    this._eventEmitter.emit(VideoEvent.STATE_CHANGED, {
+    this._eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
       prevState: this._currentState,
       nextState: state,
     });
-    this._eventEmitter.emit(state);
+    this._eventEmitter.emitAsync(state);
     this._currentState = state;
   }
 

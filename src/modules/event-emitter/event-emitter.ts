@@ -115,9 +115,8 @@ class EventEmitterModule extends EventEmitter implements IEventEmitter {
     };
   }
 
-  //@ts-ignore
   //Now emit fire events only at the end of current macrotask, as part as next microtask
-  emit(event: string | symbol, ...args: any[]): Promise<boolean> | void {
+  emitAsync(event: string | symbol, ...args: any[]): Promise<boolean> | void {
     //Handle IE11
     if (!isPromiseAvailable) {
       if (setImmediate) {

@@ -81,12 +81,12 @@ class DownloadButton implements IDownloadButton {
     this._interceptor = new KeyboardInterceptor(this.getElement(), {
       [KEYCODES.SPACE_BAR]: (e: Event) => {
         e.stopPropagation();
-        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emitAsync(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._triggerCallback();
       },
       [KEYCODES.ENTER]: (e: Event) => {
         e.stopPropagation();
-        this._eventEmitter.emit(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
+        this._eventEmitter.emitAsync(UIEvent.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._triggerCallback();
       },
     });

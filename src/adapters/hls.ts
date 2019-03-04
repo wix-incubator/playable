@@ -176,7 +176,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   private _logError(error: string, errorEvent: any) {
-    this.eventEmitter.emit(VideoEvent.ERROR, {
+    this.eventEmitter.emitAsync(VideoEvent.ERROR, {
       errorType: error,
       streamType: MediaStreamType.HLS,
       streamProvider: 'hls.js',
@@ -291,7 +291,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
     if (this._isDynamicContent) {
       this._isDynamicContentEnded = true;
 
-      this.eventEmitter.emit(VideoEvent.DYNAMIC_CONTENT_ENDED);
+      this.eventEmitter.emitAsync(VideoEvent.DYNAMIC_CONTENT_ENDED);
     }
   }
 

@@ -60,30 +60,33 @@ export default class NativeEventsBroadcaster {
         break;
       }
       case 'progress': {
-        this._eventEmitter.emit(VideoEvent.CHUNK_LOADED);
+        this._eventEmitter.emitAsync(VideoEvent.CHUNK_LOADED);
         break;
       }
       case 'stalled': {
-        this._eventEmitter.emit(VideoEvent.UPLOAD_STALLED);
+        this._eventEmitter.emitAsync(VideoEvent.UPLOAD_STALLED);
         break;
       }
       case 'suspend': {
-        this._eventEmitter.emit(VideoEvent.UPLOAD_SUSPEND);
+        this._eventEmitter.emitAsync(VideoEvent.UPLOAD_SUSPEND);
         break;
       }
       case 'seeking': {
-        this._eventEmitter.emit(
+        this._eventEmitter.emitAsync(
           VideoEvent.SEEK_IN_PROGRESS,
           output.currentTime,
         );
         break;
       }
       case 'durationchange': {
-        this._eventEmitter.emit(VideoEvent.DURATION_UPDATED, output.duration);
+        this._eventEmitter.emitAsync(
+          VideoEvent.DURATION_UPDATED,
+          output.duration,
+        );
         break;
       }
       case 'timeupdate': {
-        this._eventEmitter.emit(
+        this._eventEmitter.emitAsync(
           VideoEvent.CURRENT_TIME_UPDATED,
           output.currentTime,
         );
@@ -106,15 +109,18 @@ export default class NativeEventsBroadcaster {
 
     if (this._currentVolume !== output.volume) {
       this._currentVolume = output.volume * 100;
-      this._eventEmitter.emit(VideoEvent.VOLUME_CHANGED, this._currentVolume);
+      this._eventEmitter.emitAsync(
+        VideoEvent.VOLUME_CHANGED,
+        this._currentVolume,
+      );
     }
 
     if (this._currentMute !== output.isMuted) {
       this._currentMute = output.isMuted;
-      this._eventEmitter.emit(VideoEvent.MUTE_CHANGED, this._currentMute);
+      this._eventEmitter.emitAsync(VideoEvent.MUTE_CHANGED, this._currentMute);
     }
 
-    this._eventEmitter.emit(VideoEvent.SOUND_STATE_CHANGED, {
+    this._eventEmitter.emitAsync(VideoEvent.SOUND_STATE_CHANGED, {
       volume: output.volume,
       muted: output.isMuted,
     });

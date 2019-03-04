@@ -191,20 +191,20 @@ class Screen implements IScreen {
 
     if (state === EngineState.PLAY_REQUESTED || state === EngineState.PLAYING) {
       this._engine.pause();
-      this._eventEmitter.emit(UIEvent.PAUSE_WITH_SCREEN_CLICK);
+      this._eventEmitter.emitAsync(UIEvent.PAUSE_WITH_SCREEN_CLICK);
     } else {
       this._engine.play();
-      this._eventEmitter.emit(UIEvent.PLAY_WITH_SCREEN_CLICK);
+      this._eventEmitter.emitAsync(UIEvent.PLAY_WITH_SCREEN_CLICK);
     }
   }
 
   private _toggleFullScreen() {
     if (this._fullScreenManager.isInFullScreen) {
       this._fullScreenManager.exitFullScreen();
-      this._eventEmitter.emit(UIEvent.EXIT_FULL_SCREEN_WITH_SCREEN_CLICK);
+      this._eventEmitter.emitAsync(UIEvent.EXIT_FULL_SCREEN_WITH_SCREEN_CLICK);
     } else {
       this._fullScreenManager.enterFullScreen();
-      this._eventEmitter.emit(UIEvent.ENTER_FULL_SCREEN_WITH_SCREEN_CLICK);
+      this._eventEmitter.emitAsync(UIEvent.ENTER_FULL_SCREEN_WITH_SCREEN_CLICK);
     }
   }
 

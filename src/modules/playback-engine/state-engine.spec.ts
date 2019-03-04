@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { EventEmitter } from 'eventemitter3';
+import EventEmitter from '../../modules/event-emitter/event-emitter';
 
 import { VideoEvent, EngineState } from '../../constants';
 import StateEngine, { NATIVE_VIDEO_EVENTS_TO_STATE } from './state-engine';
@@ -43,7 +43,7 @@ describe('NativeEventsBroadcaster', () => {
     eventEmitter = new EventEmitter();
     output = new NativeOutput(video);
 
-    sinon.spy(eventEmitter, 'emit');
+    sinon.spy(eventEmitter, 'emitAsync');
     engine = new StateEngine(eventEmitter, output);
     sinon.spy(engine, 'setState');
   });
@@ -51,7 +51,7 @@ describe('NativeEventsBroadcaster', () => {
   afterEach(() => {
     resetProperty(navigator, 'userAgent');
 
-    eventEmitter.emit.restore();
+    eventEmitter.emitAsync.restore();
     engine.setState.restore();
   });
 
@@ -82,7 +82,7 @@ describe('NativeEventsBroadcaster', () => {
     engine._currentState = EngineState.LOAD_STARTED;
     engine.setState(EngineState.READY_TO_PLAY);
     expect(
-      eventEmitter.emit.calledWith(VideoEvent.STATE_CHANGED, {
+      eventEmitter.emitAsync.calledWith(VideoEvent.STATE_CHANGED, {
         prevState: EngineState.LOAD_STARTED,
         nextState: EngineState.READY_TO_PLAY,
       }),
@@ -92,9 +92,9 @@ describe('NativeEventsBroadcaster', () => {
 
   it('should not trigger change of state on same state', () => {
     engine.setState(EngineState.READY_TO_PLAY);
-    expect(eventEmitter.emit.calledTwice).to.be.true;
+    expect(eventEmitter.emitAsync.calledTwice).to.be.true;
     engine.setState(EngineState.READY_TO_PLAY);
-    expect(eventEmitter.emit.calledTwice).to.be.true;
+    expect(eventEmitter.emitAsync.calledTwice).to.be.true;
   });
 
   it('should set state on loadstart event', () => {
@@ -192,6 +192,6 @@ describe('NativeEventsBroadcaster', () => {
 
   it('should do nothing if event is not in list', () => {
     engine._processEventFromVideo();
-    expect(eventEmitter.emit.called).to.be.false;
+    expect(eventEmitter.emitAsync.called).to.be.false;
   });
 });

@@ -100,7 +100,7 @@ export default class InteractionIndicator implements IInteractionIndicator {
 
   hideIcons() {
     this.view.deactivateIcon();
-    this._eventEmitter.emit(UIEvent.HIDE_INTERACTION_INDICATOR);
+    this._eventEmitter.emitAsync(UIEvent.HIDE_INTERACTION_INDICATOR);
   }
 
   show() {

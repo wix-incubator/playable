@@ -128,7 +128,7 @@ export default class DashAdapter implements IPlaybackAdapter {
   }
 
   private _logError(error: string, errorEvent: any) {
-    this.eventEmitter.emit(VideoEvent.ERROR, {
+    this.eventEmitter.emitAsync(VideoEvent.ERROR, {
       errorType: error,
       streamType: MediaStreamType.DASH,
       streamProvider: 'dash.js',

@@ -121,7 +121,7 @@ class LiveStateEngine {
       const nextState = state;
 
       this._state = state;
-      this._eventEmitter.emit(VideoEvent.LIVE_STATE_CHANGED, {
+      this._eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
         prevState,
         nextState,
       });
