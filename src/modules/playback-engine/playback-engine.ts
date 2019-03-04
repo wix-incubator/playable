@@ -11,6 +11,7 @@ import {
   IVideoOutput,
   PlayableMediaSource,
   CrossOriginValue,
+  PreloadType,
 } from './types';
 import { IEventEmitter } from '../event-emitter/types';
 
@@ -404,7 +405,7 @@ class Engine implements IPlaybackEngine {
    * player.setPreload('none');
    */
   @playerAPI()
-  setPreload(preload: 'auto' | 'metadata' | 'none' = 'auto') {
+  setPreload(preload: PreloadType) {
     this._output.setPreload(preload);
   }
 

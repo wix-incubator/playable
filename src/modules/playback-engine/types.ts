@@ -139,7 +139,7 @@ interface IVideoOutput {
   getElement: () => HTMLVideoElement | null;
 
   setPlaybackRate: (rate: number) => void;
-  setPreload: (preload: 'auto' | 'metadata' | 'none') => void;
+  setPreload: (preload: PreloadType) => void;
   setAutoplay: (isAutoplay: boolean) => void;
   setVolume: (volume: number) => void;
   setMute: (mute: boolean) => void;
@@ -162,7 +162,7 @@ interface IVideoOutput {
   isAutoPlayActive: boolean;
   isPreloadActive: boolean;
 
-  preload: 'auto' | 'metadata' | 'none';
+  preload: PreloadType;
 
   volume: number;
   currentTime: number;

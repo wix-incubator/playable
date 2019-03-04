@@ -3,6 +3,7 @@ import {
   IEngineDebugInfo,
   IVideoOutput,
   PlayableMediaSource,
+  PreloadType,
 } from '../../types';
 import { IPlaybackAdapter, IPlaybackAdapterClass } from './adapters/types';
 import { IEventEmitter } from '../../../event-emitter/types';
@@ -18,8 +19,6 @@ import {
   isIPhone,
   isIPod,
 } from '../../../../utils/device-detection';
-
-type Preload = 'auto' | 'metadata' | 'none';
 
 export default class NativeOutput implements IVideoOutput {
   static moduleName = 'nativeOutput';
@@ -121,7 +120,7 @@ export default class NativeOutput implements IVideoOutput {
     }
   }
 
-  setCrossOrigin(crossOrigin?: 'anonymous' | 'use-credentials') {
+  setCrossOrigin(crossOrigin?: CrossOriginValue) {
     if (crossOrigin) {
       this._video.setAttribute('crossorigin', crossOrigin);
     } else {
@@ -147,8 +146,8 @@ export default class NativeOutput implements IVideoOutput {
     this._video.playbackRate = rate;
   }
 
-  setPreload(preload: Preload = 'auto') {
-    this._video.preload = preload || 'auto';
+  setPreload(preload: PreloadType = PreloadType.AUTO) {
+    this._video.preload = preload || PreloadType.AUTO;
   }
 
   setSrc(src?: PlayableMediaSource) {
@@ -214,7 +213,7 @@ export default class NativeOutput implements IVideoOutput {
   }
 
   get preload() {
-    return this._video.preload as Preload;
+    return this._video.preload as PreloadType;
   }
 
   get isPaused() {
