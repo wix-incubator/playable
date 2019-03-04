@@ -1,4 +1,3 @@
-//@ts-ignore
 import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
 
 import { getNearestBufferSegmentInfo } from '../utils/video-data';
@@ -53,8 +52,8 @@ export default class DashAdapter implements IPlaybackAdapter {
   get currentUrl() {
     return this.mediaStream.url;
   }
-  //@ts-ignore
-  get syncWithLiveTime() {
+
+  get syncWithLiveTime(): any {
     // TODO: implement syncWithLiveTime for `dash`
     return undefined;
   }

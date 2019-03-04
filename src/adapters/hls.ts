@@ -1,4 +1,3 @@
-//@ts-ignore
 import HlsJs from 'hls.js/dist/hls.light';
 
 import {

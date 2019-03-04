@@ -4,11 +4,10 @@ import { PLAYER_API_PROPERTY } from '../core/player-api-decorator';
 import { IThemeConfig } from '../modules/ui/core/theme';
 
 export default class Player {
-  //@ts-ignore
-  private _config: IPlayerConfig;
-  private _scope: Container;
-  private _defaultModules: { [id: string]: any };
-  private _additionalModules: { [id: string]: any };
+  protected _config: IPlayerConfig;
+  protected _scope: Container;
+  protected _defaultModules: { [id: string]: any };
+  protected _additionalModules: { [id: string]: any };
   private _destroyed: boolean;
 
   constructor(

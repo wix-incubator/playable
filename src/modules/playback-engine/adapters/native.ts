@@ -46,8 +46,8 @@ export default function getNativeAdapterCreator(
     get currentUrl() {
       return this.mediaStreams[this.currentLevel].url;
     }
-    //@ts-ignore
-    get syncWithLiveTime() {
+
+    get syncWithLiveTime(): any {
       // TODO: implement syncWithLiveTime for `native`
       return undefined;
     }
