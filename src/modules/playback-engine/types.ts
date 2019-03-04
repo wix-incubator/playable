@@ -14,6 +14,11 @@ enum PreloadType {
   AUTO = 'auto',
 }
 
+enum CrossOriginValue {
+  ANONYMUS = 'anonymous',
+  CREDENTIALS = 'use-credentials',
+}
+
 interface IPlayableSource {
   url: string;
   type?: MediaStreamType;
@@ -29,8 +34,6 @@ type PlayableMediaSource =
   | string
   | IPlayableSource
   | Array<string | IPlayableSource>;
-
-type CrossOriginValue = 'anonymous' | 'use-credentials';
 
 interface IPlaybackEngine {
   getElement(): HTMLVideoElement | null;

@@ -501,7 +501,7 @@ class Engine implements IPlaybackEngine {
    * player.setCrossOrigin('anonymous');
    */
   @playerAPI()
-  setCrossOrigin(crossOrigin?: 'anonymous' | 'use-credentials') {
+  setCrossOrigin(crossOrigin?: CrossOriginValue) {
     this._output.setCrossOrigin(crossOrigin);
   }
 

@@ -22,6 +22,7 @@ import {
 import { Tooltip } from './modules/ui/core/tooltip';
 import {
   PreloadType as PRELOAD_TYPES,
+  CrossOriginValue as CROSS_ORIGIN_VALUES,
   PlayableMediaSource,
 } from './modules/playback-engine/types';
 import { IPlaybackAdapter } from './modules/playback-engine/output/native/adapters/types';
@@ -44,6 +45,7 @@ export {
   LIVE_STATES,
   VIDEO_VIEW_MODES,
   PRELOAD_TYPES,
+  CROSS_ORIGIN_VALUES,
   Tooltip,
   playerAPIDecorator,
   DefaultModules,
@@ -68,6 +70,7 @@ export default {
   LIVE_STATES,
   VIDEO_VIEW_MODES,
   PRELOAD_TYPES,
+  CROSS_ORIGIN_VALUES,
   Tooltip,
   playerAPIDecorator,
   DefaultModules,
