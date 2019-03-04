@@ -3,7 +3,7 @@ import { IPlaybackAdapterClass } from './types';
 import {
   MediaStreamType,
   MediaStreamDeliveryPriority,
-} from '../../../constants';
+} from '../../../../../constants';
 
 const defaultPlaybackAdapters: IPlaybackAdapterClass[] = [
   getNativeAdapterCreator(

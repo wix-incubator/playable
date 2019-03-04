@@ -1,4 +1,4 @@
-import { IPlaybackAdapter } from '../adapters/types';
+import { IPlaybackAdapter } from '../output/native/adapters/types';
 import { MediaStreamType, MimeToStreamTypeMap } from '../../../constants';
 import { IPlayableSource, IParsedPlayableSource } from '../types';
 

@@ -59,6 +59,7 @@ import PreviewThumbnail from '../modules/ui/preview-thumbnail/preview-thumbnail'
 import PreviewFullSize from '../modules/ui/preview-full-size/preview-full-size';
 
 import { TooltipService } from '../modules/ui/core/tooltip';
+import NativeOutput from '../modules/playback-engine/output/native/html5video-output';
 
 const { asClass } = DependencyContainer;
 
@@ -85,6 +86,8 @@ export const modules: { [id: string]: any } = {
   Engine,
   ThemeService,
   TextMap,
+
+  NativeOutput,
 
   FullScreenManager,
   PictureInPictureManager,

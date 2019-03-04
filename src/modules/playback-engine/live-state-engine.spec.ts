@@ -202,7 +202,7 @@ describe('LiveStateEngine', () => {
 
     describe('on `PLAYING` after seek', () => {
       beforeEach(async function() {
-        engine._stateEngine.setState(EngineState.PLAYING);
+        engine._output._stateEngine.setState(EngineState.PLAYING);
         liveStateEngine._setState(LiveState.SYNC);
 
         // emulate seek by UI

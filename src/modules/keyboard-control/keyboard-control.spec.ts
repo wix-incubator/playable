@@ -27,7 +27,7 @@ describe('KeyboardControl', () => {
     testkit = createPlayerTestkit();
     eventEmitter = testkit.getModule('eventEmitter');
     engine = testkit.getModule('engine');
-    engine._adapterStrategy._attachedAdapter = {
+    engine._output._adapterStrategy._attachedAdapter = {
       isSeekAvailable: true,
       attach: () => {},
       detach: () => {},

@@ -110,14 +110,14 @@ describe('LoadingCover', () => {
         });
 
         it('should be proper if next state is EngineState.WAITING', async function() {
-          engine._stateEngine._isMetadataLoaded = true;
+          engine._output._stateEngine._isMetadataLoaded = true;
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.WAITING,
           });
 
           expect(showSpy.called).to.be.false;
 
-          engine._stateEngine._isMetadataLoaded = false;
+          engine._output._stateEngine._isMetadataLoaded = false;
           engine.setPreload('auto');
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.WAITING,

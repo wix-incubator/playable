@@ -1,15 +1,15 @@
-import { IEventEmitter } from '../event-emitter/types';
+import { IEventEmitter } from '../../../event-emitter/types';
 
-import { VideoEvent, Error } from '../../constants';
+import { VideoEvent, Error } from '../../../../constants';
 
-import { resolveAdapters } from './utils/adapters-resolver';
-import { getStreamType } from './utils/detect-stream-type';
+import { resolveAdapters } from '../../utils/adapters-resolver';
+import { getStreamType } from '../../utils/detect-stream-type';
 
 import { IPlaybackAdapter, IPlaybackAdapterClass } from './adapters/types';
-import { PlayableMediaSource, IPlayableSource, IVideoOutput } from './types';
+import { PlayableMediaSource, IPlayableSource } from '../../types';
 
 export default class AdaptersStrategy {
-  private _output: IVideoOutput;
+  private _video: HTMLVideoElement;
   private _eventEmitter: IEventEmitter;
   private _playableAdapters: IPlaybackAdapter[];
   private _availableAdapters: IPlaybackAdapter[];
@@ -17,10 +17,10 @@ export default class AdaptersStrategy {
 
   constructor(
     eventEmitter: IEventEmitter,
-    output: IVideoOutput,
+    video: HTMLVideoElement,
     playbackAdapters: IPlaybackAdapterClass[] = [],
   ) {
-    this._output = output;
+    this._video = video;
     this._eventEmitter = eventEmitter;
     this._playableAdapters = [];
     this._availableAdapters = [];
@@ -71,7 +71,7 @@ export default class AdaptersStrategy {
       // Use the first PlayableStream for now
       // Later, we can use the others as fallback
       this._attachedAdapter = this._playableAdapters[0];
-      this._attachedAdapter.attach(this._output);
+      this._attachedAdapter.attach(this._video);
     }
   }
 
