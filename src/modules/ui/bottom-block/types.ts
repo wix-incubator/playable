@@ -61,10 +61,13 @@ interface IBottomBlock {
   hideFullScreenControl(): void;
   showVolumeControl(): void;
   hideVolumeControl(): void;
+  showDownloadButton(): void;
+  hideDownloadButton(): void;
   destroy(): void;
 }
 
 interface IBottomBlockAPI {
+  setAlwaysShowLogo?(flag: boolean): void;
   showLogo?(): void;
   hideLogo?(): void;
   showPlayControl?(): void;
@@ -77,6 +80,8 @@ interface IBottomBlockAPI {
   hideFullScreenControl?(): void;
   showVolumeControl?(): void;
   hideVolumeControl?(): void;
+  showDownloadButton?(): void;
+  hideDownloadButton?(): void;
 }
 
 export {
