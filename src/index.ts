@@ -6,8 +6,12 @@ import {
   clearPlaybackAdapters,
   IPlayerInstance,
 } from './core/player-factory';
+
 import { modules as DefaultModules } from './core/default-modules';
+import { Tooltip } from './modules/ui/core/tooltip';
+
 import playerAPIDecorator from './core/player-api-decorator';
+
 import {
   ERRORS,
   UI_EVENTS,
@@ -18,16 +22,15 @@ import {
   ENGINE_STATES,
   LIVE_STATES,
 } from './constants';
-
-import { Tooltip } from './modules/ui/core/tooltip';
 import {
   PreloadType as PRELOAD_TYPES,
   CrossOriginValue as CROSS_ORIGIN_VALUES,
   PlayableMediaSource,
 } from './modules/playback-engine/types';
-import { IPlaybackAdapter } from './modules/playback-engine/output/native/adapters/types';
-
 import { VideoViewMode as VIDEO_VIEW_MODES } from './modules/ui/screen/types';
+
+import { IPlaybackAdapter } from './modules/playback-engine/output/native/adapters/types';
+import { IThemeConfig } from './modules/ui/core/theme';
 
 export {
   create,
@@ -52,6 +55,7 @@ export {
   IPlayerInstance,
   PlayableMediaSource,
   IPlaybackAdapter,
+  IThemeConfig,
 };
 
 export default {
