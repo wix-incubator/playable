@@ -158,7 +158,7 @@ interface IVideoOutput {
   setInline: (isPlaysinline: boolean) => void;
   setCrossOrigin: (crossOrigin?: CrossOriginValue) => void;
   setLoop: (mute: boolean) => void;
-  setSrc: (src?: PlayableMediaSource) => void;
+  setSrc: (src?: PlayableMediaSource, startTime?: number) => void;
 
   isPaused: boolean;
   isMuted: boolean;

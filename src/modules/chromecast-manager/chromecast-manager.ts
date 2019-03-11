@@ -1,9 +1,8 @@
 import { IChromecastManager } from './types';
-import { IPlayableSource, IPlaybackEngine } from '../playback-engine/types';
+import { IPlaybackEngine } from '../playback-engine/types';
 import CastContext = cast.framework.CastContext;
 import ChromecastOutput from '../playback-engine/output/chromecast/chromecast-output';
 import { IEventEmitter } from '../event-emitter/types';
-import { getMimeByType } from '../../utils/get-mime-type';
 
 type PatchedWindow = Window & {
   __onGCastApiAvailable: Function;
@@ -68,29 +67,6 @@ export default class ChromecastManager implements IChromecastManager {
       function(event) {
         switch (event.sessionState) {
           case cast.framework.SessionState.SESSION_STARTED:
-            const { url, type } = engine.getSrc() as IPlayableSource;
-            const startTime = engine.getCurrentTime();
-            const mediaInfo = new chrome.cast.media.MediaInfo(
-              url,
-              getMimeByType(type),
-            );
-
-            const castSession = context.getCurrentSession();
-            const request = new chrome.cast.media.LoadRequest(mediaInfo);
-
-            request.autoplay = false;
-
-            if (startTime) {
-              request.currentTime = startTime;
-            }
-
-            engine.pause();
-
-            castSession.loadMedia(request).then(() => {
-              engine.changeOutput(new ChromecastOutput(eventEmitter));
-            });
-
-            break;
           case cast.framework.SessionState.SESSION_RESUMED:
             engine.changeOutput(new ChromecastOutput(eventEmitter));
             break;

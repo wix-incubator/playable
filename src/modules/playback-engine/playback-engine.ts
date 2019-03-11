@@ -60,7 +60,9 @@ class Engine implements IPlaybackEngine {
     this.setPlaysinline(playsinline);
     this.setCrossOrigin(crossOrigin);
 
-    this.setSrc(src);
+    if (src) {
+      this.setSrc(src);
+    }
   }
 
   getElement() {
@@ -567,9 +569,14 @@ class Engine implements IPlaybackEngine {
     return;
   }
 
+  // set SRC from current SRC
   changeOutput(output?: IVideoOutput): void {
+    const startTime = this.getCurrentTime();
+    this._output.pause();
+
     this._output = output;
     this._applyConfig(this._config);
+    this._output.setSrc(this._currentSrc, startTime);
   }
 
   resetOutput(): void {
