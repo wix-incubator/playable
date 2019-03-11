@@ -1,12 +1,10 @@
 import {
-  IPlaybackAdapter,
   IPlaybackAdapterClass,
   IAdapterDebugInfo,
 } from './output/native/adapters/types';
 import { EngineState, MediaStreamType } from '../../constants';
 import { IEventEmitter } from '../event-emitter/types';
 import { IPlayerConfig } from '../../core/config';
-import StateEngine from './output/native/state-engine';
 
 enum PreloadType {
   NONE = 'none',
@@ -47,8 +45,6 @@ interface IPlaybackEngine {
   isSyncWithLive: boolean;
   isPaused: boolean;
   isEnded: boolean;
-
-  attachedAdapter: IPlaybackAdapter;
 
   setSrc(src: PlayableMediaSource): void;
   getSrc(): PlayableMediaSource;
@@ -100,19 +96,33 @@ interface IPlaybackEngine {
   getDebugInfo(): IEngineDebugInfo;
 
   destroy(): void;
+
+  changeOutput(chromecastOutput: IVideoOutput): void;
+  resetOutput(): void;
 }
+
+type IEngineDebugInfo = INativeDebugInfo | ICromecastDebugInfo;
 
 /**
  * @property viewDimensions - Current size of view port provided by engine (right now - actual size of video tag)
  * @property currentTime - Current time of playback
  * @property duration - Duration of current video
  * @property loadingStateTimestamps - Object with time spend for different initial phases
+ * @property output - Type of the output (html5video, chromecast etc.);
  */
-interface IEngineDebugInfo extends IAdapterDebugInfo {
+interface INativeDebugInfo extends IAdapterDebugInfo {
   viewDimensions: Object;
   currentTime: number;
   duration: number;
   loadingStateTimestamps: Object;
+  output: 'html5video';
+}
+
+interface ICromecastDebugInfo {
+  output: 'chromecast';
+  currentTime: number;
+  duration: number;
+  src: string;
 }
 
 interface IPlaybackEngineDependencies {
@@ -128,9 +138,7 @@ interface ILiveStateEngineDependencies {
 }
 
 interface IVideoOutput {
-  stateTimestamps: { [state: string]: number };
   currentState: EngineState;
-  attachedAdapter: IPlaybackAdapter;
   play: () => void;
   pause: () => void;
   syncWithLive: () => void;
@@ -170,7 +178,6 @@ interface IVideoOutput {
   volume: number;
   currentTime: number;
   duration: number;
-  length: number;
   autoplay: boolean;
   playbackRate: number;
   videoWidth?: number;
@@ -178,9 +185,7 @@ interface IVideoOutput {
   buffered: TimeRanges;
   isInline: boolean;
   crossOrigin: CrossOriginValue;
-  error: MediaError;
   src: string;
-  stateEngine: StateEngine;
 }
 
 interface IPlaybackEngineAPI {
@@ -233,6 +238,7 @@ interface IPlaybackEngineAPI {
   getPlaysinline?(): boolean;
 
   getPlaybackState?(): EngineState;
+
   getDebugInfo?(): IEngineDebugInfo;
 }
 
@@ -242,6 +248,8 @@ export {
   IPlaybackEngineDependencies,
   IPlaybackEngine,
   IEngineDebugInfo,
+  ICromecastDebugInfo,
+  INativeDebugInfo,
   IPlayableSource,
   IParsedPlayableSource,
   IVideoOutput,
