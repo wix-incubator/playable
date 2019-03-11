@@ -26,7 +26,7 @@ export default class PlayControl implements IPlayControl {
 
   private _interceptor: KeyboardInterceptor;
 
-  private _unbindEvents: () => void;
+  private _unbindEvents: Function;
 
   view: View;
 
@@ -91,6 +91,8 @@ export default class PlayControl implements IPlayControl {
     } else {
       this._pauseVideo();
     }
+
+    this._updatePlayingState();
   }
 
   private _playVideo() {

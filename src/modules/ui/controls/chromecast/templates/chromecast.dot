@@ -1,0 +1,5 @@
+<div class="${props.styles.buttonWrapper}">
+ <button class="${props.styles.chromecastButton} ${props.themeStyles.chromecastButtonFill} ${props.styles.controlButton}" data-playable-hook="chromecast-button">
+  <google-cast-launcher></google-cast-launcher>
+ </button>
+</div>

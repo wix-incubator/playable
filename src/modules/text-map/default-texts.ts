@@ -25,6 +25,10 @@ const map: ITextMapConfig = {
   [TextLabel.EXIT_FULL_SCREEN_TOOLTIP]: 'Exit Full Screen',
   [TextLabel.DOWNLOAD_BUTTON_LABEL]: 'Download video',
   [TextLabel.DOWNLOAD_BUTTON_TOOLTIP]: 'Download Video',
+  [TextLabel.START_CHROMECAST_BUTTON_LABEL]: 'Broadcast video',
+  [TextLabel.START_CHROMECAST_BUTTON_TOOLTIP]: 'Broadcast Video',
+  [TextLabel.STOP_CHROMECAST_BUTTON_LABEL]: 'Stop broadcasting video',
+  [TextLabel.STOP_CHROMECAST_BUTTON_TOOLTIP]: 'Stop Broadcasting video',
 };
 
 export default map;

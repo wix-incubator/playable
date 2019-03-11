@@ -20,6 +20,10 @@ enum TextLabel {
   VOLUME_CONTROL_VALUE = 'volume-control-value',
   DOWNLOAD_BUTTON_LABEL = 'download-button-label',
   DOWNLOAD_BUTTON_TOOLTIP = 'download-button-tooltip',
+  START_CHROMECAST_BUTTON_LABEL = 'start-chromecast-button-label',
+  START_CHROMECAST_BUTTON_TOOLTIP = 'start-chromecast-button-tooltip',
+  STOP_CHROMECAST_BUTTON_LABEL = 'stop-chromecast-button-label',
+  STOP_CHROMECAST_BUTTON_TOOLTIP = 'stop-chromecast-button-tooltip',
 }
 
 export default TextLabel;

@@ -1985,6 +1985,29 @@ Method for attaching callback for click on logo
   </table>
 </div>
 
+## setChromecaststButtonCallback()
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th>ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>callback</code>
+        </td>
+        <td>
+            <div class="type">Function</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 ## setFramesMap()
 
 <div class="method-list">
