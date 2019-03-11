@@ -67,35 +67,45 @@ export default class DebugPanel {
   }
 
   getDebugInfo() {
-    const {
-      url,
-      type,
-      deliveryPriority,
-      currentBitrate,
-      overallBufferLength,
-      nearestBufferSegInfo,
-      viewDimensions,
-      currentTime,
-      duration,
-      loadingStateTimestamps,
-      bitrates,
-      bwEstimate,
-    } = this._engine.getDebugInfo();
+    const info = this._engine.getDebugInfo();
 
-    return {
-      url,
-      type,
-      deliveryPriority: MediaStreamDeliveryPriority[deliveryPriority],
-      currentBitrate,
-      overallBufferLength,
-      nearestBufferSegInfo,
-      viewDimensions,
-      currentTime,
-      duration,
-      loadingStateTimestamps,
-      bitrates,
-      bwEstimate,
-    };
+    if (info.output === 'html5video') {
+      const {
+        url,
+        type,
+        deliveryPriority,
+        currentBitrate,
+        overallBufferLength,
+        nearestBufferSegInfo,
+        viewDimensions,
+        currentTime,
+        duration,
+        loadingStateTimestamps,
+        bitrates,
+        bwEstimate,
+        output,
+      } = info;
+
+      return {
+        url,
+        type,
+        deliveryPriority: MediaStreamDeliveryPriority[deliveryPriority],
+        currentBitrate,
+        overallBufferLength,
+        nearestBufferSegInfo,
+        viewDimensions,
+        currentTime,
+        duration,
+        loadingStateTimestamps,
+        bitrates,
+        bwEstimate,
+        output,
+      };
+    }
+
+    if (info.output === 'chromecast') {
+      return info;
+    }
   }
 
   updateInfo() {
