@@ -1,7 +1,7 @@
 import { IChromecastManager } from './types';
 import { IPlaybackEngine } from '../playback-engine/types';
 import CastContext = cast.framework.CastContext;
-// import ChromecastOutput from '../playback-engine/output/chromecast/chromecast-output';
+import ChromecastOutput from '../playback-engine/output/chromecast/chromecast-output';
 // import { UIEvent } from '../../constants';
 import { IEventEmitter } from '../event-emitter/types';
 
@@ -83,7 +83,7 @@ export default class ChromecastManager implements IChromecastManager {
   private _bindToContextEvents() {
     const context = this._context;
     const engine = this._engine;
-    // const eventEmitter = this._eventEmitter;
+    const eventEmitter = this._eventEmitter;
 
     context.addEventListener(
       cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
@@ -91,7 +91,7 @@ export default class ChromecastManager implements IChromecastManager {
         switch (event.sessionState) {
           case cast.framework.SessionState.SESSION_STARTED:
           case cast.framework.SessionState.SESSION_RESUMED: // start cast to chromecast -> reload page -> SESSION_RESUMED
-            //  engine.changeOutput(new ChromecastOutput(eventEmitter));
+            engine.changeOutput(new ChromecastOutput(eventEmitter));
             break;
           case cast.framework.SessionState.SESSION_ENDED:
             engine.resetOutput();

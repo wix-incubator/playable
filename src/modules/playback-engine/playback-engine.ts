@@ -571,11 +571,12 @@ class Engine implements IPlaybackEngine {
 
   changeOutput(output?: IVideoOutput): void {
     const startTime = this.getCurrentTime();
-    this._output.pause();
 
+    this._output.pause();
     this._output = output;
     this._applyConfig(this._config);
     this._output.setSrc(this._currentSrc);
+
     if (startTime) {
       this._output.setCurrentTime(startTime);
     }
@@ -586,8 +587,8 @@ class Engine implements IPlaybackEngine {
     const currentTime = this._output.currentTime;
 
     this._output = this._defaultOutput;
-
     this._output.setCurrentTime(currentTime);
+
     if (wasPlaying) {
       this._output.play();
     }
