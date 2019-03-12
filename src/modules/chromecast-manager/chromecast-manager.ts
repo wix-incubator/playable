@@ -3,6 +3,9 @@ import { IPlaybackEngine } from '../playback-engine/types';
 import CastContext = cast.framework.CastContext;
 import ChromecastOutput from '../playback-engine/output/chromecast/chromecast-output';
 import { IEventEmitter } from '../event-emitter/types';
+import { UIEvent } from '../../constants';
+
+import injectScript from '../../utils/script-injector';
 
 type PatchedWindow = Window & {
   __onGCastApiAvailable: Function;
@@ -29,23 +32,25 @@ export default class ChromecastManager implements IChromecastManager {
     this._engine = engine;
     this._eventEmitter = eventEmitter;
 
-    this._initCastFramework = this._initCastFramework.bind(this);
+    this._initCastContext = this._initCastContext.bind(this);
 
     this._insertCastCallback();
   }
 
   _insertCastCallback() {
-    (window as PatchedWindow).__onGCastApiAvailable = this._initCastFramework;
+    if (ChromecastManager._chromecastInited) {
+      return;
+    }
 
-    const head = document.getElementsByTagName('head')[0];
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = FRAMEWORK_LINK;
-    head.appendChild(script);
+    ChromecastManager._chromecastInited = true;
+
+    (window as PatchedWindow).__onGCastApiAvailable = this._initCastContext;
+
+    injectScript(FRAMEWORK_LINK);
   }
 
-  _initCastFramework(isAvailable: boolean) {
-    if (isAvailable && cast.framework && chrome.cast) {
+  _initCastContext(isAvailable: boolean) {
+    if (isAvailable) {
       this._context = cast.framework.CastContext.getInstance();
 
       this._context.setOptions({
@@ -54,8 +59,15 @@ export default class ChromecastManager implements IChromecastManager {
       });
 
       this._bindToContextEvents();
+      this._eventEmitter.emitAsync(UIEvent.CHROMECAST_INITED);
     }
   }
+
+  /*
+   * Set to true when the first instance if the player initializes chromecast
+   * Only first player will receive chromecast button
+   * */
+  private static _chromecastInited: boolean;
 
   private _bindToContextEvents() {
     const context = this._context;
@@ -67,7 +79,7 @@ export default class ChromecastManager implements IChromecastManager {
       function(event) {
         switch (event.sessionState) {
           case cast.framework.SessionState.SESSION_STARTED:
-          case cast.framework.SessionState.SESSION_RESUMED:
+          case cast.framework.SessionState.SESSION_RESUMED: // start cast to chromecast -> reload page -> SESSION_RESUMED
             engine.changeOutput(new ChromecastOutput(eventEmitter));
             break;
           case cast.framework.SessionState.SESSION_ENDED:
@@ -80,9 +92,7 @@ export default class ChromecastManager implements IChromecastManager {
     );
   }
 
-  destroy() {
-    this._engine = null;
-  }
+  destroy: () => void;
 
   isCasting: boolean;
   isEnabled: boolean;

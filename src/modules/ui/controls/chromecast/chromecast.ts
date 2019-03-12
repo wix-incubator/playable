@@ -61,6 +61,7 @@ export default class ChromecaststButton implements IChromecaststButton {
 
     this._initUI();
     this._initInterceptor();
+    this._bindEvents();
   }
 
   getElement() {
@@ -82,6 +83,7 @@ export default class ChromecaststButton implements IChromecaststButton {
     };
 
     this.view = new ChromecaststButton.View(config);
+    this.hide();
   }
 
   private _initInterceptor() {
@@ -96,6 +98,13 @@ export default class ChromecaststButton implements IChromecaststButton {
         this._eventEmitter.emitAsync(UI_EVENTS.KEYBOARD_KEYDOWN_INTERCEPTED);
         this._triggerCallback();
       },
+    });
+  }
+
+  private _bindEvents() {
+    const show = this.show.bind(this);
+    this._eventEmitter.on(UI_EVENTS.CHROMECAST_INITED, () => {
+      show();
     });
   }
 

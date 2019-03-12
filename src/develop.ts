@@ -8,6 +8,7 @@ import {
 import HLSAdapter from './adapters/hls';
 import DASHAdapter from './adapters/dash';
 import Subtitles from './modules/ui/subtitles/subtitles';
+import { IPlayableSource } from './modules/playback-engine/types';
 
 const DEFAULT_URLS: any = {
   DASH: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
@@ -40,7 +41,10 @@ const config = {
   ],
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+function createPlayer(
+  containerId: string,
+  videoType: MEDIA_STREAM_TYPES | 'MP4-VERTICAL',
+) {
   const player = create({
     preload: PRELOAD_TYPES.METADATA,
     width: 800,
@@ -50,33 +54,38 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   player.showLogo();
 
+  player.attachToElement(document.getElementById(containerId));
+
+  selectVideo(player, videoType);
+
+  return player;
+}
+
+function selectVideo(player: any, type: MEDIA_STREAM_TYPES | 'MP4-VERTICAL') {
+  let _type = type;
+  const url = DEFAULT_URLS[type];
+  if (_type === 'MP4-VERTICAL') {
+    _type = MEDIA_STREAM_TYPES.MP4;
+  }
+
+  player.setSrc({
+    type: _type,
+    url,
+  } as IPlayableSource);
+  player.setTitle(`${type}`);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const player = createPlayer('player-wrapper', MEDIA_STREAM_TYPES.MP4);
+
   Object.defineProperty(window, 'player', {
     value: player,
   });
-
-  const selectVideo = (type: MEDIA_STREAM_TYPES) => {
-    player.setSrc({
-      type,
-      url: DEFAULT_URLS[type],
-    });
-    player.setTitle(`${type} format`);
-  };
-
-  selectVideo(MEDIA_STREAM_TYPES.MP4);
 
   document.getElementById('types').addEventListener('click', event => {
     const { type } = (event.target as any).dataset;
     if (!type) {
       return;
-    }
-    if (type === 'MP4-VERTICAL') {
-      player.setSrc({
-        type: MEDIA_STREAM_TYPES.MP4,
-        url: DEFAULT_URLS[type],
-      });
-      player.setTitle(`${type}`);
-    } else {
-      selectVideo(type);
     }
   });
 
@@ -104,6 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-  player.attachToElement(document.getElementById('player-wrapper'));
   player.setFramesMap(config);
+
+  createPlayer('player-wrapper2', 'MP4-VERTICAL');
+  createPlayer('player-wrapper3', MEDIA_STREAM_TYPES.DASH);
 });

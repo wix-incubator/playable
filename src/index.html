@@ -6,9 +6,6 @@
   <style>
     html,
     body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -24,6 +21,12 @@
       justify-content: center;
       align-items: center;
     }
+    #player-wrapper,
+    #player-wrapper2,
+    #player-wrapper3 {
+      margin: 10px 0;
+    }
+
   </style>
 </head>
 <body>
@@ -47,5 +50,7 @@
   <button data-mode="REGULAR">REGULAR</button>
   <button data-mode="PREVIEW">PREVIEW</button>
 </div>
+<div id="player-wrapper2"></div>
+<div id="player-wrapper3"></div>
 </body>
 </html>
