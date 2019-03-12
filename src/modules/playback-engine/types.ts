@@ -101,7 +101,11 @@ interface IPlaybackEngine {
   resetOutput(): void;
 }
 
-type IEngineDebugInfo = INativeDebugInfo | ICromecastDebugInfo;
+interface IEngineDebugInfo {
+  output: string;
+  currentTime: number;
+  duration: number;
+}
 
 /**
  * @property viewDimensions - Current size of view port provided by engine (right now - actual size of video tag)
@@ -116,13 +120,6 @@ interface INativeDebugInfo extends IAdapterDebugInfo {
   duration: number;
   loadingStateTimestamps: Object;
   output: 'html5video';
-}
-
-interface ICromecastDebugInfo {
-  output: 'chromecast';
-  currentTime: number;
-  duration: number;
-  src: string;
 }
 
 interface IPlaybackEngineDependencies {
@@ -144,8 +141,6 @@ interface IVideoOutput {
   syncWithLive: () => void;
 
   getDebugInfo: () => IEngineDebugInfo;
-
-  destroy: () => void;
 
   getElement: () => HTMLVideoElement | null;
 
@@ -248,7 +243,6 @@ export {
   IPlaybackEngineDependencies,
   IPlaybackEngine,
   IEngineDebugInfo,
-  ICromecastDebugInfo,
   INativeDebugInfo,
   IPlayableSource,
   IParsedPlayableSource,

@@ -37,12 +37,9 @@ export default class StateEngine {
   private _bindEvents() {
     const castEvents = cast.framework.RemotePlayerEventType;
 
-    this._remotePlayerController.addEventListener(
-      cast.framework.RemotePlayerEventType.ANY_CHANGE,
-      e => {
-        this._processEventFromVideo(e);
-      },
-    );
+    this._remotePlayerController.addEventListener(castEvents.ANY_CHANGE, e => {
+      this._processEventFromVideo(e);
+    });
 
     this._remotePlayerController.addEventListener(
       castEvents.IS_PAUSED_CHANGED,

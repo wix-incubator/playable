@@ -1,6 +1,5 @@
 import {
   CrossOriginValue,
-  ICromecastDebugInfo,
   IPlayableSource,
   IVideoOutput,
   PlayableMediaSource,
@@ -13,6 +12,7 @@ import StateEngine from './state-engine';
 import { IEventEmitter } from '../../../event-emitter/types';
 import logger from '../../../../utils/logger';
 import { getMimeByType, getMimeByUrl } from '../../../../utils/get-mime-type';
+import { ICromecastDebugInfo } from './types';
 
 const NOT_IMPLEMENTED = 'Not available using chromecast';
 
@@ -101,20 +101,20 @@ export default class ChromecastOutput implements IVideoOutput {
     if (!source) {
       return;
     }
-    let _source = source;
+    let calculatedSource = source;
     let mimeType, url;
 
     if (Array.isArray(source)) {
-      _source = source[0];
+      calculatedSource = source[0];
     }
 
-    if (typeof _source === 'string') {
-      url = _source;
-      mimeType = getMimeByUrl(_source);
+    if (typeof calculatedSource === 'string') {
+      url = calculatedSource;
+      mimeType = getMimeByUrl(calculatedSource);
     } else {
-      _source = _source as IPlayableSource;
-      mimeType = getMimeByType(_source.type);
-      url = _source.url;
+      calculatedSource = calculatedSource as IPlayableSource;
+      mimeType = getMimeByType(calculatedSource.type);
+      url = calculatedSource.url;
     }
 
     this._src = url;
@@ -148,8 +148,7 @@ export default class ChromecastOutput implements IVideoOutput {
     );
   }
 
-  // @ts-ignore
-  getElement() {
+  getElement(): null {
     logger.warn(NOT_IMPLEMENTED);
     return null;
   }
@@ -246,10 +245,6 @@ export default class ChromecastOutput implements IVideoOutput {
 
   get currentState(): EngineState {
     return this._stateEngine.state;
-  }
-
-  destroy() {
-    return;
   }
 
   get isAutoPlayActive() {

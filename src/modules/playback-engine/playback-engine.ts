@@ -569,7 +569,6 @@ class Engine implements IPlaybackEngine {
     return;
   }
 
-  // set SRC from current SRC
   changeOutput(output?: IVideoOutput): void {
     const startTime = this.getCurrentTime();
     this._output.pause();

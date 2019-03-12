@@ -3,7 +3,7 @@ import View from './debug-panel.view';
 
 import { KEYCODES } from '../../../utils/keyboard-interceptor';
 
-import { IPlaybackEngine } from '../../playback-engine/types';
+import { INativeDebugInfo, IPlaybackEngine } from '../../playback-engine/types';
 import { IRootContainer } from '../../root-container/types';
 import { IKeyboardControl } from '../../keyboard-control/types';
 
@@ -84,7 +84,7 @@ export default class DebugPanel {
         bitrates,
         bwEstimate,
         output,
-      } = info;
+      } = info as INativeDebugInfo;
 
       return {
         url,
