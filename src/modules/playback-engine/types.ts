@@ -180,7 +180,7 @@ interface IVideoOutput {
   buffered: TimeRanges;
   isInline: boolean;
   crossOrigin: CrossOriginValue;
-  src: string;
+  src: PlayableMediaSource;
 }
 
 interface IPlaybackEngineAPI {

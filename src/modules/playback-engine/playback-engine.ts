@@ -21,7 +21,6 @@ class Engine implements IPlaybackEngine {
 
   private _eventEmitter: IEventEmitter;
   private _config: IPlayerConfig;
-  private _currentSrc: PlayableMediaSource;
   private _output: IVideoOutput;
   private _defaultOutput: IVideoOutput;
 
@@ -32,7 +31,6 @@ class Engine implements IPlaybackEngine {
   }: IPlaybackEngineDependencies) {
     this._eventEmitter = eventEmitter;
     this._config = config;
-    this._currentSrc = null;
 
     this._defaultOutput = nativeOutput;
     this._output = nativeOutput;
@@ -111,12 +109,11 @@ class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   setSrc(src: PlayableMediaSource) {
-    if (src === this._currentSrc) {
+    if (src === this.getSrc()) {
       return;
     }
 
     this._output.setSrc(src);
-    this._currentSrc = src;
   }
 
   /**
@@ -126,7 +123,7 @@ class Engine implements IPlaybackEngine {
    */
   @playerAPI()
   getSrc(): PlayableMediaSource {
-    return this._currentSrc;
+    return this._output.src;
   }
 
   @playerAPI()
@@ -575,7 +572,7 @@ class Engine implements IPlaybackEngine {
 
     this._output = output;
     this._applyConfig(this._config);
-    this._output.setSrc(this._currentSrc);
+    this._output.setSrc(this.getSrc());
     if (startTime) {
       this._output.setCurrentTime(startTime);
     }

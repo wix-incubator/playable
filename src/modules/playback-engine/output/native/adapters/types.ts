@@ -3,6 +3,7 @@ import {
   MediaStreamDeliveryPriority,
 } from '../../../../../constants';
 import { IEventEmitter } from '../../../../event-emitter/types';
+import { PlayableMediaSource } from '../../../types';
 
 interface IPlaybackAdapter {
   canPlay(mediaType: MediaStreamType): boolean;
@@ -10,6 +11,8 @@ interface IPlaybackAdapter {
 
   attach(videoElement: HTMLVideoElement): void;
   detach(): void;
+
+  currentUrl: PlayableMediaSource;
 
   mediaStreamDeliveryPriority: MediaStreamDeliveryPriority;
   syncWithLiveTime: number;
