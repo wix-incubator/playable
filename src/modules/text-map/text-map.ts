@@ -16,12 +16,12 @@ export default class TextMap implements ITextMap {
     };
   }
 
-  get(id: string, args: any): string {
+  get(id: string, args: any, defaultText?: string | Function): string {
     if (!this._textMap) {
       return;
     }
 
-    const text = this._textMap[id];
+    const text = this._textMap[id] || defaultText;
 
     if (typeof text === 'function') {
       return text(args);
