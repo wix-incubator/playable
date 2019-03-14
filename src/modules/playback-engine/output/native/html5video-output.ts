@@ -155,6 +155,8 @@ export default class NativeOutput implements IVideoOutput {
     this._stateEngine.clearTimestamps();
     this._adapterStrategy.connectAdapter(src);
     this._stateEngine.setState(EngineState.SRC_SET);
+
+    return Promise.resolve();
   }
 
   syncWithLive() {

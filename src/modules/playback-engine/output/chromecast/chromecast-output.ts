@@ -97,10 +97,11 @@ export default class ChromecastOutput implements IVideoOutput {
     logger.warn(NOT_IMPLEMENTED);
   }
 
-  setSrc(source: PlayableMediaSource, startTime?: number) {
+  setSrc(source: PlayableMediaSource) {
     if (!source) {
       return;
     }
+
     let calculatedSource = source;
     let mimeType, url;
 
@@ -123,13 +124,9 @@ export default class ChromecastOutput implements IVideoOutput {
     const mediaInfo = new chrome.cast.media.MediaInfo(url, mimeType);
     const request = new chrome.cast.media.LoadRequest(mediaInfo);
 
-    if (startTime) {
-      request.currentTime = startTime;
-    }
-
     this._stateEngine.setState(EngineState.SRC_SET);
 
-    session.loadMedia(request).then(() => {
+    return session.loadMedia(request).then(() => {
       this._initRemote();
       this._stateEngine.setState(EngineState.PLAYING);
     });

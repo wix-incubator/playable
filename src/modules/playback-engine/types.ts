@@ -46,7 +46,7 @@ interface IPlaybackEngine {
   isPaused: boolean;
   isEnded: boolean;
 
-  setSrc(src: PlayableMediaSource): void;
+  setSrc(src: PlayableMediaSource): Promise<any>;
   getSrc(): PlayableMediaSource;
 
   play(): void;
@@ -97,7 +97,7 @@ interface IPlaybackEngine {
 
   destroy(): void;
 
-  changeOutput(chromecastOutput: IVideoOutput): void;
+  changeOutput(chromecastOutput: IVideoOutput): Promise<any>;
   resetOutput(): void;
 }
 
@@ -153,7 +153,7 @@ interface IVideoOutput {
   setInline: (isPlaysinline: boolean) => void;
   setCrossOrigin: (crossOrigin?: CrossOriginValue) => void;
   setLoop: (mute: boolean) => void;
-  setSrc: (src?: PlayableMediaSource) => void;
+  setSrc: (src?: PlayableMediaSource) => Promise<any>;
 
   isPaused: boolean;
   isMuted: boolean;
@@ -184,7 +184,7 @@ interface IVideoOutput {
 }
 
 interface IPlaybackEngineAPI {
-  setSrc?(src: PlayableMediaSource): void;
+  setSrc?(src: PlayableMediaSource): Promise<any>;
   getSrc?(): PlayableMediaSource;
 
   play?(): void;

@@ -115,8 +115,9 @@ class Engine implements IPlaybackEngine {
       return;
     }
 
-    this._output.setSrc(src);
     this._currentSrc = src;
+
+    return this._output.setSrc(src);
   }
 
   /**
@@ -569,17 +570,13 @@ class Engine implements IPlaybackEngine {
     return;
   }
 
-  changeOutput(output?: IVideoOutput): void {
-    const startTime = this.getCurrentTime();
-
+  changeOutput(output?: IVideoOutput) {
     this._output.pause();
+
     this._output = output;
     this._applyConfig(this._config);
-    this._output.setSrc(this._currentSrc);
 
-    if (startTime) {
-      this._output.setCurrentTime(startTime);
-    }
+    return this._output.setSrc(this._currentSrc);
   }
 
   resetOutput(): void {

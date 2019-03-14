@@ -2,7 +2,7 @@ import { IChromecastManager } from './types';
 import { IPlaybackEngine } from '../playback-engine/types';
 import CastContext = cast.framework.CastContext;
 import ChromecastOutput from '../playback-engine/output/chromecast/chromecast-output';
-// import { UIEvent } from '../../constants';
+import { UIEvent } from '../../constants';
 import { IEventEmitter } from '../event-emitter/types';
 
 import injectScript from '../../utils/script-injector';
@@ -20,7 +20,6 @@ export default class ChromecastManager implements IChromecastManager {
 
   private _engine: IPlaybackEngine;
   private _context: CastContext;
-  // @ts-ignore - remove when show a button
   private _eventEmitter: IEventEmitter;
 
   constructor({
@@ -63,8 +62,7 @@ export default class ChromecastManager implements IChromecastManager {
       });
 
       this._bindToContextEvents();
-      // uncomment next line to show a button
-      // this._eventEmitter.emitAsync(UIEvent.CHROMECAST_INITED);
+      this._eventEmitter.emitAsync(UIEvent.CHROMECAST_INITED);
     }
   }
 
@@ -84,14 +82,29 @@ export default class ChromecastManager implements IChromecastManager {
     const context = this._context;
     const engine = this._engine;
     const eventEmitter = this._eventEmitter;
+    let startTime: number;
 
     context.addEventListener(
       cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
       function(event) {
         switch (event.sessionState) {
           case cast.framework.SessionState.SESSION_STARTED:
+            startTime = engine.getCurrentTime();
+
+            engine
+              .changeOutput(new ChromecastOutput(eventEmitter))
+              .then(() => engine.seekTo(startTime));
+            break;
           case cast.framework.SessionState.SESSION_RESUMED: // start cast to chromecast -> reload page -> SESSION_RESUMED
-            engine.changeOutput(new ChromecastOutput(eventEmitter));
+            startTime = context
+              .getCurrentSession()
+              .getMediaSession()
+              .getEstimatedTime();
+
+            engine
+              .changeOutput(new ChromecastOutput(eventEmitter))
+              .then(() => engine.seekTo(startTime));
+
             break;
           case cast.framework.SessionState.SESSION_ENDED:
             engine.resetOutput();
