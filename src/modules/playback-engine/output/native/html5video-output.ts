@@ -42,9 +42,10 @@ export default class NativeOutput implements IVideoOutput {
     config: IPlayerConfig;
     availablePlaybackAdapters: IPlaybackAdapterClass[];
   }) {
+    this._createVideoTag(config.videoElement);
+
     this._eventEmitter = eventEmitter;
     this._availablePlaybackAdapters = availablePlaybackAdapters;
-    this._createVideoTag(config.videoElement);
 
     this._stateEngine = new StateEngine(this._eventEmitter, this._video);
 

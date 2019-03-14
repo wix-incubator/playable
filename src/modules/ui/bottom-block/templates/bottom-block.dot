@@ -21,6 +21,9 @@
     </div>
     <div class="${props.styles.controlsContainerRight}"
         data-playable-hook="controls-container-right">
+      <div class="${props.styles.chromecastContainer}"
+          data-playable-hook="chromecast-container">
+      </div>
       <div class="${props.styles.downloadContainer}"
           data-playable-hook="download-container">
       </div>

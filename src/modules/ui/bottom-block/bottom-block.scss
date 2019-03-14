@@ -188,6 +188,14 @@
   }
 }
 
+.chromecastContainer {
+  margin-right: 8px;
+
+  @include in-full-screen() {
+    margin-right: 18px;
+  }
+}
+
 .fullScreenContainer {
   margin-right: 8px;
 
