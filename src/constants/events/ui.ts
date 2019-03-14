@@ -54,6 +54,8 @@ enum UIEvent {
   FULL_SCREEN_STATE_CHANGED = 'ui-events/full-screen-state-changed',
   PICTURE_IN_PICTURE_STATUS_CHANGE = 'ui-events/picture-in-picture-status-changed',
   RESIZE = 'ui-events/resize',
+
+  CHROMECAST_INITED = 'ui-events/chromecast-inited',
 }
 
 export default UIEvent;

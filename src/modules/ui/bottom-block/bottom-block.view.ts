@@ -68,6 +68,11 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
       'download-container',
     );
 
+    const $chromecastContainer = getElementByHook(
+      this._$rootElement,
+      'chromecast-container',
+    );
+
     $playContainer.appendChild(elements.play);
     $volumeContainer.appendChild(elements.volume);
     $timeContainer.appendChild(elements.time);
@@ -75,6 +80,7 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     $logoContainer.appendChild(elements.logo);
     $progressBarContainer.appendChild(elements.progress);
     $downloadContainer.appendChild(elements.download);
+    $chromecastContainer.appendChild(elements.chromecast);
   }
 
   private _preventClickPropagation(e: MouseEvent) {
