@@ -5,7 +5,7 @@ interface ITextMapConfig {
 }
 
 interface ITextMap {
-  get(id: string, args?: any): string;
+  get(id: string, args?: any, defaultText?: string | Function): string;
   destroy(): void;
 }
 

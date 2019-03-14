@@ -137,7 +137,8 @@ export default class TimeControl implements ITimeControl {
   }
 
   private _updateCurrentTime() {
-    this._setCurrentTime(this._engine.getCurrentTime());
+    const time = this._engine.getCurrentTime();
+    this._setCurrentTime(time);
   }
 
   private _updateTimeFromPreview(time: number) {

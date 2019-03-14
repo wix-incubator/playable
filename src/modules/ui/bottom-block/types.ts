@@ -34,6 +34,7 @@ type IBottomBlockViewElements = {
   logo: HTMLElement;
   progress: HTMLElement;
   download: HTMLElement;
+  chromecast: HTMLElement;
 };
 
 type IBottomBlockViewConfig = {
