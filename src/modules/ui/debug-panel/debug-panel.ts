@@ -3,7 +3,7 @@ import View from './debug-panel.view';
 
 import { KEYCODES } from '../../../utils/keyboard-interceptor';
 
-import { IPlaybackEngine } from '../../playback-engine/types';
+import { INativeDebugInfo, IPlaybackEngine } from '../../playback-engine/types';
 import { IRootContainer } from '../../root-container/types';
 import { IKeyboardControl } from '../../keyboard-control/types';
 
@@ -67,35 +67,43 @@ export default class DebugPanel {
   }
 
   getDebugInfo() {
-    const {
-      url,
-      type,
-      deliveryPriority,
-      currentBitrate,
-      overallBufferLength,
-      nearestBufferSegInfo,
-      viewDimensions,
-      currentTime,
-      duration,
-      loadingStateTimestamps,
-      bitrates,
-      bwEstimate,
-    } = this._engine.getDebugInfo();
+    const info = this._engine.getDebugInfo();
 
-    return {
-      url,
-      type,
-      deliveryPriority: MediaStreamDeliveryPriority[deliveryPriority],
-      currentBitrate,
-      overallBufferLength,
-      nearestBufferSegInfo,
-      viewDimensions,
-      currentTime,
-      duration,
-      loadingStateTimestamps,
-      bitrates,
-      bwEstimate,
-    };
+    if (info.output === 'html5video') {
+      const {
+        url,
+        type,
+        deliveryPriority,
+        currentBitrate,
+        overallBufferLength,
+        nearestBufferSegInfo,
+        viewDimensions,
+        currentTime,
+        duration,
+        loadingStateTimestamps,
+        bitrates,
+        bwEstimate,
+        output,
+      } = info as INativeDebugInfo;
+
+      return {
+        url,
+        type,
+        deliveryPriority: MediaStreamDeliveryPriority[deliveryPriority],
+        currentBitrate,
+        overallBufferLength,
+        nearestBufferSegInfo,
+        viewDimensions,
+        currentTime,
+        duration,
+        loadingStateTimestamps,
+        bitrates,
+        bwEstimate,
+        output,
+      };
+    }
+
+    return info;
   }
 
   updateInfo() {

@@ -1,19 +1,18 @@
 import playerAPI from '../../core/player-api-decorator';
 import { VideoEvent } from '../../constants';
-import { IPlaybackAdapter } from './output/native/adapters/types';
 
-import { IPlayerConfig } from '../../core/config';
 import {
   IPlaybackEngineAPI,
   IPlaybackEngine,
   IPlaybackEngineDependencies,
-  IEngineDebugInfo,
   IVideoOutput,
   PlayableMediaSource,
   CrossOriginValue,
   PreloadType,
+  IEngineDebugInfo,
 } from './types';
 import { IEventEmitter } from '../event-emitter/types';
+import { IPlayerConfig } from '../../core/config';
 
 //TODO: Find source of problem with native HLS on Safari, when playing state triggered but actual playing is delayed
 class Engine implements IPlaybackEngine {
@@ -21,21 +20,24 @@ class Engine implements IPlaybackEngine {
   static dependencies = ['eventEmitter', 'config', 'nativeOutput'];
 
   private _eventEmitter: IEventEmitter;
+  private _config: IPlayerConfig;
   private _currentSrc: PlayableMediaSource;
   private _output: IVideoOutput;
+  private _defaultOutput: IVideoOutput;
 
   constructor({
     eventEmitter,
-    config,
     nativeOutput,
+    config,
   }: IPlaybackEngineDependencies) {
     this._eventEmitter = eventEmitter;
-
+    this._config = config;
     this._currentSrc = null;
 
+    this._defaultOutput = nativeOutput;
     this._output = nativeOutput;
 
-    this._applyConfig(config);
+    this._applyConfig(this._config);
   }
 
   private _applyConfig(config: IPlayerConfig = {}) {
@@ -58,7 +60,9 @@ class Engine implements IPlaybackEngine {
     this.setPlaysinline(playsinline);
     this.setCrossOrigin(crossOrigin);
 
-    this.setSrc(src);
+    if (src) {
+      this.setSrc(src);
+    }
   }
 
   getElement() {
@@ -91,14 +95,6 @@ class Engine implements IPlaybackEngine {
 
   get isSyncWithLive(): boolean {
     return this._output.isSyncWithLive;
-  }
-
-  /**
-   * @deprecated
-   * leave it for now to not break an API
-   */
-  get attachedAdapter(): IPlaybackAdapter {
-    return this._output.attachedAdapter;
   }
 
   /**
@@ -571,6 +567,30 @@ class Engine implements IPlaybackEngine {
   destroy() {
     // all dependencies are modules and will be destroyed from Player.destroy()
     return;
+  }
+
+  changeOutput(output?: IVideoOutput): void {
+    const startTime = this.getCurrentTime();
+    this._output.pause();
+
+    this._output = output;
+    this._applyConfig(this._config);
+    this._output.setSrc(this._currentSrc);
+    if (startTime) {
+      this._output.setCurrentTime(startTime);
+    }
+  }
+
+  resetOutput(): void {
+    const wasPlaying = !this._output.isPaused;
+    const currentTime = this._output.currentTime;
+
+    this._output = this._defaultOutput;
+
+    this._output.setCurrentTime(currentTime);
+    if (wasPlaying) {
+      this._output.play();
+    }
   }
 }
 

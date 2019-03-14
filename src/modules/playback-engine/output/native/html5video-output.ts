@@ -1,6 +1,6 @@
 import {
   CrossOriginValue,
-  IEngineDebugInfo,
+  INativeDebugInfo,
   IVideoOutput,
   PlayableMediaSource,
   PreloadType,
@@ -180,10 +180,6 @@ export default class NativeOutput implements IVideoOutput {
     };
   }
 
-  get length() {
-    return this._video.played.length;
-  }
-
   get volume() {
     return this._video.volume;
   }
@@ -300,10 +296,6 @@ export default class NativeOutput implements IVideoOutput {
     return this._video.videoWidth;
   }
 
-  get error() {
-    return this._video.error;
-  }
-
   get src() {
     return this._video.src;
   }
@@ -312,19 +304,11 @@ export default class NativeOutput implements IVideoOutput {
     return this._stateEngine.state;
   }
 
-  get stateTimestamps() {
-    return this._stateEngine.stateTimestamps;
-  }
-
-  get stateEngine() {
-    return this._stateEngine;
-  }
-
   get attachedAdapter(): IPlaybackAdapter {
     return this._adapterStrategy.attachedAdapter;
   }
 
-  getDebugInfo(): IEngineDebugInfo {
+  getDebugInfo(): INativeDebugInfo {
     const { duration, currentTime } = this;
     let adapterDebugInfo;
 
@@ -336,8 +320,9 @@ export default class NativeOutput implements IVideoOutput {
       ...adapterDebugInfo,
       duration,
       currentTime,
-      loadingStateTimestamps: this.stateTimestamps,
+      loadingStateTimestamps: this._stateEngine.stateTimestamps,
       viewDimensions: this._getViewDimensions(),
+      output: 'html5video',
     };
   }
 
