@@ -177,7 +177,5 @@ export default class StateEngine {
 
   destroy() {
     this._unbindEvents();
-
-    this._eventEmitter = null;
   }
 }

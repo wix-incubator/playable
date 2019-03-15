@@ -297,11 +297,7 @@ export default class NativeOutput implements IVideoOutput {
   }
 
   get src() {
-    if (this.attachedAdapter) {
-      return this.attachedAdapter.currentUrl;
-    }
-
-    return this._video.src;
+    return this.attachedAdapter && this.attachedAdapter.currentUrl;
   }
 
   get currentState() {
