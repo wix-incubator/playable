@@ -19,6 +19,7 @@ import {
   isIPhone,
   isIPod,
 } from '../../../../utils/device-detection';
+import { isPromiseAvailable } from '../../../../utils/promise';
 
 export default class NativeOutput implements IVideoOutput {
   static moduleName = 'nativeOutput';
@@ -155,6 +156,11 @@ export default class NativeOutput implements IVideoOutput {
     this._stateEngine.clearTimestamps();
     this._adapterStrategy.connectAdapter(src);
     this._stateEngine.setState(EngineState.SRC_SET);
+
+    // IE11, my man
+    if (!isPromiseAvailable) {
+      return;
+    }
 
     return Promise.resolve();
   }
