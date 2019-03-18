@@ -38,6 +38,7 @@ export default class ChromecaststButton implements IChromecaststButton {
 
   view: View;
   isHidden: boolean;
+  private _unbindEvents: () => void;
 
   constructor({
     eventEmitter,
@@ -104,9 +105,15 @@ export default class ChromecaststButton implements IChromecaststButton {
 
   private _bindEvents() {
     const show = this.show.bind(this);
-    this._eventEmitter.on(ChromecastEvents.CHROMECAST_INITED, () => {
-      show();
-    });
+    const setStateToCast = () => this.view.setCastingState(true);
+    const resetStateFromCast = () => this.view.setCastingState(true);
+
+    this._unbindEvents = this._eventEmitter.bindEvents([
+      [ChromecastEvents.CHROMECAST_INITED, () => show()],
+      [ChromecastEvents.CHROMECAST_CASTS_STARTED, setStateToCast],
+      [ChromecastEvents.CHROMECAST_CASTS_RESUMED, setStateToCast],
+      [ChromecastEvents.CHROMECAST_CASTS_STOPED, resetStateFromCast],
+    ]);
   }
 
   private _destroyInterceptor() {
@@ -137,6 +144,7 @@ export default class ChromecaststButton implements IChromecaststButton {
   destroy() {
     this._destroyInterceptor();
     this.view.destroy();
+    this._unbindEvents();
 
     this._chromecastManager.destroy();
   }
