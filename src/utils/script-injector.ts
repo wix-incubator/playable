@@ -1,4 +1,4 @@
-const injectedScripts = new Set();
+const injectedScripts: string[] = [];
 
 interface IScriptAttributes {
   async: boolean;
@@ -8,11 +8,11 @@ interface IScriptAttributes {
 }
 
 const injectScript = (src: string, props?: IScriptAttributes) => {
-  if (injectedScripts.has(src)) {
+  if (injectedScripts.indexOf(src) !== -1) {
     return;
   }
 
-  injectedScripts.add(src);
+  injectedScripts.push(src);
 
   const head = document.getElementsByTagName('head')[0];
   const script = document.createElement('script');
