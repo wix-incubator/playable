@@ -3,20 +3,7 @@ import { EventEmitter, ListenerFn } from 'eventemitter3';
 import playerAPI from '../../core/player-api-decorator';
 
 import { IEventEmitter, IEventMap, IEventEmitterAPI } from './types';
-
-const isPromiseAvailable = (function() {
-  const globalNS: any = (function() {
-    if (typeof global !== 'undefined') {
-      return global;
-    }
-    if (typeof window !== 'undefined') {
-      return window;
-    }
-    throw new Error('unable to locate global object');
-  })();
-  //tslint:disable-next-line
-  return globalNS['Promise'] ? true : false;
-})();
+import { isPromiseAvailable } from '../../utils/promise';
 
 class EventEmitterModule extends EventEmitter implements IEventEmitter {
   static moduleName = 'eventEmitter';
