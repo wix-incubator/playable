@@ -20,6 +20,8 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
   implements IView<IBottomBlockViewStyles> {
   private _callbacks: IBottomBlockViewCallbacks;
   private _$rootElement: HTMLElement;
+  private _$leftControllsContainer: HTMLElement;
+  private _$rightControllsContainer: HTMLElement;
 
   constructor(config: IBottomBlockViewConfig) {
     super();
@@ -36,6 +38,16 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
       bottomBlockTemplate({
         styles: this.styleNames,
       }),
+    );
+
+    this._$leftControllsContainer = getElementByHook(
+      this._$rootElement,
+      'controls-container-left',
+    );
+
+    this._$rightControllsContainer = getElementByHook(
+      this._$rootElement,
+      'controls-container-right',
     );
 
     const $playContainer = getElementByHook(
@@ -68,11 +80,6 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
       'download-container',
     );
 
-    const $chromecastContainer = getElementByHook(
-      this._$rootElement,
-      'chromecast-container',
-    );
-
     $playContainer.appendChild(elements.play);
     $volumeContainer.appendChild(elements.volume);
     $timeContainer.appendChild(elements.time);
@@ -80,7 +87,6 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     $logoContainer.appendChild(elements.logo);
     $progressBarContainer.appendChild(elements.progress);
     $downloadContainer.appendChild(elements.download);
-    $chromecastContainer.appendChild(elements.chromecast);
   }
 
   private _preventClickPropagation(e: MouseEvent) {
@@ -111,6 +117,26 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     this._$rootElement.removeEventListener(
       'mouseleave',
       this._callbacks.onBlockMouseOut,
+    );
+  }
+
+  addControl(key: string, element: HTMLElement, position?: 'left' | 'right') {
+    const wrapper = document.createElement('div');
+
+    wrapper.setAttribute('data-hook', `additional-${key}`);
+
+    wrapper.classList.add(this.styleNames.additionalButton);
+    wrapper.appendChild(element);
+
+    if (position === 'left') {
+      this._$leftControllsContainer.appendChild(wrapper);
+
+      return;
+    }
+
+    this._$rightControllsContainer.insertBefore(
+      wrapper,
+      this._$rightControllsContainer.children[0],
     );
   }
 

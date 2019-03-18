@@ -97,7 +97,7 @@ export default class ChromecastOutput implements IVideoOutput {
     logger.warn(NOT_IMPLEMENTED);
   }
 
-  setSrc(source: PlayableMediaSource) {
+  setSrc(source: PlayableMediaSource, callback: Function) {
     if (!source) {
       return;
     }
@@ -126,9 +126,13 @@ export default class ChromecastOutput implements IVideoOutput {
 
     this._stateEngine.setState(EngineState.SRC_SET);
 
-    return session.loadMedia(request).then(() => {
+    session.loadMedia(request).then(() => {
       this._initRemote();
       this._stateEngine.setState(EngineState.PLAYING);
+
+      if (typeof callback === 'function') {
+        callback();
+      }
     });
   }
 
