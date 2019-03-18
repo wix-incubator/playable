@@ -137,12 +137,7 @@ export default class ChromecaststButton implements IChromecaststButton {
   destroy() {
     this._destroyInterceptor();
     this.view.destroy();
-    this.view = null;
 
     this._chromecastManager.destroy();
-
-    this._eventEmitter = null;
-    this._textMap = null;
-    this._theme = null;
   }
 }

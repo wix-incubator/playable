@@ -1,25 +1,30 @@
 const injectedScripts = new Set();
 
-const injectScript = (src: string, props?: any) => {
+interface IScriptAttributes {
+  async: boolean;
+  crossOrigin: string | null;
+  text: string;
+  type: string;
+}
+
+const injectScript = (src: string, props?: IScriptAttributes) => {
   if (injectedScripts.has(src)) {
     return;
   }
-
-  const calculatedProps = {
-    src,
-    type: 'text/javascript',
-    ...props,
-  };
 
   injectedScripts.add(src);
 
   const head = document.getElementsByTagName('head')[0];
   const script = document.createElement('script');
+  script.src = src;
+  script.type = 'text/javascript';
 
-  Object.keys(calculatedProps).forEach((key: string) => {
-    // @ts-ignore - TS7017: Element implicitly has an 'any' type because type 'HTMLScriptElement' has no index signature.
-    script[key] = calculatedProps[key];
-  });
+  if (props) {
+    script.async = props.async;
+    script.crossOrigin = props.crossOrigin;
+    script.text = props.text;
+    script.type = props.type;
+  }
 
   head.appendChild(script);
 };
