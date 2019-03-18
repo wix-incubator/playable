@@ -14,6 +14,7 @@ import { IChromecaststButton, IChromecaststViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IThemeService } from '../../core/theme';
 import { IChromecastManager } from '../../../chromecast-manager/types';
+import { ChromecastEvents } from '../../../chromecast-manager/chromecast-manager';
 
 export default class ChromecaststButton implements IChromecaststButton {
   static moduleName = 'chromecastButton';
@@ -103,7 +104,7 @@ export default class ChromecaststButton implements IChromecaststButton {
 
   private _bindEvents() {
     const show = this.show.bind(this);
-    this._eventEmitter.on(UI_EVENTS.CHROMECAST_INITED, () => {
+    this._eventEmitter.on(ChromecastEvents.CHROMECAST_INITED, () => {
       show();
     });
   }

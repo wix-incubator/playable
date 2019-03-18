@@ -1,5 +1,3 @@
-import { TEXT_LABELS } from '../../../../constants';
-
 import View from '../../core/view';
 import { IView } from '../../core/types';
 
@@ -19,6 +17,20 @@ import {
 
 import downloadViewTheme from './chromecast.theme';
 import styles from './chromecast.scss';
+
+enum TEXT_LABELS {
+  START_CHROMECAST_BUTTON_LABEL = 'start-chromecast-button-label',
+  START_CHROMECAST_BUTTON_TOOLTIP = 'start-chromecast-button-tooltip',
+  STOP_CHROMECAST_BUTTON_LABEL = 'stop-chromecast-button-label',
+  STOP_CHROMECAST_BUTTON_TOOLTIP = 'stop-chromecast-button-tooltip',
+}
+
+const DEFAULT_TEXTS = {
+  [TEXT_LABELS.START_CHROMECAST_BUTTON_LABEL]: 'Broadcast video',
+  [TEXT_LABELS.START_CHROMECAST_BUTTON_TOOLTIP]: 'Broadcast Video',
+  [TEXT_LABELS.STOP_CHROMECAST_BUTTON_LABEL]: 'Stop broadcasting video',
+  [TEXT_LABELS.STOP_CHROMECAST_BUTTON_TOOLTIP]: 'Stop Broadcasting video',
+};
 
 class ChromecastView extends View<IChromecaststStyles>
   implements IView<IChromecaststStyles> {
@@ -42,7 +54,7 @@ class ChromecastView extends View<IChromecaststStyles>
         styles: this.styleNames,
         themeStyles: this.themeStyles,
         texts: {
-          label: this._textMap.get(TEXT_LABELS.START_CHROMECAST_BUTTON_LABEL), //TODO: depends on state
+          label: this._getLabelText(TEXT_LABELS.START_CHROMECAST_BUTTON_LABEL),
         },
       }),
     );
@@ -55,11 +67,15 @@ class ChromecastView extends View<IChromecaststStyles>
     this._tooltipReference = tooltipService.createReference(
       this._$downloadButton,
       {
-        text: this._textMap.get(TEXT_LABELS.START_CHROMECAST_BUTTON_TOOLTIP), //TODO: depends on state
+        text: this._getLabelText(TEXT_LABELS.START_CHROMECAST_BUTTON_TOOLTIP),
       },
     );
 
     this._bindEvents();
+  }
+
+  private _getLabelText(label: TEXT_LABELS) {
+    return this._textMap.get(label, null, DEFAULT_TEXTS[label]);
   }
 
   private _bindEvents() {
@@ -75,6 +91,28 @@ class ChromecastView extends View<IChromecaststStyles>
   private _onButtonClick() {
     this._$rootElement.focus();
     this._callbacks.onButtonClick();
+  }
+
+  setCastingState(isCasting: boolean) {
+    if (isCasting) {
+      this._$rootElement.setAttribute(
+        'aria-label',
+        this._getLabelText(TEXT_LABELS.STOP_CHROMECAST_BUTTON_LABEL),
+      );
+
+      this._tooltipReference.setText(
+        this._getLabelText(TEXT_LABELS.STOP_CHROMECAST_BUTTON_TOOLTIP),
+      );
+    } else {
+      this._$rootElement.setAttribute(
+        'aria-label',
+        this._getLabelText(TEXT_LABELS.START_CHROMECAST_BUTTON_LABEL),
+      );
+
+      this._tooltipReference.setText(
+        this._getLabelText(TEXT_LABELS.START_CHROMECAST_BUTTON_TOOLTIP),
+      );
+    }
   }
 
   hide() {

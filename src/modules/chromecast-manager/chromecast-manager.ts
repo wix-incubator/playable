@@ -2,7 +2,6 @@ import { IChromecastManager } from './types';
 import { IPlaybackEngine } from '../playback-engine/types';
 import CastContext = cast.framework.CastContext;
 // import ChromecastOutput from '../playback-engine/output/chromecast/chromecast-output';
-// import { UIEvent } from '../../constants';
 import { IEventEmitter } from '../event-emitter/types';
 
 import injectScript from '../../utils/script-injector';
@@ -14,13 +13,19 @@ type PatchedWindow = Window & {
 const FRAMEWORK_LINK =
   'https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1';
 
+export enum ChromecastEvents {
+  CHROMECAST_INITED = 'ui-events/chromecast-inited',
+  CHROMECAST_CASTS_STARTED = 'ui-events/chromecast-started',
+  CHROMECAST_CASTS_RESUMED = 'ui-events/chromecast-resumed',
+  CHROMECAST_CASTS_STOPED = 'ui-events/chromecast-stoped',
+}
+
 export default class ChromecastManager implements IChromecastManager {
   static moduleName = 'chromecastManager';
   static dependencies = ['eventEmitter', 'engine', 'rootContainer'];
 
   private _engine: IPlaybackEngine;
   private _context: CastContext;
-  // @ts-ignore - remove when show a button
   private _eventEmitter: IEventEmitter;
 
   constructor({
@@ -63,8 +68,7 @@ export default class ChromecastManager implements IChromecastManager {
       });
 
       this._bindToContextEvents();
-      // uncomment next line to show a button
-      // this._eventEmitter.emitAsync(UIEvent.CHROMECAST_INITED);
+      this._eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_INITED);
     }
   }
 
@@ -83,18 +87,23 @@ export default class ChromecastManager implements IChromecastManager {
   private _bindToContextEvents() {
     const context = this._context;
     const engine = this._engine;
-    // const eventEmitter = this._eventEmitter;
+    const eventEmitter = this._eventEmitter;
 
     context.addEventListener(
       cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
       function(event) {
         switch (event.sessionState) {
           case cast.framework.SessionState.SESSION_STARTED:
+            // engine.changeOutput(new ChromecastOutput(eventEmitter));
+            eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_STARTED);
+            break;
           case cast.framework.SessionState.SESSION_RESUMED: // start cast to chromecast -> reload page -> SESSION_RESUMED
-            //  engine.changeOutput(new ChromecastOutput(eventEmitter));
+            // engine.changeOutput(new ChromecastOutput(eventEmitter));
+            eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_RESUMED);
             break;
           case cast.framework.SessionState.SESSION_ENDED:
             engine.resetOutput();
+            eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_STOPED);
             break;
           default:
             break;
