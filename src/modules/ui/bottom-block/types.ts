@@ -1,4 +1,5 @@
 type IBottomBlockViewStyles = {
+  additionalButton: string;
   bottomBlock: string;
   elementsContainer: string;
   progressBarContainer: string;
@@ -34,7 +35,6 @@ type IBottomBlockViewElements = {
   logo: HTMLElement;
   progress: HTMLElement;
   download: HTMLElement;
-  chromecast: HTMLElement;
 };
 
 type IBottomBlockViewConfig = {
@@ -49,6 +49,11 @@ interface IBottomBlock {
   hideContent(): void;
   show(): void;
   hide(): void;
+  addControl(
+    key: string,
+    element: HTMLElement,
+    options?: { position?: 'left' | 'right' },
+  ): void;
   setAlwaysShowLogo(flag: boolean): void;
   showLogo(): void;
   hideLogo(): void;

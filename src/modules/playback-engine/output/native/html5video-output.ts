@@ -19,7 +19,6 @@ import {
   isIPhone,
   isIPod,
 } from '../../../../utils/device-detection';
-import { isPromiseAvailable } from '../../../../utils/promise';
 
 export default class NativeOutput implements IVideoOutput {
   static moduleName = 'nativeOutput';
@@ -152,17 +151,14 @@ export default class NativeOutput implements IVideoOutput {
     this._video.preload = preload || PreloadType.AUTO;
   }
 
-  setSrc(src?: PlayableMediaSource) {
+  setSrc(src?: PlayableMediaSource, callback?: Function) {
     this._stateEngine.clearTimestamps();
     this._adapterStrategy.connectAdapter(src);
     this._stateEngine.setState(EngineState.SRC_SET);
 
-    // IE11, my man
-    if (!isPromiseAvailable) {
-      return;
+    if (typeof callback === 'function') {
+      callback();
     }
-
-    return Promise.resolve();
   }
 
   syncWithLive() {

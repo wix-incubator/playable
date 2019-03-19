@@ -2,27 +2,27 @@ import { IThemeService } from '../../core/theme';
 import { ITooltipService } from '../../core/tooltip/types';
 import { ITextMap } from '../../../text-map/types';
 
-type IChromecaststStyles = {
+type IChromecastStyles = {
   downloadButton: string;
   buttonWrapper: string;
   hidden: string;
 };
 
-type IChromecaststViewCallbacks = {
+type IChromecastViewCallbacks = {
   onButtonClick: Function;
 };
 
-type IChromecaststViewConfig = {
-  callbacks: IChromecaststViewCallbacks;
+type IChromecastViewConfig = {
+  callbacks: IChromecastViewCallbacks;
   textMap: ITextMap;
   theme: IThemeService;
   tooltipService: ITooltipService;
 };
 
-interface IChromecaststButton {
+interface IChromecastButton {
   getElement(): HTMLElement;
 
-  setChromecaststButtonCallback(callback: Function): void;
+  setChromecastButtonCallback(callback: Function): void;
 
   show(): void;
   hide(): void;
@@ -31,8 +31,8 @@ interface IChromecaststButton {
 }
 
 export {
-  IChromecaststButton,
-  IChromecaststStyles,
-  IChromecaststViewCallbacks,
-  IChromecaststViewConfig,
+  IChromecastButton,
+  IChromecastStyles,
+  IChromecastViewCallbacks,
+  IChromecastViewConfig,
 };

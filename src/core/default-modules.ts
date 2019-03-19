@@ -15,7 +15,6 @@ import TextMap from '../modules/text-map/text-map';
 import FullScreenManager, {
   IFullScreenAPI,
 } from '../modules/full-screen-manager/full-screen-manager';
-import ChromecastManager from '../modules/chromecast-manager/chromecast-manager';
 
 import LiveStateEngine from '../modules/playback-engine/live-state-engine';
 import KeyboardControls from '../modules/keyboard-control/keyboard-control';
@@ -48,7 +47,6 @@ import Logo, { ILogoAPI } from '../modules/ui/controls/logo/logo';
 import DownloadButton, {
   IDownloadButtonAPI,
 } from '../modules/ui/controls/download/download';
-import ChromecaststButton from '../modules/ui/controls/chromecast/chromecast';
 
 import PictureInPictureManager, {
   IPictureInPictureAPI,
@@ -93,7 +91,6 @@ export const modules: { [id: string]: any } = {
 
   FullScreenManager,
   PictureInPictureManager,
-  ChromecastManager,
 
   LiveStateEngine,
   KeyboardControls,
@@ -119,7 +116,6 @@ export const modules: { [id: string]: any } = {
   FullScreenControl,
   Logo,
   DownloadButton,
-  ChromecaststButton,
 
   PreviewService,
   PreviewThumbnail,
