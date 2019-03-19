@@ -12,7 +12,7 @@ import StateEngine from './state-engine';
 import { IEventEmitter } from '../../../event-emitter/types';
 import logger from '../../../../utils/logger';
 import { getMimeByType, getMimeByUrl } from '../../../../utils/get-mime-type';
-import { ICromecastDebugInfo } from './types';
+import { IChromecastDebugInfo } from './types';
 
 const NOT_IMPLEMENTED = 'Not available using chromecast';
 
@@ -97,7 +97,7 @@ export default class ChromecastOutput implements IVideoOutput {
     logger.warn(NOT_IMPLEMENTED);
   }
 
-  setSrc(source: PlayableMediaSource) {
+  setSrc(source: PlayableMediaSource, callback?: Function) {
     if (!source) {
       return;
     }
@@ -126,9 +126,13 @@ export default class ChromecastOutput implements IVideoOutput {
 
     this._stateEngine.setState(EngineState.SRC_SET);
 
-    return session.loadMedia(request).then(() => {
+    session.loadMedia(request).then(() => {
       this._initRemote();
       this._stateEngine.setState(EngineState.PLAYING);
+
+      if (typeof callback === 'function') {
+        callback();
+      }
     });
   }
 
@@ -156,7 +160,7 @@ export default class ChromecastOutput implements IVideoOutput {
       currentTime: this.currentTime,
       duration: this.duration,
       src: this.src,
-    } as ICromecastDebugInfo;
+    } as IChromecastDebugInfo;
   }
 
   get volume() {

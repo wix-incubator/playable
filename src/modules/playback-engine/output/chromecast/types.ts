@@ -1,7 +1,7 @@
 import { IEngineDebugInfo } from '../../types';
 
-interface ICromecastDebugInfo extends IEngineDebugInfo {
+interface IChromecastDebugInfo extends IEngineDebugInfo {
   src: string;
 }
 
-export { ICromecastDebugInfo };
+export { IChromecastDebugInfo };

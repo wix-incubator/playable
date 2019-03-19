@@ -188,14 +188,6 @@
   }
 }
 
-.chromecastContainer {
-  margin-right: 8px;
-
-  @include in-full-screen() {
-    margin-right: 18px;
-  }
-}
-
 .fullScreenContainer {
   margin-right: 8px;
 
@@ -218,6 +210,14 @@
   }
   @include max-width-280() {
     margin-right: 12px;
+  }
+}
+
+.additionalButton {
+  margin-right: 8px;
+
+  @include in-full-screen() {
+    margin-right: 18px;
   }
 }
 

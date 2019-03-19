@@ -98,6 +98,7 @@ class Engine implements IPlaybackEngine {
   /**
    * Method for setting source of video to player.
    * @param src Array with multiple sources
+   * @param callback
    * @example
    * player.setSrc([
    *   'https://my-url/video.mp4',
@@ -108,12 +109,12 @@ class Engine implements IPlaybackEngine {
    * Read more about [video source](/video-source)
    */
   @playerAPI()
-  setSrc(src: PlayableMediaSource) {
+  setSrc(src: PlayableMediaSource, callback?: Function) {
     if (src === this.getSrc()) {
       return;
     }
 
-    return this._output.setSrc(src);
+    this._output.setSrc(src, callback);
   }
 
   /**
@@ -566,14 +567,14 @@ class Engine implements IPlaybackEngine {
     return;
   }
 
-  changeOutput(output?: IVideoOutput) {
+  changeOutput(output?: IVideoOutput, callback?: Function) {
     const src = this.getSrc();
+
     this._output.pause();
 
     this._output = output;
     this._applyConfig(this._config);
-
-    return this._output.setSrc(src);
+    return this._output.setSrc(src, callback);
   }
 
   resetOutput(): void {

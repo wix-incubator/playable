@@ -8,6 +8,8 @@ import {
 import HLSAdapter from './adapters/hls';
 import DASHAdapter from './adapters/dash';
 import Subtitles from './modules/ui/subtitles/subtitles';
+import ChromecastButton from './modules/ui/controls/chromecast/chromecast';
+import ChromecastManager from './modules/chromecast-manager/chromecast-manager';
 
 const DEFAULT_URLS: any = {
   DASH: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
@@ -20,6 +22,9 @@ const DEFAULT_URLS: any = {
 };
 
 registerModule('subtitles', Subtitles);
+registerModule('chromecastManager', ChromecastManager);
+registerModule('chromecastButton', ChromecastButton);
+
 registerPlaybackAdapter(HLSAdapter);
 registerPlaybackAdapter(DASHAdapter);
 const config = {

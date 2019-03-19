@@ -97,12 +97,10 @@ export default class ChromecastManager implements IChromecastManager {
           case cast.framework.SessionState.SESSION_STARTED:
             startTime = engine.getCurrentTime();
 
-            engine
-              .changeOutput(new ChromecastOutput(eventEmitter))
-              .then(() => {
-                engine.seekTo(startTime);
-                eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_RESUMED);
-              });
+            engine.changeOutput(new ChromecastOutput(eventEmitter), () => {
+              engine.seekTo(startTime);
+              eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_RESUMED);
+            });
             break;
           case cast.framework.SessionState.SESSION_RESUMED: // start cast to chromecast -> reload page -> SESSION_RESUMED
             startTime = context
@@ -110,12 +108,10 @@ export default class ChromecastManager implements IChromecastManager {
               .getMediaSession()
               .getEstimatedTime();
 
-            engine
-              .changeOutput(new ChromecastOutput(eventEmitter))
-              .then(() => {
-                engine.seekTo(startTime);
-                eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_RESUMED);
-              });
+            engine.changeOutput(new ChromecastOutput(eventEmitter), () => {
+              engine.seekTo(startTime);
+              eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_RESUMED);
+            });
             break;
           case cast.framework.SessionState.SESSION_ENDED:
             engine.resetOutput();

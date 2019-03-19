@@ -10,9 +10,9 @@ import getElementByHook from '../../core/getElementByHook';
 import { ITextMap } from '../../../text-map/types';
 
 import {
-  IChromecaststStyles,
-  IChromecaststViewCallbacks,
-  IChromecaststViewConfig,
+  IChromecastStyles,
+  IChromecastViewCallbacks,
+  IChromecastViewConfig,
 } from './types';
 
 import downloadViewTheme from './chromecast.theme';
@@ -32,16 +32,16 @@ const DEFAULT_TEXTS = {
   [TEXT_LABELS.STOP_CHROMECAST_BUTTON_TOOLTIP]: 'Stop Broadcasting video',
 };
 
-class ChromecastView extends View<IChromecaststStyles>
-  implements IView<IChromecaststStyles> {
-  private _callbacks: IChromecaststViewCallbacks;
+class ChromecastView extends View<IChromecastStyles>
+  implements IView<IChromecastStyles> {
+  private _callbacks: IChromecastViewCallbacks;
   private _textMap: ITextMap;
   private _tooltipReference: ITooltipReference;
 
   private _$rootElement: HTMLElement;
   private _$downloadButton: HTMLElement;
 
-  constructor(config: IChromecaststViewConfig) {
+  constructor(config: IChromecastViewConfig) {
     const { callbacks, textMap, tooltipService, theme } = config;
 
     super(theme);

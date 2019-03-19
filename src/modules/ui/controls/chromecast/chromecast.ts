@@ -10,13 +10,14 @@ import View from './chromecast.view';
 
 import { IEventEmitter } from '../../../event-emitter/types';
 import { ITooltipService } from '../../core/tooltip/types';
-import { IChromecaststButton, IChromecaststViewConfig } from './types';
+import { IChromecastButton, IChromecastViewConfig } from './types';
 import { ITextMap } from '../../../text-map/types';
 import { IThemeService } from '../../core/theme';
 import { IChromecastManager } from '../../../chromecast-manager/types';
+import { IBottomBlock } from '../../bottom-block/types';
 import { ChromecastEvents } from '../../../chromecast-manager/chromecast-manager';
 
-export default class ChromecaststButton implements IChromecaststButton {
+export default class ChromecastButton implements IChromecastButton {
   static moduleName = 'chromecastButton';
   static View = View;
   static dependencies = [
@@ -25,6 +26,7 @@ export default class ChromecaststButton implements IChromecaststButton {
     'tooltipService',
     'theme',
     'chromecastManager',
+    'bottomBlock',
   ];
 
   private _eventEmitter: IEventEmitter;
@@ -33,6 +35,7 @@ export default class ChromecaststButton implements IChromecaststButton {
   private _tooltipService: ITooltipService;
   private _theme: IThemeService;
   private _chromecastManager: IChromecastManager;
+  private _bottomBlock: IBottomBlock;
 
   private _callback: Function;
 
@@ -46,28 +49,39 @@ export default class ChromecaststButton implements IChromecaststButton {
     tooltipService,
     theme,
     chromecastManager,
+    bottomBlock,
   }: {
     eventEmitter: IEventEmitter;
     textMap: ITextMap;
     tooltipService: ITooltipService;
     theme: IThemeService;
     chromecastManager: IChromecastManager;
+    bottomBlock: IBottomBlock;
   }) {
     this._eventEmitter = eventEmitter;
     this._textMap = textMap;
     this._theme = theme;
     this._tooltipService = tooltipService;
     this._chromecastManager = chromecastManager;
+    this._bottomBlock = bottomBlock;
 
     this._bindCallbacks();
 
     this._initUI();
     this._initInterceptor();
     this._bindEvents();
+    this._connectToPanel();
   }
 
   getElement() {
     return this.view.getElement();
+  }
+
+  private _connectToPanel() {
+    this._bottomBlock.addControl(
+      ChromecastButton.moduleName,
+      this.getElement(),
+    );
   }
 
   private _bindCallbacks() {
@@ -75,7 +89,7 @@ export default class ChromecaststButton implements IChromecaststButton {
   }
 
   private _initUI() {
-    const config: IChromecaststViewConfig = {
+    const config: IChromecastViewConfig = {
       callbacks: {
         onButtonClick: this._triggerCallback,
       },
@@ -84,7 +98,7 @@ export default class ChromecaststButton implements IChromecaststButton {
       theme: this._theme,
     };
 
-    this.view = new ChromecaststButton.View(config);
+    this.view = new ChromecastButton.View(config);
     this.hide();
   }
 
@@ -127,7 +141,7 @@ export default class ChromecaststButton implements IChromecaststButton {
   }
 
   @playerAPI()
-  setChromecaststButtonCallback(callback: Function) {
+  setChromecastButtonCallback(callback: Function) {
     this._callback = callback;
   }
 
