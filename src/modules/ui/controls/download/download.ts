@@ -102,6 +102,11 @@ class DownloadButton implements IDownloadButton {
     }
   }
 
+  /**
+   * If download button presented, set callback on click
+   * @example
+   * player.setDownloadClickCallback(() => console.log('handle download logic'));
+   */
   @playerAPI()
   setDownloadClickCallback(callback: () => void) {
     this._callback = callback;

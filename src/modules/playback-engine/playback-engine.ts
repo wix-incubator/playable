@@ -135,7 +135,7 @@ class Engine implements IPlaybackEngine {
   }
 
   /**
-   * Method for starting playback of video
+   * Start playback
    * @example
    * player.play();
    */
@@ -145,7 +145,7 @@ class Engine implements IPlaybackEngine {
   }
 
   /**
-   * Method for pausing playback of video
+   * Pause playback
    * @example
    * player.pause();
    */
@@ -155,7 +155,7 @@ class Engine implements IPlaybackEngine {
   }
 
   /**
-   * Method for toggling(play\pause) playback of video
+   * Toggle (play\pause) playback of video
    * @example
    * player.togglePlayback();
    */
@@ -169,7 +169,7 @@ class Engine implements IPlaybackEngine {
   }
 
   /**
-   * Method for reseting playback of video
+   * Reset video playback
    * @example
    * player.play();
    * console.log(player.isPaused); // false

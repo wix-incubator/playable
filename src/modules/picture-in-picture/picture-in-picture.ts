@@ -83,6 +83,8 @@ class PictureInPicture implements IPictureInPicture {
 
   /**
    * Disable functionality for entering picture in picture mode
+   * @example
+   * player.disablePictureInPicture();
    */
   @playerAPI()
   disablePictureInPicture() {
@@ -92,6 +94,8 @@ class PictureInPicture implements IPictureInPicture {
 
   /**
    * Enable functionality for entering picture in picture mode
+   * @example
+   * player.enablePictureInPicture();
    */
   @playerAPI()
   enablePictureInPicture() {

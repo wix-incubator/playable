@@ -10,8 +10,7 @@ player.updateTheme({
 })
 ```
 
-You can check info about theming [here](/themes)
-
+> You can check info about theming [here](/themes)
 
 Method for setting theme for player instance
 
@@ -19,7 +18,7 @@ Method for setting theme for player instance
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -46,7 +45,7 @@ Getter for DOM element with player UI
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -79,7 +78,7 @@ Method for attaching player node to your container
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -108,7 +107,7 @@ Method for setting width of player
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -138,7 +137,7 @@ Return current width of player in pixels
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -166,7 +165,7 @@ Method for setting width of player
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -196,7 +195,7 @@ Return current height of player in pixels
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -224,7 +223,7 @@ Method for allowing player fill all available space
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -280,7 +279,7 @@ You can check all events inside `Playable.UI_EVENTS` and `Playable.VIDEO_EVENTS`
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -342,7 +341,7 @@ Method for removing listeners of events inside player.
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -397,8 +396,7 @@ player.setSrc([
 ]);
 ```
 
-Read more about [video source](/video-source)
-
+> Read more about [video source](/video-source)
 
 Method for setting source of video to player.
 
@@ -406,7 +404,7 @@ Method for setting source of video to player.
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -418,6 +416,14 @@ Method for setting source of video to player.
         <td>
             <div class="type">PlayableMediaSource</div>
             <p>Array with multiple sources</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="param">
+          <code>callback</code>
+        </td>
+        <td>
+            <div class="type">Function</div>
         </td>
       </tr>
     </tbody>
@@ -436,7 +442,7 @@ Return current source of video
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -460,7 +466,7 @@ Return current source of video
 player.play();
 ```
 
-Method for starting playback of video
+Start playback
 
 ## pause()
 
@@ -468,7 +474,7 @@ Method for starting playback of video
 player.pause();
 ```
 
-Method for pausing playback of video
+Pause playback
 
 ## togglePlayback()
 
@@ -476,7 +482,7 @@ Method for pausing playback of video
 player.togglePlayback();
 ```
 
-Method for toggling(play\\pause) playback of video
+Toggle (play\\pause) playback of video
 
 ## resetPlayback()
 
@@ -489,7 +495,7 @@ console.log(player.isPaused); // true;
 console.log(player.getCurrentTime()); //0;
 ```
 
-Method for reseting playback of video
+Reset video playback
 
 ## isPaused
 
@@ -505,7 +511,7 @@ For more advance state use `getPlaybackState`
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -535,7 +541,7 @@ For more advance state use `getPlaybackState`
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -571,7 +577,7 @@ Method for going forward in playback by your value
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -601,7 +607,7 @@ Method for going backward in playback by your value
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -631,7 +637,7 @@ Set volume
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -661,7 +667,7 @@ Get volume
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -689,7 +695,7 @@ Method for increasing current volume by value
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -719,7 +725,7 @@ Method for decreasing current volume by value
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -768,7 +774,7 @@ Get mute flag
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -796,7 +802,7 @@ Set autoplay flag
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -825,7 +831,7 @@ Get autoplay flag
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -853,7 +859,7 @@ Set loop flag
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -883,7 +889,7 @@ Get loop flag
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -907,7 +913,7 @@ Method for setting playback rate
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -932,7 +938,7 @@ Return current playback rate
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -960,7 +966,7 @@ Set preload type
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -968,10 +974,9 @@ Set preload type
       <tr>
         <td class="param">
           <code>preload</code>
-          <div class="optional">(Optional)</div>
         </td>
         <td>
-            Possible values are <code>"auto"</code>, <code>"metadata"</code>, <code>"none"</code>.
+            <div class="type">PreloadType</div>
         </td>
       </tr>
     </tbody>
@@ -990,7 +995,7 @@ Return preload type
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -1018,7 +1023,7 @@ Return current time of video playback
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -1046,7 +1051,7 @@ Method for seeking to time in video
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1076,7 +1081,7 @@ Return duration of video
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -1104,7 +1109,7 @@ Return real width of video from metadata
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -1132,7 +1137,7 @@ Return real height of video from metadata
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -1160,7 +1165,7 @@ Set playsinline flag
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1190,7 +1195,7 @@ Get playInline flag
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -1218,7 +1223,7 @@ Set crossorigin attribute for video
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1228,7 +1233,7 @@ Set crossorigin attribute for video
           <code>crossOrigin</code>
         </td>
         <td>
-            Possible values are <code>"anonymous"</code>, <code>"use-credentials"</code>.
+            <div class="type">CrossOriginValue</div>
         </td>
       </tr>
     </tbody>
@@ -1247,7 +1252,7 @@ Get crossorigin attribute value for video
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -1273,8 +1278,7 @@ Return current state of playback
 player.getDebugInfo();
 ```
 
-The above command returns JSON structured like this:
-
+> The above command returns JSON structured like this:
 
 ```javascript
 {
@@ -1314,18 +1318,17 @@ Return object with internal debug info
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="param">
-          <code>viewDimensions</code>
+          <code>output</code>
         </td>
         <td>
-            <div class="type">Object</div>
-            <p>Current size of view port provided by engine (right now - actual size of video tag)</p>
+            <div class="type">string</div>
         </td>
       </tr>
       <tr>
@@ -1334,7 +1337,6 @@ Return object with internal debug info
         </td>
         <td>
             <div class="type">number</div>
-            <p>Current time of playback</p>
         </td>
       </tr>
       <tr>
@@ -1343,16 +1345,6 @@ Return object with internal debug info
         </td>
         <td>
             <div class="type">number</div>
-            <p>Duration of current video</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="param">
-          <code>loadingStateTimestamps</code>
-        </td>
-        <td>
-            <div class="type">Object</div>
-            <p>Object with time spend for different initial phases</p>
         </td>
       </tr>
     </tbody>
@@ -1488,7 +1480,7 @@ Return true if player is in full screen
   <table>
     <thead>
       <tr>
-        <th>RETURN VALUE</th>
+        <th class="title">RETURN VALUE</th>
         <th></th>
       </tr>
     </thead>
@@ -1516,7 +1508,7 @@ Method for setting video view mode.
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1565,7 +1557,7 @@ Method for setting overlay poster
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1595,7 +1587,7 @@ Method for allowing main ui to be always shown despite the playback state and th
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1627,8 +1619,7 @@ Method for allowing main ui to be always shown despite the playback state and th
 player.setTitle('Your awesome video title here');
 ```
 
-[Live Demo](https://jsfiddle.net/bodia/243k6m0u/)
-
+> [Live Demo](https://jsfiddle.net/bodia/243k6m0u/)
 
 Display title text over the video. If you want to have clickable title, use `setTitleClickCallback`
 
@@ -1636,7 +1627,7 @@ Display title text over the video. If you want to have clickable title, use `set
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1669,7 +1660,7 @@ Method for attaching callback for click on title
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1679,7 +1670,7 @@ Method for attaching callback for click on title
           <code>callback</code>
         </td>
         <td>
-            <code>function(): void</code>
+            <code class="function-type">function(): void</code>
             <p>Your function</p>
         </td>
       </tr>
@@ -1699,7 +1690,7 @@ Method for allowing logo to be always shown in bottom block
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1853,7 +1844,7 @@ Add time indicator to progress bar
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1878,7 +1869,7 @@ Add time indicators to progress bar
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1911,7 +1902,7 @@ Method for setting source of image, that would be used as logo
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1944,7 +1935,7 @@ Method for attaching callback for click on logo
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1954,7 +1945,7 @@ Method for attaching callback for click on logo
           <code>callback</code>
         </td>
         <td>
-            <code>function(): void</code>
+            <code class="function-type">function(): void</code>
             <p>Your function</p>
         </td>
       </tr>
@@ -1964,11 +1955,17 @@ Method for attaching callback for click on logo
 
 ## setDownloadClickCallback()
 
+```javascript
+player.setDownloadClickCallback(() => console.log('handle download logic'));
+```
+
+If download button presented, set callback on click
+
 <div class="method-list">
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
@@ -1978,7 +1975,68 @@ Method for attaching callback for click on logo
           <code>callback</code>
         </td>
         <td>
-            <code>function(): void</code>
+            <code class="function-type">function(): void</code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## enterPictureInPicture()
+
+```javascript
+player.enterFullScreen();
+```
+
+Player would try to enter fullscreen mode.
+Behavior of fullscreen mode on different platforms may differ.
+
+## exitPictureInPicture()
+
+```javascript
+player.exitFullScreen();
+```
+
+Player would try to exit fullscreen mode.
+
+## disablePictureInPicture()
+
+```javascript
+player.disablePictureInPicture();
+```
+
+Disable functionality for entering picture in picture mode
+
+## enablePictureInPicture()
+
+```javascript
+player.enablePictureInPicture();
+```
+
+Enable functionality for entering picture in picture mode
+
+## isInPictureInPicture
+
+```javascript
+console.log(player.isInFullScreen); // false
+```
+
+Return true if player is in full screen
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th class="title">RETURN VALUE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+        </td>
+        <td>
+            <div class="type">boolean</div>
         </td>
       </tr>
     </tbody>
@@ -1991,7 +2049,7 @@ Method for attaching callback for click on logo
   <table>
     <thead>
       <tr>
-        <th>ARGUMENTS</th>
+        <th class="title">ARGUMENTS</th>
         <th></th>
       </tr>
     </thead>
