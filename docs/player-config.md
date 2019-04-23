@@ -47,7 +47,7 @@ const player = Playable.create(config, theme);
 
 ### Video source config
 
-`config.src: PlayableMediaSource` A string or array with source of the video. For more information see [this page](/video-source)
+`config.src: PlayableMediaSource` A string or array with source of the video. For more information see [this page](/video-source) <br/>
 `config.videoElement: HTMLVideoElement` Video Element that will be respected by playable. Can be used for example to share the same video element cross players, or setting custom video source (WebRTC for example).
 
 ### UI related config

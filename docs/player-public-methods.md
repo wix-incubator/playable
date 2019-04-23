@@ -1,6 +1,6 @@
 <!-- Generated automatically. Update this documentation by updating the source code. -->
 
-# Player public methods
+# Public methods
 
 ## updateTheme()
 

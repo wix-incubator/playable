@@ -11,7 +11,7 @@ Playable is a highly expandable product. By default, it is shipped with certain 
 import Playabale from 'playable';
 import Module from 'playable/dist/modules/my-module';
 
-// include module before creating instance of player 
+// include module before creating instance of player
 Playable.registerModule('myModule', Module);
 // ...
 const player = Playable.create(config, theme);
@@ -23,9 +23,7 @@ Like in the case with  [playback adapters](/adapters) there are two ways to add 
 ## API
 Module can extend players API, add new methods, events, etc.
 
-# List of available modules
- - [chromecast](#chromecast)
-
+# Available modules
 
 ## Chromecast
 Chomecast module is an extension that connects playable to cast video files to google chromecast, SmartTV or compatible devices using google chrome browser API.

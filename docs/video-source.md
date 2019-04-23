@@ -43,7 +43,7 @@ player.setSrc({
 If the URL does not end with the file extension, the type can be specified explicitly.
 Use `Playable.MEDIA_STREAM_TYPES` to set video `type`.
 
-## And now, the best part...
+**And now, the best part...**
 
 ```javascript
 player.setSrc([

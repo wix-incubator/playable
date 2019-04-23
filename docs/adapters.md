@@ -1,5 +1,6 @@
 ---
 title: "Playback adapters"
+layout: simple
 ---
 
 # Playback adapters
