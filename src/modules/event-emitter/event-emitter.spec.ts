@@ -36,5 +36,9 @@ describe('EventEmitterModule', () => {
     it('should have "off" method', () => {
       expect(eventEmitter[PLAYER_API_PROPERTY].off).to.exist;
     });
+
+    it('should have "once" method', () => {
+      expect(eventEmitter[PLAYER_API_PROPERTY].once).to.exist;
+    });
   });
 });

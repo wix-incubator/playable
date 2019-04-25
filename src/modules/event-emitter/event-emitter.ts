@@ -9,8 +9,8 @@ class EventEmitterModule extends EventEmitter implements IEventEmitter {
   static moduleName = 'eventEmitter';
 
   /**
-   * Method for adding listeners of events inside player.
-   * You can check all events inside `Playable.UI_EVENTS` and `Playable.VIDEO_EVENTS`
+   * Attach an event handler function for one or more events
+   * You can check all events [here](/events)
    *
    * @param event - The Event name, such as `Playable.UI_EVENTS.PLAY_CLICK`
    * @param fn - A function callback to execute when the event is triggered.
@@ -34,7 +34,27 @@ class EventEmitterModule extends EventEmitter implements IEventEmitter {
   }
 
   /**
-   * Method for removing listeners of events inside player.
+   * The `.once()` method is identical to `.on()`, except that the handler for a given element and event type is unbound after its first invocation.
+   *
+   * @param event - The Event name, such as `Playable.UI_EVENTS.PLAY_CLICK`
+   * @param fn - A function callback to execute when the event is triggered.
+   * @param context - Value to use as `this` (i.e the reference Object) when executing callback.
+   *
+   * @example
+   * const Playable = require('playable');
+   * const player = Playable.create();
+   *
+   * player.once(Playable.UI_EVENTS.PLAY_CLICK, () => {
+   *   // Will be executed only one time
+   * });
+   */
+  @playerAPI()
+  once(event: string, fn: ListenerFn, context?: any) {
+    return super.once(event, fn, context);
+  }
+
+  /**
+   * Remove an event handler.
    *
    * @param event - The Event name, such as `Playable.UI_EVENTS.PLAY_CLICK`
    * @param fn - Only remove the listeners that match this function.
