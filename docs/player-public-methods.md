@@ -272,8 +272,61 @@ player.on(Playable.UI_EVENTS.PLAY_CLICK, () => {
 player.on(Playable.VIDEO_EVENTS.UPLOAD_STALLED, this.handleStalledUpload, this);
 ```
 
-Method for adding listeners of events inside player.
-You can check all events inside `Playable.UI_EVENTS` and `Playable.VIDEO_EVENTS`
+Attach an event handler function for one or more events
+You can check all events [here](/events)
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th class="title">ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>event</code>
+        </td>
+        <td>
+            <div class="type">string</div>
+            <p>The Event name, such as <code>Playable.UI_EVENTS.PLAY_CLICK</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="param">
+          <code>fn</code>
+        </td>
+        <td>
+            <div class="type">ListenerFn</div>
+            <p>A function callback to execute when the event is triggered.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="param">
+          <code>context</code>
+        </td>
+        <td>
+            <div class="type">any</div>
+            <p>Value to use as <code>this</code> (i.e the reference Object) when executing callback.</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+## once()
+
+```javascript
+const Playable = require('playable');
+const player = Playable.create();
+
+player.once(Playable.UI_EVENTS.PLAY_CLICK, () => {
+  // Will be executed only one time
+});
+```
+
+The `.once()` method is identical to `.on()`, except that the handler for a given element and event type is unbound after its first invocation.
 
 <div class="method-list">
   <table>
@@ -335,7 +388,7 @@ player.off(Playable.UI_EVENTS.PAUSE, callback);
 player.off(Playable.UI_EVENTS.PAUSE);
 ```
 
-Method for removing listeners of events inside player.
+Remove an event handler.
 
 <div class="method-list">
   <table>
