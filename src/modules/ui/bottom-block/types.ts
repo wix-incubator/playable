@@ -20,6 +20,7 @@ type IBottomBlockViewStyles = {
   fullScreenControlHidden: string;
   progressControlHidden: string;
   downloadButtonHidden: string;
+  pictureInPictureButtonHidden: string;
 };
 
 type IBottomBlockViewCallbacks = {
@@ -35,6 +36,7 @@ type IBottomBlockViewElements = {
   logo: HTMLElement;
   progress: HTMLElement;
   download: HTMLElement;
+  pictureInPicture: HTMLElement;
 };
 
 type IBottomBlockViewConfig = {

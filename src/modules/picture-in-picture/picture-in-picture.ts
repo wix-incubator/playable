@@ -103,9 +103,9 @@ class PictureInPicture implements IPictureInPicture {
   }
 
   /**
-   * Return true if player is in full screen
+   * Return true if player is in picture in picture mode
    * @example
-   * console.log(player.isInFullScreen); // false
+   * console.log(player.isInPictureInPicture); // false
    */
   @playerAPI()
   get isInPictureInPicture(): boolean {

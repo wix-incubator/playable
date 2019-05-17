@@ -12,6 +12,7 @@ import { IFullScreenControl } from '../controls/full-screen/types';
 import { ILogoControl } from '../controls/logo/types';
 import { IDownloadButton } from '../controls/download/types';
 import { IChromecastButton } from '../controls/chromecast/types';
+import { IPictureInPictureControl } from '../controls/pictureInPicture/types';
 
 import {
   IBottomBlockAPI,
@@ -30,6 +31,7 @@ interface IDependencies {
   logo: ILogoControl;
   downloadButton: IDownloadButton;
   chromecastButton: IChromecastButton;
+  pictureInPictureControl: IPictureInPictureControl;
 }
 
 interface IAddControllOptions {
@@ -48,6 +50,7 @@ class BottomBlock implements IBottomBlock {
     'logo',
     'downloadButton',
     'eventEmitter',
+    'pictureInPictureControl',
   ];
 
   private _eventEmitter: IEventEmitter;
@@ -79,6 +82,7 @@ class BottomBlock implements IBottomBlock {
       fullScreenControl,
       logo,
       downloadButton,
+      pictureInPictureControl,
     } = dependencies;
 
     return {
@@ -89,6 +93,7 @@ class BottomBlock implements IBottomBlock {
       fullScreen: fullScreenControl.getElement(),
       download: downloadButton.getElement(),
       logo: logo.getElement(),
+      pictureInPicture: pictureInPictureControl.getElement(),
     };
   }
 
@@ -230,6 +235,16 @@ class BottomBlock implements IBottomBlock {
   }
 
   /**
+   * Method for showing picture-in-picture control.
+   * @example
+   * player.showPictureInPictureControl();
+   */
+  @playerAPI()
+  showPictureInPictureControl() {
+    this.view.showPictureInPictureControl();
+  }
+
+  /**
    * Method for showing progress control.
    * @example
    * player.showProgressControl();
@@ -286,6 +301,16 @@ class BottomBlock implements IBottomBlock {
    */
   @playerAPI()
   hideFullScreenControl() {
+    this.view.hideFullScreenControl();
+  }
+
+  /**
+   * Method for hiding picture-in-picture control.
+   * @example
+   * player.hidePictureInPictureControl();
+   */
+  @playerAPI()
+  hidePictureInPictureControl() {
     this.view.hideFullScreenControl();
   }
 

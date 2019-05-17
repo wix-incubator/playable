@@ -72,6 +72,11 @@
       display: none;
     }
   }
+  &.pictureInPictureButtonHidden {
+    .pictureInPictureContainer {
+      display: none;
+    }
+  }
 }
 
 .elementsContainer {
@@ -194,6 +199,14 @@
   @include in-full-screen() {
     margin-right: 18px;
     //margin-left: 0;
+  }
+}
+
+.pictureInPictureContainer {
+  margin-right: 8px;
+
+  @include in-full-screen() {
+    margin-right: 18px;
   }
 }
 

@@ -80,6 +80,11 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
       'download-container',
     );
 
+    const $pictureInPictureContainer = getElementByHook(
+      this._$rootElement,
+      'picture-in-picture-container',
+    );
+
     $playContainer.appendChild(elements.play);
     $volumeContainer.appendChild(elements.volume);
     $timeContainer.appendChild(elements.time);
@@ -87,6 +92,7 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     $logoContainer.appendChild(elements.logo);
     $progressBarContainer.appendChild(elements.progress);
     $downloadContainer.appendChild(elements.download);
+    $pictureInPictureContainer.appendChild(elements.pictureInPicture);
   }
 
   private _preventClickPropagation(e: MouseEvent) {
@@ -200,6 +206,14 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
   }
 
   showDownloadButton() {
+    this._$rootElement.classList.remove(this.styleNames.downloadButtonHidden);
+  }
+
+  hidePictureInPictureButton() {
+    this._$rootElement.classList.add(this.styleNames.downloadButtonHidden);
+  }
+
+  showPictureInPictureControl() {
     this._$rootElement.classList.remove(this.styleNames.downloadButtonHidden);
   }
 
