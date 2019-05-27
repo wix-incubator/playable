@@ -13,6 +13,14 @@ describe('Overlay', () => {
   let eventEmitter: any = {};
   let eventEmitterSpy: any = null;
 
+  // let mainUIBlock: any;
+  // let disableShowingContentSpy: any;
+  // let enableShowingContentSpy: any;
+  //
+  // let loader: any;
+  // let loaderShowSpy: any;
+  // let loaderHideSpy: any;
+
   beforeEach(() => {
     testkit = createPlayerTestkit();
   });
@@ -27,6 +35,46 @@ describe('Overlay', () => {
       expect(overlay.view).to.exist;
     });
   });
+
+  // describe(`check Loader's and MainUIBlock's API usage`, () => {
+  //   beforeEach(() => {
+  //     overlay = testkit.getModule('overlay');
+  //
+  //     mainUIBlock = testkit.getModule('mainUIBlock');
+  //     enableShowingContentSpy = sinon.spy(mainUIBlock, 'enableShowingContent');
+  //
+  //     loader = testkit.getModule('loader');
+  //     loaderShowSpy = sinon.spy(loader, 'show');
+  //
+  //     eventEmitter = testkit.getModule('eventEmitter');
+  //   });
+  //
+  //   it(`if Overlay's "_hideContent" method invokes external API`, async () => {
+  //     await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, { nextState: EngineState.PLAY_REQUESTED});
+  //     expect(loaderShowSpy.called).to.be.true;
+  //     expect(enableShowingContentSpy.called).to.be.true;
+  //   })
+  // });
+
+  // describe(`check Loader's and MainUIBlock's API usage v2`, () => {
+  //   beforeEach(() => {
+  //     overlay = testkit.getModule('overlay');
+  //
+  //     mainUIBlock = testkit.getModule('mainUIBlock');
+  //     disableShowingContentSpy = sinon.spy(mainUIBlock, 'disableShowingContent');
+  //
+  //     loader = testkit.getModule('loader');
+  //     loaderHideSpy = sinon.spy(loader, 'hide');
+  //
+  //     eventEmitter = testkit.getModule('eventEmitter');
+  //   });
+  //
+  //   it(`if Overlay's "_showContent" method invokes external API`, async () => {
+  //     await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, { nextState: EngineState.SRC_SET});
+  //     expect(loaderHideSpy.called).to.be.true;
+  //     expect(disableShowingContentSpy.called).to.be.true;
+  //   })
+  // });
 
   describe('instance callbacks to controls', () => {
     beforeEach(() => {
