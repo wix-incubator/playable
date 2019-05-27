@@ -80,6 +80,14 @@ class OverlayView extends View<IOverlayViewStyles>
     this._$content.style.backgroundImage = src ? `url('${src}')` : 'none';
   }
 
+  turnOnOverlayTransparency() {
+    this._$content.classList.add(this.styleNames.transparency);
+  }
+
+  turnOffOverlayTransparency() {
+    this._$content.classList.remove(this.styleNames.transparency);
+  }
+
   destroy() {
     this._unbindEvents();
 

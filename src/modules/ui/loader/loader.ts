@@ -6,10 +6,11 @@ import { IEventEmitter } from '../../event-emitter/types';
 import { IPlaybackEngine } from '../../playback-engine/types';
 import { IPlayerConfig } from '../../../core/config';
 import { IRootContainer } from '../../root-container/types';
+import { ILoader } from './types';
 
 export const DELAYED_SHOW_TIMEOUT = 100;
 
-export default class Loader {
+export default class Loader implements ILoader {
   static moduleName = 'loader';
   static View = View;
   static dependencies = ['engine', 'eventEmitter', 'config', 'rootContainer'];
