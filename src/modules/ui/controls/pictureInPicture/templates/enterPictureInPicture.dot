@@ -1,9 +1,8 @@
-<!--TODO fix icons-->
 <div class="${props.styles.icon}">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 15">
-     <g fill="none" fill-rule="evenodd" stroke="#FFF">
-         <path stroke-width="2" d="M5.62 12L14 4.55V1H1v11h4.62z"/>
-         <path stroke-width="2" d="M9 8h7v6H9z"/>
-     </g>
+   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 15">
+    <g fill="#FFF" fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
+      <path d="M6 13H0V0h15v5h-1.992V1.96H2.027V11H6z"/>
+      <path d="M8 7h9v8H8V7zm2 2v4h5V9h-5z"/>
+    </g>
   </svg>
 </div>

@@ -1,13 +1,11 @@
 <!--TODO fix icons-->
 <div class="${props.styles.icon}">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 21">
-      <g fill="none" fill-rule="evenodd">
-          <g fill="#FFF">
-              <path d="M23 14h-8v-2h8z"/>
-              <path d="M17 20v-8h-2v8z"/>
-              <path d="M23.778 19.364l-1.414 1.414L16 14.414 17.414 13z"/>
-          </g>
-          <path stroke="#FFF" stroke-width="2" d="M11.585 18L21 8.59V1H1v17h10.585z"/>
-      </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 15">
+    <g fill="#FFF" fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
+      <path d="M7 13H0V0h15v5h-2.006V2.003H2.019V11H7z"/>
+      <path d="M16 9H9V7h7z"/>
+      <path d="M11 14V7H9v7z"/>
+      <path d="M16.364 12.95l-1.414 1.414L10 9.414 11.414 8z"/>
+    </g>
   </svg>
 </div>
