@@ -1723,7 +1723,7 @@ Method for attaching callback for click on title
           <code>callback</code>
         </td>
         <td>
-            <div class="function-type">function(): void</div>
+            <code class="function-type">function(): void</code>
             <p>Your function</p>
         </td>
       </tr>
@@ -1809,6 +1809,14 @@ player.showFullScreenControl();
 
 Method for showing full screen control.
 
+## showPictureInPictureControl()
+
+```javascript
+player.showPictureInPictureControl();
+```
+
+Method for showing picture-in-picture control.
+
 ## showProgressControl()
 
 ```javascript
@@ -1856,6 +1864,14 @@ player.hideFullScreenControl();
 ```
 
 Method for hiding full screen control.
+
+## hidePictureInPictureControl()
+
+```javascript
+player.hidePictureInPictureControl();
+```
+
+Method for hiding picture-in-picture control.
 
 ## hideProgressControl()
 
@@ -1998,7 +2014,7 @@ Method for attaching callback for click on logo
           <code>callback</code>
         </td>
         <td>
-            <div class="function-type">function(): void</div>
+            <code class="function-type">function(): void</code>
             <p>Your function</p>
         </td>
       </tr>
@@ -2028,7 +2044,7 @@ If download button presented, set callback on click
           <code>callback</code>
         </td>
         <td>
-            <div class="function-type">function(): void</div>
+            <code class="function-type">function(): void</code>
         </td>
       </tr>
     </tbody>
@@ -2071,10 +2087,10 @@ Enable functionality for entering picture in picture mode
 ## isInPictureInPicture
 
 ```javascript
-console.log(player.isInFullScreen); // false
+console.log(player.isInPictureInPicture); // false
 ```
 
-Return true if player is in full screen
+Return true if player is in picture in picture mode
 
 <div class="method-list">
   <table>

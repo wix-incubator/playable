@@ -6,8 +6,8 @@ import { IView } from '../../core/types';
 import { ITooltipReference } from '../../core/tooltip/types';
 import {
   controlTemplate,
-  enterFullScreenIconTemplate,
-  exitFullScreenIconTemplate,
+  enterPictureInPictureIconTemplate,
+  exitPictureInPictureIconTemplate,
 } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
@@ -90,9 +90,9 @@ class PictureInPictureView extends View<IPictureInPictureViewStyles>
   setPictureInPictureState(isPictureInPicture: boolean) {
     if (isPictureInPicture) {
       this._$togglePictureInPictureControl.classList.add(
-        this.styleNames.inFullScreen,
+        this.styleNames.pictureInPicture,
       );
-      this._$togglePictureInPictureControl.innerHTML = exitFullScreenIconTemplate(
+      this._$togglePictureInPictureControl.innerHTML = exitPictureInPictureIconTemplate(
         {
           styles: this.styleNames,
           themeStyles: this.themeStyles,
@@ -108,9 +108,9 @@ class PictureInPictureView extends View<IPictureInPictureViewStyles>
       );
     } else {
       this._$togglePictureInPictureControl.classList.remove(
-        this.styleNames.inFullScreen,
+        this.styleNames.pictureInPicture,
       );
-      this._$togglePictureInPictureControl.innerHTML = enterFullScreenIconTemplate(
+      this._$togglePictureInPictureControl.innerHTML = enterPictureInPictureIconTemplate(
         {
           styles: this.styleNames,
           themeStyles: this.themeStyles,

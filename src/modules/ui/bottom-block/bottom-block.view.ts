@@ -209,12 +209,16 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
     this._$rootElement.classList.remove(this.styleNames.downloadButtonHidden);
   }
 
-  hidePictureInPictureButton() {
-    this._$rootElement.classList.add(this.styleNames.downloadButtonHidden);
+  hidePictureInPictureControl() {
+    this._$rootElement.classList.add(
+      this.styleNames.pictureInPictureButtonHidden,
+    );
   }
 
   showPictureInPictureControl() {
-    this._$rootElement.classList.remove(this.styleNames.downloadButtonHidden);
+    this._$rootElement.classList.remove(
+      this.styleNames.pictureInPictureButtonHidden,
+    );
   }
 
   hideDownloadButton() {

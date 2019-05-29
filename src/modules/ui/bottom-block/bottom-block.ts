@@ -311,7 +311,7 @@ class BottomBlock implements IBottomBlock {
    */
   @playerAPI()
   hidePictureInPictureControl() {
-    this.view.hideFullScreenControl();
+    this.view.hidePictureInPictureControl();
   }
 
   /**

@@ -3,10 +3,10 @@ import { ITooltipService } from '../../core/tooltip/types';
 import { ITextMap } from '../../../text-map/types';
 
 type IPictureInPictureViewStyles = {
-  fullScreenControl: string;
-  fullScreenToggle: string;
+  pictureInPictureControl: string;
+  pictureInPictureToggle: string;
   icon: string;
-  inFullScreen: string;
+  pictureInPicture: string;
   hidden: string;
 };
 

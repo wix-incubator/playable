@@ -1,7 +1,7 @@
 export {
-  default as enterFullScreenIconTemplate,
+  default as enterPictureInPictureIconTemplate,
 } from './enterPictureInPicture.dot';
 export {
-  default as exitFullScreenIconTemplate,
+  default as exitPictureInPictureIconTemplate,
 } from './exitPictureInPicture.dot';
 export { default as controlTemplate } from './control.dot';
