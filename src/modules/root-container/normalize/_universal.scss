@@ -1,7 +1,7 @@
 *,
 *:before,
 *:after {
-  box-sizing: content-box;
+  box-sizing: content-box !important;
 
-  outline: none;
+  outline: none !important;
 }

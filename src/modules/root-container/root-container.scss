@@ -2,9 +2,9 @@
 
 .container {
   font-family: HelveticaNeueW01-45Ligh, HelveticaNeueW02-45Ligh,
-    HelveticaNeueW10-45Ligh, Helvetica Neue, Helvetica, Arial,
-    \\30e1\30a4\30ea\30aa, meiryo, \\30d2\30e9\30ae\30ce\89d2\30b4 pro w3,
-    hiragino kaku gothic pro;
+  HelveticaNeueW10-45Ligh, Helvetica Neue, Helvetica, Arial,
+  \\30e1\30a4\30ea\30aa, meiryo, \\30d2\30e9\30ae\30ce\89d2\30b4 pro w3,
+  hiragino kaku gothic pro;
 
   position: relative;
   z-index: 0;
@@ -16,26 +16,29 @@
 
   outline: none;
 
-  @import './normalize/universal';
   @import './normalize/button';
+}
+
+[data-playable-hook='player-container'].container {
+  @import './normalize/universal';
 }
 
 .fillAllSpace,
 .fullScreen {
   width: 100% !important;
-  height: 100% !important;
   min-width: 100% !important;
+  height: 100% !important;
   min-height: 100% !important;
 }
 
 :global {
   [data-playable-focus-source='key'] [data-playable-hook='player-container'],
   [data-playable-focus-source='script']
-    [data-playable-hook='player-container'] {
+  [data-playable-hook='player-container'] {
     button.focus-within,
     input.focus-within,
     img.focus-within {
-      box-shadow: 0 0 0 2px rgba(56, 153, 236, 0.8);
+      box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
     }
   }
 }
