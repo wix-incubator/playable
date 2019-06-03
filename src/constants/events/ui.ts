@@ -15,7 +15,10 @@ enum UIEvent {
   UNMUTE_CLICK = 'ui-events/unmute-click',
 
   ENTER_FULL_SCREEN_CLICK = 'ui-events/enter-full-screen-click',
-  EXIT_FULL_SCREEN_CLICK = 'ui-events/enter-full-screen-click',
+  EXIT_FULL_SCREEN_CLICK = 'ui-events/exit-full-screen-click',
+
+  ENTER_PICTURE_IN_PICTURE_CLICK = 'ui-events/enter-picture-in-picture-click',
+  EXIT_PICTURE_IN_PICTURE_CLICK = 'ui-events/exit-picture-in-picture-click',
 
   // TODO=follow ENTITY_EVENT or ENTITY_EVENT format
   MOUSE_ENTER_ON_PLAYER = 'ui-events/mouse-enter-on-player',

@@ -1,0 +1,9 @@
+<div class="${props.styles.pictureInPictureControl}"
+     data-playable-hook="picture-in-picture-control"
+     data-is-picture-in-picture="false">
+  <button class="${props.styles.pictureInPictureToggle} ${props.styles.controlButton}"
+          data-playable-hook="picture-in-picture-control"
+          aria-label="${props.texts.label}"
+          type="button"
+          tabindex="0"/>
+</div>

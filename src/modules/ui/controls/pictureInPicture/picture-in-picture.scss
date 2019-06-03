@@ -1,0 +1,49 @@
+@import '../../shared';
+
+.pictureInPictureControl {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.pictureInPictureToggle {
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  min-height: 26px;
+
+  transition: transform .2s;
+
+  @include in-full-screen() {
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+    min-height: 21px;
+
+    .icon {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  .icon {
+    width: 14px;
+    min-width: 14px;
+    height: 14px;
+    min-height: 14px;
+  }
+
+  &:hover {
+    transform: scale(1.18);
+  }
+
+  &.inPictureInPicture {
+    &:hover {
+      transform: scale(.8);
+    }
+  }
+}

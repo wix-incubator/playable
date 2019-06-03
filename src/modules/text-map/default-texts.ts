@@ -23,6 +23,10 @@ const map: ITextMapConfig = {
   [TextLabel.ENTER_FULL_SCREEN_TOOLTIP]: 'Enter Full Screen',
   [TextLabel.EXIT_FULL_SCREEN_LABEL]: 'Exit full screen',
   [TextLabel.EXIT_FULL_SCREEN_TOOLTIP]: 'Exit Full Screen',
+  [TextLabel.ENTER_PICTURE_IN_PICTURE_LABEL]: 'Enter picture-in-picture',
+  [TextLabel.ENTER_PICTURE_IN_PICTURE_TOOLTIP]: 'Enter picture-in-picture',
+  [TextLabel.EXIT_PICTURE_IN_PICTURE_LABEL]: 'Exit picture-in-picture',
+  [TextLabel.EXIT_PICTURE_IN_PICTURE_TOOLTIP]: 'Exit picture-in-picture',
   [TextLabel.DOWNLOAD_BUTTON_LABEL]: 'Download video',
   [TextLabel.DOWNLOAD_BUTTON_TOOLTIP]: 'Download Video',
 };
