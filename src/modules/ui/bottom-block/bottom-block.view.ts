@@ -123,7 +123,7 @@ class BottomBlockView extends View<IBottomBlockViewStyles>
   addControl(key: string, element: HTMLElement, position?: 'left' | 'right') {
     const wrapper = document.createElement('div');
 
-    wrapper.setAttribute('data-hook', `additional-${key}`);
+    wrapper.setAttribute('data-playable-hook', `additional-${key}`);
 
     wrapper.classList.add(this.styleNames.additionalButton);
     wrapper.appendChild(element);
