@@ -49,7 +49,6 @@
     "documentation:site:build": "npm run documentation && okidoc-site build ./docs/site.yml",
     "documentation:site:deploy": "npm run documentation:site:build && gh-pages -d sitedist",
     "version": "node scripts/npm-version.js && conventional-changelog -p angular",
-    "postversion": "git push && git push --tags",
     "release": "node scripts/npm-release.js",
     "tslint": "ts-node node_modules/.bin/tslint -p . -c tslint.json",
     "tslint:all": "npm run tslint -- '{src,scripts}/**/*.ts'",
