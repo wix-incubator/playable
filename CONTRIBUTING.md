@@ -41,3 +41,4 @@ To release new version:
   `git push origin master` & `git push origin [NEW_VERSION_TAG]`
 - draft a new [release on github](https://github.com/wix/playable/releases) with changelog from `npm version` command
 - after CI released new package, publish [release on github](https://github.com/wix/playable/releases)
+- publish new documentation version  `npm run documentation:site:deploy`
