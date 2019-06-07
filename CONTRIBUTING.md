@@ -38,6 +38,6 @@ To release new version:
 - run [version script](https://docs.npmjs.com/cli/version):
   `npm version [major | minor | patch]`
 - push master branch and tags:
-  `git push` & `git push tags`
+  `git push origin master` & `git push origin [NEW_VERSION_TAG]`
 - draft a new [release on github](https://github.com/wix/playable/releases) with changelog from `npm version` command
 - after CI released new package, publish [release on github](https://github.com/wix/playable/releases)
