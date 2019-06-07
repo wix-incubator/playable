@@ -1,6 +1,6 @@
 {
   "name": "playable",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Video player based on HTML5Video",
   "keywords": [
     "adaptive",
@@ -95,8 +95,8 @@
     "karma-safari-launcher": "^1.0.0",
     "karma-sauce-launcher": "^1.2.0",
     "lint-staged": "^7.3.0",
-    "okidoc-md": "^2.0.0-beta.5",
-    "okidoc-site": "^2.0.0-beta.6",
+    "okidoc-md": "^2.0.0-beta.7",
+    "okidoc-site": "^2.0.0-beta.7",
     "prettier": "^1.15.1",
     "sinon": "^6.3.5",
     "tslint": "^5.11.0",
