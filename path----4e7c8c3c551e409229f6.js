@@ -1,2 +1,0 @@
-webpackJsonp([60335399758886],{122:function(t,e){t.exports={data:{site:{siteMetadata:{title:"okidoc",description:"",keywords:""}}},layoutContext:{}}}});
-//# sourceMappingURL=path----4e7c8c3c551e409229f6.js.map
