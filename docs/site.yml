@@ -17,20 +17,20 @@ config:
 
 navigation:
   - path: /
-    title: playable
+    title: Introduction
   - path: /player-config
     title: Configuration
-  - path: /themes
-    title: Themes
   - path: /video-source
     title: Video source
   - path: /api
     title: API reference
+  - path: /events
+    title: Events
+  - path: /themes
+    title: Themes
   - path: /modules
     title: Modules
-  - path: /events
-    title: Player events
   - path: /player-texts
-    title: Player texts
+    title: Custom texts
   - path: /adapters
     title: Playback adapters
