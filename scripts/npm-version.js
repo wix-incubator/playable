@@ -29,6 +29,7 @@ function updateVersionInMarkdown(filePath) {
 const FILES_TO_UPDATE = [
   path.resolve(__dirname, '../README.md'),
   path.resolve(__dirname, '../docs/index.md'),
+  path.resolve(__dirname, '../docs/site.yml'),
 ];
 
 Promise.all(
