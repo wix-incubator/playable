@@ -29,3 +29,15 @@ The following is the list of supported scopes:
 * **constants**
 * **modules/NAME_OF_MODULE_HERE**
 * **modules/ui/NAME_OF_MODULE_HERE**
+
+## Release New Version
+
+To release new version:
+- checkout latest master version:
+  `git checkout master` & `git pull`
+- run [version script](https://docs.npmjs.com/cli/version):
+  `npm version [major | minor | patch]`
+- push master branch and tags:
+  `git push` & `git push tags`
+- draft a new [release on github](https://github.com/wix/playable/releases) with changelog from `npm version` command
+- after CI released new package, publish [release on github](https://github.com/wix/playable/releases)
