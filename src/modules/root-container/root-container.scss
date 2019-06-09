@@ -19,10 +19,6 @@
   @import './normalize/button';
 }
 
-[data-playable-hook='player-container'].container {
-  @import './normalize/universal';
-}
-
 .fillAllSpace,
 .fullScreen {
   width: 100% !important;
@@ -32,6 +28,10 @@
 }
 
 :global {
+  [data-playable-element]:not([data-playable-hook='player-container']) {
+    @import './normalize/universal';
+  }
+
   [data-playable-focus-source='key'] [data-playable-hook='player-container'],
   [data-playable-focus-source='script']
   [data-playable-hook='player-container'] {

@@ -10,7 +10,11 @@ function htmlToElement(html: string) {
     throw new Error("HTML provided to htmlToElement doesn't have root element");
   }
 
-  return div.firstChild as HTMLElement;
+  const firstChild = div.firstChild as HTMLElement;
+
+  firstChild.setAttribute('data-playable-element', '');
+
+  return firstChild;
 }
 
 export default htmlToElement;
