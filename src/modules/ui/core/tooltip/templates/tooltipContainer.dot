@@ -1,1 +1,1 @@
-<div class="${props.styles.tooltipContainer}"></div>
+<div class="${props.styles.tooltipContainer}" data-playable-component></div>

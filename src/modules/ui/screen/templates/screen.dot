@@ -1,6 +1,7 @@
 <div
   class="${props.styles.screen}"
-  data-playable-hook="screen-block">
+  data-playable-hook="screen-block"
+  data-playable-component>
   <canvas
     class="${props.styles.backgroundCanvas}"
     data-playable-hook="background-canvas"/>

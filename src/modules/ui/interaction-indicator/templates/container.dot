@@ -1,2 +1,2 @@
-<div class="${props.styles.iconContainer}">
+<div class="${props.styles.iconContainer}" data-playable-component>
 </div>

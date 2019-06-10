@@ -1,1 +1,1 @@
-<div class="${props.styles.mainUiBlock}"></div>
+<div class="${props.styles.mainUiBlock}" data-playable-component></div>

@@ -1,4 +1,4 @@
-<div class="${props.styles.container}">
+<div class="${props.styles.container}" data-playable-component>
   <div class="${props.styles.subtitlesContainer}"
        data-playable-hook="subtitles-container">
   </div>
