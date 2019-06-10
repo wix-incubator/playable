@@ -1,6 +1,7 @@
 <div
   class="${props.styles.loadingCover}"
   data-playable-hook="loading-cover"
+  data-playable-component
   >
   <img
     class="${props.styles.loadingCoverImage}"

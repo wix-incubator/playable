@@ -19,7 +19,7 @@
   @import './normalize/button';
 }
 
-[data-playable-hook='player-container'].container {
+[data-playable-hook='player-container'].container [data-playable-component] {
   @import './normalize/universal';
 }
 

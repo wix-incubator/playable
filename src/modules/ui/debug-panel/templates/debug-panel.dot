@@ -1,4 +1,4 @@
-<div class="${props.styles.debugPanel}">
+<div class="${props.styles.debugPanel}" data-playable-component>
   <div
     class="${props.styles.closeButton}"
     data-playable-hook="debug-panel-close-button"
