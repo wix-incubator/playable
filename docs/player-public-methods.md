@@ -1723,7 +1723,7 @@ Method for attaching callback for click on title
           <code>callback</code>
         </td>
         <td>
-            <div class="function-type">function(): void</div>
+            <code class="function-type">function(): void</code>
             <p>Your function</p>
         </td>
       </tr>
@@ -2014,7 +2014,7 @@ Method for attaching callback for click on logo
           <code>callback</code>
         </td>
         <td>
-            <div class="function-type">function(): void</div>
+            <code class="function-type">function(): void</code>
             <p>Your function</p>
         </td>
       </tr>
@@ -2044,7 +2044,7 @@ If download button presented, set callback on click
           <code>callback</code>
         </td>
         <td>
-            <div class="function-type">function(): void</div>
+            <code class="function-type">function(): void</code>
         </td>
       </tr>
     </tbody>
