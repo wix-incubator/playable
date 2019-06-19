@@ -92,11 +92,11 @@ class RootContainerView extends View<IRootContainerViewStyles>
   }
 
   show() {
-    this._$rootElement.classList.add(this.styleNames.hidden);
+    this._$rootElement.classList.remove(this.styleNames.hidden);
   }
 
   hide() {
-    this._$rootElement.classList.remove(this.styleNames.hidden);
+    this._$rootElement.classList.add(this.styleNames.hidden);
   }
 
   appendComponentElement(element: HTMLElement) {
