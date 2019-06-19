@@ -1239,10 +1239,10 @@ Set playsinline flag
 ## getPlaysinline()
 
 ```javascript
-player.getPlayInline(); // true
+player.getPlaysinline(); // true
 ```
 
-Get playInline flag
+Get playsinline flag
 
 <div class="method-list">
   <table>
@@ -1767,7 +1767,7 @@ Method for allowing logo to be always shown in bottom block
 player.hideLogo();
 ```
 
-Method for hiding logo. If you use `setAlwaysShowLogo` or `setControlsShouldAlwaysShow`, logo would automaticaly appear.
+Method for hiding logo. If you use `setAlwaysShowLogo` or `setMainUIShouldAlwaysShow`, logo would automaticaly appear.
 
 ## showLogo()
 

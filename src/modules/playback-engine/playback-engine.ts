@@ -480,9 +480,9 @@ class Engine implements IPlaybackEngine {
   }
 
   /**
-   * Get playInline flag
+   * Get playsinline flag
    * @example
-   * player.getPlayInline(); // true
+   * player.getPlaysinline(); // true
    */
   @playerAPI()
   getPlaysinline(): boolean {
