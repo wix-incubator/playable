@@ -1628,6 +1628,25 @@ Method for setting overlay poster
   </table>
 </div>
 
+## turnOnOverlayTransparency()
+
+```javascript
+player.turnOnOverlayTransparency();
+```
+
+After initialisation player has by default an overlay that is black;
+
+The `.turnOnOverlayTransparency()` method makes this overlay transparent.
+
+## turnOffOverlayTransparency()
+
+```javascript
+player.turnOffOverlayTransparency();
+```
+
+The `.turnOffOverlayTransparency()` method returns player's overlay to default settings.
+It becomes black again.
+
 ## setMainUIShouldAlwaysShow()
 
 ```javascript

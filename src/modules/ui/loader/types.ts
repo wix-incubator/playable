@@ -4,4 +4,13 @@ type ILoaderViewStyles = {
   hidden: string;
 };
 
-export { ILoaderViewStyles };
+interface ILoader {
+  hide(): void;
+  show(): void;
+  getElement(): HTMLElement;
+  stopDelayedShow(): void;
+  isDelayedShowScheduled: Boolean;
+  destroy(): void;
+}
+
+export { ILoaderViewStyles, ILoader };

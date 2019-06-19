@@ -5,6 +5,7 @@ type IOverlayViewStyles = {
   poster: string;
   active: string;
   hidden: string;
+  transparency: string;
 };
 
 type IOverlayViewCallbacks = {

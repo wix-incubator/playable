@@ -9,6 +9,8 @@ import { IPlaybackEngine } from '../../playback-engine/types';
 import { IThemeService } from '../core/theme';
 import { IRootContainer } from '../../root-container/types';
 import { IPlayerConfig } from '../../../core/config';
+import { IMainUIBlock } from '../main-ui-block/types';
+import { ILoader } from '../loader/types';
 
 class Overlay implements IOverlay {
   static moduleName = 'overlay';
@@ -19,14 +21,18 @@ class Overlay implements IOverlay {
     'rootContainer',
     'theme',
     'config',
+    'mainUIBlock',
+    'loader',
   ];
 
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
   private _theme: IThemeService;
+  private _loader: ILoader;
 
   private _unbindEvents: () => void;
 
+  private _mainUIBlock: IMainUIBlock;
   view: View;
   isHidden: boolean = false;
 
@@ -36,16 +42,22 @@ class Overlay implements IOverlay {
     rootContainer,
     theme,
     config,
+    mainUIBlock,
+    loader,
   }: {
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
     rootContainer: IRootContainer;
     theme: IThemeService;
     config: IPlayerConfig;
+    mainUIBlock: IMainUIBlock;
+    loader: ILoader;
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._theme = theme;
+    this._mainUIBlock = mainUIBlock;
+    this._loader = loader;
 
     this._bindEvents();
     this._initUI();
@@ -108,10 +120,14 @@ class Overlay implements IOverlay {
 
   private _hideContent() {
     this.view.hideContent();
+    this._loader.show();
+    this._mainUIBlock.enableShowingContent();
   }
 
   private _showContent() {
     this.view.showContent();
+    this._loader.hide();
+    this._mainUIBlock.disableShowingContent();
   }
 
   /**
@@ -146,6 +162,32 @@ class Overlay implements IOverlay {
   @playerAPI()
   setPoster(src: string) {
     this.view.setPoster(src);
+  }
+
+  /**
+   * After initialisation player has by default an overlay that is black;
+   *
+   * The `.turnOnOverlayTransparency()` method makes this overlay transparent.
+   * @example
+   * player.turnOnOverlayTransparency();
+   *
+   */
+  @playerAPI()
+  turnOnOverlayTransparency() {
+    this.view.turnOnOverlayTransparency();
+  }
+
+  /**
+   * The `.turnOffOverlayTransparency()` method returns player's overlay to default settings.
+   * It becomes black again.
+   *
+   * @example
+   * player.turnOffOverlayTransparency();
+   *
+   */
+  @playerAPI()
+  turnOffOverlayTransparency() {
+    this.view.turnOffOverlayTransparency();
   }
 
   destroy() {

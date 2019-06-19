@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     width: 800,
     height: 450,
     playsinline: true,
-    hideOverlay: true,
   });
   player.showLogo();
 
