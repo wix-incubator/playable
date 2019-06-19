@@ -1,7 +1,5 @@
 <div class="${props.styles.volumeControl}"
      data-playable-hook="volume-control"
-     data-volume-percent="100"
-     data-is-muted="false">
   <button class="${props.styles.muteButton} ${props.styles.controlButton}"
           data-playable-hook="mute-button"
           aria-label="${props.texts.muteLabel}"
