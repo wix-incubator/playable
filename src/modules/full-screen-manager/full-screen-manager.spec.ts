@@ -149,7 +149,7 @@ describe('FullScreenManager', () => {
       const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emitAsync');
 
       mockedFullscreenHelper.isInFullScreen = true;
-      fullScreenManager._onChange();
+      fullScreenManager._onChange({ target: fullScreenManager._element });
       expect(
         spy.calledWith(
           UIEvent.FULL_SCREEN_STATE_CHANGED,
@@ -159,13 +159,27 @@ describe('FullScreenManager', () => {
 
       eventEmitter.emitAsync.restore();
     });
+    it('should not trigger if fullscreen target is not proper element', () => {
+      const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emitAsync');
+
+      mockedFullscreenHelper.isInFullScreen = true;
+      fullScreenManager._onChange({ target: null });
+      expect(
+        spy.calledWith(
+          UIEvent.FULL_SCREEN_STATE_CHANGED,
+          mockedFullscreenHelper.isInFullScreen,
+        ),
+      ).to.be.false;
+
+      eventEmitter.emitAsync.restore();
+    });
 
     it('should pause video on exit from full screen if proper config passed', () => {
       const spy = sinon.stub(engine, 'pause');
 
       fullScreenManager._pauseVideoOnFullScreenExit = true;
       mockedFullscreenHelper.isInFullScreen = false;
-      fullScreenManager._onChange();
+      fullScreenManager._onChange({ target: fullScreenManager._element });
       expect(spy.called).to.be.true;
 
       engine.pause.restore();

@@ -57,7 +57,7 @@ export default class IOSFullScreen implements IFullScreenHelper {
 
   request() {
     if (!this.isEnabled || this.isInFullScreen || isFullScreenRequested) {
-      return false;
+      return;
     }
 
     try {
@@ -75,7 +75,7 @@ export default class IOSFullScreen implements IFullScreenHelper {
 
   exit() {
     if (!this.isEnabled || !this.isInFullScreen) {
-      return false;
+      return;
     }
 
     this._$elem.webkitExitFullscreen();

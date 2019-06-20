@@ -29,6 +29,7 @@ class FullScreenManager implements IFullScreenManager {
   private _eventEmitter: IEventEmitter;
   private _engine: IPlaybackEngine;
   private _helper: IFullScreenHelper;
+  private _element: HTMLElement;
 
   private _exitFullScreenOnEnd: boolean = false;
   private _enterFullScreenOnPlay: boolean = false;
@@ -69,11 +70,13 @@ class FullScreenManager implements IFullScreenManager {
     this._onChange = this._onChange.bind(this);
 
     if (isIOS()) {
+      this._element = this._engine.getElement();
       this._helper = new IOSFullScreen(
         this._engine.getElement(),
         this._onChange,
       );
     } else {
+      this._element = rootContainer.getElement();
       this._helper = new DesktopFullScreen(
         rootContainer.getElement(),
         this._onChange,
@@ -83,7 +86,11 @@ class FullScreenManager implements IFullScreenManager {
     this._bindEvents();
   }
 
-  private _onChange() {
+  private _onChange(event: Event) {
+    if (event.target !== this._element) {
+      return;
+    }
+
     if (!this._helper.isInFullScreen && this._pauseVideoOnFullScreenExit) {
       this._engine.pause();
     }
