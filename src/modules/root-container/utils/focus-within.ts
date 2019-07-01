@@ -1,3 +1,10 @@
+// Unspecified error on Internet Explorer with document.activeElement
+// https://github.com/reactjs/react-tabs/issues/193
+const canUseActiveElement =
+  typeof window !== 'undefined' &&
+  window.document &&
+  typeof window.document.activeElement as any !== 'unknown';
+
 // inspired by https://gist.github.com/aFarkas/a7e0d85450f323d5e164
 const FOCUS_WITHIN_CLASSNAME = 'focus-within';
 
@@ -31,7 +38,7 @@ const focusWithin = (
     let isFocused: boolean;
 
     const action = () => {
-      const activeElement: any = document.activeElement;
+      const activeElement = canUseActiveElement ? document.activeElement : null;
       running = false;
 
       if (last !== activeElement) {
