@@ -1,6 +1,6 @@
 {
   "name": "playable",
-  "version": "2.8.1",
+  "version": "2.9.0",
   "description": "Video player based on HTML5Video",
   "keywords": [
     "adaptive",
