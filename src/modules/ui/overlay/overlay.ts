@@ -97,7 +97,7 @@ class Overlay implements IOverlay {
 
   private _updatePlayingState({ nextState }: { nextState: EngineState }) {
     if (nextState === EngineState.PLAY_REQUESTED) {
-      this._hideContent();
+      this._tryHideContent();
     } else if (
       nextState === EngineState.ENDED ||
       nextState === EngineState.SRC_SET
@@ -113,9 +113,21 @@ class Overlay implements IOverlay {
   }
 
   private _tryShowContent() {
+    if (this.isHidden) {
+      return;
+    }
+
     if (this._engine.isPaused) {
       this._showContent();
     }
+  }
+
+  private _tryHideContent() {
+    if (this.isHidden) {
+      return;
+    }
+
+    this._hideContent();
   }
 
   private _hideContent() {
