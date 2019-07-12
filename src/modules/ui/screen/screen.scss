@@ -25,10 +25,17 @@
     }
   }
 
+  &.fillMode {
+    video {
+      position: absolute;
+    }
+  }
+
   &.verticalStripes {
     &.fillMode {
       video {
         width: 100%;
+        height: auto !important;
       }
     }
   }
