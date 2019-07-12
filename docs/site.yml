@@ -4,7 +4,7 @@ distPath: ./sitedist
 mdComponents:
   path: ./docs/md-components/index.js
   externalScripts:
-    - https://unpkg.com/playable@2.9.1/dist/statics/playable.bundle.min.js
+    - https://unpkg.com/playable@2.9.2/dist/statics/playable.bundle.min.js
 
 # https://www.gatsbyjs.org/docs/gatsby-config
 config:
