@@ -19,22 +19,18 @@
   transition: transform .2s;
 
   @include in-full-screen() {
-    width: 35px;
-    min-width: 35px;
+    width: 17px;
     height: 35px;
-    min-height: 21px;
 
     .icon {
-      width: 21px;
-      height: 21px;
+      width: 16px;
+      height: 19px;
     }
   }
 
   .icon {
-    width: 14px;
-    min-width: 14px;
-    height: 14px;
-    min-height: 14px;
+    width: 17px;
+    height: 15px;
   }
 
   &:hover {

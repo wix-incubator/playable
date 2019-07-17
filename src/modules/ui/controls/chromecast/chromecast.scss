@@ -10,31 +10,17 @@
 }
 
 .chromecastButton {
-  width: 26px;
-  min-width: 26px;
-  height: 26px;
-  min-height: 26px;
+  width: 18px;
+  height: 19px;
+  padding-right: 5px;
 
   cursor: pointer;
   transition: transform .2s;
 
   @include in-full-screen() {
-    width: 35px;
-    min-width: 35px;
-    height: 35px;
-    min-height: 21px;
-
-    svg {
-      width: 25px;
-      height: 21px;
-    }
-  }
-
-  svg {
-    width: 17px;
-    min-width: 17px;
-    height: 14px;
-    min-height: 14px;
+    width: 27px;
+    height: 28px;
+    padding-top: 2px;
   }
 
   &:hover {
