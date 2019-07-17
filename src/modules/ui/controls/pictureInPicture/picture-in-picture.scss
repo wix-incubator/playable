@@ -25,16 +25,30 @@
     min-height: 21px;
 
     .icon {
-      width: 21px;
+      width: 24px;
       height: 21px;
+    }
+
+    .icon_small {
+      display: none;
+    }
+
+    .icon_big {
+      display: block;
     }
   }
 
   .icon {
-    width: 14px;
-    min-width: 14px;
-    height: 14px;
-    min-height: 14px;
+    width: 17px;
+    height: 15px;
+  }
+
+  .icon_small {
+    display: block;
+  }
+
+  .icon_big {
+    display: none;
   }
 
   &:hover {

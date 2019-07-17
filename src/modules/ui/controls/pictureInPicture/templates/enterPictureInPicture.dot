@@ -1,8 +1,14 @@
 <div class="${props.styles.icon}">
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 15">
+  <svg class="${props.styles.icon_small}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 15">
     <g fill="#FFF" fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
       <path d="M6 13H0V0h15v5h-1.992V1.96H2.027V11H6z"/>
       <path d="M8 7h9v8H8V7zm2 2v4h5V9h-5z"/>
+    </g>
+  </svg>
+  <svg class="${props.styles.icon_big}" viewBox="0 0 24 21" version="1" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#FFF" fill-rule="evenodd">
+      <path d="M12 10h12v11H12V10zm2 2v7h8v-7h-8z"/>
+      <path d="M9 19H0V0h22v7h-2V2H2v15h7z"/>
     </g>
   </svg>
 </div>

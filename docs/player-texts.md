@@ -54,6 +54,10 @@ const texts = {
   [TEXT_LABELS.EXIT_FULL_SCREEN_TOOLTIP]: 'Exit full screen mode',
   [TEXT_LABELS.DOWNLOAD_BUTTON_LABEL]: 'Download',
   [TEXT_LABELS.DOWNLOAD_BUTTON_TOOLTIP]: 'Download',
+  [TEXT_LABELS.ENTER_PICTURE_IN_PICTURE_LABEL]: 'Play Picture-in-Picture',
+  [TEXT_LABELS.ENTER_PICTURE_IN_PICTURE_TOOLTIP]: 'Play Picture-in-Picture',
+  [TEXT_LABELS.EXIT_PICTURE_IN_PICTURE_LABEL]: 'Exit Picture-in-Picture',
+  [TEXT_LABELS.EXIT_PICTURE_IN_PICTURE_TOOLTIP]: 'Exit Picture-in-Picture',
 };
 ```
 

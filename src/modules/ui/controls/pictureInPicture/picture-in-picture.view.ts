@@ -83,7 +83,6 @@ class PictureInPictureView extends View<IPictureInPictureViewStyles>
   }
 
   private _onButtonClick() {
-    this._$togglePictureInPictureControl.focus();
     this._callbacks.onButtonClick();
   }
 
@@ -110,12 +109,6 @@ class PictureInPictureView extends View<IPictureInPictureViewStyles>
       this._$togglePictureInPictureControl.classList.remove(
         this.styleNames.pictureInPicture,
       );
-      this._$togglePictureInPictureControl.innerHTML = enterPictureInPictureIconTemplate(
-        {
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        },
-      );
       this._$togglePictureInPictureControl.setAttribute(
         'aria-label',
         this._textMap.get(TextLabel.ENTER_PICTURE_IN_PICTURE_LABEL),
@@ -123,6 +116,12 @@ class PictureInPictureView extends View<IPictureInPictureViewStyles>
 
       this._tooltipReference.setText(
         this._textMap.get(TextLabel.ENTER_PICTURE_IN_PICTURE_TOOLTIP),
+      );
+      this._$togglePictureInPictureControl.innerHTML = enterPictureInPictureIconTemplate(
+        {
+          styles: this.styleNames,
+          themeStyles: this.themeStyles,
+        },
       );
     }
   }
