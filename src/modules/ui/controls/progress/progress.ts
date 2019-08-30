@@ -35,7 +35,7 @@ import { IPreviewFullSize } from '../../preview-full-size/types';
 
 import { IThemeService } from '../../core/theme';
 
-const UPDATE_INTERVAL_DELAY = 1000 / 60;
+export const UPDATE_PROGRESS_INTERVAL_DELAY = 1000 / 60;
 
 class ProgressControl implements IProgressControl {
   static moduleName = 'progressControl';
@@ -216,7 +216,7 @@ class ProgressControl implements IProgressControl {
 
     this._updateControlInterval = window.setInterval(
       this._updateAllIndicators,
-      UPDATE_INTERVAL_DELAY,
+      UPDATE_PROGRESS_INTERVAL_DELAY,
     );
   }
 

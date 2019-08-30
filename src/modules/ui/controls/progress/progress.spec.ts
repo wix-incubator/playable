@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
 
-import ProgressControl from './progress';
+import ProgressControl, { UPDATE_PROGRESS_INTERVAL_DELAY } from './progress';
 
 import { VideoEvent, EngineState } from '../../../../constants';
 
@@ -264,7 +264,12 @@ describe('ProgressControl', () => {
       const spy = sinon.spy(window, 'setInterval');
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
-      expect(spy.calledWith(control._updateAllIndicators)).to.be.true;
+      expect(
+        spy.calledWith(
+          control._updateAllIndicators,
+          UPDATE_PROGRESS_INTERVAL_DELAY,
+        ),
+      ).to.be.true;
       expect(stopSpy.called).to.be.false;
       control._startIntervalUpdates();
       expect(stopSpy.called).to.be.true;

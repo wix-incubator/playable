@@ -51,7 +51,10 @@ describe('Loader', () => {
     });
 
     it('should remove timeout of delayed playback change on _processClick and call _toggleFullScreen on _processDblClick', () => {
-      const timeoutClearSpy = sinon.spy(window, 'clearTimeout');
+      const timeoutClearSpy = sinon.spy<Window, 'clearTimeout'>(
+        window,
+        'clearTimeout',
+      );
       const toggleFullScreenSpy = sinon.spy(screen, '_toggleFullScreen');
       const id = window.setTimeout(() => {}, 0);
       screen._delayedToggleVideoPlaybackTimeout = id;

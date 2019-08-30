@@ -5,6 +5,7 @@ import * as sinon from 'sinon';
 import createPlayerTestkit from '../../../../testkit';
 
 import { VideoEvent, EngineState } from '../../../../constants';
+import { UPDATE_TIME_INTERVAL_DELAY } from './time';
 
 describe('TimeControl', () => {
   let testkit;
@@ -98,7 +99,9 @@ describe('TimeControl', () => {
       const spy = sinon.spy(window, 'setInterval');
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
-      expect(spy.calledWith(control._updateCurrentTime)).to.be.true;
+      expect(
+        spy.calledWith(control._updateCurrentTime, UPDATE_TIME_INTERVAL_DELAY),
+      ).to.be.true;
       expect(stopSpy.called).to.be.false;
       control._startIntervalUpdates();
       expect(stopSpy.called).to.be.true;
