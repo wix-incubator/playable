@@ -12,7 +12,7 @@ import { IPlaybackEngine } from '../../../playback-engine/types';
 import { ITimeControl, ITimeViewConfig } from './types';
 import { IThemeService } from '../../core/theme';
 
-const UPDATE_INTERVAL_DELAY = 1000 / 60;
+export const UPDATE_TIME_INTERVAL_DELAY = 1000 / 60;
 
 export default class TimeControl implements ITimeControl {
   static moduleName = 'timeControl';
@@ -87,7 +87,7 @@ export default class TimeControl implements ITimeControl {
 
     this._updateControlInterval = window.setInterval(
       this._updateCurrentTime,
-      UPDATE_INTERVAL_DELAY,
+      UPDATE_TIME_INTERVAL_DELAY,
     );
   }
 
