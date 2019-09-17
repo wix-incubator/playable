@@ -30,6 +30,12 @@ The following is the list of supported scopes:
 * **modules/NAME_OF_MODULE_HERE**
 * **modules/ui/NAME_OF_MODULE_HERE**
 
+
+## Run playground
+- `npm i`
+- `npm run start`
+- open <https://localhost:5000>
+
 ## Release New Version
 
 To release new version:
