@@ -27,20 +27,40 @@
   flex-direction: row;
 
   margin-top: 20px;
-  margin-left: 20px;
 
   align-items: center;
+  @include ltr() {
+    margin-left: 20px;
+  }
+  @include rtl() {
+    margin-right: 20px;
+  }
   @include in-full-screen() {
     margin-top: 30px;
+  }
+  @include in-full-screen(ltr) {
     margin-left: 30px;
+  }
+  @include in-full-screen(rtl) {
+    margin-right: 30px;
   }
   @include max-width-550() {
     margin-top: 15px;
+  }
+  @include max-width-550(ltr) {
     margin-left: 15px;
+  }
+  @include max-width-550(rtl) {
+    margin-right: 15px;
   }
   @include max-width-280() {
     margin-top: 12px;
+  }
+  @include max-width-280(ltr) {
     margin-left: 12px;
+  }
+  @include max-width-280(rtl) {
+    margin-right: 12px;
   }
 }
 

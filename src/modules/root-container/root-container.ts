@@ -16,6 +16,7 @@ import { IPlayerConfig } from '../../core/config';
 
 const DEFAULT_CONFIG = {
   fillAllSpace: false,
+  rtl: false,
 };
 
 class RootContainer implements IRootContainer {
@@ -92,6 +93,7 @@ class RootContainer implements IRootContainer {
       width: config.width || null,
       height: config.height || null,
       fillAllSpace: config.fillAllSpace || DEFAULT_CONFIG.fillAllSpace,
+      rtl: config.rtl || DEFAULT_CONFIG.rtl,
     });
 
     this._elementQueries = new ElementQueries(this.getElement());
@@ -229,6 +231,17 @@ class RootContainer implements IRootContainer {
   @playerAPI()
   setFillAllSpace(flag: boolean) {
     this.view.setFillAllSpaceFlag(flag);
+  }
+
+  /**
+   * Method for allowing player rtl direction
+   * @param rtl - `true` for allowing
+   * @example
+   * player.setRtl(boolean);
+   */
+  @playerAPI()
+  setRtl(rtl: boolean) {
+    this.view.setRtl(rtl);
   }
 
   /**

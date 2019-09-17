@@ -1,7 +1,7 @@
 import {
+  MediaStreamDeliveryPriority,
   MediaStreamType,
   MimeToStreamTypeMap,
-  MediaStreamDeliveryPriority,
 } from './media-stream';
 import UIEvent from './events/ui';
 import VideoEvent from './events/video';

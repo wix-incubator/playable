@@ -1,9 +1,9 @@
 import {
   create,
-  registerModule,
-  registerPlaybackAdapter,
   MEDIA_STREAM_TYPES,
   PRELOAD_TYPES,
+  registerModule,
+  registerPlaybackAdapter,
 } from './index';
 import HLSAdapter from './adapters/hls';
 import DASHAdapter from './adapters/dash';
@@ -19,6 +19,15 @@ const DEFAULT_URLS: any = {
     'https://storage.googleapis.com/video-player-media-server-static/test2.mp4',
   'MP4-VERTICAL':
     'https://storage.googleapis.com/video-player-media-server-static/videoplayback.mp4',
+  /**
+   * start LIVE media
+   *
+   * Flow:
+   * go to https://video-player-media-server-dot-wixgamma.appspot.com
+   * click START
+   */
+  LIVE:
+    'https://video-player-media-server-dot-wixgamma.appspot.com/live/stream/manifest.m3u8',
 };
 
 registerModule('subtitles', Subtitles);
@@ -48,9 +57,10 @@ const config = {
 document.addEventListener('DOMContentLoaded', () => {
   const player = create({
     preload: PRELOAD_TYPES.METADATA,
-    width: 800,
-    height: 450,
+    width: 600,
+    height: 350,
     playsinline: true,
+    rtl: false,
   });
   player.showLogo();
 
@@ -58,24 +68,24 @@ document.addEventListener('DOMContentLoaded', () => {
     value: player,
   });
 
-  const selectVideo = (type: MEDIA_STREAM_TYPES) => {
+  const selectVideo = (type: MEDIA_STREAM_TYPES, url?: string) => {
     player.setSrc({
       type,
-      url: DEFAULT_URLS[type],
+      url: url || DEFAULT_URLS[type],
     });
     player.setTitle(`${type} format`);
   };
 
-  selectVideo(MEDIA_STREAM_TYPES.MP4);
+  selectVideo(MEDIA_STREAM_TYPES.HLS);
 
   document.getElementById('types').addEventListener('click', event => {
     const { type } = (event.target as any).dataset;
     if (!type) {
       return;
     }
-    if (type === 'MP4-VERTICAL') {
+    if (type === 'MP4-VERTICAL' || type === 'LIVE') {
       player.setSrc({
-        type: MEDIA_STREAM_TYPES.MP4,
+        type: type === 'LIVE' ? MEDIA_STREAM_TYPES.HLS : MEDIA_STREAM_TYPES.MP4,
         url: DEFAULT_URLS[type],
       });
       player.setTitle(`${type}`);
@@ -108,6 +118,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+  Array.from(document.querySelectorAll('[name="direction"]')).forEach(
+    (radioInput: HTMLElement) => {
+      radioInput.addEventListener('change', e => {
+        player.setRtl((e.target as any).value === 'rtl');
+      });
+    },
+  );
+
   player.attachToElement(document.getElementById('player-wrapper'));
   player.setFramesMap(config);
+  player.showLiveIndicator();
 });

@@ -5,24 +5,39 @@ $inactive-color: #959595;
 
 .liveIndicator {
   position: relative;
-  // position styles start
-
-  margin-right: 15px;
   // position styles end
 
   transition: background-color .2s;
 
   background-color: $inactive-color;
+  // position styles start
 
-  @include in-full-screen() {
+  @include ltr() {
+    margin-right: 15px;
+  }
+  @include rtl() {
+    margin-left: 15px;
+  }
+  @include in-full-screen(ltr) {
     margin-right: 20px;
   }
-  @include max-width-550() {
+  @include in-full-screen(rtl) {
+    margin-left: 20px;
+  }
+  @include max-width-550(ltr) {
     margin-right: 10px;
   }
+  @include max-width-550(rtl) {
+    margin-left: 10px;
+  }
   @include max-width-280() {
-    margin-right: 10px;
     padding: 2px 3px;
+  }
+  @include max-width-280(ltr) {
+    margin-right: 10px;
+  }
+  @include max-width-280(rtl) {
+    margin-left: 10px;
   }
 
   &.ended {
