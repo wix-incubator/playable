@@ -6,9 +6,9 @@ import View from '../ui/core/view';
 import { IView } from '../ui/core/types';
 
 import {
-  IRootContainerViewStyles,
-  IRootContainerViewConfig,
   IRootContainerViewCallbacks,
+  IRootContainerViewConfig,
+  IRootContainerViewStyles,
 } from './types';
 
 import styles from './root-container.scss';
@@ -20,13 +20,14 @@ class RootContainerView extends View<IRootContainerViewStyles>
 
   constructor(config: IRootContainerViewConfig) {
     super();
-    const { width, height, fillAllSpace, callbacks } = config;
+    const { width, height, fillAllSpace, callbacks, rtl } = config;
     this._callbacks = callbacks;
     this._$rootElement = htmlToElement(
       containerTemplate({ styles: this.styleNames }),
     );
 
     this.setFillAllSpaceFlag(fillAllSpace);
+    this.setRtl(rtl);
 
     this.setWidth(width);
     this.setHeight(height);
@@ -123,6 +124,10 @@ class RootContainerView extends View<IRootContainerViewStyles>
     } else {
       this._$rootElement.classList.remove(this.styleNames.fillAllSpace);
     }
+  }
+
+  setRtl(rtl: boolean) {
+    this._$rootElement.setAttribute('playable-dir', rtl ? 'rtl' : 'ltr');
   }
 
   destroy() {

@@ -241,6 +241,36 @@ Method for allowing player fill all available space
   </table>
 </div>
 
+## setRtl()
+
+```javascript
+player.setRtl(boolean);
+```
+
+Method for allowing player rtl direction
+
+<div class="method-list">
+  <table>
+    <thead>
+      <tr>
+        <th class="title">ARGUMENTS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="param">
+          <code>rtl</code>
+        </td>
+        <td>
+            <div class="type">boolean</div>
+            <p><code>true</code> for allowing</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 ## hide()
 
 ```javascript

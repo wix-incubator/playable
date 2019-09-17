@@ -37,6 +37,20 @@
   opacity: 0 !important;
 }
 
+@mixin ltr() {
+  [data-playable-hook='player-container'][playable-dir='ltr'] & {
+    direction: ltr;
+    @content;
+  }
+}
+
+@mixin rtl() {
+  [data-playable-hook='player-container'][playable-dir='rtl'] & {
+    direction: rtl;
+    @content;
+  }
+}
+
 .hidden {
   @include hidden();
 }

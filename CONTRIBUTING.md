@@ -36,6 +36,14 @@ The following is the list of supported scopes:
 - `npm run start`
 - open <https://localhost:5000>
 
+## Check LIVE video stream
+Open <https://video-player-media-server-dot-wixgamma.appspot.com>
+
+* **Flow:**
+- click START
+- use button 'LIVE' on localhost to check player video
+- click END when want to stop stream
+
 ## Release New Version
 
 To release new version:

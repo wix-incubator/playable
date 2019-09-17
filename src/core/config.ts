@@ -15,6 +15,7 @@ export interface IPlayerConfig {
   width?: number;
   height?: number;
   fillAllSpace?: boolean;
+  rtl?: boolean;
 
   videoElement?: HTMLVideoElement;
 
