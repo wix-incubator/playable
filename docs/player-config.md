@@ -13,6 +13,7 @@ const config = {
   width: 160,
   height: 90,
   fillAllSpace: false,
+  rtl: false,
 
   videoElement: document.queryElement('video'),
 
@@ -25,8 +26,8 @@ const config = {
   crossOrigin: 'anonymous',
   nativeBrowserControls: false,
 
-  disableControlWithClickOnPlayer: false;
-  disableControlWithKeyboard: false;
+  disableControlWithClickOnPlayer: false,
+  disableControlWithKeyboard: false,
 
   hideMainUI: false,
   hideOverlay: false,
@@ -54,7 +55,9 @@ const player = Playable.create(config, theme);
 
 `config.width: Number` Width of video player <br/>
 `config.height: Number` Height of video player <br/>
-`config.fillAllSpace: Boolean` Pass `true` to alow player fill all space of it container <br/>
+`config.fillAllSpace: Boolean` Pass `true` to allow player fill all space of it container <br/>
+`config.rtl: Boolean` Pass `true` to allow player [rtl](https://developer.mozilla.org/en-US/docs/Glossary/rtl) 
+direction. The property only configures playable behaviour, not modules inside<br/>
 `config.title: String` String that would be shown as title of video <br/>
 `config.poster: String` URL to image that would be used as poster on overlay <br/>
 `config.texts: ITextMapConfig` Gives you ability to override texts, that are used in player. Read more [here](/player-texts).
