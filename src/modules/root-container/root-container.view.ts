@@ -127,7 +127,7 @@ class RootContainerView extends View<IRootContainerViewStyles>
   }
 
   setRtl(rtl: boolean) {
-    this._$rootElement.setAttribute('playable-dir', rtl ? 'rtl' : 'ltr');
+    this._$rootElement.setAttribute('data-playable-dir', rtl ? 'rtl' : 'ltr');
   }
 
   destroy() {

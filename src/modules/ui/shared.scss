@@ -38,14 +38,14 @@
 }
 
 @mixin ltr() {
-  [data-playable-hook='player-container'][playable-dir='ltr'] & {
+  [data-playable-hook='player-container'][data-playable-dir='ltr'] & {
     direction: ltr;
     @content;
   }
 }
 
 @mixin rtl() {
-  [data-playable-hook='player-container'][playable-dir='rtl'] & {
+  [data-playable-hook='player-container'][data-playable-dir='rtl'] & {
     direction: rtl;
     @content;
   }
