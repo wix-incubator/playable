@@ -6,7 +6,7 @@
  */
 
 @mixin in-full-screen($direction: false) {
-  $directionQuery: if($direction, '[playable-dir="#{$direction}"]', '');
+  $directionQuery: if($direction, '[data-playable-dir="#{$direction}"]', '');
 
   div[data-playable-hook='player-container'][data-playable-in-full-screen='true']#{$directionQuery} & {
     @content;
@@ -18,7 +18,7 @@
 }
 
 @mixin query-basic($query, $value, $direction) {
-  $directionQuery: if($direction, '[playable-dir="#{$direction}"]', '');
+  $directionQuery: if($direction, '[data-playable-dir="#{$direction}"]', '');
 
   div[data-playable-hook='player-container'][data-playable-#{$query}~='#{$value}']#{$directionQuery} & {
     @content;
