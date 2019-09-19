@@ -18,7 +18,7 @@
 
   transition: transform .2s;
 
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     width: 17px;
     height: 35px;
 

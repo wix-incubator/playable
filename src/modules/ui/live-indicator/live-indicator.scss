@@ -12,31 +12,31 @@ $inactive-color: #959595;
   background-color: $inactive-color;
   // position styles start
 
-  @include ltr() {
+  @include apply(ltr()) {
     margin-right: 15px;
   }
-  @include rtl() {
+  @include apply(rtl()) {
     margin-left: 15px;
   }
-  @include in-full-screen(ltr) {
+  @include apply(in-full-screen(),ltr()) {
     margin-right: 20px;
   }
-  @include in-full-screen(rtl) {
+  @include apply(in-full-screen(),rtl()) {
     margin-left: 20px;
   }
-  @include max-width-550(ltr) {
+  @include apply(max-width-550(), ltr()) {
     margin-right: 10px;
   }
-  @include max-width-550(rtl) {
+  @include apply(max-width-550(), rtl()) {
     margin-left: 10px;
   }
-  @include max-width-280() {
+  @include apply(max-width-280()) {
     padding: 2px 3px;
   }
-  @include max-width-280(ltr) {
+  @include apply(max-width-280(), ltr()) {
     margin-right: 10px;
   }
-  @include max-width-280(rtl) {
+  @include apply(max-width-280(), rtl()) {
     margin-left: 10px;
   }
 
@@ -69,7 +69,7 @@ button.liveIndicatorButton {
   outline: none;
   background-color: transparent;
 
-  @include max-width-280() {
+  @include apply(max-width-280()) {
     font-size: 10px;
     line-height: 12px;
   }

@@ -1,5 +1,4 @@
-@import 'media-query-mixins';
-
+@import 'conditions';
 
 .controlButton {
   display: flex;
@@ -35,20 +34,6 @@
   padding: 0 !important;
 
   opacity: 0 !important;
-}
-
-@mixin ltr() {
-  [data-playable-hook='player-container'][data-playable-dir='ltr'] & {
-    direction: ltr;
-    @content;
-  }
-}
-
-@mixin rtl() {
-  [data-playable-hook='player-container'][data-playable-dir='rtl'] & {
-    direction: rtl;
-    @content;
-  }
 }
 
 .hidden {

@@ -29,37 +29,40 @@
   margin-top: 20px;
 
   align-items: center;
-  @include ltr() {
+  @include apply(ltr()) {
     margin-left: 20px;
   }
-  @include rtl() {
+  @include apply(rtl()) {
     margin-right: 20px;
   }
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     margin-top: 30px;
   }
-  @include in-full-screen(ltr) {
+  @include apply(in-full-screen(),ltr()) {
     margin-left: 30px;
   }
-  @include in-full-screen(rtl) {
+  @include apply(in-full-screen(),rtl()) {
     margin-right: 30px;
   }
-  @include max-width-550() {
+  @include apply(max-width-550()) {
     margin-top: 15px;
   }
-  @include max-width-550(ltr) {
+  @include apply(max-width-550(), ltr()) {
     margin-left: 15px;
   }
-  @include max-width-550(rtl) {
+  @include apply(max-width-550()) {
+    margin-left: 15px;
+  }
+  @include apply(max-width-550(), ltr()) {
     margin-right: 15px;
   }
-  @include max-width-280() {
+  @include apply(max-width-280()) {
     margin-top: 12px;
   }
-  @include max-width-280(ltr) {
+  @include apply(max-width-280(), ltr()) {
     margin-left: 12px;
   }
-  @include max-width-280(rtl) {
+  @include apply(max-width-280(), rtl()) {
     margin-right: 12px;
   }
 }

@@ -17,7 +17,7 @@
   cursor: pointer;
   transition: transform .2s;
 
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     width: 27px;
     height: 28px;
     padding-top: 2px;

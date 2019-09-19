@@ -35,7 +35,7 @@ $color-sync-pointer-background: #ea492e;
   user-select: none;
   transition: opacity .2s, visibility .2s;
 
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     height: $progress-bar-height-full-screen;
   }
   touch-action: none;
@@ -57,7 +57,7 @@ $color-sync-pointer-background: #ea492e;
     .progressBarsWrapper {
       transform: scaleY(1);
 
-      @include in-full-screen() {
+      @include apply(in-full-screen()) {
         transform: scaleY(1);
       }
       .seekTo {
@@ -75,7 +75,7 @@ $color-sync-pointer-background: #ea492e;
     .syncButton {
       transform: scale(1.4);
 
-      @include in-full-screen() {
+      @include apply(in-full-screen()) {
         transform: scale(1.33);
       }
 
@@ -92,7 +92,7 @@ $color-sync-pointer-background: #ea492e;
   top: -$seek-pointer-height / 4;
   left: -$seek-pointer-width / 2;
 
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     top: -$progress-bar-height-full-screen / 2;
     left: -$seek-pointer-width-full-screen / 2;
 
@@ -113,7 +113,7 @@ $color-sync-pointer-background: #ea492e;
   border-radius: 50%;
   background-color: #fff;
 
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     width: $seek-pointer-width-full-screen;
     height: $seek-pointer-height-full-screen;
   }
@@ -137,7 +137,7 @@ $color-sync-pointer-background: #ea492e;
   border-radius: 50%;
   background-color: $color-sync-pointer-background;
 
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     top: -$progress-bar-height-full-screen / 4;
     right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-border) / 2;
 
@@ -160,7 +160,7 @@ $color-sync-pointer-background: #ea492e;
   transition: transform .1s cubic-bezier(.0,.0,.2,1);
   transform: scaleY(.34);
 
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     height: $progress-bar-height-full-screen;
 
     transform: scaleY(.25);
@@ -173,7 +173,7 @@ $color-sync-pointer-background: #ea492e;
   height: $progress-bar-height;
   padding: 0;
 
-  @include in-full-screen() {
+  @include apply(in-full-screen()) {
     height: $progress-bar-height-full-screen;
   }
 }
@@ -233,7 +233,7 @@ $color-sync-pointer-background: #ea492e;
     border-radius: 50%;
     background-color: #fff;
 
-    @include in-full-screen() {
+    @include apply(in-full-screen()) {
       right: -$progress-bar-height-full-screen / 2;
 
       width: $progress-bar-height-full-screen;
