@@ -59,7 +59,9 @@
     "test:unit": "haste-playable test --mocha",
     "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-with-adapters",
     "test:playback": "haste-playable test --karma dev-env/karma.conf.js && haste-playable test --karma dev-env/karma-with-adapters.conf.js",
-    "precommit": "lint-staged && npm run test:unit && npm run test:node && npm run documentation:gitadd"
+    "precommit": "lint-staged && npm run test:unit && npm run test:node && npm run documentation:gitadd",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -70,7 +72,15 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.0",
     "@babel/types": "7.0.0-beta.46",
+    "@storybook/addon-a11y": "^5.2.1",
+    "@storybook/addon-knobs": "^5.2.1",
+    "@storybook/addon-viewport": "^5.2.1",
+    "@storybook/addons": "^5.2.1",
+    "@storybook/html": "^5.2.1",
+    "@storybook/react": "^5.2.1",
+    "@storybook/theming": "latest",
     "@types/chai": "^4.1.7",
     "@types/chance": "^1.0.1",
     "@types/chrome": "0.0.81",
@@ -80,6 +90,8 @@
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",
     "@types/sinon": "^5.0.7",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
     "chai": "~4.1.2",
     "chance": "^1.0.16",
     "conventional-changelog-cli": "^2.0.11",
@@ -98,6 +110,7 @@
     "okidoc-md": "^2.0.0-beta.9",
     "okidoc-site": "^2.0.0-beta.10",
     "prettier": "^1.15.1",
+    "react": "^16.9.0",
     "sinon": "^6.3.5",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
