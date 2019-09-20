@@ -46,7 +46,7 @@
     "documentation": "okidoc-md ./docs/docs.yml ./docs",
     "documentation:gitadd": "npm run documentation && git add ./docs",
     "documentation:site": "okidoc-site develop ./docs/site.yml",
-    "documentation:site:build": "npm run documentation && okidoc-site build ./docs/site.yml",
+    "documentation:site:build": "npm run documentation && okidoc-site build ./docs/site.yml && build-storybook -o ./sitedist/storybook",
     "documentation:site:deploy": "npm run documentation:site:build && gh-pages -d sitedist",
     "version": "node scripts/npm-version.js && conventional-changelog -p angular",
     "release": "node scripts/npm-release.js",
