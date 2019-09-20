@@ -1,4 +1,10 @@
 import { button, boolean, color, number, select } from '@storybook/addon-knobs';
+import {
+  RGB_HEX,
+  DEFAUTL_CONFIG,
+  DEFAULT_URLS,
+  MODE_OPTIONS,
+} from './stories/constants';
 import { storiesOf } from '@storybook/react';
 import {
   create,
@@ -14,58 +20,21 @@ import Subtitles from './modules/ui/subtitles/subtitles';
 import ChromecastButton from './modules/ui/controls/chromecast/chromecast';
 import ChromecastManager from './modules/chromecast-manager/chromecast-manager';
 import * as React from 'react';
-import { IPlayerConfig } from './core/config';
-
-const rgbHex = require('rgb-hex');
-
-const DEFAULT_URLS: any = {
-  DASH: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
-  HLS:
-    'https://files.wixstatic.com/files/video/64b2fa_039e5c16db504dbaad166ba28d377744/repackage/hls',
-  MP4:
-    'https://storage.googleapis.com/video-player-media-server-static/test2.mp4',
-  'MP4-VERTICAL':
-    'https://storage.googleapis.com/video-player-media-server-static/videoplayback.mp4',
-  /**
-   * start LIVE media
-   *
-   * Flow:
-   * go to https://video-player-media-server-dot-wixgamma.appspot.com
-   * click START
-   */
-  LIVE:
-    'https://video-player-media-server-dot-wixgamma.appspot.com/live/stream/manifest.m3u8',
-};
+import {StoryProps, StoryWindow} from './stories/types'
+import {MediaStreamType} from "./constants/media-stream";
 
 registerModule('subtitles', Subtitles);
 registerModule('chromecastManager', ChromecastManager);
 registerModule('chromecastButton', ChromecastButton);
-
 registerPlaybackAdapter(HLSAdapter);
 registerPlaybackAdapter(DASHAdapter);
-const config = {
-  framesCount: 178,
-  qualities: [
-    {
-      spriteUrlMask:
-        'https://storage.googleapis.com/video-player-media-server-static/thumbnails/low_rez_sprite_%d.jpg',
-      frameSize: { width: 90, height: 45 },
-      framesInSprite: { vert: 10, horz: 10 },
-    },
-    {
-      spriteUrlMask:
-        'https://storage.googleapis.com/video-player-media-server-static/thumbnails/high_rez_sprite_%d.jpg',
-      frameSize: { width: 180, height: 90 },
-      framesInSprite: { vert: 5, horz: 5 },
-    },
-  ],
-};
 
-type StoryProps = IPlayerConfig & {
-  _videoType: MEDIA_STREAM_TYPES;
-  _color: string;
-  _progressBarMode: 'REGULAR' | 'PREVIEW';
-}
+declare let window: StoryWindow;
+
+const selectVideoTypeOptions = () => Object.keys(DEFAULT_URLS).reduce((acc, prop) => {
+    acc[prop] = prop;
+    return acc;
+  }, {} as any);
 
 class Story extends React.Component<StoryProps> {
   private readonly rootRef: React.RefObject<HTMLDivElement>;
@@ -76,34 +45,28 @@ class Story extends React.Component<StoryProps> {
     this.rootRef = React.createRef();
   }
 
-  private processProps = (newProps: Partial<StoryProps>, player: IPlayerInstance) => {
+  private _processProps = (newProps: Partial<StoryProps>, player: IPlayerInstance) => {
     const propsToMethod = {
       fillAllSpace: (value: boolean) => player.setFillAllSpace(value),
       rtl: (value: boolean) => player.setRtl(value),
       width: (value: number) => player.setWidth(value),
       height: (value: number) => player.setHeight(value),
-      _videoType: (value: any) => {
-        let type;
-
-        if (value === 'MP4-VERTICAL') {
-          type = MEDIA_STREAM_TYPES.MP4;
-        } else if (value === 'LIVE') {
-          type = MEDIA_STREAM_TYPES.HLS;
-        } else {
-          type = value;
+      videoType: (value: string) => {
+        if (value === 'MP4-VERTICAL' || value === 'LIVE') {
+          value = value === 'LIVE' ? 'HLS' : 'MP4';
         }
 
         player.setSrc({
-          type,
+          type: value as MediaStreamType,
           url: DEFAULT_URLS[value],
         });
 
         player.setTitle(`${value} format`);
       },
-      _color: (value: string) => {
+      color: (value: string) => {
         player.updateTheme({ progressColor: value, color: value });
       },
-      _progressBarMode: (value: string) => {
+      progressBarMode: (value: string) => {
         if (value === 'REGULAR') {
           player.seekOnProgressDrag();
         } else if (value === 'PREVIEW') {
@@ -117,66 +80,58 @@ class Story extends React.Component<StoryProps> {
     })
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     const player = create({
       preload: PRELOAD_TYPES.METADATA,
       playsinline: true,
     });
 
     this.player = player;
-    (window as any).player = player;
+    window.player = player;
 
-    this.processProps(this.props, this.player);
+    this._processProps(this.props, this.player);
 
     player.showLogo();
     player.attachToElement(this.rootRef.current);
-    player.setFramesMap(config);
+    player.setFramesMap(DEFAUTL_CONFIG);
   }
 
-  componentDidUpdate(prevProps: StoryProps) {
-    const updatedProps = Object.keys(this.props).reduce((acc, property: any) => {
+  public componentDidUpdate(prevProps: StoryProps) {
+    const updatedProps = Object.keys(this.props).reduce((acc: any, property: any) => {
       const newValue = (this.props as any)[property];
       const oldValue = (prevProps as any)[property];
 
       if (newValue !== oldValue) {
-        (acc as any)[property] = newValue;
+        acc[property] = newValue;
       }
 
       return acc;
     }, {} as Partial<StoryProps>);
 
-    this.processProps(updatedProps, this.player);
+    this._processProps(updatedProps, this.player);
   }
 
-  render() {
-    return <div className="story-root"
-                ref={this.rootRef}/>;
+  public render() {
+    return <div className="story-root" ref={this.rootRef}/>;
   }
 }
 
 storiesOf('Story', module).add('default', () => {
-  const playerColor = color('color', '#fff');
-
-  button('Stop', () => {
-    (window as any).player.pause();
-  });
-
-  button('Play', () => {
-    (window as any).player.play();
-  });
+  const groupDefault = 'Default';
+  const groupActions = 'Actions';
+  const playerColor = color('color', '#fff', 'Default');
+  const getPlayerColor = () => playerColor.includes('rgba') ? `#${RGB_HEX(playerColor).slice(0, -2)}` : playerColor;
+  
+  button('Stop',() => window.player.pause(), groupActions);
+  button('Play', () => window.player.play(), groupActions);
 
   return <Story
-    rtl={boolean('rtl', false, 'Default')}
-    fillAllSpace={boolean('fillAllSpace', false)}
-    width={number('width', 600)}
-    height={number('height', 350)}
-    _videoType={select(
-      '_videoType',
-      Object.keys(DEFAULT_URLS).reduce((acc, prop) => {
-        acc[prop] = prop;
-        return acc;
-      }, {} as any), MEDIA_STREAM_TYPES.HLS)}
-    _color={playerColor.includes('rgba') ? `#${rgbHex(playerColor).slice(0, -2)}` : playerColor}
-    _progressBarMode={select('_progressBarMode', { REGULAR: 'REGULAR', PREVIEW: 'PREVIEW' }, 'REGULAR')}
+    rtl={boolean('rtl', false, groupDefault)}
+    fillAllSpace={boolean('fillAllSpace', false, groupDefault)}
+    width={number('width', 600,  {}, groupDefault)}
+    height={number('height', 350, {}, groupDefault)}
+    videoType={select('videoType', selectVideoTypeOptions() , MEDIA_STREAM_TYPES.HLS, groupDefault)}
+    color={getPlayerColor()}
+    progressBarMode={select('progressBarMode', MODE_OPTIONS, MODE_OPTIONS.REGULAR,  groupDefault)}
   />
 });
