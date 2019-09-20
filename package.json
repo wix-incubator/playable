@@ -112,6 +112,7 @@
     "prettier": "^1.15.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "rgb-hex": "^3.0.0",
     "sinon": "^6.3.5",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
