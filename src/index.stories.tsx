@@ -1,7 +1,9 @@
-import { boolean } from '@storybook/addon-knobs';
+import { boolean, text } from '@storybook/addon-knobs';
+import { storiesOf } from '@storybook/react';
 
 import {
   create,
+  IPlayerInstance,
   MEDIA_STREAM_TYPES,
   PRELOAD_TYPES,
   registerModule,
@@ -13,6 +15,7 @@ import Subtitles from './modules/ui/subtitles/subtitles';
 import ChromecastButton from './modules/ui/controls/chromecast/chromecast';
 import ChromecastManager from './modules/chromecast-manager/chromecast-manager';
 import * as React from 'react';
+import { IPlayerConfig } from './core/config';
 
 const DEFAULT_URLS: any = {
   DASH: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
@@ -57,30 +60,27 @@ const config = {
   ],
 };
 
-const rtl = boolean('RTL', false);
+type StoryProps = IPlayerConfig & {}
 
-const Wrapper = () => <div id="player-wrapper"></div>;
+class Story extends React.Component<StoryProps> {
+  private readonly rootRef: React.RefObject<HTMLDivElement>;
+  private player: IPlayerInstance;
 
-export const Default = () => {
-  // const btn = document.createElement('button');
-  // btn.type = 'button';
-  // btn.innerText = 'Hello Button';
-  // btn.addEventListener('click', e => console.log(e));
+  constructor(props: StoryProps) {
+    super(props);
+    this.rootRef = React.createRef();
+  }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('haha')
-  });
-
-  setTimeout(() => {
+  componentDidMount() {
     const player = create({
       preload: PRELOAD_TYPES.METADATA,
       width: 600,
       height: 350,
       playsinline: true,
-      rtl,
     });
 
-    console.log(rtl);
+    this.player = player;
+
 
     player.showLogo();
 
@@ -98,14 +98,47 @@ export const Default = () => {
 
     selectVideo(MEDIA_STREAM_TYPES.HLS);
 
-    player.attachToElement(document.getElementById('player-wrapper'));
+    player.attachToElement(this.rootRef.current);
     player.setFramesMap(config);
     player.showLiveIndicator();
-  }, 1000);
+  }
 
-  return <Wrapper />;
-};
+  private processNewProps = (newProps: Partial<StoryProps>, player: IPlayerInstance) => {
+    const propsToMethod = {
+      rtl: (value: boolean) => player.setRtl(value),
+      width: (value: number) => player.setWidth(value),
+      height: (value: number) => player.setHeight(value),
+    };
 
-export default {
-  title: 'Demo',
-};
+    Object.entries(newProps).forEach(([newPropKey, newPropValue]) => {
+      (propsToMethod as any)[newPropKey](newPropValue);
+    })
+  };
+
+  componentDidUpdate(prevProps: StoryProps) {
+    const updatedProps = Object.keys(this.props).reduce((acc, property: any) => {
+      const newValue = (this.props as any)[property];
+      const oldValue = (prevProps as any)[property];
+
+      if (newValue !== oldValue) {
+        (acc as any)[property] = newValue;
+      }
+
+      return acc;
+    }, {} as Partial<StoryProps>);
+
+    this.processNewProps(updatedProps, this.player);
+  }
+
+  render() {
+    return <div ref={this.rootRef}/>;
+  }
+}
+
+storiesOf('Story', module).add('default', () => {
+  return <Story
+      rtl={boolean('RTL', false)}
+      width={Number(text('Width', '600'))}
+      height={Number(text('Height', '600'))}
+  />
+});
