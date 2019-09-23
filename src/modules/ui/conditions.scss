@@ -15,7 +15,6 @@
 
 @mixin query($mixins...) {
   $query: '';
-  $direction: false;
 
   @each $mixin in $mixins {
     $query: $query + $mixin;
