@@ -1,4 +1,4 @@
-@import '../../media-query-mixins';
+@import '../../conditions';
 @import '../../shared';
 
 .logoWrapper {
@@ -28,15 +28,15 @@
 
   transition: opacity .2s;
 
-  @include max-width-550() {
+  @include query(max-width-550()) {
     max-width: 90px;
     max-height: 20px;
   }
-  @include max-width-350() {
+  @include query(max-width-350()) {
     max-width: 70px;
     max-height: 18px;
   }
-  @include in-full-screen() {
+  @include query(in-full-screen()) {
     max-width: 450px;
     max-height: 36px;
   }
@@ -54,7 +54,7 @@
 
   transition: transform .2s;
 
-  @include in-full-screen() {
+  @include query(in-full-screen()) {
     width: 35px;
     min-width: 35px;
     height: 35px;

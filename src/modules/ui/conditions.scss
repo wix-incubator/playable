@@ -1,0 +1,59 @@
+/**
+ * The challenge here to support "playable queries" and "direction" at the same time and allow mixins like:
+ *   @include query(max-width-550())
+ *   @include query(max-width-550(), ltr())
+ *   @include query(max-width-550(), rtl())
+ */
+
+@function max-width-query($value) {
+  @return '[data-playable-max-width~="#{$value}"]';
+}
+
+@function direction-query($direction) {
+  @return '[data-playable-dir="#{$direction}"]';
+}
+
+@mixin query($mixins...) {
+  $query: '';
+  $direction: false;
+
+  @each $mixin in $mixins {
+    $query: $query + $mixin;
+  }
+
+  [data-playable-hook='player-container']#{$query} & {
+    @content;
+  }
+}
+
+@function in-full-screen() {
+  @return '[data-playable-in-full-screen="true"]';
+}
+
+@function max-width-550() {
+  @return max-width-query(550px);
+}
+
+@function max-width-400() {
+  @return max-width-query(400px);
+}
+
+@function max-width-350() {
+  @return max-width-query(350px);
+}
+
+@function max-width-300() {
+  @return max-width-query(300px);
+}
+
+@function max-width-280() {
+  @return max-width-query(280px);
+}
+
+@function ltr() {
+  @return direction-query('ltr');
+}
+
+@function rtl() {
+  @return direction-query('rtl');
+}

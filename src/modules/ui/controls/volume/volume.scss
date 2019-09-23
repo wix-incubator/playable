@@ -12,7 +12,7 @@ $color: white !default;
 
   justify-content: flex-start;
   align-items: center;
-  @include in-full-screen() {
+  @include query(in-full-screen()) {
     height: 35px;
   }
 
@@ -24,7 +24,7 @@ $color: white !default;
 
       opacity: 1;
 
-      @include in-full-screen() {
+      @include query(in-full-screen()) {
         width: 90px;
         margin-right: 10px;
       }
@@ -39,7 +39,7 @@ $color: white !default;
   min-height: 26px;
   padding: 0;
 
-  @include in-full-screen() {
+  @include query(in-full-screen()) {
     width: 35px;
     min-width: 35px;
     height: 35px;
@@ -70,7 +70,7 @@ $color: white !default;
 
   opacity: 0;
 
-  @include in-full-screen() {
+  @include query(in-full-screen()) {
     margin-left: 5px;
   }
 }
@@ -97,7 +97,7 @@ $color: white !default;
 
     border-radius: 50%;
 
-    @include in-full-screen() {
+    @include query(in-full-screen()) {
       top: -4px;
       right: -5px;
 
@@ -136,7 +136,7 @@ $color: white !default;
         opacity: 1;
         box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
 
-        @include in-full-screen() {
+        @include query(in-full-screen()) {
           width: 90px;
           margin-right: 10px;
         }

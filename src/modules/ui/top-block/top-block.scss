@@ -29,38 +29,46 @@
   margin-top: 20px;
 
   align-items: center;
-  @include ltr() {
+  @include query(ltr()) {
     margin-left: 20px;
   }
-  @include rtl() {
+  @include query(rtl()) {
     margin-right: 20px;
+
+    direction: rtl;
   }
-  @include in-full-screen() {
+  @include query(in-full-screen()) {
     margin-top: 30px;
   }
-  @include in-full-screen(ltr) {
+  @include query(in-full-screen(), ltr()) {
     margin-left: 30px;
   }
-  @include in-full-screen(rtl) {
+  @include query(in-full-screen(), rtl()) {
     margin-right: 30px;
+
+    direction: rtl;
   }
-  @include max-width-550() {
+  @include query(max-width-550()) {
     margin-top: 15px;
   }
-  @include max-width-550(ltr) {
+  @include query(max-width-550(), ltr()) {
     margin-left: 15px;
   }
-  @include max-width-550(rtl) {
+  @include query(max-width-550(), rtl()) {
     margin-right: 15px;
+
+    direction: rtl;
   }
-  @include max-width-280() {
+  @include query(max-width-280()) {
     margin-top: 12px;
   }
-  @include max-width-280(ltr) {
+  @include query(max-width-280(), ltr()) {
     margin-left: 12px;
   }
-  @include max-width-280(rtl) {
+  @include query(max-width-280(), rtl()) {
     margin-right: 12px;
+
+    direction: rtl;
   }
 }
 
