@@ -24,36 +24,24 @@ $inactive-color: #959595;
   }
   @include query(in-full-screen(), ltr()) {
     margin-right: 20px;
-
-    direction: ltr;
   }
   @include query(in-full-screen(), rtl()) {
     margin-left: 20px;
-
-    direction: rtl;
   }
   @include query(max-width-550(), ltr()) {
     margin-right: 10px;
-
-    direction: ltr;
   }
   @include query(max-width-550(), rtl()) {
     margin-left: 10px;
-
-    direction: rtl;
   }
   @include query(max-width-280()) {
     padding: 2px 3px;
   }
   @include query(max-width-280(), ltr()) {
     margin-right: 10px;
-
-    direction: ltr;
   }
   @include query(max-width-280(), rtl()) {
     margin-left: 10px;
-
-    direction: rtl;
   }
 
   &.ended {
