@@ -17,7 +17,7 @@
   height: 26px;
   min-height: 26px;
 
-  @include apply(in-full-screen()) {
+  @include query(in-full-screen()) {
     width: 35px;
     min-width: 35px;
     height: 35px;

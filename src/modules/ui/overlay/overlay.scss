@@ -58,11 +58,11 @@
 
   opacity: 1;
 
-  @include apply(max-width-550()) {
+  @include query(max-width-550()) {
     width: 54px;
     height: 54px;
   }
-  @include apply(max-width-400()) {
+  @include query(max-width-400()) {
     width: 36px;
     height: 36px;
   }

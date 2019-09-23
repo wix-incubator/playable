@@ -9,15 +9,15 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  @include apply(max-width-550()) {
+  @include query(max-width-550()) {
     font-size: 14px;
     line-height: 15px;
   }
-  @include apply(max-width-300()) {
+  @include query(max-width-300()) {
     font-size: 12px;
-    line-height: 13px;;
+    line-height: 13px;
   }
-  @include apply(in-full-screen()) {
+  @include query(in-full-screen()) {
     font-size: 20px;
     line-height: 20px;
   }

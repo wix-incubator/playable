@@ -19,7 +19,7 @@ $sync-pointer-width-full-screen: 8px;
 $color-played: #fff;
 $color-seek-to: rgba(255, 255, 255, .5);
 $color-played-live: #ea492e;
-$color-seek-to-live: rgba(234,73,46, .5);
+$color-seek-to-live: rgba(234, 73, 46, .5);
 
 $color-sync-pointer-border: #bababa;
 $color-sync-pointer-background: #ea492e;
@@ -35,7 +35,7 @@ $color-sync-pointer-background: #ea492e;
   user-select: none;
   transition: opacity .2s, visibility .2s;
 
-  @include apply(in-full-screen()) {
+  @include query(in-full-screen()) {
     height: $progress-bar-height-full-screen;
   }
   touch-action: none;
@@ -57,7 +57,7 @@ $color-sync-pointer-background: #ea492e;
     .progressBarsWrapper {
       transform: scaleY(1);
 
-      @include apply(in-full-screen()) {
+      @include query(in-full-screen()) {
         transform: scaleY(1);
       }
       .seekTo {
@@ -75,7 +75,7 @@ $color-sync-pointer-background: #ea492e;
     .syncButton {
       transform: scale(1.4);
 
-      @include apply(in-full-screen()) {
+      @include query(in-full-screen()) {
         transform: scale(1.33);
       }
 
@@ -92,7 +92,7 @@ $color-sync-pointer-background: #ea492e;
   top: -$seek-pointer-height / 4;
   left: -$seek-pointer-width / 2;
 
-  @include apply(in-full-screen()) {
+  @include query(in-full-screen()) {
     top: -$progress-bar-height-full-screen / 2;
     left: -$seek-pointer-width-full-screen / 2;
 
@@ -107,13 +107,13 @@ $color-sync-pointer-background: #ea492e;
 
   content: '';
   cursor: pointer;
-  transition: transform .1s cubic-bezier(.0,.0,.2,1);
+  transition: transform .1s cubic-bezier(0, 0, .2, 1);
   transform: scale(0);
 
   border-radius: 50%;
   background-color: #fff;
 
-  @include apply(in-full-screen()) {
+  @include query(in-full-screen()) {
     width: $seek-pointer-width-full-screen;
     height: $seek-pointer-height-full-screen;
   }
@@ -122,7 +122,9 @@ $color-sync-pointer-background: #ea492e;
 .syncButton {
   position: absolute;
   z-index: 6;
-  top: -($sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height) / 2;
+  top: -(
+  $sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height
+  ) / 2;
   right: -($sync-pointer-width + 2 * $sync-pointer-border) / 2;
 
   display: none;
@@ -131,13 +133,13 @@ $color-sync-pointer-background: #ea492e;
   height: $sync-pointer-height;
 
   cursor: pointer;
-  transition: transform .1s cubic-bezier(.0,.0,.2,1);
+  transition: transform .1s cubic-bezier(0, 0, .2, 1);
 
   border: $sync-pointer-border solid $color-sync-pointer-border;
   border-radius: 50%;
   background-color: $color-sync-pointer-background;
 
-  @include apply(in-full-screen()) {
+  @include query(in-full-screen()) {
     top: -$progress-bar-height-full-screen / 4;
     right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-border) / 2;
 
@@ -157,10 +159,10 @@ $color-sync-pointer-background: #ea492e;
 .progressBarsWrapper {
   height: $progress-bar-height;
 
-  transition: transform .1s cubic-bezier(.0,.0,.2,1);
+  transition: transform .1s cubic-bezier(0, 0, .2, 1);
   transform: scaleY(.34);
 
-  @include apply(in-full-screen()) {
+  @include query(in-full-screen()) {
     height: $progress-bar-height-full-screen;
 
     transform: scaleY(.25);
@@ -173,7 +175,7 @@ $color-sync-pointer-background: #ea492e;
   height: $progress-bar-height;
   padding: 0;
 
-  @include apply(in-full-screen()) {
+  @include query(in-full-screen()) {
     height: $progress-bar-height-full-screen;
   }
 }
@@ -226,14 +228,14 @@ $color-sync-pointer-background: #ea492e;
     height: $progress-bar-height;
 
     content: '';
-    transition: transform .1s cubic-bezier(.0, .0, .2, 1);
+    transition: transform .1s cubic-bezier(0, 0, .2, 1);
     transform: scale(0);
 
     opacity: .6;
     border-radius: 50%;
     background-color: #fff;
 
-    @include apply(in-full-screen()) {
+    @include query(in-full-screen()) {
       right: -$progress-bar-height-full-screen / 2;
 
       width: $progress-bar-height-full-screen;
@@ -262,8 +264,10 @@ $color-sync-pointer-background: #ea492e;
 }
 
 :global {
-  [data-playable-focus-source='key'] [data-playable-hook='progress-control'].focus-within,
-  [data-playable-focus-source='script'] [data-playable-hook='progress-control'].focus-within {
+  [data-playable-focus-source='key']
+  [data-playable-hook='progress-control'].focus-within,
+  [data-playable-focus-source='script']
+  [data-playable-hook='progress-control'].focus-within {
     opacity: 1;
     box-shadow: 0 0 0 2px rgba(56, 153, 236, .8);
   }
