@@ -77,7 +77,10 @@ import {ChromecastEvents} from 'playable/dist/modules/chromecast-manager';
 
 player.on(ChromecastEvents.CHROMECAST_CASTS_STARTED, () => doStaff());
 ```
-`Chromecast.CHROMECAST_INITED` - Chromecast module in initialized.<br/>
+`Chromecast.CHROMECAST_INITED` - Chromecast module initialized.<br/>
+`Chromecast.CHROMECAST_NOT_CONNECTED` - Not connected to device. Fires after initialized if connection was not resumed <br/>
+`Chromecast.CHROMECAST_CONNECTING` - Connecting to device<br/>
+`Chromecast.CHROMECAST_CONNECTED` - Connected to device<br/>
 `Chromecast.CHROMECAST_CASTS_STARTED` – Casting to device started.<br/>
 `Chromecast.CHROMECAST_CASTS_RESUMED` – Casting session resumed (for example when the browser tab was reloaded).<br/>
 `Chromecast.CHROMECAST_CASTS_STOPED` – Casting to device stopped. <br/>

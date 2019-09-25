@@ -119,11 +119,15 @@ export default class ChromecastButton implements IChromecastButton {
 
   private _bindEvents() {
     const show = this.show.bind(this);
+    const hide = this.hide.bind(this);
     const setStateToCast = () => this.view.setCastingState(true);
     const resetStateFromCast = () => this.view.setCastingState(true);
 
     this._unbindEvents = this._eventEmitter.bindEvents([
-      [ChromecastEvents.CHROMECAST_INITED, () => show()],
+      [ChromecastEvents.CHROMECAST_NOT_CONNECTED, show],
+      [ChromecastEvents.CHROMECAST_CONNECTING, show],
+      [ChromecastEvents.CHROMECAST_CONNECTED, show],
+      [ChromecastEvents.CHROMECAST_NO_DEVICES_AVAILABLE, hide],
       [ChromecastEvents.CHROMECAST_CASTS_STARTED, setStateToCast],
       [ChromecastEvents.CHROMECAST_CASTS_RESUMED, setStateToCast],
       [ChromecastEvents.CHROMECAST_CASTS_STOPED, resetStateFromCast],
