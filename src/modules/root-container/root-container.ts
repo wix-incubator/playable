@@ -178,6 +178,8 @@ class RootContainer implements IRootContainer {
     this._enableFocusInterceptors();
 
     element.appendChild(this.getElement());
+
+    this._elementQueries.getQueries();
   }
 
   /**

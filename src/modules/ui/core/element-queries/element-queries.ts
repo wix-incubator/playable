@@ -3,14 +3,14 @@ import getQueriesForElement from './getQueriesForElement';
 const DEFAULT_QUERY_PREFIX = 'data-playable';
 
 class ElementQueries {
-  private _element: Element;
+  private _element: HTMLElement;
   private _queryPrefix: string;
   private _queries: { mode: string; width: number }[];
 
   constructor(element: HTMLElement, { prefix = DEFAULT_QUERY_PREFIX } = {}) {
     this._element = element;
     this._queryPrefix = prefix;
-    this._queries = getQueriesForElement(element, prefix);
+    this._queries = [];
   }
 
   private _getQueryAttributeValue(mode: string, elementWidth: number) {
@@ -36,6 +36,10 @@ class ElementQueries {
     } else {
       this._element.removeAttribute(attributeName);
     }
+  }
+
+  getQueries() {
+    this._queries = getQueriesForElement(this._element, this._queryPrefix);
   }
 
   setWidth(width: number) {
