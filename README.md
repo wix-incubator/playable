@@ -49,4 +49,4 @@ You can find documentation here: [https://wix.github.io/playable/](https://wix.g
 Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs][sauselabs-homepage]
 
 [sauselabs-homepage]: https://saucelabs.com
-[documentation]: https://videojs.com
+[documentation]: https://wix.github.io/playable/
