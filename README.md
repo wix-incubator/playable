@@ -1,9 +1,23 @@
-<a href="https://wix.github.io/playable/" target="_blank" rel="noopener noreferrer">
-  <img width="100" height="108" src="https://github.com/wix/playable/raw/master/docs/logo.png?raw=true" alt="Playable logo">
-</a>
+<p align="center">
+  <a href="https://wix.github.io/playable/" target="_blank" rel="noopener noreferrer">
+    <img width="100" height="108" src="https://github.com/wix/playable/raw/master/docs/logo.png?raw=true" alt="Playable logo">
+  </a>
+</p>
 
+<h1 align="center">
+  <a href="https://wix.github.io/playable/" target="_blank" rel="noopener noreferrer">
+    Playable
+  </a>
+</h1>
 
-# [Playable][documentation] &middot; [![Build Status](https://travis-ci.org/wix/playable.svg?branch=master)](https://travis-ci.org/wix/playable) [![npm](https://img.shields.io/npm/v/playable.svg?style=flat)](https://npmjs.org/package/playable)
+<p align="center">
+  <a href="https://travis-ci.org/wix/playable" rel="nofollow">
+    <img src="https://travis-ci.org/wix/playable.svg?branch=master" alt="Build Status">
+  </a>
+  <a href="https://npmjs.org/package/playable" rel="nofollow">
+    <img src="https://img.shields.io/npm/v/playable.svg?style=flat" alt="npm">
+  </a>
+</p>
 
 **IMPORTANT!** We released 2.0.0 version! Find migration guide [here](/docs/2.0.0-migration.md).
 
