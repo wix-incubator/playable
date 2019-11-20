@@ -1,9 +1,6 @@
-[![Build Status](https://travis-ci.org/wix/playable.svg?branch=master)](https://travis-ci.org/wix/playable)
-[![npm](https://img.shields.io/npm/v/playable.svg?style=flat)](https://npmjs.org/package/playable)
+# ![Playabe](docs/logo_small.png?raw=true 'Playable') [Playable][documentation] &middot; [![Build Status](https://travis-ci.org/wix/playable.svg?branch=master)](https://travis-ci.org/wix/playable) [![npm](https://img.shields.io/npm/v/playable.svg?style=flat)](https://npmjs.org/package/playable)
 
 **IMPORTANT!** We released 2.0.0 version! Find migration guide [here](/docs/2.0.0-migration.md).
-
-# playable
 
 You can play with demo here: [https://jsfiddle.net/bodia/to0r65f4/](https://jsfiddle.net/bodia/to0r65f4/)
 
@@ -35,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     width: 700,
     height: 394,
     src: 'http://my-url/video.mp4',
-    preload: 'metadata'
+    preload: 'metadata',
   };
   const player = Playable.create(config);
 
@@ -45,9 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 You can find documentation here: [https://wix.github.io/playable/](https://wix.github.io/playable/)
 
-
 ## Big thanks!
 
-Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs][homepage]
+Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs][sauselabs-homepage]
 
-[homepage]: https://saucelabs.com
+[sauselabs-homepage]: https://saucelabs.com
+[documentation]: https://videojs.com
