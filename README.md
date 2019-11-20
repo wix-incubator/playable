@@ -1,4 +1,7 @@
-![Playabe](docs/logo.png?raw=true 'Playable')
+<a href="https://wix.github.io/playable/" target="_blank" rel="noopener noreferrer">
+  <img width="100" height="108" src="https://github.com/wix/playable/raw/master/docs/logo.png?raw=true" alt="Playable logo">
+</a>
+
 
 # [Playable][documentation] &middot; [![Build Status](https://travis-ci.org/wix/playable.svg?branch=master)](https://travis-ci.org/wix/playable) [![npm](https://img.shields.io/npm/v/playable.svg?style=flat)](https://npmjs.org/package/playable)
 
