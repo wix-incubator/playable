@@ -1,5 +1,3 @@
-const injectedScripts: string[] = [];
-
 interface IScriptAttributes {
   async: boolean;
   crossOrigin: string | null;
@@ -8,11 +6,14 @@ interface IScriptAttributes {
 }
 
 const injectScript = (src: string, props?: IScriptAttributes) => {
-  if (injectedScripts.indexOf(src) !== -1) {
+  const scripts = Array.prototype.slice.call(
+    document.getElementsByTagName('script'),
+  );
+  const links = scripts.map((s: HTMLScriptElement) => s.src);
+
+  if (links.indexOf(src) !== -1) {
     return;
   }
-
-  injectedScripts.push(src);
 
   const head = document.getElementsByTagName('head')[0];
   const script = document.createElement('script');
