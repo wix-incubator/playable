@@ -569,7 +569,6 @@ class Engine implements IPlaybackEngine {
 
   changeOutput(output?: IVideoOutput, callback?: Function) {
     const src = this.getSrc();
-
     this._output.pause();
 
     this._output = output;

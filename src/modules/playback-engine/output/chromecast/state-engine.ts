@@ -35,6 +35,7 @@ export default class StateEngine {
   }
 
   private _bindEvents() {
+    const cast = window.cast;
     const castEvents = cast.framework.RemotePlayerEventType;
 
     this._remotePlayerController.addEventListener(castEvents.ANY_CHANGE, e => {

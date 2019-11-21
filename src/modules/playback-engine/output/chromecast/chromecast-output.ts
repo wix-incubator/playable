@@ -5,8 +5,7 @@ import {
   PlayableMediaSource,
   PreloadType,
 } from '../../types';
-import RemotePlayerController = cast.framework.RemotePlayerController;
-import RemotePlayer = cast.framework.RemotePlayer;
+
 import { EngineState } from '../../../../constants';
 import StateEngine from './state-engine';
 import { IEventEmitter } from '../../../event-emitter/types';
@@ -19,8 +18,8 @@ const NOT_IMPLEMENTED = 'Not available using chromecast';
 export default class ChromecastOutput implements IVideoOutput {
   type: string;
 
-  private _playerController: RemotePlayerController;
-  private _player: RemotePlayer;
+  private _playerController: cast.framework.RemotePlayerController;
+  private _player: cast.framework.RemotePlayer;
   private _stateEngine: StateEngine;
   private _eventEmitter: IEventEmitter;
   private _src: string;
@@ -99,8 +98,11 @@ export default class ChromecastOutput implements IVideoOutput {
 
   setSrc(source: PlayableMediaSource, callback?: Function) {
     if (!source) {
+      callback();
       return;
     }
+    const cast = window.cast;
+    const chrome = window.chrome;
 
     let calculatedSource = source;
     let mimeType, url;
@@ -117,7 +119,6 @@ export default class ChromecastOutput implements IVideoOutput {
       mimeType = getMimeByType(calculatedSource.type);
       url = calculatedSource.url;
     }
-
     this._src = url;
 
     const session = cast.framework.CastContext.getInstance().getCurrentSession();
@@ -137,7 +138,10 @@ export default class ChromecastOutput implements IVideoOutput {
   }
 
   private _initRemote() {
+    const cast = window.cast;
+
     this._player = new cast.framework.RemotePlayer();
+
     this._playerController = new cast.framework.RemotePlayerController(
       this._player,
     );

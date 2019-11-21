@@ -9,7 +9,7 @@ import { IEventEmitter } from '../event-emitter/types';
 
 import injectScript from '../../utils/script-injector';
 
-type PatchedWindow = Window & {
+export type PatchedWindow = Window & {
   __onGCastApiAvailable: Function;
 };
 
@@ -91,7 +91,7 @@ export default class ChromecastManager implements IChromecastManager {
    * Set to true when the first instance if the player initializes chromecast
    * Only first player will receive chromecast button
    * */
-  private static _chromecastInited: boolean;
+  static _chromecastInited: boolean;
 
   private _onCastStateChange(event: CastStateEventData) {
     switch (event.castState) {
@@ -118,6 +118,7 @@ export default class ChromecastManager implements IChromecastManager {
     const context = this._context;
     const engine = this._engine;
     const eventEmitter = this._eventEmitter;
+    const cast = window.cast;
     let startTime: number;
 
     switch (event.sessionState) {
@@ -126,7 +127,7 @@ export default class ChromecastManager implements IChromecastManager {
 
         engine.changeOutput(new ChromecastOutput(eventEmitter), () => {
           engine.seekTo(startTime);
-          eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_RESUMED);
+          eventEmitter.emitAsync(ChromecastEvents.CHROMECAST_CASTS_STARTED);
         });
         break;
       case cast.framework.SessionState.SESSION_RESUMED: // start cast to chromecast -> reload page -> SESSION_RESUMED
@@ -153,12 +154,12 @@ export default class ChromecastManager implements IChromecastManager {
     const context = this._context;
 
     context.addEventListener(
-      cast.framework.CastContextEventType.CAST_STATE_CHANGED,
+      window.cast.framework.CastContextEventType.CAST_STATE_CHANGED,
       this._onCastStateChange,
     );
 
     context.addEventListener(
-      cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
+      window.cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
       this._onSessionStateChange,
     );
   }
