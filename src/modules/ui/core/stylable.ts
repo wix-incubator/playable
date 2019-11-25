@@ -9,7 +9,7 @@ class Stylable<TStyles = IStyles> implements IStylable<TStyles> {
   private _themeStyles: IStyles = {};
 
   constructor(theme?: IThemeService) {
-    const moduleTheme = (<typeof Stylable>this.constructor)._moduleTheme;
+    const moduleTheme = (this.constructor as typeof Stylable)._moduleTheme;
     if (theme && moduleTheme) {
       theme.registerModuleTheme(this, moduleTheme);
       this._themeStyles = theme.get(this);

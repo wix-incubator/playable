@@ -3,7 +3,7 @@
 const canUseActiveElement =
   typeof window !== 'undefined' &&
   window.document &&
-  typeof window.document.activeElement as any !== 'unknown';
+  (typeof window.document.activeElement as any) !== 'unknown';
 
 // inspired by https://gist.github.com/aFarkas/a7e0d85450f323d5e164
 const FOCUS_WITHIN_CLASSNAME = 'focus-within';
@@ -16,13 +16,17 @@ const clearFocusWithinClass = (element: Element): void => {
     });
 };
 
+function isElementNode(node: Node): node is Element {
+  return typeof (node as Element).classList !== 'undefined';
+}
+
 const addFocusWithinClass = (
   boundaryElement: Element,
   activeElement: Element,
 ): void => {
   let currentNode: Node = activeElement;
-  while (currentNode !== boundaryElement && (<Element>currentNode).classList) {
-    (<Element>currentNode).classList.add(FOCUS_WITHIN_CLASSNAME);
+  while (currentNode !== boundaryElement && isElementNode(currentNode)) {
+    currentNode.classList.add(FOCUS_WITHIN_CLASSNAME);
     currentNode = currentNode.parentNode;
   }
 };
