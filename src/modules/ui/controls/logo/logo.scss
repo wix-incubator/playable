@@ -61,14 +61,16 @@
     min-height: 35px;
 
     .icon {
-      width: 24px;
+      width: 25px;
       height: 21px;
+      padding-left: 4px;
     }
   }
 
   .icon {
-    width: 17px;
-    height: 15px;
+    width: 16px;
+    height: 13px;
+    padding-left: 3px;
   }
 
   &:hover {

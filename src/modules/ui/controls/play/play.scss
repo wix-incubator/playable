@@ -26,8 +26,8 @@
     background-size: 15px 21px;
 
     .icon {
-      width: 11px;
-      height: 16px;
+      width: 16px;
+      height: 21px;
     }
 
     &.paused {
@@ -37,6 +37,13 @@
 
   .icon {
     width: 11px;
-    height: 16px;
+    height: 14px;
+    padding-left: 1px;
+  }
+
+  &.paused .icon {
+    width: 10px;
+    height: 15px;
+    padding-left: 2px;
   }
 }
