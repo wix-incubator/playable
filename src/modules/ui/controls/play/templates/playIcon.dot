@@ -1,7 +1,7 @@
 <div class="${props.styles.icon}">
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 11 14"
+    viewBox="0 0 11 13"
     preserveAspectRatio="xMidYMin slice"
     width="100%"
     style="padding-bottom: 127%; height: 1px; overflow: visible"

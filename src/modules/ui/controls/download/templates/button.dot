@@ -5,9 +5,12 @@
           type="button"
           tabindex="0">
     <div class="${props.styles.icon}">
-      <svg viewBox="0 0 24 21" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11 10.586V0h2v10.825L18.071 6l1.414 1.414-7.085 6.743-.329.328L5 7.415 6.414 6 11 10.586zM0 19h24v2H0v-2z" fill="#FFF" fill-rule="evenodd"/>
-      </svg>
+     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 15">
+       <g fill="#FFF" fill-rule="evenodd">
+         <path d="M0 13h14v2H0zm3.586-8.828L7 7.525v2.708L2.172 5.586zM7 7.623l3.618-3.655 1.414 1.414L7 10.249z"/>
+         <path d="M6 0h2v8l-1 2.225L6 8z"/>
+       </g>
+     </svg>
     </div>
   </button>
 </div>

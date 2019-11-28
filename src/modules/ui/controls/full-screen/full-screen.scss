@@ -18,18 +18,19 @@
   transition: transform .2s;
 
   @include query(in-full-screen()) {
-    width: 17px;
+    width: 35px;
     height: 35px;
 
     .icon {
-      width: 16px;
-      height: 19px;
+      width: 14px;
+      height: 23px;
+      padding-right: 6px;
     }
   }
 
   .icon {
-    width: 17px;
-    height: 15px;
+    width: 13px;
+    height: 14px;
   }
 
   &:hover {

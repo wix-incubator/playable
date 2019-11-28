@@ -151,7 +151,7 @@
 }
 
 .playContainer {
-  margin-right: 9px;
+  margin-right: 8px;
   margin-left: 13px;
 
   @include query(in-full-screen()) {
@@ -167,7 +167,7 @@
 }
 
 .volumeContainer {
-  margin-right: 15px;
+  margin-right: 13px;
 
   @include query(in-full-screen()) {
     margin-right: 20px;
