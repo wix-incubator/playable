@@ -1,2 +1,0 @@
-webpackJsonp([60335399758886],{124:function(t,e){t.exports={data:{site:{siteMetadata:{title:"playable",description:"",keywords:""}}},layoutContext:{}}}});
-//# sourceMappingURL=path----80059e40ceaaad320d15.js.map
