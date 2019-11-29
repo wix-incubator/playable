@@ -13,7 +13,7 @@ Embed a video player into your web application. No hassle, no fuss, just nice an
 
 <playable-demo></playable-demo>
 
-Quick links: [Installation](/#installation) | [Upgrade](/#upgrade) | [Configuration](/player-config) | [How to use](/#how-to-use) | [Customization](/#customization)
+Quick links: [Installation](/#installation) | [Configuration](/player-config) | [How to use](/#how-to-use) | [Customization](/#customization)
 
 ## What's playable?
 
