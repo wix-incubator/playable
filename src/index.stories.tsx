@@ -1,9 +1,7 @@
 import { button, boolean, color, number, select } from '@storybook/addon-knobs';
 
 import { DEFAULT_URLS, MODE_OPTIONS, RGB_HEX } from './stories/constants';
-import {
-  MEDIA_STREAM_TYPES,
-} from './index';
+import { MEDIA_STREAM_TYPES } from './index';
 
 import { MediaStreamType } from './constants';
 import { storiesOf } from '@storybook/html';
@@ -18,21 +16,24 @@ story.add('Default', () => {
   const groupActions = 'actions';
 
   const height = number('height', 350, {}, groupDefault);
+  const width = number('width', 600, {}, groupDefault);
+
+  const fillAllSpace = boolean('fillAllSpace', false, groupDefault);
   const rtl = boolean('rtl', false, groupDefault);
+
   const videoType = select(
     'videoType',
     videoTypeOptions,
     MEDIA_STREAM_TYPES.HLS,
     groupDefault,
   );
-  const fillAllSpace = boolean('fillAllSpace', false, groupDefault);
-  const width = number('width', 600, {}, groupDefault);
   const progressBarMode = select(
     'progressBarMode',
     MODE_OPTIONS,
     MODE_OPTIONS.REGULAR,
     groupDefault,
   );
+
   const playerColor = color('color', '#fff', 'Default');
   const playerColorHex = playerColor.includes('rgba')
     ? `#${RGB_HEX(playerColor).slice(0, -2)}`
@@ -48,10 +49,7 @@ story.add('Default', () => {
     color: playerColorHex,
   };
 
-  const { storyContainer, player } = createPlayerStory(
-    'Default',
-    props,
-  );
+  const { storyContainer, player } = createPlayerStory('Default', props);
 
   button('Stop', () => player.pause(), groupActions);
   button('Play', () => player.play(), groupActions);
