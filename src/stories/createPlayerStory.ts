@@ -21,11 +21,6 @@ registerModule('chromecastButton', ChromecastButton);
 registerPlaybackAdapter(HLSAdapter);
 registerPlaybackAdapter(DASHAdapter);
 
-let currentStoryId: string = '';
-let prevPlayerProps = {};
-let rootContainer: any;
-let player: any;
-
 const processProps = (props: StoryProps, playerInstance: IPlayerInstance) => {
   const propsToMethod: { [i in keyof StoryProps]: (value: any) => any } = {
     fillAllSpace: (value: boolean) => playerInstance.setFillAllSpace(value),
@@ -64,6 +59,11 @@ const processProps = (props: StoryProps, playerInstance: IPlayerInstance) => {
   );
 };
 
+let currentStoryId: string;
+let prevPlayerProps: StoryProps = {};
+let rootContainer: HTMLDivElement;
+let player: IPlayerInstance;
+
 export const createPlayerStory = (storyId: string, playerProps: StoryProps) => {
   if (storyId !== currentStoryId) {
     currentStoryId = storyId;
@@ -79,17 +79,17 @@ export const createPlayerStory = (storyId: string, playerProps: StoryProps) => {
   }
 
   const updatedProps = Object.keys(playerProps).reduce(
-    (acc: any, property: any) => {
-      const newValue = (playerProps as any)[property];
-      const oldValue = (prevPlayerProps as any)[property];
+    (acc, property: keyof StoryProps) => {
+      const newValue = playerProps[property];
+      const oldValue = prevPlayerProps[property];
 
       if (newValue !== oldValue) {
-        acc[property] = newValue;
+        (acc[property] as any) = newValue;
       }
 
       return acc;
     },
-    {} as Partial<StoryProps>,
+    {} as StoryProps,
   );
 
   processProps(updatedProps, player);
