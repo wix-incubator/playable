@@ -34,5 +34,3 @@ navigation:
     title: Custom texts
   - path: /adapters
     title: Playback adapters
-  - path: /storybook
-    title: Storybook
