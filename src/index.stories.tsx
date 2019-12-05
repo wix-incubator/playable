@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { button, boolean, color, number, select } from '@storybook/addon-knobs';
 import {
   RGB_HEX,
@@ -7,13 +6,6 @@ import {
   MODE_OPTIONS,
 } from './stories/constants';
 import { storiesOf } from '@storybook/react';
-
-import HLSAdapter from './adapters/hls';
-import DASHAdapter from './adapters/dash';
-import Subtitles from './modules/ui/subtitles/subtitles';
-import ChromecastButton from './modules/ui/controls/chromecast/chromecast';
-import ChromecastManager from './modules/chromecast-manager/chromecast-manager';
-
 import {
   create,
   IPlayerInstance,
@@ -22,8 +14,14 @@ import {
   registerModule,
   registerPlaybackAdapter,
 } from './index';
+import HLSAdapter from './adapters/hls';
+import DASHAdapter from './adapters/dash';
+import Subtitles from './modules/ui/subtitles/subtitles';
+import ChromecastButton from './modules/ui/controls/chromecast/chromecast';
+import ChromecastManager from './modules/chromecast-manager/chromecast-manager';
+import * as React from 'react';
 import {StoryProps, StoryWindow} from './stories/types'
-import {MediaStreamType} from "./constants";
+import {MediaStreamType} from "./constants/media-stream";
 
 registerModule('subtitles', Subtitles);
 registerModule('chromecastManager', ChromecastManager);
@@ -33,7 +31,10 @@ registerPlaybackAdapter(DASHAdapter);
 
 declare let window: StoryWindow;
 
-const videoTypeOptions = Object.keys(DEFAULT_URLS) as MediaStreamType[];
+const selectVideoTypeOptions = () => Object.keys(DEFAULT_URLS).reduce((acc, prop) => {
+    acc[prop] = prop;
+    return acc;
+  }, {} as any);
 
 class Story extends React.Component<StoryProps> {
   private readonly rootRef: React.RefObject<HTMLDivElement>;
@@ -51,14 +52,12 @@ class Story extends React.Component<StoryProps> {
       width: (value: number) => player.setWidth(value),
       height: (value: number) => player.setHeight(value),
       videoType: (value: string) => {
-        const type = (value === 'LIVE'
-          ? MediaStreamType.HLS
-          : value === 'MP4-VERTICAL'
-            ? MediaStreamType.MP4
-            : value) as MediaStreamType;
+        if (value === 'MP4-VERTICAL' || value === 'LIVE') {
+          value = value === 'LIVE' ? 'HLS' : 'MP4';
+        }
 
         player.setSrc({
-          type,
+          type: value as MediaStreamType,
           url: DEFAULT_URLS[value],
         });
 
@@ -122,7 +121,7 @@ storiesOf('Story', module).add('default', () => {
   const groupActions = 'Actions';
   const playerColor = color('color', '#fff', 'Default');
   const getPlayerColor = () => playerColor.includes('rgba') ? `#${RGB_HEX(playerColor).slice(0, -2)}` : playerColor;
-
+  
   button('Stop',() => window.player.pause(), groupActions);
   button('Play', () => window.player.play(), groupActions);
 
@@ -131,7 +130,7 @@ storiesOf('Story', module).add('default', () => {
     fillAllSpace={boolean('fillAllSpace', false, groupDefault)}
     width={number('width', 600,  {}, groupDefault)}
     height={number('height', 350, {}, groupDefault)}
-    videoType={select('videoType', videoTypeOptions , MEDIA_STREAM_TYPES.HLS, groupDefault)}
+    videoType={select('videoType', selectVideoTypeOptions() , MEDIA_STREAM_TYPES.HLS, groupDefault)}
     color={getPlayerColor()}
     progressBarMode={select('progressBarMode', MODE_OPTIONS, MODE_OPTIONS.REGULAR,  groupDefault)}
   />
