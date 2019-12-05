@@ -1,4 +1,4 @@
-import { addDecorator, addParameters, configure } from '@storybook/html';
+import { addDecorator, addParameters, configure } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
 import { create } from '@storybook/theming';
@@ -18,5 +18,7 @@ addParameters({
 
 addDecorator(withA11y);
 addDecorator(withKnobs);
+
+require('./styles.scss');
 
 configure(require.context('../src', true, /\.stories\.tsx$/), module);
