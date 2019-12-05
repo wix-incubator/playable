@@ -7,4 +7,3 @@ target
 .rpt2_cache
 yarn-error.log
 package-lock.json
-storybook-static
