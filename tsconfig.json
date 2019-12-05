@@ -23,5 +23,8 @@
       "node"
     ]
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts"],
+  "files": [
+    "./node_modules/match-screenshot/index.d.ts"
+  ]
 }

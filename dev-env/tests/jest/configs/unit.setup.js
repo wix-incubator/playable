@@ -8,3 +8,4 @@ window.HTMLMediaElement.prototype.play = () => {
 window.HTMLMediaElement.prototype.pause = () => {
   /* stub fn */
 };
+jest.setTimeout(20 * 1000);
