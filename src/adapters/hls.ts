@@ -5,7 +5,7 @@ import {
   getNearestBufferSegmentInfo,
 } from '../utils/video-data';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
-import { isDesktopSafari } from '../utils/device-detection';
+import { isDesktopSafari, isAndroid } from '../utils/device-detection';
 import {
   Error as PlayableError,
   MediaStreamType,
@@ -109,7 +109,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
   }
 
   get mediaStreamDeliveryPriority() {
-    return isDesktopSafari()
+    return isDesktopSafari() || isAndroid()
       ? MediaStreamDeliveryPriority.FORCED
       : MediaStreamDeliveryPriority.ADAPTIVE_VIA_MSE;
   }
@@ -166,9 +166,7 @@ export default class HlsAdapter implements IPlaybackAdapter {
       this.mediaStream = mediaStreams[0];
     } else {
       throw new Error(
-        `Can only handle a single HLS stream. Received ${
-          mediaStreams.length
-        } streams.`,
+        `Can only handle a single HLS stream. Received ${mediaStreams.length} streams.`,
       );
     }
   }
