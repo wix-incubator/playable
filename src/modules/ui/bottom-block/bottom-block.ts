@@ -12,7 +12,7 @@ import { IFullScreenControl } from '../controls/full-screen/types';
 import { ILogoControl } from '../controls/logo/types';
 import { IDownloadButton } from '../controls/download/types';
 import { IChromecastButton } from '../controls/chromecast/types';
-import { IPictureInPictureControl } from '../controls/pictureInPicture/types';
+import { IPictureInPictureControl } from '../controls/picture-in-picture/types';
 
 import {
   IBottomBlockAPI,

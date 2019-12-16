@@ -23,17 +23,21 @@
     height: 35px;
     min-height: 21px;
 
-    .icon {
-      width: 18px;
-      height: 18px;
-      padding-right: 2px;
+    .icon_small {
+      display: none;
+    }
+
+    .icon_big {
+      display: block;
     }
   }
 
-  .icon {
-    width: 14px;
-    height: 14px;
-    padding-bottom: 2px;
+  .icon_small {
+    display: block;
+  }
+
+  .icon_big {
+    display: none;
   }
 
   &:hover {

@@ -1,6 +1,6 @@
 <div class="${props.styles.volumeControl}"
      data-playable-hook="volume-control">
-  <button class="${props.styles.muteButton} ${props.styles.controlButton}"
+  <button class="${props.styles.muteToggle} ${props.styles.controlButton}"
           data-playable-hook="mute-button"
           aria-label="${props.texts.muteLabel}"
           type="button"

@@ -1,0 +1,31 @@
+<div>
+<svg
+    class="${props.styles.icon_small}"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 26 26"
+    preserveAspectRatio="xMidYMin slice"
+    width="100%"
+  >
+    <g fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
+      <path d="M 10 18 L 4 18 L 4 5 L 19 5 L 19 11 L 17 11 L 17 7 L 6 7 L 6 16 L 11 16 L 11 18 Z"/>
+      <path d="M 20 15 L 13 15 L 13 13 L 20 13 L 20 15 Z"/>
+      <path d="M 15 20 L 15 13 L 13 13 L 13 20 L 15 20 Z"/>
+      <path d="M 20.382 18.95 L 18.968 20.364 L 14 15.414 L 15.432 14 L 20.382 18.95 Z"/>
+    </g>
+  </svg>
+  <svg
+    class="${props.styles.icon_big}"
+    viewBox="0 0 35 35"
+    version="1"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMin slice"
+    width="100%"
+  >
+    <g fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
+      <path d="M 17 26 L 5 26 L 5 7 L 27 7 L 27 16 L 25 16 L 25 9 L 7 9 L 7 24 L 17 24 L 17 26 Z"/>
+      <path d="M 28 21 L 20 21 L 20 19 L 28 19 L 28 21 Z"/>
+      <path d="M 22 27 L 22 19 L 20 19 L 20 27 L 22 27 Z"/>
+      <path d="M 29 27 L 28 28 L 21 22 L 23 20 L 29 27 Z"/>
+    </g>
+  </svg>
+</div>

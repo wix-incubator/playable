@@ -2,16 +2,22 @@
         aria-label="${props.texts.label}"
         type="button"
         tabindex="0">
-  <div class="${props.styles.icon}">
-    <svg xmlns="http://www.w3.org/2000/svg"
-         viewBox="0 0 17 15"
-         preserveAspectRatio="xMidYMin slice"
-         width="100%"
-         style="padding-bottom: 127%; height: 1px; overflow: visible">
-      <path fill="#FFF"
-            fill-rule="evenodd"
-            class="${props.themeStyles.logoButtonSvgFill}"
-            d="M2 12h10v-2h2v4H0V0h4v2H2v10zm10-8.515L7.414 8.071 6 6.657 10.657 2H9.004V0H14v5.005h-2v-1.52z"/>
-    </svg>
-  </div>
+  <svg xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 26 26"
+        class="${props.styles.icon_small}"
+        preserveAspectRatio="xMidYMin slice"
+        width="100%">
+    <path fill-rule="evenodd"
+          class="${props.themeStyles.logoButtonSvgFill}"
+          d="M 8 20 L 6 20 L 6 6 L 10 6 L 10 8 L 8 8 L 8 18 L 18 18 L 18 16 L 20 16 L 20 20 L 8 20 Z M 18 9.485 L 13.414 14.071 L 12 12.657 L 16.657 8 L 15.004 8 L 15.004 6 L 20 6 L 20 11.005 L 18 11.005 L 18 9.485 Z"/>
+  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 35 35"
+        class="${props.styles.icon_big}"
+        preserveAspectRatio="xMidYMin slice"
+        width="100%">
+    <path fill-rule="evenodd"
+          class="${props.themeStyles.logoButtonSvgFill}"
+          d="M 9 28 L 7 28 L 7 7 L 14.071 7 L 14.071 9 L 9 9 L 9 26 L 26 26 L 26 21 L 28 21 L 28 28 L 9 28 Z M 26 10.02 L 17.414 18.607 L 16 17.192 L 24.192 9 L 22.008 9 L 22.008 7 L 28 7 L 28 13.012 L 26 13.012 L 26 10.02 Z"/>
+  </svg>
 </button>

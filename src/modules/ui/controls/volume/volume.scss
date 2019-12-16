@@ -32,7 +32,7 @@ $color: white !default;
   }
 }
 
-.muteButton {
+.muteToggle {
   width: 26px;
   min-width: 26px;
   height: 26px;
@@ -45,17 +45,21 @@ $color: white !default;
     height: 35px;
     min-height: 35px;
 
-    .icon {
-      width: 25px;
-      height: 21px;
-      padding-left: 4px;
+    .icon_small {
+      display: none;
+    }
+
+    .icon_big {
+      display: block;
     }
   }
 
-  .icon {
-    width: 19px;
-    height: 14px;
-    padding-left: 5px;
+  .icon_small {
+    display: block;
+  }
+
+  .icon_big {
+    display: none;
   }
 }
 

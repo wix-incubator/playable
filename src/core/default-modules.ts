@@ -43,7 +43,7 @@ import PlayControl from '../modules/ui/controls/play/play';
 import TimeControl from '../modules/ui/controls/time/time';
 import VolumeControl from '../modules/ui/controls/volume/volume';
 import FullScreenControl from '../modules/ui/controls/full-screen/full-screen';
-import PictureInPictureControl from '../modules/ui/controls/pictureInPicture/picture-in-picture';
+import PictureInPictureControl from '../modules/ui/controls/picture-in-picture/picture-in-picture';
 
 import Logo, { ILogoAPI } from '../modules/ui/controls/logo/logo';
 import DownloadButton, {

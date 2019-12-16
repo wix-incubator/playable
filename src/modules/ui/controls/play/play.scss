@@ -23,27 +23,20 @@
     height: 35px;
     min-height: 35px;
 
-    background-size: 15px 21px;
-
-    .icon {
-      width: 16px;
-      height: 21px;
+    .icon_small {
+      display: none;
     }
 
-    &.paused {
-      background-size: 16px 21px;
+    .icon_big {
+      display: block;
     }
   }
 
-  .icon {
-    width: 11px;
-    height: 14px;
-    padding-left: 1px;
+  .icon_small {
+    display: block;
   }
 
-  &.paused .icon {
-    width: 10px;
-    height: 15px;
-    padding-left: 2px;
+  .icon_big {
+    display: none;
   }
 }

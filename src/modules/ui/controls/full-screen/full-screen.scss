@@ -15,22 +15,11 @@
   height: 26px;
   min-height: 26px;
 
-  transition: transform .2s;
+  transition: transform 0.2s;
 
   @include query(in-full-screen()) {
     width: 35px;
     height: 35px;
-
-    .icon {
-      width: 14px;
-      height: 23px;
-      padding-right: 6px;
-    }
-  }
-
-  .icon {
-    width: 13px;
-    height: 14px;
   }
 
   &:hover {
@@ -39,7 +28,7 @@
 
   &.inFullScreen {
     &:hover {
-      transform: scale(.8);
+      transform: scale(0.8);
     }
   }
 }

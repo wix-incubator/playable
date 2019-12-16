@@ -1,12 +1,20 @@
-<div class="${props.styles.icon}">
+<div>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 11 13"
+    viewBox="0 0 26 26"
     preserveAspectRatio="xMidYMin slice"
     width="100%"
-    style="padding-bottom: 127%; height: 1px; overflow: visible"
+    class="${props.styles.icon_small}"
   >
-    <!-- padding-bottom: 100% * height/width -->
-    <path class="${props.themeStyles.playSvgFill}" d="M.079 0L0 14l10.5-7.181z"/>
+    <path class="${props.themeStyles.playSvgFill}" d="M8,6.0 L8,20.0 L18.25,12.82 L8,6.0 z"/>
+  </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 35 35"
+    preserveAspectRatio="xMidYMin slice"
+    width="100%"
+    class="${props.styles.icon_big}"
+  >
+    <path class="${props.themeStyles.playSvgFill}" d="M 10 7 L 10 28 L 26 17 L 10 7 Z"/>
   </svg>
 </div>
