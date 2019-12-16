@@ -52,10 +52,10 @@ class VolumeView extends View<IVolumeViewStyles>
   private _callbacks: IVolumeViewCallbacks;
   private _textMap: ITextMap;
   private _tooltipService: ITooltipService;
-  private _muteButtonTooltipReference: ITooltipReference;
+  private _muteToggleTooltipReference: ITooltipReference;
 
   private _$rootElement: HTMLElement;
-  private _$muteButton: HTMLElement;
+  private _$muteToggle: HTMLElement;
   private _$volumeContainer: HTMLElement;
   private _$volume: HTMLElement;
   private _$hitbox: HTMLElement;
@@ -89,7 +89,7 @@ class VolumeView extends View<IVolumeViewStyles>
       }),
     );
 
-    this._$muteButton = getElementByHook(this._$rootElement, 'mute-button');
+    this._$muteToggle = getElementByHook(this._$rootElement, 'mute-button');
     this._$volumeContainer = getElementByHook(
       this._$rootElement,
       'volume-input-block',
@@ -97,8 +97,8 @@ class VolumeView extends View<IVolumeViewStyles>
     this._$hitbox = getElementByHook(this._$rootElement, 'volume-hitbox');
     this._$volume = getElementByHook(this._$rootElement, 'volume-input');
 
-    this._muteButtonTooltipReference = this._tooltipService.createReference(
-      this._$muteButton,
+    this._muteToggleTooltipReference = this._tooltipService.createReference(
+      this._$muteToggle,
       {
         text: this._textMap.get(TextLabel.MUTE_CONTROL_TOOLTIP),
       },
@@ -121,7 +121,7 @@ class VolumeView extends View<IVolumeViewStyles>
     window.addEventListener('mousemove', this._setVolumeByDrag);
     window.addEventListener('mouseup', this._stopDragOnMouseUp);
 
-    this._$muteButton.addEventListener('click', this._onButtonClick);
+    this._$muteToggle.addEventListener('click', this._onButtonClick);
   }
 
   private _unbindEvents() {
@@ -130,7 +130,7 @@ class VolumeView extends View<IVolumeViewStyles>
     window.removeEventListener('mousemove', this._setVolumeByDrag);
     window.removeEventListener('mouseup', this._stopDragOnMouseUp);
 
-    this._$muteButton.removeEventListener('click', this._onButtonClick);
+    this._$muteToggle.removeEventListener('click', this._onButtonClick);
   }
 
   private _startDragOnMouseDown(event: MouseEvent) {
@@ -205,16 +205,16 @@ class VolumeView extends View<IVolumeViewStyles>
     };
 
     if (percent >= MAX_VOLUME_ICON_RANGE) {
-      this._$muteButton.innerHTML = volume100IconTemplate(iconTemplateProps);
+      this._$muteToggle.innerHTML = volume100IconTemplate(iconTemplateProps);
     } else if (percent > 0) {
-      this._$muteButton.innerHTML = volume50IconTemplate(iconTemplateProps);
+      this._$muteToggle.innerHTML = volume50IconTemplate(iconTemplateProps);
     } else {
-      this._$muteButton.innerHTML = volume0IconTemplate(iconTemplateProps);
+      this._$muteToggle.innerHTML = volume0IconTemplate(iconTemplateProps);
     }
   }
 
   private _onButtonClick() {
-    this._$muteButton.focus();
+    this._$muteToggle.focus();
     this._callbacks.onToggleMuteClick();
   }
 
@@ -228,19 +228,19 @@ class VolumeView extends View<IVolumeViewStyles>
 
   private _setMuteDOMAttributes(isMuted: boolean) {
     if (isMuted) {
-      this._$muteButton.innerHTML = volume0IconTemplate({
+      this._$muteToggle.innerHTML = volume0IconTemplate({
         styles: this.styleNames,
         themeStyles: this.themeStyles,
       });
     }
 
-    this._$muteButton.setAttribute(
+    this._$muteToggle.setAttribute(
       'aria-label',
       isMuted
         ? this._textMap.get(TextLabel.UNMUTE_CONTROL_LABEL)
         : this._textMap.get(TextLabel.MUTE_CONTROL_LABEL),
     );
-    this._muteButtonTooltipReference.setText(
+    this._muteToggleTooltipReference.setText(
       isMuted
         ? this._textMap.get(TextLabel.UNMUTE_CONTROL_TOOLTIP)
         : this._textMap.get(TextLabel.MUTE_CONTROL_TOOLTIP),
@@ -262,7 +262,7 @@ class VolumeView extends View<IVolumeViewStyles>
   }
 
   getButtonElement() {
-    return this._$muteButton;
+    return this._$muteToggle;
   }
 
   getInputElement() {
@@ -272,13 +272,13 @@ class VolumeView extends View<IVolumeViewStyles>
   destroy() {
     this._unbindEvents();
 
-    this._muteButtonTooltipReference.destroy();
+    this._muteToggleTooltipReference.destroy();
 
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
     }
 
-    this._$muteButton = null;
+    this._$muteToggle = null;
     this._$rootElement = null;
   }
 }

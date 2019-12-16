@@ -60,17 +60,21 @@
     height: 35px;
     min-height: 35px;
 
-    .icon {
-      width: 25px;
-      height: 21px;
-      padding-left: 4px;
+    .icon_small {
+      display: none;
+    }
+
+    .icon_big {
+      display: block;
     }
   }
 
-  .icon {
-    width: 16px;
-    height: 13px;
-    padding-left: 3px;
+  .icon_small {
+    display: block;
+  }
+
+  .icon_big {
+    display: none;
   }
 
   &:hover {
