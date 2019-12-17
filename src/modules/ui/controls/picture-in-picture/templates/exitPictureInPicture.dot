@@ -7,10 +7,10 @@
     width="100%"
   >
     <g fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
-      <path d="M 10 18 L 4 18 L 4 5 L 19 5 L 19 11 L 17 11 L 17 7 L 6 7 L 6 16 L 11 16 L 11 18 Z"/>
-      <path d="M 20 15 L 13 15 L 13 13 L 20 13 L 20 15 Z"/>
-      <path d="M 15 20 L 15 13 L 13 13 L 13 20 L 15 20 Z"/>
-      <path d="M 20.382 18.95 L 18.968 20.364 L 14 15.414 L 15.432 14 L 20.382 18.95 Z"/>
+      <path d="M 12 19 L 5 19 L 5 6 L 20 6 L 20 11 L 18 11 L 18 8 L 7 8 L 7 17 L 12 17 L 12 19 Z"/>
+      <path d="M 21 15 L 14 15 L 14 13 L 21 13 L 21 15 Z"/>
+      <path d="M 16 20 L 16 13 L 14 13 L 14 20 L 16 20 Z"/>
+      <path d="M 21.2785 18.95 L 19.8645 20.364 L 14.9145 15.414 L 16.3285 14 L 21.2785 18.95 Z"/>
     </g>
   </svg>
   <svg

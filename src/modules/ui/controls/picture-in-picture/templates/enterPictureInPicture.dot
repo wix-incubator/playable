@@ -7,8 +7,8 @@
     width="100%"
   >
     <g fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
-      <path d="M 10 18 L 4 18 L 4 5 L 19 5 L 19 10 L 17 10 L 17 7 L 6 7 L 6 16 L 10 16 L 10 18 Z"/>
-      <path d="M 12 12 L 21 12 L 21 20 L 12 20 L 12 12 Z M 14 14 L 14 18 L 19 18 L 19 14 L 14 14 Z"/>
+      <path d="M 11 19 L 5 19 L 5 6 L 20 6 L 20 11 L 18 11 L 18 8 L 7 8 L 7 17 L 11 17 L 11 19 Z"/>
+      <path d="M 13 13 L 22 13 L 22 21 L 13 21 L 13 13 Z M 15 15 L 15 19 L 20 19 L 20 15 L 15 15 Z"/>
     </g>
   </svg>
   <svg

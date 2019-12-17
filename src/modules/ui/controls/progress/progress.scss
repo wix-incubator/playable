@@ -70,6 +70,10 @@ $color-sync-pointer-background: #ea492e;
 
     .seekButton {
       transform: scale(1);
+
+      &.liveSync {
+        left: 100%;
+      }
     }
 
     .syncButton {
@@ -102,6 +106,8 @@ $color-sync-pointer-background: #ea492e;
 }
 
 .seekButton {
+  display: block;
+
   width: $seek-pointer-width;
   height: $seek-pointer-height;
 

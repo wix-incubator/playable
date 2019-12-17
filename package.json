@@ -59,7 +59,8 @@
     "test:unit": "haste-playable test --mocha",
     "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-with-adapters",
     "test:playback": "haste-playable test --karma dev-env/karma.conf.js && haste-playable test --karma dev-env/karma-with-adapters.conf.js",
-    "precommit": "lint-staged && npm run test:unit && npm run test:node && npm run documentation:gitadd",
+    "precommit": "lint-staged",
+    "prepush": "npm run test:unit && npm run test:node && npm run documentation:gitadd",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
