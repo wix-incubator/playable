@@ -273,11 +273,11 @@ class ProgressView extends View<IProgressViewStyles>
 
   setLiveSyncState(isSync: boolean) {
     toggleElementClass(this._$syncButton, this.styleNames.liveSync, isSync);
+    toggleElementClass(this._$seekButton, this.styleNames.liveSync, isSync);
 
     if (isSync) {
       this._syncButtonTooltipReference.disable();
       this._$played.setAttribute('style', `width:100%;`);
-      this._$seekButton.setAttribute('style', `left:100%;`);
     } else {
       this._syncButtonTooltipReference.enable();
     }
