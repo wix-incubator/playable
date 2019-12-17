@@ -6,7 +6,8 @@
   <div class="${props.styles.progressBarContainer}"
       data-playable-hook="progress-bar-container">
   </div>
-  <div class="${props.styles.elementsContainer}">
+  <div class="${props.styles.elementsContainer}"
+      data-playable-hook="bottom-block-elements-container">
     <div class="${props.styles.controlsContainerLeft}"
         data-playable-hook="controls-container-left">
       <div class="${props.styles.playContainer}"
