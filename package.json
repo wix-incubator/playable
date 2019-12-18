@@ -96,7 +96,7 @@
     "conventional-changelog-cli": "^2.0.11",
     "csscomb": "^4.2.0",
     "gh-pages": "^1.2.0",
-    "haste-preset-playable": "github:bodia-uz/haste-preset-playable#v2.2.1",
+    "haste-preset-playable": "github:bodia-uz/haste-preset-playable#v2.2.2",
     "husky": "^0.14.3",
     "jsdom": "^11.12.0",
     "jsdom-global": "^3.0.2",
