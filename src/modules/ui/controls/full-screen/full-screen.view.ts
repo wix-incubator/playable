@@ -4,11 +4,7 @@ import View from '../../core/view';
 import { IView } from '../../core/types';
 
 import { ITooltipReference } from '../../core/tooltip/types';
-import {
-  controlTemplate,
-  enterFullScreenIconTemplate,
-  exitFullScreenIconTemplate,
-} from './templates';
+import { controlTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
@@ -44,6 +40,7 @@ class FullScreenView extends View<IFullScreenViewStyles>
     this._$rootElement = htmlToElement(
       controlTemplate({
         styles: this.styleNames,
+        themeStyles: this.themeStyles,
         texts: {
           label: this._textMap.get(TextLabel.ENTER_FULL_SCREEN_LABEL),
         },
@@ -93,10 +90,6 @@ class FullScreenView extends View<IFullScreenViewStyles>
       this._$toggleFullScreenControl.classList.add(
         this.styleNames.inFullScreen,
       );
-      this._$toggleFullScreenControl.innerHTML = exitFullScreenIconTemplate({
-        styles: this.styleNames,
-        themeStyles: this.themeStyles,
-      });
       this._$toggleFullScreenControl.setAttribute(
         'aria-label',
         this._textMap.get(TextLabel.EXIT_FULL_SCREEN_LABEL),
@@ -109,10 +102,6 @@ class FullScreenView extends View<IFullScreenViewStyles>
       this._$toggleFullScreenControl.classList.remove(
         this.styleNames.inFullScreen,
       );
-      this._$toggleFullScreenControl.innerHTML = enterFullScreenIconTemplate({
-        styles: this.styleNames,
-        themeStyles: this.themeStyles,
-      });
       this._$toggleFullScreenControl.setAttribute(
         'aria-label',
         this._textMap.get(TextLabel.ENTER_FULL_SCREEN_LABEL),

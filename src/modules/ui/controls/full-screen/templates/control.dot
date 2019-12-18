@@ -4,5 +4,12 @@
           data-playable-hook="full-screen-button"
           aria-label="${props.texts.label}"
           type="button"
-          tabindex="0"/>
+          tabindex="0">
+    <svg class="${props.styles.enterIcon}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" preserveAspectRatio="xMidYMin slice" width="100%">
+      <path class="${props.themeStyles.fullScreenSvgFill}" fill-rule="evenodd" d="M8 16H6v4h4v-2H8v-2zM6 7v3h2V8h2V6H6v1zm14-1h-4v2h2v2h2V6zm-2 12h-2v2h4v-4h-2v2z"/>
+    </svg>
+    <svg class="${props.styles.exitIcon}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" preserveAspectRatio="xMidYMin slice" width="100%">
+      <path class="${props.themeStyles.fullScreenSvgFill}" fill-rule="evenodd" d="M11 28h2v-6H7v2h4v4zm2-21h-2v4H7v2h6V7zm9 6h6v-2h-4V7h-2v6zm2 11h4v-2h-6v6h2v-4z"/>
+    </svg>
+  </button>
 </div>

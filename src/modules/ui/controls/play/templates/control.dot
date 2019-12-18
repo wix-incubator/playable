@@ -4,5 +4,22 @@
           data-playable-hook="playback-control"
           aria-label="${props.texts.label}"
           type="button"
-          tabindex="0"/>
+          tabindex="0">
+    <div class="${props.styles.playIcon}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_small}" width="100%">
+        <path class="${props.themeStyles.playSvgFill}" d="M8 6v14l10.25-7.18L8 6z"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_big}" width="100%">
+        <path class="${props.themeStyles.playSvgFill}" d="M10 7v21l16-11L10 7z"/>
+      </svg>
+    </div>
+    <div class="${props.styles.pauseIcon}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_small}" width="100%">
+        <path class="${props.themeStyles.playSvgFill}" d="M15 6h3v14h-3V6zM8 6h3v14H8V6z"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_big}" width="100%">
+        <path class="${props.themeStyles.playSvgFill}" d="M10 7h5v21h-5V7zm10 0h5v21h-5V7z"/>
+      </svg>
+    </div>
+  </button>
 </div>

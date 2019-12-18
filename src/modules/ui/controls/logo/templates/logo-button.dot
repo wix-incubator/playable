@@ -1,23 +1,8 @@
-<button class="${props.styles.logoButton} ${props.styles.controlButton}"
-        aria-label="${props.texts.label}"
-        type="button"
-        tabindex="0">
-  <svg xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 26 26"
-        class="${props.styles.icon_small}"
-        preserveAspectRatio="xMidYMin slice"
-        width="100%">
-    <path fill-rule="evenodd"
-          class="${props.themeStyles.logoButtonSvgFill}"
-          d="M 8 20 L 6 20 L 6 6 L 10 6 L 10 8 L 8 8 L 8 18 L 18 18 L 18 16 L 20 16 L 20 20 L 8 20 Z M 18 9.485 L 13.414 14.071 L 12 12.657 L 16.657 8 L 15.004 8 L 15.004 6 L 20 6 L 20 11.005 L 18 11.005 L 18 9.485 Z"/>
+<button class="${props.styles.logoButton} ${props.styles.controlButton}" aria-label="${props.texts.label}" type="button" tabindex="0">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" class="${props.styles.icon_small}" preserveAspectRatio="xMidYMin slice" width="100%">
+    <path fill-rule="evenodd" class="${props.themeStyles.logoButtonSvgFill}" d="M8 20H6V6h4v2H8v10h10v-2h2v4H8zM18 9.485l-4.586 4.586L12 12.657 16.657 8h-1.653V6H20v5.005h-2v-1.52z"/>
   </svg>
-  <svg xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 35 35"
-        class="${props.styles.icon_big}"
-        preserveAspectRatio="xMidYMin slice"
-        width="100%">
-    <path fill-rule="evenodd"
-          class="${props.themeStyles.logoButtonSvgFill}"
-          d="M 9 28 L 7 28 L 7 7 L 14.071 7 L 14.071 9 L 9 9 L 9 26 L 26 26 L 26 21 L 28 21 L 28 28 L 9 28 Z M 26 10.02 L 17.414 18.607 L 16 17.192 L 24.192 9 L 22.008 9 L 22.008 7 L 28 7 L 28 13.012 L 26 13.012 L 26 10.02 Z"/>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" class="${props.styles.icon_big}" preserveAspectRatio="xMidYMin slice" width="100%">
+    <path fill-rule="evenodd" class="${props.themeStyles.logoButtonSvgFill}" d="M9 28H7V7h7.071v2H9v17h17v-5h2v7H9zm17-17.98l-8.586 8.587L16 17.192 24.192 9h-2.184V7H28v6.012h-2V10.02z"/>
   </svg>
 </button>

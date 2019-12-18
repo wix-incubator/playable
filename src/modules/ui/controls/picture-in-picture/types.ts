@@ -6,7 +6,7 @@ type IPictureInPictureViewStyles = {
   pictureInPictureControl: string;
   pictureInPictureToggle: string;
   icon: string;
-  pictureInPicture: string;
+  inPictureInPicture: string;
   hidden: string;
 };
 

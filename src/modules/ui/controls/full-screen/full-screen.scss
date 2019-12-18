@@ -15,7 +15,7 @@
   height: 26px;
   min-height: 26px;
 
-  transition: transform 0.2s;
+  transition: transform .2s;
 
   @include query(in-full-screen()) {
     width: 35px;
@@ -26,9 +26,25 @@
     transform: scale(1.18);
   }
 
+  .enterIcon {
+    display: block;
+  }
+
+  .exitIcon {
+    display: none;
+  }
+
   &.inFullScreen {
     &:hover {
-      transform: scale(0.8);
+      transform: scale(.8);
+    }
+
+    .enterIcon {
+      display: none;
+    }
+
+    .exitIcon {
+      display: block;
     }
   }
 }

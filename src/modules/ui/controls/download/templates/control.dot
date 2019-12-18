@@ -1,0 +1,13 @@
+<div class="${props.styles.buttonWrapper}">
+  <button class="${props.styles.downloadButton} ${props.styles.controlButton}" data-playable-hook="download-button" aria-label="${props.texts.label}" type="button" tabindex="0">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" class="${props.styles.icon_small}" width="100%">
+      <g fill-rule="evenodd" class="${props.themeStyles.downloadSvgFill}">
+        <path d="M6 18h14v2H6v-2zm3.586-8.328L13 13.025v2.708l-4.828-4.647 1.414-1.414zM13 13.123l3.618-3.655 1.414 1.414L13 15.749v-2.626z"/>
+        <path d="M12 6h2v8l-1 2-1-2V6z"/>
+      </g>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" class="${props.styles.icon_big}" width="100%">
+      <path d="M16.5 17.586V7h2v10.825L23.571 13l1.414 1.414-7.085 6.743-.329.328-7.071-7.07L11.914 13l4.586 4.586zM5.5 26h24v2h-24v-2z" fill-rule="evenodd"/>
+    </svg>
+  </button>
+</div>

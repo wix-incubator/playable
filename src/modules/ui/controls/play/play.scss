@@ -32,6 +32,24 @@
     }
   }
 
+  .playIcon {
+    display: none;
+  }
+
+  .pauseIcon {
+    display: block;
+  }
+
+  &.paused {
+    .playIcon {
+      display: block;
+    }
+
+    .pauseIcon {
+      display: none;
+    }
+  }
+
   .icon_small {
     display: block;
   }

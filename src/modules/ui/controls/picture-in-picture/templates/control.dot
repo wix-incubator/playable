@@ -5,5 +5,38 @@
           data-playable-hook="picture-in-picture-control"
           aria-label="${props.texts.label}"
           type="button"
-          tabindex="0"/>
+          tabindex="0">
+    <div class="${props.styles.enterIcon}">
+      <svg class="${props.styles.icon_small}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" preserveAspectRatio="xMidYMin slice" width="100%">
+        <g fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
+        <path d="M11 19H5V6h15v5h-2V8H7v9h4v2z"/>
+        <path d="M13 13h9v8h-9v-8zm2 2v4h5v-4h-5z"/>
+        </g>
+      </svg>
+      <svg class="${props.styles.icon_big}" viewBox="0 0 35 35" version="1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin slice" width="100%">
+        <g fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
+        <path d="M14 26H5V7h22v7h-2V9H7v15h7v2z"/>
+        <path d="M17 17h12v11H17V17zm2 2v7h8v-7h-8z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="${props.styles.exitIcon}">
+      <svg class="${props.styles.icon_small}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" preserveAspectRatio="xMidYMin slice" width="100%">
+        <g fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
+          <path d="M12 19H5V6h15v5h-2V8H7v9h5v2z"/>
+          <path d="M21 15h-7v-2h7v2z"/>
+          <path d="M16 20v-7h-2v7h2z"/>
+          <path d="M21.279 18.95l-1.415 1.414-4.95-4.95L16.329 14l4.95 4.95z"/>
+        </g>
+      </svg>
+      <svg class="${props.styles.icon_big}" viewBox="0 0 35 35" version="1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin slice" width="100%">
+        <g fill-rule="evenodd" class="${props.themeStyles.pictureInPictureSvgFill}">
+          <path d="M17 26H5V7h22v9h-2V9H7v15h10v2z"/>
+          <path d="M28 21h-8v-2h8v2z"/>
+          <path d="M22 27v-8h-2v8h2z"/>
+          <path d="M29 27l-1 1-7-6 2-2 6 7z"/>
+        </g>
+      </svg>
+    </div>
+  </button>
 </div>
