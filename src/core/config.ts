@@ -27,6 +27,7 @@ export interface IPlayerConfig {
   playsinline?: boolean;
   crossOrigin?: CrossOriginValue;
   nativeBrowserControls?: boolean;
+  preventContextMenu?: boolean;
 
   disableControlWithClickOnPlayer?: boolean;
   disableControlWithKeyboard?: boolean;

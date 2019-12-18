@@ -42,7 +42,7 @@ export default class NativeOutput implements IVideoOutput {
     config: IPlayerConfig;
     availablePlaybackAdapters: IPlaybackAdapterClass[];
   }) {
-    this._createVideoTag(config.videoElement);
+    this._createVideoTag(config);
 
     this._eventEmitter = eventEmitter;
     this._availablePlaybackAdapters = availablePlaybackAdapters;
@@ -61,11 +61,17 @@ export default class NativeOutput implements IVideoOutput {
     );
   }
 
-  private _createVideoTag(videoElement: HTMLVideoElement) {
+  private _createVideoTag({
+    videoElement,
+    preventContextMenu,
+  }: Partial<IPlayerConfig>) {
     if (videoElement && videoElement.tagName === 'VIDEO') {
       this._video = videoElement;
     } else {
       this._video = document.createElement('video');
+    }
+    if (preventContextMenu) {
+      this._video.addEventListener('contextmenu', e => e.preventDefault());
     }
   }
 

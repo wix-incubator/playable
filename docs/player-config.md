@@ -5,7 +5,7 @@ const config = {
   src: [
     'http://my-url/video.mp4',
     'http://my-url/video.webm',
-    'http://my-url/video.m3u8'
+    'http://my-url/video.m3u8',
   ],
   poster: 'http://my-poster.jpg',
   title: 'Awesome video',
@@ -25,6 +25,7 @@ const config = {
   playsinline: true,
   crossOrigin: 'anonymous',
   nativeBrowserControls: false,
+  preventContextMenu: false,
 
   disableControlWithClickOnPlayer: false,
   disableControlWithKeyboard: false,
@@ -36,11 +37,11 @@ const config = {
 
   texts: {
     TEXT_KEY: 'TEXT_VALUE',
-  }
+  },
 };
 
 const theme = {
-  progressColor: "#aaa"
+  progressColor: '#aaa',
 };
 
 const player = Playable.create(config, theme);
@@ -56,7 +57,7 @@ const player = Playable.create(config, theme);
 `config.width: Number` Width of video player <br/>
 `config.height: Number` Height of video player <br/>
 `config.fillAllSpace: Boolean` Pass `true` to allow player fill all space of it container <br/>
-`config.rtl: Boolean` Pass `true` to allow player [rtl](https://developer.mozilla.org/en-US/docs/Glossary/rtl) 
+`config.rtl: Boolean` Pass `true` to allow player [rtl](https://developer.mozilla.org/en-US/docs/Glossary/rtl)
 direction. The property only configures playable behaviour, not modules inside<br/>
 `config.title: String` String that would be shown as title of video <br/>
 `config.poster: String` URL to image that would be used as poster on overlay <br/>
@@ -68,6 +69,7 @@ direction. The property only configures playable behaviour, not modules inside<b
 `config.disableControlWithClickOnPlayer: Boolean` Pass `false` to disable ability to control player through click on player(not related to controls of player) <br/>
 `config.disableFullScreen: Boolean` Pass `true` to disable functionality related to full screen mode <br/>
 `config.nativeBrowserControls: Boolean` Pass `true` to show native browser controls. You also should pass `hideMainUI: true` for better look<br/>
+`config.preventContextMenu: Boolean` Pass `true` to prevent context menu on video element.
 
 ### Playback related config
 
