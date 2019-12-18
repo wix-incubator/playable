@@ -4,11 +4,7 @@ import View from '../../core/view';
 import { IView } from '../../core/types';
 
 import { ITooltipReference } from '../../core/tooltip/types';
-import {
-  controlTemplate,
-  enterPictureInPictureIconTemplate,
-  exitPictureInPictureIconTemplate,
-} from './templates';
+import { controlTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
@@ -44,6 +40,7 @@ class PictureInPictureView extends View<IPictureInPictureViewStyles>
     this._$rootElement = htmlToElement(
       controlTemplate({
         styles: this.styleNames,
+        themeStyles: this.themeStyles,
         texts: {
           label: this._textMap.get(TextLabel.ENTER_PICTURE_IN_PICTURE_LABEL),
         },
@@ -89,13 +86,7 @@ class PictureInPictureView extends View<IPictureInPictureViewStyles>
   setPictureInPictureState(isPictureInPicture: boolean) {
     if (isPictureInPicture) {
       this._$togglePictureInPictureControl.classList.add(
-        this.styleNames.pictureInPicture,
-      );
-      this._$togglePictureInPictureControl.innerHTML = exitPictureInPictureIconTemplate(
-        {
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        },
+        this.styleNames.inPictureInPicture,
       );
       this._$togglePictureInPictureControl.setAttribute(
         'aria-label',
@@ -107,21 +98,14 @@ class PictureInPictureView extends View<IPictureInPictureViewStyles>
       );
     } else {
       this._$togglePictureInPictureControl.classList.remove(
-        this.styleNames.pictureInPicture,
+        this.styleNames.inPictureInPicture,
       );
       this._$togglePictureInPictureControl.setAttribute(
         'aria-label',
         this._textMap.get(TextLabel.ENTER_PICTURE_IN_PICTURE_LABEL),
       );
-
       this._tooltipReference.setText(
         this._textMap.get(TextLabel.ENTER_PICTURE_IN_PICTURE_TOOLTIP),
-      );
-      this._$togglePictureInPictureControl.innerHTML = enterPictureInPictureIconTemplate(
-        {
-          styles: this.styleNames,
-          themeStyles: this.themeStyles,
-        },
       );
     }
   }

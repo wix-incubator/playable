@@ -1,1 +1,1 @@
-export { default as buttonTemplate } from './button.dot';
+export { default as controlTemplate } from './control.dot';

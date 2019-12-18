@@ -3,11 +3,7 @@ import { TextLabel } from '../../../../constants';
 import View from '../../core/view';
 import { IView } from '../../core/types';
 
-import {
-  controlTemplate,
-  playIconTemplate,
-  pauseIconTemplate,
-} from './templates';
+import { controlTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
@@ -38,6 +34,7 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
     this._$rootElement = htmlToElement(
       controlTemplate({
         styles: this.styleNames,
+        themeStyles: this.themeStyles,
         texts: {
           label: this._textMap.get(TextLabel.PLAY_CONTROL_LABEL),
         },
@@ -71,20 +68,12 @@ class PlayView extends View<IPlayViewStyles> implements IView<IPlayViewStyles> {
   setPlayingState(isPlaying: boolean) {
     if (isPlaying) {
       this._$playbackControl.classList.remove(this.styleNames.paused);
-      this._$playbackControl.innerHTML = pauseIconTemplate({
-        styles: this.styleNames,
-        themeStyles: this.themeStyles,
-      });
       this._$playbackControl.setAttribute(
         'aria-label',
         this._textMap.get(TextLabel.PAUSE_CONTROL_LABEL),
       );
     } else {
       this._$playbackControl.classList.add(this.styleNames.paused);
-      this._$playbackControl.innerHTML = playIconTemplate({
-        styles: this.styleNames,
-        themeStyles: this.themeStyles,
-      });
       this._$playbackControl.setAttribute(
         'aria-label',
         this._textMap.get(TextLabel.PLAY_CONTROL_LABEL),

@@ -32,6 +32,22 @@ $color: white !default;
   }
 }
 
+.volume0Icon {
+  display: none;
+}
+
+.volume50Icon {
+  display: none;
+}
+
+.volume100Icon {
+  display: none;
+}
+
+.muteIcon {
+  display: none;
+}
+
 .muteToggle {
   width: 26px;
   min-width: 26px;
@@ -50,6 +66,30 @@ $color: white !default;
     }
 
     .icon_big {
+      display: block;
+    }
+  }
+
+  &.volume0 {
+    .volume0Icon {
+      display: block;
+    }
+  }
+
+  &.volume50 {
+    .volume50Icon {
+      display: block;
+    }
+  }
+
+  &.volume100 {
+    .volume100Icon {
+      display: block;
+    }
+  }
+
+  &.muted {
+    .volume0Icon {
       display: block;
     }
   }

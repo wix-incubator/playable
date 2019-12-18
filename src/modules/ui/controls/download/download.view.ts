@@ -4,7 +4,7 @@ import View from '../../core/view';
 import { IView } from '../../core/types';
 
 import { ITooltipReference } from '../../core/tooltip/types';
-import { buttonTemplate } from './templates';
+import { controlTemplate } from './templates';
 
 import htmlToElement from '../../core/htmlToElement';
 import getElementByHook from '../../core/getElementByHook';
@@ -38,7 +38,7 @@ class DownloadView extends View<IDownloadViewStyles>
     this._textMap = textMap;
 
     this._$rootElement = htmlToElement(
-      buttonTemplate({
+      controlTemplate({
         styles: this.styleNames,
         themeStyles: this.themeStyles,
         texts: {

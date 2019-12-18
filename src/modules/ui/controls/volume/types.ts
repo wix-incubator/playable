@@ -8,6 +8,14 @@ type IVolumeViewStyles = {
   isDragging: string;
   muteToggle: string;
   icon: string;
+  volume0Icon: string;
+  volume50Icon: string;
+  volume100Icon: string;
+  volume0: string;
+  volume50: string;
+  volume100: string;
+  muted: string;
+  muteIcon: string;
   progressBar: string;
   volume: string;
   background: string;

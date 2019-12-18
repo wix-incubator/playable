@@ -5,6 +5,8 @@ import { ITextMap } from '../../../text-map/types';
 type IFullScreenViewStyles = {
   fullScreenControl: string;
   fullScreenToggle: string;
+  enterIcon: string;
+  exitIcon: string;
   icon: string;
   inFullScreen: string;
   hidden: string;

@@ -32,6 +32,14 @@
     }
   }
 
+  .enterIcon {
+    display: block;
+  }
+
+  .exitIcon {
+    display: none;
+  }
+
   .icon_small {
     display: block;
   }
@@ -47,6 +55,14 @@
   &.inPictureInPicture {
     &:hover {
       transform: scale(.8);
+    }
+
+    .enterIcon {
+      display: none;
+    }
+
+    .exitIcon {
+      display: block;
     }
   }
 }

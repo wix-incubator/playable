@@ -5,6 +5,43 @@
           aria-label="${props.texts.muteLabel}"
           type="button"
           tabindex="0">
+    <div class="${props.styles.volume0Icon} ${props.styles.muteIcon}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_small}" width="100%">
+        <g class="${props.themeStyles.volumeSvgFill}">
+          <path class="${props.themeStyles.volumeSvgFill}" d="M5 9.995h2.993v5.97H5V9.995zm2.995-.014L12 7v12l-4.005-3.042v-5.98.003z"/>
+          <path d="M18 12.333l-2.05-2.05-.75.743 2.05 2.05-2.05 2.05.75.743 2.05-2.05 2 2.05.8-.743-2.05-2.05 2.05-2.05-.8-.743-2 2.05z"/>
+        </g>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_big}" width="100%">
+        <g class="${props.themeStyles.volumeSvgFill}">
+          <path class="${props.themeStyles.volumeSvgFill}" d="M23.586 18.04l-2.829-2.828 1.415-1.415L25 16.626l2.828-2.83 1.415 1.416-2.829 2.828 2.829 2.828-1.415 1.415L25 19.453l-2.828 2.83-1.415-1.415 2.829-2.828zM9 13.04l7-5v19l-7-5H5v-9h4z"/>
+        </g>
+      </svg>
+    </div>
+  <div class="${props.styles.volume50Icon}">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_small}" width="100%">
+      <g fill-rule="evenodd">
+        <path class="${props.themeStyles.volumeSvgFill}" d="M5 10.1h3v6H5v-6zm3 0l4-3v12l-4-3v-6z"/>
+        <path class="${props.themeStyles.volumeSvgStroke}" d="M14.85 17a5.45 5.45 0 000-7.7"/>
+      </g>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_big}" width="100%">
+      <path class="${props.themeStyles.volumeSvgFill}" d="M9 13l7-5v19l-7-5H5v-9h4zm12.884 11.407l-1.414-1.414a7.174 7.174 0 000-10.146l1.414-1.414a9.174 9.174 0 010 12.974z" fill-rule="evenodd"/>
+    </svg>
+  </div>
+  <div class="${props.styles.volume100Icon}">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_small}" width="100%">
+      <g fill-rule="evenodd">
+        <path class="${props.themeStyles.volumeSvgFill}" d="M5 9.995h2.993v5.97H5V9.995zm2.995-.014L12 7v12l-4.005-3.042v-5.98.003z"/>
+        <path class="${props.themeStyles.volumeSvgStroke}" d="M18 19.8a9.6 9.6 0 000-13.6m-2.95 10.7a5.45 5.45 0 000-7.7"/>
+      </g>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" preserveAspectRatio="xMidYMin slice" class="${props.styles.icon_big}" width="100%">
+      <g class="${props.themeStyles.volumeSvgFill}">
+        <path class="${props.themeStyles.volumeSvgFill}" d="M9 13.04l7-5v19l-7-5H5v-9h4zm16.897 15.794l-1.414-1.414c5.237-5.238 5.237-13.73 0-18.966l1.414-1.414c6.018 6.018 6.018 15.776 0 21.794zm-4.013-4.387l-1.414-1.414a7.174 7.174 0 000-10.146l1.414-1.414a9.174 9.174 0 010 12.974z"/>
+      </g>
+    </svg>
+  </div>
   </button>
   <div class="${props.styles.volumeInputBlock}"
        data-playable-hook="volume-input-block"

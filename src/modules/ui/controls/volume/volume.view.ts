@@ -1,12 +1,7 @@
 import { TextLabel } from '../../../../constants';
 
 import { ITooltipReference, ITooltipService } from '../../core/tooltip/types';
-import {
-  controlTemplate,
-  volume0IconTemplate,
-  volume50IconTemplate,
-  volume100IconTemplate,
-} from './templates';
+import { controlTemplate } from './templates';
 
 import View from '../../core/view';
 import { IView } from '../../core/types';
@@ -199,17 +194,16 @@ class VolumeView extends View<IVolumeViewStyles>
 
     this._$rootElement.setAttribute(DATA_VOLUME, String(percent));
 
-    const iconTemplateProps = {
-      styles: this.styleNames,
-      themeStyles: this.themeStyles,
-    };
+    this._$muteToggle.classList.remove(this.styleNames.volume0);
+    this._$muteToggle.classList.remove(this.styleNames.volume50);
+    this._$muteToggle.classList.remove(this.styleNames.volume100);
 
     if (percent >= MAX_VOLUME_ICON_RANGE) {
-      this._$muteToggle.innerHTML = volume100IconTemplate(iconTemplateProps);
+      this._$muteToggle.classList.add(this.styleNames.volume100);
     } else if (percent > 0) {
-      this._$muteToggle.innerHTML = volume50IconTemplate(iconTemplateProps);
+      this._$muteToggle.classList.add(this.styleNames.volume50);
     } else {
-      this._$muteToggle.innerHTML = volume0IconTemplate(iconTemplateProps);
+      this._$muteToggle.classList.add(this.styleNames.volume0);
     }
   }
 
@@ -228,10 +222,9 @@ class VolumeView extends View<IVolumeViewStyles>
 
   private _setMuteDOMAttributes(isMuted: boolean) {
     if (isMuted) {
-      this._$muteToggle.innerHTML = volume0IconTemplate({
-        styles: this.styleNames,
-        themeStyles: this.themeStyles,
-      });
+      this._$muteToggle.classList.add(this.styleNames.muted);
+    } else {
+      this._$muteToggle.classList.remove(this.styleNames.muted);
     }
 
     this._$muteToggle.setAttribute(
