@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-
 import * as sinon from 'sinon';
 
 import IOSFullScreen from './ios';
@@ -20,38 +17,38 @@ describe('IOSFullScreen', () => {
   });
 
   describe('enable state', () => {
-    it('should return true in native state is true', () => {
+    test('should return true in native state is true', () => {
       element.webkitSupportsFullscreen = true;
-      expect(fullScreen.isEnabled).to.be.true;
+      expect(fullScreen.isEnabled).toBe(true);
     });
 
-    it('should return false in native state is false', () => {
+    test('should return false in native state is false', () => {
       element.webkitSupportsFullscreen = false;
-      expect(fullScreen.isEnabled).to.be.false;
+      expect(fullScreen.isEnabled).toBe(false);
     });
   });
 
   describe('full screen state', () => {
-    it('should return true in native state is true', () => {
+    test('should return true in native state is true', () => {
       element.webkitDisplayingFullscreen = true;
-      expect(fullScreen.isInFullScreen).to.be.true;
+      expect(fullScreen.isInFullScreen).toBe(true);
     });
 
-    it('should return false in native state is false', () => {
+    test('should return false in native state is false', () => {
       element.webkitDisplayingFullscreen = false;
-      expect(fullScreen.isInFullScreen).to.be.false;
+      expect(fullScreen.isInFullScreen).toBe(false);
     });
   });
 
   describe('method for entering full screen', () => {
-    it('should use native method', () => {
+    test('should use native method', () => {
       element.webkitSupportsFullscreen = true;
       element.webkitEnterFullscreen = sinon.spy();
       fullScreen.request();
-      expect(element.webkitEnterFullscreen.called).to.be.true;
+      expect(element.webkitEnterFullscreen.called).toBe(true);
     });
 
-    it('should make postpone enter if do not have metadata', () => {
+    test('should make postpone enter if do not have metadata', () => {
       element.webkitSupportsFullscreen = true;
       element.readyState = 0;
 
@@ -64,66 +61,66 @@ describe('IOSFullScreen', () => {
       fullScreen.request();
       element.webkitEnterFullscreen = sinon.spy();
       element.dispatchEvent(metadataEvent);
-      expect(element.webkitEnterFullscreen.calledOnce).to.be.true;
+      expect(element.webkitEnterFullscreen.calledOnce).toBe(true);
     });
 
-    it('should do nothing if not enabled', () => {
+    test('should do nothing if not enabled', () => {
       element.webkitSupportsFullscreen = false;
       element.webkitEnterFullscreen = sinon.spy();
       fullScreen.request();
-      expect(element.webkitEnterFullscreen.called).to.be.false;
+      expect(element.webkitEnterFullscreen.called).toBe(false);
     });
 
-    it('should do nothing if already in full screen', () => {
+    test('should do nothing if already in full screen', () => {
       element.webkitDisplayingFullscreen = true;
       element.webkitEnterFullscreen = sinon.spy();
       fullScreen.request();
-      expect(element.webkitEnterFullscreen.called).to.be.false;
+      expect(element.webkitEnterFullscreen.called).toBe(false);
     });
   });
 
   describe('method for exit full screen', () => {
-    it('should use native method', () => {
+    test('should use native method', () => {
       element.webkitSupportsFullscreen = true;
       element.webkitDisplayingFullscreen = true;
       element.webkitExitFullscreen = sinon.spy();
       fullScreen.exit();
-      expect(element.webkitExitFullscreen.called).to.be.true;
+      expect(element.webkitExitFullscreen.called).toBe(true);
     });
 
-    it('should do nothing if not enabled', () => {
+    test('should do nothing if not enabled', () => {
       element.webkitSupportsFullscreen = false;
       element.webkitExitFullscreen = sinon.spy();
       fullScreen.exit();
-      expect(element.webkitExitFullscreen.called).to.be.false;
+      expect(element.webkitExitFullscreen.called).toBe(false);
     });
 
-    it('should do nothing if not in full screen', () => {
+    test('should do nothing if not in full screen', () => {
       element.webkitDisplayingFullscreen = false;
       element.webkitExitFullscreen = sinon.spy();
       fullScreen.exit();
-      expect(element.webkitExitFullscreen.called).to.be.false;
+      expect(element.webkitExitFullscreen.called).toBe(false);
     });
   });
 
   describe('due to reaction on native full screen change', () => {
-    it('should call callback if enter', () => {
+    test('should call callback if enter', () => {
       const enterEvent = new Event('webkitbeginfullscreen');
 
       element.dispatchEvent(enterEvent);
-      expect(callback.called).to.be.true;
+      expect(callback.called).toBe(true);
     });
 
-    it('should call callback if exit', () => {
+    test('should call callback if exit', () => {
       const exitEvent = new Event('webkitendfullscreen');
 
       element.dispatchEvent(exitEvent);
-      expect(callback.called).to.be.true;
+      expect(callback.called).toBe(true);
     });
   });
 
   describe('destroy method', () => {
-    it('should clear loadedmetadata listener', () => {
+    test('should clear loadedmetadata listener', () => {
       const metadataEvent = new Event('loadedmetadata');
 
       element.webkitSupportsFullscreen = true;
@@ -137,27 +134,27 @@ describe('IOSFullScreen', () => {
       fullScreen.destroy();
 
       element.dispatchEvent(metadataEvent);
-      expect(element.webkitEnterFullscreen.called).to.be.false;
+      expect(element.webkitEnterFullscreen.called).toBe(false);
     });
 
-    it('should clear webkitbeginfullscreen listener', () => {
+    test('should clear webkitbeginfullscreen listener', () => {
       const enterEvent = new Event('webkitbeginfullscreen');
       element.webkitSupportsFullscreen = true;
 
       fullScreen.destroy();
 
       element.dispatchEvent(enterEvent);
-      expect(callback.called).to.be.false;
+      expect(callback.called).toBe(false);
     });
 
-    it('should clear webkitendfullscreen listener', () => {
+    test('should clear webkitendfullscreen listener', () => {
       const exitEvent = new Event('webkitendfullscreen');
       element.webkitSupportsFullscreen = true;
 
       fullScreen.destroy();
 
       element.dispatchEvent(exitEvent);
-      expect(callback.called).to.be.false;
+      expect(callback.called).toBe(false);
     });
   });
 });

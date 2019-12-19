@@ -1,5 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
@@ -20,91 +18,91 @@ describe('TimeControl', () => {
   });
 
   describe('constructor', () => {
-    it('should create instance ', () => {
-      expect(control).to.exist;
-      expect(control.view).to.exist;
+    test('should create instance ', () => {
+      expect(control).toBeDefined();
+      expect(control.view).toBeDefined();
     });
   });
 
   describe('API', () => {
-    it('should have method for setting current time', () => {
+    test('should have method for setting current time', () => {
       const spy = sinon.spy(control.view, 'setCurrentTime');
       control._setCurrentTime();
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
 
-    it('should have method for setting duration time', () => {
+    test('should have method for setting duration time', () => {
       const spy = sinon.spy(control.view, 'setDurationTime');
       control._setDurationTime();
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
 
-    it('should have method for showing whole view', () => {
-      expect(control.show).to.exist;
+    test('should have method for showing whole view', () => {
+      expect(control.show).toBeDefined();
       control.show();
-      expect(control.isHidden).to.be.false;
+      expect(control.isHidden).toBe(false);
     });
 
-    it('should have method for hiding whole view', () => {
-      expect(control.hide).to.exist;
+    test('should have method for hiding whole view', () => {
+      expect(control.hide).toBeDefined();
       control.hide();
-      expect(control.isHidden).to.be.true;
+      expect(control.isHidden).toBe(true);
     });
 
-    it('should have method for destroying', () => {
+    test('should have method for destroying', () => {
       const spy = sinon.spy(control, '_unbindEvents');
-      expect(control.destroy).to.exist;
+      expect(control.destroy).toBeDefined();
       control.destroy();
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback state change', async function() {
+    test('should call callback on playback state change', async () => {
       const spy = sinon.spy(control, '_toggleIntervalUpdates');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {});
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
 
-    it('should call callback on seek', async function() {
+    test('should call callback on seek', async () => {
       const spy = sinon.spy(control, '_startIntervalUpdates');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,
       });
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
 
-    it('should call callback on duration update', async function() {
+    test('should call callback on duration update', async () => {
       const spy = sinon.spy(control, '_updateDurationTime');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.DURATION_UPDATED);
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
   });
 
   describe('internal methods', () => {
-    it('should toggle interval updates', () => {
+    test('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
       control._toggleIntervalUpdates({ nextState: EngineState.PLAYING });
-      expect(startSpy.called).to.be.true;
+      expect(startSpy.called).toBe(true);
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._toggleIntervalUpdates({ nextState: EngineState.PAUSED });
-      expect(stopSpy.called).to.be.true;
+      expect(stopSpy.called).toBe(true);
     });
 
-    it('should start interval updates', () => {
+    test('should start interval updates', () => {
       const spy = sinon.spy(window, 'setInterval');
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
       expect(
         spy.calledWith(control._updateCurrentTime, UPDATE_TIME_INTERVAL_DELAY),
-      ).to.be.true;
-      expect(stopSpy.called).to.be.false;
+      ).toBe(true);
+      expect(stopSpy.called).toBe(false);
       control._startIntervalUpdates();
-      expect(stopSpy.called).to.be.true;
+      expect(stopSpy.called).toBe(true);
 
       spy.restore();
     });

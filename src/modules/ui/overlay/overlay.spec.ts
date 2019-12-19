@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
@@ -30,9 +27,9 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
     });
 
-    it('should create instance ', () => {
-      expect(overlay).to.exist;
-      expect(overlay.view).to.exist;
+    test('should create instance ', () => {
+      expect(overlay).toBeDefined();
+      expect(overlay.view).toBeDefined();
     });
   });
 
@@ -49,11 +46,13 @@ describe('Overlay', () => {
       eventEmitter = testkit.getModule('eventEmitter');
     });
 
-    it(`if Overlay's "_hideContent" method invokes external API`, async () => {
-      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, { nextState: EngineState.PLAY_REQUESTED});
-      expect(loaderShowSpy.called).to.be.true;
-      expect(enableShowingContentSpy.called).to.be.true;
-    })
+    test(`if Overlay's "_hideContent" method invokes external API`, async () => {
+      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
+        nextState: EngineState.PLAY_REQUESTED,
+      });
+      expect(loaderShowSpy.called).toBe(true);
+      expect(enableShowingContentSpy.called).toBe(true);
+    });
   });
 
   describe(`check Loader's and MainUIBlock's API usage v2`, () => {
@@ -61,7 +60,10 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
 
       mainUIBlock = testkit.getModule('mainUIBlock');
-      disableShowingContentSpy = sinon.spy(mainUIBlock, 'disableShowingContent');
+      disableShowingContentSpy = sinon.spy(
+        mainUIBlock,
+        'disableShowingContent',
+      );
 
       loader = testkit.getModule('loader');
       loaderHideSpy = sinon.spy(loader, 'hide');
@@ -69,11 +71,13 @@ describe('Overlay', () => {
       eventEmitter = testkit.getModule('eventEmitter');
     });
 
-    it(`if Overlay's "_showContent" method invokes external API`, async () => {
-      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, { nextState: EngineState.SRC_SET});
-      expect(loaderHideSpy.called).to.be.true;
-      expect(disableShowingContentSpy.called).to.be.true;
-    })
+    test(`if Overlay's "_showContent" method invokes external API`, async () => {
+      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
+        nextState: EngineState.SRC_SET,
+      });
+      expect(loaderHideSpy.called).toBe(true);
+      expect(disableShowingContentSpy.called).toBe(true);
+    });
   });
 
   describe('instance callbacks to controls', () => {
@@ -88,13 +92,13 @@ describe('Overlay', () => {
       eventEmitter.emitAsync.restore();
     });
 
-    it('should emit ui event on play', () => {
+    test('should emit ui event on play', () => {
       const callback = sinon.stub(overlay._engine, 'play');
 
       overlay._playVideo();
 
-      expect(callback.called).to.be.true;
-      expect(eventEmitterSpy.calledWith(UIEvent.PLAY_OVERLAY_CLICK)).to.be.true;
+      expect(callback.called).toBe(true);
+      expect(eventEmitterSpy.calledWith(UIEvent.PLAY_OVERLAY_CLICK)).toBe(true);
 
       overlay._engine.play.restore();
     });
@@ -106,7 +110,7 @@ describe('Overlay', () => {
       eventEmitter = testkit.getModule('eventEmitter');
     });
 
-    it('should react on video playback state changed on play', async function() {
+    test('should react on video playback state changed on play', async () => {
       const callback = sinon.spy(overlay, '_updatePlayingState');
       const hideSpy = sinon.spy(overlay, '_hideContent');
 
@@ -116,11 +120,11 @@ describe('Overlay', () => {
         nextState: EngineState.PLAY_REQUESTED,
       });
 
-      expect(callback.called).to.be.true;
-      expect(hideSpy.called).to.be.true;
+      expect(callback.called).toBe(true);
+      expect(hideSpy.called).toBe(true);
     });
 
-    it('should react on video playback state changed on end', async function() {
+    test('should react on video playback state changed on end', async () => {
       const callback = sinon.spy(overlay, '_updatePlayingState');
       const showSpy = sinon.spy(overlay, '_showContent');
       overlay._bindEvents();
@@ -129,8 +133,8 @@ describe('Overlay', () => {
         nextState: EngineState.ENDED,
       });
 
-      expect(callback.called).to.be.true;
-      expect(showSpy.called).to.be.true;
+      expect(callback.called).toBe(true);
+      expect(showSpy.called).toBe(true);
     });
   });
 });

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import * as sinon from 'sinon';
 import EventEmitter from '../../../../modules/event-emitter/event-emitter';
 
@@ -40,53 +39,57 @@ describe('NativeEventsBroadcaster', () => {
     eventEmitter.emitAsync.restore();
   });
 
-  it('should attach events to video tag on initialization', () => {
-    expect(video.addEventListener.args.length).to.be.equal(
+  test('should attach events to video tag on initialization', () => {
+    expect(video.addEventListener.args.length).toBe(
       NATIVE_VIDEO_TO_BROADCAST.length,
     );
     video.addEventListener.args.forEach((arg: any) => {
-      expect(NATIVE_VIDEO_TO_BROADCAST.indexOf(arg[0]) !== -1).to.be.true;
-      expect(arg[1] === broadcaster._processEventFromVideo).to.be.true;
+      expect(NATIVE_VIDEO_TO_BROADCAST.indexOf(arg[0]) !== -1).toBe(true);
+      expect(arg[1] === broadcaster._processEventFromVideo).toBe(true);
     });
   });
 
-  it('should detach events from video tag on destroy', () => {
+  test('should detach events from video tag on destroy', () => {
     broadcaster.destroy();
-    expect(video.removeEventListener.args.length).to.be.equal(
+    expect(video.removeEventListener.args.length).toBe(
       NATIVE_VIDEO_TO_BROADCAST.length,
     );
     video.removeEventListener.args.forEach((arg: any) => {
-      expect(NATIVE_VIDEO_TO_BROADCAST.indexOf(arg[0]) !== -1).to.be.true;
-      expect(arg[1] === broadcaster._processEventFromVideo).to.be.true;
+      expect(NATIVE_VIDEO_TO_BROADCAST.indexOf(arg[0]) !== -1).toBe(true);
+      expect(arg[1] === broadcaster._processEventFromVideo).toBe(true);
     });
   });
 
-  it('should broadcast progress event', () => {
+  test('should broadcast progress event', () => {
     broadcaster._processEventFromVideo(NATIVE_EVENTS.PROGRESS);
-    expect(eventEmitter.emitAsync.calledWith(VideoEvent.CHUNK_LOADED)).to.be
-      .true;
+    expect(eventEmitter.emitAsync.calledWith(VideoEvent.CHUNK_LOADED)).toBe(
+      true,
+    );
   });
 
-  it('should broadcast stalled event', () => {
+  test('should broadcast stalled event', () => {
     broadcaster._processEventFromVideo(NATIVE_EVENTS.STALLED);
-    expect(eventEmitter.emitAsync.calledWith(VideoEvent.UPLOAD_STALLED)).to.be
-      .true;
+    expect(eventEmitter.emitAsync.calledWith(VideoEvent.UPLOAD_STALLED)).toBe(
+      true,
+    );
   });
 
-  it('should broadcast suspend event', () => {
+  test('should broadcast suspend event', () => {
     broadcaster._processEventFromVideo(NATIVE_EVENTS.SUSPEND);
-    expect(eventEmitter.emitAsync.calledWith(VideoEvent.UPLOAD_SUSPEND)).to.be
-      .true;
+    expect(eventEmitter.emitAsync.calledWith(VideoEvent.UPLOAD_SUSPEND)).toBe(
+      true,
+    );
   });
 
-  it('should broadcast seeking event', () => {
+  test('should broadcast seeking event', () => {
     video.currentTime = 100;
     broadcaster._processEventFromVideo(NATIVE_EVENTS.SEEKING);
-    expect(eventEmitter.emitAsync.calledWith(VideoEvent.SEEK_IN_PROGRESS, 100))
-      .to.be.true;
+    expect(
+      eventEmitter.emitAsync.calledWith(VideoEvent.SEEK_IN_PROGRESS, 100),
+    ).toBe(true);
   });
 
-  it('should broadcast durationchange event', () => {
+  test('should broadcast durationchange event', () => {
     video.duration = 'Test duration';
     broadcaster._processEventFromVideo(NATIVE_EVENTS.DURATION_CHANGE);
     expect(
@@ -94,10 +97,10 @@ describe('NativeEventsBroadcaster', () => {
         VideoEvent.DURATION_UPDATED,
         video.duration,
       ),
-    ).to.be.true;
+    ).toBe(true);
   });
 
-  it('should broadcast timeupdate event', () => {
+  test('should broadcast timeupdate event', () => {
     video.currentTime = 'Test currentTime';
     broadcaster._processEventFromVideo(NATIVE_EVENTS.TIME_UPDATE);
     expect(
@@ -105,10 +108,10 @@ describe('NativeEventsBroadcaster', () => {
         VideoEvent.CURRENT_TIME_UPDATED,
         video.currentTime,
       ),
-    ).to.be.true;
+    ).toBe(true);
   });
 
-  it('should broadcast volume change event', () => {
+  test('should broadcast volume change event', () => {
     video.volume = 0.2;
     video.muted = true;
     broadcaster._processEventFromVideo(NATIVE_EVENTS.VOLUME_CHANGE);
@@ -117,22 +120,22 @@ describe('NativeEventsBroadcaster', () => {
         volume: video.volume,
         muted: video.muted,
       }),
-    ).to.be.true;
+    ).toBe(true);
 
     expect(
       eventEmitter.emitAsync.calledWith(
         VideoEvent.VOLUME_CHANGED,
         video.volume * 100,
       ),
-    ).to.be.true;
+    ).toBe(true);
 
     expect(
       eventEmitter.emitAsync.calledWith(VideoEvent.MUTE_CHANGED, video.muted),
-    ).to.be.true;
+    ).toBe(true);
   });
 
-  it('should do nothing if event is not in list', () => {
+  test('should do nothing if event is not in list', () => {
     broadcaster._processEventFromVideo();
-    expect(eventEmitter.emitAsync.called).to.be.false;
+    expect(eventEmitter.emitAsync.called).toBe(false);
   });
 });

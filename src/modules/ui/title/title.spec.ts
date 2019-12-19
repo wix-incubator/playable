@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../testkit';
@@ -19,39 +16,39 @@ describe('Title', () => {
   });
 
   describe('constructor', () => {
-    it('should create instance ', () => {
-      expect(title).to.exist;
-      expect(title.view).to.exist;
+    test('should create instance ', () => {
+      expect(title).toBeDefined();
+      expect(title.view).toBeDefined();
     });
   });
 
   describe('instance', () => {
-    it('should have method for showing title', () => {
+    test('should have method for showing title', () => {
       const viewShowSpy = sinon.spy(title.view, 'show');
       title.show();
 
-      expect(viewShowSpy.called).to.be.true;
-      expect(title.isHidden).to.be.false;
+      expect(viewShowSpy.called).toBe(true);
+      expect(title.isHidden).toBe(false);
 
       viewShowSpy.restore();
     });
 
-    it('should have method for hiding title', () => {
+    test('should have method for hiding title', () => {
       const viewHideSpy = sinon.spy(title.view, 'hide');
       title.hide();
 
-      expect(viewHideSpy.called).to.be.true;
-      expect(title.isHidden).to.be.true;
+      expect(viewHideSpy.called).toBe(true);
+      expect(title.isHidden).toBe(true);
 
       viewHideSpy.restore();
     });
 
-    it('should have method for getting view node', () => {
+    test('should have method for getting view node', () => {
       const getTitleViewNodeSpy = sinon.spy(title.view, 'getElement');
       const titleViewNode = title.getElement();
 
-      expect(getTitleViewNodeSpy.called).to.be.true;
-      expect(titleViewNode).to.equal(title.view.getElement());
+      expect(getTitleViewNodeSpy.called).toBe(true);
+      expect(titleViewNode).toBe(title.view.getElement());
 
       getTitleViewNodeSpy.restore();
     });
@@ -75,28 +72,28 @@ describe('Title', () => {
         titleViewHideSpy.restore();
       });
 
-      it('should exists', () => {
-        expect(title.setTitle).to.exist;
+      test('should exists', () => {
+        expect(title.setTitle).toBeDefined();
       });
 
-      it('should set NOT EMPTY title', () => {
+      test('should set NOT EMPTY title', () => {
         const TITLE_TEXT = 'TITLE';
 
         title.setTitle(TITLE_TEXT);
 
-        expect(titleViewSetTitleSpy.calledWith(TITLE_TEXT)).to.be.true;
+        expect(titleViewSetTitleSpy.calledWith(TITLE_TEXT)).toBe(true);
 
         //@ts-ignore
-        expect(title.view._$rootElement.innerHTML).to.equal(TITLE_TEXT);
-        expect(titleViewShowSpy.called).to.be.true;
+        expect(title.view._$rootElement.innerHTML).toBe(TITLE_TEXT);
+        expect(titleViewShowSpy.called).toBe(true);
       });
 
-      it('should set EMPTY title', () => {
+      test('should set EMPTY title', () => {
         title.setTitle('');
 
-        expect(titleViewSetTitleSpy.calledWith('')).to.be.true;
+        expect(titleViewSetTitleSpy.calledWith('')).toBe(true);
         // TODO: should html be cleared if setTitle called with empty value?
-        expect(titleViewHideSpy.called).to.be.true;
+        expect(titleViewHideSpy.called).toBe(true);
       });
     });
 
@@ -111,11 +108,11 @@ describe('Title', () => {
         setViewDisplayAsLinkSpy.restore();
       });
 
-      it('should exists', () => {
-        expect(title.setTitleClickCallback).to.exist;
+      test('should exists', () => {
+        expect(title.setTitleClickCallback).toBeDefined();
       });
 
-      it('should set NOT EMPTY callback', () => {
+      test('should set NOT EMPTY callback', () => {
         const clickCallback = sinon.spy();
 
         title.setTitleClickCallback(clickCallback);
@@ -123,11 +120,11 @@ describe('Title', () => {
         //@ts-ignore
         title.view._$rootElement.dispatchEvent(new Event('click'));
 
-        expect(setViewDisplayAsLinkSpy.calledWith(true)).to.be.true;
-        expect(clickCallback.called).to.be.true;
+        expect(setViewDisplayAsLinkSpy.calledWith(true)).toBe(true);
+        expect(clickCallback.called).toBe(true);
       });
 
-      it('should set EMPTY callback', () => {
+      test('should set EMPTY callback', () => {
         const clickCallback = sinon.spy();
 
         title.setTitleClickCallback(clickCallback);
@@ -140,8 +137,8 @@ describe('Title', () => {
         //@ts-ignore
         title.view._$rootElement.dispatchEvent(new Event('click'));
 
-        expect(setViewDisplayAsLinkSpy.lastCall.calledWith(false)).to.be.true;
-        expect(clickCallback.calledOnce).to.be.true;
+        expect(setViewDisplayAsLinkSpy.lastCall.calledWith(false)).toBe(true);
+        expect(clickCallback.calledOnce).toBe(true);
       });
     });
   });

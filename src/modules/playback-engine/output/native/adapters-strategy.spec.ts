@@ -1,7 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-
 import * as sinon from 'sinon';
 import EventEmitter from '../../../../modules/event-emitter/event-emitter';
 
@@ -25,12 +21,12 @@ describe('AdapterStrategy', () => {
     strategy = new AdapterStrategy(eventEmitter, video);
   });
 
-  it('should do nothing if src not passed', () => {
+  test('should do nothing if src not passed', () => {
     strategy.connectAdapter();
-    expect(strategy.attachedAdapter).to.be.null;
+    expect(strategy.attachedAdapter).toBeNull();
   });
 
-  it('should generate list of available stream creator in env on construction', () => {
+  test('should generate list of available stream creator in env on construction', () => {
     const availableStream = getNativeAdapterCreator(
       MediaStreamType.HLS,
       MediaStreamDeliveryPriority.NATIVE_ADAPTIVE,
@@ -46,13 +42,11 @@ describe('AdapterStrategy', () => {
       availableStream,
       unavailableStream,
     ]);
-    expect(newStrategy._availableAdapters.length).to.be.equal(1);
-    expect(newStrategy._availableAdapters[0].constructor).to.be.equal(
-      availableStream,
-    );
+    expect(newStrategy._availableAdapters.length).toBe(1);
+    expect(newStrategy._availableAdapters[0].constructor).toBe(availableStream);
   });
 
-  it('should choose proper media stream for proper format', () => {
+  test('should choose proper media stream for proper format', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
         MediaStreamType.HLS,
@@ -73,14 +67,10 @@ describe('AdapterStrategy', () => {
     );
 
     strategy.connectAdapter('http://www.dash.com/dash.mpd');
-    expect(strategy.attachedAdapter.mediaStreamType).to.be.equal(
-      MediaStreamType.DASH,
-    );
+    expect(strategy.attachedAdapter.mediaStreamType).toBe(MediaStreamType.DASH);
 
     strategy.connectAdapter('http://www.hls.com/hls.m3u8');
-    expect(strategy.attachedAdapter.mediaStreamType).to.be.equal(
-      MediaStreamType.HLS,
-    );
+    expect(strategy.attachedAdapter.mediaStreamType).toBe(MediaStreamType.HLS);
 
     strategy.connectAdapter({
       url: 'http://www.mp4.com/mp4.mp4',
@@ -88,7 +78,7 @@ describe('AdapterStrategy', () => {
     });
   });
 
-  it('should choose proper media stream based on priority', () => {
+  test('should choose proper media stream based on priority', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
         MediaStreamType.DASH,
@@ -105,7 +95,7 @@ describe('AdapterStrategy', () => {
     );
 
     strategy.connectAdapter('http://www.dash.com/dash.mpd');
-    expect(strategy.attachedAdapter.mediaStreamDeliveryPriority).to.be.equal(
+    expect(strategy.attachedAdapter.mediaStreamDeliveryPriority).toBe(
       MediaStreamDeliveryPriority.NATIVE_ADAPTIVE,
     );
 
@@ -125,12 +115,12 @@ describe('AdapterStrategy', () => {
     );
 
     strategy.connectAdapter('http://www.hls.com/hls.m3u8');
-    expect(strategy.attachedAdapter.mediaStreamDeliveryPriority).to.be.equal(
+    expect(strategy.attachedAdapter.mediaStreamDeliveryPriority).toBe(
       MediaStreamDeliveryPriority.NATIVE_ADAPTIVE,
     );
   });
 
-  it('should detach current stream on changing of stream and destroy', () => {
+  test('should detach current stream on changing of stream and destroy', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
         MediaStreamType.DASH,
@@ -147,10 +137,10 @@ describe('AdapterStrategy', () => {
     const attachedAdapter = strategy.attachedAdapter;
     sinon.spy(attachedAdapter, 'detach');
     strategy.connectAdapter('http://www.dash.com/dash2.mpd');
-    expect(attachedAdapter.detach.called).to.be.true;
+    expect(attachedAdapter.detach.called).toBe(true);
   });
 
-  it('should detach current stream on destroy', () => {
+  test('should detach current stream on destroy', () => {
     playbackAdapters = [
       getNativeAdapterCreator(
         MediaStreamType.DASH,
@@ -168,6 +158,6 @@ describe('AdapterStrategy', () => {
     const attachedAdapter = strategy.attachedAdapter;
     sinon.spy(attachedAdapter, 'detach');
     strategy.destroy();
-    expect(attachedAdapter.detach.called).to.be.true;
+    expect(attachedAdapter.detach.called).toBe(true);
   });
 });

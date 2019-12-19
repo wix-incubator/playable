@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import * as sinon from 'sinon';
 
 import { VideoEvent, UIEvent, EngineState, LiveState } from '../../constants';
@@ -24,21 +22,20 @@ describe('LiveStateEngine', () => {
     eventEmitter.emitAsync.restore();
   });
 
-  it('should reset state on `STATES.SRC_SET`', async function() {
+  test('should reset state on `STATES.SRC_SET`', async () => {
     const prevState = LiveState.NOT_SYNC;
 
     liveStateEngine._setState(prevState);
 
-    expect(
-      liveStateEngine.state,
-      'not `LiveState.NONE` before `SRC_SET`',
-    ).to.not.equal(LiveState.NONE);
+    // 'not `LiveState.NONE` before `SRC_SET`'
+    expect(liveStateEngine.state).not.toBe(LiveState.NONE);
 
     await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
       nextState: EngineState.SRC_SET,
     });
 
-    expect(liveStateEngine.state).to.equal(LiveState.NONE);
+    expect(liveStateEngine.state).toBe(LiveState.NONE);
+    // 'new live state emitted'
     expect(
       eventEmitter.emitAsync.lastCall.calledWith(
         VideoEvent.LIVE_STATE_CHANGED,
@@ -47,8 +44,7 @@ describe('LiveStateEngine', () => {
           nextState: LiveState.NONE,
         },
       ),
-      'new live state emitted',
-    ).to.equal(true);
+    ).toBe(true);
   });
 
   describe('with dynamic content', () => {
@@ -60,21 +56,20 @@ describe('LiveStateEngine', () => {
       resetProperty(engine, 'isDynamicContent');
     });
 
-    it('should set `INITIAL` state on `METADATA_LOADED`', async function() {
+    test('should set `INITIAL` state on `METADATA_LOADED`', async () => {
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SRC_SET,
       });
 
-      expect(
-        liveStateEngine.state,
-        '`LiveState.NONE` before `METADATA_LOADED`',
-      ).to.equal(LiveState.NONE);
+      // '`LiveState.NONE` before `METADATA_LOADED`'
+      expect(liveStateEngine.state).toBe(LiveState.NONE);
 
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.METADATA_LOADED,
       });
 
-      expect(liveStateEngine.state).to.equal(LiveState.INITIAL);
+      expect(liveStateEngine.state).toBe(LiveState.INITIAL);
+      // 'new live state emitted'
       expect(
         eventEmitter.emitAsync.lastCall.calledWith(
           VideoEvent.LIVE_STATE_CHANGED,
@@ -83,12 +78,11 @@ describe('LiveStateEngine', () => {
             nextState: LiveState.INITIAL,
           },
         ),
-        'new live state emitted',
-      ).to.equal(true);
+      ).toBe(true);
     });
 
     describe('after `INITIAL`', () => {
-      beforeEach(async function() {
+      beforeEach(async () => {
         await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.SRC_SET,
         });
@@ -97,27 +91,28 @@ describe('LiveStateEngine', () => {
         });
       });
 
-      it('should sync to live on `PLAY_REQUESTED`', async function() {
+      test('should sync to live on `PLAY_REQUESTED`', async () => {
         const syncWithLiveSpy = sinon.stub(engine, 'syncWithLive');
 
         await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.PLAY_REQUESTED,
         });
 
-        expect(syncWithLiveSpy.called).to.equal(true);
+        expect(syncWithLiveSpy.called).toBe(true);
 
         syncWithLiveSpy.restore();
       });
 
       describe('on `PLAYING`', () => {
-        it('should set `SYNC` if `isSyncWithLive`', async function() {
+        test('should set `SYNC` if `isSyncWithLive`', async () => {
           setProperty(engine, 'isSyncWithLive', true);
 
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.PLAYING,
           });
 
-          expect(liveStateEngine.state).to.equal(LiveState.SYNC);
+          expect(liveStateEngine.state).toBe(LiveState.SYNC);
+          // 'new live state emitted'
           expect(
             eventEmitter.emitAsync.lastCall.calledWith(
               VideoEvent.LIVE_STATE_CHANGED,
@@ -126,20 +121,20 @@ describe('LiveStateEngine', () => {
                 nextState: LiveState.SYNC,
               },
             ),
-            'new live state emitted',
-          ).to.equal(true);
+          ).toBe(true);
 
           resetProperty(engine, 'isSyncWithLive');
         });
 
-        it('should set `NOT_SYNC` if not `isSyncWithLive`', async function() {
+        test('should set `NOT_SYNC` if not `isSyncWithLive`', async () => {
           setProperty(engine, 'isSyncWithLive', false);
 
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.PLAYING,
           });
 
-          expect(liveStateEngine.state).to.equal(LiveState.NOT_SYNC);
+          expect(liveStateEngine.state).toBe(LiveState.NOT_SYNC);
+          // 'new live state emitted'
           expect(
             eventEmitter.emitAsync.lastCall.calledWith(
               VideoEvent.LIVE_STATE_CHANGED,
@@ -148,27 +143,27 @@ describe('LiveStateEngine', () => {
                 nextState: LiveState.NOT_SYNC,
               },
             ),
-            'new live state emitted',
-          ).to.equal(true);
+          ).toBe(true);
 
           resetProperty(engine, 'isSyncWithLive');
         });
       });
     });
 
-    describe('after `NOT_SYNC` on `PLAYING`', async function() {
+    describe('after `NOT_SYNC` on `PLAYING`', () => {
       beforeEach(() => {
         liveStateEngine._setState(LiveState.NOT_SYNC);
       });
 
-      it('should set `SYNC` if `isSyncWithLive`', async function() {
+      test('should set `SYNC` if `isSyncWithLive`', async () => {
         setProperty(engine, 'isSyncWithLive', true);
 
         await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.PLAYING,
         });
 
-        expect(liveStateEngine.state).to.equal(LiveState.SYNC);
+        expect(liveStateEngine.state).toBe(LiveState.SYNC);
+        // 'new live state emitted'
         expect(
           eventEmitter.emitAsync.lastCall.calledWith(
             VideoEvent.LIVE_STATE_CHANGED,
@@ -177,13 +172,12 @@ describe('LiveStateEngine', () => {
               nextState: LiveState.SYNC,
             },
           ),
-          'new live state emitted',
-        ).to.equal(true);
+        ).toBe(true);
 
         resetProperty(engine, 'isSyncWithLive');
       });
 
-      it('should ignore if not `isSyncWithLive`', async function() {
+      test('should ignore if not `isSyncWithLive`', async () => {
         setProperty(engine, 'isSyncWithLive', false);
 
         // reset spy state before test
@@ -192,16 +186,16 @@ describe('LiveStateEngine', () => {
           nextState: EngineState.PLAYING,
         });
 
-        expect(liveStateEngine.state).to.equal(LiveState.NOT_SYNC);
+        expect(liveStateEngine.state).toBe(LiveState.NOT_SYNC);
         // NOTE: ensure emit is not called with new `LiveState`
-        expect(eventEmitter.emitAsync.callCount).to.equal(1);
+        expect(eventEmitter.emitAsync.callCount).toBe(1);
 
         resetProperty(engine, 'isSyncWithLive');
       });
     });
 
     describe('on `PLAYING` after seek', () => {
-      beforeEach(async function() {
+      beforeEach(async () => {
         engine._output._stateEngine.setState(EngineState.PLAYING);
         liveStateEngine._setState(LiveState.SYNC);
 
@@ -209,7 +203,7 @@ describe('LiveStateEngine', () => {
         await eventEmitter.emitAsync(UIEvent.PROGRESS_CHANGE);
       });
 
-      it('should ignore if `isSyncWithLive`', async function() {
+      test('should ignore if `isSyncWithLive`', async () => {
         setProperty(engine, 'isSyncWithLive', true);
 
         // reset spy state before test
@@ -218,21 +212,22 @@ describe('LiveStateEngine', () => {
           nextState: EngineState.PLAYING,
         });
 
-        expect(liveStateEngine.state).to.equal(LiveState.SYNC);
+        expect(liveStateEngine.state).toBe(LiveState.SYNC);
         // NOTE: ensure emit is not called with new `LiveState`
-        expect(eventEmitter.emitAsync.callCount).to.equal(1);
+        expect(eventEmitter.emitAsync.callCount).toBe(1);
 
         resetProperty(engine, 'isSyncWithLive');
       });
 
-      it('should set `NOT_SYNC` if not `isSyncWithLive`', async function() {
+      test('should set `NOT_SYNC` if not `isSyncWithLive`', async () => {
         setProperty(engine, 'isSyncWithLive', false);
 
         await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.PLAYING,
         });
 
-        expect(liveStateEngine.state).to.equal(LiveState.NOT_SYNC);
+        expect(liveStateEngine.state).toBe(LiveState.NOT_SYNC);
+        // 'new live state emitted'
         expect(
           eventEmitter.emitAsync.lastCall.calledWith(
             VideoEvent.LIVE_STATE_CHANGED,
@@ -241,14 +236,13 @@ describe('LiveStateEngine', () => {
               nextState: LiveState.NOT_SYNC,
             },
           ),
-          'new live state emitted',
-        ).to.equal(true);
+        ).toBe(true);
 
         resetProperty(engine, 'isSyncWithLive');
       });
     });
 
-    it('should set `NOT_SYNC` on `PAUSE` by UI', async function() {
+    test('should set `NOT_SYNC` on `PAUSE` by UI', async () => {
       liveStateEngine._setState(LiveState.SYNC);
 
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
@@ -256,7 +250,8 @@ describe('LiveStateEngine', () => {
         nextState: EngineState.PAUSED,
       });
 
-      expect(liveStateEngine.state).to.equal(LiveState.NOT_SYNC);
+      expect(liveStateEngine.state).toBe(LiveState.NOT_SYNC);
+      // 'new live state emitted'
       expect(
         eventEmitter.emitAsync.lastCall.calledWith(
           VideoEvent.LIVE_STATE_CHANGED,
@@ -265,16 +260,16 @@ describe('LiveStateEngine', () => {
             nextState: LiveState.NOT_SYNC,
           },
         ),
-        'new live state emitted',
-      ).to.equal(true);
+      ).toBe(true);
     });
 
-    it('should set `ENDED` on stream ended', async function() {
+    test('should set `ENDED` on stream ended', async () => {
       liveStateEngine._setState(LiveState.SYNC);
 
       await eventEmitter.emitAsync(VideoEvent.DYNAMIC_CONTENT_ENDED);
 
-      expect(liveStateEngine.state).to.equal(LiveState.ENDED);
+      expect(liveStateEngine.state).toBe(LiveState.ENDED);
+      // 'new live state emitted'
       expect(
         eventEmitter.emitAsync.lastCall.calledWith(
           VideoEvent.LIVE_STATE_CHANGED,
@@ -283,22 +278,19 @@ describe('LiveStateEngine', () => {
             nextState: LiveState.ENDED,
           },
         ),
-        'new live state emitted',
-      ).to.equal(true);
+      ).toBe(true);
     });
   });
 
-  it('should ignore events if not `isDynamicContent`', async function() {
+  test('should ignore events if not `isDynamicContent`', async () => {
     setProperty(engine, 'isDynamicContent', false);
 
     await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
       nextState: EngineState.SRC_SET,
     });
 
-    expect(
-      liveStateEngine.state,
-      '`LiveState.NONE` before `METADATA_LOADED`',
-    ).to.equal(LiveState.NONE);
+    // '`LiveState.NONE` before `METADATA_LOADED`'
+    expect(liveStateEngine.state).toBe(LiveState.NONE);
 
     // reset spy state before test
     eventEmitter.emitAsync.resetHistory();
@@ -306,9 +298,9 @@ describe('LiveStateEngine', () => {
       nextState: EngineState.METADATA_LOADED,
     });
 
-    expect(liveStateEngine.state).to.equal(LiveState.NONE);
+    expect(liveStateEngine.state).toBe(LiveState.NONE);
     // NOTE: ensure emit is not called with new `LiveState`
-    expect(eventEmitter.emitAsync.callCount).to.equal(1);
+    expect(eventEmitter.emitAsync.callCount).toBe(1);
 
     resetProperty(engine, 'isDynamicContent');
   });

@@ -1,9 +1,7 @@
-import 'jsdom-global';
-import { expect } from 'chai';
 import { getStreamType } from './detect-stream-type';
 import { MediaStreamType } from '../../../constants';
 
-describe('Stream type auto detection', function() {
+describe('Stream type auto detection', () => {
   const testURL = 'http://mocked-domain.com/some/internalPath/';
   const formatsToTest = [
     { type: MediaStreamType.MP4, fileName: 'video.mp4' },
@@ -13,10 +11,10 @@ describe('Stream type auto detection', function() {
   ];
 
   formatsToTest.forEach(formatToTest => {
-    it(`should detect ${formatToTest.type} URLs`, function() {
+    test(`should detect ${formatToTest.type} URLs`, () => {
       const URL = testURL + formatToTest.fileName;
 
-      expect(getStreamType(URL)).to.equal(formatToTest.type);
+      expect(getStreamType(URL)).toBe(formatToTest.type);
     });
   });
 
@@ -25,22 +23,22 @@ describe('Stream type auto detection', function() {
     const queryParam = '?data=true';
     const fragment = '#sectionOnPage';
 
-    it('should detect type even if it has query params', () => {
-      expect(getStreamType(mp4URL + queryParam)).to.equal(MediaStreamType.MP4);
+    test('should detect type even if it has query params', () => {
+      expect(getStreamType(mp4URL + queryParam)).toBe(MediaStreamType.MP4);
     });
 
-    it('should detect type even if it has fragments', () => {
-      expect(getStreamType(mp4URL + fragment)).to.equal(MediaStreamType.MP4);
+    test('should detect type even if it has fragments', () => {
+      expect(getStreamType(mp4URL + fragment)).toBe(MediaStreamType.MP4);
     });
 
-    it('should detect type even if it has fragments and params', () => {
-      expect(getStreamType(mp4URL + queryParam + fragment)).to.equal(
+    test('should detect type even if it has fragments and params', () => {
+      expect(getStreamType(mp4URL + queryParam + fragment)).toBe(
         MediaStreamType.MP4,
       );
     });
   });
 
-  it("should throw error if can't parse url", () => {
-    expect(getStreamType('test.url')).to.equal(false);
+  test("should throw error if can't parse url", () => {
+    expect(getStreamType('test.url')).toBe(false);
   });
 });

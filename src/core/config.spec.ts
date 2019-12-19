@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-
 import convertToDeviceRelatedConfig from './config';
 
 import { setProperty, resetProperty } from '../testkit';
@@ -11,7 +8,7 @@ describe('getUIConfig function', () => {
     resetProperty(navigator, 'userAgent');
   });
 
-  it('should convert config if iPod', () => {
+  test('should convert config if iPod', () => {
     const params = {};
 
     const expectedConfig = {
@@ -23,12 +20,10 @@ describe('getUIConfig function', () => {
 
     setProperty(navigator, 'userAgent', 'iPod');
 
-    expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
-      expectedConfig,
-    );
+    expect(convertToDeviceRelatedConfig(params)).toEqual(expectedConfig);
   });
 
-  it('should convert config if iPhone', () => {
+  test('should convert config if iPhone', () => {
     const params = {};
 
     const expectedConfig = {
@@ -39,12 +34,10 @@ describe('getUIConfig function', () => {
     };
     setProperty(navigator, 'userAgent', 'iPhone');
 
-    expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
-      expectedConfig,
-    );
+    expect(convertToDeviceRelatedConfig(params)).toEqual(expectedConfig);
   });
 
-  it('should convert config if iPad', () => {
+  test('should convert config if iPad', () => {
     const params = {};
 
     const expectedConfig = {
@@ -56,19 +49,17 @@ describe('getUIConfig function', () => {
 
     setProperty(navigator, 'userAgent', 'iPad');
 
-    expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
-      expectedConfig,
-    );
+    expect(convertToDeviceRelatedConfig(params)).toEqual(expectedConfig);
   });
 
-  it('should convert config if Android', () => {
+  test('should convert config if Android', () => {
     setProperty(navigator, 'userAgent', 'Android');
 
     const params = {
       width: 100,
     };
 
-    expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal({
+    expect(convertToDeviceRelatedConfig(params)).toEqual({
       width: 100,
       disableControlWithClickOnPlayer: true,
       disableControlWithKeyboard: true,

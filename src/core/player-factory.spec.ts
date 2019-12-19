@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import {
@@ -10,7 +7,7 @@ import {
 } from './player-factory';
 
 describe('registerModule', () => {
-  it('should add additional module', () => {
+  test('should add additional module', () => {
     const spy = sinon.spy();
 
     class ClassA {
@@ -22,7 +19,7 @@ describe('registerModule', () => {
     registerModule('ClassA', ClassA);
 
     /*const player = */ create();
-    expect(spy.called).to.be.true;
+    expect(spy.called).toBe(true);
     clearAdditionalModules();
   });
 });
@@ -35,21 +32,21 @@ describe('Player', () => {
   });
 
   describe('constructor', () => {
-    it('should create instance ', () => {
-      expect(player).to.exist;
-      expect(player._defaultModules.engine).to.exist;
-      expect(player.getElement()).to.exist;
-      expect(player._defaultModules.eventEmitter).to.exist;
+    test('should create instance ', () => {
+      expect(player).toBeDefined();
+      expect(player._defaultModules.engine).toBeDefined();
+      expect(player.getElement()).toBeDefined();
+      expect(player._defaultModules.eventEmitter).toBeDefined();
     });
 
-    it('should create separate instances', () => {
+    test('should create separate instances', () => {
       const player2: any = create();
 
-      expect(player._defaultModules.engine).to.not.be.equal(
+      expect(player._defaultModules.engine).not.toBe(
         player2._defaultModules.engine,
       );
-      expect(player.getElement()).to.not.be.equal(player2.getElement());
-      expect(player._defaultModules.eventEmitter).to.not.be.equal(
+      expect(player.getElement()).not.toBe(player2.getElement());
+      expect(player._defaultModules.eventEmitter).not.toBe(
         player2._defaultModules.eventEmitter,
       );
     });

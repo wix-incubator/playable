@@ -1,5 +1,4 @@
 import Chance from 'chance';
-import { expect } from 'chai';
 
 import Stylable from './stylable';
 
@@ -16,19 +15,19 @@ describe('Stylable', () => {
     Stylable.resetStyles();
   });
 
-  it('instance should have method for getting styles', () => {
-    expect(stylable.styleNames).to.be.deep.equal({});
+  test('instance should have method for getting styles', () => {
+    expect(stylable.styleNames).toEqual({});
   });
 
-  it('should have method for extending styles', () => {
+  test('should have method for extending styles', () => {
     const styleNames = {
       name: 'value',
     };
     Stylable.extendStyleNames(styleNames);
-    expect(stylable.styleNames).to.be.deep.equal(styleNames);
+    expect(stylable.styleNames).toEqual(styleNames);
   });
 
-  it('method for extending styles should merge styleNames for same style', () => {
+  test('method for extending styles should merge styleNames for same style', () => {
     const styleNames1 = {
       name: chance.word(),
     };
@@ -40,9 +39,8 @@ describe('Stylable', () => {
     Stylable.extendStyleNames(styleNames2);
     Stylable.extendStyleNames(styleNames1);
 
-    expect(stylable.styleNames.name.split(' ')).to.include.members([
-      styleNames1.name,
-      styleNames2.name,
-    ]);
+    expect(stylable.styleNames.name.split(' ')).toEqual(
+      expect.arrayContaining([styleNames1.name, styleNames2.name]),
+    );
   });
 });

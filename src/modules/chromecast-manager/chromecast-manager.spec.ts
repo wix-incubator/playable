@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../testkit';
@@ -55,12 +52,12 @@ describe('ChromecastManager', () => {
   });
 
   describe('Initalized ', () => {
-    it('only if casting API is available', () => {
+    test('only if casting API is available', () => {
       const context = castApi.framework.CastContext.getInstance();
       const stab = sinon.stub(context, 'setOptions');
 
       chromecastManager._initCastContext(false);
-      expect(stab.called).to.equal(false);
+      expect(stab.called).toBe(false);
 
       stab.reset();
       WindowCastAPIMock.init();
@@ -68,9 +65,9 @@ describe('ChromecastManager', () => {
   });
 
   describe('After init', () => {
-    it('adds sсript for chromecast API', done => {
+    test('adds sсript for chromecast API', done => {
       eventEmitter.on(ChromecastEvents.CHROMECAST_INITED, () => {
-        expect(document.scripts[0].src).to.equal(
+        expect(document.scripts[0].src).toBe(
           'https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1',
         );
 
@@ -80,9 +77,9 @@ describe('ChromecastManager', () => {
       WindowCastAPIMock.init();
     });
 
-    it('sets static _chromecastInited field to true', done => {
+    test('sets static _chromecastInited field to true', done => {
       eventEmitter.on(ChromecastEvents.CHROMECAST_INITED, () => {
-        expect(ChromecastManager._chromecastInited).to.equal(true);
+        expect(ChromecastManager._chromecastInited).toBe(true);
 
         done();
       });
@@ -97,9 +94,9 @@ describe('ChromecastManager', () => {
         sessionState: SessionState.SESSION_STARTED,
       };
 
-      it('changes output to chromecast', done => {
+      test('changes output to chromecast', done => {
         eventEmitter.on(ChromecastEvents.CHROMECAST_CASTS_STARTED, () => {
-          expect(engine._output.getDebugInfo().output).equal('chromecast');
+          expect(engine._output.getDebugInfo().output).toBe('chromecast');
           done();
         });
 
@@ -108,11 +105,11 @@ describe('ChromecastManager', () => {
         castApi.framework.trigger(eventType.SESSION_STATE_CHANGED, event);
       });
 
-      it('gets starting time from video tag', done => {
+      test('gets starting time from video tag', done => {
         video.currentTime = 200;
 
         eventEmitter.on(ChromecastEvents.CHROMECAST_CASTS_STARTED, () => {
-          expect(engine._output.currentTime).equal(200);
+          expect(engine._output.currentTime).toBe(200);
           video.currentTime = 0;
           done();
         });
@@ -127,9 +124,9 @@ describe('ChromecastManager', () => {
         sessionState: SessionState.SESSION_RESUMED,
       };
 
-      it('changes output to chromecast', done => {
+      test('changes output to chromecast', done => {
         eventEmitter.on(ChromecastEvents.CHROMECAST_CASTS_RESUMED, () => {
-          expect(engine._output.getDebugInfo().output).equal('chromecast');
+          expect(engine._output.getDebugInfo().output).toBe('chromecast');
           done();
         });
 
@@ -138,11 +135,11 @@ describe('ChromecastManager', () => {
         castApi.framework.trigger(eventType.SESSION_STATE_CHANGED, event);
       });
 
-      it('gets starting time from chromecast session', done => {
+      test('gets starting time from chromecast session', done => {
         castApi.framework.context._estimatedTime = 500;
 
         eventEmitter.on(ChromecastEvents.CHROMECAST_CASTS_RESUMED, () => {
-          expect(engine._output.currentTime).equal(500);
+          expect(engine._output.currentTime).toBe(500);
           video.currentTime = 0;
           done();
         });
@@ -161,9 +158,9 @@ describe('ChromecastManager', () => {
         sessionState: SessionState.SESSION_STARTED,
       };
 
-      it('changes output to native', done => {
+      test('changes output to native', done => {
         eventEmitter.on(ChromecastEvents.CHROMECAST_CASTS_STOPED, () => {
-          expect(engine._output.getDebugInfo().output).equal('html5video');
+          expect(engine._output.getDebugInfo().output).toBe('html5video');
           done();
         });
 
@@ -175,11 +172,11 @@ describe('ChromecastManager', () => {
         castApi.framework.trigger(eventType.SESSION_STATE_CHANGED, startEvent);
       });
 
-      it('gets starting time from chromecast output', done => {
+      test('gets starting time from chromecast output', done => {
         let player: any;
 
         eventEmitter.on(ChromecastEvents.CHROMECAST_CASTS_STOPED, () => {
-          expect(engine._output.currentTime).equal(1000);
+          expect(engine._output.currentTime).toBe(1000);
           player.currentTime = 0;
           done();
         });

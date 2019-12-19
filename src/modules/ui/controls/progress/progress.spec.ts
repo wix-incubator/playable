@@ -1,5 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import createPlayerTestkit from '../../../../testkit';
@@ -24,30 +22,30 @@ describe('ProgressControl', () => {
   });
 
   describe('constructor', () => {
-    it('should create instance ', () => {
-      expect(control).to.exist;
-      expect(control.view).to.exist;
+    test('should create instance ', () => {
+      expect(control).toBeDefined();
+      expect(control.view).toBeDefined();
     });
   });
 
   describe('API', () => {
-    it('should have method for showing whole view', () => {
-      expect(control.show).to.exist;
+    test('should have method for showing whole view', () => {
+      expect(control.show).toBeDefined();
       control.show();
-      expect(control.isHidden).to.be.false;
+      expect(control.isHidden).toBe(false);
     });
 
-    it('should have method for hiding whole view', () => {
-      expect(control.hide).to.exist;
+    test('should have method for hiding whole view', () => {
+      expect(control.hide).toBeDefined();
       control.hide();
-      expect(control.isHidden).to.be.true;
+      expect(control.isHidden).toBe(true);
     });
 
-    it('should have method for destroying', () => {
+    test('should have method for destroying', () => {
       const spy = sinon.spy(control, '_unbindEvents');
-      expect(control.destroy).to.exist;
+      expect(control.destroy).toBeDefined();
       control.destroy();
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
 
     describe('for time indicators', () => {
@@ -65,10 +63,13 @@ describe('ProgressControl', () => {
         engineGetDurationTimeStub.restore();
       });
 
-      it('should have methods for adding/deleting indicators', () => {
-        expect(control.addTimeIndicator, 'addTimeIndicator').to.exist;
-        expect(control.addTimeIndicators, 'addTimeIndicators').to.exist;
-        expect(control.clearTimeIndicators, 'clearTimeIndicators').to.exist;
+      test('should have methods for adding/deleting indicators', () => {
+        // 'addTimeIndicator'
+        expect(control.addTimeIndicator).toBeDefined();
+        // 'addTimeIndicators'
+        expect(control.addTimeIndicators).toBeDefined();
+        // 'clearTimeIndicators'
+        expect(control.clearTimeIndicators).toBeDefined();
       });
 
       describe('before `METADATA_LOADED`', () => {
@@ -76,52 +77,40 @@ describe('ProgressControl', () => {
           control.clearTimeIndicators();
         });
 
-        it('should add one indicator', async function() {
+        test('should add one indicator', async () => {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
           control.addTimeIndicator(100);
 
-          expect(
-            control._engine.isMetadataLoaded,
-            '`isMetadataLoaded` before add',
-          ).to.equal(false);
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicator added before `METADATA_LOADED`',
-          ).to.equal(0);
+          // '`isMetadataLoaded` before add'
+          expect(control._engine.isMetadataLoaded).toBe(false);
+          // 'indicator added before `METADATA_LOADED`'
+          expect(timeIndicatorsNode.childNodes.length).toBe(0);
 
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.METADATA_LOADED,
           });
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicator added after `METADATA_LOADED`',
-          ).to.equal(1);
+          // 'indicator added after `METADATA_LOADED`'
+          expect(timeIndicatorsNode.childNodes.length).toBe(1);
         });
 
-        it('should add multiple indicators', async function() {
+        test('should add multiple indicators', async () => {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
           control.addTimeIndicators([100, 200, 300]);
 
-          expect(
-            control._engine.isMetadataLoaded,
-            '`isMetadataLoaded` before add',
-          ).to.equal(false);
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicator added before `METADATA_LOADED`',
-          ).to.equal(0);
+          // '`isMetadataLoaded` before add'
+          expect(control._engine.isMetadataLoaded).toBe(false);
+          // 'indicator added before `METADATA_LOADED`'
+          expect(timeIndicatorsNode.childNodes.length).toBe(0);
 
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.METADATA_LOADED,
           });
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicators added after `METADATA_LOADED`',
-          ).to.equal(3);
+          // 'indicators added after `METADATA_LOADED`'
+          expect(timeIndicatorsNode.childNodes.length).toBe(3);
         });
       });
 
@@ -141,126 +130,110 @@ describe('ProgressControl', () => {
           Reflect.deleteProperty(engine, 'isMetadataLoaded');
         });
 
-        it('should add one indicator', () => {
+        test('should add one indicator', () => {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'empty before add',
-          ).to.equal(0);
+          // 'empty before add'
+          expect(timeIndicatorsNode.childNodes.length).toBe(0);
 
           control.addTimeIndicator(100);
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicators added',
-          ).to.equal(1);
+          // 'indicators added'
+          expect(timeIndicatorsNode.childNodes.length).toBe(1);
         });
 
-        it('should add multiple indicator', () => {
+        test('should add multiple indicator', () => {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'empty before add',
-          ).to.equal(0);
+          // 'empty before add'
+          expect(timeIndicatorsNode.childNodes.length).toBe(0);
 
           control.addTimeIndicators([100, 200, 300]);
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicators added',
-          ).to.equal(3);
+          // 'indicators added'
+          expect(timeIndicatorsNode.childNodes.length).toBe(3);
         });
 
-        it('should ignore time more then video duration time', () => {
+        test('should ignore time more then video duration time', () => {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'empty before add',
-          ).to.equal(0);
+          // 'empty before add'
+          expect(timeIndicatorsNode.childNodes.length).toBe(0);
 
           control.addTimeIndicator(VIDEO_DURATION_TIME + 1);
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicators added',
-          ).to.equal(0);
+          // 'indicators added'
+          expect(timeIndicatorsNode.childNodes.length).toBe(0);
         });
 
-        it('should delete all added indicators', () => {
+        test('should delete all added indicators', () => {
           const timeIndicatorsNode = control.view._$timeIndicators;
 
           control.addTimeIndicators([100, 200, 300]);
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicators added',
-          ).to.equal(3);
+          // 'indicators added'
+          expect(timeIndicatorsNode.childNodes.length).toBe(3);
 
           control.clearTimeIndicators();
 
-          expect(
-            timeIndicatorsNode.childNodes.length,
-            'indicators after clear',
-          ).to.equal(0);
+          // 'indicators after clear'
+          expect(timeIndicatorsNode.childNodes.length).toBe(0);
         });
       });
     });
   });
 
   describe('video events listeners', () => {
-    it('should call callback on playback state change', async function() {
+    test('should call callback on playback state change', async () => {
       const spy = sinon.spy(control, '_processStateChange');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {});
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
 
-    it('should call callback on seek', async function() {
+    test('should call callback on seek', async () => {
       const spyPlayed = sinon.spy(control, '_updatePlayedIndicator');
       const spyBuffered = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,
       });
-      expect(spyPlayed.called).to.be.true;
-      expect(spyBuffered.called).to.be.true;
+      expect(spyPlayed.called).toBe(true);
+      expect(spyBuffered.called).toBe(true);
     });
 
-    it('should call callback on duration update', async function() {
+    test('should call callback on duration update', async () => {
       const spy = sinon.spy(control, '_updateBufferIndicator');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.CHUNK_LOADED);
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
   });
 
   describe('internal methods', () => {
-    it('should toggle playback on manipulation change', () => {
+    test('should toggle playback on manipulation change', () => {
       const startSpy = sinon.spy(control, '_pauseVideoOnDragStart');
       const stopSpy = sinon.spy(control, '_playVideoOnDragEnd');
       control._startProcessingUserDrag();
-      expect(startSpy.called).to.be.true;
+      expect(startSpy.called).toBe(true);
       control._stopProcessingUserDrag();
-      expect(stopSpy.called).to.be.true;
+      expect(stopSpy.called).toBe(true);
 
       startSpy.restore();
       stopSpy.restore();
     });
 
-    it('should toggle interval updates', () => {
+    test('should toggle interval updates', () => {
       const startSpy = sinon.spy(control, '_startIntervalUpdates');
       control._processStateChange({ nextState: EngineState.PLAYING });
-      expect(startSpy.called).to.be.true;
+      expect(startSpy.called).toBe(true);
 
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._processStateChange({ nextState: EngineState.PAUSED });
-      expect(stopSpy.called).to.be.true;
+      expect(stopSpy.called).toBe(true);
     });
 
-    it('should start interval updates', () => {
+    test('should start interval updates', () => {
       const spy = sinon.spy(window, 'setInterval');
       const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
@@ -269,35 +242,35 @@ describe('ProgressControl', () => {
           control._updateAllIndicators,
           UPDATE_PROGRESS_INTERVAL_DELAY,
         ),
-      ).to.be.true;
-      expect(stopSpy.called).to.be.false;
+      ).toBe(true);
+      expect(stopSpy.called).toBe(false);
       control._startIntervalUpdates();
-      expect(stopSpy.called).to.be.true;
+      expect(stopSpy.called).toBe(true);
 
       spy.restore();
     });
 
-    it('should change current time of video', () => {
+    test('should change current time of video', () => {
       const spy = sinon.stub(engine, 'seekTo');
       control._onChangePlayedPercent(10);
-      expect(spy.called).to.be.true;
+      expect(spy.called).toBe(true);
     });
 
-    it('should update view', () => {
+    test('should update view', () => {
       const playedSpy = sinon.spy(control, '_setPlayed');
       const bufferSpy = sinon.spy(control, '_setBuffered');
       control._updatePlayedIndicator();
-      expect(playedSpy.called).to.be.true;
+      expect(playedSpy.called).toBe(true);
       control._updateBufferIndicator();
-      expect(bufferSpy.called).to.be.true;
+      expect(bufferSpy.called).toBe(true);
     });
 
-    it('should trigger update of both played and buffered', () => {
+    test('should trigger update of both played and buffered', () => {
       const playedSpy = sinon.spy(control, '_updatePlayedIndicator');
       const bufferSpy = sinon.spy(control, '_updateBufferIndicator');
       control._updateAllIndicators();
-      expect(playedSpy.called).to.be.true;
-      expect(bufferSpy.called).to.be.true;
+      expect(playedSpy.called).toBe(true);
+      expect(bufferSpy.called).toBe(true);
     });
   });
 });

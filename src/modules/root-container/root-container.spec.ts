@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import EventEmitter from '../event-emitter/event-emitter';
@@ -26,9 +23,9 @@ describe('RootContainer', () => {
   });
 
   describe('constructor', () => {
-    it('should create instance ', () => {
-      expect(ui).to.exist;
-      expect(ui.view).to.exist;
+    test('should create instance ', () => {
+      expect(ui).toBeDefined();
+      expect(ui.view).toBeDefined();
     });
   });
 
@@ -40,34 +37,34 @@ describe('RootContainer', () => {
       });
     });
 
-    it('should have method for setting width', () => {
-      expect(ui.setWidth).to.exist;
+    test('should have method for setting width', () => {
+      expect(ui.setWidth).toBeDefined();
     });
 
-    it('should have method for setting height', () => {
-      expect(ui.setHeight).to.exist;
+    test('should have method for setting height', () => {
+      expect(ui.setHeight).toBeDefined();
     });
 
-    it('should have method for setting setFillAllSpace', () => {
+    test('should have method for setting setFillAllSpace', () => {
       sinon.spy(ui.view, 'setFillAllSpaceFlag');
       ui.setFillAllSpace(true);
-      expect(ui.view.setFillAllSpaceFlag.calledWith(true)).to.be.true;
+      expect(ui.view.setFillAllSpaceFlag.calledWith(true)).toBe(true);
     });
 
-    it('should have method for showing whole view', () => {
-      expect(ui.show).to.exist;
+    test('should have method for showing whole view', () => {
+      expect(ui.show).toBeDefined();
       ui.show();
-      expect(ui.isHidden).to.be.false;
+      expect(ui.isHidden).toBe(false);
     });
 
-    it('should have method for hiding whole view', () => {
-      expect(ui.hide).to.exist;
+    test('should have method for hiding whole view', () => {
+      expect(ui.hide).toBeDefined();
       ui.hide();
-      expect(ui.isHidden).to.be.true;
+      expect(ui.isHidden).toBe(true);
     });
 
-    it('should have method for destroy', () => {
-      expect(ui.destroy).to.exist;
+    test('should have method for destroy', () => {
+      expect(ui.destroy).toBeDefined();
       ui.destroy();
     });
   });

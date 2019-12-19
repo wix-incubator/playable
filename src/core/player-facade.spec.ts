@@ -1,5 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import convertToDeviceRelatedConfig from './config';
@@ -19,7 +17,7 @@ describe("Player's instance", () => {
   });
 
   describe('rootNode and params', () => {
-    it('should be registered and resolved', () => {
+    test('should be registered and resolved', () => {
       const registerValueSpy: sinon.SinonSpy = sinon.spy(
         container,
         'registerValue',
@@ -31,20 +29,20 @@ describe("Player's instance", () => {
         registerValueSpy.calledWith({
           config: convertToDeviceRelatedConfig(params),
         }),
-      ).to.be.true;
+      ).toBe(true);
     });
 
-    it('should be resolved', () => {
+    test('should be resolved', () => {
       const resolveSpy = sinon.spy(container, 'resolve');
 
       player = new Player({}, container, []);
 
-      expect(resolveSpy.args).to.deep.equal([['config']]);
+      expect(resolveSpy.args).toEqual([['config']]);
     });
   });
 
   describe('default modules', () => {
-    it('should be resolved', () => {
+    test('should be resolved', () => {
       class ClassA {}
       const resolveSpy: sinon.SinonSpy = sinon.spy(container, 'resolve');
 
@@ -56,10 +54,10 @@ describe("Player's instance", () => {
 
       player = new Player({}, container, Object.keys(defaultModules));
 
-      expect(resolveSpy.calledWith('ClassA')).to.be.true;
+      expect(resolveSpy.calledWith('ClassA')).toBe(true);
     });
 
-    it('should call destroy on player destroy', () => {
+    test('should call destroy on player destroy', () => {
       const destroySpy = sinon.spy();
       class ClassA {
         destroy() {
@@ -76,12 +74,12 @@ describe("Player's instance", () => {
       player = new Player({}, container, Object.keys(defaultModules));
       player.destroy();
 
-      expect(destroySpy.called).to.be.true;
+      expect(destroySpy.called).toBe(true);
     });
   });
 
   describe('additional modules', () => {
-    it('should be resolved', () => {
+    test('should be resolved', () => {
       class ClassB {}
       const resolveSpy: sinon.SinonSpy = sinon.spy(container, 'resolve');
 
@@ -89,10 +87,10 @@ describe("Player's instance", () => {
 
       player = new Player({}, container, [], ['ClassB']);
 
-      expect(resolveSpy.calledWith('ClassB')).to.be.true;
+      expect(resolveSpy.calledWith('ClassB')).toBe(true);
     });
 
-    it('should call destroy on player destroy', () => {
+    test('should call destroy on player destroy', () => {
       const destroySpy = sinon.spy();
       class ClassA {
         destroy() {
@@ -105,7 +103,7 @@ describe("Player's instance", () => {
       player = new Player({}, container, [], ['ClassA']);
       player.destroy();
 
-      expect(destroySpy.called).to.be.true;
+      expect(destroySpy.called).toBe(true);
     });
   });
 
@@ -157,16 +155,16 @@ describe("Player's instance", () => {
       ClassC = C;
     });
 
-    it('should be constructed from default modules', () => {
+    test('should be constructed from default modules', () => {
       container.registerClass('ClassA', ClassA);
       defaultModules = {
         ClassA,
       };
       player = new Player({}, container, Object.keys(defaultModules));
 
-      expect(Reflect.has(player, 'methodA')).to.be.true;
-      expect(Reflect.has(player, 'methodB')).to.be.false;
-      expect(Reflect.has(player, 'methodC')).to.be.true;
+      expect(Reflect.has(player, 'methodA')).toBe(true);
+      expect(Reflect.has(player, 'methodB')).toBe(false);
+      expect(Reflect.has(player, 'methodC')).toBe(true);
 
       container.registerClass('ClassB', ClassB);
       defaultModules = {
@@ -176,11 +174,11 @@ describe("Player's instance", () => {
 
       player = new Player({}, container, Object.keys(defaultModules));
 
-      expect(Reflect.has(player, 'methodA')).to.be.true;
-      expect(Reflect.has(player, 'methodB')).to.be.true;
+      expect(Reflect.has(player, 'methodA')).toBe(true);
+      expect(Reflect.has(player, 'methodB')).toBe(true);
     });
 
-    it('should be constructed from additional modules', () => {
+    test('should be constructed from additional modules', () => {
       container.registerClass('ClassA', ClassA);
       defaultModules = {
         ClassA,
@@ -195,11 +193,11 @@ describe("Player's instance", () => {
         Object.keys(additionalModules),
       );
 
-      expect(Reflect.has(player, 'methodA')).to.be.true;
-      expect(Reflect.has(player, 'methodC')).to.be.true;
+      expect(Reflect.has(player, 'methodA')).toBe(true);
+      expect(Reflect.has(player, 'methodC')).toBe(true);
     });
 
-    it('methods should call proper methods from modules', () => {
+    test('methods should call proper methods from modules', () => {
       defaultModules = {
         ClassA,
       };
@@ -218,11 +216,11 @@ describe("Player's instance", () => {
       player.methodA();
       player.methodB();
 
-      expect(methodASpy.called).to.be.true;
-      expect(methodBSpy.called).to.be.true;
+      expect(methodASpy.called).toBe(true);
+      expect(methodBSpy.called).toBe(true);
     });
 
-    it('should throw error on duplicate method in API', () => {
+    test('should throw error on duplicate method in API', () => {
       defaultModules = {
         ClassA,
         ClassC,
@@ -234,13 +232,13 @@ describe("Player's instance", () => {
         return new Player({}, container, Object.keys(defaultModules));
       };
 
-      expect(getDuplicateAPIMethodPlayer).to.throw(
+      expect(getDuplicateAPIMethodPlayer).toThrowError(
         'API method methodA is already defined in Player facade',
       );
     });
 
     describe('when instance destroyed', () => {
-      it('should clear instance', () => {
+      test('should clear instance', () => {
         defaultModules = {
           ClassA,
         };
@@ -249,10 +247,10 @@ describe("Player's instance", () => {
         player = new Player({}, container, Object.keys(defaultModules));
 
         player.destroy();
-        expect(Reflect.has(player, 'methodA')).to.be.false;
+        expect(Reflect.has(player, 'methodA')).toBe(false);
       });
 
-      it('should not broadcast call methods of module', () => {
+      test('should not broadcast call methods of module', () => {
         defaultModules = {
           ClassA,
         };
@@ -262,7 +260,7 @@ describe("Player's instance", () => {
         const methodA = player.methodA;
 
         player.destroy();
-        expect(methodA).to.throw('Player instance is destroyed');
+        expect(methodA).toThrowError('Player instance is destroyed');
       });
     });
   });

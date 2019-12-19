@@ -1,9 +1,7 @@
-import { expect } from 'chai';
-
 import playerAPI, { PLAYER_API_PROPERTY } from './player-api-decorator';
 
 describe('Decorator playerAPI', () => {
-  it('should add method to private property in prototype', () => {
+  test('should add method to private property in prototype', () => {
     class A {
       @playerAPI()
       a() {}
@@ -12,24 +10,24 @@ describe('Decorator playerAPI', () => {
       b() {}
     }
 
-    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).toEqual({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'b'),
     });
   });
 
-  it('should add method to private property in prototype with custom key', () => {
+  test('should add method to private property in prototype with custom key', () => {
     class A {
       @playerAPI('b')
       a() {}
     }
 
-    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).toEqual({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });
 
-  it('should add descriptor if setter or getter', () => {
+  test('should add descriptor if setter or getter', () => {
     class A {
       @playerAPI('b')
       get a() {
@@ -37,12 +35,12 @@ describe('Decorator playerAPI', () => {
       }
     }
 
-    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).toEqual({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });
 
-  it('should add descriptor if setter and getter', () => {
+  test('should add descriptor if setter and getter', () => {
     class A {
       @playerAPI()
       get a() {
@@ -52,12 +50,12 @@ describe('Decorator playerAPI', () => {
       set a(_) {}
     }
 
-    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).toEqual({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });
 
-  it('should throw error if same keys for public API', () => {
+  test('should throw error if same keys for public API', () => {
     const getWrongDecoratedClassB = () => {
       class B {
         @playerAPI('b')
@@ -70,7 +68,7 @@ describe('Decorator playerAPI', () => {
       return B;
     };
 
-    expect(getWrongDecoratedClassB).to.throw(
+    expect(getWrongDecoratedClassB).toThrowError(
       'Method "b" for public API in B is already defined',
     );
   });

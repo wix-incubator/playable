@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import TextMap from './text-map';
 
 import createPlayerTestkit from '../../testkit';
@@ -12,18 +10,18 @@ describe('TextMap module', () => {
     testkit.registerModule('textMap', TextMap);
   });
 
-  it('should have ability to get text from it', () => {
+  test('should have ability to get text from it', () => {
     testkit.setConfig({
       texts: {
         testID: 'testText',
       },
     });
     const map = testkit.getModule('textMap');
-    expect(map.get).to.exist;
-    expect(map.get('testID')).to.be.equal('testText');
+    expect(map.get).toBeDefined();
+    expect(map.get('testID')).toBe('testText');
   });
 
-  it('should pass arguments to translate function', () => {
+  test('should pass arguments to translate function', () => {
     testkit.setConfig({
       texts: {
         testID: ({ arg }: { arg: any }) => `Test:${arg}`,
@@ -31,10 +29,10 @@ describe('TextMap module', () => {
     });
 
     const map = testkit.getModule('textMap');
-    expect(map.get('testID', { arg: 1 })).to.be.equal('Test:1');
+    expect(map.get('testID', { arg: 1 })).toBe('Test:1');
   });
 
-  it('should return undefined if destroyed', () => {
+  test('should return undefined if destroyed', () => {
     testkit.setConfig({
       texts: {
         testID: 'testText',
@@ -42,6 +40,6 @@ describe('TextMap module', () => {
     });
     const map = testkit.getModule('textMap');
     map.destroy();
-    expect(map.get('testID')).to.be.equal(undefined);
+    expect(map.get('testID')).toBeUndefined();
   });
 });

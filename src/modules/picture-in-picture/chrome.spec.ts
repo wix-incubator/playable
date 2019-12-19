@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-
 import * as sinon from 'sinon';
 
 import ChromePictureInPicture, { ChromeDocument } from './chrome';
@@ -21,38 +18,38 @@ describe('ChromePictureInPicture', () => {
   });
 
   describe('enable state', () => {
-    it('should return true in native state is true', () => {
+    test('should return true in native state is true', () => {
       (document as ChromeDocument).pictureInPictureEnabled = true;
-      expect(pictureInPicture.isEnabled).to.be.true;
+      expect(pictureInPicture.isEnabled).toBe(true);
     });
 
-    it('should return false in native state is false', () => {
+    test('should return false in native state is false', () => {
       (document as ChromeDocument).pictureInPictureEnabled = false;
-      expect(pictureInPicture.isEnabled).to.be.false;
+      expect(pictureInPicture.isEnabled).toBe(false);
     });
   });
 
   describe('picture-in-picture state', () => {
-    it('should return true in native state is true', () => {
+    test('should return true in native state is true', () => {
       (document as ChromeDocument).pictureInPictureElement = element;
-      expect(pictureInPicture.isInPictureInPicture).to.be.true;
+      expect(pictureInPicture.isInPictureInPicture).toBe(true);
     });
 
-    it('should return false in native state is false', () => {
+    test('should return false in native state is false', () => {
       (document as ChromeDocument).pictureInPictureElement = null;
-      expect(pictureInPicture.isInPictureInPicture).to.be.false;
+      expect(pictureInPicture.isInPictureInPicture).toBe(false);
     });
   });
 
   describe('method for entering picture-in-picture', () => {
-    it('should use native method', () => {
+    test('should use native method', () => {
       (document as ChromeDocument).pictureInPictureEnabled = true;
       element.requestPictureInPicture = sinon.spy(() => Promise.resolve());
       pictureInPicture.request();
-      expect(element.requestPictureInPicture.called).to.be.true;
+      expect(element.requestPictureInPicture.called).toBe(true);
     });
 
-    it('should make postpone enter if do not have metadata', async function() {
+    test('should make postpone enter if do not have metadata', async () => {
       (document as ChromeDocument).pictureInPictureEnabled = true;
       element.readyState = 0;
 
@@ -63,19 +60,19 @@ describe('ChromePictureInPicture', () => {
       await pictureInPicture.request();
       element.requestPictureInPicture = sinon.spy(() => Promise.resolve());
       element.dispatchEvent(metadataEvent);
-      expect(element.requestPictureInPicture.calledOnce).to.be.true;
+      expect(element.requestPictureInPicture.calledOnce).toBe(true);
     });
 
-    it('should do nothing if already in picture-in-picture', () => {
+    test('should do nothing if already in picture-in-picture', () => {
       element.requestPictureInPicture = sinon.spy(() => Promise.resolve());
       (document as ChromeDocument).pictureInPictureElement = element;
       pictureInPicture.request();
-      expect(element.requestPictureInPicture.called).to.be.false;
+      expect(element.requestPictureInPicture.called).toBe(false);
     });
   });
 
   describe('method for exit picture-in-picture', () => {
-    it('should use native method', () => {
+    test('should use native method', () => {
       (document as ChromeDocument).exitPictureInPicture = sinon.spy() as sinon.SinonSpy;
       (document as ChromeDocument).pictureInPictureElement = element;
 
@@ -83,38 +80,38 @@ describe('ChromePictureInPicture', () => {
       expect(
         ((document as ChromeDocument).exitPictureInPicture as sinon.SinonSpy)
           .called,
-      ).to.be.true;
+      ).toBe(true);
     });
 
-    it('should do nothing if not in picture-in-picture', () => {
+    test('should do nothing if not in picture-in-picture', () => {
       (document as ChromeDocument).exitPictureInPicture = sinon.spy() as sinon.SinonSpy;
       (document as ChromeDocument).pictureInPictureElement = null;
       pictureInPicture.exit();
       expect(
         ((document as ChromeDocument).exitPictureInPicture as sinon.SinonSpy)
           .called,
-      ).to.be.false;
+      ).toBe(false);
     });
   });
 
   describe('due to reaction on native picture-in-picture change', () => {
-    it('should call callback if enter', () => {
+    test('should call callback if enter', () => {
       const changeEvent = new Event('enterpictureinpicture');
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.true;
+      expect(callback.called).toBe(true);
     });
 
-    it('should call callback if exit', () => {
+    test('should call callback if exit', () => {
       const changeEvent = new Event('leavepictureinpicture');
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.true;
+      expect(callback.called).toBe(true);
     });
   });
 
   describe('destroy method', () => {
-    it('should clear loadedmetadata listener', () => {
+    test('should clear loadedmetadata listener', () => {
       (document as ChromeDocument).pictureInPictureEnabled = true;
       element.readyState = 0;
 
@@ -126,27 +123,27 @@ describe('ChromePictureInPicture', () => {
       pictureInPicture.destroy();
 
       element.dispatchEvent(metadataEvent);
-      expect(element.webkitSetPresentationMode.called).to.be.false;
+      expect(element.webkitSetPresentationMode.called).toBe(false);
     });
 
-    it('should clear webkitbeginfullscreen listener', () => {
+    test('should clear webkitbeginfullscreen listener', () => {
       const changeEvent = new Event('enterpictureinpicture');
       element.requestPictureInPicture = () => Promise.reject();
 
       pictureInPicture.destroy();
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.false;
+      expect(callback.called).toBe(false);
     });
 
-    it('should clear webkitendfullscreen listener', () => {
+    test('should clear webkitendfullscreen listener', () => {
       const changeEvent = new Event('leavepictureinpicture');
       element.requestPictureInPicture = () => Promise.reject();
 
       pictureInPicture.destroy();
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.false;
+      expect(callback.called).toBe(false);
     });
   });
 });
