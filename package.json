@@ -85,6 +85,7 @@
     "@types/chromecast-caf-sender": "^1.0.1",
     "@types/classnames": "^2.2.7",
     "@types/hls.js": "^0.10.2",
+    "@types/jest": "^24.0.24",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",
     "awesome-typescript-loader": "^5.2.1",
@@ -96,6 +97,7 @@
     "gh-pages": "^1.2.0",
     "haste-preset-playable": "github:bodia-uz/haste-preset-playable#v2.2.2",
     "husky": "^0.14.3",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jsdom": "^11.12.0",
     "jsdom-global": "^3.0.2",
@@ -109,6 +111,7 @@
     "okidoc-site": "^2.0.0",
     "prettier": "^1.15.1",
     "rgb-hex": "^3.0.0",
+    "ts-jest": "^24.2.0",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.1.6"
