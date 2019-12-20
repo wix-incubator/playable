@@ -1,15 +1,17 @@
 const { defaults: tsjestPreset } = require('ts-jest/presets');
 
+const { APP_SRC, TEST_PATTERNS } = require('../../constants');
+
 module.exports = {
   testEnvironment: 'node',
-  setupFiles: ['<rootDir>/jest.setup.js'],
+  setupFiles: ['./unit.setup.js'],
   moduleNameMapper: {
     '\\.(css|scss)$': 'identity-obj-proxy',
   },
-  testMatch: ['**/*.spec.ts'],
+  roots: [APP_SRC],
+  testMatch: [TEST_PATTERNS.UNIT],
   transform: {
-    //https://kulshekhar.github.io/ts-jest/user/config/
     ...tsjestPreset.transform,
-    '\\.(dot)$': '<rootDir>/dotTransformer.js',
+    '\\.(dot)$': require.resolve('../utils/dotJsTransformer.js'),
   },
 };

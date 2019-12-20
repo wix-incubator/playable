@@ -1,4 +1,3 @@
-const path = require('path');
 const { DOTJS_OPTIONS } = require('haste-preset-playable/src/config/constants');
 const dotLoader = require('dotjs-loader').default;
 
