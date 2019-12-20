@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import DesktopFullScreen from './desktop';
 
 import { setProperty, resetProperty } from '../../testkit';
@@ -7,7 +5,7 @@ import { setProperty, resetProperty } from '../../testkit';
 declare const navigator: any;
 
 describe('DesktopFullScreen', () => {
-  const callback = sinon.spy();
+  const callback = jest.fn();
   let element: any;
   let fullScreen: any;
   const fullScreenFn = {
@@ -26,7 +24,7 @@ describe('DesktopFullScreen', () => {
   });
 
   afterEach(() => {
-    callback.resetHistory();
+    callback.mockReset();
   });
 
   describe('enable state', () => {
@@ -61,7 +59,7 @@ describe('DesktopFullScreen', () => {
         });
         describe('on Safari 5.1', () => {
           beforeEach(() => {
-            element[fullScreenFn.requestFullscreen] = sinon.spy();
+            element[fullScreenFn.requestFullscreen] = jest.fn();
 
             setProperty(navigator, 'userAgent', '5.1 Safari');
           });
@@ -73,40 +71,42 @@ describe('DesktopFullScreen', () => {
           test('should call it without arguments', () => {
             fullScreen.request();
             expect(
-              element[fullScreenFn.requestFullscreen].calledWithExactly(),
-            ).toBe(true);
+              element[fullScreenFn.requestFullscreen],
+            ).toHaveBeenCalledWith();
           });
         });
         describe('on not Safari 5.1', () => {
           beforeEach(() => {
-            element[fullScreenFn.requestFullscreen] = sinon.spy();
+            element[fullScreenFn.requestFullscreen] = jest.fn();
           });
 
           test('should call it with true if ALLOW_KEYBOARD_INPUT is true', () => {
             (Element as any).ALLOW_KEYBOARD_INPUT = true;
             fullScreen.request();
             expect(
-              element[fullScreenFn.requestFullscreen].calledWithExactly(true),
-            ).toBe(true);
+              element[fullScreenFn.requestFullscreen],
+            ).toHaveBeenCalledWith(true);
           });
 
           test('should call it with false if ALLOW_KEYBOARD_INPUT is false', () => {
             (Element as any).ALLOW_KEYBOARD_INPUT = false;
             fullScreen.request();
             expect(
-              element[fullScreenFn.requestFullscreen].calledWithExactly(false),
-            ).toBe(true);
+              element[fullScreenFn.requestFullscreen],
+            ).toHaveBeenCalledWith(false);
           });
         });
       });
       describe('if it disabled', () => {
         beforeEach(() => {
           (document as any)[fullScreenFn.fullscreenEnabled] = false;
-          element[fullScreenFn.requestFullscreen] = sinon.spy();
+          element[fullScreenFn.requestFullscreen] = jest.fn();
         });
         test('should not call it', () => {
           fullScreen.request();
-          expect(element[fullScreenFn.requestFullscreen].called).toBe(false);
+          expect(
+            element[fullScreenFn.requestFullscreen],
+          ).not.toHaveBeenCalled();
         });
       });
     });
@@ -115,16 +115,18 @@ describe('DesktopFullScreen', () => {
   describe('method for exit full screen', () => {
     test('should use native method', () => {
       (document as any)[fullScreenFn.fullscreenEnabled] = true;
-      (document as any)[fullScreenFn.exitFullscreen] = sinon.spy();
+      (document as any)[fullScreenFn.exitFullscreen] = jest.fn();
       fullScreen.exit();
-      expect((document as any)[fullScreenFn.exitFullscreen].called).toBe(true);
+      expect((document as any)[fullScreenFn.exitFullscreen]).toHaveBeenCalled();
     });
 
     test('should do nothing if not enabled', () => {
       (document as any)[fullScreenFn.fullscreenEnabled] = false;
-      (document as any)[fullScreenFn.exitFullscreen] = sinon.spy();
+      (document as any)[fullScreenFn.exitFullscreen] = jest.fn();
       fullScreen.exit();
-      expect((document as any)[fullScreenFn.exitFullscreen].called).toBe(false);
+      expect(
+        (document as any)[fullScreenFn.exitFullscreen],
+      ).not.toHaveBeenCalled();
     });
   });
 
@@ -133,7 +135,7 @@ describe('DesktopFullScreen', () => {
       const changeEvent = new Event(fullScreenFn.fullscreenchange);
 
       document.dispatchEvent(changeEvent);
-      expect(callback.called).toBe(true);
+      expect(callback).toHaveBeenCalled();
     });
   });
 
@@ -145,7 +147,7 @@ describe('DesktopFullScreen', () => {
       fullScreen.destroy();
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).toBe(false);
+      expect(callback).not.toHaveBeenCalled();
     });
   });
 });

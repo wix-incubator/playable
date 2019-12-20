@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import Title from './title';
@@ -24,52 +22,52 @@ describe('Title', () => {
 
   describe('instance', () => {
     test('should have method for showing title', () => {
-      const viewShowSpy = sinon.spy(title.view, 'show');
+      const viewShowSpy = jest.spyOn(title.view, 'show');
       title.show();
 
-      expect(viewShowSpy.called).toBe(true);
+      expect(viewShowSpy).toHaveBeenCalled();
       expect(title.isHidden).toBe(false);
 
-      viewShowSpy.restore();
+      viewShowSpy.mockRestore();
     });
 
     test('should have method for hiding title', () => {
-      const viewHideSpy = sinon.spy(title.view, 'hide');
+      const viewHideSpy = jest.spyOn(title.view, 'hide');
       title.hide();
 
-      expect(viewHideSpy.called).toBe(true);
+      expect(viewHideSpy).toHaveBeenCalled();
       expect(title.isHidden).toBe(true);
 
-      viewHideSpy.restore();
+      viewHideSpy.mockRestore();
     });
 
     test('should have method for getting view node', () => {
-      const getTitleViewNodeSpy = sinon.spy(title.view, 'getElement');
+      const getTitleViewNodeSpy = jest.spyOn(title.view, 'getElement');
       const titleViewNode = title.getElement();
 
-      expect(getTitleViewNodeSpy.called).toBe(true);
+      expect(getTitleViewNodeSpy).toHaveBeenCalled();
       expect(titleViewNode).toBe(title.view.getElement());
 
-      getTitleViewNodeSpy.restore();
+      getTitleViewNodeSpy.mockRestore();
     });
   });
 
   describe('API', () => {
     describe('setTitle method', () => {
-      let titleViewSetTitleSpy: any;
-      let titleViewShowSpy: any;
-      let titleViewHideSpy: any;
+      let titleViewSetTitleSpy: jest.SpyInstance;
+      let titleViewShowSpy: jest.SpyInstance;
+      let titleViewHideSpy: jest.SpyInstance;
 
       beforeEach(() => {
-        titleViewSetTitleSpy = sinon.spy(title.view, 'setTitle');
-        titleViewShowSpy = sinon.spy(title.view, 'show');
-        titleViewHideSpy = sinon.spy(title.view, 'hide');
+        titleViewSetTitleSpy = jest.spyOn(title.view, 'setTitle');
+        titleViewShowSpy = jest.spyOn(title.view, 'show');
+        titleViewHideSpy = jest.spyOn(title.view, 'hide');
       });
 
       afterEach(() => {
-        titleViewSetTitleSpy.restore();
-        titleViewShowSpy.restore();
-        titleViewHideSpy.restore();
+        titleViewSetTitleSpy.mockRestore();
+        titleViewShowSpy.mockRestore();
+        titleViewHideSpy.mockRestore();
       });
 
       test('should exists', () => {
@@ -81,19 +79,19 @@ describe('Title', () => {
 
         title.setTitle(TITLE_TEXT);
 
-        expect(titleViewSetTitleSpy.calledWith(TITLE_TEXT)).toBe(true);
+        expect(titleViewSetTitleSpy).toHaveBeenCalledWith(TITLE_TEXT);
 
         //@ts-ignore
         expect(title.view._$rootElement.innerHTML).toBe(TITLE_TEXT);
-        expect(titleViewShowSpy.called).toBe(true);
+        expect(titleViewShowSpy).toHaveBeenCalled();
       });
 
       test('should set EMPTY title', () => {
         title.setTitle('');
 
-        expect(titleViewSetTitleSpy.calledWith('')).toBe(true);
+        expect(titleViewSetTitleSpy).toHaveBeenCalledWith('');
         // TODO: should html be cleared if setTitle called with empty value?
-        expect(titleViewHideSpy.called).toBe(true);
+        expect(titleViewHideSpy).toHaveBeenCalled();
       });
     });
 
@@ -101,11 +99,11 @@ describe('Title', () => {
       let setViewDisplayAsLinkSpy: any;
 
       beforeEach(() => {
-        setViewDisplayAsLinkSpy = sinon.spy(title.view, 'setDisplayAsLink');
+        setViewDisplayAsLinkSpy = jest.spyOn(title.view, 'setDisplayAsLink');
       });
 
       afterEach(() => {
-        setViewDisplayAsLinkSpy.restore();
+        setViewDisplayAsLinkSpy.mockRestore();
       });
 
       test('should exists', () => {
@@ -113,19 +111,19 @@ describe('Title', () => {
       });
 
       test('should set NOT EMPTY callback', () => {
-        const clickCallback = sinon.spy();
+        const clickCallback = jest.fn();
 
         title.setTitleClickCallback(clickCallback);
 
         //@ts-ignore
         title.view._$rootElement.dispatchEvent(new Event('click'));
 
-        expect(setViewDisplayAsLinkSpy.calledWith(true)).toBe(true);
-        expect(clickCallback.called).toBe(true);
+        expect(setViewDisplayAsLinkSpy).toHaveBeenCalledWith(true);
+        expect(clickCallback).toHaveBeenCalled();
       });
 
       test('should set EMPTY callback', () => {
-        const clickCallback = sinon.spy();
+        const clickCallback = jest.fn();
 
         title.setTitleClickCallback(clickCallback);
 
@@ -137,8 +135,8 @@ describe('Title', () => {
         //@ts-ignore
         title.view._$rootElement.dispatchEvent(new Event('click'));
 
-        expect(setViewDisplayAsLinkSpy.lastCall.calledWith(false)).toBe(true);
-        expect(clickCallback.calledOnce).toBe(true);
+        expect(setViewDisplayAsLinkSpy).toHaveBeenLastCalledWith(false);
+        expect(clickCallback).toHaveBeenCalledTimes(1);
       });
     });
   });

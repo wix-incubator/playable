@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../../testkit';
 
 import { UIEvent } from '../../../../constants';
@@ -36,10 +34,10 @@ describe('FullScreenControl', () => {
 
   describe('ui events listeners', () => {
     test('should call callback on playback state change', async () => {
-      const spy = sinon.spy(control.view, 'setFullScreenState');
+      const spy = jest.spyOn(control.view, 'setFullScreenState');
       control._bindEvents();
       await eventEmitter.emitAsync(UIEvent.FULL_SCREEN_STATE_CHANGED);
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -57,26 +55,26 @@ describe('FullScreenControl', () => {
     });
 
     test('should have method for destroying', () => {
-      const spy = sinon.spy(control, '_unbindEvents');
+      const spy = jest.spyOn(control, '_unbindEvents');
       expect(control.destroy).toBeDefined();
       control.destroy();
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('internal methods', () => {
     test('should call callbacks from uiView', () => {
-      const enterSpy = sinon.spy(fullScreenManager, 'enterFullScreen');
-      const exitSpy = sinon.spy(fullScreenManager, 'exitFullScreen');
+      const enterSpy = jest.spyOn(fullScreenManager, 'enterFullScreen');
+      const exitSpy = jest.spyOn(fullScreenManager, 'exitFullScreen');
 
       control._toggleFullScreen();
-      expect(enterSpy.called).toBe(true);
+      expect(enterSpy).toHaveBeenCalled();
       fullScreenManager.isInFullScreen = true;
       control._toggleFullScreen();
-      expect(exitSpy.called).toBe(true);
+      expect(exitSpy).toHaveBeenCalled();
 
-      fullScreenManager.enterFullScreen.restore();
-      fullScreenManager.exitFullScreen.restore();
+      fullScreenManager.enterFullScreen.mockRestore();
+      fullScreenManager.exitFullScreen.mockRestore();
     });
   });
 });

@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../../testkit';
 
 import VolumeControl from './volume';
@@ -28,15 +26,15 @@ describe('VolumeControl', () => {
 
   describe('API', () => {
     test('should have method for setting current volume', () => {
-      const spy = sinon.spy(control.view, 'setVolume');
+      const spy = jest.spyOn(control.view, 'setVolume');
       control._setVolumeLevel(0);
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     test('should have method for setting mute state', () => {
-      const spy = sinon.spy(control.view, 'setMute');
+      const spy = jest.spyOn(control.view, 'setMute');
       control._setMuteState();
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     test('should have method for showing whole view', () => {
@@ -52,48 +50,45 @@ describe('VolumeControl', () => {
     });
 
     test('should have method for destroying', () => {
-      const spy = sinon.spy(control, '_unbindEvents');
+      const spy = jest.spyOn(control, '_unbindEvents');
       expect(control.destroy).toBeDefined();
       control.destroy();
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('video events listeners', () => {
     test('should call callback on playback state change', async () => {
-      const spy = sinon.spy(control, '_updateSoundState');
+      const spy = jest.spyOn(control, '_updateSoundState');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.SOUND_STATE_CHANGED);
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('internal methods', () => {
     test('should change volume level based on wheel delta', () => {
-      const startSpy: sinon.SinonSpy = sinon.spy(control, '_changeVolumeLevel');
+      const startSpy = jest.spyOn(control, '_changeVolumeLevel');
       control._getVolumeLevelFromWheel(-100);
-      expect(startSpy.calledWith(90)).toBe(true);
+      expect(startSpy).toHaveBeenCalledWith(90);
     });
 
     test('should change volume level based on input', () => {
-      const startSpy: sinon.SinonSpy = sinon.spy(control, '_changeVolumeLevel');
+      const startSpy = jest.spyOn(control, '_changeVolumeLevel');
       control._getVolumeLevelFromInput(40);
-      expect(startSpy.calledWith(40)).toBe(true);
+      expect(startSpy).toHaveBeenCalledWith(40);
     });
 
     test('should change volume level and mute state of video', () => {
-      const volumeSpy: sinon.SinonSpy = sinon.spy(
-        control,
-        '_changeVolumeLevel',
-      );
+      const volumeSpy = jest.spyOn(control, '_changeVolumeLevel');
 
-      const muteSpy: sinon.SinonSpy = sinon.spy(control, '_toggleMuteState');
+      const muteSpy = jest.spyOn(control, '_toggleMuteState');
       control._changeVolumeLevel(90);
-      expect(volumeSpy.calledWith(90)).toBe(true);
-      expect(muteSpy.called).toBe(false);
+      expect(volumeSpy).toHaveBeenCalledWith(90);
+      expect(muteSpy).not.toHaveBeenCalled();
       control._engine.mute();
       control._changeVolumeLevel(90);
-      expect(muteSpy.called).toBe(true);
+      expect(muteSpy).toHaveBeenCalled();
     });
   });
 });

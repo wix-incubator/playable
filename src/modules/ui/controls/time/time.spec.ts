@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../../testkit';
 
 import { VideoEvent, EngineState } from '../../../../constants';
@@ -26,15 +24,15 @@ describe('TimeControl', () => {
 
   describe('API', () => {
     test('should have method for setting current time', () => {
-      const spy = sinon.spy(control.view, 'setCurrentTime');
+      const spy = jest.spyOn(control.view, 'setCurrentTime');
       control._setCurrentTime();
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     test('should have method for setting duration time', () => {
-      const spy = sinon.spy(control.view, 'setDurationTime');
+      const spy = jest.spyOn(control.view, 'setDurationTime');
       control._setDurationTime();
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     test('should have method for showing whole view', () => {
@@ -50,61 +48,62 @@ describe('TimeControl', () => {
     });
 
     test('should have method for destroying', () => {
-      const spy = sinon.spy(control, '_unbindEvents');
+      const spy = jest.spyOn(control, '_unbindEvents');
       expect(control.destroy).toBeDefined();
       control.destroy();
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('video events listeners', () => {
     test('should call callback on playback state change', async () => {
-      const spy = sinon.spy(control, '_toggleIntervalUpdates');
+      const spy = jest.spyOn(control, '_toggleIntervalUpdates');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {});
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     test('should call callback on seek', async () => {
-      const spy = sinon.spy(control, '_startIntervalUpdates');
+      const spy = jest.spyOn(control, '_startIntervalUpdates');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,
       });
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     test('should call callback on duration update', async () => {
-      const spy = sinon.spy(control, '_updateDurationTime');
+      const spy = jest.spyOn(control, '_updateDurationTime');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.DURATION_UPDATED);
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('internal methods', () => {
     test('should toggle interval updates', () => {
-      const startSpy = sinon.spy(control, '_startIntervalUpdates');
+      const startSpy = jest.spyOn(control, '_startIntervalUpdates');
       control._toggleIntervalUpdates({ nextState: EngineState.PLAYING });
-      expect(startSpy.called).toBe(true);
+      expect(startSpy).toHaveBeenCalled();
 
-      const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
+      const stopSpy = jest.spyOn(control, '_stopIntervalUpdates');
       control._toggleIntervalUpdates({ nextState: EngineState.PAUSED });
-      expect(stopSpy.called).toBe(true);
+      expect(stopSpy).toHaveBeenCalled();
     });
 
     test('should start interval updates', () => {
-      const spy = sinon.spy(window, 'setInterval');
-      const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
+      const spy = jest.spyOn(window, 'setInterval');
+      const stopSpy = jest.spyOn(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
-      expect(
-        spy.calledWith(control._updateCurrentTime, UPDATE_TIME_INTERVAL_DELAY),
-      ).toBe(true);
-      expect(stopSpy.called).toBe(false);
+      expect(spy).toHaveBeenCalledWith(
+        control._updateCurrentTime,
+        UPDATE_TIME_INTERVAL_DELAY,
+      );
+      expect(stopSpy).not.toHaveBeenCalled();
       control._startIntervalUpdates();
-      expect(stopSpy.called).toBe(true);
+      expect(stopSpy).toHaveBeenCalled();
 
-      spy.restore();
+      spy.mockRestore();
     });
   });
 });

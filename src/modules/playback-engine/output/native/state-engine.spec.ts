@@ -1,4 +1,3 @@
-import * as sinon from 'sinon';
 import EventEmitter from '../../../../modules/event-emitter/event-emitter';
 
 import { VideoEvent, EngineState } from '../../../../constants';
@@ -28,8 +27,8 @@ describe('NativeEventsBroadcaster', () => {
 
   beforeEach(() => {
     video = {
-      addEventListener: sinon.spy(),
-      removeEventListener: sinon.spy(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
       played: {
         length: 1,
       },
@@ -38,23 +37,23 @@ describe('NativeEventsBroadcaster', () => {
 
     eventEmitter = new EventEmitter();
 
-    sinon.spy(eventEmitter, 'emitAsync');
+    jest.spyOn(eventEmitter, 'emitAsync');
     engine = new StateEngine(eventEmitter, video);
-    sinon.spy(engine, 'setState');
+    jest.spyOn(engine, 'setState');
   });
 
   afterEach(() => {
     resetProperty(navigator, 'userAgent');
 
-    eventEmitter.emitAsync.restore();
-    engine.setState.restore();
+    eventEmitter.emitAsync.mockRestore();
+    engine.setState.mockRestore();
   });
 
   test('should attach events to video tag on initialization', () => {
-    expect(video.addEventListener.args.length).toBe(
+    expect(video.addEventListener.mock.calls.length).toBe(
       NATIVE_VIDEO_EVENTS_TO_STATE.length,
     );
-    video.addEventListener.args.forEach((arg: any) => {
+    video.addEventListener.mock.calls.forEach((arg: any) => {
       expect(NATIVE_VIDEO_EVENTS_TO_STATE.indexOf(arg[0]) !== -1).toBe(true);
       expect(arg[1] === engine._processEventFromVideo).toBe(true);
     });
@@ -62,10 +61,10 @@ describe('NativeEventsBroadcaster', () => {
 
   test('should detach events from video tag on destroy', () => {
     engine.destroy();
-    expect(video.removeEventListener.args.length).toBe(
+    expect(video.removeEventListener.mock.calls.length).toBe(
       NATIVE_VIDEO_EVENTS_TO_STATE.length,
     );
-    video.removeEventListener.args.forEach((arg: any) => {
+    video.removeEventListener.mock.calls.forEach((arg: any) => {
       expect(NATIVE_VIDEO_EVENTS_TO_STATE.indexOf(arg[0]) !== -1).toBe(true);
       expect(arg[1] === engine._processEventFromVideo).toBe(true);
     });
@@ -76,94 +75,95 @@ describe('NativeEventsBroadcaster', () => {
 
     engine._currentState = EngineState.LOAD_STARTED;
     engine.setState(EngineState.READY_TO_PLAY);
-    expect(
-      eventEmitter.emitAsync.calledWith(VideoEvent.STATE_CHANGED, {
+    expect(eventEmitter.emitAsync).toHaveBeenCalledWith(
+      VideoEvent.STATE_CHANGED,
+      {
         prevState: EngineState.LOAD_STARTED,
         nextState: EngineState.READY_TO_PLAY,
-      }),
+      },
     );
     expect(engine._currentState).toBe(EngineState.READY_TO_PLAY);
   });
 
   test('should not trigger change of state on same state', () => {
     engine.setState(EngineState.READY_TO_PLAY);
-    expect(eventEmitter.emitAsync.calledTwice).toBe(true);
+    expect(eventEmitter.emitAsync).toHaveBeenCalledTimes(2);
     engine.setState(EngineState.READY_TO_PLAY);
-    expect(eventEmitter.emitAsync.calledTwice).toBe(true);
+    expect(eventEmitter.emitAsync).toHaveBeenCalledTimes(2);
   });
 
   test('should set state on loadstart event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.LOAD_START);
-    expect(engine.setState.calledWith(EngineState.LOAD_STARTED)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.LOAD_STARTED);
   });
 
   test('should set state on loadedmetadata event', () => {
     expect(engine._isMetadataLoaded).toBe(false);
     engine._processEventFromVideo(NATIVE_EVENTS.LOADED_META_DATA);
-    expect(engine.setState.calledWith(EngineState.METADATA_LOADED)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.METADATA_LOADED);
     expect(engine.isMetadataLoaded).toBe(true);
   });
 
   test('should set state on canplay event only after medatada loaded', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.CAN_PLAY);
-    expect(engine.setState.calledWith(EngineState.READY_TO_PLAY)).toBe(false);
+    expect(engine.setState).not.toHaveBeenCalledWith(EngineState.READY_TO_PLAY);
     engine._processEventFromVideo(NATIVE_EVENTS.LOADED_META_DATA);
     engine._processEventFromVideo(NATIVE_EVENTS.CAN_PLAY);
-    expect(engine.setState.calledWith(EngineState.READY_TO_PLAY)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.READY_TO_PLAY);
   });
 
   test('should set state on play event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.PLAY);
-    expect(engine.setState.calledWith(EngineState.PLAY_REQUESTED)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.PLAY_REQUESTED);
   });
 
   test('should set state on playing event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.PLAYING);
-    expect(engine.setState.calledWith(EngineState.PLAYING)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.PLAYING);
   });
 
   test('should not set state on playing event if video is not actually playing', () => {
     setProperty(navigator, 'userAgent', 'safari');
     video.paused = true;
     engine._processEventFromVideo(NATIVE_EVENTS.PLAYING);
-    expect(engine.setState.calledWith(EngineState.PLAYING)).toBe(false);
+    expect(engine.setState).not.toHaveBeenCalledWith(EngineState.PLAYING);
   });
 
   test('should set state on waiting event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.WAITING);
-    expect(engine.setState.calledWith(EngineState.WAITING)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.WAITING);
   });
 
   test('should set state on pause event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.PAUSE);
-    expect(engine.setState.calledWith(EngineState.PAUSED)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.PAUSED);
   });
 
   test('should not set state on pause event if there is no played chunks', () => {
     setProperty(navigator, 'userAgent', 'safari');
     video.played.length = 0;
     engine._processEventFromVideo(NATIVE_EVENTS.PAUSE);
-    expect(engine.setState.calledWith(EngineState.PAUSED)).toBe(false);
+    expect(engine.setState).not.toHaveBeenCalledWith(EngineState.PAUSED);
   });
 
   test('should set state on ended event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.ENDED);
-    expect(engine.setState.calledWith(EngineState.ENDED)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.ENDED);
   });
 
   test('should set state on seeking event', () => {
     engine._processEventFromVideo(NATIVE_EVENTS.SEEKING);
-    expect(engine.setState.calledWith(EngineState.SEEK_IN_PROGRESS)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.SEEK_IN_PROGRESS);
   });
 
   test('should set state on seeked event', () => {
     video.paused = true;
     engine._processEventFromVideo(NATIVE_EVENTS.SEEKED);
-    expect(engine.setState.calledWith(EngineState.PAUSED)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.PAUSED);
 
     video.paused = false;
     engine._processEventFromVideo(NATIVE_EVENTS.SEEKED);
-    expect(engine.setState.calledWith(EngineState.PLAYING)).toBe(true);
+    expect(engine.setState).toHaveBeenCalledWith(EngineState.PLAYING);
   });
 
   test('should dodge sneaky bug with dash manifest', () => {
@@ -187,6 +187,6 @@ describe('NativeEventsBroadcaster', () => {
 
   test('should do nothing if event is not in list', () => {
     engine._processEventFromVideo();
-    expect(eventEmitter.emitAsync.called).toBe(false);
+    expect(eventEmitter.emitAsync).not.toHaveBeenCalled();
   });
 });

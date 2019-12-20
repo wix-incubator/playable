@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import { VideoEvent, UIEvent, EngineState } from '../../../constants';
@@ -38,10 +36,10 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
 
       mainUIBlock = testkit.getModule('mainUIBlock');
-      enableShowingContentSpy = sinon.spy(mainUIBlock, 'enableShowingContent');
+      enableShowingContentSpy = jest.spyOn(mainUIBlock, 'enableShowingContent');
 
       loader = testkit.getModule('loader');
-      loaderShowSpy = sinon.spy(loader, 'show');
+      loaderShowSpy = jest.spyOn(loader, 'show');
 
       eventEmitter = testkit.getModule('eventEmitter');
     });
@@ -50,8 +48,8 @@ describe('Overlay', () => {
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.PLAY_REQUESTED,
       });
-      expect(loaderShowSpy.called).toBe(true);
-      expect(enableShowingContentSpy.called).toBe(true);
+      expect(loaderShowSpy).toHaveBeenCalled();
+      expect(enableShowingContentSpy).toHaveBeenCalled();
     });
   });
 
@@ -60,13 +58,13 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
 
       mainUIBlock = testkit.getModule('mainUIBlock');
-      disableShowingContentSpy = sinon.spy(
+      disableShowingContentSpy = jest.spyOn(
         mainUIBlock,
         'disableShowingContent',
       );
 
       loader = testkit.getModule('loader');
-      loaderHideSpy = sinon.spy(loader, 'hide');
+      loaderHideSpy = jest.spyOn(loader, 'hide');
 
       eventEmitter = testkit.getModule('eventEmitter');
     });
@@ -75,8 +73,8 @@ describe('Overlay', () => {
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SRC_SET,
       });
-      expect(loaderHideSpy.called).toBe(true);
-      expect(disableShowingContentSpy.called).toBe(true);
+      expect(loaderHideSpy).toHaveBeenCalled();
+      expect(disableShowingContentSpy).toHaveBeenCalled();
     });
   });
 
@@ -85,22 +83,22 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
       eventEmitter = testkit.getModule('eventEmitter');
 
-      eventEmitterSpy = sinon.spy(eventEmitter, 'emitAsync');
+      eventEmitterSpy = jest.spyOn(eventEmitter, 'emitAsync');
     });
 
     afterEach(() => {
-      eventEmitter.emitAsync.restore();
+      eventEmitter.emitAsync.mockRestore();
     });
 
     test('should emit ui event on play', () => {
-      const callback = sinon.stub(overlay._engine, 'play');
+      const callback = jest.spyOn(overlay._engine, 'play');
 
       overlay._playVideo();
 
-      expect(callback.called).toBe(true);
-      expect(eventEmitterSpy.calledWith(UIEvent.PLAY_OVERLAY_CLICK)).toBe(true);
+      expect(callback).toHaveBeenCalled();
+      expect(eventEmitterSpy).toHaveBeenCalledWith(UIEvent.PLAY_OVERLAY_CLICK);
 
-      overlay._engine.play.restore();
+      overlay._engine.play.mockRestore();
     });
   });
 
@@ -111,8 +109,8 @@ describe('Overlay', () => {
     });
 
     test('should react on video playback state changed on play', async () => {
-      const callback = sinon.spy(overlay, '_updatePlayingState');
-      const hideSpy = sinon.spy(overlay, '_hideContent');
+      const callback = jest.spyOn(overlay, '_updatePlayingState');
+      const hideSpy = jest.spyOn(overlay, '_hideContent');
 
       overlay._bindEvents();
 
@@ -120,21 +118,21 @@ describe('Overlay', () => {
         nextState: EngineState.PLAY_REQUESTED,
       });
 
-      expect(callback.called).toBe(true);
-      expect(hideSpy.called).toBe(true);
+      expect(callback).toHaveBeenCalled();
+      expect(hideSpy).toHaveBeenCalled();
     });
 
     test('should react on video playback state changed on end', async () => {
-      const callback = sinon.spy(overlay, '_updatePlayingState');
-      const showSpy = sinon.spy(overlay, '_showContent');
+      const callback = jest.spyOn(overlay, '_updatePlayingState');
+      const showSpy = jest.spyOn(overlay, '_showContent');
       overlay._bindEvents();
 
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.ENDED,
       });
 
-      expect(callback.called).toBe(true);
-      expect(showSpy.called).toBe(true);
+      expect(callback).toHaveBeenCalled();
+      expect(showSpy).toHaveBeenCalled();
     });
   });
 });

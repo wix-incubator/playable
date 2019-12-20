@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import LiveIndicator from './live-indicator';
@@ -28,24 +26,24 @@ describe('LiveIndicator', () => {
 
   describe('instance', () => {
     test('should have method for showing/hiding liveIndicator', () => {
-      const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
+      const viewToggleSpy = jest.spyOn(liveIndicator.view, 'toggle');
 
       // 'hidden by default'
       expect(liveIndicator.isHidden).toBe(true);
 
       liveIndicator.show();
 
-      expect(viewToggleSpy.calledWith(true)).toBe(true);
+      expect(viewToggleSpy).toHaveBeenCalledWith(true);
       // 'hidden after method show called'
       expect(liveIndicator.isHidden).toBe(false);
 
       liveIndicator.hide();
 
-      expect(viewToggleSpy.lastCall.calledWith(false)).toBe(true);
+      expect(viewToggleSpy).toHaveBeenLastCalledWith(false);
       // 'hidden after method hide called'
       expect(liveIndicator.isHidden).toBe(true);
 
-      viewToggleSpy.restore();
+      viewToggleSpy.mockRestore();
     });
 
     test('should have method for getting view node', () => {
@@ -53,22 +51,25 @@ describe('LiveIndicator', () => {
     });
 
     test('should try to sync with live on click', () => {
-      const engineSyncWithLiveSpy = sinon.stub(engine, 'syncWithLive');
+      const engineSyncWithLiveSpy = jest.spyOn(engine, 'syncWithLive');
       const liveIndicatorViewNode = liveIndicator.view.getElement();
 
       liveIndicatorViewNode.dispatchEvent(new Event('click'));
 
-      expect(engineSyncWithLiveSpy.called).toBe(true);
+      expect(engineSyncWithLiveSpy).toHaveBeenCalled();
 
-      engineSyncWithLiveSpy.restore();
+      engineSyncWithLiveSpy.mockRestore();
     });
   });
 
   describe('on live state change', () => {
     test('should reset on `LiveState.NONE`', async () => {
-      const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
-      const viewToggleActiveSpy = sinon.spy(liveIndicator.view, 'toggleActive');
-      const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
+      const viewToggleSpy = jest.spyOn(liveIndicator.view, 'toggle');
+      const viewToggleActiveSpy = jest.spyOn(
+        liveIndicator.view,
+        'toggleActive',
+      );
+      const viewToggleEndedSpy = jest.spyOn(liveIndicator.view, 'toggleEnded');
 
       liveIndicator.show();
 
@@ -82,15 +83,15 @@ describe('LiveIndicator', () => {
       // 'isHidden'
       expect(liveIndicator.isHidden).toBe(true);
       // 'view.toggle called with `false`'
-      expect(viewToggleSpy.calledWith(false)).toBe(true);
+      expect(viewToggleSpy).toHaveBeenCalledWith(false);
       // 'view.toggleActive called with `false`'
-      expect(viewToggleActiveSpy.calledWith(false)).toBe(true);
+      expect(viewToggleActiveSpy).toHaveBeenCalledWith(false);
       // 'view.toggleEnded called with `false`'
-      expect(viewToggleEndedSpy.calledWith(false)).toBe(true);
+      expect(viewToggleEndedSpy).toHaveBeenCalledWith(false);
 
-      viewToggleSpy.restore();
-      viewToggleActiveSpy.restore();
-      viewToggleEndedSpy.restore();
+      viewToggleSpy.mockRestore();
+      viewToggleActiveSpy.mockRestore();
+      viewToggleEndedSpy.mockRestore();
     });
 
     describe('for dynamic content', () => {
@@ -101,7 +102,7 @@ describe('LiveIndicator', () => {
       });
 
       test('should show on `LiveState.INITIAL`', async () => {
-        const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
+        const viewToggleSpy = jest.spyOn(liveIndicator.view, 'toggle');
 
         // 'hidden before `LiveState.INITIAL`'
         expect(liveIndicator.isHidden).toBe(true);
@@ -111,13 +112,13 @@ describe('LiveIndicator', () => {
         });
 
         expect(liveIndicator.isHidden).toBe(false);
-        expect(viewToggleSpy.calledWith(true)).toBe(true);
+        expect(viewToggleSpy).toHaveBeenCalledWith(true);
 
-        viewToggleSpy.restore();
+        viewToggleSpy.mockRestore();
       });
 
       test('should activate on `LiveState.SYNC`', async () => {
-        const viewToggleActiveSpy = sinon.spy(
+        const viewToggleActiveSpy = jest.spyOn(
           liveIndicator.view,
           'toggleActive',
         );
@@ -136,13 +137,13 @@ describe('LiveIndicator', () => {
         });
 
         expect(liveIndicator.isActive).toBe(true);
-        expect(viewToggleActiveSpy.calledWith(true)).toBe(true);
+        expect(viewToggleActiveSpy).toHaveBeenCalledWith(true);
 
-        viewToggleActiveSpy.restore();
+        viewToggleActiveSpy.mockRestore();
       });
 
       test('should deactivate on `LiveState.NOT_SYNC`', async () => {
-        const viewToggleActiveSpy = sinon.spy(
+        const viewToggleActiveSpy = jest.spyOn(
           liveIndicator.view,
           'toggleActive',
         );
@@ -162,17 +163,20 @@ describe('LiveIndicator', () => {
         });
 
         expect(liveIndicator.isActive).toBe(false);
-        expect(viewToggleActiveSpy.lastCall.calledWith(false)).toBe(true);
+        expect(viewToggleActiveSpy).toHaveBeenLastCalledWith(false);
 
-        viewToggleActiveSpy.restore();
+        viewToggleActiveSpy.mockRestore();
       });
 
       test('should react to `LiveState.ENDED`', async () => {
-        const viewToggleActiveSpy = sinon.spy(
+        const viewToggleActiveSpy = jest.spyOn(
           liveIndicator.view,
           'toggleActive',
         );
-        const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
+        const viewToggleEndedSpy = jest.spyOn(
+          liveIndicator.view,
+          'toggleEnded',
+        );
 
         await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
@@ -191,12 +195,12 @@ describe('LiveIndicator', () => {
         // 'isActive'
         expect(liveIndicator.isActive).toBe(false);
         // 'view.toggleActive called with `false`'
-        expect(viewToggleActiveSpy.lastCall.calledWith(false)).toBe(true);
+        expect(viewToggleActiveSpy).toHaveBeenLastCalledWith(false);
         // 'view.toggleEnded called with `true`'
-        expect(viewToggleEndedSpy.lastCall.calledWith(true)).toBe(true);
+        expect(viewToggleEndedSpy).toHaveBeenLastCalledWith(true);
 
-        viewToggleActiveSpy.restore();
-        viewToggleEndedSpy.restore();
+        viewToggleActiveSpy.mockRestore();
+        viewToggleEndedSpy.mockRestore();
       });
     });
   });

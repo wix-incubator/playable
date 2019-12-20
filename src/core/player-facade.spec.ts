@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import convertToDeviceRelatedConfig from './config';
 
 import Player from './player-facade';
@@ -18,33 +16,28 @@ describe("Player's instance", () => {
 
   describe('rootNode and params', () => {
     test('should be registered and resolved', () => {
-      const registerValueSpy: sinon.SinonSpy = sinon.spy(
-        container,
-        'registerValue',
-      );
+      const registerValueSpy = jest.spyOn(container, 'registerValue');
       const params = {};
 
       player = new Player({}, container, []);
-      expect(
-        registerValueSpy.calledWith({
-          config: convertToDeviceRelatedConfig(params),
-        }),
-      ).toBe(true);
+      expect(registerValueSpy).toHaveBeenCalledWith({
+        config: convertToDeviceRelatedConfig(params),
+      });
     });
 
     test('should be resolved', () => {
-      const resolveSpy = sinon.spy(container, 'resolve');
+      const resolveSpy = jest.spyOn(container, 'resolve');
 
       player = new Player({}, container, []);
 
-      expect(resolveSpy.args).toEqual([['config']]);
+      expect(resolveSpy.mock.calls).toEqual([['config']]);
     });
   });
 
   describe('default modules', () => {
     test('should be resolved', () => {
       class ClassA {}
-      const resolveSpy: sinon.SinonSpy = sinon.spy(container, 'resolve');
+      const resolveSpy = jest.spyOn(container, 'resolve');
 
       defaultModules = {
         ClassA,
@@ -54,11 +47,11 @@ describe("Player's instance", () => {
 
       player = new Player({}, container, Object.keys(defaultModules));
 
-      expect(resolveSpy.calledWith('ClassA')).toBe(true);
+      expect(resolveSpy).toHaveBeenCalledWith('ClassA');
     });
 
     test('should call destroy on player destroy', () => {
-      const destroySpy = sinon.spy();
+      const destroySpy = jest.fn();
       class ClassA {
         destroy() {
           destroySpy();
@@ -74,24 +67,24 @@ describe("Player's instance", () => {
       player = new Player({}, container, Object.keys(defaultModules));
       player.destroy();
 
-      expect(destroySpy.called).toBe(true);
+      expect(destroySpy).toHaveBeenCalled();
     });
   });
 
   describe('additional modules', () => {
     test('should be resolved', () => {
       class ClassB {}
-      const resolveSpy: sinon.SinonSpy = sinon.spy(container, 'resolve');
+      const resolveSpy = jest.spyOn(container, 'resolve');
 
       container.registerClass('ClassB', ClassB);
 
       player = new Player({}, container, [], ['ClassB']);
 
-      expect(resolveSpy.calledWith('ClassB')).toBe(true);
+      expect(resolveSpy).toHaveBeenCalledWith('ClassB');
     });
 
     test('should call destroy on player destroy', () => {
-      const destroySpy = sinon.spy();
+      const destroySpy = jest.fn();
       class ClassA {
         destroy() {
           destroySpy();
@@ -103,7 +96,7 @@ describe("Player's instance", () => {
       player = new Player({}, container, [], ['ClassA']);
       player.destroy();
 
-      expect(destroySpy.called).toBe(true);
+      expect(destroySpy).toHaveBeenCalled();
     });
   });
 
@@ -115,8 +108,8 @@ describe("Player's instance", () => {
     let methodBSpy: any;
 
     beforeEach(() => {
-      methodASpy = sinon.spy();
-      methodBSpy = sinon.spy();
+      methodASpy = jest.fn();
+      methodBSpy = jest.fn();
 
       class A {
         @playerAPI()
@@ -216,8 +209,8 @@ describe("Player's instance", () => {
       player.methodA();
       player.methodB();
 
-      expect(methodASpy.called).toBe(true);
-      expect(methodBSpy.called).toBe(true);
+      expect(methodASpy).toHaveBeenCalled();
+      expect(methodBSpy).toHaveBeenCalled();
     });
 
     test('should throw error on duplicate method in API', () => {

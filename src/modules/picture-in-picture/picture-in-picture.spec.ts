@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import ChromePictureInPicture from './chrome';
 import SafariPictureInPicture from './safari';
 import PictureInPicture from './picture-in-picture';
@@ -14,23 +12,23 @@ declare const navigator: any;
 
 interface MockedHelper extends IPictureInPictureHelper {
   reset(): void;
-  request: sinon.SinonSpy;
-  exit: sinon.SinonSpy;
+  request: jest.Mock;
+  exit: jest.Mock;
 }
 
 const mockedPictureInPictureHelper: MockedHelper = {
   isInPictureInPicture: false,
   isEnabled: true,
-  request: sinon.spy(),
-  exit: sinon.spy(),
-  destroy: sinon.spy(),
+  request: jest.fn(),
+  exit: jest.fn(),
+  destroy: jest.fn(),
   reset() {
     this.isInFullScreen = false;
     this.isEnabled = true;
 
-    this.request.resetHistory();
-    this.exit.resetHistory();
-    this.destroy.resetHistory();
+    this.request.mockReset();
+    this.exit.mockReset();
+    this.destroy.mockReset();
   },
 };
 
@@ -109,40 +107,41 @@ describe('PictureInPicture', () => {
     describe('method for entering full screen', () => {
       test("should call helper's method for request full screen", () => {
         pictureInPicture.enterPictureInPicture();
-        expect(mockedPictureInPictureHelper.request.called).toBe(true);
+        expect(mockedPictureInPictureHelper.request).toHaveBeenCalled();
       });
 
       test('should do nothing if full screen is not enable', () => {
         mockedPictureInPictureHelper.isEnabled = false;
         pictureInPicture.enterPictureInPicture();
-        expect(mockedPictureInPictureHelper.request.called).toBe(false);
+        expect(mockedPictureInPictureHelper.request).not.toHaveBeenCalled();
       });
     });
 
     describe('method for exiting full screen', () => {
       test("should call helper's method for request full screen", () => {
         pictureInPicture.exitPictureInPicture();
-        expect(mockedPictureInPictureHelper.exit.called).toBe(true);
+        expect(mockedPictureInPictureHelper.exit).toHaveBeenCalled();
       });
 
       test('should do nothing if full screen is not enable', () => {
         mockedPictureInPictureHelper.isEnabled = false;
         pictureInPicture.exitPictureInPicture();
-        expect(mockedPictureInPictureHelper.exit.called).toBe(false);
+        expect(mockedPictureInPictureHelper.exit).not.toHaveBeenCalled();
       });
     });
 
     describe('due to reaction on fullscreen change', () => {
       test('should trigger proper event', () => {
-        const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emitAsync');
+        const spy = jest.spyOn(eventEmitter, 'emitAsync');
 
         mockedPictureInPictureHelper.isInPictureInPicture = true;
         pictureInPicture._onChange();
-        expect(spy.calledWith(UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE)).toBe(
+        expect(spy).toHaveBeenCalledWith(
+          UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE,
           true,
         );
 
-        eventEmitter.emitAsync.restore();
+        eventEmitter.emitAsync.mockRestore();
       });
     });
   });

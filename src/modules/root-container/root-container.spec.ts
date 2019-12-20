@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import EventEmitter from '../event-emitter/event-emitter';
 import RootContainer from './root-container';
 
@@ -46,9 +44,9 @@ describe('RootContainer', () => {
     });
 
     test('should have method for setting setFillAllSpace', () => {
-      sinon.spy(ui.view, 'setFillAllSpaceFlag');
+      jest.spyOn(ui.view, 'setFillAllSpaceFlag');
       ui.setFillAllSpace(true);
-      expect(ui.view.setFillAllSpaceFlag.calledWith(true)).toBe(true);
+      expect(ui.view.setFillAllSpaceFlag).toHaveBeenCalledWith(true);
     });
 
     test('should have method for showing whole view', () => {

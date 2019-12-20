@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import { VideoEvent, EngineState } from '../../../constants';
@@ -25,40 +23,40 @@ describe('BottomBlock', () => {
     test('should have method for setting playback state', () => {
       expect(mainBlock._updatePlayingState).toBeDefined();
 
-      const startTimeout = sinon.spy(mainBlock, '_startHideBlockTimeout');
-      const showTimeout = sinon.spy(mainBlock, '_showContent');
+      const startTimeout = jest.spyOn(mainBlock, '_startHideBlockTimeout');
+      const showTimeout = jest.spyOn(mainBlock, '_showContent');
 
       mainBlock._updatePlayingState({ nextState: EngineState.PLAY_REQUESTED });
-      expect(startTimeout.called).toBe(true);
+      expect(startTimeout).toHaveBeenCalled();
       mainBlock._updatePlayingState({ nextState: EngineState.PAUSED });
-      expect(showTimeout.called).toBe(true);
-      showTimeout.resetHistory();
+      expect(showTimeout).toHaveBeenCalled();
+      showTimeout.mockReset();
       mainBlock._updatePlayingState({ nextState: EngineState.ENDED });
-      expect(showTimeout.called).toBe(true);
-      showTimeout.resetHistory();
+      expect(showTimeout).toHaveBeenCalled();
+      showTimeout.mockReset();
       mainBlock._updatePlayingState({ nextState: EngineState.SRC_SET });
-      expect(showTimeout.called).toBe(true);
+      expect(showTimeout).toHaveBeenCalled();
     });
 
     test('should have method for hiding controls on timeout', () => {
-      const timeoutSpy = sinon.spy(window, 'setTimeout');
-      const clearSpy = sinon.spy(window, 'clearTimeout');
+      const timeoutSpy = jest.spyOn(window, 'setTimeout');
+      const clearSpy = jest.spyOn(window, 'clearTimeout');
       mainBlock._startHideBlockTimeout();
-      expect(timeoutSpy.calledWith(mainBlock._tryHideContent, 2000)).toBe(true);
+      expect(timeoutSpy).toHaveBeenCalledWith(mainBlock._tryHideContent, 2000);
       mainBlock._startHideBlockTimeout();
-      expect(clearSpy.called).toBe(true);
+      expect(clearSpy).toHaveBeenCalled();
 
-      timeoutSpy.restore();
-      clearSpy.restore();
+      timeoutSpy.mockRestore();
+      clearSpy.mockRestore();
     });
   });
 
   describe('video events listeners', () => {
     test('should call callback on playback state change', async () => {
-      const spy = sinon.spy(mainBlock, '_updatePlayingState');
+      const spy = jest.spyOn(mainBlock, '_updatePlayingState');
       mainBlock._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {});
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 

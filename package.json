@@ -87,7 +87,6 @@
     "@types/hls.js": "^0.10.2",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",
-    "@types/sinon": "^5.0.7",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "chai": "~4.1.2",
@@ -110,7 +109,6 @@
     "okidoc-site": "^2.0.0",
     "prettier": "^1.15.1",
     "rgb-hex": "^3.0.0",
-    "sinon": "^6.3.5",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.1.6"

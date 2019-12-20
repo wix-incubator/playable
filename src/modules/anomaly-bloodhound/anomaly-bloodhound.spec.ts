@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../testkit';
 
 import AnomalyBloodhound, { DELAYED_REPORT_TYPES } from './anomaly-bloodhound';
@@ -11,7 +9,7 @@ describe('AnomalyBloodhound', () => {
   let anomalyBloodhound: any;
   let eventEmitter: any;
   let engine: any;
-  const callback = sinon.spy();
+  const callback = jest.fn();
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
@@ -23,16 +21,16 @@ describe('AnomalyBloodhound', () => {
   });
 
   afterEach(() => {
-    callback.resetHistory();
+    callback.mockReset();
   });
 
   describe('reaction on changed state', () => {
     test('should be based on event', async () => {
-      const spy = sinon.spy(anomalyBloodhound, '_processStateChange');
+      const spy = jest.spyOn(anomalyBloodhound, '_processStateChange');
       anomalyBloodhound._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {});
-      expect(spy.called).toBe(true);
-      anomalyBloodhound._processStateChange.restore();
+      expect(spy).toHaveBeenCalled();
+      anomalyBloodhound._processStateChange.mockRestore();
     });
 
     describe('for LOAD_STARTED', () => {
@@ -194,7 +192,7 @@ describe('AnomalyBloodhound', () => {
         prevState: EngineState.PLAYING,
       });
 
-      expect(callback.called).toBe(true);
+      expect(callback).toHaveBeenCalled();
     });
 
     (it as any)(
@@ -206,7 +204,7 @@ describe('AnomalyBloodhound', () => {
         };
 
         window.setTimeout(() => {
-          expect(callback.calledOnce).toBe(true);
+          expect(callback).toHaveBeenCalledTimes(1);
           done();
         }, 10);
 

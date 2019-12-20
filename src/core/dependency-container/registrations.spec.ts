@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import Lifetime from './constants/Lifetime';
 import NotAFunctionError from './errors/NotAFunctionError';
 
@@ -10,17 +8,21 @@ import {
   PROPERTY_FOR_DEPENDENCIES,
 } from './registrations';
 
-interface ModuleSpy extends sinon.SinonSpy {
+interface ModuleSpy extends jest.SpyInstance {
   [PROPERTY_FOR_DEPENDENCIES]?: string[];
 }
 
 describe('registration method', () => {
   const container = {
-    resolve: sinon.spy((name: any) => name),
+    resolve: jest.fn((name: string) => name),
   };
 
+  beforeEach(() => {
+    container.resolve = jest.fn((name: string) => name);
+  });
+
   afterEach(() => {
-    container.resolve.resetHistory();
+    container.resolve.mockReset();
   });
 
   describe('asValue', () => {
@@ -60,29 +62,27 @@ describe('registration method', () => {
 
     describe("returned object's resolve method", () => {
       test('should call initial method only with container passed', () => {
-        const func = sinon.spy();
+        const func = jest.fn();
         const registeredFunction = asFunction(func);
 
         registeredFunction.resolve(container);
-        expect(func.calledWith(container)).toBe(true);
+        expect(func).toHaveBeenCalledWith(container);
       });
 
       test('should combine wrapper object with resolved dependencies from container', () => {
-        const func: ModuleSpy = sinon.spy();
+        const func: ModuleSpy = jest.fn();
         const moduleName = 'moduleName';
         func[PROPERTY_FOR_DEPENDENCIES] = [moduleName];
         const registeredFunction = asFunction(func);
 
         registeredFunction.resolve(container);
-        expect(container.resolve.calledWithExactly(moduleName)).toBe(true);
-        expect(
-          func.calledWithExactly(
-            {
-              moduleName,
-            },
-            container,
-          ),
-        ).toBe(true);
+        expect(container.resolve).toHaveBeenCalledWith(moduleName);
+        expect(func).toHaveBeenCalledWith(
+          {
+            moduleName,
+          },
+          container,
+        );
       });
     });
 
@@ -129,38 +129,36 @@ describe('registration method', () => {
 
     describe("returned object's resolve method", () => {
       test('should call initial method only with container passed', () => {
-        const constructor = sinon.spy();
+        const constructor = jest.fn();
         const registeredClass = asClass(constructor);
 
         registeredClass.resolve(container);
 
-        expect(constructor.calledWithNew()).toBe(true);
-        expect(constructor.calledWith(container)).toBe(true);
+        expect(constructor.mock.instances.length).toBe(1);
+        expect(constructor).toHaveBeenCalledWith(container);
       });
 
       test('should combine wrapper object with resolved dependencies from container', () => {
-        const constructor: ModuleSpy = sinon.spy();
+        const constructor: ModuleSpy = jest.fn(() => ({}));
         const moduleName = 'moduleName';
         constructor[PROPERTY_FOR_DEPENDENCIES] = [moduleName];
         const registeredClass = asClass(constructor);
 
         registeredClass.resolve(container);
 
-        expect(constructor.calledWithNew()).toBe(true);
-        expect(container.resolve.calledWithExactly(moduleName)).toBe(true);
-        expect(
-          constructor.calledWithExactly(
-            {
-              moduleName,
-            },
-            container,
-          ),
-        ).toBe(true);
+        expect(constructor.mock.instances.length).toBe(1);
+        expect(container.resolve).toHaveBeenCalledWith(moduleName);
+        expect(constructor).toHaveBeenCalledWith(
+          {
+            moduleName,
+          },
+          container,
+        );
       });
     });
 
     describe('returned object should have fluid interface', () => {
-      const constructor = sinon.spy();
+      const constructor = jest.fn();
       const registeredClass = asClass(constructor);
 
       registeredClass.transient();

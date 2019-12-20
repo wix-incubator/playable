@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../../testkit';
 
 import ProgressControl, { UPDATE_PROGRESS_INTERVAL_DELAY } from './progress';
@@ -42,25 +40,24 @@ describe('ProgressControl', () => {
     });
 
     test('should have method for destroying', () => {
-      const spy = sinon.spy(control, '_unbindEvents');
+      const spy = jest.spyOn(control, '_unbindEvents');
       expect(control.destroy).toBeDefined();
       control.destroy();
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     describe('for time indicators', () => {
       const VIDEO_DURATION_TIME = 1000;
-      let engineGetDurationTimeStub: sinon.SinonStub;
+      let engineGetDurationTimeSpy: jest.SpyInstance;
 
       beforeEach(() => {
-        engineGetDurationTimeStub = (sinon.stub(
-          control._engine,
-          'getDuration',
-        ) as sinon.SinonStub).callsFake(() => VIDEO_DURATION_TIME);
+        engineGetDurationTimeSpy = jest
+          .spyOn(control._engine, 'getDuration')
+          .mockImplementation(() => VIDEO_DURATION_TIME);
       });
 
       afterEach(() => {
-        engineGetDurationTimeStub.restore();
+        engineGetDurationTimeSpy.mockRestore();
       });
 
       test('should have methods for adding/deleting indicators', () => {
@@ -185,92 +182,90 @@ describe('ProgressControl', () => {
 
   describe('video events listeners', () => {
     test('should call callback on playback state change', async () => {
-      const spy = sinon.spy(control, '_processStateChange');
+      const spy = jest.spyOn(control, '_processStateChange');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {});
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     test('should call callback on seek', async () => {
-      const spyPlayed = sinon.spy(control, '_updatePlayedIndicator');
-      const spyBuffered = sinon.spy(control, '_updateBufferIndicator');
+      const spyPlayed = jest.spyOn(control, '_updatePlayedIndicator');
+      const spyBuffered = jest.spyOn(control, '_updateBufferIndicator');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SEEK_IN_PROGRESS,
       });
-      expect(spyPlayed.called).toBe(true);
-      expect(spyBuffered.called).toBe(true);
+      expect(spyPlayed).toHaveBeenCalled();
+      expect(spyBuffered).toHaveBeenCalled();
     });
 
     test('should call callback on duration update', async () => {
-      const spy = sinon.spy(control, '_updateBufferIndicator');
+      const spy = jest.spyOn(control, '_updateBufferIndicator');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.CHUNK_LOADED);
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('internal methods', () => {
     test('should toggle playback on manipulation change', () => {
-      const startSpy = sinon.spy(control, '_pauseVideoOnDragStart');
-      const stopSpy = sinon.spy(control, '_playVideoOnDragEnd');
+      const startSpy = jest.spyOn(control, '_pauseVideoOnDragStart');
+      const stopSpy = jest.spyOn(control, '_playVideoOnDragEnd');
       control._startProcessingUserDrag();
-      expect(startSpy.called).toBe(true);
+      expect(startSpy).toHaveBeenCalled();
       control._stopProcessingUserDrag();
-      expect(stopSpy.called).toBe(true);
+      expect(stopSpy).toHaveBeenCalled();
 
-      startSpy.restore();
-      stopSpy.restore();
+      startSpy.mockRestore();
+      stopSpy.mockRestore();
     });
 
     test('should toggle interval updates', () => {
-      const startSpy = sinon.spy(control, '_startIntervalUpdates');
+      const startSpy = jest.spyOn(control, '_startIntervalUpdates');
       control._processStateChange({ nextState: EngineState.PLAYING });
-      expect(startSpy.called).toBe(true);
+      expect(startSpy).toHaveBeenCalled();
 
-      const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
+      const stopSpy = jest.spyOn(control, '_stopIntervalUpdates');
       control._processStateChange({ nextState: EngineState.PAUSED });
-      expect(stopSpy.called).toBe(true);
+      expect(stopSpy).toHaveBeenCalled();
     });
 
     test('should start interval updates', () => {
-      const spy = sinon.spy(window, 'setInterval');
-      const stopSpy = sinon.spy(control, '_stopIntervalUpdates');
+      const spy = jest.spyOn(window, 'setInterval');
+      const stopSpy = jest.spyOn(control, '_stopIntervalUpdates');
       control._startIntervalUpdates();
-      expect(
-        spy.calledWith(
-          control._updateAllIndicators,
-          UPDATE_PROGRESS_INTERVAL_DELAY,
-        ),
-      ).toBe(true);
-      expect(stopSpy.called).toBe(false);
+      expect(spy).toHaveBeenCalledWith(
+        control._updateAllIndicators,
+        UPDATE_PROGRESS_INTERVAL_DELAY,
+      );
+      expect(stopSpy).not.toHaveBeenCalled();
       control._startIntervalUpdates();
-      expect(stopSpy.called).toBe(true);
+      expect(stopSpy).toHaveBeenCalled();
 
-      spy.restore();
+      spy.mockRestore();
     });
 
     test('should change current time of video', () => {
-      const spy = sinon.stub(engine, 'seekTo');
+      const spy = jest.spyOn(engine, 'seekTo');
       control._onChangePlayedPercent(10);
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
 
     test('should update view', () => {
-      const playedSpy = sinon.spy(control, '_setPlayed');
-      const bufferSpy = sinon.spy(control, '_setBuffered');
+      const playedSpy = jest.spyOn(control, '_setPlayed');
+      const bufferSpy = jest.spyOn(control, '_setBuffered');
       control._updatePlayedIndicator();
-      expect(playedSpy.called).toBe(true);
+      expect(playedSpy).toHaveBeenCalled();
       control._updateBufferIndicator();
-      expect(bufferSpy.called).toBe(true);
+      expect(bufferSpy).toHaveBeenCalled();
     });
 
     test('should trigger update of both played and buffered', () => {
-      const playedSpy = sinon.spy(control, '_updatePlayedIndicator');
-      const bufferSpy = sinon.spy(control, '_updateBufferIndicator');
+      const playedSpy = jest.spyOn(control, '_updatePlayedIndicator');
+      const bufferSpy = jest.spyOn(control, '_updateBufferIndicator');
       control._updateAllIndicators();
-      expect(playedSpy.called).toBe(true);
-      expect(bufferSpy.called).toBe(true);
+      expect(playedSpy).toHaveBeenCalled();
+      expect(bufferSpy).toHaveBeenCalled();
     });
   });
 });

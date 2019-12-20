@@ -1,9 +1,7 @@
-import * as sinon from 'sinon';
-
 import IOSFullScreen from './ios';
 
 describe('IOSFullScreen', () => {
-  const callback = sinon.spy();
+  const callback = jest.fn();
   let element: any;
   let fullScreen: any;
 
@@ -13,7 +11,7 @@ describe('IOSFullScreen', () => {
   });
 
   afterEach(() => {
-    callback.resetHistory();
+    callback.mockReset();
   });
 
   describe('enable state', () => {
@@ -43,9 +41,9 @@ describe('IOSFullScreen', () => {
   describe('method for entering full screen', () => {
     test('should use native method', () => {
       element.webkitSupportsFullscreen = true;
-      element.webkitEnterFullscreen = sinon.spy();
+      element.webkitEnterFullscreen = jest.fn();
       fullScreen.request();
-      expect(element.webkitEnterFullscreen.called).toBe(true);
+      expect(element.webkitEnterFullscreen).toHaveBeenCalled();
     });
 
     test('should make postpone enter if do not have metadata', () => {
@@ -59,23 +57,23 @@ describe('IOSFullScreen', () => {
 
       fullScreen.request();
       fullScreen.request();
-      element.webkitEnterFullscreen = sinon.spy();
+      element.webkitEnterFullscreen = jest.fn();
       element.dispatchEvent(metadataEvent);
-      expect(element.webkitEnterFullscreen.calledOnce).toBe(true);
+      expect(element.webkitEnterFullscreen).toHaveBeenCalledTimes(1);
     });
 
     test('should do nothing if not enabled', () => {
       element.webkitSupportsFullscreen = false;
-      element.webkitEnterFullscreen = sinon.spy();
+      element.webkitEnterFullscreen = jest.fn();
       fullScreen.request();
-      expect(element.webkitEnterFullscreen.called).toBe(false);
+      expect(element.webkitEnterFullscreen).not.toHaveBeenCalled();
     });
 
     test('should do nothing if already in full screen', () => {
       element.webkitDisplayingFullscreen = true;
-      element.webkitEnterFullscreen = sinon.spy();
+      element.webkitEnterFullscreen = jest.fn();
       fullScreen.request();
-      expect(element.webkitEnterFullscreen.called).toBe(false);
+      expect(element.webkitEnterFullscreen).not.toHaveBeenCalled();
     });
   });
 
@@ -83,23 +81,23 @@ describe('IOSFullScreen', () => {
     test('should use native method', () => {
       element.webkitSupportsFullscreen = true;
       element.webkitDisplayingFullscreen = true;
-      element.webkitExitFullscreen = sinon.spy();
+      element.webkitExitFullscreen = jest.fn();
       fullScreen.exit();
-      expect(element.webkitExitFullscreen.called).toBe(true);
+      expect(element.webkitExitFullscreen).toHaveBeenCalled();
     });
 
     test('should do nothing if not enabled', () => {
       element.webkitSupportsFullscreen = false;
-      element.webkitExitFullscreen = sinon.spy();
+      element.webkitExitFullscreen = jest.fn();
       fullScreen.exit();
-      expect(element.webkitExitFullscreen.called).toBe(false);
+      expect(element.webkitExitFullscreen).not.toHaveBeenCalled();
     });
 
     test('should do nothing if not in full screen', () => {
       element.webkitDisplayingFullscreen = false;
-      element.webkitExitFullscreen = sinon.spy();
+      element.webkitExitFullscreen = jest.fn();
       fullScreen.exit();
-      expect(element.webkitExitFullscreen.called).toBe(false);
+      expect(element.webkitExitFullscreen).not.toHaveBeenCalled();
     });
   });
 
@@ -108,14 +106,14 @@ describe('IOSFullScreen', () => {
       const enterEvent = new Event('webkitbeginfullscreen');
 
       element.dispatchEvent(enterEvent);
-      expect(callback.called).toBe(true);
+      expect(callback).toHaveBeenCalled();
     });
 
     test('should call callback if exit', () => {
       const exitEvent = new Event('webkitendfullscreen');
 
       element.dispatchEvent(exitEvent);
-      expect(callback.called).toBe(true);
+      expect(callback).toHaveBeenCalled();
     });
   });
 
@@ -130,11 +128,11 @@ describe('IOSFullScreen', () => {
       };
 
       fullScreen.request();
-      element.webkitEnterFullscreen = sinon.spy();
+      element.webkitEnterFullscreen = jest.fn();
       fullScreen.destroy();
 
       element.dispatchEvent(metadataEvent);
-      expect(element.webkitEnterFullscreen.called).toBe(false);
+      expect(element.webkitEnterFullscreen).not.toHaveBeenCalled();
     });
 
     test('should clear webkitbeginfullscreen listener', () => {
@@ -144,7 +142,7 @@ describe('IOSFullScreen', () => {
       fullScreen.destroy();
 
       element.dispatchEvent(enterEvent);
-      expect(callback.called).toBe(false);
+      expect(callback).not.toHaveBeenCalled();
     });
 
     test('should clear webkitendfullscreen listener', () => {
@@ -154,7 +152,7 @@ describe('IOSFullScreen', () => {
       fullScreen.destroy();
 
       element.dispatchEvent(exitEvent);
-      expect(callback.called).toBe(false);
+      expect(callback).not.toHaveBeenCalled();
     });
   });
 });

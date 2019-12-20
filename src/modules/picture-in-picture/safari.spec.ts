@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import SafariPictureInPicture, {
   PICTURE_IN_PICTURE_MODE,
   INLINE_MODE,
@@ -7,7 +5,7 @@ import SafariPictureInPicture, {
 import { IPictureInPictureHelper } from './types';
 
 describe('SafariPictureInPicture', () => {
-  const callback = sinon.spy();
+  const callback = jest.fn();
   let element: any;
   let pictureInPicture: IPictureInPictureHelper;
 
@@ -17,7 +15,7 @@ describe('SafariPictureInPicture', () => {
   });
 
   afterEach(() => {
-    callback.resetHistory();
+    callback.mockReset();
   });
 
   describe('enable state', () => {
@@ -46,11 +44,11 @@ describe('SafariPictureInPicture', () => {
 
   describe('method for entering picture-in-picture', () => {
     test('should use native method', () => {
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = jest.fn();
       pictureInPicture.request();
-      expect(
-        element.webkitSetPresentationMode.calledWith(PICTURE_IN_PICTURE_MODE),
-      ).toBe(true);
+      expect(element.webkitSetPresentationMode).toHaveBeenCalledWith(
+        PICTURE_IN_PICTURE_MODE,
+      );
     });
 
     test('should make postpone enter if do not have metadata', () => {
@@ -63,34 +61,34 @@ describe('SafariPictureInPicture', () => {
 
       pictureInPicture.request();
       pictureInPicture.request();
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = jest.fn();
       element.dispatchEvent(metadataEvent);
-      expect(element.webkitSetPresentationMode.calledOnce).toBe(true);
+      expect(element.webkitSetPresentationMode).toHaveBeenCalledTimes(1);
     });
 
     test('should do nothing if already in picture-in-picture', () => {
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = jest.fn();
       element.webkitPresentationMode = PICTURE_IN_PICTURE_MODE;
       pictureInPicture.request();
-      expect(element.webkitSetPresentationMode.called).toBe(false);
+      expect(element.webkitSetPresentationMode).not.toHaveBeenCalled();
     });
   });
 
   describe('method for exit picture-in-picture', () => {
     test('should use native method', () => {
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = jest.fn();
       element.webkitPresentationMode = PICTURE_IN_PICTURE_MODE;
       pictureInPicture.exit();
-      expect(element.webkitSetPresentationMode.calledWith(INLINE_MODE)).toBe(
-        true,
+      expect(element.webkitSetPresentationMode).toHaveBeenCalledWith(
+        INLINE_MODE,
       );
     });
 
     test('should do nothing if not in picture-in-picture', () => {
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = jest.fn();
       element.webkitPresentationMode = INLINE_MODE;
       pictureInPicture.exit();
-      expect(element.webkitSetPresentationMode.called).toBe(false);
+      expect(element.webkitSetPresentationMode).not.toHaveBeenCalled();
     });
   });
 
@@ -99,7 +97,7 @@ describe('SafariPictureInPicture', () => {
       const changeEvent = new Event('webkitpresentationmodechanged');
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).toBe(true);
+      expect(callback).toHaveBeenCalled();
     });
   });
 
@@ -113,31 +111,31 @@ describe('SafariPictureInPicture', () => {
       };
 
       pictureInPicture.request();
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = jest.fn();
       pictureInPicture.destroy();
 
       element.dispatchEvent(metadataEvent);
-      expect(element.webkitSetPresentationMode.called).toBe(false);
+      expect(element.webkitSetPresentationMode).not.toHaveBeenCalled();
     });
 
     test('should clear webkitbeginfullscreen listener', () => {
       const changeEvent = new Event('webkitpresentationmodechanged');
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = jest.fn();
 
       pictureInPicture.destroy();
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).toBe(false);
+      expect(callback).not.toHaveBeenCalled();
     });
 
     test('should clear webkitendfullscreen listener', () => {
       const changeEvent = new Event('webkitpresentationmodechanged');
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = jest.fn();
 
       pictureInPicture.destroy();
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).toBe(false);
+      expect(callback).not.toHaveBeenCalled();
     });
   });
 });

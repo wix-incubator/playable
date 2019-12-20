@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../testkit';
 
 import ChromecastManager, { ChromecastEvents } from './chromecast-manager';
@@ -18,11 +16,11 @@ describe('ChromecastManager', () => {
   let castApi: WindowCastAPIMock;
 
   const video = {
-    addEventListener: sinon.spy(),
-    removeEventListener: sinon.spy(),
-    removeAttribute: sinon.spy(),
-    play: sinon.spy(),
-    pause: sinon.spy(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    removeAttribute: jest.fn(),
+    play: jest.fn(),
+    pause: jest.fn(),
     currentTime: 0,
     tagName: 'VIDEO',
   };
@@ -54,12 +52,14 @@ describe('ChromecastManager', () => {
   describe('Initalized ', () => {
     test('only if casting API is available', () => {
       const context = castApi.framework.CastContext.getInstance();
-      const stab = sinon.stub(context, 'setOptions');
+      const stab = jest
+        .spyOn(context, 'setOptions')
+        .mockImplementation(jest.fn);
 
       chromecastManager._initCastContext(false);
-      expect(stab.called).toBe(false);
+      expect(stab).not.toHaveBeenCalled();
 
-      stab.reset();
+      stab.mockRestore();
       WindowCastAPIMock.init();
     });
   });

@@ -1,4 +1,3 @@
-import * as sinon from 'sinon';
 import createPlayerTestkit from '../../testkit';
 
 import DesktopFullScreen from './desktop';
@@ -13,16 +12,16 @@ declare const navigator: any;
 const mockedFullscreenHelper = {
   isInFullScreen: false,
   isEnabled: true,
-  request: sinon.spy(),
-  exit: sinon.spy(),
-  destroy: sinon.spy(),
+  request: jest.fn(),
+  exit: jest.fn(),
+  destroy: jest.fn(),
   _reset() {
     this.isInFullScreen = false;
     this.isEnabled = true;
 
-    this.request.resetHistory();
-    this.exit.resetHistory();
-    this.destroy.resetHistory();
+    this.request.mockReset();
+    this.exit.mockReset();
+    this.destroy.mockReset();
   },
 };
 
@@ -117,90 +116,86 @@ describe('FullScreenManager', () => {
   describe('method for entering full screen', () => {
     test("should call helper's method for request full screen", () => {
       fullScreenManager.enterFullScreen();
-      expect(mockedFullscreenHelper.request.called).toBe(true);
+      expect(mockedFullscreenHelper.request).toHaveBeenCalled();
     });
 
     test('should do nothing if full screen is not enable', () => {
       mockedFullscreenHelper.isEnabled = false;
       fullScreenManager.enterFullScreen();
-      expect(mockedFullscreenHelper.request.called).toBe(false);
+      expect(mockedFullscreenHelper.request).not.toHaveBeenCalled();
     });
   });
 
   describe('method for exiting full screen', () => {
     test("should call helper's method for request full screen", () => {
       fullScreenManager.exitFullScreen();
-      expect(mockedFullscreenHelper.exit.called).toBe(true);
+      expect(mockedFullscreenHelper.exit).toHaveBeenCalled();
     });
 
     test('should do nothing if full screen is not enable', () => {
       mockedFullscreenHelper.isEnabled = false;
       fullScreenManager.exitFullScreen();
-      expect(mockedFullscreenHelper.exit.called).toBe(false);
+      expect(mockedFullscreenHelper.exit).not.toHaveBeenCalled();
     });
   });
 
   describe('due to reaction on fullscreen change', () => {
     test('should trigger proper event', () => {
-      const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emitAsync');
+      const spy = jest.spyOn(eventEmitter, 'emitAsync');
 
       mockedFullscreenHelper.isInFullScreen = true;
       fullScreenManager._onChange({ target: fullScreenManager._element });
-      expect(
-        spy.calledWith(
-          UIEvent.FULL_SCREEN_STATE_CHANGED,
-          mockedFullscreenHelper.isInFullScreen,
-        ),
-      ).toBe(true);
+      expect(spy).toHaveBeenCalledWith(
+        UIEvent.FULL_SCREEN_STATE_CHANGED,
+        mockedFullscreenHelper.isInFullScreen,
+      );
 
-      eventEmitter.emitAsync.restore();
+      eventEmitter.emitAsync.mockRestore();
     });
     test('should not trigger if fullscreen target is not proper element', () => {
-      const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emitAsync');
+      const spy = jest.spyOn(eventEmitter, 'emitAsync');
 
       mockedFullscreenHelper.isInFullScreen = true;
       fullScreenManager._onChange({ target: null });
-      expect(
-        spy.calledWith(
-          UIEvent.FULL_SCREEN_STATE_CHANGED,
-          mockedFullscreenHelper.isInFullScreen,
-        ),
-      ).toBe(false);
+      expect(spy).not.toHaveBeenCalledWith(
+        UIEvent.FULL_SCREEN_STATE_CHANGED,
+        mockedFullscreenHelper.isInFullScreen,
+      );
 
-      eventEmitter.emitAsync.restore();
+      eventEmitter.emitAsync.mockRestore();
     });
 
     test('should pause video on exit from full screen if proper config passed', () => {
-      const spy = sinon.stub(engine, 'pause');
+      const spy = jest.spyOn(engine, 'pause');
 
       fullScreenManager._pauseVideoOnFullScreenExit = true;
       mockedFullscreenHelper.isInFullScreen = false;
       fullScreenManager._onChange({ target: fullScreenManager._element });
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
 
-      engine.pause.restore();
+      engine.pause.mockRestore();
     });
   });
 
   describe('due to reaction on play request', () => {
     test('should enter full screen if proper config passed', async () => {
-      const spy = sinon.spy(fullScreenManager, 'enterFullScreen');
+      const spy = jest.spyOn(fullScreenManager, 'enterFullScreen');
 
       await eventEmitter.emitAsync(VideoEvent.PLAY_REQUEST);
 
       fullScreenManager._enterFullScreenOnPlay = true;
       mockedFullscreenHelper.isInFullScreen = false;
       await eventEmitter.emitAsync(VideoEvent.PLAY_REQUEST);
-      expect(spy.calledOnce).toBe(true);
+      expect(spy).toHaveBeenCalledTimes(1);
 
-      fullScreenManager.enterFullScreen.restore();
+      fullScreenManager.enterFullScreen.mockRestore();
     });
   });
 
   describe('due to reaction on state changed', () => {
     describe('to end state', () => {
       test('should exit full screen if config passed', async () => {
-        const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
+        const spy = jest.spyOn(fullScreenManager, 'exitFullScreen');
 
         await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.ENDED,
@@ -212,15 +207,15 @@ describe('FullScreenManager', () => {
         await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.ENDED,
         });
-        expect(spy.calledOnce).toBe(true);
+        expect(spy).toHaveBeenCalledTimes(1);
 
-        fullScreenManager.exitFullScreen.restore();
+        fullScreenManager.exitFullScreen.mockRestore();
       });
     });
 
     describe('to pause state', () => {
       test('should exit full screen if config passed', async () => {
-        const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
+        const spy = jest.spyOn(fullScreenManager, 'exitFullScreen');
 
         await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.PAUSED,
@@ -232,9 +227,9 @@ describe('FullScreenManager', () => {
         await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
           nextState: EngineState.PAUSED,
         });
-        expect(spy.calledOnce).toBe(true);
+        expect(spy).toHaveBeenCalledTimes(1);
 
-        fullScreenManager.exitFullScreen.restore();
+        fullScreenManager.exitFullScreen.mockRestore();
       });
     });
   });

@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import {
   create,
   registerModule,
@@ -8,7 +6,7 @@ import {
 
 describe('registerModule', () => {
   test('should add additional module', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
 
     class ClassA {
       constructor() {
@@ -19,7 +17,7 @@ describe('registerModule', () => {
     registerModule('ClassA', ClassA);
 
     /*const player = */ create();
-    expect(spy.called).toBe(true);
+    expect(spy).toHaveBeenCalled();
     clearAdditionalModules();
   });
 });

@@ -1,4 +1,3 @@
-import * as sinon from 'sinon';
 import EventEmitter from '../../../../modules/event-emitter/event-emitter';
 
 import getNativeAdapterCreator from './adapters/native';
@@ -16,7 +15,6 @@ describe('AdapterStrategy', () => {
 
   beforeEach(() => {
     eventEmitter = new EventEmitter();
-    // @ts-ignore
 
     strategy = new AdapterStrategy(eventEmitter, video);
   });
@@ -135,9 +133,9 @@ describe('AdapterStrategy', () => {
     strategy.connectAdapter('http://www.dash.com/dash.mpd');
 
     const attachedAdapter = strategy.attachedAdapter;
-    sinon.spy(attachedAdapter, 'detach');
+    jest.spyOn(attachedAdapter, 'detach');
     strategy.connectAdapter('http://www.dash.com/dash2.mpd');
-    expect(attachedAdapter.detach.called).toBe(true);
+    expect(attachedAdapter.detach).toHaveBeenCalled();
   });
 
   test('should detach current stream on destroy', () => {
@@ -156,8 +154,8 @@ describe('AdapterStrategy', () => {
     strategy.connectAdapter('http://www.dash.com/dash.mpd');
 
     const attachedAdapter = strategy.attachedAdapter;
-    sinon.spy(attachedAdapter, 'detach');
+    jest.spyOn(attachedAdapter, 'detach');
     strategy.destroy();
-    expect(attachedAdapter.detach.called).toBe(true);
+    expect(attachedAdapter.detach).toHaveBeenCalled();
   });
 });

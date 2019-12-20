@@ -1,5 +1,3 @@
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../../testkit';
 
 import { UIEvent } from '../../../../constants';
@@ -32,10 +30,10 @@ describe('PictureInPictureControl', () => {
 
   describe('ui events listeners', () => {
     test('should call callback on playback state change', async () => {
-      const spy = sinon.spy(control.view, 'setPictureInPictureState');
+      const spy = jest.spyOn(control.view, 'setPictureInPictureState');
       control._bindEvents();
       await eventEmitter.emitAsync(UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE);
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -53,10 +51,10 @@ describe('PictureInPictureControl', () => {
     });
 
     test('should have method for destroying', () => {
-      const spy = sinon.spy(control, '_unbindEvents');
+      const spy = jest.spyOn(control, '_unbindEvents');
       expect(control.destroy).toBeDefined();
       control.destroy();
-      expect(spy.called).toBe(true);
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
