@@ -1,9 +1,7 @@
 import { ScreenshotOptions, Page } from 'puppeteer';
 import { EngineState } from '../constants';
 
-const config = require('../../jest-puppeteer.config.js');
-
-const TEST_PORT = config.server.port;
+const TEST_PORT = 5000;
 
 export const ELEMENT_HOOKS = {
   PICTURE_IN_PICTURE_CONTROL: 'picture-in-picture-control',
@@ -35,7 +33,7 @@ export class PlayerDriver {
       await this.page.waitFor(50);
     },
     waitPlayerReadyState: async () => {
-      await this.page.evaluate((readyToPlayState) => {
+      await this.page.evaluate((readyToPlayState: string) => {
         const player = window.player;
         const playerReadyState = readyToPlayState;
 

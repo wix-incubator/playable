@@ -58,7 +58,7 @@
     "pretest:node": "haste-playable clean && npm run bundle:playable",
     "test:node": "node src/e2e/node.js",
     "test:unit": "jest -c=dev-env/tests/jest/configs/unit.config.js",
-    "test:visual": "jest",
+    "test:visual": "jest -c=dev-env/tests/jest/configs/visual.config.js",
     "pretest:playback": "haste-playable clean && npm run bundle:playback-test && npm run bundle:playback-test-with-adapters",
     "test:playback": "haste-playable test --karma dev-env/tests/karma/karma.conf.js && haste-playable test --karma dev-env/karma-with-adapters.conf.js",
     "precommit": "lint-staged && npm run documentation:gitadd",

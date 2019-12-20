@@ -3,6 +3,7 @@ const APP_SRC = `${APP_ROOT}/src`;
 
 const TEST_PATTERNS = {
   UNIT: '**/*.spec.ts',
+  VISUAL: `**/*.visual.+(ts|js){,x}`,
 };
 
 module.exports = {
