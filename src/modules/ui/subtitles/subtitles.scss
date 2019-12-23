@@ -30,6 +30,10 @@
 
   &.controlsShown {
     margin-bottom: 60px;
+
+    @include query(in-full-screen()) {
+      margin-bottom: 100px;
+    }
   }
 }
 
@@ -44,4 +48,11 @@
   color: white;
   border-radius: 2px;
   background: rgba(50, 50, 50, .85);
+
+  @include query(in-full-screen()) {
+    font-size: 24px;
+    line-height: 24px;
+
+    padding: 8px;
+  }
 }
