@@ -22,7 +22,7 @@ Playable is a JavaScript component for video playback:
 - **Easy-to-use** --- Quick bootstrap and super-flexible customization.
 - **Accessibility** --- You may rely on the keyboard shortcuts to control the playback for the best accessibility in the open source.
 - **Reliable** --- Uses [HTML5 video](https://www.w3schools.com/html/html5_video.asp) and [Media Source Extensions](https://www.w3.org/TR/media-source/).
-- **Modern browsers support** -- We support compatibility with the latest Safari, Chrom, Firefox, Edge, and IE11.
+- **Modern browsers support** -- We support compatibility with the latest Safari, Chrome, Firefox, Edge, and IE11.
 - **Customizable** -- Make simple changes like modify UI texts and progress bar colors or go mad and customize player core and modules behaviour.
 - **Flexible** **and efficient** --- Supports both [**adaptive streaming**](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming) and [**progressive download**](https://en.wikipedia.org/wiki/Progressive_download). When you provide the content in **multiple formats** as an array of source video URLs, playable considers the environment and identifies the most efficient source to play in the given circumstances. Read more in [Video Sources](/video-source)
   **Note:** Adaptive streaming sources have higher priority than those with progressive download. Native browser support has higher priority than MSE-enabled playback.
