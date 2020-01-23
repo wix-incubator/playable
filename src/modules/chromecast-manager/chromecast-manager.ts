@@ -59,7 +59,7 @@ export default class ChromecastManager implements IChromecastManager {
 
     ChromecastManager._chromecastInited = true;
 
-    (window as PatchedWindow).__onGCastApiAvailable = this._initCastContext;
+    ((window as unknown) as PatchedWindow).__onGCastApiAvailable = this._initCastContext;
 
     injectScript(FRAMEWORK_LINK);
   }

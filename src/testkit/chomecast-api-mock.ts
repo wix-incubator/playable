@@ -125,14 +125,14 @@ class WindowCastAPIMock {
   }
 
   static init() {
-    const w = window as PatchedWindow;
+    const w = (window as unknown) as PatchedWindow;
     if (w && typeof w.__onGCastApiAvailable === 'function') {
       w.__onGCastApiAvailable(true);
     }
   }
 
   static reset() {
-    const w = window as PatchedWindow;
+    const w = (window as unknown) as PatchedWindow;
     delete w.__onGCastApiAvailable;
   }
 }
