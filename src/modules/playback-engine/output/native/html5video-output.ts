@@ -20,6 +20,10 @@ import {
   isIPod,
 } from '../../../../utils/device-detection';
 
+const preventDefault = (e: MouseEvent) => {
+  e.preventDefault();
+};
+
 export default class NativeOutput implements IVideoOutput {
   static moduleName = 'nativeOutput';
   static dependencies = ['eventEmitter', 'config', 'availablePlaybackAdapters'];
@@ -71,7 +75,7 @@ export default class NativeOutput implements IVideoOutput {
       this._video = document.createElement('video');
     }
     if (preventContextMenu) {
-      this._video.addEventListener('contextmenu', e => e.preventDefault());
+      this._video.addEventListener('contextmenu', preventDefault);
     }
   }
 
@@ -340,6 +344,7 @@ export default class NativeOutput implements IVideoOutput {
   destroy() {
     this._nativeEventsBroadcaster.destroy();
     this._adapterStrategy.destroy();
+    this._video.removeEventListener('contextmenu', preventDefault);
 
     this._video.parentNode && this._video.parentNode.removeChild(this._video);
 
