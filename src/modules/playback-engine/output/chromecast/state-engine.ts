@@ -1,7 +1,7 @@
 import { IEventEmitter } from '../../../event-emitter/types';
 
 import { VideoEvent, EngineState } from '../../../../constants';
-import RemotePlayerController = cast.framework.RemotePlayerController;
+type RemotePlayerController = cast.framework.RemotePlayerController;
 import { IVideoOutput } from '../../types';
 
 export default class StateEngine {
@@ -53,7 +53,9 @@ export default class StateEngine {
     );
   }
 
-  private _processEventFromVideo(event: any = {}) {
+  private _processEventFromVideo(
+    event: cast.framework.RemotePlayerChangedEvent,
+  ) {
     switch (event.field) {
       case 'playerState': {
         if (event.value === 'PLAYING') {

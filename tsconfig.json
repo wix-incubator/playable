@@ -10,9 +10,16 @@
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "target": "es5",
+    "target": "ES5",
     "jsx": "react",
-    "lib": ["dom", "es2016", "es2017"]
+    "lib": [
+      "dom",
+      "es2016",
+      "es2017"
+    ],
   },
-  "include": ["./src/**/*.ts"]
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": ["./src/stories/**/*.ts"]
 }

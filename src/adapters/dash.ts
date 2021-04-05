@@ -1,4 +1,4 @@
-import { MediaPlayer } from 'dashjs/build/es5/index_mediaplayerOnly';
+import { MediaPlayer, LogLevel } from 'dashjs/build/es5/index_mediaplayerOnly';
 
 import { getNearestBufferSegmentInfo } from '../utils/video-data';
 import { NativeEnvironmentSupport } from '../utils/environment-detection';
@@ -23,7 +23,7 @@ export default class DashAdapter implements IPlaybackAdapter {
     return NativeEnvironmentSupport.MSE;
   }
 
-  private eventEmitter: any;
+  private eventEmitter: IEventEmitter;
   private dashPlayer: any;
   private mediaStream: IParsedPlayableSource;
   private videoElement: HTMLVideoElement;
@@ -93,7 +93,7 @@ export default class DashAdapter implements IPlaybackAdapter {
       this.dashPlayer.getVideoElement().buffered,
       currentTime,
     );
-    const bwEstimate = this.dashPlayer.getAverageThroughput('video');
+    const bwEstimate: number = this.dashPlayer.getAverageThroughput('video');
 
     return {
       ...this.mediaStream,
@@ -116,9 +116,7 @@ export default class DashAdapter implements IPlaybackAdapter {
       this.mediaStream = mediaStreams[0];
     } else {
       throw new Error(
-        `Can only handle a single DASH stream. Received ${
-          mediaStreams.length
-        } streams.`,
+        `Can only handle a single DASH stream. Received ${mediaStreams.length} streams.`,
       );
     }
   }
@@ -175,7 +173,11 @@ export default class DashAdapter implements IPlaybackAdapter {
     }
     this.videoElement = videoOutput;
     this.dashPlayer = MediaPlayer().create();
-    this.dashPlayer.getDebug().setLogToBrowserConsole(false);
+    this.dashPlayer.updateSettings({
+      debug: {
+        logLevel: LogLevel.LOG_LEVEL_NONE,
+      },
+    });
     this.dashPlayer.on(DashEvents.ERROR, this._broadcastError);
 
     if (videoOutput.preload === 'none') {
@@ -212,7 +214,17 @@ export default class DashAdapter implements IPlaybackAdapter {
       this.mediaStream.url,
       forceAutoplay || this.videoElement.autoplay,
     );
-    this.dashPlayer.setInitialBitrateFor('video', INITIAL_BITRATE);
+    this.dashPlayer.updateSettings({
+      streaming: {
+        abr: {
+          initialBitrate: {
+            video: INITIAL_BITRATE,
+          },
+        },
+        liveCatchup: {},
+      },
+    });
+    //this.dashPlayer.setInitialBitrateFor('video', INITIAL_BITRATE);
   }
 
   detach() {

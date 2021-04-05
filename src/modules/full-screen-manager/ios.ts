@@ -18,10 +18,12 @@ export default class IOSFullScreen implements IFullScreenHelper {
   }
 
   get isAPIExist() {
+    //@ts-expect-error
     return Boolean(this._$elem && this._$elem.webkitSupportsFullscreen);
   }
 
   get isInFullScreen() {
+    //@ts-expect-error
     return Boolean(this._$elem && this._$elem.webkitDisplayingFullscreen);
   }
 
@@ -61,6 +63,7 @@ export default class IOSFullScreen implements IFullScreenHelper {
     }
 
     try {
+      //@ts-expect-error
       this._$elem.webkitEnterFullscreen();
     } catch (e) {
       if (this._$elem.readyState < HAVE_METADATA) {
@@ -78,6 +81,7 @@ export default class IOSFullScreen implements IFullScreenHelper {
       return;
     }
 
+    //@ts-expect-error
     this._$elem.webkitExitFullscreen();
   }
 

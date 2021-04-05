@@ -117,9 +117,9 @@ class Subtitles implements ISubtitles {
   @playerAPI()
   removeSubtitles(): void {
     this._clearActiveSubtitle();
-    const subtitleTracks: NodeListOf<
-      HTMLTrackElement
-    > = this._video.querySelectorAll('track[kind="subtitles"]');
+    const subtitleTracks: NodeListOf<HTMLTrackElement> = this._video.querySelectorAll(
+      'track[kind="subtitles"]',
+    );
 
     Array.prototype.forEach.call(
       subtitleTracks,
@@ -152,7 +152,7 @@ class Subtitles implements ISubtitles {
         this.view.showSubtitles(
           Array.prototype.map.call(
             textTrack.activeCues,
-            (cue: TextTrackCue) => cue.text,
+            (cue: VTTCue) => cue.text,
           ),
         );
     }
@@ -185,10 +185,7 @@ class Subtitles implements ISubtitles {
   private _showSubtitles(event: TrackEvent): void {
     const textTrack: TextTrack = event.target as TextTrack;
     this.view.showSubtitles(
-      Array.prototype.map.call(
-        textTrack.activeCues,
-        (cue: TextTrackCue) => cue.text,
-      ),
+      Array.prototype.map.call(textTrack.activeCues, (cue: VTTCue) => cue.text),
     );
   }
 

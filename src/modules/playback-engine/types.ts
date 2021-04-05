@@ -161,7 +161,7 @@ interface IVideoOutput {
   isAutoplay: boolean;
   isLoop: boolean;
   isDynamicContent: boolean;
-  isDynamicContentEnded: any;
+  isDynamicContentEnded: boolean;
   isMetadataLoaded: boolean;
   isSeekAvailable: boolean;
   isSyncWithLive: boolean;

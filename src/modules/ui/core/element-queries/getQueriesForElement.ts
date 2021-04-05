@@ -71,17 +71,21 @@ function getQueriesFromRules(rules: CSSRuleList) {
 function getQueries() {
   return reduce(
     document.styleSheets,
-    (results: any[], styleSheet: CSSStyleSheet) => {
+    (results: any[], styleSheet: CSSStyleSheet | CSSRule) => {
       // NOTE: browser may not able to read rules for cross-domain stylesheets
       try {
-        const rules = styleSheet.cssRules || styleSheet.rules;
+        const rules =
+          (styleSheet as CSSStyleSheet).cssRules ||
+          (styleSheet as CSSStyleSheet).rules;
 
         if (rules) {
           return results.concat(getQueriesFromRules(rules));
         }
 
-        if (styleSheet.cssText) {
-          return results.concat(getQueriesFromCssSelector(styleSheet.cssText));
+        if ((styleSheet as CSSRule).cssText) {
+          return results.concat(
+            getQueriesFromCssSelector((styleSheet as CSSRule).cssText),
+          );
         }
       } catch (e) {}
 

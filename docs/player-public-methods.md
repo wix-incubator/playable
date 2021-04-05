@@ -319,7 +319,7 @@ You can check all events [here](/events)
           <code>event</code>
         </td>
         <td>
-            <div class="type">string</div>
+            <div class="type">(string | symbol)</div>
             <p>The Event name, such as <code>Playable.UI_EVENTS.PLAY_CLICK</code></p>
         </td>
       </tr>
@@ -372,7 +372,7 @@ The `.once()` method is identical to `.on()`, except that the handler for a give
           <code>event</code>
         </td>
         <td>
-            <div class="type">string</div>
+            <div class="type">(string | symbol)</div>
             <p>The Event name, such as <code>Playable.UI_EVENTS.PLAY_CLICK</code></p>
         </td>
       </tr>
@@ -434,7 +434,7 @@ Remove an event handler.
           <code>event</code>
         </td>
         <td>
-            <div class="type">string</div>
+            <div class="type">(string | symbol)</div>
             <p>The Event name, such as <code>Playable.UI_EVENTS.PLAY_CLICK</code></p>
         </td>
       </tr>

@@ -29,7 +29,7 @@ class EventEmitterModule extends EventEmitter implements IEventEmitter {
    * player.on(Playable.VIDEO_EVENTS.UPLOAD_STALLED, this.handleStalledUpload, this);
    */
   @playerAPI()
-  on(event: string, fn: ListenerFn, context?: any) {
+  on(event: string | symbol, fn: ListenerFn, context?: any) {
     return super.on(event, fn, context);
   }
 
@@ -49,7 +49,7 @@ class EventEmitterModule extends EventEmitter implements IEventEmitter {
    * });
    */
   @playerAPI()
-  once(event: string, fn: ListenerFn, context?: any) {
+  once(event: string | symbol, fn: ListenerFn, context?: any) {
     return super.once(event, fn, context);
   }
 
@@ -79,7 +79,7 @@ class EventEmitterModule extends EventEmitter implements IEventEmitter {
    * player.off(Playable.UI_EVENTS.PAUSE);
    */
   @playerAPI()
-  off(event: string, fn?: ListenerFn, context?: any, once?: boolean) {
+  off(event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean) {
     return super.off(event, fn, context, once);
   }
 

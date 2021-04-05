@@ -1,8 +1,8 @@
 import { IChromecastManager } from './types';
 import { IPlaybackEngine } from '../playback-engine/types';
-import CastContext = cast.framework.CastContext;
-import CastStateEventData = cast.framework.CastStateEventData;
-import SessionStateEventData = cast.framework.SessionStateEventData;
+type CastContext = cast.framework.CastContext;
+type CastStateEventData = cast.framework.CastStateEventData;
+type SessionStateEventData = cast.framework.SessionStateEventData;
 
 import ChromecastOutput from '../playback-engine/output/chromecast/chromecast-output';
 import { IEventEmitter } from '../event-emitter/types';
