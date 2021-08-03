@@ -1677,6 +1677,23 @@ player.turnOffOverlayTransparency();
 The `.turnOffOverlayTransparency()` method returns player's overlay to default settings.
 It becomes black again.
 
+## hideMainUI()
+
+```javascript
+player.hideMainUI();
+```
+
+Method for hiding main ui
+Important! This overrides the effect of `setMainUIShouldAlwaysShow` method
+
+## showMainUI()
+
+```javascript
+player.showMainUI();
+```
+
+Method for showing main ui in case it was hidden
+
 ## setMainUIShouldAlwaysShow()
 
 ```javascript
@@ -1684,6 +1701,7 @@ player.setMainUIShouldAlwaysShow(true);
 ```
 
 Method for allowing main ui to be always shown despite the playback state and the cursor position
+Important! UI would be hidden in case `hideMainUI` is called
 
 <div class="method-list">
   <table>

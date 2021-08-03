@@ -28,6 +28,8 @@ interface IMainUIBlock {
 }
 
 interface IMainUIBlockAPI {
+  showMainUI?(): void;
+  hideMainUI?(): void;
   setMainUIShouldAlwaysShow?(flag: boolean): void;
 }
 

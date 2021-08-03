@@ -188,11 +188,11 @@ class MainUIBlock implements IMainUIBlock {
   }
 
   private _showContent() {
+    this._screen.showCursor();
+
     if (this.isHidden || this._isContentShown) {
       return;
     }
-
-    this._screen.showCursor();
 
     this._eventEmitter.emitAsync((UIEvent as any).MAIN_BLOCK_SHOW);
     this._bottomBlock.showContent();
@@ -212,12 +212,12 @@ class MainUIBlock implements IMainUIBlock {
   }
 
   private _hideContent() {
-    if (this.isHidden || !this._isContentShown) {
-      return;
-    }
-
     if (this._isContentShowingEnabled) {
       this._screen.hideCursor();
+    }
+
+    if (this.isHidden || !this._isContentShown) {
+      return;
     }
 
     this._eventEmitter.emitAsync((UIEvent as any).MAIN_BLOCK_HIDE);
@@ -239,12 +239,25 @@ class MainUIBlock implements IMainUIBlock {
     }
   }
 
+  /**
+   * Method for hiding main ui
+   * Important! This overrides the effect of `setMainUIShouldAlwaysShow` method
+   * @example
+   * player.hideMainUI();
+   */
+  @playerAPI('hideMainUI')
   hide() {
     this.isHidden = true;
     this._topBlock.hide();
     this._bottomBlock.hide();
   }
 
+  /**
+   * Method for showing main ui in case it was hidden
+   * @example
+   * player.showMainUI();
+   */
+  @playerAPI('showMainUI')
   show() {
     this.isHidden = false;
     this._topBlock.show();
@@ -253,6 +266,7 @@ class MainUIBlock implements IMainUIBlock {
 
   /**
    * Method for allowing main ui to be always shown despite the playback state and the cursor position
+   * Important! UI would be hidden in case `hideMainUI` is called
    * @param flag - `true` for showing always
    * @example
    * player.setMainUIShouldAlwaysShow(true);
