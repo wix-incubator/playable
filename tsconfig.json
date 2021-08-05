@@ -10,6 +10,7 @@
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "importHelpers": true,
+    "skipLibCheck": true,
     "target": "ES5",
     "jsx": "react",
     "lib": [
