@@ -201,18 +201,30 @@ class ScreenView extends View<IScreenViewStyles>
 
   private _getSourceAreas(width: number, height: number): number[][] {
     if (this._isHorizontalStripes) {
-      return [[0, 0, width, 1], [0, height - 1, width, 1]];
+      return [
+        [0, 0, width, 1],
+        [0, height - 1, width, 1],
+      ];
     }
 
-    return [[0, 0, 1, height], [width - 1, 0, 1, height]];
+    return [
+      [0, 0, 1, height],
+      [width - 1, 0, 1, height],
+    ];
   }
 
   private _getCanvasAreas(width: number, height: number): number[][] {
     if (this._isHorizontalStripes) {
-      return [[0, 0, width, height / 2], [0, height / 2, width, height / 2]];
+      return [
+        [0, 0, width, height / 2],
+        [0, height / 2, width, height / 2],
+      ];
     }
 
-    return [[0, 0, width / 2, height], [width / 2, 0, width / 2, height]];
+    return [
+      [0, 0, width / 2, height],
+      [width / 2, 0, width / 2, height],
+    ];
   }
 
   private _drawAreaFromSource(source: number[], area: number[]) {

@@ -23,7 +23,10 @@ describe('getNearestBufferSegmentInfo', () => {
   });
 
   it('should return proper size of buffer', () => {
-    const buffer = getValidBuffer([[2, 10], [30, 40]]);
+    const buffer = getValidBuffer([
+      [2, 10],
+      [30, 40],
+    ]);
 
     expect(getNearestBufferSegmentInfo(buffer, 3)).to.be.deep.equal({
       start: 2,
@@ -65,7 +68,10 @@ describe('getOverallBufferedPercent', () => {
   });
 
   it('should return calculated percent', () => {
-    const buffer = getValidBuffer([[0, 1], [2, 5]]);
+    const buffer = getValidBuffer([
+      [0, 1],
+      [2, 5],
+    ]);
     const currentTime1 = 0;
     const currentTime2 = 3;
     const duration1 = 5;

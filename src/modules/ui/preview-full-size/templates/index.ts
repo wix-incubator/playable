@@ -1,1 +1,3 @@
-export { default as previewTemplate } from './preview.dot';
+import template from './preview.dot';
+const previewTemplate = template.default ? template.default : template;
+export { previewTemplate };

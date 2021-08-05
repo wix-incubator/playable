@@ -1,1 +1,3 @@
-export { default as bottomBlockTemplate } from './bottom-block.dot';
+import template from './bottom-block.dot';
+const bottomBlockTemplate = template.default ? template.default : template;
+export { bottomBlockTemplate };

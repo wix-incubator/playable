@@ -53,9 +53,7 @@ writeFile(
       return writeFile(packageJSONPath, stringify(packageJSON)).then(() => {
         if (publishedVersion !== ZERO_VERSION) {
           console.log(
-            `Version set in package.json ${
-              packageJSON.version
-            } is newer than published ${publishedVersion}`,
+            `Version set in package.json ${packageJSON.version} is newer than published ${publishedVersion}`,
           );
         }
 
@@ -65,9 +63,7 @@ writeFile(
       console.log(`Package will not be published`);
       if (publishedVersion) {
         console.log(
-          `version ${
-            packageJSON.version
-          } set in package.json is already published`,
+          `version ${packageJSON.version} set in package.json is already published`,
         );
       }
     }

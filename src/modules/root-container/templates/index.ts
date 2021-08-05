@@ -1,1 +1,3 @@
-export { default as containerTemplate } from './container.dot';
+import template from './container.dot';
+const containerTemplate = template.default ? template.default : template;
+export { containerTemplate };

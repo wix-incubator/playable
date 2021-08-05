@@ -50,10 +50,12 @@ describe('Overlay', () => {
     });
 
     it(`if Overlay's "_hideContent" method invokes external API`, async () => {
-      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, { nextState: EngineState.PLAY_REQUESTED});
+      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
+        nextState: EngineState.PLAY_REQUESTED,
+      });
       expect(loaderShowSpy.called).to.be.true;
       expect(enableShowingContentSpy.called).to.be.true;
-    })
+    });
   });
 
   describe(`check Loader's and MainUIBlock's API usage v2`, () => {
@@ -61,7 +63,10 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
 
       mainUIBlock = testkit.getModule('mainUIBlock');
-      disableShowingContentSpy = sinon.spy(mainUIBlock, 'disableShowingContent');
+      disableShowingContentSpy = sinon.spy(
+        mainUIBlock,
+        'disableShowingContent',
+      );
 
       loader = testkit.getModule('loader');
       loaderHideSpy = sinon.spy(loader, 'hide');
@@ -70,10 +75,12 @@ describe('Overlay', () => {
     });
 
     it(`if Overlay's "_showContent" method invokes external API`, async () => {
-      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, { nextState: EngineState.SRC_SET});
+      await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
+        nextState: EngineState.SRC_SET,
+      });
       expect(loaderHideSpy.called).to.be.true;
       expect(disableShowingContentSpy.called).to.be.true;
-    })
+    });
   });
 
   describe('instance callbacks to controls', () => {

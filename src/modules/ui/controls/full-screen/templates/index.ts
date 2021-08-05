@@ -1,1 +1,3 @@
-export { default as controlTemplate } from './control.dot';
+import template from './control.dot';
+const controlTemplate = template.default ? template.default : template;
+export { controlTemplate };

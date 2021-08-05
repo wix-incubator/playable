@@ -35,9 +35,7 @@ describe('Playback e2e test', function() {
         player.play();
       });
 
-      it(`allows playback of ${
-        formatToTest.type
-      } when preload = none`, function(done) {
+      it(`allows playback of ${formatToTest.type} when preload = none`, function(done) {
         const player: any = Playable.create({
           preload: Playable.PRELOAD_TYPES.NONE,
         });

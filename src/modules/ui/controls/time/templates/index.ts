@@ -1,1 +1,3 @@
-export { default as timeTemplate } from './time.dot';
+import template from './time.dot';
+const timeTemplate = template.default ? template.default : template;
+export { timeTemplate };

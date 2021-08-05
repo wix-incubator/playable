@@ -1,1 +1,3 @@
-export { default as screenTemplate } from './screen.dot';
+import template from './screen.dot';
+const screenTemplate = template.default ? template.default : template;
+export { screenTemplate };

@@ -27,9 +27,7 @@ const playerAPI = (name?: string) => (
       )
     ) {
       throw new Error(
-        `Method "${methodName}" for public API in ${
-          target.constructor.name
-        } is already defined`,
+        `Method "${methodName}" for public API in ${target.constructor.name} is already defined`,
       );
     }
   }
