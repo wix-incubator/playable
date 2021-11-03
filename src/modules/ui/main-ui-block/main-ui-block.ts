@@ -45,6 +45,8 @@ class MainUIBlock implements IMainUIBlock {
   private _shouldAlwaysShow: boolean = false;
   private _isDragging: boolean = false;
 
+  private _config: IPlayerConfig;
+
   private _unbindEvents: () => void;
 
   view: MainUIBlockView;
@@ -69,6 +71,7 @@ class MainUIBlock implements IMainUIBlock {
       screen,
     } = dependencies;
 
+    this._config = config;
     this._eventEmitter = eventEmitter;
     this._topBlock = topBlock;
     this._bottomBlock = bottomBlock;
@@ -259,6 +262,19 @@ class MainUIBlock implements IMainUIBlock {
    */
   @playerAPI('showMainUI')
   show() {
+    /**
+     * TODO: fix this part of API
+     * config.hideMainUI is being forced to be true on IOS because it's common to use native controls for players on IOS
+     * In that case, main ui is constantly hidden. But if you use 'showMainUI' API it'll show two sets of controls on IOS
+     * Native and Playable's
+     * For now, the easiest fix is to take into account the config.hideMainUI property here
+     * But best solution is to rethink the way we force IOS to use native controls, without rewriting the config property
+     * on initialization
+     */
+    if (this._config.hideMainUI) {
+      return;
+    }
+
     this.isHidden = false;
     this._topBlock.show();
     this._bottomBlock.show();
