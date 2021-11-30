@@ -90,6 +90,8 @@ interface IBottomBlockAPI {
   hideVolumeControl?(): void;
   showDownloadButton?(): void;
   hideDownloadButton?(): void;
+  showBottomBlockContent?(): void;
+  hideBottomBlockContent?(): void;
 }
 
 export {

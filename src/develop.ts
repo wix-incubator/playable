@@ -126,6 +126,16 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   );
 
+  document
+    .getElementById('showhidecontent')
+    .addEventListener('click', event => {
+      const { action } = (event.target as any).dataset;
+      if (!action) {
+        return;
+      }
+      (player as any)[action]();
+    });
+
   player.attachToElement(document.getElementById('player-wrapper'));
   player.setFramesMap(config);
   player.showLiveIndicator();

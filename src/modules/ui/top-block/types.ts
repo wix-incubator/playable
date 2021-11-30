@@ -45,6 +45,8 @@ interface ITopBlockAPI {
   hideTitle?(): void;
   showLiveIndicator?(): void;
   hideLiveIndicator?(): void;
+  showTopBlockContent?(): void;
+  hideTopBlockContent?(): void;
 }
 
 export {
