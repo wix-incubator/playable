@@ -5,12 +5,12 @@ const HAVE_METADATA = 1;
 let isPictureInPictureRequested = false;
 
 export interface ChromeWebkitHTMLVideo extends HTMLVideoElement {
-  requestPictureInPicture: () => Promise<void>;
+  requestPictureInPicture: () => Promise<any>;
 }
 
 export interface ChromeDocument extends Document {
-  pictureInPictureEnabled?: boolean;
-  pictureInPictureElement?: Element;
+  pictureInPictureEnabled: boolean;
+  pictureInPictureElement: Element;
   exitPictureInPicture: () => Promise<void>;
 }
 
