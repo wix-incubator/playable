@@ -43,7 +43,7 @@ import Playable from 'playable';
 - add a `<script>` element
 
 ```html
-<script src="https://unpkg.com/playable@2.12.0/dist/statics/playable.bundle.min.js"></script>
+<script src="https://unpkg.com/playable@2.13.0/dist/statics/playable.bundle.min.js"></script>
 
 <script>
   var Playable = window.Playable;
