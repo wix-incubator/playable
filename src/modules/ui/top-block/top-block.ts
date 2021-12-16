@@ -23,6 +23,8 @@ class TopBlock implements ITopBlock {
 
   private _isBlockFocused: boolean = false;
 
+  private _hideContentFlag: boolean = true;
+
   isHidden: boolean;
   view: View;
 
@@ -105,8 +107,32 @@ class TopBlock implements ITopBlock {
     this.view.hideLiveIndicator();
   }
 
+  /**
+   * Method for hiding top block part of main ui
+   * @example
+   * player.hideTopBlockContent();
+   */
+  @playerAPI('hideTopBlockContent')
+  permanentlyHideContent() {
+    this._hideContentFlag = true;
+    this.hideContent();
+  }
+
+  /**
+   * Method for showing top block part of main ui
+   * @example
+   * player.showTopBlockContent();
+   */
+  @playerAPI('showTopBlockContent')
+  doNotHideContent() {
+    this._hideContentFlag = false;
+    this.showContent();
+  }
+
   showContent() {
-    this.view.showContent();
+    if (!this._hideContentFlag) {
+      this.view.showContent();
+    }
   }
 
   hideContent() {
