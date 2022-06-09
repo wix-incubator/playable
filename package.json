@@ -79,7 +79,7 @@
     "@storybook/addon-viewport": "^5.2.1",
     "@storybook/addons": "^5.2.1",
     "@storybook/html": "^5.2.1",
-    "@storybook/theming": "latest",
+    "@storybook/theming": "^6.5.8",
     "@types/chai": "^4.1.7",
     "@types/chance": "^1.0.1",
     "@types/chrome": "^0.0.92",
