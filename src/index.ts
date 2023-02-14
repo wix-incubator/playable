@@ -31,6 +31,7 @@ import { VideoViewMode as VIDEO_VIEW_MODES } from './modules/ui/screen/types';
 
 import { IPlaybackAdapter } from './modules/playback-engine/output/native/adapters/types';
 import { IThemeConfig } from './modules/ui/core/theme';
+import { IPlayableModule } from './core/playable-module';
 
 export {
   create,
@@ -56,6 +57,7 @@ export {
   PlayableMediaSource,
   IPlaybackAdapter,
   IThemeConfig,
+  IPlayableModule,
 };
 
 export default {
