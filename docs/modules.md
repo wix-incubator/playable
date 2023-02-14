@@ -87,4 +87,44 @@ player.on(ChromecastEvents.CHROMECAST_CASTS_STARTED, () => doStaff());
 
 
 ## Create your own module
-Yes, it is coming soon. For now try to build one by example. Check the [repo](https://github.com/wix/playable)
+
+```javascript
+
+import { registerModule, IPlayableModule } from 'playable';
+
+interface IMyModuleAPI {
+  showHelloWorld(): void;
+}
+
+
+// Use IPlayableModule without generic parameter if your module doesn't expose any API
+
+export class MyModule implements IPlayableModule<IMyModuleAPI> {
+
+  // other modules dependencies
+  static dependencies = ['engine', 'eventEmitter', 'rootContainer', 'config'];
+
+  // injected modules
+  constructor({ engine, eventEmitter, rootContainer, config }) {  }
+
+  private showHelloWord() {
+    alert('Hello world');
+  }
+
+  // implement this method to expose your module API.
+  getAPI(): IMyModuleAPI {
+    return {
+      showHelloWorld: this.showHelloWord,
+    };
+  }
+}
+
+// register module in playable
+
+registerModule('myModule', MyModule);
+
+// use your module API on the player instance
+player.showHelloWorld();
+```
+
+Check module examples in the [repo](https://github.com/wix/playable)

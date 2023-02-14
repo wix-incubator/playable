@@ -1,7 +1,8 @@
 import { Container } from './dependency-container/createContainer';
 import convertToDeviceRelatedConfig, { IPlayerConfig } from './config';
-import { PLAYER_API_PROPERTY } from '../core/player-api-decorator';
+import { PLAYER_API_PROPERTY } from './player-api-decorator';
 import { IThemeConfig } from '../modules/ui/core/theme';
+import { IModule } from './playable-module';
 
 export default class Player {
   protected _config: IPlayerConfig;
@@ -70,7 +71,7 @@ export default class Player {
     );
   }
 
-  private _getWrappedCallToModuleFunction(module: any, fn: Function) {
+  private _getWrappedCallToModuleFunction(module: IModule, fn: Function) {
     return (...args: any[]) => {
       if (this._destroyed) {
         throw new Error('Player instance is destroyed');
@@ -81,7 +82,7 @@ export default class Player {
   }
 
   private _getPlayerAPIMethodDescriptor(
-    module: any,
+    module: IModule,
     descriptor: PropertyDescriptor,
   ): PropertyDescriptor {
     const playerMethodDescriptor: PropertyDescriptor = {
@@ -116,9 +117,15 @@ export default class Player {
     return playerMethodDescriptor;
   }
 
-  private _addPlayerAPIFromModule(module: any) {
-    if (module[PLAYER_API_PROPERTY]) {
-      Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
+  private _getModuleApi(module: IModule) {
+    return module.getAPI ? module.getAPI() : module[PLAYER_API_PROPERTY];
+  }
+
+  private _addPlayerAPIFromModule(module: IModule) {
+    const moduleApi = this._getModuleApi(module);
+
+    if (moduleApi) {
+      Object.keys(moduleApi).forEach(apiKey => {
         if ((this as any)[apiKey]) {
           throw new Error(
             `API method ${apiKey} is already defined in Player facade`,
@@ -128,18 +135,17 @@ export default class Player {
         Object.defineProperty(
           this,
           apiKey,
-          this._getPlayerAPIMethodDescriptor(
-            module,
-            module[PLAYER_API_PROPERTY][apiKey],
-          ),
+          this._getPlayerAPIMethodDescriptor(module, moduleApi[apiKey]),
         );
       });
     }
   }
 
-  private _clearPlayerAPIForModule(module: any) {
-    if (module[PLAYER_API_PROPERTY]) {
-      Object.keys(module[PLAYER_API_PROPERTY]).forEach(apiKey => {
+  private _clearPlayerAPIForModule(module: IModule) {
+    const moduleApi = this._getModuleApi(module);
+
+    if (moduleApi) {
+      Object.keys(moduleApi).forEach(apiKey => {
         delete (this as any)[apiKey];
       });
     }
