@@ -6,7 +6,7 @@ type ModuleAPI = Record<string, any> | void;
 // 1) @playerAPI() decorator
 // 2) getAPI() method
 
-export type IModule<T extends ModuleAPI> = {
+export type IModule<T extends ModuleAPI = Record<string, any>> = {
   [PLAYER_API_PROPERTY]?: Record<string, any>;
   getAPI?(): T;
 };
