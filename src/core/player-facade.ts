@@ -123,6 +123,10 @@ export default class Player {
 
   private _addPlayerAPIFromModule(module: IModule) {
     const moduleApi = this._getModuleApi(module);
+    const getDescriptor = module.getAPI
+      ? (apiKey: string) => Object.getOwnPropertyDescriptor(moduleApi, apiKey)
+      : (apiKey: string) =>
+          this._getPlayerAPIMethodDescriptor(module, moduleApi[apiKey]);
 
     if (moduleApi) {
       Object.keys(moduleApi).forEach(apiKey => {
@@ -132,11 +136,7 @@ export default class Player {
           );
         }
 
-        Object.defineProperty(
-          this,
-          apiKey,
-          this._getPlayerAPIMethodDescriptor(module, moduleApi[apiKey]),
-        );
+        Object.defineProperty(this, apiKey, getDescriptor(apiKey));
       });
     }
   }

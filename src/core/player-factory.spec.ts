@@ -7,7 +7,9 @@ import {
   create,
   registerModule,
   clearAdditionalModules,
+  IPlayerInstance,
 } from './player-factory';
+import { IPlayableModule } from './playable-module';
 
 describe('registerModule', () => {
   it('should add additional module', () => {
@@ -23,6 +25,33 @@ describe('registerModule', () => {
 
     /*const player = */ create();
     expect(spy.called).to.be.true;
+    clearAdditionalModules();
+  });
+
+  it('should add module API', () => {
+    const spy = sinon.spy();
+    const methodName = 'customModuleMethod';
+    const method = () => {};
+
+    type API = {
+      [methodName](): void;
+    };
+
+    class CustomModule implements IPlayableModule<API> {
+      getAPI(): API {
+        spy();
+
+        return {
+          [methodName]: method,
+        };
+      }
+    }
+
+    registerModule('customModule', CustomModule);
+    const player = create() as IPlayerInstance & API;
+    player[methodName]();
+    expect(spy.called).to.be.true;
+    expect(player[methodName]).to.equal(method);
     clearAdditionalModules();
   });
 });
