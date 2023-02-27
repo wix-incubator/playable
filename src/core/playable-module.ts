@@ -15,7 +15,7 @@ export type IModule<T extends ModuleAPI = Record<string, any>> = {
 
 type ModuleWithoutAPI = {};
 
-type ModuleWithAPI<T> = ModuleWithoutAPI &
+type ModuleWithAPI<T extends ModuleAPI> = ModuleWithoutAPI &
   Required<Omit<IModule<T>, typeof PLAYER_API_PROPERTY>>;
 
 export type IPlayableModule<T extends ModuleAPI = void> = T extends void
