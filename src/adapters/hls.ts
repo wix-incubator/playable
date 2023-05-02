@@ -21,6 +21,7 @@ const LIVE_SYNC_DURATION_DELTA = 5;
 const DEFAULT_HLS_CONFIG: any = {
   abrEwmaDefaultEstimate: 5000 * 1000,
   liveSyncDuration: LIVE_SYNC_DURATION,
+  startLevel: -1,
 };
 const NETWORK_ERROR_RECOVER_TIMEOUT = 1000;
 const MEDIA_ERROR_RECOVER_TIMEOUT = 1000;
