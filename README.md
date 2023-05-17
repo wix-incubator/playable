@@ -59,11 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-You can find documentation here: [https://wix-incubator.github.io/playable/](https://wix.github.io/playable/)
+You can find documentation here: [https://wix-incubator.github.io/playable/](https://wix-incubator.github.io/playable/)
 
 ## Big thanks!
 
 Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs][sauselabs-homepage]
 
 [sauselabs-homepage]: https://saucelabs.com
-[documentation]: https://wix.github.io/playable/
+[documentation]: https://wix-incubator.github.io/playable/
