@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="https://wix.github.io/playable/" target="_blank" rel="noopener noreferrer">
-    <img width="100" height="108" src="https://github.com/wix/playable/raw/master/docs/logo.png?raw=true" alt="Playable logo">
+  <a href="https://wix-incubator.github.io/playable/" target="_blank" rel="noopener noreferrer">
+    <img width="100" height="108" src="https://github.com/wix-incubator/playable/raw/master/docs/logo.png?raw=true" alt="Playable logo">
   </a>
 </p>
 
 <h1 align="center">
-  <a href="https://wix.github.io/playable/" target="_blank" rel="noopener noreferrer">
+  <a href="https://wix-incubator.github.io/playable/" target="_blank" rel="noopener noreferrer">
     Playable
   </a>
 </h1>
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-You can find documentation here: [https://wix.github.io/playable/](https://wix.github.io/playable/)
+You can find documentation here: [https://wix-incubator.github.io/playable/](https://wix.github.io/playable/)
 
 ## Big thanks!
 
