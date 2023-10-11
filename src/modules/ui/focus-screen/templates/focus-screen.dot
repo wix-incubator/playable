@@ -1,0 +1,6 @@
+<div
+  class="${props.styles.focusScreen}"
+  tabindex="0"
+  data-playable-hook="focus-screen-block"
+  data-playable-component>
+</div>
