@@ -143,6 +143,5 @@
       "csscomb -tty-mode --",
       "git add"
     ]
-  },
-  "packageManager": "yarn@1.22.19"
+  }
 }
