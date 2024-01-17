@@ -221,12 +221,15 @@ export default class HlsAdapter implements IPlaybackAdapter {
           this._logError(PlayableError.UNKNOWN, data);
           break;
       }
-      this._tryRecoverNetworkError();
+      if (data.fatal) {
+        this._tryRecoverNetworkError();
+      }
     } else if (data.type === ErrorTypes.MEDIA_ERROR) {
       // NOTE: when error is BUFFER_STALLED_ERROR or BUFFER_FULL_ERROR
       // video play successfully without recovering
       // while recover breaks video playback
       if (
+        data.fatal &&
         data.details !== ErrorDetails.BUFFER_STALLED_ERROR &&
         data.details !== ErrorDetails.BUFFER_FULL_ERROR
       ) {
