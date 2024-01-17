@@ -1,5 +1,4 @@
-import HlsJs from 'hls.js/dist/hls.light';
-
+import HlsJs from 'hls.js/dist/hls.light.js';
 import {
   geOverallBufferLength,
   getNearestBufferSegmentInfo,
@@ -224,10 +223,13 @@ export default class HlsAdapter implements IPlaybackAdapter {
       }
       this._tryRecoverNetworkError();
     } else if (data.type === ErrorTypes.MEDIA_ERROR) {
-      // NOTE: when error is BUFFER_STALLED_ERROR
+      // NOTE: when error is BUFFER_STALLED_ERROR or BUFFER_FULL_ERROR
       // video play successfully without recovering
       // while recover breaks video playback
-      if (data.details !== ErrorDetails.BUFFER_STALLED_ERROR) {
+      if (
+        data.details !== ErrorDetails.BUFFER_STALLED_ERROR &&
+        data.details !== ErrorDetails.BUFFER_FULL_ERROR
+      ) {
         this._tryRecoverMediaError();
       }
 
