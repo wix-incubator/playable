@@ -4,7 +4,6 @@ type IScreenViewStyles = {
   screenBottomBackground: string;
   hidden: string;
   visible: string;
-  hiddenCursor: string;
   horizontalStripes: string;
   verticalStripes: string;
   fillMode: string;
@@ -12,13 +11,7 @@ type IScreenViewStyles = {
   regularMode: string;
 };
 
-type IScreenViewCallbacks = {
-  onWrapperMouseClick: EventListenerOrEventListenerObject;
-  onWrapperMouseDblClick: EventListenerOrEventListenerObject;
-};
-
 type IScreenViewConfig = {
-  callbacks: IScreenViewCallbacks;
   playbackViewElement: HTMLElement;
   nativeControls: boolean;
 };
@@ -31,8 +24,6 @@ enum VideoViewMode {
 
 interface IScreen {
   getElement(): HTMLElement;
-  showCursor(): void;
-  hideCursor(): void;
 
   show(): void;
   hide(): void;
@@ -51,6 +42,5 @@ export {
   IScreen,
   VideoViewMode,
   IScreenViewStyles,
-  IScreenViewCallbacks,
   IScreenViewConfig,
 };

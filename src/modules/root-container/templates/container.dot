@@ -2,6 +2,5 @@
   data-playable-hook="player-container"
   dir="ltr"
   data-playable-dir="${props.direction}"
-  tabindex="0"
   class="${props.styles.container}">
 </div>

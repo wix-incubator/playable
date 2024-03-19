@@ -11,6 +11,7 @@ import { IRootContainer } from '../../root-container/types';
 import { IPlayerConfig } from '../../../core/config';
 import { IMainUIBlock } from '../main-ui-block/types';
 import { ILoader } from '../loader/types';
+import { IFocusScreen } from '../focus-screen/types';
 
 class Overlay implements IOverlay {
   static moduleName = 'overlay';
@@ -22,6 +23,7 @@ class Overlay implements IOverlay {
     'theme',
     'config',
     'mainUIBlock',
+    'focusScreen',
     'loader',
   ];
 
@@ -29,10 +31,11 @@ class Overlay implements IOverlay {
   private _engine: IPlaybackEngine;
   private _theme: IThemeService;
   private _loader: ILoader;
+  private _mainUIBlock: IMainUIBlock;
+  private _focusScreen: IFocusScreen;
 
   private _unbindEvents: () => void;
 
-  private _mainUIBlock: IMainUIBlock;
   view: View;
   isHidden: boolean = false;
 
@@ -44,6 +47,7 @@ class Overlay implements IOverlay {
     config,
     mainUIBlock,
     loader,
+    focusScreen,
   }: {
     eventEmitter: IEventEmitter;
     engine: IPlaybackEngine;
@@ -52,12 +56,14 @@ class Overlay implements IOverlay {
     config: IPlayerConfig;
     mainUIBlock: IMainUIBlock;
     loader: ILoader;
+    focusScreen: IFocusScreen;
   }) {
     this._eventEmitter = eventEmitter;
     this._engine = engine;
     this._theme = theme;
     this._mainUIBlock = mainUIBlock;
     this._loader = loader;
+    this._focusScreen = focusScreen;
 
     this._bindEvents();
     this._initUI();
@@ -133,13 +139,14 @@ class Overlay implements IOverlay {
   private _hideContent() {
     this.view.hideContent();
     this._loader.show();
-    this._mainUIBlock.enableShowingContent();
+    this._mainUIBlock.show();
+    this._focusScreen.focus();
   }
 
   private _showContent() {
     this.view.showContent();
     this._loader.hide();
-    this._mainUIBlock.disableShowingContent();
+    this._mainUIBlock.hide();
   }
 
   /**
