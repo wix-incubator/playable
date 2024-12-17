@@ -42,6 +42,32 @@ const getPercentBasedOnXPosition = (
   return ((event.clientX - boundingRect.left) / boundingRect.width) * 100;
 };
 
+const getSupportedDragEventNames = (): IProgressDragEvents => {
+  if ('onpointerdown' in window) {
+    return {
+      mouseDown: 'pointerdown',
+      mouseMove: 'pointermove',
+      mouseOut: 'pointerout',
+      mouseUp: 'pointerup',
+    };
+  }
+  if ('ontouchstart' in window) {
+    return {
+      mouseDown: 'touchstart',
+      mouseMove: 'touchmove',
+      mouseOut: 'mouseout',
+      mouseUp: 'touchend',
+    };
+  }
+
+  return {
+    mouseDown: 'mousedown',
+    mouseMove: 'mousemove',
+    mouseOut: 'mouseout',
+    mouseUp: 'mouseup',
+  };
+};
+
 class ProgressView extends View<IProgressViewStyles>
   implements IView<IProgressViewStyles> {
   private _callbacks: IProgressViewCallbacks;
@@ -70,12 +96,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._callbacks = callbacks;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
-    this._dragEvents = {
-      mouseDown: 'mousedown',
-      mouseMove: 'mousemove',
-      mouseOut: 'mouseout',
-      mouseUp: 'mouseup',
-    };
+    this._dragEvents = getSupportedDragEventNames();
 
     this._initDOM();
     this._bindCallbacks();
@@ -116,32 +137,6 @@ class ProgressView extends View<IProgressViewStyles>
       },
     );
     this._$hitbox = getElementByHook(this._$rootElement, 'progress-hitbox');
-  }
-
-  private _getSupportedDragEventNames(): IProgressDragEvents {
-    if ('onpointerdown' in window) {
-      return {
-        mouseDown: 'pointerdown',
-        mouseMove: 'pointermove',
-        mouseOut: 'pointerout',
-        mouseUp: 'pointerup',
-      };
-    }
-    if ('ontouchstart' in window) {
-      return {
-        mouseDown: 'touchstart',
-        mouseMove: 'touchmove',
-        mouseOut: 'mouseout',
-        mouseUp: 'touchend',
-      };
-    }
-
-    return {
-      mouseDown: 'mousedown',
-      mouseMove: 'mousemove',
-      mouseOut: 'mouseout',
-      mouseUp: 'mouseup',
-    };
   }
 
   private _bindCallbacks() {
