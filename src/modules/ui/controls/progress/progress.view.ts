@@ -15,6 +15,7 @@ import {
   IProgressViewStyles,
   IProgressViewCallbacks,
   IProgressViewConfig,
+  IProgressDragEvents,
 } from './types';
 import { ITextMap } from '../../../text-map/types';
 
@@ -41,6 +42,32 @@ const getPercentBasedOnXPosition = (
   return ((event.clientX - boundingRect.left) / boundingRect.width) * 100;
 };
 
+const getSupportedDragEventNames = (): IProgressDragEvents => {
+  if ('onpointerdown' in window) {
+    return {
+      mouseDown: 'pointerdown',
+      mouseMove: 'pointermove',
+      mouseOut: 'pointerout',
+      mouseUp: 'pointerup',
+    };
+  }
+  if ('ontouchstart' in window) {
+    return {
+      mouseDown: 'touchstart',
+      mouseMove: 'touchmove',
+      mouseOut: 'mouseout',
+      mouseUp: 'touchend',
+    };
+  }
+
+  return {
+    mouseDown: 'mousedown',
+    mouseMove: 'mousemove',
+    mouseOut: 'mouseout',
+    mouseUp: 'mouseup',
+  };
+};
+
 class ProgressView extends View<IProgressViewStyles>
   implements IView<IProgressViewStyles> {
   private _callbacks: IProgressViewCallbacks;
@@ -50,6 +77,7 @@ class ProgressView extends View<IProgressViewStyles>
 
   private _isDragging: boolean;
   private _currentPlayedPercent: number;
+  private _dragEvents: IProgressDragEvents;
 
   private _$rootElement: HTMLElement;
   private _$hitbox: HTMLElement;
@@ -68,6 +96,7 @@ class ProgressView extends View<IProgressViewStyles>
     this._callbacks = callbacks;
     this._textMap = textMap;
     this._tooltipService = tooltipService;
+    this._dragEvents = getSupportedDragEventNames();
 
     this._initDOM();
     this._bindCallbacks();
@@ -120,16 +149,35 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   private _bindEvents() {
-    this._$seekButton.addEventListener('mousedown', this._startDragOnMouseDown);
-    this._$seekButton.addEventListener('mousemove', this._startSeekToByMouse);
-    this._$seekButton.addEventListener('mouseout', this._stopSeekToByMouse);
+    this._dragEvents = this._getSupportedDragEventNames();
+    this._$seekButton.addEventListener(
+      this._dragEvents.mouseDown,
+      this._startDragOnMouseDown,
+    );
+    this._$seekButton.addEventListener(
+      this._dragEvents.mouseMove,
+      this._startSeekToByMouse,
+    );
+    this._$seekButton.addEventListener(
+      this._dragEvents.mouseOut,
+      this._stopSeekToByMouse,
+    );
 
-    this._$hitbox.addEventListener('mousedown', this._startDragOnMouseDown);
-    this._$hitbox.addEventListener('mousemove', this._startSeekToByMouse);
-    this._$hitbox.addEventListener('mouseout', this._stopSeekToByMouse);
+    this._$hitbox.addEventListener(
+      this._dragEvents.mouseDown,
+      this._startDragOnMouseDown,
+    );
+    this._$hitbox.addEventListener(
+      this._dragEvents.mouseMove,
+      this._startSeekToByMouse,
+    );
+    this._$hitbox.addEventListener(
+      this._dragEvents.mouseOut,
+      this._stopSeekToByMouse,
+    );
 
-    window.addEventListener('mousemove', this._setPlayedByDrag);
-    window.addEventListener('mouseup', this._stopDragOnMouseUp);
+    window.addEventListener(this._dragEvents.mouseMove, this._setPlayedByDrag);
+    window.addEventListener(this._dragEvents.mouseUp, this._stopDragOnMouseUp);
 
     this._$syncButton.addEventListener('click', this._syncWithLive);
     this._$syncButton.addEventListener(
@@ -144,21 +192,39 @@ class ProgressView extends View<IProgressViewStyles>
 
   private _unbindEvents() {
     this._$seekButton.removeEventListener(
-      'mousedown',
+      this._dragEvents.mouseDown,
       this._startDragOnMouseDown,
     );
     this._$seekButton.removeEventListener(
-      'mousemove',
+      this._dragEvents.mouseMove,
       this._startSeekToByMouse,
     );
-    this._$seekButton.removeEventListener('mouseout', this._stopSeekToByMouse);
+    this._$seekButton.removeEventListener(
+      this._dragEvents.mouseOut,
+      this._stopSeekToByMouse,
+    );
 
-    this._$hitbox.removeEventListener('mousedown', this._startDragOnMouseDown);
-    this._$hitbox.removeEventListener('mousemove', this._startSeekToByMouse);
-    this._$hitbox.removeEventListener('mouseout', this._stopSeekToByMouse);
+    this._$hitbox.removeEventListener(
+      this._dragEvents.mouseDown,
+      this._startDragOnMouseDown,
+    );
+    this._$hitbox.removeEventListener(
+      this._dragEvents.mouseMove,
+      this._startSeekToByMouse,
+    );
+    this._$hitbox.removeEventListener(
+      this._dragEvents.mouseOut,
+      this._stopSeekToByMouse,
+    );
 
-    window.removeEventListener('mousemove', this._setPlayedByDrag);
-    window.removeEventListener('mouseup', this._stopDragOnMouseUp);
+    window.removeEventListener(
+      this._dragEvents.mouseMove,
+      this._setPlayedByDrag,
+    );
+    window.removeEventListener(
+      this._dragEvents.mouseUp,
+      this._stopDragOnMouseUp,
+    );
 
     this._$syncButton.removeEventListener('click', this._syncWithLive);
     this._$syncButton.removeEventListener(

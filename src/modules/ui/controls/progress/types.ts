@@ -19,6 +19,26 @@ type IProgressViewStyles = {
   liveSync: string;
 };
 
+type IProgressDragEvents =
+  | {
+      mouseDown: 'pointerdown';
+      mouseMove: 'pointermove';
+      mouseOut: 'pointerout';
+      mouseUp: 'pointerup';
+    }
+  | {
+      mouseDown: 'touchstart';
+      mouseMove: 'touchmove';
+      mouseOut: 'mouseout';
+      mouseUp: 'touchend';
+    }
+  | {
+      mouseDown: 'mousedown';
+      mouseMove: 'mousemove';
+      mouseOut: 'mouseout';
+      mouseUp: 'mouseup';
+    };
+
 type IProgressViewCallbacks = {
   onChangePlayedPercent: (percent: number) => void;
   onSeekToByMouseStart: (percent: number) => void;
@@ -66,4 +86,5 @@ export {
   IProgressViewStyles,
   IProgressViewCallbacks,
   IProgressViewConfig,
+  IProgressDragEvents,
 };
