@@ -149,7 +149,6 @@ class ProgressView extends View<IProgressViewStyles>
   }
 
   private _bindEvents() {
-    this._dragEvents = this._getSupportedDragEventNames();
     this._$seekButton.addEventListener(
       this._dragEvents.mouseDown,
       this._startDragOnMouseDown,
