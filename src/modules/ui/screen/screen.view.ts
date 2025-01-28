@@ -7,19 +7,12 @@ import htmlToElement from '../core/htmlToElement';
 import getElementByHook from '../core/getElementByHook';
 import toggleElementClass from '../core/toggleElementClass';
 
-import {
-  VideoViewMode,
-  IScreenViewStyles,
-  IScreenViewCallbacks,
-  IScreenViewConfig,
-} from './types';
+import { VideoViewMode, IScreenViewStyles, IScreenViewConfig } from './types';
 
 import styles from './screen.scss';
 
 class ScreenView extends View<IScreenViewStyles>
   implements IView<IScreenViewStyles> {
-  private _callbacks: IScreenViewCallbacks;
-
   private _$rootElement: HTMLElement;
   private _$canvas: HTMLCanvasElement;
   private _$playbackElement: HTMLVideoElement;
@@ -34,9 +27,7 @@ class ScreenView extends View<IScreenViewStyles>
 
   constructor(config: IScreenViewConfig) {
     super();
-    const { callbacks, nativeControls, playbackViewElement } = config;
-
-    this._callbacks = callbacks;
+    const { nativeControls, playbackViewElement } = config;
 
     this._styleNamesByViewMode = {
       [VideoViewMode.REGULAR]: this.styleNames.regularMode,
@@ -51,7 +42,6 @@ class ScreenView extends View<IScreenViewStyles>
     }
 
     this._initDOM(playbackViewElement);
-    this._bindEvents();
     this.setViewMode(VideoViewMode.REGULAR);
   }
 
@@ -75,32 +65,6 @@ class ScreenView extends View<IScreenViewStyles>
     ) as HTMLCanvasElement;
   }
 
-  private _bindEvents() {
-    this._$rootElement.addEventListener(
-      'click',
-      this._callbacks.onWrapperMouseClick,
-    );
-    this._$rootElement.addEventListener(
-      'dblclick',
-      this._callbacks.onWrapperMouseDblClick,
-    );
-  }
-
-  private _unbindEvents() {
-    this._$rootElement.removeEventListener(
-      'click',
-      this._callbacks.onWrapperMouseClick,
-    );
-    this._$rootElement.removeEventListener(
-      'dblclick',
-      this._callbacks.onWrapperMouseDblClick,
-    );
-  }
-
-  focusOnNode() {
-    this._$rootElement.focus();
-  }
-
   show() {
     toggleElementClass(this._$rootElement, this.styleNames.hidden, false);
   }
@@ -111,14 +75,6 @@ class ScreenView extends View<IScreenViewStyles>
 
   getElement() {
     return this._$rootElement;
-  }
-
-  hideCursor() {
-    toggleElementClass(this._$rootElement, this.styleNames.hiddenCursor, true);
-  }
-
-  showCursor() {
-    toggleElementClass(this._$rootElement, this.styleNames.hiddenCursor, false);
   }
 
   setViewMode(viewMode: VideoViewMode) {
@@ -279,7 +235,6 @@ class ScreenView extends View<IScreenViewStyles>
 
   destroy() {
     this._stopUpdatingBackground();
-    this._unbindEvents();
     if (this._$rootElement.parentNode) {
       this._$rootElement.parentNode.removeChild(this._$rootElement);
     }

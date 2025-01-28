@@ -21,6 +21,7 @@ import KeyboardControls from '../modules/keyboard-control/keyboard-control';
 import DebugPanel from '../modules/ui/debug-panel/debug-panel';
 
 import Screen, { IScreenAPI } from '../modules/ui/screen/screen';
+import FocusScreen from '../modules/ui/focus-screen/focus-screen';
 import InteractionIndicator from '../modules/ui/interaction-indicator/interaction-indicator';
 
 import Overlay, { IOverlayAPI } from '../modules/ui/overlay/overlay';
@@ -99,6 +100,7 @@ export const modules: { [id: string]: any } = {
   DebugPanel,
 
   Screen,
+  FocusScreen,
   InteractionIndicator,
 
   Overlay,

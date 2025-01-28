@@ -11,10 +11,10 @@ import {
 import { IEventEmitter } from '../../event-emitter/types';
 import { IBottomBlock } from '../bottom-block/types';
 import { ITopBlock } from '../top-block/types';
-import { IScreen } from '../screen/types';
 import { IPlayerConfig } from '../../../core/config';
 import { IRootContainer } from '../../root-container/types';
 import { ITooltipService } from '../core/tooltip/tooltip-service';
+import { IFocusScreen } from '../focus-screen/types';
 
 const HIDE_BLOCK_TIMEOUT = 2000;
 
@@ -23,7 +23,7 @@ class MainUIBlock implements IMainUIBlock {
   static View = MainUIBlockView;
   static dependencies = [
     'config',
-    'screen',
+    'focusScreen',
     'rootContainer',
     'tooltipService',
     'eventEmitter',
@@ -34,7 +34,7 @@ class MainUIBlock implements IMainUIBlock {
   private _eventEmitter: IEventEmitter;
   private _bottomBlock: IBottomBlock;
   private _topBlock: ITopBlock;
-  private _screen: IScreen;
+  private _focusScreen: IFocusScreen;
   private _tooltipService: ITooltipService;
 
   private _hideTimeout: number = null;
@@ -59,7 +59,7 @@ class MainUIBlock implements IMainUIBlock {
     tooltipService: ITooltipService;
     topBlock: ITopBlock;
     bottomBlock: IBottomBlock;
-    screen: IScreen;
+    focusScreen: IFocusScreen;
   }) {
     const {
       config,
@@ -68,15 +68,15 @@ class MainUIBlock implements IMainUIBlock {
       tooltipService,
       topBlock,
       bottomBlock,
-      screen,
+      focusScreen,
     } = dependencies;
 
     this._config = config;
     this._eventEmitter = eventEmitter;
     this._topBlock = topBlock;
     this._bottomBlock = bottomBlock;
-    this._screen = screen;
     this._tooltipService = tooltipService;
+    this._focusScreen = focusScreen;
 
     this.isHidden = false;
 
@@ -191,7 +191,7 @@ class MainUIBlock implements IMainUIBlock {
   }
 
   private _showContent() {
-    this._screen.showCursor();
+    this._focusScreen.showCursor();
 
     if (this.isHidden || this._isContentShown) {
       return;
@@ -216,7 +216,7 @@ class MainUIBlock implements IMainUIBlock {
 
   private _hideContent() {
     if (this._isContentShowingEnabled) {
-      this._screen.hideCursor();
+      this._focusScreen.hideCursor();
     }
 
     if (this.isHidden || !this._isContentShown) {
@@ -253,6 +253,7 @@ class MainUIBlock implements IMainUIBlock {
     this.isHidden = true;
     this._topBlock.hide();
     this._bottomBlock.hide();
+    this._focusScreen.hide();
   }
 
   /**
@@ -278,6 +279,7 @@ class MainUIBlock implements IMainUIBlock {
     this.isHidden = false;
     this._topBlock.show();
     this._bottomBlock.show();
+    this._focusScreen.show();
   }
 
   /**

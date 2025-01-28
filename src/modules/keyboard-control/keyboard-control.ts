@@ -14,15 +14,15 @@ import { IEventEmitter } from '../event-emitter/types';
 import { IPlaybackEngine } from '../playback-engine/types';
 import { IPlayerConfig } from '../../core/config';
 import { IKeyboardControl } from './types';
-import { IRootContainer } from '../root-container/types';
 import { ListenerFn } from 'eventemitter3';
+import { IFocusScreen } from '../ui/focus-screen/types';
 
 export const AMOUNT_TO_SKIP_SECONDS = 5;
 export const AMOUNT_TO_CHANGE_VOLUME = 10;
 
 export default class KeyboardControl implements IKeyboardControl {
   static moduleName = 'keyboardControl';
-  static dependencies = ['engine', 'eventEmitter', 'rootContainer', 'config'];
+  static dependencies = ['engine', 'eventEmitter', 'focusScreen', 'config'];
 
   private _isEnabled: boolean;
   private _eventEmitter: IEventEmitter;
@@ -32,12 +32,12 @@ export default class KeyboardControl implements IKeyboardControl {
   constructor({
     config,
     eventEmitter,
-    rootContainer,
+    focusScreen,
     engine,
   }: {
     config: IPlayerConfig;
     eventEmitter: IEventEmitter;
-    rootContainer: IRootContainer;
+    focusScreen: IFocusScreen;
     engine: IPlaybackEngine;
   }) {
     this._eventEmitter = eventEmitter;
@@ -49,7 +49,7 @@ export default class KeyboardControl implements IKeyboardControl {
       this._isEnabled = config.disableControlWithKeyboard !== false;
     }
 
-    this._initInterceptor(rootContainer.getElement());
+    this._initInterceptor(focusScreen.getElement());
   }
 
   private _initInterceptor(rootElement: HTMLElement) {
