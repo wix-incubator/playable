@@ -59,6 +59,8 @@ class BottomBlock implements IBottomBlock {
 
   private _unbindEvents: () => void;
 
+  private _hideContentFlag: boolean = false;
+
   view: View;
   isHidden: boolean = false;
 
@@ -144,8 +146,32 @@ class BottomBlock implements IBottomBlock {
     return this._isBlockFocused;
   }
 
+  /**
+   * Method for hiding bottom block part of main ui
+   * @example
+   * player.hideBottomBlockContent();
+   */
+  @playerAPI('hideBottomBlockContent')
+  permanentlyHideContent() {
+    this._hideContentFlag = true;
+    this.hideContent();
+  }
+
+  /**
+   * Method for showing bottom block part of main ui
+   * @example
+   * player.showBottomBlockContent();
+   */
+  @playerAPI('showBottomBlockContent')
+  doNotHideContent() {
+    this._hideContentFlag = false;
+    this.showContent();
+  }
+
   showContent() {
-    this.view.showContent();
+    if (!this._hideContentFlag) {
+      this.view.showContent();
+    }
   }
 
   hideContent() {

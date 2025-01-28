@@ -1733,6 +1733,22 @@ Important! UI would be hidden in case `hideMainUI` is called
 
 ## hideLiveIndicator()
 
+## hideTopBlockContent()
+
+```javascript
+player.hideTopBlockContent();
+```
+
+Method for hiding top block part of main ui
+
+## showTopBlockContent()
+
+```javascript
+player.showTopBlockContent();
+```
+
+Method for showing top block part of main ui
+
 ## setTitle()
 
 ```javascript
@@ -1797,6 +1813,22 @@ Method for attaching callback for click on title
     </tbody>
   </table>
 </div>
+
+## hideBottomBlockContent()
+
+```javascript
+player.hideBottomBlockContent();
+```
+
+Method for hiding bottom block part of main ui
+
+## showBottomBlockContent()
+
+```javascript
+player.showBottomBlockContent();
+```
+
+Method for showing bottom block part of main ui
 
 ## setAlwaysShowLogo()
 
