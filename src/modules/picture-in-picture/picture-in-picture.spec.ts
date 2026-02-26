@@ -12,8 +12,8 @@ declare const navigator: any;
 
 interface MockedHelper extends IPictureInPictureHelper {
   reset(): void;
-  request: ReturnType<typeof vi.fn>;
-  exit: ReturnType<typeof vi.fn>;
+  request(): void;
+  exit(): void;
 }
 
 const mockedPictureInPictureHelper: MockedHelper = {
@@ -56,7 +56,7 @@ describe('PictureInPicture', () => {
 
       expect(pictureInPicture._helper instanceof ChromePictureInPicture).toBe(
         true,
-      ).true;
+      );
     });
 
     it('should be for iPhone', () => {
@@ -66,7 +66,7 @@ describe('PictureInPicture', () => {
 
       expect(pictureInPicture._helper instanceof SafariPictureInPicture).toBe(
         true,
-      ).true;
+      );
     });
   });
   describe('after helper chosen', () => {
@@ -132,10 +132,7 @@ describe('PictureInPicture', () => {
 
     describe('due to reaction on fullscreen change', () => {
       it('should trigger proper event', () => {
-        const spy: ReturnType<typeof vi.fn> = vi.spyOn(
-          eventEmitter,
-          'emitAsync',
-        );
+        const spy = vi.spyOn(eventEmitter, 'emitAsync');
 
         mockedPictureInPictureHelper.isInPictureInPicture = true;
         pictureInPicture._onChange();

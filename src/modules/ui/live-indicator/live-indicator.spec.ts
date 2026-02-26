@@ -33,13 +33,12 @@ describe('LiveIndicator', () => {
       liveIndicator.show();
 
       expect(viewToggleSpy).toHaveBeenCalledWith(true);
-      expect(liveIndicator.isHidden).toBe(false).false;
+      expect(liveIndicator.isHidden).toBe(false);
 
       liveIndicator.hide();
 
       expect(viewToggleSpy).toHaveBeenLastCalledWith(false);
-      expect(liveIndicator.isHidden).toBe(true).true;
-
+      expect(liveIndicator.isHidden).toBe(true);
       viewToggleSpy.mockRestore();
     });
 

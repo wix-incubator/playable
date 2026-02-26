@@ -3,6 +3,7 @@ import createPlayerTestkit from '../../../../testkit';
 import ProgressControl, { UPDATE_PROGRESS_INTERVAL_DELAY } from './progress';
 
 import { VideoEvent, EngineState } from '../../../../constants';
+import { MockInstance } from 'vitest';
 
 describe('ProgressControl', () => {
   let testkit;
@@ -48,7 +49,7 @@ describe('ProgressControl', () => {
 
     describe('for time indicators', () => {
       const VIDEO_DURATION_TIME = 1000;
-      let engineGetDurationTimeStub: ReturnType<typeof vi.fn>;
+      let engineGetDurationTimeStub: MockInstance;
 
       beforeEach(() => {
         engineGetDurationTimeStub = vi

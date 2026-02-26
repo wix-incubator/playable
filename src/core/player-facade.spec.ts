@@ -16,10 +16,7 @@ describe("Player's instance", () => {
 
   describe('rootNode and params', () => {
     it('should be registered and resolved', () => {
-      const registerValueSpy: ReturnType<typeof vi.fn> = vi.spyOn(
-        container,
-        'registerValue',
-      );
+      const registerValueSpy = vi.spyOn(container, 'registerValue');
       const params = {};
 
       player = new Player({}, container, []);
@@ -40,10 +37,7 @@ describe("Player's instance", () => {
   describe('default modules', () => {
     it('should be resolved', () => {
       class ClassA {}
-      const resolveSpy: ReturnType<typeof vi.fn> = vi.spyOn(
-        container,
-        'resolve',
-      );
+      const resolveSpy = vi.spyOn(container, 'resolve');
 
       defaultModules = {
         ClassA,
@@ -80,10 +74,7 @@ describe("Player's instance", () => {
   describe('additional modules', () => {
     it('should be resolved', () => {
       class ClassB {}
-      const resolveSpy: ReturnType<typeof vi.fn> = vi.spyOn(
-        container,
-        'resolve',
-      );
+      const resolveSpy = vi.spyOn(container, 'resolve');
 
       container.registerClass('ClassB', ClassB);
 

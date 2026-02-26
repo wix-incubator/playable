@@ -1,4 +1,6 @@
-@import '../ui/shared';
+@use '../ui/shared' as *;
+@use './normalize/button' as button;
+@use './normalize/universal' as universal;
 
 .container {
   font-family: HelveticaNeueW01-45Ligh, HelveticaNeueW02-45Ligh,
@@ -16,11 +18,11 @@
 
   outline: none;
 
-  @import './normalize/button';
+  @include button.button-normalize();
 }
 
 [data-playable-hook='player-container'].container [data-playable-component] {
-  @import './normalize/universal';
+  @include universal.universal-normalize();
 }
 
 .fillAllSpace,

@@ -17,7 +17,7 @@ enum TextLabel {
   PROGRESS_CONTROL_LABEL = 'progress-control-label',
   PROGRESS_CONTROL_VALUE = 'progress-control-value',
   UNMUTE_CONTROL_LABEL = 'unmute-control-label',
-  UNMUTE_CONTROL_TOOLTIP = 'unmute-control-label',
+  UNMUTE_CONTROL_TOOLTIP = 'unmute-control-tooltip',
   MUTE_CONTROL_LABEL = 'mute-control-label',
   MUTE_CONTROL_TOOLTIP = 'mute-control-tooltip',
   VOLUME_CONTROL_LABEL = 'volume-control-label',

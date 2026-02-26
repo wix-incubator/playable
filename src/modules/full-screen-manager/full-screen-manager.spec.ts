@@ -141,7 +141,7 @@ describe('FullScreenManager', () => {
 
   describe('due to reaction on fullscreen change', () => {
     it('should trigger proper event', () => {
-      const spy: ReturnType<typeof vi.fn> = vi.spyOn(eventEmitter, 'emitAsync');
+      const spy = vi.spyOn(eventEmitter, 'emitAsync');
 
       mockedFullscreenHelper.isInFullScreen = true;
       fullScreenManager._onChange({ target: fullScreenManager._element });
@@ -153,7 +153,7 @@ describe('FullScreenManager', () => {
       eventEmitter.emitAsync.mockRestore();
     });
     it('should not trigger if fullscreen target is not proper element', () => {
-      const spy: ReturnType<typeof vi.fn> = vi.spyOn(eventEmitter, 'emitAsync');
+      const spy = vi.spyOn(eventEmitter, 'emitAsync');
 
       mockedFullscreenHelper.isInFullScreen = true;
       fullScreenManager._onChange({ target: null });

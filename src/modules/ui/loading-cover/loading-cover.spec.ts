@@ -42,10 +42,7 @@ describe('LoadingCover', () => {
 
       it('should have method for setting cover', () => {
         const url = 'url';
-        const setCoverSpy: ReturnType<typeof vi.fn> = vi.spyOn(
-          loadingCover.view,
-          'setCover',
-        );
+        const setCoverSpy = vi.spyOn(loadingCover.view, 'setCover');
         loadingCover.setLoadingCover(url);
         expect(setCoverSpy).toHaveBeenCalledWith(url);
       });

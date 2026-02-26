@@ -1,58 +1,77 @@
-import { button, boolean, color, number, select } from '@storybook/addon-knobs';
-
+import type { Meta, StoryObj } from '@storybook/html';
 import { DEFAULT_URLS, MODE_OPTIONS, RGB_HEX } from './stories/constants';
 import { MEDIA_STREAM_TYPES } from './index';
-
 import { MediaStreamType } from './constants';
-import { storiesOf } from '@storybook/html';
 import { createPlayerStory } from './stories/createPlayerStory';
 
 const videoTypeOptions = Object.keys(DEFAULT_URLS) as MediaStreamType[];
 
-const story = storiesOf('Default', module);
+const meta: Meta = {
+  title: 'Default/Default',
+  argTypes: {
+    height: { control: { type: 'number' } },
+    width: { control: { type: 'number' } },
+    fillAllSpace: { control: 'boolean' },
+    rtl: { control: 'boolean' },
+    videoType: {
+      control: 'select',
+      options: videoTypeOptions,
+    },
+    progressBarMode: {
+      control: 'select',
+      options: Object.values(MODE_OPTIONS),
+    },
+    color: { control: 'color' },
+  },
+};
 
-story.add('Default', () => {
-  const groupDefault = 'Default';
-  const groupActions = 'actions';
+export default meta;
 
-  const height = number('height', 350, {}, groupDefault);
-  const width = number('width', 600, {}, groupDefault);
+type Story = StoryObj;
 
-  const fillAllSpace = boolean('fillAllSpace', false, groupDefault);
-  const rtl = boolean('rtl', false, groupDefault);
+export const Default: Story = {
+  args: {
+    height: 350,
+    width: 600,
+    fillAllSpace: false,
+    rtl: false,
+    videoType: MEDIA_STREAM_TYPES.HLS,
+    progressBarMode: MODE_OPTIONS.REGULAR,
+    color: '#ffffff',
+  },
+  render: (args) => {
+    const playerColorHex = (args.color as string).includes('rgba')
+      ? `#${RGB_HEX(args.color as string).slice(0, -2)}`
+      : (args.color as string);
 
-  const videoType = select(
-    'videoType',
-    videoTypeOptions,
-    MEDIA_STREAM_TYPES.HLS,
-    groupDefault,
-  );
-  const progressBarMode = select(
-    'progressBarMode',
-    MODE_OPTIONS,
-    MODE_OPTIONS.REGULAR,
-    groupDefault,
-  );
+    const props = {
+      rtl: args.rtl,
+      fillAllSpace: args.fillAllSpace,
+      width: args.width,
+      height: args.height,
+      videoType: args.videoType,
+      progressBarMode: args.progressBarMode,
+      color: playerColorHex,
+    };
 
-  const playerColor = color('color', '#fff', 'Default');
-  const playerColorHex = playerColor.includes('rgba')
-    ? `#${RGB_HEX(playerColor).slice(0, -2)}`
-    : playerColor;
+    const { storyContainer, player } = createPlayerStory('Default', props);
 
-  const props = {
-    rtl,
-    fillAllSpace,
-    width,
-    height,
-    videoType,
-    progressBarMode,
-    color: playerColorHex,
-  };
+    const wrap = document.createElement('div');
+    wrap.appendChild(storyContainer);
 
-  const { storyContainer, player } = createPlayerStory('Default', props);
+    const actions = document.createElement('div');
+    actions.style.marginTop = '8px';
+    const stopBtn = document.createElement('button');
+    stopBtn.textContent = 'Stop';
+    stopBtn.onclick = () => player.pause();
+    const playBtn = document.createElement('button');
+    playBtn.textContent = 'Play';
+    playBtn.onclick = () => player.play();
+    playBtn.style.marginLeft = '8px';
+    actions.appendChild(stopBtn);
+    actions.appendChild(playBtn);
+    wrap.appendChild(actions);
 
-  button('Stop', () => player.pause(), groupActions);
-  button('Play', () => player.play(), groupActions);
-
-  return storyContainer;
-});
+    return wrap;
+  },
+};

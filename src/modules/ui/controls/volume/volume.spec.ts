@@ -68,33 +68,21 @@ describe('VolumeControl', () => {
 
   describe('internal methods', () => {
     it('should change volume level based on wheel delta', () => {
-      const startSpy: ReturnType<typeof vi.fn> = vi.spyOn(
-        control,
-        '_changeVolumeLevel',
-      );
+      const startSpy = vi.spyOn(control, '_changeVolumeLevel');
       control._getVolumeLevelFromWheel(-100);
       expect(startSpy).toHaveBeenCalledWith(90);
     });
 
     it('should change volume level based on input', () => {
-      const startSpy: ReturnType<typeof vi.fn> = vi.spyOn(
-        control,
-        '_changeVolumeLevel',
-      );
+      const startSpy = vi.spyOn(control, '_changeVolumeLevel');
       control._getVolumeLevelFromInput(40);
       expect(startSpy).toHaveBeenCalledWith(40);
     });
 
     it('should change volume level and mute state of video', () => {
-      const volumeSpy: ReturnType<typeof vi.fn> = vi.spyOn(
-        control,
-        '_changeVolumeLevel',
-      );
+      const volumeSpy = vi.spyOn(control, '_changeVolumeLevel');
 
-      const muteSpy: ReturnType<typeof vi.fn> = vi.spyOn(
-        control,
-        '_toggleMuteState',
-      );
+      const muteSpy = vi.spyOn(control, '_toggleMuteState');
       control._changeVolumeLevel(90);
       expect(volumeSpy).toHaveBeenCalledWith(90);
       expect(muteSpy).not.toHaveBeenCalled();
