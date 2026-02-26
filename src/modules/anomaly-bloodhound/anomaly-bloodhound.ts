@@ -171,7 +171,7 @@ export default class AnomalyBloodhound {
     const startTS = Date.now();
     this._timeoutMap[type.id] = window.setTimeout(() => {
       const endTS = Date.now();
-      delete this._timeoutMap;
+      delete this._timeoutMap[type.id];
       this.reportDebugInfo({
         reason,
         startTS,

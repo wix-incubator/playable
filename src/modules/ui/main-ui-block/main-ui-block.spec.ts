@@ -1,7 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import { VideoEvent, EngineState } from '../../../constants';
@@ -19,62 +15,62 @@ describe('BottomBlock', () => {
   });
   describe('constructor', () => {
     it('should create instance ', () => {
-      expect(mainBlock).to.exist;
+      expect(mainBlock).toBeDefined();
     });
   });
 
   describe('instance', () => {
     it('should have method for setting playback state', () => {
-      expect(mainBlock._updatePlayingState).to.exist;
+      expect(mainBlock._updatePlayingState).toBeDefined();
 
-      const startTimeout = sinon.spy(mainBlock, '_startHideBlockTimeout');
-      const showTimeout = sinon.spy(mainBlock, '_showContent');
+      const startTimeout = vi.spyOn(mainBlock, '_startHideBlockTimeout');
+      const showTimeout = vi.spyOn(mainBlock, '_showContent');
 
       mainBlock._updatePlayingState({ nextState: EngineState.PLAY_REQUESTED });
-      expect(startTimeout.called).to.be.true;
+      expect(startTimeout).toHaveBeenCalled();
       mainBlock._updatePlayingState({ nextState: EngineState.PAUSED });
-      expect(showTimeout.called).to.be.true;
-      showTimeout.resetHistory();
+      expect(showTimeout).toHaveBeenCalled();
+      showTimeout.mockClear();
       mainBlock._updatePlayingState({ nextState: EngineState.ENDED });
-      expect(showTimeout.called).to.be.true;
-      showTimeout.resetHistory();
+      expect(showTimeout).toHaveBeenCalled();
+      showTimeout.mockClear();
       mainBlock._updatePlayingState({ nextState: EngineState.SRC_SET });
-      expect(showTimeout.called).to.be.true;
+      expect(showTimeout).toHaveBeenCalled();
     });
 
     it('should have method for hiding controls on timeout', () => {
-      const timeoutSpy = sinon.spy(window, 'setTimeout');
-      const clearSpy = sinon.spy(window, 'clearTimeout');
+      const timeoutSpy = vi.spyOn(window, 'setTimeout');
+      const clearSpy = vi.spyOn(window, 'clearTimeout');
       mainBlock._startHideBlockTimeout();
-      expect(timeoutSpy.calledWith(mainBlock._tryHideContent, 2000)).to.be.true;
+      expect(timeoutSpy).toHaveBeenCalledWith(mainBlock._tryHideContent, 2000);
       mainBlock._startHideBlockTimeout();
-      expect(clearSpy.called).to.be.true;
+      expect(clearSpy).toHaveBeenCalled();
 
-      timeoutSpy.restore();
-      clearSpy.restore();
+      timeoutSpy.mockRestore();
+      clearSpy.mockRestore();
     });
   });
 
   describe('video events listeners', () => {
     it('should call callback on playback state change', async function() {
-      const spy = sinon.spy(mainBlock, '_updatePlayingState');
+      const spy = vi.spyOn(mainBlock, '_updatePlayingState');
       mainBlock._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {});
-      expect(spy.called).to.be.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('API', () => {
     it('should have method for showing whole view', () => {
-      expect(mainBlock.show).to.exist;
+      expect(mainBlock.show).toBeDefined();
       mainBlock.show();
-      expect(mainBlock.isHidden).to.be.false;
+      expect(mainBlock.isHidden).toBe(false);
     });
 
     it('should have method for hiding whole view', () => {
-      expect(mainBlock.hide).to.exist;
+      expect(mainBlock.hide).toBeDefined();
       mainBlock.hide();
-      expect(mainBlock.isHidden).to.be.true;
+      expect(mainBlock.isHidden).toBe(true);
     });
   });
 });

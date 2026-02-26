@@ -1,7 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import { EngineState } from '../../../constants';
 
 import createPlayerTestkit from '../../../testkit';
@@ -35,36 +31,33 @@ describe('Loader', () => {
 
   describe('constructor', () => {
     it('should create instance ', () => {
-      expect(screen).to.exist;
-      expect(screen.view).to.exist;
+      expect(screen).toBeDefined();
+      expect(screen.view).toBeDefined();
     });
   });
 
   describe('instance callbacks', () => {
     it('should trigger _toggleVideoPlayback on node click', () => {
-      const processClickSpy = sinon.spy(screen, '_processClick');
+      const processClickSpy = vi.spyOn(screen, '_processClick');
       screen._bindCallbacks();
       screen._initUI();
 
       screen.view.getElement().dispatchEvent(new Event('click'));
-      expect(processClickSpy.called).to.be.true;
+      expect(processClickSpy).toHaveBeenCalled();
     });
 
     it('should remove timeout of delayed playback change on _processClick and call _toggleFullScreen on _processDblClick', () => {
-      const timeoutClearSpy = sinon.spy<Window, 'clearTimeout'>(
-        window,
-        'clearTimeout',
-      );
-      const toggleFullScreenSpy = sinon.spy(screen, '_toggleFullScreen');
+      const timeoutClearSpy = vi.spyOn(window, 'clearTimeout');
+      const toggleFullScreenSpy = vi.spyOn(screen, '_toggleFullScreen');
       const id = window.setTimeout(() => {}, 0);
       screen._delayedToggleVideoPlaybackTimeout = id;
 
       screen._processClick();
-      expect(timeoutClearSpy.calledWith(id)).to.be.true;
+      expect(timeoutClearSpy).toHaveBeenCalledWith(id);
       screen._processDblClick();
-      expect(toggleFullScreenSpy.called).to.be.true;
+      expect(toggleFullScreenSpy).toHaveBeenCalled();
 
-      timeoutClearSpy.restore();
+      timeoutClearSpy.mockRestore();
     });
 
     it('should add native controls if config passed', () => {
@@ -74,45 +67,45 @@ describe('Loader', () => {
 
       const video: any = document.createElement('video');
 
-      video.setAttribute = sinon.spy();
+      video.setAttribute = vi.fn();
 
       engine.getElement = () => video;
 
       screen = testkit.getModule('screen');
 
-      expect(video.setAttribute.calledWith('controls', 'true')).to.be.true;
+      expect(video.setAttribute).toHaveBeenCalledWith('controls', 'true');
     });
 
     it('should emit ui event on enter full screen', () => {
-      const spy = sinon.spy(fullScreenManager, 'enterFullScreen');
+      const spy = vi.spyOn(fullScreenManager, 'enterFullScreen');
       fullScreenManager.isInFullScreen = false;
 
       screen._toggleFullScreen();
 
-      expect(spy.called).to.be.true;
-      fullScreenManager.enterFullScreen.restore();
+      expect(spy).toHaveBeenCalled();
+      fullScreenManager.enterFullScreen.mockRestore();
     });
 
     it('should emit ui event on exit full screen', () => {
-      const spy = sinon.spy(fullScreenManager, 'exitFullScreen');
+      const spy = vi.spyOn(fullScreenManager, 'exitFullScreen');
       fullScreenManager.isInFullScreen = true;
 
       screen._toggleFullScreen();
 
-      expect(spy.called).to.be.true;
-      fullScreenManager.exitFullScreen.restore();
+      expect(spy).toHaveBeenCalled();
+      fullScreenManager.exitFullScreen.mockRestore();
     });
 
     it('should have method for toggling playback', () => {
-      const playSpy = sinon.spy();
-      const pauseSpy = sinon.spy();
+      const playSpy = vi.fn();
+      const pauseSpy = vi.fn();
       screen._engine = {
         getCurrentState: () => EngineState.PLAYING,
         play: playSpy,
         pause: pauseSpy,
       };
       screen._toggleVideoPlayback();
-      expect(pauseSpy.called).to.be.true;
+      expect(pauseSpy).toHaveBeenCalled();
     });
   });
 });

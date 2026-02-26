@@ -1,8 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-
-import * as sinon from 'sinon';
 import logger from './logger';
 import KeyboardInterceptor from './keyboard-interceptor';
 
@@ -24,8 +19,8 @@ describe('KeyboardInterceptor', () => {
       const testKeyCode1 = 10;
       const testKeyCode2 = 20;
       const callbacks = {
-        [testKeyCode1]: sinon.spy(),
-        [testKeyCode2]: sinon.spy(),
+        [testKeyCode1]: vi.fn(),
+        [testKeyCode2]: vi.fn(),
       };
 
       interceptor = new KeyboardInterceptor(element, callbacks);
@@ -33,19 +28,19 @@ describe('KeyboardInterceptor', () => {
       keydownEvent.keyCode = testKeyCode1;
       element.dispatchEvent(keydownEvent);
 
-      expect(callbacks[testKeyCode1].calledWith(keydownEvent)).to.be.true;
-      expect(callbacks[testKeyCode2].called).to.be.false;
+      expect(callbacks[testKeyCode1]).toHaveBeenCalledWith(keydownEvent);
+      expect(callbacks[testKeyCode2]).not.toHaveBeenCalled();
 
       keydownEvent.keyCode = testKeyCode2;
       element.dispatchEvent(keydownEvent);
 
-      expect(callbacks[testKeyCode2].calledWith(keydownEvent)).to.be.true;
+      expect(callbacks[testKeyCode2]).toHaveBeenCalledWith(keydownEvent);
     });
 
     it('should have ability to add callbacks in runtime', () => {
       const testKeyCode = 30;
       const additionCallbacks = {
-        [testKeyCode]: sinon.spy(),
+        [testKeyCode]: vi.fn(),
       };
 
       interceptor = new KeyboardInterceptor(element);
@@ -53,20 +48,20 @@ describe('KeyboardInterceptor', () => {
       keydownEvent.keyCode = testKeyCode;
       element.dispatchEvent(keydownEvent);
 
-      expect(additionCallbacks[testKeyCode].called).to.be.false;
+      expect(additionCallbacks[testKeyCode]).not.toHaveBeenCalled();
 
       interceptor.addCallbacks(additionCallbacks);
 
       keydownEvent.keyCode = testKeyCode;
       element.dispatchEvent(keydownEvent);
 
-      expect(additionCallbacks[testKeyCode].called).to.be.true;
+      expect(additionCallbacks[testKeyCode]).toHaveBeenCalled();
     });
   });
   it('should clear everything on destroy', () => {
     const testKeyCode = 10;
     const callbacks = {
-      [testKeyCode]: sinon.spy(),
+      [testKeyCode]: vi.fn(),
     };
 
     interceptor = new KeyboardInterceptor(element, callbacks);
@@ -76,17 +71,17 @@ describe('KeyboardInterceptor', () => {
     keydownEvent.keyCode = testKeyCode;
     element.dispatchEvent(keydownEvent);
 
-    expect(callbacks[testKeyCode].called).to.be.false;
+    expect(callbacks[testKeyCode]).not.toHaveBeenCalled();
   });
   it('should call warn on destroy after destroy', () => {
-    const warnSpy = sinon.stub(logger, 'warn');
+    const warnSpy = vi.spyOn(logger, 'warn');
 
     interceptor = new KeyboardInterceptor(element);
 
     interceptor.destroy();
     interceptor.destroy();
 
-    expect(warnSpy.calledOnce).to.be.true;
-    warnSpy.restore();
+    expect(warnSpy).toHaveBeenCalledTimes(1);
+    warnSpy.mockRestore();
   });
 });

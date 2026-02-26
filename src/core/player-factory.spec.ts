@@ -1,8 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import {
   create,
   registerModule,
@@ -13,7 +8,7 @@ import { IPlayableModule } from './playable-module';
 
 describe('registerModule', () => {
   it('should add additional module', () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
 
     class ClassA {
       constructor() {
@@ -24,12 +19,12 @@ describe('registerModule', () => {
     registerModule('ClassA', ClassA);
 
     /*const player = */ create();
-    expect(spy.called).to.be.true;
+    expect(spy).toHaveBeenCalled();
     clearAdditionalModules();
   });
 
   it('should add module API', () => {
-    const spy = sinon.spy();
+    const spy = vi.fn();
     const methodName = 'customModuleMethod';
     const method = () => {};
 
@@ -50,8 +45,8 @@ describe('registerModule', () => {
     registerModule('customModule', CustomModule);
     const player = create() as IPlayerInstance & API;
     player[methodName]();
-    expect(spy.called).to.be.true;
-    expect(player[methodName]).to.equal(method);
+    expect(spy).toHaveBeenCalled();
+    expect(player[methodName]).toBe(method);
     clearAdditionalModules();
   });
 });
@@ -65,20 +60,20 @@ describe('Player', () => {
 
   describe('constructor', () => {
     it('should create instance ', () => {
-      expect(player).to.exist;
-      expect(player._defaultModules.engine).to.exist;
-      expect(player.getElement()).to.exist;
-      expect(player._defaultModules.eventEmitter).to.exist;
+      expect(player).toBeDefined();
+      expect(player._defaultModules.engine).toBeDefined();
+      expect(player.getElement()).toBeDefined();
+      expect(player._defaultModules.eventEmitter).toBeDefined();
     });
 
     it('should create separate instances', () => {
       const player2: any = create();
 
-      expect(player._defaultModules.engine).to.not.be.equal(
+      expect(player._defaultModules.engine).not.toBe(
         player2._defaultModules.engine,
       );
-      expect(player.getElement()).to.not.be.equal(player2.getElement());
-      expect(player._defaultModules.eventEmitter).to.not.be.equal(
+      expect(player.getElement()).not.toBe(player2.getElement());
+      expect(player._defaultModules.eventEmitter).not.toBe(
         player2._defaultModules.eventEmitter,
       );
     });

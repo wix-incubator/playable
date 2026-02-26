@@ -1,6 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-
 import convertToDeviceRelatedConfig from './config';
 
 import { setProperty, resetProperty } from '../testkit';
@@ -23,9 +20,7 @@ describe('getUIConfig function', () => {
 
     setProperty(navigator, 'userAgent', 'iPod');
 
-    expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
-      expectedConfig,
-    );
+    expect(convertToDeviceRelatedConfig(params)).toEqual(expectedConfig);
   });
 
   it('should convert config if iPhone', () => {
@@ -39,9 +34,7 @@ describe('getUIConfig function', () => {
     };
     setProperty(navigator, 'userAgent', 'iPhone');
 
-    expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
-      expectedConfig,
-    );
+    expect(convertToDeviceRelatedConfig(params)).toEqual(expectedConfig);
   });
 
   it('should convert config if iPad', () => {
@@ -56,9 +49,7 @@ describe('getUIConfig function', () => {
 
     setProperty(navigator, 'userAgent', 'iPad');
 
-    expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal(
-      expectedConfig,
-    );
+    expect(convertToDeviceRelatedConfig(params)).toEqual(expectedConfig);
   });
 
   it('should convert config if Android', () => {
@@ -68,7 +59,7 @@ describe('getUIConfig function', () => {
       width: 100,
     };
 
-    expect(convertToDeviceRelatedConfig(params)).to.be.deep.equal({
+    expect(convertToDeviceRelatedConfig(params)).toEqual({
       width: 100,
       disableControlWithClickOnPlayer: true,
       disableControlWithKeyboard: true,

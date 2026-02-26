@@ -1,5 +1,4 @@
 import Chance from 'chance';
-import { expect } from 'chai';
 
 import Stylable from './stylable';
 
@@ -17,7 +16,7 @@ describe('Stylable', () => {
   });
 
   it('instance should have method for getting styles', () => {
-    expect(stylable.styleNames).to.be.deep.equal({});
+    expect(stylable.styleNames).toEqual({});
   });
 
   it('should have method for extending styles', () => {
@@ -25,7 +24,7 @@ describe('Stylable', () => {
       name: 'value',
     };
     Stylable.extendStyleNames(styleNames);
-    expect(stylable.styleNames).to.be.deep.equal(styleNames);
+    expect(stylable.styleNames).toEqual(styleNames);
   });
 
   it('method for extending styles should merge styleNames for same style', () => {

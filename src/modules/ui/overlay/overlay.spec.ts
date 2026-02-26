@@ -1,8 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import { VideoEvent, UIEvent, EngineState } from '../../../constants';
@@ -31,8 +26,8 @@ describe('Overlay', () => {
     });
 
     it('should create instance ', () => {
-      expect(overlay).to.exist;
-      expect(overlay.view).to.exist;
+      expect(overlay).toBeDefined();
+      expect(overlay.view).toBeDefined();
     });
   });
 
@@ -41,10 +36,10 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
 
       mainUIBlock = testkit.getModule('mainUIBlock');
-      enableShowingContentSpy = sinon.spy(mainUIBlock, 'enableShowingContent');
+      enableShowingContentSpy = vi.spyOn(mainUIBlock, 'enableShowingContent');
 
       loader = testkit.getModule('loader');
-      loaderShowSpy = sinon.spy(loader, 'show');
+      loaderShowSpy = vi.spyOn(loader, 'show');
 
       eventEmitter = testkit.getModule('eventEmitter');
     });
@@ -53,8 +48,8 @@ describe('Overlay', () => {
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.PLAY_REQUESTED,
       });
-      expect(loaderShowSpy.called).to.be.true;
-      expect(enableShowingContentSpy.called).to.be.true;
+      expect(loaderShowSpy).toHaveBeenCalled();
+      expect(enableShowingContentSpy).toHaveBeenCalled();
     });
   });
 
@@ -63,13 +58,10 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
 
       mainUIBlock = testkit.getModule('mainUIBlock');
-      disableShowingContentSpy = sinon.spy(
-        mainUIBlock,
-        'disableShowingContent',
-      );
+      disableShowingContentSpy = vi.spyOn(mainUIBlock, 'disableShowingContent');
 
       loader = testkit.getModule('loader');
-      loaderHideSpy = sinon.spy(loader, 'hide');
+      loaderHideSpy = vi.spyOn(loader, 'hide');
 
       eventEmitter = testkit.getModule('eventEmitter');
     });
@@ -78,8 +70,8 @@ describe('Overlay', () => {
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.SRC_SET,
       });
-      expect(loaderHideSpy.called).to.be.true;
-      expect(disableShowingContentSpy.called).to.be.true;
+      expect(loaderHideSpy).toHaveBeenCalled();
+      expect(disableShowingContentSpy).toHaveBeenCalled();
     });
   });
 
@@ -88,22 +80,22 @@ describe('Overlay', () => {
       overlay = testkit.getModule('overlay');
       eventEmitter = testkit.getModule('eventEmitter');
 
-      eventEmitterSpy = sinon.spy(eventEmitter, 'emitAsync');
+      eventEmitterSpy = vi.spyOn(eventEmitter, 'emitAsync');
     });
 
     afterEach(() => {
-      eventEmitter.emitAsync.restore();
+      eventEmitter.emitAsync.mockRestore();
     });
 
     it('should emit ui event on play', () => {
-      const callback = sinon.stub(overlay._engine, 'play');
+      const callback = vi.spyOn(overlay._engine, 'play');
 
       overlay._playVideo();
 
-      expect(callback.called).to.be.true;
-      expect(eventEmitterSpy.calledWith(UIEvent.PLAY_OVERLAY_CLICK)).to.be.true;
+      expect(callback).toHaveBeenCalled();
+      expect(eventEmitterSpy).toHaveBeenCalledWith(UIEvent.PLAY_OVERLAY_CLICK);
 
-      overlay._engine.play.restore();
+      overlay._engine.play.mockRestore();
     });
   });
 
@@ -114,8 +106,8 @@ describe('Overlay', () => {
     });
 
     it('should react on video playback state changed on play', async function() {
-      const callback = sinon.spy(overlay, '_updatePlayingState');
-      const hideSpy = sinon.spy(overlay, '_hideContent');
+      const callback = vi.spyOn(overlay, '_updatePlayingState');
+      const hideSpy = vi.spyOn(overlay, '_hideContent');
 
       overlay._bindEvents();
 
@@ -123,21 +115,21 @@ describe('Overlay', () => {
         nextState: EngineState.PLAY_REQUESTED,
       });
 
-      expect(callback.called).to.be.true;
-      expect(hideSpy.called).to.be.true;
+      expect(callback).toHaveBeenCalled();
+      expect(hideSpy).toHaveBeenCalled();
     });
 
     it('should react on video playback state changed on end', async function() {
-      const callback = sinon.spy(overlay, '_updatePlayingState');
-      const showSpy = sinon.spy(overlay, '_showContent');
+      const callback = vi.spyOn(overlay, '_updatePlayingState');
+      const showSpy = vi.spyOn(overlay, '_showContent');
       overlay._bindEvents();
 
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
         nextState: EngineState.ENDED,
       });
 
-      expect(callback.called).to.be.true;
-      expect(showSpy.called).to.be.true;
+      expect(callback).toHaveBeenCalled();
+      expect(showSpy).toHaveBeenCalled();
     });
   });
 });

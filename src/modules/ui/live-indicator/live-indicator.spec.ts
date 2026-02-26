@@ -1,8 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import LiveIndicator from './live-indicator';
@@ -24,80 +19,68 @@ describe('LiveIndicator', () => {
 
   describe('constructor', () => {
     it('should create instance ', () => {
-      expect(liveIndicator).to.exist;
-      expect(liveIndicator.view).to.exist;
+      expect(liveIndicator).toBeDefined();
+      expect(liveIndicator.view).toBeDefined();
     });
   });
 
   describe('instance', () => {
     it('should have method for showing/hiding liveIndicator', () => {
-      const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
+      const viewToggleSpy = vi.spyOn(liveIndicator.view, 'toggle');
 
-      expect(liveIndicator.isHidden, 'hidden by default').to.be.true;
+      expect(liveIndicator.isHidden, 'hidden by default').toBe(true);
 
       liveIndicator.show();
 
-      expect(viewToggleSpy.calledWith(true)).to.be.true;
-      expect(liveIndicator.isHidden, 'hidden after method show called').to.be
-        .false;
+      expect(viewToggleSpy).toHaveBeenCalledWith(true);
+      expect(liveIndicator.isHidden).toBe(false).false;
 
       liveIndicator.hide();
 
-      expect(viewToggleSpy.lastCall.calledWith(false)).to.be.true;
-      expect(liveIndicator.isHidden, 'hidden after method hide called').to.be
-        .true;
+      expect(viewToggleSpy).toHaveBeenLastCalledWith(false);
+      expect(liveIndicator.isHidden).toBe(true).true;
 
-      viewToggleSpy.restore();
+      viewToggleSpy.mockRestore();
     });
 
     it('should have method for getting view node', () => {
-      expect(liveIndicator.getElement()).to.equal(
-        liveIndicator.view.getElement(),
-      );
+      expect(liveIndicator.getElement()).toBe(liveIndicator.view.getElement());
     });
 
     it('should try to sync with live on click', () => {
-      const engineSyncWithLiveSpy = sinon.stub(engine, 'syncWithLive');
+      const engineSyncWithLiveSpy = vi.spyOn(engine, 'syncWithLive');
       const liveIndicatorViewNode = liveIndicator.view.getElement();
 
       liveIndicatorViewNode.dispatchEvent(new Event('click'));
 
-      expect(engineSyncWithLiveSpy.called).to.be.true;
+      expect(engineSyncWithLiveSpy).toHaveBeenCalled();
 
-      engineSyncWithLiveSpy.restore();
+      engineSyncWithLiveSpy.mockRestore();
     });
   });
 
   describe('on live state change', () => {
     it('should reset on `LiveState.NONE`', async function() {
-      const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
-      const viewToggleActiveSpy = sinon.spy(liveIndicator.view, 'toggleActive');
-      const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
+      const viewToggleSpy = vi.spyOn(liveIndicator.view, 'toggle');
+      const viewToggleActiveSpy = vi.spyOn(liveIndicator.view, 'toggleActive');
+      const viewToggleEndedSpy = vi.spyOn(liveIndicator.view, 'toggleEnded');
 
       liveIndicator.show();
 
-      expect(liveIndicator.isHidden, 'hidden before `LiveState.NONE`').to.be
-        .false;
+      expect(liveIndicator.isHidden).toBe(false);
 
       await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
         nextState: LiveState.NONE,
       });
 
-      expect(liveIndicator.isHidden, 'isHidden').to.be.true;
-      expect(viewToggleSpy.calledWith(false), 'view.toggle called with `false`')
-        .to.be.true;
-      expect(
-        viewToggleActiveSpy.calledWith(false),
-        'view.toggleActive called with `false`',
-      ).to.be.true;
-      expect(
-        viewToggleEndedSpy.calledWith(false),
-        'view.toggleEnded called with `false`',
-      ).to.be.true;
+      expect(liveIndicator.isHidden, 'isHidden').toBe(true);
+      expect(viewToggleSpy).toHaveBeenCalledWith(false);
+      expect(viewToggleActiveSpy).toHaveBeenCalledWith(false);
+      expect(viewToggleEndedSpy).toHaveBeenCalledWith(false);
 
-      viewToggleSpy.restore();
-      viewToggleActiveSpy.restore();
-      viewToggleEndedSpy.restore();
+      viewToggleSpy.mockRestore();
+      viewToggleActiveSpy.mockRestore();
+      viewToggleEndedSpy.mockRestore();
     });
 
     describe('for dynamic content', () => {
@@ -108,23 +91,22 @@ describe('LiveIndicator', () => {
       });
 
       it('should show on `LiveState.INITIAL`', async function() {
-        const viewToggleSpy = sinon.spy(liveIndicator.view, 'toggle');
+        const viewToggleSpy = vi.spyOn(liveIndicator.view, 'toggle');
 
-        expect(liveIndicator.isHidden, 'hidden before `LiveState.INITIAL`').to
-          .be.true;
+        expect(liveIndicator.isHidden).toBe(true);
 
         await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
         });
 
-        expect(liveIndicator.isHidden).to.be.false;
-        expect(viewToggleSpy.calledWith(true)).to.be.true;
+        expect(liveIndicator.isHidden).toBe(false);
+        expect(viewToggleSpy).toHaveBeenCalledWith(true);
 
-        viewToggleSpy.restore();
+        viewToggleSpy.mockRestore();
       });
 
       it('should activate on `LiveState.SYNC`', async function() {
-        const viewToggleActiveSpy = sinon.spy(
+        const viewToggleActiveSpy = vi.spyOn(
           liveIndicator.view,
           'toggleActive',
         );
@@ -133,23 +115,21 @@ describe('LiveIndicator', () => {
           nextState: LiveState.INITIAL,
         });
 
-        expect(liveIndicator.isHidden, 'hidden before `LiveState.SYNC`').to.be
-          .false;
-        expect(liveIndicator.isActive, 'active before `LiveState.SYNC`').to.be
-          .false;
+        expect(liveIndicator.isHidden).toBe(false);
+        expect(liveIndicator.isActive).toBe(false);
 
         await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.SYNC,
         });
 
-        expect(liveIndicator.isActive).to.be.true;
-        expect(viewToggleActiveSpy.calledWith(true)).to.be.true;
+        expect(liveIndicator.isActive).toBe(true);
+        expect(viewToggleActiveSpy).toHaveBeenCalledWith(true);
 
-        viewToggleActiveSpy.restore();
+        viewToggleActiveSpy.mockRestore();
       });
 
       it('should deactivate on `LiveState.NOT_SYNC`', async function() {
-        const viewToggleActiveSpy = sinon.spy(
+        const viewToggleActiveSpy = vi.spyOn(
           liveIndicator.view,
           'toggleActive',
         );
@@ -161,24 +141,24 @@ describe('LiveIndicator', () => {
           nextState: LiveState.SYNC,
         });
 
-        expect(liveIndicator.isActive, 'active before out of sync').to.be.true;
+        expect(liveIndicator.isActive, 'active before out of sync').toBe(true);
 
         await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.NOT_SYNC,
         });
 
-        expect(liveIndicator.isActive).to.be.false;
-        expect(viewToggleActiveSpy.lastCall.calledWith(false)).to.be.true;
+        expect(liveIndicator.isActive).toBe(false);
+        expect(viewToggleActiveSpy).toHaveBeenLastCalledWith(false);
 
-        viewToggleActiveSpy.restore();
+        viewToggleActiveSpy.mockRestore();
       });
 
       it('should react to `LiveState.ENDED`', async function() {
-        const viewToggleActiveSpy = sinon.spy(
+        const viewToggleActiveSpy = vi.spyOn(
           liveIndicator.view,
           'toggleActive',
         );
-        const viewToggleEndedSpy = sinon.spy(liveIndicator.view, 'toggleEnded');
+        const viewToggleEndedSpy = vi.spyOn(liveIndicator.view, 'toggleEnded');
 
         await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.INITIAL,
@@ -187,25 +167,18 @@ describe('LiveIndicator', () => {
           nextState: LiveState.SYNC,
         });
 
-        expect(liveIndicator.isActive, 'active before `LiveState.ENDED`').to.be
-          .true;
+        expect(liveIndicator.isActive).toBe(true);
 
         await eventEmitter.emitAsync(VideoEvent.LIVE_STATE_CHANGED, {
           nextState: LiveState.ENDED,
         });
 
-        expect(liveIndicator.isActive, 'isActive').to.be.false;
-        expect(
-          viewToggleActiveSpy.lastCall.calledWith(false),
-          'view.toggleActive called with `false`',
-        ).to.be.true;
-        expect(
-          viewToggleEndedSpy.lastCall.calledWith(true),
-          'view.toggleEnded called with `true`',
-        ).to.be.true;
+        expect(liveIndicator.isActive, 'isActive').toBe(false);
+        expect(viewToggleActiveSpy).toHaveBeenLastCalledWith(false);
+        expect(viewToggleEndedSpy).toHaveBeenLastCalledWith(true);
 
-        viewToggleActiveSpy.restore();
-        viewToggleEndedSpy.restore();
+        viewToggleActiveSpy.mockRestore();
+        viewToggleEndedSpy.mockRestore();
       });
     });
   });

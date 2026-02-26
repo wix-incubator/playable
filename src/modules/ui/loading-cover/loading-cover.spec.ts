@@ -1,7 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 import LoadingCover from './loading-cover';
 
@@ -22,53 +18,53 @@ describe('LoadingCover', () => {
     testkit.registerModule('loadingCover', LoadingCover);
     loadingCover = testkit.getModule('loadingCover');
 
-    emitSpy = sinon.spy(eventEmitter, 'emitAsync');
+    emitSpy = vi.spyOn(eventEmitter, 'emitAsync');
   });
 
   afterEach(() => {
-    eventEmitter.emitAsync.restore();
+    eventEmitter.emitAsync.mockRestore();
   });
 
   describe('constructor', () => {
     it('should create instance ', () => {
-      expect(loadingCover).to.exist;
-      expect(loadingCover.view).to.exist;
+      expect(loadingCover).toBeDefined();
+      expect(loadingCover.view).toBeDefined();
     });
   });
 
   describe('instance', () => {
     describe('public API', () => {
       it('should have method for getting view node', () => {
-        const getElementSpy = sinon.spy(loadingCover.view, 'getElement');
+        const getElementSpy = vi.spyOn(loadingCover.view, 'getElement');
         loadingCover.getElement();
-        expect(getElementSpy.called).to.be.true;
+        expect(getElementSpy).toHaveBeenCalled();
       });
 
       it('should have method for setting cover', () => {
         const url = 'url';
-        const setCoverSpy: sinon.SinonSpy = sinon.spy(
+        const setCoverSpy: ReturnType<typeof vi.fn> = vi.spyOn(
           loadingCover.view,
           'setCover',
         );
         loadingCover.setLoadingCover(url);
-        expect(setCoverSpy.calledWith(url)).to.be.true;
+        expect(setCoverSpy).toHaveBeenCalledWith(url);
       });
 
       it('should have method for showing loader', () => {
-        const showSpy = sinon.spy(loadingCover.view, 'show');
+        const showSpy = vi.spyOn(loadingCover.view, 'show');
         loadingCover.show();
-        expect(emitSpy.calledWith(UIEvent.LOADING_COVER_SHOW)).to.be.true;
-        expect(showSpy.called).to.be.true;
-        expect(loadingCover.isHidden).to.be.false;
+        expect(emitSpy).toHaveBeenCalledWith(UIEvent.LOADING_COVER_SHOW);
+        expect(showSpy).toHaveBeenCalled();
+        expect(loadingCover.isHidden).toBe(false);
       });
 
       it('should have method for hiding loader', () => {
         loadingCover.show();
-        const hideSpy = sinon.spy(loadingCover.view, 'hide');
+        const hideSpy = vi.spyOn(loadingCover.view, 'hide');
         loadingCover.hide();
-        expect(emitSpy.calledWith(UIEvent.LOADING_COVER_HIDE)).to.be.true;
-        expect(hideSpy.called).to.be.true;
-        expect(loadingCover.isHidden).to.be.true;
+        expect(emitSpy).toHaveBeenCalledWith(UIEvent.LOADING_COVER_HIDE);
+        expect(hideSpy).toHaveBeenCalled();
+        expect(loadingCover.isHidden).toBe(true);
       });
     });
 
@@ -76,7 +72,7 @@ describe('LoadingCover', () => {
       it('should be proper if event is VideoEvent.UPLOAD_SUSPEND', async function() {
         loadingCover.show();
         await eventEmitter.emitAsync(VideoEvent.UPLOAD_SUSPEND);
-        expect(loadingCover.isHidden).to.be.true;
+        expect(loadingCover.isHidden).toBe(true);
       });
 
       describe('signifying state change', () => {
@@ -84,13 +80,13 @@ describe('LoadingCover', () => {
         let hideSpy: any;
 
         beforeEach(() => {
-          showSpy = sinon.spy(loadingCover, 'show');
-          hideSpy = sinon.spy(loadingCover, 'hide');
+          showSpy = vi.spyOn(loadingCover, 'show');
+          hideSpy = vi.spyOn(loadingCover, 'hide');
         });
 
         afterEach(() => {
-          loadingCover.show.restore();
-          loadingCover.hide.restore();
+          loadingCover.show.mockRestore();
+          loadingCover.hide.mockRestore();
         });
 
         it('should be proper if next state is EngineState.LOAD_STARTED', async function() {
@@ -99,14 +95,14 @@ describe('LoadingCover', () => {
             nextState: EngineState.LOAD_STARTED,
           });
 
-          expect(showSpy.called).to.be.false;
+          expect(showSpy).not.toHaveBeenCalled();
 
           engine.setPreload('auto');
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
-          expect(showSpy.called).to.be.true;
+          expect(showSpy).toHaveBeenCalled();
         });
 
         it('should be proper if next state is EngineState.WAITING', async function() {
@@ -115,7 +111,7 @@ describe('LoadingCover', () => {
             nextState: EngineState.WAITING,
           });
 
-          expect(showSpy.called).to.be.false;
+          expect(showSpy).not.toHaveBeenCalled();
 
           engine._output._stateEngine._isMetadataLoaded = false;
           engine.setPreload('auto');
@@ -123,7 +119,7 @@ describe('LoadingCover', () => {
             nextState: EngineState.WAITING,
           });
 
-          expect(showSpy.called).to.be.true;
+          expect(showSpy).toHaveBeenCalled();
         });
 
         it('should be proper if next state is EngineState.READY_TO_PLAY', async function() {
@@ -131,7 +127,7 @@ describe('LoadingCover', () => {
             nextState: EngineState.READY_TO_PLAY,
           });
 
-          expect(hideSpy.called).to.be.true;
+          expect(hideSpy).toHaveBeenCalled();
         });
       });
     });

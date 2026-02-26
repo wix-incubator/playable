@@ -1,8 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import Title from './title';
@@ -20,40 +15,40 @@ describe('Title', () => {
 
   describe('constructor', () => {
     it('should create instance ', () => {
-      expect(title).to.exist;
-      expect(title.view).to.exist;
+      expect(title).toBeDefined();
+      expect(title.view).toBeDefined();
     });
   });
 
   describe('instance', () => {
     it('should have method for showing title', () => {
-      const viewShowSpy = sinon.spy(title.view, 'show');
+      const viewShowSpy = vi.spyOn(title.view, 'show');
       title.show();
 
-      expect(viewShowSpy.called).to.be.true;
-      expect(title.isHidden).to.be.false;
+      expect(viewShowSpy).toHaveBeenCalled();
+      expect(title.isHidden).toBe(false);
 
-      viewShowSpy.restore();
+      viewShowSpy.mockRestore();
     });
 
     it('should have method for hiding title', () => {
-      const viewHideSpy = sinon.spy(title.view, 'hide');
+      const viewHideSpy = vi.spyOn(title.view, 'hide');
       title.hide();
 
-      expect(viewHideSpy.called).to.be.true;
-      expect(title.isHidden).to.be.true;
+      expect(viewHideSpy).toHaveBeenCalled();
+      expect(title.isHidden).toBe(true);
 
-      viewHideSpy.restore();
+      viewHideSpy.mockRestore();
     });
 
     it('should have method for getting view node', () => {
-      const getTitleViewNodeSpy = sinon.spy(title.view, 'getElement');
+      const getTitleViewNodeSpy = vi.spyOn(title.view, 'getElement');
       const titleViewNode = title.getElement();
 
-      expect(getTitleViewNodeSpy.called).to.be.true;
-      expect(titleViewNode).to.equal(title.view.getElement());
+      expect(getTitleViewNodeSpy).toHaveBeenCalled();
+      expect(titleViewNode).toBe(title.view.getElement());
 
-      getTitleViewNodeSpy.restore();
+      getTitleViewNodeSpy.mockRestore();
     });
   });
 
@@ -64,19 +59,19 @@ describe('Title', () => {
       let titleViewHideSpy: any;
 
       beforeEach(() => {
-        titleViewSetTitleSpy = sinon.spy(title.view, 'setTitle');
-        titleViewShowSpy = sinon.spy(title.view, 'show');
-        titleViewHideSpy = sinon.spy(title.view, 'hide');
+        titleViewSetTitleSpy = vi.spyOn(title.view, 'setTitle');
+        titleViewShowSpy = vi.spyOn(title.view, 'show');
+        titleViewHideSpy = vi.spyOn(title.view, 'hide');
       });
 
       afterEach(() => {
-        titleViewSetTitleSpy.restore();
-        titleViewShowSpy.restore();
-        titleViewHideSpy.restore();
+        titleViewSetTitleSpy.mockRestore();
+        titleViewShowSpy.mockRestore();
+        titleViewHideSpy.mockRestore();
       });
 
       it('should exists', () => {
-        expect(title.setTitle).to.exist;
+        expect(title.setTitle).toBeDefined();
       });
 
       it('should set NOT EMPTY title', () => {
@@ -84,19 +79,19 @@ describe('Title', () => {
 
         title.setTitle(TITLE_TEXT);
 
-        expect(titleViewSetTitleSpy.calledWith(TITLE_TEXT)).to.be.true;
+        expect(titleViewSetTitleSpy).toHaveBeenCalledWith(TITLE_TEXT);
 
         //@ts-ignore
-        expect(title.view._$rootElement.innerHTML).to.equal(TITLE_TEXT);
-        expect(titleViewShowSpy.called).to.be.true;
+        expect(title.view._$rootElement.innerHTML).toBe(TITLE_TEXT);
+        expect(titleViewShowSpy).toHaveBeenCalled();
       });
 
       it('should set EMPTY title', () => {
         title.setTitle('');
 
-        expect(titleViewSetTitleSpy.calledWith('')).to.be.true;
+        expect(titleViewSetTitleSpy).toHaveBeenCalledWith('');
         // TODO: should html be cleared if setTitle called with empty value?
-        expect(titleViewHideSpy.called).to.be.true;
+        expect(titleViewHideSpy).toHaveBeenCalled();
       });
     });
 
@@ -104,31 +99,31 @@ describe('Title', () => {
       let setViewDisplayAsLinkSpy: any;
 
       beforeEach(() => {
-        setViewDisplayAsLinkSpy = sinon.spy(title.view, 'setDisplayAsLink');
+        setViewDisplayAsLinkSpy = vi.spyOn(title.view, 'setDisplayAsLink');
       });
 
       afterEach(() => {
-        setViewDisplayAsLinkSpy.restore();
+        setViewDisplayAsLinkSpy.mockRestore();
       });
 
       it('should exists', () => {
-        expect(title.setTitleClickCallback).to.exist;
+        expect(title.setTitleClickCallback).toBeDefined();
       });
 
       it('should set NOT EMPTY callback', () => {
-        const clickCallback = sinon.spy();
+        const clickCallback = vi.fn();
 
         title.setTitleClickCallback(clickCallback);
 
         //@ts-ignore
         title.view._$rootElement.dispatchEvent(new Event('click'));
 
-        expect(setViewDisplayAsLinkSpy.calledWith(true)).to.be.true;
-        expect(clickCallback.called).to.be.true;
+        expect(setViewDisplayAsLinkSpy).toHaveBeenCalledWith(true);
+        expect(clickCallback).toHaveBeenCalled();
       });
 
       it('should set EMPTY callback', () => {
-        const clickCallback = sinon.spy();
+        const clickCallback = vi.fn();
 
         title.setTitleClickCallback(clickCallback);
 
@@ -140,8 +135,8 @@ describe('Title', () => {
         //@ts-ignore
         title.view._$rootElement.dispatchEvent(new Event('click'));
 
-        expect(setViewDisplayAsLinkSpy.lastCall.calledWith(false)).to.be.true;
-        expect(clickCallback.calledOnce).to.be.true;
+        expect(setViewDisplayAsLinkSpy).toHaveBeenLastCalledWith(false);
+        expect(clickCallback).toHaveBeenCalledTimes(1);
       });
     });
   });

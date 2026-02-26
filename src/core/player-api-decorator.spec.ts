@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import playerAPI, { PLAYER_API_PROPERTY } from './player-api-decorator';
 
 describe('Decorator playerAPI', () => {
@@ -12,7 +10,7 @@ describe('Decorator playerAPI', () => {
       b() {}
     }
 
-    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).toEqual({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'b'),
     });
@@ -24,7 +22,7 @@ describe('Decorator playerAPI', () => {
       a() {}
     }
 
-    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).toEqual({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });
@@ -37,7 +35,7 @@ describe('Decorator playerAPI', () => {
       }
     }
 
-    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).toEqual({
       b: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });
@@ -52,7 +50,7 @@ describe('Decorator playerAPI', () => {
       set a(_) {}
     }
 
-    expect((A as any).prototype[PLAYER_API_PROPERTY]).to.deep.equal({
+    expect((A as any).prototype[PLAYER_API_PROPERTY]).toEqual({
       a: Reflect.getOwnPropertyDescriptor(A.prototype, 'a'),
     });
   });
@@ -70,7 +68,7 @@ describe('Decorator playerAPI', () => {
       return B;
     };
 
-    expect(getWrongDecoratedClassB).to.throw(
+    expect(getWrongDecoratedClassB).toThrow(
       'Method "b" for public API in B is already defined',
     );
   });

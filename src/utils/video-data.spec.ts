@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import {
   getOverallBufferedPercent,
   getOverallPlayedPercent,
@@ -19,7 +17,7 @@ describe('getNearestBufferSegmentInfo', () => {
   it('should return null if invalid buffer provided', () => {
     const buffer: any = null;
 
-    expect(getNearestBufferSegmentInfo(buffer)).to.be.equal(null);
+    expect(getNearestBufferSegmentInfo(buffer)).toBe(null);
   });
 
   it('should return proper size of buffer', () => {
@@ -28,12 +26,12 @@ describe('getNearestBufferSegmentInfo', () => {
       [30, 40],
     ]);
 
-    expect(getNearestBufferSegmentInfo(buffer, 3)).to.be.deep.equal({
+    expect(getNearestBufferSegmentInfo(buffer, 3)).toEqual({
       start: 2,
       end: 10,
     });
 
-    expect(getNearestBufferSegmentInfo(buffer, 35)).to.be.deep.equal({
+    expect(getNearestBufferSegmentInfo(buffer, 35)).toEqual({
       start: 30,
       end: 40,
     });
@@ -44,13 +42,13 @@ describe('geOverallBufferLength', () => {
   it('should return 0 if invalid buffer provided', () => {
     const buffer: any = null;
 
-    expect(geOverallBufferLength(buffer)).to.be.equal(0);
+    expect(geOverallBufferLength(buffer)).toBe(0);
   });
 
   it('should return proper size of buffer', () => {
     const buffer = getValidBuffer([[0, 10]]);
 
-    expect(geOverallBufferLength(buffer)).to.be.equal(10);
+    expect(geOverallBufferLength(buffer)).toBe(10);
   });
 });
 
@@ -58,13 +56,13 @@ describe('getOverallBufferedPercent', () => {
   it('should return 0 if invalid buffer provided', () => {
     const buffer: any = null;
 
-    expect(getOverallBufferedPercent(buffer)).to.be.equal(0);
+    expect(getOverallBufferedPercent(buffer)).toBe(0);
   });
 
   it('should return 0 if invalid duration is 0', () => {
     const buffer = getValidBuffer([[0, 1]]);
 
-    expect(getOverallBufferedPercent(buffer, 0, 0)).to.be.equal(0);
+    expect(getOverallBufferedPercent(buffer, 0, 0)).toBe(0);
   });
 
   it('should return calculated percent', () => {
@@ -77,18 +75,16 @@ describe('getOverallBufferedPercent', () => {
     const duration1 = 5;
     const duration2 = 7;
 
-    expect(
-      getOverallBufferedPercent(buffer, currentTime1, duration1),
-    ).to.be.equal(20);
-    expect(
-      getOverallBufferedPercent(buffer, currentTime1, duration2),
-    ).to.be.equal(14.29);
-    expect(
-      getOverallBufferedPercent(buffer, currentTime2, duration1),
-    ).to.be.equal(100);
-    expect(
-      getOverallBufferedPercent(buffer, currentTime2, duration2),
-    ).to.be.equal(71.43);
+    expect(getOverallBufferedPercent(buffer, currentTime1, duration1)).toBe(20);
+    expect(getOverallBufferedPercent(buffer, currentTime1, duration2)).toBe(
+      14.29,
+    );
+    expect(getOverallBufferedPercent(buffer, currentTime2, duration1)).toBe(
+      100,
+    );
+    expect(getOverallBufferedPercent(buffer, currentTime2, duration2)).toBe(
+      71.43,
+    );
   });
 });
 
@@ -97,9 +93,9 @@ describe('getOverallPlayedPercent', () => {
     const currentTime = 10;
     const duration = 0;
 
-    expect(getOverallPlayedPercent()).to.be.equal(0);
-    expect(getOverallPlayedPercent(currentTime)).to.be.equal(0);
-    expect(getOverallPlayedPercent(currentTime, duration)).to.be.equal(0);
+    expect(getOverallPlayedPercent()).toBe(0);
+    expect(getOverallPlayedPercent(currentTime)).toBe(0);
+    expect(getOverallPlayedPercent(currentTime, duration)).toBe(0);
   });
 
   it('should return calculated percent', () => {
@@ -108,7 +104,7 @@ describe('getOverallPlayedPercent', () => {
     const duration1 = 20;
     const duration2 = 90;
 
-    expect(getOverallPlayedPercent(currentTime1, duration1)).to.be.equal(50);
-    expect(getOverallPlayedPercent(currentTime2, duration2)).to.be.equal(100);
+    expect(getOverallPlayedPercent(currentTime1, duration1)).toBe(50);
+    expect(getOverallPlayedPercent(currentTime2, duration2)).toBe(100);
   });
 });
