@@ -1,5 +1,4 @@
-@import '../../conditions';
-@import '../../shared';
+@use '../../shared' as *;
 
 .logoWrapper {
   position: relative;

@@ -61,6 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 You can find documentation here: [https://wix-incubator.github.io/playable/](https://wix-incubator.github.io/playable/)
 
+## Development
+
+- **Node.js**: This project requires **Node.js 18** or newer (see `engines` in `package.json`). If you use [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to switch to the version in `.nvmrc`.
+- **Build**: `npm run build` (cleans `dist/`, emits TypeScript declarations, then bundles with Rollup to `dist/statics/`).
+
 ## Big thanks!
 
 Cross-browser Testing Platform and Open Source <3 Provided by [Sauce Labs][sauselabs-homepage]

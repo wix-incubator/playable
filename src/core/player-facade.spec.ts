@@ -1,7 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import convertToDeviceRelatedConfig from './config';
 
 import Player from './player-facade';
@@ -20,33 +16,28 @@ describe("Player's instance", () => {
 
   describe('rootNode and params', () => {
     it('should be registered and resolved', () => {
-      const registerValueSpy: sinon.SinonSpy = sinon.spy(
-        container,
-        'registerValue',
-      );
+      const registerValueSpy = vi.spyOn(container, 'registerValue');
       const params = {};
 
       player = new Player({}, container, []);
-      expect(
-        registerValueSpy.calledWith({
-          config: convertToDeviceRelatedConfig(params),
-        }),
-      ).to.be.true;
+      expect(registerValueSpy).toHaveBeenCalledWith({
+        config: convertToDeviceRelatedConfig(params),
+      });
     });
 
     it('should be resolved', () => {
-      const resolveSpy = sinon.spy(container, 'resolve');
+      const resolveSpy = vi.spyOn(container, 'resolve');
 
       player = new Player({}, container, []);
 
-      expect(resolveSpy.args).to.deep.equal([['config']]);
+      expect(resolveSpy.mock.calls).toEqual([['config']]);
     });
   });
 
   describe('default modules', () => {
     it('should be resolved', () => {
       class ClassA {}
-      const resolveSpy: sinon.SinonSpy = sinon.spy(container, 'resolve');
+      const resolveSpy = vi.spyOn(container, 'resolve');
 
       defaultModules = {
         ClassA,
@@ -56,11 +47,11 @@ describe("Player's instance", () => {
 
       player = new Player({}, container, Object.keys(defaultModules));
 
-      expect(resolveSpy.calledWith('ClassA')).to.be.true;
+      expect(resolveSpy).toHaveBeenCalledWith('ClassA');
     });
 
     it('should call destroy on player destroy', () => {
-      const destroySpy = sinon.spy();
+      const destroySpy = vi.fn();
       class ClassA {
         destroy() {
           destroySpy();
@@ -76,24 +67,24 @@ describe("Player's instance", () => {
       player = new Player({}, container, Object.keys(defaultModules));
       player.destroy();
 
-      expect(destroySpy.called).to.be.true;
+      expect(destroySpy).toHaveBeenCalled();
     });
   });
 
   describe('additional modules', () => {
     it('should be resolved', () => {
       class ClassB {}
-      const resolveSpy: sinon.SinonSpy = sinon.spy(container, 'resolve');
+      const resolveSpy = vi.spyOn(container, 'resolve');
 
       container.registerClass('ClassB', ClassB);
 
       player = new Player({}, container, [], ['ClassB']);
 
-      expect(resolveSpy.calledWith('ClassB')).to.be.true;
+      expect(resolveSpy).toHaveBeenCalledWith('ClassB');
     });
 
     it('should call destroy on player destroy', () => {
-      const destroySpy = sinon.spy();
+      const destroySpy = vi.fn();
       class ClassA {
         destroy() {
           destroySpy();
@@ -105,7 +96,7 @@ describe("Player's instance", () => {
       player = new Player({}, container, [], ['ClassA']);
       player.destroy();
 
-      expect(destroySpy.called).to.be.true;
+      expect(destroySpy).toHaveBeenCalled();
     });
   });
 
@@ -117,8 +108,8 @@ describe("Player's instance", () => {
     let methodBSpy: any;
 
     beforeEach(() => {
-      methodASpy = sinon.spy();
-      methodBSpy = sinon.spy();
+      methodASpy = vi.fn();
+      methodBSpy = vi.fn();
 
       class A {
         @playerAPI()
@@ -164,9 +155,9 @@ describe("Player's instance", () => {
       };
       player = new Player({}, container, Object.keys(defaultModules));
 
-      expect(Reflect.has(player, 'methodA')).to.be.true;
-      expect(Reflect.has(player, 'methodB')).to.be.false;
-      expect(Reflect.has(player, 'methodC')).to.be.true;
+      expect(Reflect.has(player, 'methodA')).toBe(true);
+      expect(Reflect.has(player, 'methodB')).toBe(false);
+      expect(Reflect.has(player, 'methodC')).toBe(true);
 
       container.registerClass('ClassB', ClassB);
       defaultModules = {
@@ -176,8 +167,8 @@ describe("Player's instance", () => {
 
       player = new Player({}, container, Object.keys(defaultModules));
 
-      expect(Reflect.has(player, 'methodA')).to.be.true;
-      expect(Reflect.has(player, 'methodB')).to.be.true;
+      expect(Reflect.has(player, 'methodA')).toBe(true);
+      expect(Reflect.has(player, 'methodB')).toBe(true);
     });
 
     it('should be constructed from additional modules', () => {
@@ -195,8 +186,8 @@ describe("Player's instance", () => {
         Object.keys(additionalModules),
       );
 
-      expect(Reflect.has(player, 'methodA')).to.be.true;
-      expect(Reflect.has(player, 'methodC')).to.be.true;
+      expect(Reflect.has(player, 'methodA')).toBe(true);
+      expect(Reflect.has(player, 'methodC')).toBe(true);
     });
 
     it('methods should call proper methods from modules', () => {
@@ -218,8 +209,8 @@ describe("Player's instance", () => {
       player.methodA();
       player.methodB();
 
-      expect(methodASpy.called).to.be.true;
-      expect(methodBSpy.called).to.be.true;
+      expect(methodASpy).toHaveBeenCalled();
+      expect(methodBSpy).toHaveBeenCalled();
     });
 
     it('should throw error on duplicate method in API', () => {
@@ -234,7 +225,7 @@ describe("Player's instance", () => {
         return new Player({}, container, Object.keys(defaultModules));
       };
 
-      expect(getDuplicateAPIMethodPlayer).to.throw(
+      expect(getDuplicateAPIMethodPlayer).toThrow(
         'API method methodA is already defined in Player facade',
       );
     });
@@ -249,7 +240,7 @@ describe("Player's instance", () => {
         player = new Player({}, container, Object.keys(defaultModules));
 
         player.destroy();
-        expect(Reflect.has(player, 'methodA')).to.be.false;
+        expect(Reflect.has(player, 'methodA')).toBe(false);
       });
 
       it('should not broadcast call methods of module', () => {
@@ -262,7 +253,7 @@ describe("Player's instance", () => {
         const methodA = player.methodA;
 
         player.destroy();
-        expect(methodA).to.throw('Player instance is destroyed');
+        expect(methodA).toThrow('Player instance is destroyed');
       });
     });
   });

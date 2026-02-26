@@ -1,7 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../../testkit';
 
 import VolumeControl from './volume';
@@ -23,79 +19,76 @@ describe('VolumeControl', () => {
 
   describe('constructor', () => {
     it('should create instance ', () => {
-      expect(control).to.exist;
-      expect(control.view).to.exist;
+      expect(control).toBeDefined();
+      expect(control.view).toBeDefined();
     });
   });
 
   describe('API', () => {
     it('should have method for setting current volume', () => {
-      const spy = sinon.spy(control.view, 'setVolume');
+      const spy = vi.spyOn(control.view, 'setVolume');
       control._setVolumeLevel(0);
-      expect(spy.called).to.be.true;
+      expect(spy).toHaveBeenCalled();
     });
 
     it('should have method for setting mute state', () => {
-      const spy = sinon.spy(control.view, 'setMute');
+      const spy = vi.spyOn(control.view, 'setMute');
       control._setMuteState();
-      expect(spy.called).to.be.true;
+      expect(spy).toHaveBeenCalled();
     });
 
     it('should have method for showing whole view', () => {
-      expect(control.show).to.exist;
+      expect(control.show).toBeDefined();
       control.show();
-      expect(control.isHidden).to.be.false;
+      expect(control.isHidden).toBe(false);
     });
 
     it('should have method for hiding whole view', () => {
-      expect(control.hide).to.exist;
+      expect(control.hide).toBeDefined();
       control.hide();
-      expect(control.isHidden).to.be.true;
+      expect(control.isHidden).toBe(true);
     });
 
     it('should have method for destroying', () => {
-      const spy = sinon.spy(control, '_unbindEvents');
-      expect(control.destroy).to.exist;
+      const spy = vi.spyOn(control, '_unbindEvents');
+      expect(control.destroy).toBeDefined();
       control.destroy();
-      expect(spy.called).to.be.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('video events listeners', () => {
     it('should call callback on playback state change', async function() {
-      const spy = sinon.spy(control, '_updateSoundState');
+      const spy = vi.spyOn(control, '_updateSoundState');
       control._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.SOUND_STATE_CHANGED);
-      expect(spy.called).to.be.true;
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe('internal methods', () => {
     it('should change volume level based on wheel delta', () => {
-      const startSpy: sinon.SinonSpy = sinon.spy(control, '_changeVolumeLevel');
+      const startSpy = vi.spyOn(control, '_changeVolumeLevel');
       control._getVolumeLevelFromWheel(-100);
-      expect(startSpy.calledWith(90)).to.be.true;
+      expect(startSpy).toHaveBeenCalledWith(90);
     });
 
     it('should change volume level based on input', () => {
-      const startSpy: sinon.SinonSpy = sinon.spy(control, '_changeVolumeLevel');
+      const startSpy = vi.spyOn(control, '_changeVolumeLevel');
       control._getVolumeLevelFromInput(40);
-      expect(startSpy.calledWith(40)).to.be.true;
+      expect(startSpy).toHaveBeenCalledWith(40);
     });
 
     it('should change volume level and mute state of video', () => {
-      const volumeSpy: sinon.SinonSpy = sinon.spy(
-        control,
-        '_changeVolumeLevel',
-      );
+      const volumeSpy = vi.spyOn(control, '_changeVolumeLevel');
 
-      const muteSpy: sinon.SinonSpy = sinon.spy(control, '_toggleMuteState');
+      const muteSpy = vi.spyOn(control, '_toggleMuteState');
       control._changeVolumeLevel(90);
-      expect(volumeSpy.calledWith(90)).to.be.true;
-      expect(muteSpy.called).to.be.false;
+      expect(volumeSpy).toHaveBeenCalledWith(90);
+      expect(muteSpy).not.toHaveBeenCalled();
       control._engine.mute();
       control._changeVolumeLevel(90);
-      expect(muteSpy.called).to.be.true;
+      expect(muteSpy).toHaveBeenCalled();
     });
   });
 });

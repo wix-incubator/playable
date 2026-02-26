@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import { EventEmitter } from 'eventemitter3';
 import { PLAYER_API_PROPERTY } from '../../core/player-api-decorator';
 
@@ -13,7 +11,7 @@ describe('EventEmitterModule', () => {
   });
 
   it('should return instance of EventEmitter', () => {
-    expect(eventEmitter instanceof EventEmitter).to.be.true;
+    expect(eventEmitter instanceof EventEmitter).toBe(true);
   });
 
   describe("returned instance's destroy", () => {
@@ -24,21 +22,21 @@ describe('EventEmitterModule', () => {
 
     it('should remove all listeners for all events', () => {
       eventEmitter.destroy();
-      expect(eventEmitter.eventNames()).to.be.deep.equal([]);
+      expect(eventEmitter.eventNames()).toEqual([]);
     });
   });
 
   describe('public API', () => {
     it('should have "on" method', () => {
-      expect(eventEmitter[PLAYER_API_PROPERTY].on).to.exist;
+      expect(eventEmitter[PLAYER_API_PROPERTY].on).toBeDefined();
     });
 
     it('should have "off" method', () => {
-      expect(eventEmitter[PLAYER_API_PROPERTY].off).to.exist;
+      expect(eventEmitter[PLAYER_API_PROPERTY].off).toBeDefined();
     });
 
     it('should have "once" method', () => {
-      expect(eventEmitter[PLAYER_API_PROPERTY].once).to.exist;
+      expect(eventEmitter[PLAYER_API_PROPERTY].once).toBeDefined();
     });
   });
 });

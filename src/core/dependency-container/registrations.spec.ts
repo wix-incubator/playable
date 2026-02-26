@@ -1,6 +1,3 @@
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import Lifetime from './constants/Lifetime';
 import NotAFunctionError from './errors/NotAFunctionError';
 
@@ -11,17 +8,17 @@ import {
   PROPERTY_FOR_DEPENDENCIES,
 } from './registrations';
 
-interface ModuleSpy extends sinon.SinonSpy {
+interface ModuleSpy extends ReturnType<typeof vi.fn> {
   [PROPERTY_FOR_DEPENDENCIES]?: string[];
 }
 
 describe('registration method', () => {
   const container = {
-    resolve: sinon.spy((name: any) => name),
+    resolve: vi.fn((name: any) => name),
   };
 
   afterEach(() => {
-    container.resolve.resetHistory();
+    container.resolve.mockClear();
   });
 
   describe('asValue', () => {
@@ -29,8 +26,8 @@ describe('registration method', () => {
       const value = 10;
       const registeredValue = asValue(value);
 
-      expect(registeredValue.lifetime).to.be.equal(Lifetime.TRANSIENT);
-      expect(registeredValue.resolve()).to.be.equal(value);
+      expect(registeredValue.lifetime).toBe(Lifetime.TRANSIENT);
+      expect(registeredValue.resolve()).toBe(value);
     });
   });
 
@@ -38,7 +35,7 @@ describe('registration method', () => {
     it('should return error if not function passed', () => {
       const func = 10;
       const errorThrown = () => asFunction(func);
-      expect(errorThrown).to.throw(
+      expect(errorThrown).toThrow(
         new NotAFunctionError('asFunction', 'function', typeof func).message,
       );
     });
@@ -47,8 +44,8 @@ describe('registration method', () => {
       const func = () => {};
       const registeredFunction = asFunction(func);
 
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.TRANSIENT);
-      expect(registeredFunction.resolve).to.exist;
+      expect(registeredFunction.lifetime).toBe(Lifetime.TRANSIENT);
+      expect(registeredFunction.resolve).toBeDefined();
     });
 
     it('should except options', () => {
@@ -56,48 +53,48 @@ describe('registration method', () => {
       const registeredFunction = asFunction(func, {
         lifetime: Lifetime.SCOPED,
       });
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.SCOPED);
+      expect(registeredFunction.lifetime).toBe(Lifetime.SCOPED);
     });
 
     describe("returned object's resolve method", () => {
       it('should call initial method only with container passed', () => {
-        const func = sinon.spy();
+        const func = vi.fn();
         const registeredFunction = asFunction(func);
 
         registeredFunction.resolve(container);
-        expect(func.calledWith(container)).to.be.true;
+        expect(func).toHaveBeenCalledWith(container);
       });
 
       it('should combine wrapper object with resolved dependencies from container', () => {
-        const func: ModuleSpy = sinon.spy();
+        const func: ModuleSpy = vi.fn();
         const moduleName = 'moduleName';
         func[PROPERTY_FOR_DEPENDENCIES] = [moduleName];
         const registeredFunction = asFunction(func);
 
         registeredFunction.resolve(container);
-        expect(container.resolve.calledWithExactly(moduleName)).to.be.true;
-        expect(
-          func.calledWithExactly(
-            {
-              moduleName,
-            },
-            container,
-          ),
-        ).to.be.true;
+        expect(container.resolve).toHaveBeenCalledWith(moduleName);
+        expect(func).toHaveBeenCalledWith(
+          {
+            moduleName,
+          },
+          container,
+        );
       });
     });
 
     describe('returned object should have fluid interface', () => {
-      const func = () => {};
-      const registeredFunction = asFunction(func);
-      registeredFunction.transient();
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.TRANSIENT);
-      registeredFunction.scoped();
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.SCOPED);
-      registeredFunction.singleton();
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.SINGLETON);
-      registeredFunction.setLifetime(Lifetime.SCOPED);
-      expect(registeredFunction.lifetime).to.be.equal(Lifetime.SCOPED);
+      it('should support fluid interface', () => {
+        const func = () => {};
+        const registeredFunction = asFunction(func);
+        registeredFunction.transient();
+        expect(registeredFunction.lifetime).toBe(Lifetime.TRANSIENT);
+        registeredFunction.scoped();
+        expect(registeredFunction.lifetime).toBe(Lifetime.SCOPED);
+        registeredFunction.singleton();
+        expect(registeredFunction.lifetime).toBe(Lifetime.SINGLETON);
+        registeredFunction.setLifetime(Lifetime.SCOPED);
+        expect(registeredFunction.lifetime).toBe(Lifetime.SCOPED);
+      });
     });
   });
 
@@ -106,7 +103,7 @@ describe('registration method', () => {
       const classDeclare = 10;
       const errorThrown = () => asClass(classDeclare);
 
-      expect(errorThrown).to.throw(
+      expect(errorThrown).toThrow(
         new NotAFunctionError('asClass', 'class', typeof classDeclare).message,
       );
     });
@@ -115,8 +112,8 @@ describe('registration method', () => {
       class Class {}
       const registeredClass = asClass(Class);
 
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.TRANSIENT);
-      expect(registeredClass.resolve).to.exist;
+      expect(registeredClass.lifetime).toBe(Lifetime.TRANSIENT);
+      expect(registeredClass.resolve).toBeDefined();
     });
 
     it('should except options', () => {
@@ -125,53 +122,53 @@ describe('registration method', () => {
         lifetime: Lifetime.SCOPED,
       });
 
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.SCOPED);
+      expect(registeredClass.lifetime).toBe(Lifetime.SCOPED);
     });
 
     describe("returned object's resolve method", () => {
       it('should call initial method only with container passed', () => {
-        const constructor = sinon.spy();
+        const constructor = vi.fn();
         const registeredClass = asClass(constructor);
 
         registeredClass.resolve(container);
 
-        expect(constructor.calledWithNew()).to.be.true;
-        expect(constructor.calledWith(container)).to.be.true;
+        expect(constructor.mock.instances.length).toBeGreaterThan(0);
+        expect(constructor).toHaveBeenCalledWith(container);
       });
 
       it('should combine wrapper object with resolved dependencies from container', () => {
-        const constructor: ModuleSpy = sinon.spy();
+        const constructor: ModuleSpy = vi.fn();
         const moduleName = 'moduleName';
         constructor[PROPERTY_FOR_DEPENDENCIES] = [moduleName];
         const registeredClass = asClass(constructor);
 
         registeredClass.resolve(container);
 
-        expect(constructor.calledWithNew()).to.be.true;
-        expect(container.resolve.calledWithExactly(moduleName)).to.be.true;
-        expect(
-          constructor.calledWithExactly(
-            {
-              moduleName,
-            },
-            container,
-          ),
-        ).to.be.true;
+        expect(constructor.mock.instances.length).toBeGreaterThan(0);
+        expect(container.resolve).toHaveBeenCalledWith(moduleName);
+        expect(constructor).toHaveBeenCalledWith(
+          {
+            moduleName,
+          },
+          container,
+        );
       });
     });
 
     describe('returned object should have fluid interface', () => {
-      const constructor = sinon.spy();
-      const registeredClass = asClass(constructor);
+      it('should support fluid interface', () => {
+        const constructor = vi.fn();
+        const registeredClass = asClass(constructor);
 
-      registeredClass.transient();
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.TRANSIENT);
-      registeredClass.scoped();
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.SCOPED);
-      registeredClass.singleton();
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.SINGLETON);
-      registeredClass.setLifetime(Lifetime.SCOPED);
-      expect(registeredClass.lifetime).to.be.equal(Lifetime.SCOPED);
+        registeredClass.transient();
+        expect(registeredClass.lifetime).toBe(Lifetime.TRANSIENT);
+        registeredClass.scoped();
+        expect(registeredClass.lifetime).toBe(Lifetime.SCOPED);
+        registeredClass.singleton();
+        expect(registeredClass.lifetime).toBe(Lifetime.SINGLETON);
+        registeredClass.setLifetime(Lifetime.SCOPED);
+        expect(registeredClass.lifetime).toBe(Lifetime.SCOPED);
+      });
     });
   });
 });

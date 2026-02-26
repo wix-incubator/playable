@@ -1,4 +1,6 @@
-@import '../../shared';
+@use 'sass:math';
+@use 'sass:color';
+@use '../../shared' as *;
 
 $progress-bar-height: 6px;
 $progress-bar-height-full-screen: 8px;
@@ -93,12 +95,12 @@ $color-sync-pointer-background: #ea492e;
 .seekButtonContainer {
   position: absolute;
   z-index: 7;
-  top: -$seek-pointer-height / 4;
-  left: -$seek-pointer-width / 2;
+  top: -(math.div($seek-pointer-height, 4));
+  left: -(math.div($seek-pointer-width, 2));
 
   @include query(in-full-screen()) {
-    top: -$progress-bar-height-full-screen / 2;
-    left: -$seek-pointer-width-full-screen / 2;
+    top: -(math.div($progress-bar-height-full-screen, 2));
+    left: -(math.div($seek-pointer-width-full-screen, 2));
 
     width: $seek-pointer-width-full-screen;
     height: $seek-pointer-height-full-screen;
@@ -128,10 +130,11 @@ $color-sync-pointer-background: #ea492e;
 .syncButton {
   position: absolute;
   z-index: 6;
-  top: -(
-  $sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height
-  ) / 2;
-  right: -($sync-pointer-width + 2 * $sync-pointer-border) / 2;
+  top: -(math.div(
+  $sync-pointer-height + 2 * $sync-pointer-border - $progress-bar-height,
+  2
+  ));
+  right: -(math.div($sync-pointer-width + 2 * $sync-pointer-border, 2));
 
   display: none;
 
@@ -146,8 +149,8 @@ $color-sync-pointer-background: #ea492e;
   background-color: $color-sync-pointer-background;
 
   @include query(in-full-screen()) {
-    top: -$progress-bar-height-full-screen / 4;
-    right: -($sync-pointer-width-full-screen + 2 * $sync-pointer-border) / 2;
+    top: -(math.div($progress-bar-height-full-screen, 4));
+    right: -(math.div($sync-pointer-width-full-screen + 2 * $sync-pointer-border, 2));
 
     width: $sync-pointer-width-full-screen;
     height: $sync-pointer-height-full-screen;
@@ -197,13 +200,13 @@ $color-sync-pointer-background: #ea492e;
 .buffered {
   transition: width .2s ease;
 
-  background-color: transparentize(#fff, .75);
+  background-color: color.change(#fff, $alpha: .25);
 }
 
 .background {
   width: 100%;
 
-  background-color: transparentize(#fff, .75);
+  background-color: color.change(#fff, $alpha: .25);
 }
 
 .seekTo {
@@ -228,7 +231,7 @@ $color-sync-pointer-background: #ea492e;
 
   &:after {
     position: absolute;
-    right: -$progress-bar-height / 2;
+    right: -(math.div($progress-bar-height, 2));
 
     width: $progress-bar-height;
     height: $progress-bar-height;
@@ -242,7 +245,7 @@ $color-sync-pointer-background: #ea492e;
     background-color: #fff;
 
     @include query(in-full-screen()) {
-      right: -$progress-bar-height-full-screen / 2;
+      right: -(math.div($progress-bar-height-full-screen, 2));
 
       width: $progress-bar-height-full-screen;
       height: $progress-bar-height-full-screen;

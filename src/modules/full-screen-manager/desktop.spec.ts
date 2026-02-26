@@ -1,9 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-
-import * as sinon from 'sinon';
-
 import DesktopFullScreen from './desktop';
 
 import { setProperty, resetProperty } from '../../testkit';
@@ -11,7 +5,7 @@ import { setProperty, resetProperty } from '../../testkit';
 declare const navigator: any;
 
 describe('DesktopFullScreen', () => {
-  const callback = sinon.spy();
+  const callback = vi.fn();
   let element: any;
   let fullScreen: any;
   const fullScreenFn = {
@@ -30,30 +24,30 @@ describe('DesktopFullScreen', () => {
   });
 
   afterEach(() => {
-    callback.resetHistory();
+    callback.mockClear();
   });
 
   describe('enable state', () => {
     it('should return true in native state is true', () => {
       (document as any)[fullScreenFn.fullscreenEnabled] = true;
-      expect(fullScreen.isEnabled).to.be.true;
+      expect(fullScreen.isEnabled).toBe(true);
     });
 
     it('should return false in native state is false', () => {
       (document as any)[fullScreenFn.fullscreenEnabled] = false;
-      expect(fullScreen.isEnabled).to.be.false;
+      expect(fullScreen.isEnabled).toBe(false);
     });
   });
 
   describe('full screen state', () => {
     it('should return true in native state is true', () => {
       (document as any)[fullScreenFn.fullscreenElement] = true;
-      expect(fullScreen.isInFullScreen).to.be.true;
+      expect(fullScreen.isInFullScreen).toBe(true);
     });
 
     it('should return false in native state is false', () => {
       (document as any)[fullScreenFn.fullscreenElement] = false;
-      expect(fullScreen.isInFullScreen).to.be.false;
+      expect(fullScreen.isInFullScreen).toBe(false);
     });
   });
 
@@ -65,7 +59,7 @@ describe('DesktopFullScreen', () => {
         });
         describe('on Safari 5.1', () => {
           beforeEach(() => {
-            element[fullScreenFn.requestFullscreen] = sinon.spy();
+            element[fullScreenFn.requestFullscreen] = vi.fn();
 
             setProperty(navigator, 'userAgent', '5.1 Safari');
           });
@@ -76,40 +70,43 @@ describe('DesktopFullScreen', () => {
 
           it('should call it without arguments', () => {
             fullScreen.request();
-            expect(element[fullScreenFn.requestFullscreen].calledWithExactly())
-              .to.be.true;
+            expect(
+              element[fullScreenFn.requestFullscreen],
+            ).toHaveBeenCalledWith();
           });
         });
         describe('on not Safari 5.1', () => {
           beforeEach(() => {
-            element[fullScreenFn.requestFullscreen] = sinon.spy();
+            element[fullScreenFn.requestFullscreen] = vi.fn();
           });
 
           it('should call it with true if ALLOW_KEYBOARD_INPUT is true', () => {
             (Element as any).ALLOW_KEYBOARD_INPUT = true;
             fullScreen.request();
             expect(
-              element[fullScreenFn.requestFullscreen].calledWithExactly(true),
-            ).to.be.true;
+              element[fullScreenFn.requestFullscreen],
+            ).toHaveBeenCalledWith(true);
           });
 
           it('should call it with false if ALLOW_KEYBOARD_INPUT is false', () => {
             (Element as any).ALLOW_KEYBOARD_INPUT = false;
             fullScreen.request();
             expect(
-              element[fullScreenFn.requestFullscreen].calledWithExactly(false),
-            ).to.be.true;
+              element[fullScreenFn.requestFullscreen],
+            ).toHaveBeenCalledWith(false);
           });
         });
       });
       describe('if it disabled', () => {
         beforeEach(() => {
           (document as any)[fullScreenFn.fullscreenEnabled] = false;
-          element[fullScreenFn.requestFullscreen] = sinon.spy();
+          element[fullScreenFn.requestFullscreen] = vi.fn();
         });
         it('should not call it', () => {
           fullScreen.request();
-          expect(element[fullScreenFn.requestFullscreen].called).to.be.false;
+          expect(
+            element[fullScreenFn.requestFullscreen],
+          ).not.toHaveBeenCalled();
         });
       });
     });
@@ -118,16 +115,18 @@ describe('DesktopFullScreen', () => {
   describe('method for exit full screen', () => {
     it('should use native method', () => {
       (document as any)[fullScreenFn.fullscreenEnabled] = true;
-      (document as any)[fullScreenFn.exitFullscreen] = sinon.spy();
+      (document as any)[fullScreenFn.exitFullscreen] = vi.fn();
       fullScreen.exit();
-      expect((document as any)[fullScreenFn.exitFullscreen].called).to.be.true;
+      expect((document as any)[fullScreenFn.exitFullscreen]).toHaveBeenCalled();
     });
 
     it('should do nothing if not enabled', () => {
       (document as any)[fullScreenFn.fullscreenEnabled] = false;
-      (document as any)[fullScreenFn.exitFullscreen] = sinon.spy();
+      (document as any)[fullScreenFn.exitFullscreen] = vi.fn();
       fullScreen.exit();
-      expect((document as any)[fullScreenFn.exitFullscreen].called).to.be.false;
+      expect(
+        (document as any)[fullScreenFn.exitFullscreen],
+      ).not.toHaveBeenCalled();
     });
   });
 
@@ -136,7 +135,7 @@ describe('DesktopFullScreen', () => {
       const changeEvent = new Event(fullScreenFn.fullscreenchange);
 
       document.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.true;
+      expect(callback).toHaveBeenCalled();
     });
   });
 
@@ -148,7 +147,7 @@ describe('DesktopFullScreen', () => {
       fullScreen.destroy();
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.false;
+      expect(callback).not.toHaveBeenCalled();
     });
   });
 });

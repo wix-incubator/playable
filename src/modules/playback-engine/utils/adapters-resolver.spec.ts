@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { resolveAdapters } from './adapters-resolver';
 import {
   MediaStreamType,
@@ -65,14 +64,14 @@ describe('Picking proper playback stream', () => {
       new AdaptiveCanBePlayedStreamA(),
       new AdaptiveCanBePlayedStreamB(),
     ] as any);
-    expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamA).to.be.true;
+    expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamA).toBe(true);
 
     resolvedStream = resolveAdapters(mediaStreams, [
       new AdaptiveCanBePlayedStreamB(),
       new AdaptiveCanBePlayedStreamA(),
     ] as any);
 
-    expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamB).to.be.true;
+    expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamB).toBe(true);
   });
 
   it('should choose only stream that can be played', () => {
@@ -80,7 +79,7 @@ describe('Picking proper playback stream', () => {
       new CantBePlayedStream(),
       new AdaptiveCanBePlayedStreamA(),
     ] as any);
-    expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamA).to.be.true;
+    expect(resolvedStream[0] instanceof AdaptiveCanBePlayedStreamA).toBe(true);
   });
 
   it('should sort resolved stream based on delivery type', () => {
@@ -89,6 +88,6 @@ describe('Picking proper playback stream', () => {
       new AdaptiveCanBePlayedStreamB(),
       new NativeCanBePlayedStreamA(),
     ] as any);
-    expect(resolvedStream[0] instanceof NativeCanBePlayedStreamA).to.be.true;
+    expect(resolvedStream[0] instanceof NativeCanBePlayedStreamA).toBe(true);
   });
 });

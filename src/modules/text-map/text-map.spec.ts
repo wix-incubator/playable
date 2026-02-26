@@ -1,5 +1,3 @@
-import { expect } from 'chai';
-
 import TextMap from './text-map';
 
 import createPlayerTestkit from '../../testkit';
@@ -19,8 +17,8 @@ describe('TextMap module', () => {
       },
     });
     const map = testkit.getModule('textMap');
-    expect(map.get).to.exist;
-    expect(map.get('testID')).to.be.equal('testText');
+    expect(map.get).toBeDefined();
+    expect(map.get('testID')).toBe('testText');
   });
 
   it('should pass arguments to translate function', () => {
@@ -31,7 +29,7 @@ describe('TextMap module', () => {
     });
 
     const map = testkit.getModule('textMap');
-    expect(map.get('testID', { arg: 1 })).to.be.equal('Test:1');
+    expect(map.get('testID', { arg: 1 })).toBe('Test:1');
   });
 
   it('should return undefined if destroyed', () => {
@@ -42,6 +40,6 @@ describe('TextMap module', () => {
     });
     const map = testkit.getModule('textMap');
     map.destroy();
-    expect(map.get('testID')).to.be.equal(undefined);
+    expect(map.get('testID')).toBe(undefined);
   });
 });

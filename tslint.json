@@ -36,7 +36,6 @@
     "no-duplicate-variable": true,
     "no-string-throw": true,
     "radix": true,
-    "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-shorthand": [true, "always"],
     "prefer-const": true,
@@ -49,7 +48,8 @@
     "exclude": [
       "src/e2e/*.ts",
       "src/**/*.spec.ts",
-      "tslint-rules/*"
+      "tslint-rules/*",
+      "vitest.config.ts"
     ]
   },
   "rulesDirectory": "tslint-rules"

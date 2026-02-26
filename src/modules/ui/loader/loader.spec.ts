@@ -1,7 +1,3 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../../testkit';
 
 import { DELAYED_SHOW_TIMEOUT } from './loader';
@@ -22,8 +18,8 @@ describe('Loader', () => {
     it('should create instance ', () => {
       loader = testkit.getModule('loader');
 
-      expect(loader).to.exist;
-      expect(loader.view).to.exist;
+      expect(loader).toBeDefined();
+      expect(loader.view).toBeDefined();
     });
   });
 
@@ -35,59 +31,60 @@ describe('Loader', () => {
       engine = testkit.getModule('engine');
       eventEmitter = testkit.getModule('eventEmitter');
 
-      emitSpy = sinon.spy(eventEmitter, 'emitAsync');
+      emitSpy = vi.spyOn(eventEmitter, 'emitAsync');
     });
 
     afterEach(() => {
-      eventEmitter.emitAsync.restore();
+      eventEmitter.emitAsync.mockRestore();
     });
 
     describe('public API', () => {
       it('should have method for showing loader', () => {
-        const showSpy = sinon.spy(loader.view, 'showContent');
+        const showSpy = vi.spyOn(loader.view, 'showContent');
         loader._showContent();
-        expect(emitSpy.calledWith(UIEvent.LOADER_SHOW)).to.be.true;
-        expect(showSpy.called).to.be.true;
-        expect(loader.isHidden).to.be.false;
+        expect(emitSpy).toHaveBeenCalledWith(UIEvent.LOADER_SHOW);
+        expect(showSpy).toHaveBeenCalled();
+        expect(loader.isHidden).toBe(false);
       });
 
       it('should have method for hiding loader', () => {
         loader._showContent();
-        const hideSpy = sinon.spy(loader.view, 'hideContent');
+        const hideSpy = vi.spyOn(loader.view, 'hideContent');
         loader._hideContent();
-        expect(emitSpy.calledWith(UIEvent.LOADER_HIDE)).to.be.true;
-        expect(hideSpy.called).to.be.true;
-        expect(loader.isHidden).to.be.true;
+        expect(emitSpy).toHaveBeenCalledWith(UIEvent.LOADER_HIDE);
+        expect(hideSpy).toHaveBeenCalled();
+        expect(loader.isHidden).toBe(true);
       });
 
       it('should have method for schedule delayed show', () => {
-        const setTimeoutSpy = sinon.spy(window, 'setTimeout');
+        const setTimeoutSpy = vi.spyOn(window, 'setTimeout');
 
         loader.startDelayedShow();
-        expect(
-          setTimeoutSpy.calledWith(loader._showContent, DELAYED_SHOW_TIMEOUT),
-        ).to.be.true;
-        expect(loader.isDelayedShowScheduled).to.be.true;
+        expect(setTimeoutSpy).toHaveBeenCalledWith(
+          loader._showContent,
+          DELAYED_SHOW_TIMEOUT,
+        );
+        expect(loader.isDelayedShowScheduled).toBe(true);
 
-        setTimeoutSpy.restore();
+        setTimeoutSpy.mockRestore();
       });
 
       it('should have method for unschedule delayed show', () => {
         loader.startDelayedShow();
-        const clearTimeoutSpy = sinon.spy(window, 'clearTimeout');
+        const clearTimeoutSpy = vi.spyOn(window, 'clearTimeout');
 
         loader.stopDelayedShow();
-        expect(clearTimeoutSpy.called).to.be.true;
-        expect(loader.isDelayedShowScheduled).to.be.false;
+        expect(clearTimeoutSpy).toHaveBeenCalled();
+        expect(loader.isDelayedShowScheduled).toBe(false);
 
-        clearTimeoutSpy.restore();
+        clearTimeoutSpy.mockRestore();
       });
 
       it('should stop previous scheduled show if you trigger schedule', () => {
-        const stopSpy = sinon.spy(loader, 'stopDelayedShow');
+        const stopSpy = vi.spyOn(loader, 'stopDelayedShow');
         loader.startDelayedShow();
         loader.startDelayedShow();
-        expect(stopSpy.calledOnce).to.be.true;
+        expect(stopSpy).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -95,7 +92,7 @@ describe('Loader', () => {
       it('should be proper if event is VideoEvent.UPLOAD_SUSPEND', async function() {
         loader.show();
         await eventEmitter.emitAsync(VideoEvent.UPLOAD_SUSPEND);
-        expect(loader.isHidden).to.be.true;
+        expect(loader.isHidden).toBe(true);
       });
 
       describe('signifying state change', () => {
@@ -103,13 +100,13 @@ describe('Loader', () => {
         let stopDelayedShowSpy: any;
 
         beforeEach(() => {
-          delayedShowSpy = sinon.spy(loader, 'startDelayedShow');
-          stopDelayedShowSpy = sinon.spy(loader, 'stopDelayedShow');
+          delayedShowSpy = vi.spyOn(loader, 'startDelayedShow');
+          stopDelayedShowSpy = vi.spyOn(loader, 'stopDelayedShow');
         });
 
         afterEach(() => {
-          loader.startDelayedShow.restore();
-          loader.stopDelayedShow.restore();
+          loader.startDelayedShow.mockRestore();
+          loader.stopDelayedShow.mockRestore();
         });
 
         it('should be proper if next state is EngineState.SEEK_IN_PROGRESS', async function() {
@@ -117,7 +114,7 @@ describe('Loader', () => {
             nextState: EngineState.SEEK_IN_PROGRESS,
           });
 
-          expect(delayedShowSpy.called).to.be.true;
+          expect(delayedShowSpy).toHaveBeenCalled();
         });
 
         it('should be proper if next state is EngineState.WAITING', async function() {
@@ -125,55 +122,55 @@ describe('Loader', () => {
             nextState: EngineState.WAITING,
           });
 
-          expect(delayedShowSpy.called).to.be.true;
+          expect(delayedShowSpy).toHaveBeenCalled();
         });
 
         it('should be proper if next state is EngineState.LOAD_STARTED', async function() {
-          const showSpy = sinon.spy(loader, '_showContent');
+          const showSpy = vi.spyOn(loader, '_showContent');
           engine.setPreload('none');
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
-          expect(showSpy.called).to.be.false;
+          expect(showSpy).not.toHaveBeenCalled();
 
           engine.setPreload('auto');
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.LOAD_STARTED,
           });
 
-          expect(showSpy.called).to.be.true;
+          expect(showSpy).toHaveBeenCalled();
         });
 
         it('should be proper if next state is EngineState.READY_TO_PLAY', async function() {
-          const hideSpy = sinon.spy(loader, '_hideContent');
+          const hideSpy = vi.spyOn(loader, '_hideContent');
           loader._showContent();
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.READY_TO_PLAY,
           });
 
-          expect(hideSpy.called).to.be.true;
-          expect(stopDelayedShowSpy.called).to.be.true;
+          expect(hideSpy).toHaveBeenCalled();
+          expect(stopDelayedShowSpy).toHaveBeenCalled();
         });
 
         it('should be proper if next state is EngineState.PLAYING', async function() {
-          const hideSpy = sinon.spy(loader, '_hideContent');
+          const hideSpy = vi.spyOn(loader, '_hideContent');
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.PLAYING,
           });
 
-          expect(hideSpy.called).to.be.true;
-          expect(stopDelayedShowSpy.called).to.be.true;
+          expect(hideSpy).toHaveBeenCalled();
+          expect(stopDelayedShowSpy).toHaveBeenCalled();
         });
 
         it('should be proper if next state is EngineState.PAUSED', async function() {
-          const hideSpy = sinon.spy(loader, '_hideContent');
+          const hideSpy = vi.spyOn(loader, '_hideContent');
           await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {
             nextState: EngineState.PAUSED,
           });
 
-          expect(hideSpy.called).to.be.true;
-          expect(stopDelayedShowSpy.called).to.be.true;
+          expect(hideSpy).toHaveBeenCalled();
+          expect(stopDelayedShowSpy).toHaveBeenCalled();
         });
       });
     });

@@ -1,9 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-
-import * as sinon from 'sinon';
-
 import createPlayerTestkit from '../../testkit';
 
 import AnomalyBloodhound, { DELAYED_REPORT_TYPES } from './anomaly-bloodhound';
@@ -15,7 +9,7 @@ describe('AnomalyBloodhound', () => {
   let anomalyBloodhound: any;
   let eventEmitter: any;
   let engine: any;
-  const callback = sinon.spy();
+  const callback = vi.fn();
 
   beforeEach(() => {
     testkit = createPlayerTestkit();
@@ -27,16 +21,16 @@ describe('AnomalyBloodhound', () => {
   });
 
   afterEach(() => {
-    callback.resetHistory();
+    callback.mockClear();
   });
 
   describe('reaction on changed state', () => {
     it('should be based on event', async function() {
-      const spy = sinon.spy(anomalyBloodhound, '_processStateChange');
+      const spy = vi.spyOn(anomalyBloodhound, '_processStateChange');
       anomalyBloodhound._bindEvents();
       await eventEmitter.emitAsync(VideoEvent.STATE_CHANGED, {});
-      expect(spy.called).to.be.true;
-      anomalyBloodhound._processStateChange.restore();
+      expect(spy).toHaveBeenCalled();
+      anomalyBloodhound._processStateChange.mockRestore();
     });
 
     describe('for LOAD_STARTED', () => {
@@ -51,7 +45,7 @@ describe('AnomalyBloodhound', () => {
           anomalyBloodhound.isDelayedReportExist(
             DELAYED_REPORT_TYPES.METADATA_LOADING,
           ),
-        ).to.be.false;
+        ).toBe(false);
       });
 
       it('should not schedule report if preload is autoPlay is true', () => {
@@ -64,7 +58,7 @@ describe('AnomalyBloodhound', () => {
           anomalyBloodhound.isDelayedReportExist(
             DELAYED_REPORT_TYPES.METADATA_LOADING,
           ),
-        ).to.be.true;
+        ).toBe(true);
       });
 
       it('should schedule report if preload available as metadata', () => {
@@ -77,7 +71,7 @@ describe('AnomalyBloodhound', () => {
           anomalyBloodhound.isDelayedReportExist(
             DELAYED_REPORT_TYPES.METADATA_LOADING,
           ),
-        ).to.be.true;
+        ).toBe(true);
       });
 
       it('should schedule report if preload available as auto', () => {
@@ -90,7 +84,7 @@ describe('AnomalyBloodhound', () => {
           anomalyBloodhound.isDelayedReportExist(
             DELAYED_REPORT_TYPES.METADATA_LOADING,
           ),
-        ).to.be.true;
+        ).toBe(true);
       });
     });
 
@@ -107,12 +101,12 @@ describe('AnomalyBloodhound', () => {
         anomalyBloodhound.isDelayedReportExist(
           DELAYED_REPORT_TYPES.METADATA_LOADING,
         ),
-      ).to.be.false;
+      ).toBe(false);
       expect(
         anomalyBloodhound.isDelayedReportExist(
           DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING,
         ),
-      ).to.be.true;
+      ).toBe(true);
 
       anomalyBloodhound.stopAllDelayedReports();
       engine.setPreload('metadata');
@@ -124,7 +118,7 @@ describe('AnomalyBloodhound', () => {
         anomalyBloodhound.isDelayedReportExist(
           DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING,
         ),
-      ).to.be.false;
+      ).toBe(false);
     });
 
     it('should start delayed report on SEEK_IN_PROGRESS', () => {
@@ -137,7 +131,7 @@ describe('AnomalyBloodhound', () => {
         anomalyBloodhound.isDelayedReportExist(
           DELAYED_REPORT_TYPES.RUNTIME_LOADING,
         ),
-      ).to.be.true;
+      ).toBe(true);
     });
 
     it('should clear delayed report on READY_TO_PLAY', () => {
@@ -151,7 +145,7 @@ describe('AnomalyBloodhound', () => {
         anomalyBloodhound.isDelayedReportExist(
           DELAYED_REPORT_TYPES.INITIAL_VIDEO_PARTS_LOADING,
         ),
-      ).to.be.false;
+      ).toBe(false);
 
       anomalyBloodhound.startDelayedReport(
         DELAYED_REPORT_TYPES.RUNTIME_LOADING,
@@ -163,7 +157,7 @@ describe('AnomalyBloodhound', () => {
         anomalyBloodhound.isDelayedReportExist(
           DELAYED_REPORT_TYPES.RUNTIME_LOADING,
         ),
-      ).to.be.false;
+      ).toBe(false);
     });
 
     it('should clear delayed report on PLAYING', () => {
@@ -177,7 +171,7 @@ describe('AnomalyBloodhound', () => {
         anomalyBloodhound.isDelayedReportExist(
           DELAYED_REPORT_TYPES.RUNTIME_LOADING,
         ),
-      ).to.be.false;
+      ).toBe(false);
     });
 
     it('should start delayed report on WAITING', () => {
@@ -190,7 +184,7 @@ describe('AnomalyBloodhound', () => {
         anomalyBloodhound.isDelayedReportExist(
           DELAYED_REPORT_TYPES.RUNTIME_LOADING,
         ),
-      ).to.be.true;
+      ).toBe(true);
       anomalyBloodhound.stopAllDelayedReports();
 
       anomalyBloodhound._processStateChange({
@@ -198,30 +192,28 @@ describe('AnomalyBloodhound', () => {
         prevState: EngineState.PLAYING,
       });
 
-      expect(callback.called).to.be.true;
+      expect(callback).toHaveBeenCalled();
     });
 
-    (it as any)(
-      'delayed report should be resolved',
-      (done: any) => {
-        (DELAYED_REPORT_TYPES as any).___test = {
-          id: '___test',
-          timeout: 5,
-        };
+    it('delayed report should be resolved', () => {
+      (DELAYED_REPORT_TYPES as any).___test = {
+        id: '___test',
+        timeoutTime: 5,
+      };
 
+      anomalyBloodhound.startDelayedReport(
+        (DELAYED_REPORT_TYPES as any).___test,
+      );
+      anomalyBloodhound.startDelayedReport(
+        (DELAYED_REPORT_TYPES as any).___test,
+      );
+
+      return new Promise<void>(resolve => {
         window.setTimeout(() => {
-          expect(callback.calledOnce).to.be.true;
-          done();
-        }, 10);
-
-        anomalyBloodhound.startDelayedReport(
-          (DELAYED_REPORT_TYPES as any).___test,
-        );
-        anomalyBloodhound.startDelayedReport(
-          (DELAYED_REPORT_TYPES as any).___test,
-        );
-      },
-      100,
-    );
+          expect(callback).toHaveBeenCalledTimes(1);
+          resolve();
+        }, 20);
+      });
+    }, 5000);
   });
 });

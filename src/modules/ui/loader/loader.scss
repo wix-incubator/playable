@@ -1,4 +1,5 @@
-@import '../shared';
+@use 'sass:math';
+@use '../shared' as *;
 
 $diameter: 42px;
 $border-width: 3px;
@@ -13,12 +14,12 @@ $timing: 1s;
   left: 50%;
 
   display: none;
-  clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);
+  clip: rect(0, $outer-dim, $outer-dim, math.div($outer-dim, 2));
 
   width: $diameter;
   height: $diameter;
-  margin-top: - $diameter / 2;
-  margin-left: - $diameter / 2;
+  margin-top: -(math.div($diameter, 2));
+  margin-left: -(math.div($diameter, 2));
 
   animation: rotate $timing linear infinite;
 
@@ -42,14 +43,14 @@ $timing: 1s;
   }
 
   &::after {
-    clip: rect($border-width + 1px, $outer-dim, $outer-dim, $outer-dim / 2);
+    clip: rect($border-width + 1px, $outer-dim, $outer-dim, math.div($outer-dim, 2));
 
     animation: clip $timing linear infinite;
 
     @include inner-circle();
   }
   &::before {
-    clip: rect(0, $outer-dim, $outer-dim, $outer-dim / 2);
+    clip: rect(0, $outer-dim, $outer-dim, math.div($outer-dim, 2));
 
     animation: clip-reverse $timing linear infinite;
 
@@ -58,7 +59,7 @@ $timing: 1s;
 
   @keyframes clip {
     50% {
-      clip: rect($diameter, $outer-dim, $outer-dim, $outer-dim / 2);
+      clip: rect($diameter, $outer-dim, $outer-dim, math.div($outer-dim, 2));
 
       animation-timing-function: ease-in-out;
     }
@@ -66,7 +67,7 @@ $timing: 1s;
 
   @keyframes clip-reverse {
     50% {
-      clip: rect(0, $outer-dim, $border-width * 3, $outer-dim / 2);
+      clip: rect(0, $outer-dim, $border-width * 3, math.div($outer-dim, 2));
 
       transform: rotate(135deg);
       animation-timing-function: ease-in-out;

@@ -1,4 +1,4 @@
-@import '../shared';
+@use '../shared' as *;
 
 .container {
   position: absolute;

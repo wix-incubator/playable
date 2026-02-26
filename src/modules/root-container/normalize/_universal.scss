@@ -1,8 +1,10 @@
-&,
-*,
-*:before,
-*:after {
-  box-sizing: content-box !important;
+@mixin universal-normalize() {
+  &,
+  *,
+  *:before,
+  *:after {
+    box-sizing: content-box !important;
 
-  outline: none !important;
+    outline: none !important;
+  }
 }

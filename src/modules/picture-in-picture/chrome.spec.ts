@@ -1,13 +1,8 @@
-import 'jsdom-global/register';
-import { expect } from 'chai';
-
-import * as sinon from 'sinon';
-
 import ChromePictureInPicture, { ChromeDocument } from './chrome';
 import { IPictureInPictureHelper } from './types';
 
 describe('ChromePictureInPicture', () => {
-  const callback = sinon.spy();
+  const callback = vi.fn();
   let element: any;
   let pictureInPicture: IPictureInPictureHelper;
 
@@ -17,39 +12,39 @@ describe('ChromePictureInPicture', () => {
   });
 
   afterEach(() => {
-    callback.resetHistory();
+    callback.mockClear();
   });
 
   describe('enable state', () => {
     it('should return true in native state is true', () => {
       (document as ChromeDocument).pictureInPictureEnabled = true;
-      expect(pictureInPicture.isEnabled).to.be.true;
+      expect(pictureInPicture.isEnabled).toBe(true);
     });
 
     it('should return false in native state is false', () => {
       (document as ChromeDocument).pictureInPictureEnabled = false;
-      expect(pictureInPicture.isEnabled).to.be.false;
+      expect(pictureInPicture.isEnabled).toBe(false);
     });
   });
 
   describe('picture-in-picture state', () => {
     it('should return true in native state is true', () => {
       (document as ChromeDocument).pictureInPictureElement = element;
-      expect(pictureInPicture.isInPictureInPicture).to.be.true;
+      expect(pictureInPicture.isInPictureInPicture).toBe(true);
     });
 
     it('should return false in native state is false', () => {
       (document as ChromeDocument).pictureInPictureElement = null;
-      expect(pictureInPicture.isInPictureInPicture).to.be.false;
+      expect(pictureInPicture.isInPictureInPicture).toBe(false);
     });
   });
 
   describe('method for entering picture-in-picture', () => {
     it('should use native method', () => {
       (document as ChromeDocument).pictureInPictureEnabled = true;
-      element.requestPictureInPicture = sinon.spy(() => Promise.resolve());
+      element.requestPictureInPicture = vi.fn(() => Promise.resolve());
       pictureInPicture.request();
-      expect(element.requestPictureInPicture.called).to.be.true;
+      expect(element.requestPictureInPicture).toHaveBeenCalled();
     });
 
     it('should make postpone enter if do not have metadata', async function() {
@@ -61,39 +56,37 @@ describe('ChromePictureInPicture', () => {
 
       await pictureInPicture.request();
       await pictureInPicture.request();
-      element.requestPictureInPicture = sinon.spy(() => Promise.resolve());
+      element.requestPictureInPicture = vi.fn(() => Promise.resolve());
       element.dispatchEvent(metadataEvent);
-      expect(element.requestPictureInPicture.calledOnce).to.be.true;
+      expect(element.requestPictureInPicture).toHaveBeenCalledTimes(1);
     });
 
     it('should do nothing if already in picture-in-picture', () => {
-      element.requestPictureInPicture = sinon.spy(() => Promise.resolve());
+      element.requestPictureInPicture = vi.fn(() => Promise.resolve());
       (document as ChromeDocument).pictureInPictureElement = element;
       pictureInPicture.request();
-      expect(element.requestPictureInPicture.called).to.be.false;
+      expect(element.requestPictureInPicture).not.toHaveBeenCalled();
     });
   });
 
   describe('method for exit picture-in-picture', () => {
     it('should use native method', () => {
-      (document as ChromeDocument).exitPictureInPicture = sinon.spy() as sinon.SinonSpy;
+      (document as ChromeDocument).exitPictureInPicture = vi.fn();
       (document as ChromeDocument).pictureInPictureElement = element;
 
       pictureInPicture.exit();
       expect(
-        ((document as ChromeDocument).exitPictureInPicture as sinon.SinonSpy)
-          .called,
-      ).to.be.true;
+        (document as ChromeDocument).exitPictureInPicture,
+      ).toHaveBeenCalled();
     });
 
     it('should do nothing if not in picture-in-picture', () => {
-      (document as ChromeDocument).exitPictureInPicture = sinon.spy() as sinon.SinonSpy;
+      (document as ChromeDocument).exitPictureInPicture = vi.fn();
       (document as ChromeDocument).pictureInPictureElement = null;
       pictureInPicture.exit();
       expect(
-        ((document as ChromeDocument).exitPictureInPicture as sinon.SinonSpy)
-          .called,
-      ).to.be.false;
+        (document as ChromeDocument).exitPictureInPicture,
+      ).not.toHaveBeenCalled();
     });
   });
 
@@ -102,14 +95,14 @@ describe('ChromePictureInPicture', () => {
       const changeEvent = new Event('enterpictureinpicture');
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.true;
+      expect(callback).toHaveBeenCalled();
     });
 
     it('should call callback if exit', () => {
       const changeEvent = new Event('leavepictureinpicture');
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.true;
+      expect(callback).toHaveBeenCalled();
     });
   });
 
@@ -122,11 +115,11 @@ describe('ChromePictureInPicture', () => {
       element.requestPictureInPicture = () => Promise.reject();
 
       pictureInPicture.request();
-      element.webkitSetPresentationMode = sinon.spy();
+      element.webkitSetPresentationMode = vi.fn();
       pictureInPicture.destroy();
 
       element.dispatchEvent(metadataEvent);
-      expect(element.webkitSetPresentationMode.called).to.be.false;
+      expect(element.webkitSetPresentationMode).not.toHaveBeenCalled();
     });
 
     it('should clear webkitbeginfullscreen listener', () => {
@@ -136,7 +129,7 @@ describe('ChromePictureInPicture', () => {
       pictureInPicture.destroy();
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.false;
+      expect(callback).not.toHaveBeenCalled();
     });
 
     it('should clear webkitendfullscreen listener', () => {
@@ -146,7 +139,7 @@ describe('ChromePictureInPicture', () => {
       pictureInPicture.destroy();
 
       element.dispatchEvent(changeEvent);
-      expect(callback.called).to.be.false;
+      expect(callback).not.toHaveBeenCalled();
     });
   });
 });

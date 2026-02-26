@@ -1,8 +1,3 @@
-import 'jsdom-global/register';
-
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import ChromePictureInPicture from './chrome';
 import SafariPictureInPicture from './safari';
 import PictureInPicture from './picture-in-picture';
@@ -17,23 +12,23 @@ declare const navigator: any;
 
 interface MockedHelper extends IPictureInPictureHelper {
   reset(): void;
-  request: sinon.SinonSpy;
-  exit: sinon.SinonSpy;
+  request(): void;
+  exit(): void;
 }
 
 const mockedPictureInPictureHelper: MockedHelper = {
   isInPictureInPicture: false,
   isEnabled: true,
-  request: sinon.spy(),
-  exit: sinon.spy(),
-  destroy: sinon.spy(),
+  request: vi.fn(),
+  exit: vi.fn(),
+  destroy: vi.fn(),
   reset() {
     this.isInFullScreen = false;
     this.isEnabled = true;
 
-    this.request.resetHistory();
-    this.exit.resetHistory();
-    this.destroy.resetHistory();
+    this.request.mockClear();
+    this.exit.mockClear();
+    this.destroy.mockClear();
   },
 };
 
@@ -59,8 +54,9 @@ describe('PictureInPicture', () => {
 
       pictureInPicture = testkit.getModule('pictureInPicture');
 
-      expect(pictureInPicture._helper instanceof ChromePictureInPicture).to.be
-        .true;
+      expect(pictureInPicture._helper instanceof ChromePictureInPicture).toBe(
+        true,
+      );
     });
 
     it('should be for iPhone', () => {
@@ -68,8 +64,9 @@ describe('PictureInPicture', () => {
 
       pictureInPicture = testkit.getModule('pictureInPicture');
 
-      expect(pictureInPicture._helper instanceof SafariPictureInPicture).to.be
-        .true;
+      expect(pictureInPicture._helper instanceof SafariPictureInPicture).toBe(
+        true,
+      );
     });
   });
   describe('after helper chosen', () => {
@@ -82,67 +79,69 @@ describe('PictureInPicture', () => {
     });
     describe('enable state', () => {
       it('should be based on helper state and config', () => {
-        expect(pictureInPicture.isEnabled).to.be.true;
+        expect(pictureInPicture.isEnabled).toBe(true);
         mockedPictureInPictureHelper.isEnabled = false;
-        expect(pictureInPicture.isEnabled).to.be.false;
+        expect(pictureInPicture.isEnabled).toBe(false);
       });
 
       it('should return false in disabled flag passed in config', () => {
         mockedPictureInPictureHelper.isEnabled = true;
         pictureInPicture._isEnabled = false;
-        expect(pictureInPicture.isEnabled).to.be.false;
+        expect(pictureInPicture.isEnabled).toBe(false);
       });
     });
 
     describe('full screen state', () => {
       it('should return state of helper', () => {
         mockedPictureInPictureHelper.isInPictureInPicture = true;
-        expect(pictureInPicture.isInPictureInPicture).to.be.true;
+        expect(pictureInPicture.isInPictureInPicture).toBe(true);
       });
 
       it('should return false if disabled', () => {
         mockedPictureInPictureHelper.isEnabled = false;
         mockedPictureInPictureHelper.isInPictureInPicture = true;
-        expect(pictureInPicture.isInPictureInPicture).to.be.false;
+        expect(pictureInPicture.isInPictureInPicture).toBe(false);
       });
     });
 
     describe('method for entering full screen', () => {
       it("should call helper's method for request full screen", () => {
         pictureInPicture.enterPictureInPicture();
-        expect(mockedPictureInPictureHelper.request.called).to.be.true;
+        expect(mockedPictureInPictureHelper.request).toHaveBeenCalled();
       });
 
       it('should do nothing if full screen is not enable', () => {
         mockedPictureInPictureHelper.isEnabled = false;
         pictureInPicture.enterPictureInPicture();
-        expect(mockedPictureInPictureHelper.request.called).to.be.false;
+        expect(mockedPictureInPictureHelper.request).not.toHaveBeenCalled();
       });
     });
 
     describe('method for exiting full screen', () => {
       it("should call helper's method for request full screen", () => {
         pictureInPicture.exitPictureInPicture();
-        expect(mockedPictureInPictureHelper.exit.called).to.be.true;
+        expect(mockedPictureInPictureHelper.exit).toHaveBeenCalled();
       });
 
       it('should do nothing if full screen is not enable', () => {
         mockedPictureInPictureHelper.isEnabled = false;
         pictureInPicture.exitPictureInPicture();
-        expect(mockedPictureInPictureHelper.exit.called).to.be.false;
+        expect(mockedPictureInPictureHelper.exit).not.toHaveBeenCalled();
       });
     });
 
     describe('due to reaction on fullscreen change', () => {
       it('should trigger proper event', () => {
-        const spy: sinon.SinonSpy = sinon.spy(eventEmitter, 'emitAsync');
+        const spy = vi.spyOn(eventEmitter, 'emitAsync');
 
         mockedPictureInPictureHelper.isInPictureInPicture = true;
         pictureInPicture._onChange();
-        expect(spy.calledWith(UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE)).to.be
-          .true;
+        expect(spy).toHaveBeenCalledWith(
+          UIEvent.PICTURE_IN_PICTURE_STATUS_CHANGE,
+          true,
+        );
 
-        eventEmitter.emitAsync.restore();
+        eventEmitter.emitAsync.mockRestore();
       });
     });
   });

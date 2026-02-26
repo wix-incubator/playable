@@ -1,6 +1,3 @@
-import { expect } from 'chai';
-import * as sinon from 'sinon';
-
 import createContainer from './createContainer';
 
 import { asClass, asValue, asFunction } from './registrations';
@@ -14,83 +11,83 @@ describe('container created by createContainer', () => {
   it('should have method for registering and resolving modules', () => {
     const valueRegistration = asValue(10);
     container.register('value', valueRegistration);
-    sinon.spy(valueRegistration, 'resolve');
+    vi.spyOn(valueRegistration, 'resolve');
     container.resolve('value');
-    expect((valueRegistration.resolve as any).called).to.be.equal(true);
+    expect(valueRegistration.resolve).toHaveBeenCalled();
 
     const classARegistration = asClass(class A {});
     container.register('classA', classARegistration);
-    sinon.spy(classARegistration, 'resolve');
+    vi.spyOn(classARegistration, 'resolve');
     container.resolve('classA');
-    expect((classARegistration.resolve as any).called).to.be.equal(true);
+    expect(classARegistration.resolve).toHaveBeenCalled();
 
     const funcRegistration = asFunction(() => {});
     container.register('func', funcRegistration);
-    sinon.spy(funcRegistration, 'resolve');
+    vi.spyOn(funcRegistration, 'resolve');
     container.resolve('func');
-    expect((funcRegistration.resolve as any).called).to.be.equal(true);
+    expect(funcRegistration.resolve).toHaveBeenCalled();
   });
 
   it('resolve should react on transient lifetime', () => {
     const obj = {};
     const transientFuncRegistration = asFunction(() => obj).transient();
-    sinon.spy(transientFuncRegistration, 'resolve');
+    vi.spyOn(transientFuncRegistration, 'resolve');
     container.register('func', transientFuncRegistration);
     container.resolve('func');
     container.resolve('func');
-    expect(transientFuncRegistration.resolve.calledTwice).to.be.true;
+    expect(transientFuncRegistration.resolve).toHaveBeenCalledTimes(2);
 
     const singletonFuncRegistration = asFunction(() => obj).singleton();
-    sinon.spy(singletonFuncRegistration, 'resolve');
+    vi.spyOn(singletonFuncRegistration, 'resolve');
     container.register('func2', singletonFuncRegistration);
     container.resolve('func2');
     container.resolve('func2');
-    expect(singletonFuncRegistration.resolve.calledOnce).to.be.true;
+    expect(singletonFuncRegistration.resolve).toHaveBeenCalledTimes(1);
 
     const scopedFuncRegistration = asFunction(() => obj).scoped();
-    sinon.spy(scopedFuncRegistration, 'resolve');
+    vi.spyOn(scopedFuncRegistration, 'resolve');
     container.register('func3', scopedFuncRegistration);
     container.resolve('func3');
     container.resolve('func3');
-    expect(scopedFuncRegistration.resolve.calledOnce).to.be.true;
+    expect(scopedFuncRegistration.resolve).toHaveBeenCalledTimes(1);
 
     const scope = container.createScope();
     scope.register('func4', scopedFuncRegistration);
-    expect(scope.resolve('func3')).to.be.equal(obj);
-    expect(scopedFuncRegistration.resolve.calledOnce).to.be.true;
-    expect(() => container.resolve('func4')).to.throw();
+    expect(scope.resolve('func3')).toBe(obj);
+    expect(scopedFuncRegistration.resolve).toHaveBeenCalledTimes(1);
+    expect(() => container.resolve('func4')).toThrow();
 
     const unknownFuncRegistration = asFunction(() => obj).setLifetime(
       'testtest',
     );
     container.register('func5', unknownFuncRegistration);
-    expect(() => container.resolve('func5')).to.throw();
+    expect(() => container.resolve('func5')).toThrow();
   });
 
   it('resolve should react on singleton lifetime', () => {
     const obj = {};
     const singletonFuncRegistration = asFunction(() => obj).singleton();
-    sinon.spy(singletonFuncRegistration, 'resolve');
+    vi.spyOn(singletonFuncRegistration, 'resolve');
     container.register('func2', singletonFuncRegistration);
     container.resolve('func2');
     container.resolve('func2');
-    expect(singletonFuncRegistration.resolve.calledOnce).to.be.true;
+    expect(singletonFuncRegistration.resolve).toHaveBeenCalledTimes(1);
   });
 
   it('resolve should react on scoped lifetime', () => {
     const obj = {};
     const scopedFuncRegistration = asFunction(() => obj).scoped();
-    sinon.spy(scopedFuncRegistration, 'resolve');
+    vi.spyOn(scopedFuncRegistration, 'resolve');
     container.register('func3', scopedFuncRegistration);
     container.resolve('func3');
     container.resolve('func3');
-    expect(scopedFuncRegistration.resolve.calledOnce).to.be.true;
+    expect(scopedFuncRegistration.resolve).toHaveBeenCalledTimes(1);
 
     const scope = container.createScope();
     scope.register('func4', scopedFuncRegistration);
-    expect(scope.resolve('func3')).to.be.equal(obj);
-    expect(scopedFuncRegistration.resolve.calledOnce).to.be.true;
-    expect(() => container.resolve('func4')).to.throw();
+    expect(scope.resolve('func3')).toBe(obj);
+    expect(scopedFuncRegistration.resolve).toHaveBeenCalledTimes(1);
+    expect(() => container.resolve('func4')).toThrow();
   });
 
   it('resolve should react on unknown lifetime', () => {
@@ -100,7 +97,7 @@ describe('container created by createContainer', () => {
       'testtest',
     );
     container.register('func5', unknownFuncRegistration);
-    expect(() => container.resolve('func5')).to.throw();
+    expect(() => container.resolve('func5')).toThrow();
   });
 
   it('should throw error on duplication of id', () => {
@@ -116,10 +113,10 @@ describe('container created by createContainer', () => {
         static dependencies = ['name'];
       },
     );
-    expect(() => container.resolve('name')).to.throw();
+    expect(() => container.resolve('name')).toThrow();
   });
 
   it('should throw error if trying to resolve not registered module', () => {
-    expect(() => container.resolve('name')).to.throw();
+    expect(() => container.resolve('name')).toThrow();
   });
 });
