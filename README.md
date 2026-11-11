@@ -19,6 +19,8 @@
   </a>
 </p>
 
+> **Deprecated:** This repository has been migrated to the `@wix/playable-internal` package in the `wix-vod` repository and is being archived. Please use and contribute to that package instead.
+
 **IMPORTANT!** Migration guide from 1.0.0 to 2.0.0 you can find [here](/docs/2.0.0-migration.md).
 
 You can play with demo here: [https://jsfiddle.net/bodia/to0r65f4/](https://jsfiddle.net/bodia/to0r65f4/)
